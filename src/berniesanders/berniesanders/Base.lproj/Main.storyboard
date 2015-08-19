@@ -7,7 +7,7 @@
         <!--News-->
         <scene sceneID="VHs-oX-3XZ">
             <objects>
-                <tableViewController id="T7v-CA-qOy" customClass="NewsTableViewController" customModule="berniesanders" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="NewsTableViewController" id="T7v-CA-qOy" customClass="NewsTableViewController" customModule="berniesanders" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="euy-0D-3W6">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -26,6 +26,9 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="News" id="g4m-1p-jGn"/>
+                    <connections>
+                        <outlet property="tableView" destination="euy-0D-3W6" id="gZC-zk-bwu"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GVc-fI-TUz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

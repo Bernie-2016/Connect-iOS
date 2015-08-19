@@ -11,6 +11,8 @@
 		65EC4CEE1B842A1900DD4C83 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65EC4CED1B842A1900DD4C83 /* Quick.framework */; };
 		65EC4CF01B842A3000DD4C83 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65EC4CED1B842A1900DD4C83 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		65EC4CF11B842A3000DD4C83 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		65EC4CF41B84443100DD4C83 /* NewsTableViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EC4CF31B84443100DD4C83 /* NewsTableViewControllerSpec.swift */; };
+		65EC4CF51B84D45500DD4C83 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8233FC121B7C28FB00A5E9ED /* Main.storyboard */; };
 		8233FC0D1B7C28FB00A5E9ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8233FC0C1B7C28FB00A5E9ED /* AppDelegate.swift */; };
 		8233FC141B7C28FB00A5E9ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8233FC121B7C28FB00A5E9ED /* Main.storyboard */; };
 		8233FC161B7C28FB00A5E9ED /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8233FC151B7C28FB00A5E9ED /* Images.xcassets */; };
@@ -47,6 +49,7 @@
 /* Begin PBXFileReference section */
 		65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		65EC4CED1B842A1900DD4C83 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
+		65EC4CF31B84443100DD4C83 /* NewsTableViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTableViewControllerSpec.swift; sourceTree = "<group>"; };
 		8233FC071B7C28FB00A5E9ED /* berniesanders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = berniesanders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8233FC0B1B7C28FB00A5E9ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8233FC0C1B7C28FB00A5E9ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -132,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				8233FC221B7C28FB00A5E9ED /* Supporting Files */,
+				65EC4CF31B84443100DD4C83 /* NewsTableViewControllerSpec.swift */,
 			);
 			path = berniesandersTests;
 			sourceTree = "<group>";
@@ -246,6 +250,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65EC4CF51B84D45500DD4C83 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,6 +273,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65EC4CF41B84443100DD4C83 /* NewsTableViewControllerSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,6 +412,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -418,6 +425,7 @@
 				INFOPLIST_FILE = berniesandersTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/berniesanders.app/berniesanders";
 			};
 			name = Debug;
@@ -426,6 +434,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
