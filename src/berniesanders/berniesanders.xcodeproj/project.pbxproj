@@ -162,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */,
+				65CA5E981B86E76D0001D870 /* PureLayout.framework */,
 				65EC4CED1B842A1900DD4C83 /* Quick.framework */,
 			);
 			name = Carthage;
@@ -184,6 +185,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		65F5F6501B87B9440049353C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8233FC151B7C28FB00A5E9ED /* Images.xcassets */,
+				8233FC121B7C28FB00A5E9ED /* Main.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		8233FBFE1B7C28FB00A5E9ED = {
 			isa = PBXGroup;
 			children = (
@@ -192,7 +202,6 @@
 				65EC4CF21B842A3D00DD4C83 /* Carthage */,
 				8233FC081B7C28FB00A5E9ED /* Products */,
 				65CA5E8D1B86DE190001D870 /* LaunchImage-568h@2x.png */,
-				65CA5E981B86E76D0001D870 /* PureLayout.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -212,13 +221,12 @@
 				655B57BB1B86C15700E69C0C /* Models */,
 				65CA5E941B86E53A0001D870 /* New Group */,
 				65EC4CF61B866B6700DD4C83 /* Repositories */,
+				65F5F6501B87B9440049353C /* Resources */,
 				8233FC0A1B7C28FB00A5E9ED /* Supporting Files */,
 				65CA5E951B86E5710001D870 /* Table View Cells */,
 				65CA5E8F1B86E3490001D870 /* Themes */,
 				8233FC2E1B7C2DA400A5E9ED /* ViewControllers */,
 				8233FC0C1B7C28FB00A5E9ED /* AppDelegate.swift */,
-				8233FC151B7C28FB00A5E9ED /* Images.xcassets */,
-				8233FC121B7C28FB00A5E9ED /* Main.storyboard */,
 				65CA5E861B86CAAF0001D870 /* main.swift */,
 			);
 			path = berniesanders;
@@ -259,6 +267,7 @@
 				8233FC331B7C4AC200A5E9ED /* OrganizeTableViewController.swift */,
 			);
 			name = ViewControllers;
+			path = "View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
