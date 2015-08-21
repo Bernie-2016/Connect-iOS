@@ -143,13 +143,6 @@
 			path = Themes;
 			sourceTree = "<group>";
 		};
-		65CA5E941B86E53A0001D870 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "New Group";
-			sourceTree = "<group>";
-		};
 		65CA5E951B86E5710001D870 /* Table View Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -219,7 +212,6 @@
 			children = (
 				65F5F64C1B87B80E0049353C /* Extensions */,
 				655B57BB1B86C15700E69C0C /* Models */,
-				65CA5E941B86E53A0001D870 /* New Group */,
 				65EC4CF61B866B6700DD4C83 /* Repositories */,
 				65F5F6501B87B9440049353C /* Resources */,
 				8233FC0A1B7C28FB00A5E9ED /* Supporting Files */,
