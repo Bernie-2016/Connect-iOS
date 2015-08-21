@@ -3,6 +3,7 @@ import UIKit
 
 public class NewsTableViewController: UITableViewController {
     public var newsRepository: NewsRepository!
+    public var theme: Theme!
     var newsItems: Array<NewsItem>!
     
     required public init!(coder aDecoder: NSCoder!) {
@@ -10,6 +11,7 @@ public class NewsTableViewController: UITableViewController {
 
         self.newsItems = []
         self.newsRepository = ConcreteNewsRepository()
+        self.theme = DefaultTheme()
     }
     
     override public func viewDidLoad() {
@@ -40,7 +42,12 @@ public class NewsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! TitleSubTitleTableViewCell
         let newsItem = self.newsItems[indexPath.row]
         cell.titleLabel.text = newsItem.title
+        cell.titleLabel.font = self.theme.newsFeedTitleFont()
+        cell.titleLabel.textColor = self.theme.newsFeedTitleColor()
+
         cell.dateLabel.text = newsItem.date.description
+        cell.dateLabel.font = self.theme.newsFeedDateFont()
+        cell.dateLabel.textColor = self.theme.newsFeedDateColor()
         
         return cell
     }

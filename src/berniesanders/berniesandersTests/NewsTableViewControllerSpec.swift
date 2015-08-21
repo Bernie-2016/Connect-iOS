@@ -18,16 +18,35 @@ class FakeNewsRepository : berniesanders.NewsRepository {
     }
 }
 
+class FakeTheme : berniesanders.Theme {
+    func newsFeedTitleFont() -> UIFont {
+        return UIFont.boldSystemFontOfSize(20)
+    }
+    
+    func newsFeedTitleColor() -> UIColor {
+        return UIColor.magentaColor()
+    }
+    
+    func newsFeedDateFont() -> UIFont {
+        return UIFont.italicSystemFontOfSize(13)    }
+    
+    func newsFeedDateColor() -> UIColor {
+        return UIColor.brownColor()
+    }
+}
+
 
 class NewsTableViewControllerSpecs: QuickSpec {
     var subject: NewsTableViewController!
     var newsRepository: FakeNewsRepository! =  FakeNewsRepository()
+    var theme: Theme! = FakeTheme()
     
     override func spec() {
         beforeEach {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             self.subject = storyboard.instantiateViewControllerWithIdentifier("NewsTableViewController") as! NewsTableViewController
             self.subject.newsRepository = self.newsRepository
+            self.subject.theme = self.theme
             self.subject.beginAppearanceTransition(true, animated: false)
             self.subject.endAppearanceTransition()
         }
@@ -69,6 +88,17 @@ class NewsTableViewControllerSpecs: QuickSpec {
                     var cellB = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! TitleSubTitleTableViewCell
                     expect(cellB.titleLabel.text).to(equal("Bernie up in the polls!"))
                     expect(cellB.dateLabel.text).to(equal(newsItemBDate.description))
+                }
+                
+                it("styles the items in the table") {
+                    expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(2))
+
+                    var cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! TitleSubTitleTableViewCell
+                    
+                    expect(cell.titleLabel.textColor).to(equal(UIColor.magentaColor()))
+                    expect(cell.titleLabel.font).to(equal(UIFont.boldSystemFontOfSize(20)))
+                    expect(cell.dateLabel.textColor).to(equal(UIColor.brownColor()))
+                    expect(cell.dateLabel.font).to(equal(UIFont.italicSystemFontOfSize(13)))
                 }
             })
         }

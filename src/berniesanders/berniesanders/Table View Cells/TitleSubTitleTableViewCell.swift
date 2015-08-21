@@ -18,7 +18,7 @@ public class TitleSubTitleTableViewCell : UITableViewCell {
         
         titleLabel.text = "hello"
         self.contentView.addSubview(titleLabel)
-        titleLabel.autoPinEdgeToSuperviewEdge(ALEdge.Top, withInset: 10)
+        titleLabel.autoPinEdgeToSuperviewEdge(ALEdge.Top, withInset: 15)
         titleLabel.autoPinEdgeToSuperviewEdge(ALEdge.Left, withInset: 20)
 
         dateLabel.text = "there"
