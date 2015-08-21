@@ -2,6 +2,7 @@ import UIKit
 
 
 class DefaultTheme : Theme {
+
     // MARK: News Feed
     
     func newsFeedTitleColor() -> UIColor {
@@ -13,7 +14,7 @@ class DefaultTheme : Theme {
     }
     
     func newsFeedDateColor() -> UIColor {
-        return UIColor.redColor()
+        return self.carnationColor()
     }
     
     func newsFeedDateFont() -> UIFont {
@@ -24,5 +25,9 @@ class DefaultTheme : Theme {
     
     func cornflowerBlueColor() -> UIColor {
         return UIColor(rgba: "#147FD7")
+    }
+    
+    func carnationColor() -> UIColor {
+        return UIColor(rgba: "#fc625c")
     }
 }
