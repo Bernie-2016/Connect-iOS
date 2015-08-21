@@ -3,12 +3,12 @@ import UIKit
 
 public class NewsTableViewController: UITableViewController {
     public var newsRepository: NewsRepository!
-    var newsItems: Array<NewsItem>
+    var newsItems: Array<NewsItem>!
     
     required public init!(coder aDecoder: NSCoder!) {
-        self.newsItems = []
-
         super.init(coder: aDecoder)
+
+        self.newsItems = []
         self.newsRepository = ConcreteNewsRepository()
     }
     
