@@ -25,6 +25,7 @@
 		65EC4CF41B84443100DD4C83 /* NewsTableViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EC4CF31B84443100DD4C83 /* NewsTableViewControllerSpec.swift */; };
 		65EC4CF51B84D45500DD4C83 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8233FC121B7C28FB00A5E9ED /* Main.storyboard */; };
 		65EC4CF81B866B9200DD4C83 /* NewsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EC4CF71B866B9200DD4C83 /* NewsRepository.swift */; };
+		65F5F64E1B87B8300049353C /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F5F64D1B87B8300049353C /* UIColorExtension.swift */; };
 		8233FC0D1B7C28FB00A5E9ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8233FC0C1B7C28FB00A5E9ED /* AppDelegate.swift */; };
 		8233FC141B7C28FB00A5E9ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8233FC121B7C28FB00A5E9ED /* Main.storyboard */; };
 		8233FC161B7C28FB00A5E9ED /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8233FC151B7C28FB00A5E9ED /* Images.xcassets */; };
@@ -82,6 +83,7 @@
 		65EC4CED1B842A1900DD4C83 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		65EC4CF31B84443100DD4C83 /* NewsTableViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTableViewControllerSpec.swift; sourceTree = "<group>"; };
 		65EC4CF71B866B9200DD4C83 /* NewsRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewsRepository.swift; path = ../NewsRepository.swift; sourceTree = "<group>"; };
+		65F5F64D1B87B8300049353C /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		8233FC071B7C28FB00A5E9ED /* berniesanders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = berniesanders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8233FC0B1B7C28FB00A5E9ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8233FC0C1B7C28FB00A5E9ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -174,6 +176,14 @@
 			path = Repositories;
 			sourceTree = "<group>";
 		};
+		65F5F64C1B87B80E0049353C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				65F5F64D1B87B8300049353C /* UIColorExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		8233FBFE1B7C28FB00A5E9ED = {
 			isa = PBXGroup;
 			children = (
@@ -198,6 +208,7 @@
 		8233FC091B7C28FB00A5E9ED /* berniesanders */ = {
 			isa = PBXGroup;
 			children = (
+				65F5F64C1B87B80E0049353C /* Extensions */,
 				655B57BB1B86C15700E69C0C /* Models */,
 				65CA5E941B86E53A0001D870 /* New Group */,
 				65EC4CF61B866B6700DD4C83 /* Repositories */,
@@ -367,6 +378,7 @@
 				65CA5E881B86CABB0001D870 /* SpecAppDelegate.swift in Sources */,
 				65CA5E911B86E3D00001D870 /* Theme.swift in Sources */,
 				65CA5E971B86E5950001D870 /* TitleSubTitleTableViewCell.swift in Sources */,
+				65F5F64E1B87B8300049353C /* UIColorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
