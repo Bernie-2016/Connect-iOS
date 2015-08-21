@@ -15,7 +15,8 @@ public class NewsTableViewController: UITableViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0)
+        self.tableView.registerClass(TitleSubTitleTableViewCell.self, forCellReuseIdentifier: "cell")
     }
     
     override public func viewWillAppear(animated: Bool) {
@@ -36,9 +37,15 @@ public class NewsTableViewController: UITableViewController {
 
     
     public override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
-        cell.textLabel!.text = self.newsItems[indexPath.row].title
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! TitleSubTitleTableViewCell
+        let newsItem = self.newsItems[indexPath.row]
+        cell.titleLabel.text = newsItem.title
+        cell.dateLabel.text = newsItem.date.description
         
         return cell
+    }
+    
+    public override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 60.0
     }
 }

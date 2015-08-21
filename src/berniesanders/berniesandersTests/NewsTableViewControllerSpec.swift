@@ -47,9 +47,12 @@ class NewsTableViewControllerSpecs: QuickSpec {
             }
             
             describe("when the news repository returns some news items", {
+                var newsItemADate = NSDate()
+                var newsItemBDate = NSDate()
+                
                 beforeEach {
-                    var newsItemA = NewsItem(title: "Bernie to release new album")
-                    var newsItemB = NewsItem(title: "Bernie up in the polls!")
+                    var newsItemA = NewsItem(title: "Bernie to release new album", date: newsItemADate)
+                    var newsItemB = NewsItem(title: "Bernie up in the polls!", date: newsItemBDate)
 
                     var newsItems = [newsItemA, newsItemB]
                     print(self.newsRepository.lastCompletionBlock)
@@ -59,11 +62,13 @@ class NewsTableViewControllerSpecs: QuickSpec {
                 it("shows the items in the table") {
                     expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(2))
                     
-                    var cellA = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
-                    expect(cellA!.textLabel!.text).to(equal("Bernie to release new album"))
+                    var cellA = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! TitleSubTitleTableViewCell
+                    expect(cellA.titleLabel.text).to(equal("Bernie to release new album"))
+                    expect(cellA.dateLabel.text).to(equal(newsItemADate.description))
                     
-                    var cellB = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))
-                    expect(cellB!.textLabel!.text).to(equal("Bernie up in the polls!"))
+                    var cellB = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! TitleSubTitleTableViewCell
+                    expect(cellB.titleLabel.text).to(equal("Bernie up in the polls!"))
+                    expect(cellB.dateLabel.text).to(equal(newsItemBDate.description))
                 }
             })
         }
