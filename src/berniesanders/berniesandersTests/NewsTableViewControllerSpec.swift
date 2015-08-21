@@ -78,15 +78,15 @@ class NewsTableViewControllerSpecs: QuickSpec {
                     self.newsRepository.lastCompletionBlock!(newsItems)
                 }
                 
-                it("shows the items in the table") {
+                it("shows the items in the table with upcased text") {
                     expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(2))
                     
                     var cellA = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! TitleSubTitleTableViewCell
-                    expect(cellA.titleLabel.text).to(equal("Bernie to release new album"))
+                    expect(cellA.titleLabel.text).to(equal("BERNIE TO RELEASE NEW ALBUM"))
                     expect(cellA.dateLabel.text).to(equal(newsItemADate.description))
                     
                     var cellB = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! TitleSubTitleTableViewCell
-                    expect(cellB.titleLabel.text).to(equal("Bernie up in the polls!"))
+                    expect(cellB.titleLabel.text).to(equal("BERNIE UP IN THE POLLS!"))
                     expect(cellB.dateLabel.text).to(equal(newsItemBDate.description))
                 }
                 

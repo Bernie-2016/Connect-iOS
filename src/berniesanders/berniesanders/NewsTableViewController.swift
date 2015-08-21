@@ -18,6 +18,9 @@ public class NewsTableViewController: UITableViewController {
         super.viewDidLoad()
         
         self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0)
+        self.tableView.layoutMargins = UIEdgeInsetsZero
+        self.tableView.separatorInset = UIEdgeInsetsZero
+        
         self.tableView.registerClass(TitleSubTitleTableViewCell.self, forCellReuseIdentifier: "cell")
     }
     
@@ -41,7 +44,7 @@ public class NewsTableViewController: UITableViewController {
     public override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! TitleSubTitleTableViewCell
         let newsItem = self.newsItems[indexPath.row]
-        cell.titleLabel.text = newsItem.title
+        cell.titleLabel.text = newsItem.title.uppercaseString
         cell.titleLabel.font = self.theme.newsFeedTitleFont()
         cell.titleLabel.textColor = self.theme.newsFeedTitleColor()
 

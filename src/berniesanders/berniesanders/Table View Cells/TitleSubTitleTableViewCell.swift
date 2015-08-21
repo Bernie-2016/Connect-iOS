@@ -16,6 +16,11 @@ public class TitleSubTitleTableViewCell : UITableViewCell {
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        self.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        self.separatorInset = UIEdgeInsetsZero
+        self.layoutMargins = UIEdgeInsetsZero
+        self.preservesSuperviewLayoutMargins = false
+        
         titleLabel.text = "hello"
         self.contentView.addSubview(titleLabel)
         titleLabel.autoPinEdgeToSuperviewEdge(ALEdge.Top, withInset: 15)
