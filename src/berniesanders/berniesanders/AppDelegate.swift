@@ -11,13 +11,13 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
         application.statusBarStyle = .LightContent
         
         let defaultTheme = DefaultTheme()
-        let newsRepository = ConcreteNewsRepository()
+        let newsItemRepository = ConcreteNewsItemRepository()
         let longDateFormatter = NSDateFormatter()
         longDateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
         
         let newsController = NewsTableViewController(
             theme: defaultTheme,
-            newsRepository: newsRepository,
+            newsItemRepository: newsItemRepository,
             dateFormatter: longDateFormatter
         )
         

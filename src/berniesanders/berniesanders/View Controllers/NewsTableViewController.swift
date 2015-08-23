@@ -2,14 +2,14 @@ import UIKit
 
 
 public class NewsTableViewController: UITableViewController {
-    private(set) public var newsRepository: NewsRepository!
+    private(set) public var newsItemRepository: NewsItemRepository!
     public var theme: Theme!
     var newsItems: Array<NewsItem>!
     var dateFormatter: NSDateFormatter!
     
-    public init(theme: Theme, newsRepository: NewsRepository, dateFormatter: NSDateFormatter) {
+    public init(theme: Theme, newsItemRepository: NewsItemRepository, dateFormatter: NSDateFormatter) {
         self.theme = theme
-        self.newsRepository = newsRepository
+        self.newsItemRepository = newsItemRepository
         self.newsItems = []
         self.dateFormatter = dateFormatter
         super.init(nibName: nil, bundle: nil)
@@ -38,7 +38,7 @@ public class NewsTableViewController: UITableViewController {
     override public func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.newsRepository.fetchNews({ (receivedNewsItems) -> Void in
+        self.newsItemRepository.fetchNewsItems({ (receivedNewsItems) -> Void in
             self.newsItems = receivedNewsItems
             self.tableView.reloadData()
         }, error: { (error) -> Void in

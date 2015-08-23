@@ -20,7 +20,7 @@ class NewsFakeTheme : FakeTheme {
     }
 }
 
-class FakeNewsRepository : berniesanders.NewsRepository {
+class FakeNewsItemRepository : berniesanders.NewsItemRepository {
     var lastCompletionBlock: ((Array<NewsItem>) -> Void)?
     var lastErrorBlock: ((NSError) -> Void)?
     var fetchNewsCalled: Bool = false
@@ -28,7 +28,7 @@ class FakeNewsRepository : berniesanders.NewsRepository {
     init() {
     }
 
-    func fetchNews(completion: (Array<NewsItem>) -> Void, error: (NSError) -> Void) {
+    func fetchNewsItems(completion: (Array<NewsItem>) -> Void, error: (NSError) -> Void) {
         self.fetchNewsCalled = true
         self.lastCompletionBlock = completion
         self.lastErrorBlock = error
@@ -37,7 +37,7 @@ class FakeNewsRepository : berniesanders.NewsRepository {
 
 class NewsTableViewControllerSpecs: QuickSpec {
     var subject: NewsTableViewController!
-    var newsRepository: FakeNewsRepository! =  FakeNewsRepository()
+    var newsItemRepository: FakeNewsItemRepository! =  FakeNewsItemRepository()
     var theme: Theme! = NewsFakeTheme()
     
     override func spec() {
@@ -47,7 +47,7 @@ class NewsTableViewControllerSpecs: QuickSpec {
             dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
             self.subject = NewsTableViewController(
                 theme: theme,
-                newsRepository: self.newsRepository,
+                newsItemRepository: self.newsItemRepository,
                 dateFormatter: dateFormatter
             )
         }
@@ -72,7 +72,7 @@ class NewsTableViewControllerSpecs: QuickSpec {
             }
             
             it("asks the news repository for some news") {
-                expect(self.newsRepository.fetchNewsCalled).to(beTrue())
+                expect(self.newsItemRepository.fetchNewsCalled).to(beTrue())
             }
             
             describe("when the news repository returns some news items", {
@@ -84,7 +84,7 @@ class NewsTableViewControllerSpecs: QuickSpec {
                     var newsItemB = NewsItem(title: "Bernie up in the polls!", date: newsItemBDate)
 
                     var newsItems = [newsItemA, newsItemB]
-                    self.newsRepository.lastCompletionBlock!(newsItems)
+                    self.newsItemRepository.lastCompletionBlock!(newsItems)
                 }
                 
                 it("shows the items in the table with upcased text") {
