@@ -3,6 +3,23 @@ import Quick
 import Nimble
 import UIKit
 
+class NewsFakeTheme : FakeTheme {
+    override func newsFeedTitleFont() -> UIFont {
+        return UIFont.boldSystemFontOfSize(20)
+    }
+    
+    override func newsFeedTitleColor() -> UIColor {
+        return UIColor.magentaColor()
+    }
+    
+    override func newsFeedDateFont() -> UIFont {
+        return UIFont.italicSystemFontOfSize(13)    }
+    
+    override func newsFeedDateColor() -> UIColor {
+        return UIColor.brownColor()
+    }
+}
+
 class FakeNewsRepository : berniesanders.NewsRepository {
     var lastCompletionBlock: ((Array<NewsItem>) -> Void)?
     var lastErrorBlock: ((NSError) -> Void)?
@@ -18,41 +35,28 @@ class FakeNewsRepository : berniesanders.NewsRepository {
     }
 }
 
-class FakeTheme : berniesanders.Theme {
-    func newsFeedTitleFont() -> UIFont {
-        return UIFont.boldSystemFontOfSize(20)
-    }
-    
-    func newsFeedTitleColor() -> UIColor {
-        return UIColor.magentaColor()
-    }
-    
-    func newsFeedDateFont() -> UIFont {
-        return UIFont.italicSystemFontOfSize(13)    }
-    
-    func newsFeedDateColor() -> UIColor {
-        return UIColor.brownColor()
-    }
-}
-
-
 class NewsTableViewControllerSpecs: QuickSpec {
     var subject: NewsTableViewController!
     var newsRepository: FakeNewsRepository! =  FakeNewsRepository()
-    var theme: Theme! = FakeTheme()
+    var theme: Theme! = NewsFakeTheme()
     
     override func spec() {
         beforeEach {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            self.subject = storyboard.instantiateViewControllerWithIdentifier("NewsTableViewController") as! NewsTableViewController
-            self.subject.newsRepository = self.newsRepository
-            self.subject.theme = self.theme
-            self.subject.beginAppearanceTransition(true, animated: false)
-            self.subject.endAppearanceTransition()
+            let theme = NewsFakeTheme()
+            self.subject = NewsTableViewController(theme: theme, newsRepository: self.newsRepository)
         }
         
+        it("has the correct tab bar title") {
+            expect(self.subject.title).to(equal("News"))
+        }
+        
+        it("has the correct navigation item title") {
+            expect(self.subject.navigationItem.title).to(equal("HOME"))
+        }
+                
         describe("when the controller appears") {
             beforeEach {
+                self.subject.view.layoutIfNeeded()
                 self.subject.viewWillAppear(false)
             }
             
@@ -74,7 +78,6 @@ class NewsTableViewControllerSpecs: QuickSpec {
                     var newsItemB = NewsItem(title: "Bernie up in the polls!", date: newsItemBDate)
 
                     var newsItems = [newsItemA, newsItemB]
-                    print(self.newsRepository.lastCompletionBlock)
                     self.newsRepository.lastCompletionBlock!(newsItems)
                 }
                 

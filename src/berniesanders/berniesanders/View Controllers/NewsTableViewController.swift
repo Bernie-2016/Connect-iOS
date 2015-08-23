@@ -6,18 +6,25 @@ public class NewsTableViewController: UITableViewController {
     public var theme: Theme!
     var newsItems: Array<NewsItem>!
     
-    required public init!(coder aDecoder: NSCoder!) {
-        super.init(coder: aDecoder)
-
+    public init(theme: Theme, newsRepository: NewsRepository) {
+        self.theme = theme
+        self.newsRepository = newsRepository
         self.newsItems = []
-        self.newsRepository = ConcreteNewsRepository()
-        self.theme = DefaultTheme()
+        super.init(nibName: nil, bundle: nil)
+        
+        self.title = NSLocalizedString("NewsFeed_tabBarTitle", comment: "")
+        self.navigationItem.title = NSLocalizedString("NewsFeed_navigationTitle", comment: "")
     }
     
-    override public func viewDidLoad() {
+    public required init!(coder aDecoder: NSCoder!) {
+        self.newsItems = []
+        super.init(coder: aDecoder)
+    }
+    
+    public override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0)
+        self.tableView.contentInset = UIEdgeInsetsZero
         self.tableView.layoutMargins = UIEdgeInsetsZero
         self.tableView.separatorInset = UIEdgeInsetsZero
         
@@ -25,8 +32,11 @@ public class NewsTableViewController: UITableViewController {
     }
     
     override public func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
         self.newsRepository.fetchNews({ (receivedNewsItems) -> Void in
             self.newsItems = receivedNewsItems
+            self.tableView.reloadData()
         }, error: { (error) -> Void in
             // TODO: error handling.
         })

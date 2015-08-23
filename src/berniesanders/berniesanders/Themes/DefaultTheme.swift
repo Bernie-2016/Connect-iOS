@@ -2,6 +2,34 @@ import UIKit
 
 
 class DefaultTheme : Theme {
+    
+    // Mark: Tab Bar
+    
+    func tabBarTintColor() -> UIColor {
+        return self.cornflowerBlueColor()
+    }
+    
+    func tabBarFont() -> UIFont {
+        return UIFont.systemFontOfSize(10)
+    }
+    
+    func tabBarTextColor() -> UIColor {
+        return UIColor.whiteColor()
+    }
+    
+    // MARK: Navigation Bar
+    
+    func navigationBarBackgroundColor() -> UIColor {
+        return self.cornflowerBlueColor()
+    }
+    
+    func navigationBarFont() -> UIFont {
+        return UIFont.boldSystemFontOfSize(15)
+    }
+    
+    func navigationBarTextColor() -> UIColor {
+        return UIColor.whiteColor()
+    }
 
     // MARK: News Feed
     
