@@ -12,7 +12,15 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let defaultTheme = DefaultTheme()
         let newsRepository = ConcreteNewsRepository()
-        let newsController = NewsTableViewController(theme: defaultTheme, newsRepository: newsRepository)
+        let longDateFormatter = NSDateFormatter()
+        longDateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
+        
+        let newsController = NewsTableViewController(
+            theme: defaultTheme,
+            newsRepository: newsRepository,
+            dateFormatter: longDateFormatter
+        )
+        
         let newsNavigationController = NavigationController(theme: defaultTheme)
         newsNavigationController.pushViewController(newsController, animated: false)
         

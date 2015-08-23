@@ -5,11 +5,13 @@ public class NewsTableViewController: UITableViewController {
     public var newsRepository: NewsRepository!
     public var theme: Theme!
     var newsItems: Array<NewsItem>!
+    var dateFormatter: NSDateFormatter!
     
-    public init(theme: Theme, newsRepository: NewsRepository) {
+    public init(theme: Theme, newsRepository: NewsRepository, dateFormatter: NSDateFormatter) {
         self.theme = theme
         self.newsRepository = newsRepository
         self.newsItems = []
+        self.dateFormatter = dateFormatter
         super.init(nibName: nil, bundle: nil)
         
         self.title = NSLocalizedString("NewsFeed_tabBarTitle", comment: "")
@@ -58,7 +60,7 @@ public class NewsTableViewController: UITableViewController {
         cell.titleLabel.font = self.theme.newsFeedTitleFont()
         cell.titleLabel.textColor = self.theme.newsFeedTitleColor()
 
-        cell.dateLabel.text = newsItem.date.description
+        cell.dateLabel.text = self.dateFormatter.stringFromDate(newsItem.date)
         cell.dateLabel.font = self.theme.newsFeedDateFont()
         cell.dateLabel.textColor = self.theme.newsFeedDateColor()
         
