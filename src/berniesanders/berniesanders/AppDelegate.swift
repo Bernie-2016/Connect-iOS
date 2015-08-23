@@ -24,7 +24,11 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
         let newsNavigationController = NavigationController(theme: defaultTheme)
         newsNavigationController.pushViewController(newsController, animated: false)
         
-        let issuesController = IssuesTableViewController()
+        let issueRepository = ConcreteIssueRepository()
+        let issuesController = IssuesTableViewController(
+            issueRepository: issueRepository,
+            theme: defaultTheme
+        )
         let issuesNavigationController = NavigationController(theme: defaultTheme)
         issuesNavigationController.pushViewController(issuesController, animated: false)
         

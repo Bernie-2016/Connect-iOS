@@ -2,7 +2,7 @@ import UIKit
 
 
 public class NewsTableViewController: UITableViewController {
-    public var newsRepository: NewsRepository!
+    private(set) public var newsRepository: NewsRepository!
     public var theme: Theme!
     var newsItems: Array<NewsItem>!
     var dateFormatter: NSDateFormatter!
@@ -22,6 +22,8 @@ public class NewsTableViewController: UITableViewController {
         self.newsItems = []
         super.init(coder: aDecoder)
     }
+    
+    // MARK: UIViewController
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +46,8 @@ public class NewsTableViewController: UITableViewController {
         })
     }
   
+    // MARK: UITableViewController
+    
     override public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }

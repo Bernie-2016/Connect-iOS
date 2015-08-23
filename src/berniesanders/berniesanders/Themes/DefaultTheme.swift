@@ -49,6 +49,17 @@ class DefaultTheme : Theme {
         return UIFont.systemFontOfSize(12.0)
     }
     
+    // MARK: issues
+    
+    func issuesFeedTitleFont() -> UIFont {
+        return UIFont.systemFontOfSize(14.0);
+    }
+    
+    func issuesFeedTitleColor() -> UIColor {
+        return self.cornflowerBlueColor()
+    }
+
+    
     // MARK: color definitions
     
     func cornflowerBlueColor() -> UIColor {

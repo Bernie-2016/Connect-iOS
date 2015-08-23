@@ -41,4 +41,12 @@ class FakeTheme : berniesanders.Theme {
     func tabBarFont() -> UIFont {
          fatalError("override me in the spec!")
     }
+    
+    func issuesFeedTitleFont() -> UIFont {
+         fatalError("override me in the spec!")
+    }
+    
+    func issuesFeedTitleColor() -> UIColor {
+         fatalError("override me in the spec!")
+    }
 }

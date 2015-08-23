@@ -100,8 +100,6 @@ class NewsTableViewControllerSpecs: QuickSpec {
                 }
                 
                 it("styles the items in the table") {
-                    expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(2))
-
                     var cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! TitleSubTitleTableViewCell
                     
                     expect(cell.titleLabel.textColor).to(equal(UIColor.magentaColor()))

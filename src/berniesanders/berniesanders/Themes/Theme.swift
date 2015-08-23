@@ -9,17 +9,21 @@ public protocol Theme {
     func tabBarTextColor() -> UIColor
     func tabBarFont() -> UIFont
     
-    //MARK: Navigation Bar
+    // MARK: Navigation Bar
     
     func navigationBarBackgroundColor() -> UIColor
     func navigationBarFont() -> UIFont
     func navigationBarTextColor() -> UIColor
  
-    //MARK: News Feed
+    // MARK: News Feed
     
     func newsFeedTitleFont() -> UIFont
     func newsFeedTitleColor() -> UIColor
     func newsFeedDateFont() -> UIFont
     func newsFeedDateColor() -> UIColor
     
+    // MARK: Issues
+    
+    func issuesFeedTitleFont() -> UIFont;
+    func issuesFeedTitleColor() -> UIColor;
 }
