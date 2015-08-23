@@ -32,7 +32,12 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
         let issuesNavigationController = NavigationController(theme: defaultTheme)
         issuesNavigationController.pushViewController(issuesController, animated: false)
         
-        let organizeController = OrganizeTableViewController()
+        let organizeItemRepository = ConcreteOrganizeItemRepository()
+        let organizeController = OrganizeTableViewController(
+            theme: defaultTheme,
+            organizeItemRepository: organizeItemRepository,
+            dateFormatter: longDateFormatter
+        )
         let organizeNavigationController = NavigationController(theme: defaultTheme)
         organizeNavigationController.pushViewController(organizeController, animated: false)
 

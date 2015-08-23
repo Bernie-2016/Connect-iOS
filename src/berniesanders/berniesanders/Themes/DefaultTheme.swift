@@ -58,6 +58,36 @@ class DefaultTheme : Theme {
     func issuesFeedTitleColor() -> UIColor {
         return self.cornflowerBlueColor()
     }
+    
+    // MARK: Organize
+    
+    func organizeFeedTitleFont() -> UIFont {
+        return UIFont.systemFontOfSize(14.0);
+    }
+    
+    func organizeFeedTitleColor() -> UIColor {
+        return self.cornflowerBlueColor()        
+    }
+    
+    func organizeFeedDateFont() -> UIFont {
+        return UIFont.systemFontOfSize(12.0)
+    }
+    
+    func organizeFeedDateColor() -> UIColor {
+        return self.carnationColor()
+    }
+    
+    func organizeFeedHeaderBackgroundColor() -> UIColor {
+        return self.carnationColor()
+    }
+    
+    func organizeFeedHeaderTextColor() -> UIColor {
+        return UIColor.whiteColor()
+    }
+    
+    func organizeFeedHeaderFont() -> UIFont {
+        return UIFont.boldSystemFontOfSize(10)
+    }
 
     
     // MARK: color definitions

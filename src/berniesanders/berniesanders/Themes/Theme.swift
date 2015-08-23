@@ -26,4 +26,14 @@ public protocol Theme {
     
     func issuesFeedTitleFont() -> UIFont;
     func issuesFeedTitleColor() -> UIColor;
+    
+    // MARK: Organize
+    
+    func organizeFeedTitleFont() -> UIFont;
+    func organizeFeedTitleColor() -> UIColor;
+    func organizeFeedDateFont() -> UIFont;
+    func organizeFeedDateColor() -> UIColor;
+    func organizeFeedHeaderBackgroundColor() -> UIColor;
+    func organizeFeedHeaderTextColor() -> UIColor;
+    func organizeFeedHeaderFont() -> UIFont;
 }
