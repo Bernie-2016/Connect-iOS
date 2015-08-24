@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		650763141B8AB79F00BA0659 /* KSDeferred.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650763131B8AB79F00BA0659 /* KSDeferred.framework */; };
+		650763151B8AB7A600BA0659 /* KSDeferred.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 650763131B8AB79F00BA0659 /* KSDeferred.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		65324D571B8A9F7500BC864F /* ConnectItemRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65324D561B8A9F7500BC864F /* ConnectItemRepository.swift */; };
 		65324D591B8A9FB000BC864F /* ConcreteConnectItemRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65324D581B8A9FB000BC864F /* ConcreteConnectItemRepository.swift */; };
 		65324D5B1B8AA00D00BC864F /* ConnectItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65324D5A1B8AA00D00BC864F /* ConnectItem.swift */; };
@@ -72,6 +74,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				650763151B8AB7A600BA0659 /* KSDeferred.framework in CopyFiles */,
 				658AA5071B8AB190003A9854 /* Ono.framework in CopyFiles */,
 				65CA5E9B1B86E7D40001D870 /* PureLayout.framework in CopyFiles */,
 			);
@@ -91,6 +94,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		650763131B8AB79F00BA0659 /* KSDeferred.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KSDeferred.framework; path = Carthage/Build/iOS/KSDeferred.framework; sourceTree = "<group>"; };
 		65324D561B8A9F7500BC864F /* ConnectItemRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectItemRepository.swift; sourceTree = "<group>"; };
 		65324D581B8A9FB000BC864F /* ConcreteConnectItemRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteConnectItemRepository.swift; sourceTree = "<group>"; };
 		65324D5A1B8AA00D00BC864F /* ConnectItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectItem.swift; sourceTree = "<group>"; };
@@ -143,6 +147,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				650763141B8AB79F00BA0659 /* KSDeferred.framework in Frameworks */,
 				658AA5061B8AB166003A9854 /* Ono.framework in Frameworks */,
 				65CA5E991B86E76D0001D870 /* PureLayout.framework in Frameworks */,
 			);
@@ -204,6 +209,7 @@
 		65EC4CF21B842A3D00DD4C83 /* Carthage */ = {
 			isa = PBXGroup;
 			children = (
+				650763131B8AB79F00BA0659 /* KSDeferred.framework */,
 				65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */,
 				658AA5051B8AB166003A9854 /* Ono.framework */,
 				65CA5E981B86E76D0001D870 /* PureLayout.framework */,
