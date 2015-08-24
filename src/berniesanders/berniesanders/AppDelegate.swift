@@ -10,6 +10,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
         
         application.statusBarStyle = .LightContent
         
+        let mainQueue = NSOperationQueue.mainQueue()
         let sharedURLSession = NSURLSession.sharedSession()
         let defaultTheme = DefaultTheme()
         let urlProvider = ConcreteURLProvider()
@@ -36,7 +37,8 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
         let issueRepository = ConcreteIssueRepository(
             urlProvider: urlProvider,
             xmlClient: xmlClient,
-            issueDeserializer: issueDeserializer
+            issueDeserializer: issueDeserializer,
+            operationQueue: mainQueue
         )
         
         let issuesController = IssuesTableViewController(

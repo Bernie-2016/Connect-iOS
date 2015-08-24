@@ -30,12 +30,12 @@ class FakeIssueDeserializer: IssueDeserializer {
     }
 }
 
-
 class ConcreteIssueRepositorySpec : QuickSpec {
     var subject: ConcreteIssueRepository!
     let xmlClient = FakeXMLClient()
     let urlProvider = IssueRepositoryFakeURLProvider()
     let issueDeserializer = FakeIssueDeserializer()
+    let operationQueue = FakeOperationQueue()
     var receivedIssues: Array<Issue>!
     var receivedError: NSError!
 
@@ -43,7 +43,8 @@ class ConcreteIssueRepositorySpec : QuickSpec {
         self.subject = ConcreteIssueRepository(
             urlProvider: self.urlProvider,
             xmlClient: self.xmlClient,
-            issueDeserializer: issueDeserializer
+            issueDeserializer: issueDeserializer,
+            operationQueue: self.operationQueue
         )
     
         describe(".fetchIssues") {
@@ -74,18 +75,20 @@ class ConcreteIssueRepositorySpec : QuickSpec {
                     expect(self.issueDeserializer.lastReceivedXMLDocument).to(beIdenticalTo(expectedXMLDocument))
                 }
                 
-                it("calls the completion handler with the deserialized value objects") {
+                it("calls the completion handler with the deserialized value objects on the operation queue") {
+                    self.operationQueue.lastReceivedBlock()
                     expect(self.receivedIssues.count).to(equal(1))
                     expect(self.receivedIssues.first!.title).to(equal("fake issue"))
                 }
             }
             
             context("when the request to the XML client fails") {
-                it("forwards the error to the caller") {
+                it("forwards the error to the caller on the operation queue") {
                     var deferred: KSDeferred = self.xmlClient.deferredsByURL[self.urlProvider.issuesFeedURL()]!
                     var expectedError = NSError(domain: "somedomain", code: 666, userInfo: nil)
                     deferred.rejectWithError(expectedError)
                     
+                    self.operationQueue.lastReceivedBlock()
                     expect(self.receivedError).to(beIdenticalTo(expectedError))
                 }
             }

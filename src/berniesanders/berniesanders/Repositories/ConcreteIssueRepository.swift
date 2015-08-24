@@ -5,11 +5,17 @@ public class ConcreteIssueRepository : IssueRepository {
     let urlProvider: URLProvider!
     let xmlClient: XMLClient!
     let issueDeserializer: IssueDeserializer!
-        
-    public init(urlProvider: URLProvider, xmlClient: XMLClient, issueDeserializer: IssueDeserializer) {
+    let operationQueue: NSOperationQueue!
+    public init(
+        urlProvider: URLProvider,
+        xmlClient: XMLClient,
+        issueDeserializer: IssueDeserializer,
+        operationQueue: NSOperationQueue) {
+            
         self.urlProvider = urlProvider
         self.xmlClient = xmlClient
         self.issueDeserializer = issueDeserializer
+        self.operationQueue = operationQueue
     }
     
     public func fetchIssues(completion: (Array<Issue>) -> Void, error: (NSError) -> Void) {
@@ -17,10 +23,16 @@ public class ConcreteIssueRepository : IssueRepository {
 
         issuesXMLPromise.then({ (xmlDocument) -> AnyObject! in
             var parsedIssues = self.issueDeserializer.deserializeIssues(xmlDocument as! ONOXMLDocument)
-            completion(parsedIssues)
+            
+            self.operationQueue.addOperationWithBlock({ () -> Void in
+                completion(parsedIssues)
+            })
+
             return parsedIssues
         }, error: { (receivedError) -> AnyObject! in
-            error(receivedError)
+            self.operationQueue.addOperationWithBlock({ () -> Void in
+                error(receivedError)
+                })
             return receivedError
         })
     }
