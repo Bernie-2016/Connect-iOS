@@ -2,10 +2,11 @@ import UIKit
 
 
 public class NewsTableViewController: UITableViewController {
-    private(set) public var newsItemRepository: NewsItemRepository!
-    public var theme: Theme!
-    var newsItems: Array<NewsItem>!
-    var dateFormatter: NSDateFormatter!
+    private let newsItemRepository: NewsItemRepository!
+    private let theme: Theme!
+    private let dateFormatter: NSDateFormatter!
+
+    private var newsItems: Array<NewsItem>!
     
     public init(theme: Theme, newsItemRepository: NewsItemRepository, dateFormatter: NSDateFormatter) {
         self.theme = theme
@@ -25,11 +26,11 @@ public class NewsTableViewController: UITableViewController {
         self.title = NSLocalizedString("NewsFeed_tabBarTitle", comment: "")
         self.navigationItem.title = NSLocalizedString("NewsFeed_navigationTitle", comment: "")
     }
-    
+
     public required init!(coder aDecoder: NSCoder!) {
-        self.newsItems = []
-        super.init(coder: aDecoder)
+        fatalError("init(coder:) has not been implemented")
     }
+
     
     // MARK: UIViewController
     

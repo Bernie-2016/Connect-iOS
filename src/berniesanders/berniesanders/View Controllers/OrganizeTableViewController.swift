@@ -1,10 +1,11 @@
 import UIKit
 
 public class OrganizeTableViewController: UITableViewController {
-    private(set) public var organizeItemRepository: OrganizeItemRepository!
-    var organizeItems: Array<OrganizeItem>
-    var dateFormatter: NSDateFormatter!
-    public var theme: Theme!
+    private let theme: Theme!
+    private let organizeItemRepository: OrganizeItemRepository!
+    private let dateFormatter: NSDateFormatter!
+    
+    private var organizeItems: Array<OrganizeItem>
 
     public init(
         theme: Theme,

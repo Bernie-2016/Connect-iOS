@@ -2,10 +2,11 @@ import Foundation
 import Ono
 
 public class ConcreteIssueRepository : IssueRepository {
-    let urlProvider: URLProvider!
-    let xmlClient: XMLClient!
-    let issueDeserializer: IssueDeserializer!
-    let operationQueue: NSOperationQueue!
+    private let urlProvider: URLProvider!
+    private let xmlClient: XMLClient!
+    private let issueDeserializer: IssueDeserializer!
+    private let operationQueue: NSOperationQueue!
+    
     public init(
         urlProvider: URLProvider,
         xmlClient: XMLClient,

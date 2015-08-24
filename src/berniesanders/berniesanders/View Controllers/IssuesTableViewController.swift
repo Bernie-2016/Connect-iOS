@@ -1,9 +1,10 @@
 import UIKit
 
 public class IssuesTableViewController: UITableViewController {
-    private(set) public var issueRepository: IssueRepository!
-    var issues: Array<Issue>!
-    var theme: Theme!
+    private let issueRepository: IssueRepository!
+    private let theme: Theme!
+    
+    private var issues: Array<Issue>!
     
     public init(issueRepository: IssueRepository, theme: Theme) {
         self.issueRepository = issueRepository

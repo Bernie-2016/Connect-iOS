@@ -1,11 +1,11 @@
 import UIKit
 
 public class ConnectTableViewController: UITableViewController {
-    var theme: Theme!
-    var connectItemRepository: ConnectItemRepository!
-    var dateFormatter: NSDateFormatter!
+    private let theme: Theme!
+    private let connectItemRepository: ConnectItemRepository!
+    private let dateFormatter: NSDateFormatter!
     
-    var connectItems: Array<ConnectItem>
+    private var connectItems: Array<ConnectItem>
     
     
     public init(

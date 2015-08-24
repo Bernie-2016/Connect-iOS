@@ -1,7 +1,7 @@
 import UIKit
 
 public class TabBarController : UITabBarController {
-    public var theme : Theme! = DefaultTheme()
+    private let theme : Theme!
     
     public init(theme: Theme, viewControllers: Array<UIViewController>) {
         self.theme = theme
