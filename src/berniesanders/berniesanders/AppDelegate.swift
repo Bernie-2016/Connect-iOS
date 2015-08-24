@@ -10,7 +10,15 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
         
         application.statusBarStyle = .LightContent
         
+        let sharedURLSession = NSURLSession.sharedSession()
         let defaultTheme = DefaultTheme()
+        let urlProvider = ConcreteURLProvider()
+        let onoXMLDocumentProvider = ONOXMLDocumentProvider()
+        let xmlClient = ConcreteXMLClient(
+            urlSession: sharedURLSession,
+            onoXMLDocumentProvider: onoXMLDocumentProvider
+        )
+        
         let newsItemRepository = ConcreteNewsItemRepository()
         let longDateFormatter = NSDateFormatter()
         longDateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
@@ -23,8 +31,14 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let newsNavigationController = NavigationController(theme: defaultTheme)
         newsNavigationController.pushViewController(newsController, animated: false)
+        let issueDeserializer = ConcreteIssueDeserializer()
         
-        let issueRepository = ConcreteIssueRepository()
+        let issueRepository = ConcreteIssueRepository(
+            urlProvider: urlProvider,
+            xmlClient: xmlClient,
+            issueDeserializer: issueDeserializer
+        )
+        
         let issuesController = IssuesTableViewController(
             issueRepository: issueRepository,
             theme: defaultTheme
