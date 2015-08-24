@@ -55,6 +55,8 @@
 		65EC4CF11B842A3000DD4C83 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		65EC4CF41B84443100DD4C83 /* NewsTableViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EC4CF31B84443100DD4C83 /* NewsTableViewControllerSpec.swift */; };
 		65EC4CF81B866B9200DD4C83 /* NewsItemRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EC4CF71B866B9200DD4C83 /* NewsItemRepository.swift */; };
+		65EDD6241B8BB82E00F545B8 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 65EDD6221B8BB82E00F545B8 /* Lato-Regular.ttf */; };
+		65EDD6271B8BBA3800F545B8 /* Lora-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 65EDD6261B8BB8F900F545B8 /* Lora-Bold.ttf */; };
 		65F01FC61B8A5BDA00D021A1 /* ConnectTableViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F01FC51B8A5BDA00D021A1 /* ConnectTableViewControllerSpec.swift */; };
 		65F5F64E1B87B8300049353C /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F5F64D1B87B8300049353C /* UIColorExtension.swift */; };
 		65F5F6541B8967630049353C /* NavigationControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F5F6531B8967630049353C /* NavigationControllerSpec.swift */; };
@@ -149,6 +151,8 @@
 		65EC4CED1B842A1900DD4C83 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		65EC4CF31B84443100DD4C83 /* NewsTableViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTableViewControllerSpec.swift; sourceTree = "<group>"; };
 		65EC4CF71B866B9200DD4C83 /* NewsItemRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewsItemRepository.swift; path = ../NewsItemRepository.swift; sourceTree = "<group>"; };
+		65EDD6221B8BB82E00F545B8 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
+		65EDD6261B8BB8F900F545B8 /* Lora-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lora-Bold.ttf"; sourceTree = "<group>"; };
 		65F01FC51B8A5BDA00D021A1 /* ConnectTableViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectTableViewControllerSpec.swift; sourceTree = "<group>"; };
 		65F5F64D1B87B8300049353C /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		65F5F6531B8967630049353C /* NavigationControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationControllerSpec.swift; sourceTree = "<group>"; };
@@ -340,6 +344,15 @@
 			path = Repositories;
 			sourceTree = "<group>";
 		};
+		65EDD6211B8BB80D00F545B8 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				65EDD6221B8BB82E00F545B8 /* Lato-Regular.ttf */,
+				65EDD6261B8BB8F900F545B8 /* Lora-Bold.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		65F01FC41B8A5B5700D021A1 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -364,6 +377,7 @@
 		65F5F6501B87B9440049353C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				65EDD6211B8BB80D00F545B8 /* Fonts */,
 				8233FC151B7C28FB00A5E9ED /* Images.xcassets */,
 				65F5F6631B8A3CB00049353C /* Localizable.strings */,
 			);
@@ -548,8 +562,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8233FC161B7C28FB00A5E9ED /* Images.xcassets in Resources */,
+				65EDD6241B8BB82E00F545B8 /* Lato-Regular.ttf in Resources */,
 				65CA5E8E1B86DE190001D870 /* LaunchImage-568h@2x.png in Resources */,
 				65F5F6611B8A3CB00049353C /* Localizable.strings in Resources */,
+				65EDD6271B8BBA3800F545B8 /* Lora-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

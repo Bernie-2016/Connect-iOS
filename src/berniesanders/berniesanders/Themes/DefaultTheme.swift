@@ -10,7 +10,7 @@ class DefaultTheme : Theme {
     }
     
     func tabBarFont() -> UIFont {
-        return UIFont.systemFontOfSize(10)
+        return UIFont(name: "Lato-Regular", size: 10)!
     }
     
     func tabBarTextColor() -> UIColor {
@@ -24,7 +24,7 @@ class DefaultTheme : Theme {
     }
     
     func navigationBarFont() -> UIFont {
-        return UIFont.boldSystemFontOfSize(15)
+        return UIFont(name: "Lora-Bold", size: 15)!
     }
     
     func navigationBarTextColor() -> UIColor {
@@ -38,7 +38,7 @@ class DefaultTheme : Theme {
     }
     
     func newsFeedTitleFont() -> UIFont {
-        return UIFont.systemFontOfSize(14.0);
+        return UIFont(name: "Lora-Bold", size: 14)!
     }
     
     func newsFeedDateColor() -> UIColor {
@@ -46,13 +46,13 @@ class DefaultTheme : Theme {
     }
     
     func newsFeedDateFont() -> UIFont {
-        return UIFont.systemFontOfSize(12.0)
+        return UIFont(name: "Lora-Bold", size: 12)!
     }
     
     // MARK: issues
     
     func issuesFeedTitleFont() -> UIFont {
-        return UIFont.systemFontOfSize(14.0);
+        return UIFont(name: "Lora-Bold", size: 14)!
     }
     
     func issuesFeedTitleColor() -> UIColor {
@@ -62,7 +62,7 @@ class DefaultTheme : Theme {
     // MARK: Organize
     
     func organizeFeedTitleFont() -> UIFont {
-        return UIFont.systemFontOfSize(14.0);
+        return UIFont(name: "Lora-Bold", size: 14)!
     }
     
     func organizeFeedTitleColor() -> UIColor {
@@ -70,7 +70,7 @@ class DefaultTheme : Theme {
     }
     
     func organizeFeedDateFont() -> UIFont {
-        return UIFont.systemFontOfSize(12.0)
+        return UIFont(name: "Lora-Bold", size: 12)!
     }
     
     func organizeFeedDateColor() -> UIColor {
@@ -88,13 +88,13 @@ class DefaultTheme : Theme {
     }
     
     func feedHeaderFont() -> UIFont {
-        return UIFont.boldSystemFontOfSize(10)
+        return UIFont(name: "Lora-Bold", size: 10)!
     }
     
     // MARK: Connect
     
     func connectFeedTitleFont() -> UIFont {
-        return UIFont.systemFontOfSize(14.0);
+        return UIFont(name: "Lora-Bold", size: 14)!
     }
     
     func connectFeedTitleColor() -> UIColor {
@@ -102,7 +102,7 @@ class DefaultTheme : Theme {
     }
     
     func connectFeedDateFont() -> UIFont {
-        return UIFont.systemFontOfSize(12.0)
+        return UIFont(name: "Lora-Bold", size: 12)!
     }
     
     func connectFeedDateColor() -> UIColor {

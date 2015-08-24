@@ -4,9 +4,6 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
     public var window: UIWindow?
 
     public func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        let attributes = [
-            NSForegroundColorAttributeName: UIColor.purpleColor()
-        ]
         
         application.statusBarStyle = .LightContent
         
@@ -82,6 +79,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UITabBar.appearance().tintColor = defaultTheme.tabBarTextColor()
         
+    
         return true
     }
 }
