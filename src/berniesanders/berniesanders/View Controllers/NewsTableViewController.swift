@@ -14,6 +14,14 @@ public class NewsTableViewController: UITableViewController {
         self.dateFormatter = dateFormatter
         super.init(nibName: nil, bundle: nil)
         
+        self.tabBarItem.image = UIImage(named: "newsTabBarIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
+        let attributes = [
+            NSFontAttributeName: theme.tabBarFont(),
+            NSForegroundColorAttributeName: theme.tabBarTextColor()
+        ]
+        
+        self.tabBarItem.setTitleTextAttributes(attributes, forState: .Normal)
+        self.tabBarItem.setTitleTextAttributes(attributes, forState: .Selected)
         self.title = NSLocalizedString("NewsFeed_tabBarTitle", comment: "")
         self.navigationItem.title = NSLocalizedString("NewsFeed_navigationTitle", comment: "")
     }

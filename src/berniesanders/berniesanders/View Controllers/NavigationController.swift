@@ -5,15 +5,7 @@ public class NavigationController : UINavigationController {
     
     public init(theme: Theme) {
         self.theme = theme
-        super.init(nibName: nil, bundle: nil)
-        
-        let attributes = [
-            NSFontAttributeName: theme.tabBarFont(),
-            NSForegroundColorAttributeName: theme.tabBarTextColor()
-        ]
-        
-        self.tabBarItem.setTitleTextAttributes(attributes, forState: .Normal)
-        self.tabBarItem.setTitleTextAttributes(attributes, forState: .Selected)
+        super.init(nibName: nil, bundle: nil)        
     }
 
     required public init(coder aDecoder: NSCoder) {

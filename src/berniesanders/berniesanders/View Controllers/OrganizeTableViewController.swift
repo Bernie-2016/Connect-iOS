@@ -18,8 +18,17 @@ public class OrganizeTableViewController: UITableViewController {
             self.organizeItems = []
             
             super.init(nibName: nil, bundle: nil)
+            
+            self.tabBarItem.image = UIImage(named: "organizeTabBarIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
             self.title = NSLocalizedString("Organize_tabBarTitle", comment: "")
             self.navigationItem.title = NSLocalizedString("Organize_navigationTitle", comment: "")
+            let attributes = [
+                NSFontAttributeName: theme.tabBarFont(),
+                NSForegroundColorAttributeName: theme.tabBarTextColor()
+            ]
+            
+            self.tabBarItem.setTitleTextAttributes(attributes, forState: .Normal)
+            self.tabBarItem.setTitleTextAttributes(attributes, forState: .Selected)
     }
 
     required public init!(coder aDecoder: NSCoder!) {

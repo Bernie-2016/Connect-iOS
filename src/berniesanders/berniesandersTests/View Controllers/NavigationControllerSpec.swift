@@ -15,14 +15,6 @@ class NavBarFakeTheme : FakeTheme {
     override func navigationBarTextColor() -> UIColor {
         return UIColor.magentaColor()
     }
-    
-    override func tabBarTextColor() -> UIColor {
-        return UIColor.yellowColor()
-    }
-    
-    override func tabBarFont() -> UIFont {
-        return UIFont.systemFontOfSize(123)
-    }
 }
 
 class NavigationControllerSpec : QuickSpec {
@@ -33,25 +25,7 @@ class NavigationControllerSpec : QuickSpec {
             let theme = NavBarFakeTheme()
             self.subject = NavigationController(theme: theme)
         }
-        
-        it("styles its tab bar item from the theme") {
-            let normalAttributes = self.subject.tabBarItem.titleTextAttributesForState(UIControlState.Normal)
-            
-            let normalTextColor = normalAttributes[NSForegroundColorAttributeName] as! UIColor
-            let normalFont = normalAttributes[NSFontAttributeName] as! UIFont
-            
-            expect(normalTextColor).to(equal(UIColor.yellowColor()))
-            expect(normalFont).to(equal(UIFont.systemFontOfSize(123)))
-            
-            let selectedAttributes = self.subject.tabBarItem.titleTextAttributesForState(UIControlState.Selected)
-            
-            let selectedTextColor = selectedAttributes[NSForegroundColorAttributeName] as! UIColor
-            let selectedFont = selectedAttributes[NSFontAttributeName] as! UIFont
-            
-            expect(selectedTextColor).to(equal(UIColor.yellowColor()))
-            expect(selectedFont).to(equal(UIFont.systemFontOfSize(123)))
-        }
-        
+                
         describe("when the controller loads the view") {
             beforeEach {
                 self.subject.view.layoutIfNeeded()
