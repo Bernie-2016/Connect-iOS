@@ -4,45 +4,45 @@ import Nimble
 import KSDeferred
 import Ono
 
-class IssueRepositoryFakeURLProvider: FakeURLProvider {
-    override func issuesFeedURL() -> NSURL! {
+class NewsItemRepositoryFakeURLProvider: FakeURLProvider {
+    override func newsFeedURL() -> NSURL! {
         return NSURL(string: "https://example.com/bernese/")
     }
 }
 
-class FakeIssueDeserializer: IssueDeserializer {
+class FakeNewsItemDeserializer: NewsItemDeserializer {
     var lastReceivedXMLDocument: ONOXMLDocument!
-    var returnedIssues = [Issue(title: "fake issue")]
+    var returnedNewsItems = [NewsItem(title: "fake news", date: NSDate())]
     
-    func deserializeIssues(xmlDocument: ONOXMLDocument) -> Array<Issue> {
+    func deserializeNewsItems(xmlDocument: ONOXMLDocument) -> Array<NewsItem> {
         self.lastReceivedXMLDocument = xmlDocument
-        return self.returnedIssues
+        return self.returnedNewsItems
     }
 }
 
-class ConcreteIssueRepositorySpec : QuickSpec {
-    var subject: ConcreteIssueRepository!
+class ConcreteNewsItemRepositorySpec : QuickSpec {
+    var subject: ConcreteNewsItemRepository!
     let xmlClient = FakeXMLClient()
-    let urlProvider = IssueRepositoryFakeURLProvider()
-    let issueDeserializer = FakeIssueDeserializer()
+    let urlProvider = NewsItemRepositoryFakeURLProvider()
+    let newsItemDeserializer = FakeNewsItemDeserializer()
     let operationQueue = FakeOperationQueue()
-    var receivedIssues: Array<Issue>!
+    var receivedNewsItems: Array<NewsItem>!
     var receivedError: NSError!
-
+    
     override func spec() {
-        self.subject = ConcreteIssueRepository(
+        self.subject = ConcreteNewsItemRepository(
             urlProvider: self.urlProvider,
             xmlClient: self.xmlClient,
-            issueDeserializer: issueDeserializer,
+            newsItemDeserializer: newsItemDeserializer,
             operationQueue: self.operationQueue
         )
-    
-        describe(".fetchIssues") {
+        
+        fdescribe(".fetchNewsItems") {
             beforeEach {
-                self.subject.fetchIssues({ (issues) -> Void in
-                    self.receivedIssues = issues
-                }, error: { (error) -> Void in
-                    self.receivedError = error
+                self.subject.fetchNewsItems({ (newsItems) -> Void in
+                    self.receivedNewsItems = newsItems
+                    }, error: { (error) -> Void in
+                        self.receivedError = error
                 })
             }
             
@@ -53,28 +53,28 @@ class ConcreteIssueRepositorySpec : QuickSpec {
             
             context("when the request to the XML client succeeds") {
                 var expectedXMLDocument = ONOXMLDocument()
-                var expectedIssues = self.issueDeserializer.returnedIssues
+                var expectedNewsItems = self.newsItemDeserializer.returnedNewsItems
                 
                 beforeEach {
-                    var deferred: KSDeferred = self.xmlClient.deferredsByURL[self.urlProvider.issuesFeedURL()]!
-
+                    var deferred: KSDeferred = self.xmlClient.deferredsByURL[self.urlProvider.newsFeedURL()]!
+                    
                     deferred.resolveWithValue(expectedXMLDocument)
                 }
                 
-                it("passes the xml document to the issue deserialzier") {
-                    expect(self.issueDeserializer.lastReceivedXMLDocument).to(beIdenticalTo(expectedXMLDocument))
+                it("passes the xml document to the news item deserialzier") {
+                    expect(self.newsItemDeserializer.lastReceivedXMLDocument).to(beIdenticalTo(expectedXMLDocument))
                 }
                 
                 it("calls the completion handler with the deserialized value objects on the operation queue") {
                     self.operationQueue.lastReceivedBlock()
-                    expect(self.receivedIssues.count).to(equal(1))
-                    expect(self.receivedIssues.first!.title).to(equal("fake issue"))
+                    expect(self.receivedNewsItems.count).to(equal(1))
+                    expect(self.receivedNewsItems.first!.title).to(equal("fake news"))
                 }
             }
             
             context("when the request to the XML client fails") {
                 it("forwards the error to the caller on the operation queue") {
-                    var deferred: KSDeferred = self.xmlClient.deferredsByURL[self.urlProvider.issuesFeedURL()]!
+                    var deferred: KSDeferred = self.xmlClient.deferredsByURL[self.urlProvider.newsFeedURL()]!
                     var expectedError = NSError(domain: "somedomain", code: 666, userInfo: nil)
                     deferred.rejectWithError(expectedError)
                     

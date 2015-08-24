@@ -17,7 +17,13 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             onoXMLDocumentProvider: onoXMLDocumentProvider
         )
         
-        let newsItemRepository = ConcreteNewsItemRepository()
+        let newsItemDeserializer = ConcreteNewsItemDeserializer()
+        let newsItemRepository = ConcreteNewsItemRepository(
+            urlProvider: urlProvider,
+            xmlClient: xmlClient,
+            newsItemDeserializer: newsItemDeserializer,
+            operationQueue: mainQueue
+        )
         let longDateFormatter = NSDateFormatter()
         longDateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
         
