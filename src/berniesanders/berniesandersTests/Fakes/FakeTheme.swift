@@ -66,15 +66,31 @@ class FakeTheme : berniesanders.Theme {
         fatalError("override me in the spec!")
     }
     
-    func organizeFeedHeaderBackgroundColor() -> UIColor {
+    func feedHeaderBackgroundColor() -> UIColor {
         fatalError("override me in the spec!")
     }
     
-    func organizeFeedHeaderTextColor() -> UIColor {
+    func feedHeaderTextColor() -> UIColor {
         fatalError("override me in the spec!")
     }
     
-    func organizeFeedHeaderFont() -> UIFont {
+    func feedHeaderFont() -> UIFont {
+        fatalError("override me in the spec!")
+    }
+    
+    func connectFeedTitleFont() -> UIFont {
+        fatalError("override me in the spec!")
+    }
+    
+    func connectFeedTitleColor() -> UIColor {
+        fatalError("override me in the spec!")
+    }
+    
+    func connectFeedDateFont() -> UIFont {
+        fatalError("override me in the spec!")
+    }
+    
+    func connectFeedDateColor() -> UIColor {
         fatalError("override me in the spec!")
     }
 }

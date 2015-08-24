@@ -33,7 +33,19 @@ public protocol Theme {
     func organizeFeedTitleColor() -> UIColor;
     func organizeFeedDateFont() -> UIFont;
     func organizeFeedDateColor() -> UIColor;
-    func organizeFeedHeaderBackgroundColor() -> UIColor;
-    func organizeFeedHeaderTextColor() -> UIColor;
-    func organizeFeedHeaderFont() -> UIFont;
+    
+    // MARK: Connect
+    
+    func connectFeedTitleFont() -> UIFont;
+    func connectFeedTitleColor() -> UIColor;
+    func connectFeedDateFont() -> UIFont;
+    func connectFeedDateColor() -> UIColor;
+
+    // MARK: feed header
+    
+    func feedHeaderBackgroundColor() -> UIColor;
+    func feedHeaderTextColor() -> UIColor;
+    func feedHeaderFont() -> UIFont;
+    
+    
 }

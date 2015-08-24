@@ -20,15 +20,15 @@ class OrganizeFakeTheme : FakeTheme {
         return UIColor.brownColor()
     }
     
-    override func organizeFeedHeaderBackgroundColor() -> UIColor {
+    override func feedHeaderBackgroundColor() -> UIColor {
         return UIColor.yellowColor()
     }
     
-    override func organizeFeedHeaderTextColor() -> UIColor {
+    override func feedHeaderTextColor() -> UIColor {
         return UIColor.orangeColor()
     }
     
-    override func organizeFeedHeaderFont() -> UIFont {
+    override func feedHeaderFont() -> UIFont {
         return UIFont.systemFontOfSize(8)
     }
 }
@@ -50,7 +50,7 @@ class FakeOrganizeItemRepository : berniesanders.OrganizeItemRepository {
 
 class OrganizeTableViewControllerSpec: QuickSpec {
     var subject: OrganizeTableViewController!
-    let organizationRepository: FakeOrganizeItemRepository = FakeOrganizeItemRepository()
+    let organizeItemRepository: FakeOrganizeItemRepository = FakeOrganizeItemRepository()
     
     override func spec() {
         beforeEach {
@@ -60,7 +60,7 @@ class OrganizeTableViewControllerSpec: QuickSpec {
 
             self.subject = OrganizeTableViewController(
                 theme: theme,
-                organizeItemRepository: self.organizationRepository,
+                organizeItemRepository: self.organizeItemRepository,
                 dateFormatter: dateFormatter
             )
         }
@@ -94,7 +94,7 @@ class OrganizeTableViewControllerSpec: QuickSpec {
             }
             
             it("asks the organize  item repository for some organize items") {
-                expect(self.organizationRepository.fetchOrganizeItemsCalled).to(beTrue())
+                expect(self.organizeItemRepository.fetchOrganizeItemsCalled).to(beTrue())
             }
             
             describe("when the organize repository returns some organize items") {
@@ -106,7 +106,7 @@ class OrganizeTableViewControllerSpec: QuickSpec {
                     var organizeItemB = OrganizeItem(title: "National call to action", date: organizationItemBDate)
                     
                     var organizeItems = [organizeItemA, organizeItemB]
-                    self.organizationRepository.lastCompletionBlock!(organizeItems)
+                    self.organizeItemRepository.lastCompletionBlock!(organizeItems)
                 }
                 
                 it("shows the items in the table with upcased text") {

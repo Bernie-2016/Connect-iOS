@@ -42,7 +42,11 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
         organizeNavigationController.pushViewController(organizeController, animated: false)
 
         
-        let connectController = ConnectTableViewController()
+        let connectController = ConnectTableViewController(
+            theme: defaultTheme,
+            connectItemRepository: ConcreteConnectItemRepository(),
+            dateFormatter: longDateFormatter
+        )
         let connectNavigationController = NavigationController(theme: defaultTheme)
         connectNavigationController.pushViewController(connectController, animated: false)
 

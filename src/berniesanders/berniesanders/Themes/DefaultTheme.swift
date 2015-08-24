@@ -77,18 +77,37 @@ class DefaultTheme : Theme {
         return self.carnationColor()
     }
     
-    func organizeFeedHeaderBackgroundColor() -> UIColor {
+    // MARK: Feed header
+    
+    func feedHeaderBackgroundColor() -> UIColor {
         return self.carnationColor()
     }
     
-    func organizeFeedHeaderTextColor() -> UIColor {
+    func feedHeaderTextColor() -> UIColor {
         return UIColor.whiteColor()
     }
     
-    func organizeFeedHeaderFont() -> UIFont {
+    func feedHeaderFont() -> UIFont {
         return UIFont.boldSystemFontOfSize(10)
     }
-
+    
+    // MARK: Connect
+    
+    func connectFeedTitleFont() -> UIFont {
+        return UIFont.systemFontOfSize(14.0);
+    }
+    
+    func connectFeedTitleColor() -> UIColor {
+        return self.cornflowerBlueColor()
+    }
+    
+    func connectFeedDateFont() -> UIFont {
+        return UIFont.systemFontOfSize(12.0)
+    }
+    
+    func connectFeedDateColor() -> UIColor {
+        return self.carnationColor()
+    }
     
     // MARK: color definitions
     

@@ -26,6 +26,8 @@ public class OrganizeTableViewController: UITableViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: UIViewController
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,8 +41,9 @@ public class OrganizeTableViewController: UITableViewController {
             }, error: { (error) -> Void in
                 // TODO: error handling.
         })
-
     }
+    
+    // MARK: UITableViewController
         
     public override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -66,9 +69,9 @@ public class OrganizeTableViewController: UITableViewController {
     
     override public func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerCell = TableHeaderView(title: "District text goes here")
-        headerCell.contentView.backgroundColor = self.theme.organizeFeedHeaderBackgroundColor()
-        headerCell.titleLabel.textColor = self.theme.organizeFeedHeaderTextColor()
-        headerCell.titleLabel.font = self.theme.organizeFeedHeaderFont()
+        headerCell.contentView.backgroundColor = self.theme.feedHeaderBackgroundColor()
+        headerCell.titleLabel.textColor = self.theme.feedHeaderTextColor()
+        headerCell.titleLabel.font = self.theme.feedHeaderFont()
         return headerCell
     }
     
