@@ -373,9 +373,9 @@
 		65F5F6551B89678E0049353C /* Fakes */ = {
 			isa = PBXGroup;
 			children = (
+				659A12021B8BA5CF00BE08F4 /* FakeOperationQueue.swift */,
 				65F5F6561B8967AD0049353C /* FakeTheme.swift */,
 				6507631D1B8B720E00BA0659 /* FakeURLProvider.swift */,
-				659A12021B8BA5CF00BE08F4 /* FakeOperationQueue.swift */,
 			);
 			path = Fakes;
 			sourceTree = "<group>";
@@ -613,6 +613,7 @@
 				650763181B8B705400BA0659 /* ConcreteIssueRepositorySpec.swift in Sources */,
 				652860A31B8B8B5400899FAF /* ConcreteXMLClientSpec.swift in Sources */,
 				65F01FC61B8A5BDA00D021A1 /* ConnectTableViewControllerSpec.swift in Sources */,
+				659A12031B8BA5CF00BE08F4 /* FakeOperationQueue.swift in Sources */,
 				65F5F6571B8967AD0049353C /* FakeTheme.swift in Sources */,
 				6507631E1B8B720E00BA0659 /* FakeURLProvider.swift in Sources */,
 				65C97A181B8A5D2F00088679 /* IssuesTableViewControllerSpec.swift in Sources */,
@@ -620,7 +621,6 @@
 				65EC4CF41B84443100DD4C83 /* NewsTableViewControllerSpec.swift in Sources */,
 				65C97A1A1B8A5D5900088679 /* OrganizeTableViewControllerSpec.swift in Sources */,
 				65CA5E851B86CA930001D870 /* SpecAppDelegate.swift in Sources */,
-				659A12031B8BA5CF00BE08F4 /* FakeOperationQueue.swift in Sources */,
 				65C97A161B8A5CF900088679 /* TabBarControllerSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -734,6 +734,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -752,6 +753,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
