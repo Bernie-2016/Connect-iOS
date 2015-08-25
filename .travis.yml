@@ -1,0 +1,6 @@
+language: objective-c
+osx_image: xcode6.4
+before_install:
+  - brew install carthage
+  - cd src/berniesanders && CODE_SIGNING_REQUIRED=NO carthage bootstrap --verbose
+script: xcodebuild test -project berniesanders.xcodeproj/ -scheme berniesanders -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO

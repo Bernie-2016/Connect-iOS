@@ -1,0 +1,21 @@
+
+// News Feed
+
+"NewsFeed_tabBarTitle" = "News";
+"NewsFeed_navigationTitle" = "HOME";
+
+// Issues
+
+"Issues_tabBarTitle" = "Issues";
+"Issues_navigationTitle" = "ISSUES";
+
+// Organize
+
+"Organize_tabBarTitle" = "Organize";
+"Organize_navigationTitle" = "ORGANIZE";
+
+// Connect
+
+"Connect_tabBarTitle" = "Connect";
+"Connect_navigationTitle" = "CONNECT";
+
