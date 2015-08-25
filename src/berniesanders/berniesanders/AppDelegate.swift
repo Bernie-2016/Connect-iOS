@@ -4,14 +4,26 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
     public var window: UIWindow?
 
     public func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        let attributes = [
-            NSForegroundColorAttributeName: UIColor.purpleColor()
-        ]
         
         application.statusBarStyle = .LightContent
         
+        let mainQueue = NSOperationQueue.mainQueue()
+        let sharedURLSession = NSURLSession.sharedSession()
         let defaultTheme = DefaultTheme()
-        let newsItemRepository = ConcreteNewsItemRepository()
+        let urlProvider = ConcreteURLProvider()
+        let onoXMLDocumentProvider = ONOXMLDocumentProvider()
+        let xmlClient = ConcreteXMLClient(
+            urlSession: sharedURLSession,
+            onoXMLDocumentProvider: onoXMLDocumentProvider
+        )
+        
+        let newsItemDeserializer = ConcreteNewsItemDeserializer()
+        let newsItemRepository = ConcreteNewsItemRepository(
+            urlProvider: urlProvider,
+            xmlClient: xmlClient,
+            newsItemDeserializer: newsItemDeserializer,
+            operationQueue: mainQueue
+        )
         let longDateFormatter = NSDateFormatter()
         longDateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
         
@@ -23,8 +35,15 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let newsNavigationController = NavigationController(theme: defaultTheme)
         newsNavigationController.pushViewController(newsController, animated: false)
+        let issueDeserializer = ConcreteIssueDeserializer()
         
-        let issueRepository = ConcreteIssueRepository()
+        let issueRepository = ConcreteIssueRepository(
+            urlProvider: urlProvider,
+            xmlClient: xmlClient,
+            issueDeserializer: issueDeserializer,
+            operationQueue: mainQueue
+        )
+        
         let issuesController = IssuesTableViewController(
             issueRepository: issueRepository,
             theme: defaultTheme
@@ -62,8 +81,11 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         self.window!.rootViewController = tabBarController
         self.window!.backgroundColor = UIColor.whiteColor()
-        self.window!.makeKeyAndVisible()        
+        self.window!.makeKeyAndVisible()
         
+        UITabBar.appearance().tintColor = defaultTheme.tabBarTextColor()
+        
+    
         return true
     }
 }

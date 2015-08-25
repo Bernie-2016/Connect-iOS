@@ -1,10 +1,11 @@
 import UIKit
 
 public class OrganizeTableViewController: UITableViewController {
-    private(set) public var organizeItemRepository: OrganizeItemRepository!
-    var organizeItems: Array<OrganizeItem>
-    var dateFormatter: NSDateFormatter!
-    public var theme: Theme!
+    private let theme: Theme!
+    private let organizeItemRepository: OrganizeItemRepository!
+    private let dateFormatter: NSDateFormatter!
+    
+    private var organizeItems: Array<OrganizeItem>
 
     public init(
         theme: Theme,
@@ -18,8 +19,17 @@ public class OrganizeTableViewController: UITableViewController {
             self.organizeItems = []
             
             super.init(nibName: nil, bundle: nil)
+            
+            self.tabBarItem.image = UIImage(named: "organizeTabBarIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
             self.title = NSLocalizedString("Organize_tabBarTitle", comment: "")
             self.navigationItem.title = NSLocalizedString("Organize_navigationTitle", comment: "")
+            let attributes = [
+                NSFontAttributeName: theme.tabBarFont(),
+                NSForegroundColorAttributeName: theme.tabBarTextColor()
+            ]
+            
+            self.tabBarItem.setTitleTextAttributes(attributes, forState: .Normal)
+            self.tabBarItem.setTitleTextAttributes(attributes, forState: .Selected)
     }
 
     required public init!(coder aDecoder: NSCoder!) {

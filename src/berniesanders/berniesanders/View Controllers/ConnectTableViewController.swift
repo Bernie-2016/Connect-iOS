@@ -1,11 +1,11 @@
 import UIKit
 
 public class ConnectTableViewController: UITableViewController {
-    var theme: Theme!
-    var connectItemRepository: ConnectItemRepository!
-    var dateFormatter: NSDateFormatter!
+    private let theme: Theme!
+    private let connectItemRepository: ConnectItemRepository!
+    private let dateFormatter: NSDateFormatter!
     
-    var connectItems: Array<ConnectItem>
+    private var connectItems: Array<ConnectItem>
     
     
     public init(
@@ -21,6 +21,14 @@ public class ConnectTableViewController: UITableViewController {
             
             super.init(nibName: nil, bundle: nil)
             
+            self.tabBarItem.image = UIImage(named: "connectTabBarIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
+            let attributes = [
+                NSFontAttributeName: theme.tabBarFont(),
+                NSForegroundColorAttributeName: theme.tabBarTextColor()
+            ]
+            
+            self.tabBarItem.setTitleTextAttributes(attributes, forState: .Normal)
+            self.tabBarItem.setTitleTextAttributes(attributes, forState: .Selected)
             self.title = NSLocalizedString("Connect_tabBarTitle", comment: "")
             self.navigationItem.title = NSLocalizedString("Connect_navigationTitle", comment: "")
     }
