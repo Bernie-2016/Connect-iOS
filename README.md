@@ -4,7 +4,7 @@ Mobile application for getting involved and keeping up with Bernie.
 
 Tracker backlog: https://www.pivotaltracker.com/n/projects/1414740
 
-Slack channel: https://codersforsanders.slack.com/messages/bernie-app/details/
+Slack channel (you can request access [here](https://docs.google.com/forms/d/1pmxGTX17qPkZV49iuLh3rN-Mj_Z6w6M_XtUJMZCMIP4/viewform)): https://codersforsanders.slack.com/messages/bernie-app/details/
 
 # Setting up build environment
 
