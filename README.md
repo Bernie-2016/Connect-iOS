@@ -1,5 +1,8 @@
 # BernieApp
 
+[![Build Status](https://travis-ci.org/SandersForPresident/BernieAppiOS.png?branch=master)](https://travis-ci.org/SandersForPresident/BernieAppiOS)
+
+
 Mobile application for getting involved and keeping up with Bernie.
 
 Tracker backlog: https://www.pivotaltracker.com/n/projects/1414740
