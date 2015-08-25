@@ -1,8 +1,13 @@
 # BernieApp
 
-Mobile application for getting involved and keeping up with Bernie
+Mobile application for getting involved and keeping up with Bernie.
+
+Tracker backlog: https://www.pivotaltracker.com/n/projects/1414740
+Slack channel: https://codersforsanders.slack.com/messages/bernie-app/details/
 
 # Setting up build environment
+
+This app will compile with Xcode 6.4. It is bootstrapped using Carthage for project file purity reasons.
 
 ## Install carthage
 
@@ -11,7 +16,6 @@ Mobile application for getting involved and keeping up with Bernie
 ## Install dependencies
 
 * `carthage bootstrap --platform ios`
-
 
 You should now be able to run tests in Xcode by pressing "CMD+u"
 
