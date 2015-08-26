@@ -12,7 +12,7 @@ class ConcreteNewsItemDeserializerSpec : QuickSpec {
             self.subject = ConcreteNewsItemDeserializer()
         }
         
-        fit("deserializes the news items correctly") {
+        it("deserializes the news items correctly") {
             let bundle = NSBundle(forClass: ConcreteIssueDeserializerSpec.self)
             let path = bundle.pathForResource("news_feed", ofType: "xml")
             let data = NSData(contentsOfFile: path!)

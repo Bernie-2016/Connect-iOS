@@ -37,7 +37,7 @@ class ConcreteNewsItemRepositorySpec : QuickSpec {
             operationQueue: self.operationQueue
         )
         
-        fdescribe(".fetchNewsItems") {
+        describe(".fetchNewsItems") {
             beforeEach {
                 self.subject.fetchNewsItems({ (newsItems) -> Void in
                     self.receivedNewsItems = newsItems
