@@ -53,6 +53,8 @@ class NewsTableViewControllerSpecs: QuickSpec {
             let theme = NewsFakeTheme()
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
+            dateFormatter.timeZone = NSTimeZone(name: "UTC")
+            
             self.subject = NewsTableViewController(
                 theme: theme,
                 newsItemRepository: self.newsItemRepository,
@@ -118,11 +120,11 @@ class NewsTableViewControllerSpecs: QuickSpec {
                     
                     var cellA = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! TitleSubTitleTableViewCell
                     expect(cellA.titleLabel.text).to(equal("BERNIE TO RELEASE NEW ALBUM"))
-                    expect(cellA.dateLabel.text).to(equal("12/31/69"))
+                    expect(cellA.dateLabel.text).to(equal("1/1/70"))
                     
                     var cellB = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! TitleSubTitleTableViewCell
                     expect(cellB.titleLabel.text).to(equal("BERNIE UP IN THE POLLS!"))
-                    expect(cellB.dateLabel.text).to(equal("1/1/70"))
+                    expect(cellB.dateLabel.text).to(equal("1/2/70"))
                 }
                 
                 it("styles the items in the table") {
