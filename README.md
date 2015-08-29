@@ -15,13 +15,15 @@ This app will compile with Xcode 6.4. It is bootstrapped using Carthage for proj
 
 ## Install carthage
 
-* `brew install carthage`
+Via [Homebrew](http://brew.sh/):
+
+* `$ brew install carthage`
 
 ## Install dependencies
 
-* `carthage bootstrap --platform ios`
+* `$ cd src/berniesanders && carthage bootstrap --platform ios`
 
-You should now be able to run tests in Xcode by pressing "CMD+u"
+You should now be able to run tests in Xcode by lightly depressing the key combination "⌘+u"
 
 # Contributing
 
