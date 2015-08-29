@@ -5,47 +5,52 @@ import berniesanders
 import Ono
 import KSDeferred
 
-
-class FakeONOXMLDocumentProvider : ONOXMLDocumentProvider {
+class FakeNSJSONSerializationProvider : NSJSONSerializationProvider {
     var enableError : Bool = false
-    let returnedDocument = ONOXMLDocument()
+    let returnedJSON = NSDictionary()
     let returnedError = NSError(domain: "errrr", code: 123, userInfo: nil)
     var lastReceivedData : NSData!
+    var lastReceivedOptions : NSJSONReadingOptions!
     
     override init() {
         super.init()
     }
     
-    override func provideXMLDocument(data: NSData!, error: NSErrorPointer) -> ONOXMLDocument! {
+    
+    override func jsonObjectWithData(data: NSData, options opt: NSJSONReadingOptions, error: NSErrorPointer) -> AnyObject? {
         self.lastReceivedData = data
+        self.lastReceivedOptions = opt
+        
         if(self.enableError) {
             error.memory = returnedError
             return nil
         } else {
-            return self.returnedDocument
+            return self.returnedJSON
         }
     }
 }
 
-class ConcreteXMLClientSpec : QuickSpec {
-    var subject: ConcreteXMLClient!
+class ConcreteJSONClientSpec : QuickSpec {
+    var subject: ConcreteJSONClient!
+    var jsonSerializationProvider : FakeNSJSONSerializationProvider!
     let urlSession = FakeNSURLSession()
-    let onoXMLDocumentProvider = FakeONOXMLDocumentProvider()
     
     override func spec() {
         beforeEach {
-            self.subject = ConcreteXMLClient(
+            self.jsonSerializationProvider = FakeNSJSONSerializationProvider()
+            
+            self.subject = ConcreteJSONClient(
                 urlSession: self.urlSession,
-                onoXMLDocumentProvider: self.onoXMLDocumentProvider
+                jsonSerializationProvider: self.jsonSerializationProvider
             )
         }
-
-        describe("fetching some XML with a given URL") {
+        
+        describe("fetching some JSON with a given URL") {
             var expectedURL = NSURL(string: "https://example.com/berrniieee")!
             var promise : KSPromise!
             
             beforeEach {
-                promise = self.subject.fetchXMLDocumentWithURL(expectedURL)
+                promise = self.subject.fetchJSONWithURL(expectedURL)
             }
             
             it("creates a task from the session with the correct URL") {
@@ -61,32 +66,32 @@ class ConcreteXMLClientSpec : QuickSpec {
                 
                 context("with a status code of 200") {
                     var response = NSHTTPURLResponse(URL: expectedURL, statusCode: 200, HTTPVersion: "1.1", headerFields: nil)
-
-                    describe("parsing the xml") {
+                    
+                    describe("parsing the JSON") {
                         it("attempts to parse the received data") {
                             self.urlSession.lastCompletionHandler!(expectedData, response!, nil)
-                            expect(self.onoXMLDocumentProvider.lastReceivedData).to(beIdenticalTo(expectedData))
+                            expect(self.jsonSerializationProvider.lastReceivedData).to(beIdenticalTo(expectedData))
                         }
                     }
                     
-                    context("when XML parsing succeeds") {
-                        it("resolves the promise with the XML document") {
+                    context("when JSON parsing succeeds") {
+                        it("resolves the promise with the JSON document") {
                             self.urlSession.lastCompletionHandler!(expectedData, response!, nil)
-
+                            
                             expect(promise.fulfilled).to(beTrue())
-                            var expectedValue = self.onoXMLDocumentProvider.returnedDocument
-                            var value : ONOXMLDocument! = (promise.value as! ONOXMLDocument)
+                            var expectedValue = self.jsonSerializationProvider.returnedJSON
+                            var value : NSDictionary! = (promise.value as! NSDictionary)
                             expect(value).to(beIdenticalTo(expectedValue))
                         }
                     }
                     
-                    context("when XML parsing fails") {
+                    context("when JSON parsing fails") {
                         it("rejects the promise with the parse error") {
-                            self.onoXMLDocumentProvider.enableError = true
+                            self.jsonSerializationProvider.enableError = true
                             self.urlSession.lastCompletionHandler!(expectedData, response!, nil)
                             
                             expect(promise.rejected).to(beTrue())
-                            expect(promise.error).to(beIdenticalTo(self.onoXMLDocumentProvider.returnedError))
+                            expect(promise.error).to(beIdenticalTo(self.jsonSerializationProvider.returnedError))
                         }
                     }
                 }
@@ -98,7 +103,7 @@ class ConcreteXMLClientSpec : QuickSpec {
                         self.urlSession.lastCompletionHandler!(expectedData, response!, nil)
                         
                         expect(promise.rejected).to(beTrue())
-                        expect(promise.error.domain).to(equal(ConcreteXMLClient.Error.BadResponse))
+                        expect(promise.error.domain).to(equal(ConcreteJSONClient.Error.BadResponse))
                     }
                 }
             }

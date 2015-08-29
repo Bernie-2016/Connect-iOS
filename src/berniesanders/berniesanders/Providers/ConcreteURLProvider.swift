@@ -6,6 +6,6 @@ class ConcreteURLProvider : URLProvider {
     }
     
     func newsFeedURL() -> NSURL! {
-        return NSURL(string: "https://berniesanders.com/feed/")
+        return NSURL(string: "http://search.berniesanders.tech:9200/sites_en/official/_search?sort=published_time:desc")
     }
 }

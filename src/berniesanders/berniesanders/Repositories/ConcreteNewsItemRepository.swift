@@ -3,30 +3,30 @@ import Ono
 
 public class ConcreteNewsItemRepository : NewsItemRepository {
     private let urlProvider: URLProvider!
-    private let xmlClient: XMLClient!
+    private let jsonClient: JSONClient!
     private let newsItemDeserializer: NewsItemDeserializer!
     private let operationQueue: NSOperationQueue!
     
     public init(
         urlProvider: URLProvider,
-        xmlClient: XMLClient,
+        jsonClient: JSONClient,
         newsItemDeserializer: NewsItemDeserializer,
         operationQueue: NSOperationQueue) {
             self.urlProvider = urlProvider
-            self.xmlClient = xmlClient
+            self.jsonClient = jsonClient
             self.newsItemDeserializer = newsItemDeserializer
             self.operationQueue = operationQueue
     }
     
     
     public func fetchNewsItems(completion: (Array<NewsItem>) -> Void, error: (NSError) -> Void) {
-        var newsFeedXMLPromise = self.xmlClient.fetchXMLDocumentWithURL(self.urlProvider.newsFeedURL())
+        var newsFeedJSONPromise = self.jsonClient.fetchJSONWithURL(self.urlProvider.newsFeedURL())
         
-        newsFeedXMLPromise.then({ (xmlDocument) -> AnyObject! in
-            var parsedNewsItems = self.newsItemDeserializer.deserializeNewsItems(xmlDocument as! ONOXMLDocument)
+        newsFeedJSONPromise.then({ (jsonDictionary) -> AnyObject! in
+            var parsedNewsItems = self.newsItemDeserializer.deserializeNewsItems(jsonDictionary as! NSDictionary)
             
             self.operationQueue.addOperationWithBlock({ () -> Void in
-                completion(parsedNewsItems)
+                completion(parsedNewsItems as Array<NewsItem>)
             })
             
             return parsedNewsItems
