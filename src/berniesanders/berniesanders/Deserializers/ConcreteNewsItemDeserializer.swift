@@ -1,5 +1,4 @@
 import Foundation
-import Ono
 
 public class ConcreteNewsItemDeserializer : NewsItemDeserializer {
     public init() {
