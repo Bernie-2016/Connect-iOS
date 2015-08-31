@@ -51,6 +51,7 @@ public class NewsTableViewController: UITableViewController {
             self.newsItems = receivedNewsItems
             self.tableView.reloadData()
         }, error: { (error) -> Void in
+            println(error.domain)
             // TODO: error handling.
         })
     }

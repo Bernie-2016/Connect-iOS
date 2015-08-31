@@ -11,18 +11,18 @@ class NewsItemRepositoryFakeURLProvider: FakeURLProvider {
 }
 
 class FakeNewsItemDeserializer: NewsItemDeserializer {
-    var lastReceivedXMLDocument: ONOXMLDocument!
+    var lastReceivedJSONDictionary: NSDictionary!
     var returnedNewsItems = [NewsItem(title: "fake news", date: NSDate())]
     
-    func deserializeNewsItems(xmlDocument: ONOXMLDocument) -> Array<NewsItem> {
-        self.lastReceivedXMLDocument = xmlDocument
+    func deserializeNewsItems(jsonDictionary: NSDictionary) -> Array<NewsItem> {
+        self.lastReceivedJSONDictionary = jsonDictionary
         return self.returnedNewsItems
     }
 }
 
 class ConcreteNewsItemRepositorySpec : QuickSpec {
     var subject: ConcreteNewsItemRepository!
-    let xmlClient = FakeXMLClient()
+    let jsonClient = FakeJSONClient()
     let urlProvider = NewsItemRepositoryFakeURLProvider()
     let newsItemDeserializer = FakeNewsItemDeserializer()
     let operationQueue = FakeOperationQueue()
@@ -32,7 +32,7 @@ class ConcreteNewsItemRepositorySpec : QuickSpec {
     override func spec() {
         self.subject = ConcreteNewsItemRepository(
             urlProvider: self.urlProvider,
-            xmlClient: self.xmlClient,
+            jsonClient: self.jsonClient,
             newsItemDeserializer: newsItemDeserializer,
             operationQueue: self.operationQueue
         )
@@ -46,23 +46,23 @@ class ConcreteNewsItemRepositorySpec : QuickSpec {
                 })
             }
             
-            it("makes a single request to the XML Client with the correct URL") {
-                expect(self.xmlClient.deferredsByURL.count).to(equal(1))
-                expect(self.xmlClient.deferredsByURL.keys.first).to(equal(NSURL(string: "https://example.com/bernese/")))
+            it("makes a single request to the JSON Client with the correct URL") {
+                expect(self.jsonClient.deferredsByURL.count).to(equal(1))
+                expect(self.jsonClient.deferredsByURL.keys.first).to(equal(NSURL(string: "https://example.com/bernese/")))
             }
             
-            context("when the request to the XML client succeeds") {
-                var expectedXMLDocument = ONOXMLDocument()
+            context("when the request to the JSON client succeeds") {
+                var expectedJSONDictionary = NSDictionary();
                 var expectedNewsItems = self.newsItemDeserializer.returnedNewsItems
                 
                 beforeEach {
-                    var deferred: KSDeferred = self.xmlClient.deferredsByURL[self.urlProvider.newsFeedURL()]!
+                    var deferred: KSDeferred = self.jsonClient.deferredsByURL[self.urlProvider.newsFeedURL()]!
                     
-                    deferred.resolveWithValue(expectedXMLDocument)
+                    deferred.resolveWithValue(expectedJSONDictionary)
                 }
                 
-                it("passes the xml document to the news item deserialzier") {
-                    expect(self.newsItemDeserializer.lastReceivedXMLDocument).to(beIdenticalTo(expectedXMLDocument))
+                it("passes the json dictionary to the news item deserialzier") {
+                    expect(self.newsItemDeserializer.lastReceivedJSONDictionary).to(beIdenticalTo(expectedJSONDictionary))
                 }
                 
                 it("calls the completion handler with the deserialized value objects on the operation queue") {
@@ -72,9 +72,9 @@ class ConcreteNewsItemRepositorySpec : QuickSpec {
                 }
             }
             
-            context("when the request to the XML client fails") {
+            context("when the request to the JSON client fails") {
                 it("forwards the error to the caller on the operation queue") {
-                    var deferred: KSDeferred = self.xmlClient.deferredsByURL[self.urlProvider.newsFeedURL()]!
+                    var deferred: KSDeferred = self.jsonClient.deferredsByURL[self.urlProvider.newsFeedURL()]!
                     var expectedError = NSError(domain: "somedomain", code: 666, userInfo: nil)
                     deferred.rejectWithError(expectedError)
                     

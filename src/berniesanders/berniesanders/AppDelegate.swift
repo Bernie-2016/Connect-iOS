@@ -12,15 +12,20 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
         let defaultTheme = DefaultTheme()
         let urlProvider = ConcreteURLProvider()
         let onoXMLDocumentProvider = ONOXMLDocumentProvider()
+        let jsonSerializerProvider = NSJSONSerializationProvider()
         let xmlClient = ConcreteXMLClient(
             urlSession: sharedURLSession,
             onoXMLDocumentProvider: onoXMLDocumentProvider
+        )
+        let jsonClient = ConcreteJSONClient(
+            urlSession: sharedURLSession,
+            jsonSerializationProvider: jsonSerializerProvider
         )
         
         let newsItemDeserializer = ConcreteNewsItemDeserializer()
         let newsItemRepository = ConcreteNewsItemRepository(
             urlProvider: urlProvider,
-            xmlClient: xmlClient,
+            jsonClient: jsonClient,
             newsItemDeserializer: newsItemDeserializer,
             operationQueue: mainQueue
         )

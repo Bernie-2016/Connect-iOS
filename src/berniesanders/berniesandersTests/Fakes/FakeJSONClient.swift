@@ -2,10 +2,10 @@ import berniesanders
 import Foundation
 import KSDeferred
 
-class FakeXMLClient: berniesanders.XMLClient {
+class FakeJSONClient: berniesanders.JSONClient {
     private (set) var deferredsByURL = [NSURL: KSDeferred]()
     
-    func fetchXMLDocumentWithURL(url: NSURL) -> KSPromise {
+    func fetchJSONWithURL(url: NSURL) -> KSPromise {
         var deferred =  KSDeferred.defer()
         self.deferredsByURL[url] = deferred
         return deferred.promise
