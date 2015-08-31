@@ -2,17 +2,27 @@ import UIKit
 
 
 public class NewsTableViewController: UITableViewController {
-    private let newsItemRepository: NewsItemRepository!
     private let theme: Theme!
+    private let newsItemRepository: NewsItemRepository!
     private let dateFormatter: NSDateFormatter!
+    private let newsItemControllerProvider : NewsItemControllerProvider!
 
     private var newsItems: Array<NewsItem>!
     
-    public init(theme: Theme, newsItemRepository: NewsItemRepository, dateFormatter: NSDateFormatter) {
+    public init(
+        theme: Theme,
+        newsItemRepository: NewsItemRepository,
+        dateFormatter: NSDateFormatter,
+        newsItemControllerProvider: NewsItemControllerProvider
+        ) {
+            
         self.theme = theme
         self.newsItemRepository = newsItemRepository
-        self.newsItems = []
         self.dateFormatter = dateFormatter
+        self.newsItemControllerProvider = newsItemControllerProvider
+            
+        self.newsItems = []
+            
         super.init(nibName: nil, bundle: nil)
         
         self.tabBarItem.image = UIImage(named: "newsTabBarIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
@@ -83,5 +93,12 @@ public class NewsTableViewController: UITableViewController {
     
     public override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 60.0
+    }
+    
+    public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        var newsItem = self.newsItems[indexPath.row]
+        let controller = self.newsItemControllerProvider.provideInstanceWithNewsItem(newsItem)
+        
+        self.navigationController?.pushViewController(controller, animated: true)
     }
 }

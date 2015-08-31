@@ -8,8 +8,8 @@ public class ConcreteNewsItemDeserializer : NewsItemDeserializer {
     public func deserializeNewsItems(jsonDictionary: NSDictionary) -> Array<NewsItem> {
         var dateFormatter = NSDateFormatter()
         dateFormatter.timeZone = NSTimeZone(name: "UTC")
-        // "2015-08-28T05:10:21.393Z"
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"  // "2015-08-28T05:10:21.393Z"
+                                                                 // TODO: inject a dateformatter.
         
         var newsItems = [NewsItem]()
         

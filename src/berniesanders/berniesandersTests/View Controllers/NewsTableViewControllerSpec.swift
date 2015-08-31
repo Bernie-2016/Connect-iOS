@@ -43,10 +43,22 @@ class FakeNewsItemRepository : berniesanders.NewsItemRepository {
     }
 }
 
+class FakeNewsItemControllerProvider : berniesanders.NewsItemControllerProvider {
+    let controller = NewsItemController(newsItem: NewsItem(title: "a", date: NSDate()))
+    var lastNewsItem: NewsItem?
+    
+    func provideInstanceWithNewsItem(newsItem: NewsItem) -> NewsItemController {
+        self.lastNewsItem = newsItem;
+        return self.controller
+    }
+}
+
 class NewsTableViewControllerSpecs: QuickSpec {
     var subject: NewsTableViewController!
-    var newsItemRepository: FakeNewsItemRepository! =  FakeNewsItemRepository()
-    var theme: Theme! = NewsFakeTheme()
+    let navigationController = UINavigationController()
+    let newsItemRepository: FakeNewsItemRepository! =  FakeNewsItemRepository()
+    let theme: Theme! = NewsFakeTheme()
+    let newsItemControllerProvider = FakeNewsItemControllerProvider()
     
     override func spec() {
         beforeEach {
@@ -58,8 +70,11 @@ class NewsTableViewControllerSpecs: QuickSpec {
             self.subject = NewsTableViewController(
                 theme: theme,
                 newsItemRepository: self.newsItemRepository,
-                dateFormatter: dateFormatter
+                dateFormatter: dateFormatter,
+                newsItemControllerProvider: self.newsItemControllerProvider
             )
+            
+            self.navigationController.pushViewController(self.subject, animated: false)
         }
         
         it("has the correct tab bar title") {
@@ -136,6 +151,34 @@ class NewsTableViewControllerSpecs: QuickSpec {
                     expect(cell.dateLabel.font).to(equal(UIFont.italicSystemFontOfSize(13)))
                 }
             })
+        }
+        
+        describe("Tapping on a news item") {
+            let expectedNewsItem = NewsItem(title: "B", date: NSDate())
+            
+            beforeEach {
+                self.subject.view.layoutIfNeeded()
+                self.subject.viewWillAppear(false)
+                var newsItemA = NewsItem(title: "A", date: NSDate())
+            
+                var newsItems = [newsItemA, expectedNewsItem]
+                
+                self.newsItemRepository.lastCompletionBlock!(newsItems)
+            }
+            
+            xit("should push a correctly configured news item view controller onto the nav stack") {
+                // PENDING: need to pull in PCK
+                
+                let tableView = self.subject.tableView
+                                println(self.navigationController.topViewController)
+                tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
+                
+                println(self.navigationController.topViewController)
+                println(self.subject.navigationController)
+                println(self.subject.navigationController?.topViewController)
+                expect(self.newsItemControllerProvider.lastNewsItem).to(beIdenticalTo(expectedNewsItem))
+                expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.newsItemControllerProvider.controller))
+            }
         }
     }
 }

@@ -32,10 +32,13 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
         let longDateFormatter = NSDateFormatter()
         longDateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
         
+        let newsItemControllerProvider = ConcreteNewsItemControllerProvider()
+        
         let newsController = NewsTableViewController(
             theme: defaultTheme,
             newsItemRepository: newsItemRepository,
-            dateFormatter: longDateFormatter
+            dateFormatter: longDateFormatter,
+            newsItemControllerProvider: newsItemControllerProvider
         )
         
         let newsNavigationController = NavigationController(theme: defaultTheme)
