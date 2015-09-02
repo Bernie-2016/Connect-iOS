@@ -12,7 +12,7 @@ class NewsItemRepositoryFakeURLProvider: FakeURLProvider {
 
 class FakeNewsItemDeserializer: NewsItemDeserializer {
     var lastReceivedJSONDictionary: NSDictionary!
-    var returnedNewsItems = [NewsItem(title: "fake news", date: NSDate())]
+    var returnedNewsItems = [NewsItem(title: "fake news", date: NSDate(), body: "fake body", imageURL: NSURL())]
     
     func deserializeNewsItems(jsonDictionary: NSDictionary) -> Array<NewsItem> {
         self.lastReceivedJSONDictionary = jsonDictionary

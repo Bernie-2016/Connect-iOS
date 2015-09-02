@@ -1,4 +1,5 @@
 github "smileyborg/PureLayout"
 github "mattt/Ono"
 github "kseebaldt/deferred"
+github "rs/SDWebImage"
 
