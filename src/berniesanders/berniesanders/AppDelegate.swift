@@ -1,4 +1,5 @@
 import UIKit
+import WebImage
 
 public class AppDelegate: UIResponder, UIApplicationDelegate {
     public var window: UIWindow?
@@ -22,6 +23,9 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             jsonSerializationProvider: jsonSerializerProvider
         )
         
+        let webImageManager = SDWebImageManager()
+        let imageRepository = ConcreteImageRepository(webImageManager: webImageManager)
+        
         let newsItemDeserializer = ConcreteNewsItemDeserializer()
         let newsItemRepository = ConcreteNewsItemRepository(
             urlProvider: urlProvider,
@@ -32,7 +36,9 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
         let longDateFormatter = NSDateFormatter()
         longDateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
         
-        let newsItemControllerProvider = ConcreteNewsItemControllerProvider()
+        let newsItemControllerProvider = ConcreteNewsItemControllerProvider(
+            dateFormatter: longDateFormatter, imageRepository: imageRepository, theme: defaultTheme
+        )
         
         let newsController = NewsTableViewController(
             theme: defaultTheme,
@@ -92,7 +98,10 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window!.makeKeyAndVisible()
         
         UITabBar.appearance().tintColor = defaultTheme.tabBarTextColor()
-        
+        UINavigationBar.appearance().tintColor = defaultTheme.navigationBarTextColor()
+        UIBarButtonItem.appearance().setTitleTextAttributes([
+            NSFontAttributeName: defaultTheme.navigationBarFont(), NSForegroundColorAttributeName: defaultTheme.navigationBarTextColor()], forState: UIControlState.Normal)
+
     
         return true
     }

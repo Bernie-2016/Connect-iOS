@@ -24,7 +24,7 @@ class DefaultTheme : Theme {
     }
     
     func navigationBarFont() -> UIFont {
-        return UIFont(name: "Lora-Bold", size: 15)!
+        return UIFont(name: "Lato-Regular", size: 15)!
     }
     
     func navigationBarTextColor() -> UIColor {
@@ -108,6 +108,33 @@ class DefaultTheme : Theme {
     func connectFeedDateColor() -> UIColor {
         return self.carnationColor()
     }
+    
+    // MARK: News Item detail screen
+    
+    func newsItemDateFont() -> UIFont {
+        return UIFont(name: "Lora-Bold", size: 12)!
+    }
+    
+    func newsItemDateColor() -> UIColor {
+        return self.carnationColor()
+    }
+    
+    func newsItemTitleFont() -> UIFont {
+        return UIFont(name: "Lora-Bold", size: 15)!
+    }
+    
+    func newsItemTitleColor() -> UIColor {
+        return self.cornflowerBlueColor()
+    }
+    
+    func newsItemBodyFont() -> UIFont {
+        return UIFont(name: "Lora-Bold", size: 12)!
+    }
+    
+    func newsItemBodyColor() -> UIColor {
+        return UIColor.blackColor()
+    }
+
     
     // MARK: color definitions
     
