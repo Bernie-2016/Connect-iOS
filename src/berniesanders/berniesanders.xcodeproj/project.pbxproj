@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		650763141B8AB79F00BA0659 /* KSDeferred.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650763131B8AB79F00BA0659 /* KSDeferred.framework */; };
-		650763151B8AB7A600BA0659 /* KSDeferred.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 650763131B8AB79F00BA0659 /* KSDeferred.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		650763181B8B705400BA0659 /* ConcreteIssueRepositorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650763171B8B705400BA0659 /* ConcreteIssueRepositorySpec.swift */; };
 		6507631C1B8B71D900BA0659 /* URLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6507631B1B8B71D900BA0659 /* URLProvider.swift */; };
 		6507631E1B8B720E00BA0659 /* FakeURLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6507631D1B8B720E00BA0659 /* FakeURLProvider.swift */; };
@@ -46,7 +45,6 @@
 		6587FF641B8A88FC00AC65F1 /* ConcreteOrganizeItemRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6587FF631B8A88FC00AC65F1 /* ConcreteOrganizeItemRepository.swift */; };
 		6587FF661B8A8EA800AC65F1 /* TableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6587FF651B8A8EA800AC65F1 /* TableHeaderView.swift */; };
 		658AA5061B8AB166003A9854 /* Ono.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 658AA5051B8AB166003A9854 /* Ono.framework */; };
-		658AA5071B8AB190003A9854 /* Ono.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 658AA5051B8AB166003A9854 /* Ono.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		659A12031B8BA5CF00BE08F4 /* FakeOperationQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659A12021B8BA5CF00BE08F4 /* FakeOperationQueue.swift */; };
 		659F0E1C1B95EC0B0049FA12 /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659F0E1B1B95EC0B0049FA12 /* ImageRepository.swift */; };
 		659F0E1E1B95EC780049FA12 /* ConcreteImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659F0E1D1B95EC780049FA12 /* ConcreteImageRepository.swift */; };
@@ -54,8 +52,15 @@
 		659F0E221B95F44E0049FA12 /* bernie.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 659F0E211B95F44E0049FA12 /* bernie.jpg */; };
 		65AD23AD1B963E2700C32A02 /* ConcreteImageRepositorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AD23AC1B963E2700C32A02 /* ConcreteImageRepositorySpec.swift */; };
 		65AD23AF1B96413200C32A02 /* WebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65AD23AE1B96413200C32A02 /* WebImage.framework */; };
-		65AD23B01B96413F00C32A02 /* WebImage.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65AD23AE1B96413200C32A02 /* WebImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		65AD23B21B968D6800C32A02 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AD23B11B968D6800C32A02 /* TestUtils.swift */; };
+		65B165501B9747240052EF8D /* KSDeferred.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 65B1654C1B9747240052EF8D /* KSDeferred.framework.dSYM */; };
+		65B165511B9747240052EF8D /* Ono.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 65B1654D1B9747240052EF8D /* Ono.framework.dSYM */; };
+		65B165521B9747240052EF8D /* PureLayout.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 65B1654E1B9747240052EF8D /* PureLayout.framework.dSYM */; };
+		65B165531B9747240052EF8D /* WebImage.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 65B1654F1B9747240052EF8D /* WebImage.framework.dSYM */; };
+		65B165541B9747350052EF8D /* KSDeferred.framework.dSYM in Copy symolication files */ = {isa = PBXBuildFile; fileRef = 65B1654C1B9747240052EF8D /* KSDeferred.framework.dSYM */; };
+		65B165551B9747350052EF8D /* Ono.framework.dSYM in Copy symolication files */ = {isa = PBXBuildFile; fileRef = 65B1654D1B9747240052EF8D /* Ono.framework.dSYM */; };
+		65B165561B9747350052EF8D /* PureLayout.framework.dSYM in Copy symolication files */ = {isa = PBXBuildFile; fileRef = 65B1654E1B9747240052EF8D /* PureLayout.framework.dSYM */; };
+		65B165571B9747350052EF8D /* WebImage.framework.dSYM in Copy symolication files */ = {isa = PBXBuildFile; fileRef = 65B1654F1B9747240052EF8D /* WebImage.framework.dSYM */; };
 		65C97A161B8A5CF900088679 /* TabBarControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C97A151B8A5CF900088679 /* TabBarControllerSpec.swift */; };
 		65C97A181B8A5D2F00088679 /* IssuesTableViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C97A171B8A5D2F00088679 /* IssuesTableViewControllerSpec.swift */; };
 		65C97A1A1B8A5D5900088679 /* OrganizeTableViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C97A191B8A5D5900088679 /* OrganizeTableViewControllerSpec.swift */; };
@@ -67,7 +72,6 @@
 		65CA5E931B86E4A00001D870 /* DefaultTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CA5E921B86E4A00001D870 /* DefaultTheme.swift */; };
 		65CA5E971B86E5950001D870 /* TitleSubTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CA5E961B86E5950001D870 /* TitleSubTitleTableViewCell.swift */; };
 		65CA5E991B86E76D0001D870 /* PureLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65CA5E981B86E76D0001D870 /* PureLayout.framework */; };
-		65CA5E9B1B86E7D40001D870 /* PureLayout.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65CA5E981B86E76D0001D870 /* PureLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		65DE8D931B955E15008C239F /* NewsItemControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DE8D921B955E15008C239F /* NewsItemControllerSpec.swift */; };
 		65EC4CEC1B842A0B00DD4C83 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */; };
 		65EC4CEE1B842A1900DD4C83 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65EC4CED1B842A1900DD4C83 /* Quick.framework */; };
@@ -108,17 +112,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		65CA5E9A1B86E7CB0001D870 /* CopyFiles */ = {
+		65B1654B1B9747070052EF8D /* Copy symolication files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
-			dstSubfolderSpec = 10;
+			dstSubfolderSpec = 16;
 			files = (
-				650763151B8AB7A600BA0659 /* KSDeferred.framework in CopyFiles */,
-				658AA5071B8AB190003A9854 /* Ono.framework in CopyFiles */,
-				65CA5E9B1B86E7D40001D870 /* PureLayout.framework in CopyFiles */,
-				65AD23B01B96413F00C32A02 /* WebImage.framework in CopyFiles */,
+				65B165541B9747350052EF8D /* KSDeferred.framework.dSYM in Copy symolication files */,
+				65B165551B9747350052EF8D /* Ono.framework.dSYM in Copy symolication files */,
+				65B165561B9747350052EF8D /* PureLayout.framework.dSYM in Copy symolication files */,
+				65B165571B9747350052EF8D /* WebImage.framework.dSYM in Copy symolication files */,
 			);
+			name = "Copy symolication files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		65EC4CEF1B842A2600DD4C83 /* CopyFiles */ = {
@@ -181,6 +186,10 @@
 		65AD23AC1B963E2700C32A02 /* ConcreteImageRepositorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteImageRepositorySpec.swift; sourceTree = "<group>"; };
 		65AD23AE1B96413200C32A02 /* WebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebImage.framework; path = Carthage/Build/iOS/WebImage.framework; sourceTree = "<group>"; };
 		65AD23B11B968D6800C32A02 /* TestUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
+		65B1654C1B9747240052EF8D /* KSDeferred.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = KSDeferred.framework.dSYM; path = Carthage/Build/iOS/KSDeferred.framework.dSYM; sourceTree = "<group>"; };
+		65B1654D1B9747240052EF8D /* Ono.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Ono.framework.dSYM; path = Carthage/Build/iOS/Ono.framework.dSYM; sourceTree = "<group>"; };
+		65B1654E1B9747240052EF8D /* PureLayout.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = PureLayout.framework.dSYM; path = Carthage/Build/iOS/PureLayout.framework.dSYM; sourceTree = "<group>"; };
+		65B1654F1B9747240052EF8D /* WebImage.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = WebImage.framework.dSYM; path = Carthage/Build/iOS/WebImage.framework.dSYM; sourceTree = "<group>"; };
 		65C97A151B8A5CF900088679 /* TabBarControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarControllerSpec.swift; sourceTree = "<group>"; };
 		65C97A171B8A5D2F00088679 /* IssuesTableViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuesTableViewControllerSpec.swift; sourceTree = "<group>"; };
 		65C97A191B8A5D5900088679 /* OrganizeTableViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizeTableViewControllerSpec.swift; sourceTree = "<group>"; };
@@ -397,6 +406,10 @@
 		65EC4CF21B842A3D00DD4C83 /* Carthage */ = {
 			isa = PBXGroup;
 			children = (
+				65B1654C1B9747240052EF8D /* KSDeferred.framework.dSYM */,
+				65B1654D1B9747240052EF8D /* Ono.framework.dSYM */,
+				65B1654E1B9747240052EF8D /* PureLayout.framework.dSYM */,
+				65B1654F1B9747240052EF8D /* WebImage.framework.dSYM */,
 				650763131B8AB79F00BA0659 /* KSDeferred.framework */,
 				65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */,
 				658AA5051B8AB166003A9854 /* Ono.framework */,
@@ -571,7 +584,8 @@
 				8233FC031B7C28FB00A5E9ED /* Sources */,
 				8233FC041B7C28FB00A5E9ED /* Frameworks */,
 				8233FC051B7C28FB00A5E9ED /* Resources */,
-				65CA5E9A1B86E7CB0001D870 /* CopyFiles */,
+				65B1654A1B9746940052EF8D /* ShellScript */,
+				65B1654B1B9747070052EF8D /* Copy symolication files */,
 			);
 			buildRules = (
 			);
@@ -612,7 +626,7 @@
 				TargetAttributes = {
 					8233FC061B7C28FB00A5E9ED = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = 29JW3EE6TQ;
+						DevelopmentTeam = 5R2HB6N5EA;
 					};
 					8233FC1D1B7C28FB00A5E9ED = {
 						CreatedOnToolsVersion = 6.4;
@@ -645,9 +659,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				8233FC161B7C28FB00A5E9ED /* Images.xcassets in Resources */,
+				65B165501B9747240052EF8D /* KSDeferred.framework.dSYM in Resources */,
+				65B165521B9747240052EF8D /* PureLayout.framework.dSYM in Resources */,
 				65EDD6241B8BB82E00F545B8 /* Lato-Regular.ttf in Resources */,
+				65B165511B9747240052EF8D /* Ono.framework.dSYM in Resources */,
 				65F5F6611B8A3CB00049353C /* Localizable.strings in Resources */,
 				65EDD6271B8BBA3800F545B8 /* Lora-Bold.ttf in Resources */,
+				65B165531B9747240052EF8D /* WebImage.framework.dSYM in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -662,6 +680,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		65B1654A1B9746940052EF8D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(PROJECT_DIR)/Carthage/Build/iOS/KSDeferred.framework",
+				"$(PROJECT_DIR)/Carthage/Build/iOS/Ono.framework",
+				"$(PROJECT_DIR)/Carthage/Build/iOS/PureLayout.framework",
+				"$(PROJECT_DIR)/Carthage/Build/iOS/WebImage.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8233FC031B7C28FB00A5E9ED /* Sources */ = {
@@ -831,7 +869,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Michael Stallard (5R2HB6N5EA)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -865,6 +903,7 @@
 				);
 				INFOPLIST_FILE = berniesanders/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MACH_O_TYPE = mh_execute;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -884,6 +923,7 @@
 				);
 				INFOPLIST_FILE = berniesanders/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MACH_O_TYPE = mh_execute;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
