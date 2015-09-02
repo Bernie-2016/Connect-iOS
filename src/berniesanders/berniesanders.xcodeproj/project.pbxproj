@@ -61,6 +61,7 @@
 		65B165551B9747350052EF8D /* Ono.framework.dSYM in Copy symolication files */ = {isa = PBXBuildFile; fileRef = 65B1654D1B9747240052EF8D /* Ono.framework.dSYM */; };
 		65B165561B9747350052EF8D /* PureLayout.framework.dSYM in Copy symolication files */ = {isa = PBXBuildFile; fileRef = 65B1654E1B9747240052EF8D /* PureLayout.framework.dSYM */; };
 		65B165571B9747350052EF8D /* WebImage.framework.dSYM in Copy symolication files */ = {isa = PBXBuildFile; fileRef = 65B1654F1B9747240052EF8D /* WebImage.framework.dSYM */; };
+		65B165591B9789C00052EF8D /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65B165581B9789C00052EF8D /* Entitlements.plist */; };
 		65C97A161B8A5CF900088679 /* TabBarControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C97A151B8A5CF900088679 /* TabBarControllerSpec.swift */; };
 		65C97A181B8A5D2F00088679 /* IssuesTableViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C97A171B8A5D2F00088679 /* IssuesTableViewControllerSpec.swift */; };
 		65C97A1A1B8A5D5900088679 /* OrganizeTableViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C97A191B8A5D5900088679 /* OrganizeTableViewControllerSpec.swift */; };
@@ -190,6 +191,7 @@
 		65B1654D1B9747240052EF8D /* Ono.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Ono.framework.dSYM; path = Carthage/Build/iOS/Ono.framework.dSYM; sourceTree = "<group>"; };
 		65B1654E1B9747240052EF8D /* PureLayout.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = PureLayout.framework.dSYM; path = Carthage/Build/iOS/PureLayout.framework.dSYM; sourceTree = "<group>"; };
 		65B1654F1B9747240052EF8D /* WebImage.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = WebImage.framework.dSYM; path = Carthage/Build/iOS/WebImage.framework.dSYM; sourceTree = "<group>"; };
+		65B165581B9789C00052EF8D /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		65C97A151B8A5CF900088679 /* TabBarControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarControllerSpec.swift; sourceTree = "<group>"; };
 		65C97A171B8A5D2F00088679 /* IssuesTableViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuesTableViewControllerSpec.swift; sourceTree = "<group>"; };
 		65C97A191B8A5D5900088679 /* OrganizeTableViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizeTableViewControllerSpec.swift; sourceTree = "<group>"; };
@@ -406,16 +408,16 @@
 		65EC4CF21B842A3D00DD4C83 /* Carthage */ = {
 			isa = PBXGroup;
 			children = (
-				65B1654C1B9747240052EF8D /* KSDeferred.framework.dSYM */,
-				65B1654D1B9747240052EF8D /* Ono.framework.dSYM */,
-				65B1654E1B9747240052EF8D /* PureLayout.framework.dSYM */,
-				65B1654F1B9747240052EF8D /* WebImage.framework.dSYM */,
 				650763131B8AB79F00BA0659 /* KSDeferred.framework */,
+				65B1654C1B9747240052EF8D /* KSDeferred.framework.dSYM */,
 				65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */,
 				658AA5051B8AB166003A9854 /* Ono.framework */,
+				65B1654D1B9747240052EF8D /* Ono.framework.dSYM */,
 				65CA5E981B86E76D0001D870 /* PureLayout.framework */,
+				65B1654E1B9747240052EF8D /* PureLayout.framework.dSYM */,
 				65EC4CED1B842A1900DD4C83 /* Quick.framework */,
 				65AD23AE1B96413200C32A02 /* WebImage.framework */,
+				65B1654F1B9747240052EF8D /* WebImage.framework.dSYM */,
 			);
 			name = Carthage;
 			sourceTree = "<group>";
@@ -531,6 +533,7 @@
 		8233FC0A1B7C28FB00A5E9ED /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				65B165581B9789C00052EF8D /* Entitlements.plist */,
 				8233FC0B1B7C28FB00A5E9ED /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -658,13 +661,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65B165591B9789C00052EF8D /* Entitlements.plist in Resources */,
 				8233FC161B7C28FB00A5E9ED /* Images.xcassets in Resources */,
 				65B165501B9747240052EF8D /* KSDeferred.framework.dSYM in Resources */,
-				65B165521B9747240052EF8D /* PureLayout.framework.dSYM in Resources */,
 				65EDD6241B8BB82E00F545B8 /* Lato-Regular.ttf in Resources */,
-				65B165511B9747240052EF8D /* Ono.framework.dSYM in Resources */,
 				65F5F6611B8A3CB00049353C /* Localizable.strings in Resources */,
 				65EDD6271B8BBA3800F545B8 /* Lora-Bold.ttf in Resources */,
+				65B165511B9747240052EF8D /* Ono.framework.dSYM in Resources */,
+				65B165521B9747240052EF8D /* PureLayout.framework.dSYM in Resources */,
 				65B165531B9747240052EF8D /* WebImage.framework.dSYM in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
