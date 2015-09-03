@@ -40,9 +40,6 @@
 		6587FF5A1B8A7E3200AC65F1 /* Issue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6587FF591B8A7E3200AC65F1 /* Issue.swift */; };
 		6587FF5C1B8A7FA500AC65F1 /* ConcreteIssueRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6587FF5B1B8A7FA500AC65F1 /* ConcreteIssueRepository.swift */; };
 		6587FF5E1B8A818A00AC65F1 /* IssueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6587FF5D1B8A818A00AC65F1 /* IssueTableViewCell.swift */; };
-		6587FF601B8A88BE00AC65F1 /* OrganizeItemRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6587FF5F1B8A88BE00AC65F1 /* OrganizeItemRepository.swift */; };
-		6587FF621B8A88D600AC65F1 /* OrganizeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6587FF611B8A88D600AC65F1 /* OrganizeItem.swift */; };
-		6587FF641B8A88FC00AC65F1 /* ConcreteOrganizeItemRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6587FF631B8A88FC00AC65F1 /* ConcreteOrganizeItemRepository.swift */; };
 		6587FF661B8A8EA800AC65F1 /* TableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6587FF651B8A8EA800AC65F1 /* TableHeaderView.swift */; };
 		658AA5061B8AB166003A9854 /* Ono.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 658AA5051B8AB166003A9854 /* Ono.framework */; };
 		659A12031B8BA5CF00BE08F4 /* FakeOperationQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659A12021B8BA5CF00BE08F4 /* FakeOperationQueue.swift */; };
@@ -58,9 +55,10 @@
 		65B165561B9747350052EF8D /* PureLayout.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 65B1654E1B9747240052EF8D /* PureLayout.framework.dSYM */; };
 		65B165571B9747350052EF8D /* WebImage.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 65B1654F1B9747240052EF8D /* WebImage.framework.dSYM */; };
 		65B165591B9789C00052EF8D /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65B165581B9789C00052EF8D /* Entitlements.plist */; };
+		65B1655B1B97E3300052EF8D /* OrganizeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B1655A1B97E3300052EF8D /* OrganizeController.swift */; };
+		65B1655D1B97E3CD0052EF8D /* OrganizeControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B1655C1B97E3CD0052EF8D /* OrganizeControllerSpec.swift */; };
 		65C97A161B8A5CF900088679 /* TabBarControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C97A151B8A5CF900088679 /* TabBarControllerSpec.swift */; };
 		65C97A181B8A5D2F00088679 /* IssuesTableViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C97A171B8A5D2F00088679 /* IssuesTableViewControllerSpec.swift */; };
-		65C97A1A1B8A5D5900088679 /* OrganizeTableViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C97A191B8A5D5900088679 /* OrganizeTableViewControllerSpec.swift */; };
 		65CA5E851B86CA930001D870 /* SpecAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CA5E841B86CA930001D870 /* SpecAppDelegate.swift */; };
 		65CA5E871B86CAAF0001D870 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CA5E861B86CAAF0001D870 /* main.swift */; };
 		65CA5E881B86CABB0001D870 /* SpecAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CA5E841B86CA930001D870 /* SpecAppDelegate.swift */; };
@@ -94,7 +92,6 @@
 		8233FC161B7C28FB00A5E9ED /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8233FC151B7C28FB00A5E9ED /* Images.xcassets */; };
 		8233FC301B7C48A500A5E9ED /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8233FC2F1B7C48A500A5E9ED /* NewsTableViewController.swift */; };
 		8233FC321B7C4A9600A5E9ED /* IssuesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8233FC311B7C4A9600A5E9ED /* IssuesTableViewController.swift */; };
-		8233FC341B7C4AC200A5E9ED /* OrganizeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8233FC331B7C4AC200A5E9ED /* OrganizeTableViewController.swift */; };
 		8233FC361B7C4AD200A5E9ED /* ConnectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8233FC351B7C4AD200A5E9ED /* ConnectTableViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -170,9 +167,6 @@
 		6587FF591B8A7E3200AC65F1 /* Issue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Issue.swift; sourceTree = "<group>"; };
 		6587FF5B1B8A7FA500AC65F1 /* ConcreteIssueRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteIssueRepository.swift; sourceTree = "<group>"; };
 		6587FF5D1B8A818A00AC65F1 /* IssueTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueTableViewCell.swift; sourceTree = "<group>"; };
-		6587FF5F1B8A88BE00AC65F1 /* OrganizeItemRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizeItemRepository.swift; sourceTree = "<group>"; };
-		6587FF611B8A88D600AC65F1 /* OrganizeItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizeItem.swift; sourceTree = "<group>"; };
-		6587FF631B8A88FC00AC65F1 /* ConcreteOrganizeItemRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteOrganizeItemRepository.swift; sourceTree = "<group>"; };
 		6587FF651B8A8EA800AC65F1 /* TableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableHeaderView.swift; sourceTree = "<group>"; };
 		658AA5051B8AB166003A9854 /* Ono.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Ono.framework; path = Carthage/Build/iOS/Ono.framework; sourceTree = "<group>"; };
 		659A12021B8BA5CF00BE08F4 /* FakeOperationQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeOperationQueue.swift; sourceTree = "<group>"; };
@@ -188,9 +182,10 @@
 		65B1654E1B9747240052EF8D /* PureLayout.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = PureLayout.framework.dSYM; path = Carthage/Build/iOS/PureLayout.framework.dSYM; sourceTree = "<group>"; };
 		65B1654F1B9747240052EF8D /* WebImage.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = WebImage.framework.dSYM; path = Carthage/Build/iOS/WebImage.framework.dSYM; sourceTree = "<group>"; };
 		65B165581B9789C00052EF8D /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
+		65B1655A1B97E3300052EF8D /* OrganizeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizeController.swift; sourceTree = "<group>"; };
+		65B1655C1B97E3CD0052EF8D /* OrganizeControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizeControllerSpec.swift; sourceTree = "<group>"; };
 		65C97A151B8A5CF900088679 /* TabBarControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarControllerSpec.swift; sourceTree = "<group>"; };
 		65C97A171B8A5D2F00088679 /* IssuesTableViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuesTableViewControllerSpec.swift; sourceTree = "<group>"; };
-		65C97A191B8A5D5900088679 /* OrganizeTableViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizeTableViewControllerSpec.swift; sourceTree = "<group>"; };
 		65CA5E841B86CA930001D870 /* SpecAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecAppDelegate.swift; sourceTree = "<group>"; };
 		65CA5E861B86CAAF0001D870 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		65CA5E8B1B86CB6B0001D870 /* ConcreteNewsItemRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteNewsItemRepository.swift; sourceTree = "<group>"; };
@@ -225,7 +220,6 @@
 		8233FC231B7C28FB00A5E9ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8233FC2F1B7C48A500A5E9ED /* NewsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
 		8233FC311B7C4A9600A5E9ED /* IssuesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuesTableViewController.swift; sourceTree = "<group>"; };
-		8233FC331B7C4AC200A5E9ED /* OrganizeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizeTableViewController.swift; sourceTree = "<group>"; };
 		8233FC351B7C4AD200A5E9ED /* ConnectTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -365,7 +359,6 @@
 				65324D5A1B8AA00D00BC864F /* ConnectItem.swift */,
 				6587FF591B8A7E3200AC65F1 /* Issue.swift */,
 				655B57BC1B86C16F00E69C0C /* NewsItem.swift */,
-				6587FF611B8A88D600AC65F1 /* OrganizeItem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -377,7 +370,6 @@
 				659F0E1B1B95EC0B0049FA12 /* ImageRepository.swift */,
 				6587FF571B8A7E1000AC65F1 /* IssueRepository.swift */,
 				65EC4CF71B866B9200DD4C83 /* NewsItemRepository.swift */,
-				6587FF5F1B8A88BE00AC65F1 /* OrganizeItemRepository.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -426,7 +418,6 @@
 				659F0E1D1B95EC780049FA12 /* ConcreteImageRepository.swift */,
 				6587FF5B1B8A7FA500AC65F1 /* ConcreteIssueRepository.swift */,
 				65CA5E8B1B86CB6B0001D870 /* ConcreteNewsItemRepository.swift */,
-				6587FF631B8A88FC00AC65F1 /* ConcreteOrganizeItemRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -448,7 +439,7 @@
 				65F5F6531B8967630049353C /* NavigationControllerSpec.swift */,
 				65DE8D921B955E15008C239F /* NewsItemControllerSpec.swift */,
 				65EC4CF31B84443100DD4C83 /* NewsTableViewControllerSpec.swift */,
-				65C97A191B8A5D5900088679 /* OrganizeTableViewControllerSpec.swift */,
+				65B1655C1B97E3CD0052EF8D /* OrganizeControllerSpec.swift */,
 				65C97A151B8A5CF900088679 /* TabBarControllerSpec.swift */,
 			);
 			path = "View Controllers";
@@ -567,7 +558,7 @@
 				65F5F6581B8968440049353C /* NavigationController.swift */,
 				653885211B94E67400DCA808 /* NewsItemController.swift */,
 				8233FC2F1B7C48A500A5E9ED /* NewsTableViewController.swift */,
-				8233FC331B7C4AC200A5E9ED /* OrganizeTableViewController.swift */,
+				65B1655A1B97E3300052EF8D /* OrganizeController.swift */,
 				65F5F65C1B896FFF0049353C /* TabBarController.swift */,
 			);
 			path = "View Controllers";
@@ -711,7 +702,6 @@
 				653885271B94E91800DCA808 /* ConcreteNewsItemControllerProvider.swift in Sources */,
 				65EDD62F1B8BCA1C00F545B8 /* ConcreteNewsItemDeserializer.swift in Sources */,
 				65CA5E8C1B86CB6B0001D870 /* ConcreteNewsItemRepository.swift in Sources */,
-				6587FF641B8A88FC00AC65F1 /* ConcreteOrganizeItemRepository.swift in Sources */,
 				650763241B8B768300BA0659 /* ConcreteURLProvider.swift in Sources */,
 				650763261B8B76C200BA0659 /* ConcreteXMLClient.swift in Sources */,
 				65324D5B1B8AA00D00BC864F /* ConnectItem.swift in Sources */,
@@ -735,9 +725,7 @@
 				8233FC301B7C48A500A5E9ED /* NewsTableViewController.swift in Sources */,
 				6538851E1B90F8DA00DCA808 /* NSJSONSerializationProvider.swift in Sources */,
 				652860A51B8B93A500899FAF /* ONOXMLDocumentProvider.swift in Sources */,
-				6587FF621B8A88D600AC65F1 /* OrganizeItem.swift in Sources */,
-				6587FF601B8A88BE00AC65F1 /* OrganizeItemRepository.swift in Sources */,
-				8233FC341B7C4AC200A5E9ED /* OrganizeTableViewController.swift in Sources */,
+				65B1655B1B97E3300052EF8D /* OrganizeController.swift in Sources */,
 				65CA5E881B86CABB0001D870 /* SpecAppDelegate.swift in Sources */,
 				65F5F65D1B896FFF0049353C /* TabBarController.swift in Sources */,
 				6587FF661B8A8EA800AC65F1 /* TableHeaderView.swift in Sources */,
@@ -774,7 +762,7 @@
 				65F5F6541B8967630049353C /* NavigationControllerSpec.swift in Sources */,
 				65DE8D931B955E15008C239F /* NewsItemControllerSpec.swift in Sources */,
 				65EC4CF41B84443100DD4C83 /* NewsTableViewControllerSpec.swift in Sources */,
-				65C97A1A1B8A5D5900088679 /* OrganizeTableViewControllerSpec.swift in Sources */,
+				65B1655D1B97E3CD0052EF8D /* OrganizeControllerSpec.swift in Sources */,
 				65CA5E851B86CA930001D870 /* SpecAppDelegate.swift in Sources */,
 				65C97A161B8A5CF900088679 /* TabBarControllerSpec.swift in Sources */,
 				65AD23B21B968D6800C32A02 /* TestUtils.swift in Sources */,

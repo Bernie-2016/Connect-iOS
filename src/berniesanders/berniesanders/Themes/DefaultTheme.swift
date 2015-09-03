@@ -59,24 +59,6 @@ class DefaultTheme : Theme {
         return self.cornflowerBlueColor()
     }
     
-    // MARK: Organize
-    
-    func organizeFeedTitleFont() -> UIFont {
-        return UIFont(name: "Lora-Bold", size: 14)!
-    }
-    
-    func organizeFeedTitleColor() -> UIColor {
-        return self.cornflowerBlueColor()        
-    }
-    
-    func organizeFeedDateFont() -> UIFont {
-        return UIFont(name: "Lora-Bold", size: 12)!
-    }
-    
-    func organizeFeedDateColor() -> UIColor {
-        return self.carnationColor()
-    }
-    
     // MARK: Feed header
     
     func feedHeaderBackgroundColor() -> UIColor {
