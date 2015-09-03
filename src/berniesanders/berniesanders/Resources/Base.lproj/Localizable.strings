@@ -3,6 +3,7 @@
 
 "NewsFeed_tabBarTitle" = "News";
 "NewsFeed_navigationTitle" = "NEWS";
+"NewsFeed_backButtonTitle" = "Back";
 
 // Issues
 
@@ -18,4 +19,3 @@
 
 "Connect_tabBarTitle" = "Connect";
 "Connect_navigationTitle" = "CONNECT";
-

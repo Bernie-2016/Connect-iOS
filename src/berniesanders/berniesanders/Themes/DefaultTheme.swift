@@ -102,7 +102,7 @@ class DefaultTheme : Theme {
     }
     
     func newsItemTitleFont() -> UIFont {
-        return UIFont(name: "Lora-Bold", size: 15)!
+        return UIFont(name: "Lato-Regular", size: 15)!
     }
     
     func newsItemTitleColor() -> UIColor {

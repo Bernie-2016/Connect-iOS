@@ -26,9 +26,13 @@ public class NewsItemController : UIViewController {
         self.theme = theme
         
         super.init(nibName: nil, bundle: nil)
+            
+        self.hidesBottomBarWhenPushed = true
     }
     
     override public func viewDidLoad() {
+        super.viewDidLoad()
+        
         let attributes = [
             NSFontAttributeName: theme.tabBarFont(),
             NSForegroundColorAttributeName: theme.tabBarTextColor()

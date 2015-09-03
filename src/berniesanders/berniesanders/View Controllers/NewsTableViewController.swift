@@ -35,6 +35,12 @@ public class NewsTableViewController: UITableViewController {
         self.tabBarItem.setTitleTextAttributes(attributes, forState: .Selected)
         self.title = NSLocalizedString("NewsFeed_tabBarTitle", comment: "")
         self.navigationItem.title = NSLocalizedString("NewsFeed_navigationTitle", comment: "")
+            
+        let backBarButtonItem = UIBarButtonItem(title: NSLocalizedString("NewsFeed_backButtonTitle", comment: ""),
+            style: UIBarButtonItemStyle.Plain,
+            target: nil, action: nil)
+        
+        self.navigationItem.backBarButtonItem = backBarButtonItem
     }
 
     public required init!(coder aDecoder: NSCoder!) {

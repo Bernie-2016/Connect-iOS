@@ -59,6 +59,10 @@ class NewsItemControllerSpec : QuickSpec {
             )
         }
         
+        it("should hide the tab bar when pushed") {
+            expect(self.subject.hidesBottomBarWhenPushed).to(beTrue())
+        }
+        
         describe("when the view loads") {
             beforeEach {
                 self.subject.view.layoutIfNeeded()

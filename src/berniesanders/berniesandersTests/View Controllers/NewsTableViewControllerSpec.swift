@@ -55,7 +55,6 @@ class FakeNewsItemControllerProvider : berniesanders.NewsItemControllerProvider 
 
 class NewsTableViewControllerSpecs: QuickSpec {
     var subject: NewsTableViewController!
-    let navigationController = UINavigationController()
     let newsItemRepository: FakeNewsItemRepository! =  FakeNewsItemRepository()
     let theme: Theme! = NewsFakeTheme()
     let newsItemControllerProvider = FakeNewsItemControllerProvider()
@@ -73,8 +72,6 @@ class NewsTableViewControllerSpecs: QuickSpec {
                 dateFormatter: dateFormatter,
                 newsItemControllerProvider: self.newsItemControllerProvider
             )
-            
-            self.navigationController.pushViewController(self.subject, animated: false)
         }
         
         it("has the correct tab bar title") {
@@ -83,6 +80,10 @@ class NewsTableViewControllerSpecs: QuickSpec {
         
         it("has the correct navigation item title") {
             expect(self.subject.navigationItem.title).to(equal("NEWS"))
+        }
+        
+        it("should set the back bar button item title correctly") {
+            expect(self.subject.navigationItem.backBarButtonItem?.title).to(equal("Back"))
         }
         
         it("styles its tab bar item from the theme") {
@@ -169,15 +170,15 @@ class NewsTableViewControllerSpecs: QuickSpec {
             xit("should push a correctly configured news item view controller onto the nav stack") {
                 // PENDING: need to pull in PCK
                 
-                let tableView = self.subject.tableView
-                                println(self.navigationController.topViewController)
-                tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
-                
-                println(self.navigationController.topViewController)
-                println(self.subject.navigationController)
-                println(self.subject.navigationController?.topViewController)
-                expect(self.newsItemControllerProvider.lastNewsItem).to(beIdenticalTo(expectedNewsItem))
-                expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.newsItemControllerProvider.controller))
+//                let tableView = self.subject.tableView
+//                                println(self.navigationController.topViewController)
+//                tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
+//                
+//                println(self.navigationController.topViewController)
+//                println(self.subject.navigationController)
+//                println(self.subject.navigationController?.topViewController)
+//                expect(self.newsItemControllerProvider.lastNewsItem).to(beIdenticalTo(expectedNewsItem))
+//                expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.newsItemControllerProvider.controller))
             }
         }
     }
