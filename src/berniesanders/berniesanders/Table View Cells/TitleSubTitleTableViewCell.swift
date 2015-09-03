@@ -21,13 +21,15 @@ public class TitleSubTitleTableViewCell : UITableViewCell {
         self.layoutMargins = UIEdgeInsetsZero
         self.preservesSuperviewLayoutMargins = false
         
-        self.contentView.addSubview(titleLabel)
-        titleLabel.autoPinEdgeToSuperviewEdge(ALEdge.Top, withInset: 15)
-        titleLabel.autoPinEdgeToSuperviewEdge(ALEdge.Left, withInset: 20)
-        titleLabel.autoSetDimension(ALDimension.Width, toSize: self.bounds.width - 30)
-
         self.contentView.addSubview(dateLabel)
-        dateLabel.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: titleLabel, withOffset: 0)
-        dateLabel.autoPinEdge(ALEdge.Left, toEdge: ALEdge.Left, ofView: titleLabel, withOffset: 0)
+        dateLabel.autoPinEdgeToSuperviewEdge(ALEdge.Top, withInset: 4)
+        dateLabel.autoPinEdgeToSuperviewEdge(ALEdge.Left, withInset: 8)
+
+        
+        self.contentView.addSubview(titleLabel)
+        titleLabel.numberOfLines = 2
+        titleLabel.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: dateLabel, withOffset: 4)
+        titleLabel.autoPinEdge(ALEdge.Left, toEdge: ALEdge.Left, ofView: dateLabel, withOffset: 0)
+        titleLabel.autoSetDimension(.Width, toSize: self.bounds.width - 85, relation: .LessThanOrEqual)
     }
 }

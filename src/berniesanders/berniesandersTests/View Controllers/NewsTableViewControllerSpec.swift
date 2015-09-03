@@ -82,7 +82,7 @@ class NewsTableViewControllerSpecs: QuickSpec {
         }
         
         it("has the correct navigation item title") {
-            expect(self.subject.navigationItem.title).to(equal("HOME"))
+            expect(self.subject.navigationItem.title).to(equal("NEWS"))
         }
         
         it("styles its tab bar item from the theme") {

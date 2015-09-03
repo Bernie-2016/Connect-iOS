@@ -38,7 +38,7 @@ class DefaultTheme : Theme {
     }
     
     func newsFeedTitleFont() -> UIFont {
-        return UIFont(name: "Lora-Bold", size: 14)!
+        return UIFont(name: "Lato-Regular", size: 14)!
     }
     
     func newsFeedDateColor() -> UIColor {
@@ -76,7 +76,7 @@ class DefaultTheme : Theme {
     // MARK: Connect
     
     func connectFeedTitleFont() -> UIFont {
-        return UIFont(name: "Lora-Bold", size: 14)!
+        return UIFont(name: "Lato-Regular", size: 14)!
     }
     
     func connectFeedTitleColor() -> UIColor {
