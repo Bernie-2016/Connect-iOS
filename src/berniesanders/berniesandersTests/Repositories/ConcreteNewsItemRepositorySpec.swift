@@ -2,7 +2,6 @@ import berniesanders
 import Quick
 import Nimble
 import KSDeferred
-import Ono
 
 class NewsItemRepositoryFakeURLProvider: FakeURLProvider {
     override func newsFeedURL() -> NSURL! {
@@ -12,7 +11,7 @@ class NewsItemRepositoryFakeURLProvider: FakeURLProvider {
 
 class FakeNewsItemDeserializer: NewsItemDeserializer {
     var lastReceivedJSONDictionary: NSDictionary!
-    var returnedNewsItems = [NewsItem(title: "fake news", date: NSDate(), body: "fake body", imageURL: NSURL())]
+    let returnedNewsItems = [NewsItem(title: "fake news", date: NSDate(), body: "fake body", imageURL: NSURL())]
     
     func deserializeNewsItems(jsonDictionary: NSDictionary) -> Array<NewsItem> {
         self.lastReceivedJSONDictionary = jsonDictionary

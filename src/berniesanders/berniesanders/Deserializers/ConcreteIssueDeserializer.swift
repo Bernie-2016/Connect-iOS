@@ -1,18 +1,22 @@
 import Foundation
-import Ono
 
 public class ConcreteIssueDeserializer : IssueDeserializer {
     public init() {
         
     }
     
-    public func deserializeIssues(xmlDocument: ONOXMLDocument) -> Array<Issue> {
+    public func deserializeIssues(jsonDictionary: NSDictionary) -> Array<Issue> {
         var issues = [Issue]()
         
-        xmlDocument.enumerateElementsWithXPath("//item", usingBlock: { (itemElement, index, stop) -> Void in
-            var title = itemElement.firstChildWithXPath("title").stringValue()
-            issues.append(Issue(title: title))
-        })
+        var hitsDictionary = jsonDictionary["hits"] as! NSDictionary;
+        var issueDictionaries = hitsDictionary["hits"] as! Array<NSDictionary>;
+        for(issueDictionary: NSDictionary) in issueDictionaries {
+            var sourceDictionary = issueDictionary["_source"] as! NSDictionary;
+            var title = sourceDictionary["title"] as! String
+            
+            var issue = Issue(title: title)
+            issues.append(issue);
+        }
         
         return issues
     }

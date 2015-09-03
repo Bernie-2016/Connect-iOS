@@ -1,5 +1,4 @@
 import Foundation
-import Ono
 
 public class ConcreteNewsItemRepository : NewsItemRepository {
     private let urlProvider: URLProvider!

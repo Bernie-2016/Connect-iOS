@@ -9,12 +9,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
         let sharedURLSession = NSURLSession.sharedSession()
         let defaultTheme = DefaultTheme()
         let urlProvider = ConcreteURLProvider()
-        let onoXMLDocumentProvider = ONOXMLDocumentProvider()
         let jsonSerializerProvider = NSJSONSerializationProvider()
-        let xmlClient = ConcreteXMLClient(
-            urlSession: sharedURLSession,
-            onoXMLDocumentProvider: onoXMLDocumentProvider
-        )
         let jsonClient = ConcreteJSONClient(
             urlSession: sharedURLSession,
             jsonSerializationProvider: jsonSerializerProvider
@@ -50,7 +45,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let issueRepository = ConcreteIssueRepository(
             urlProvider: urlProvider,
-            xmlClient: xmlClient,
+            jsonClient: jsonClient,
             issueDeserializer: issueDeserializer,
             operationQueue: mainQueue
         )

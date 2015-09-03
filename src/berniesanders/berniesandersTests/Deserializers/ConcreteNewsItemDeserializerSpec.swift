@@ -2,7 +2,6 @@ import Foundation
 import Quick
 import Nimble
 import berniesanders
-import Ono
 
 class ConcreteNewsItemDeserializerSpec : QuickSpec {
     var subject: ConcreteNewsItemDeserializer!

@@ -2,7 +2,6 @@ import berniesanders
 import Quick
 import Nimble
 import KSDeferred
-import Ono
 
 class IssueRepositoryFakeURLProvider: FakeURLProvider {
     override func issuesFeedURL() -> NSURL! {
@@ -11,18 +10,18 @@ class IssueRepositoryFakeURLProvider: FakeURLProvider {
 }
 
 class FakeIssueDeserializer: IssueDeserializer {
-    var lastReceivedXMLDocument: ONOXMLDocument!
-    var returnedIssues = [Issue(title: "fake issue")]
+    var lastReceivedJSONDictionary: NSDictionary!
+    let returnedIssues = [Issue(title: "fake issue")]
     
-    func deserializeIssues(xmlDocument: ONOXMLDocument) -> Array<Issue> {
-        self.lastReceivedXMLDocument = xmlDocument
+    func deserializeIssues(jsonDictionary: NSDictionary) -> Array<Issue> {
+        self.lastReceivedJSONDictionary = jsonDictionary
         return self.returnedIssues
     }
 }
 
 class ConcreteIssueRepositorySpec : QuickSpec {
     var subject: ConcreteIssueRepository!
-    let xmlClient = FakeXMLClient()
+    let jsonClient = FakeJSONClient()
     let urlProvider = IssueRepositoryFakeURLProvider()
     let issueDeserializer = FakeIssueDeserializer()
     let operationQueue = FakeOperationQueue()
@@ -32,7 +31,7 @@ class ConcreteIssueRepositorySpec : QuickSpec {
     override func spec() {
         self.subject = ConcreteIssueRepository(
             urlProvider: self.urlProvider,
-            xmlClient: self.xmlClient,
+            jsonClient: self.jsonClient,
             issueDeserializer: issueDeserializer,
             operationQueue: self.operationQueue
         )
@@ -47,22 +46,22 @@ class ConcreteIssueRepositorySpec : QuickSpec {
             }
             
             it("makes a single request to the XML Client with the correct URL") {
-                expect(self.xmlClient.deferredsByURL.count).to(equal(1))
-                expect(self.xmlClient.deferredsByURL.keys.first).to(equal(NSURL(string: "https://example.com/bernese/")))
+                expect(self.jsonClient.deferredsByURL.count).to(equal(1))
+                expect(self.jsonClient.deferredsByURL.keys.first).to(equal(NSURL(string: "https://example.com/bernese/")))
             }
             
-            context("when the request to the XML client succeeds") {
-                var expectedXMLDocument = ONOXMLDocument()
+            context("when the request to the JSON client succeeds") {
+                var expectedJSONDictionary = NSDictionary()
                 var expectedIssues = self.issueDeserializer.returnedIssues
                 
                 beforeEach {
-                    var deferred: KSDeferred = self.xmlClient.deferredsByURL[self.urlProvider.issuesFeedURL()]!
+                    var deferred: KSDeferred = self.jsonClient.deferredsByURL[self.urlProvider.issuesFeedURL()]!
 
-                    deferred.resolveWithValue(expectedXMLDocument)
+                    deferred.resolveWithValue(expectedJSONDictionary)
                 }
                 
                 it("passes the xml document to the issue deserialzier") {
-                    expect(self.issueDeserializer.lastReceivedXMLDocument).to(beIdenticalTo(expectedXMLDocument))
+                    expect(self.issueDeserializer.lastReceivedJSONDictionary).to(beIdenticalTo(expectedJSONDictionary))
                 }
                 
                 it("calls the completion handler with the deserialized value objects on the operation queue") {
@@ -72,9 +71,9 @@ class ConcreteIssueRepositorySpec : QuickSpec {
                 }
             }
             
-            context("when the request to the XML client fails") {
+            context("when the request to the JSON client fails") {
                 it("forwards the error to the caller on the operation queue") {
-                    var deferred: KSDeferred = self.xmlClient.deferredsByURL[self.urlProvider.issuesFeedURL()]!
+                    var deferred: KSDeferred = self.jsonClient.deferredsByURL[self.urlProvider.issuesFeedURL()]!
                     var expectedError = NSError(domain: "somedomain", code: 666, userInfo: nil)
                     deferred.rejectWithError(expectedError)
                     

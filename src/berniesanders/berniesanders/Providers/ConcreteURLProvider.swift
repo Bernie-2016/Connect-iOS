@@ -2,7 +2,7 @@ import Foundation
 
 class ConcreteURLProvider : URLProvider {
     func issuesFeedURL() -> NSURL! {
-        return NSURL(string: "https://berniesanders.com/issues/feed/")
+        return NSURL(string: "http://23.253.159.164/sites_en/official/_search?q=article_type:Issues&sort=published_time:desc")
     }
     
     func newsFeedURL() -> NSURL! {

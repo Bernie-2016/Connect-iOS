@@ -2,7 +2,6 @@ import Foundation
 import Quick
 import Nimble
 import berniesanders
-import Ono
 
 class ConcreteIssueDeserializerSpec : QuickSpec {
     var subject: ConcreteIssueDeserializer!
@@ -13,21 +12,20 @@ class ConcreteIssueDeserializerSpec : QuickSpec {
         }
         
         it("deserializes the issues correctly") {
-            let bundle = NSBundle(forClass: ConcreteIssueDeserializerSpec.self)
-            let path = bundle.pathForResource("issue_feed", ofType: "xml")
-            let data = NSData(contentsOfFile: path!)
+           let data = TestUtils.dataFromFixtureFileNamed("issue_feed", type: "json")
             var error: NSError?
 
-            let xmlDocument = ONOXMLDocument(data: data, error: &error)
+            
+            let jsonDictionary = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.allZeros, error: &error) as! NSDictionary
 
-            var issues = self.subject.deserializeIssues(xmlDocument)
+            var issues = self.subject.deserializeIssues(jsonDictionary)
             
             expect(issues.count).to(equal(2))
             var issueA = issues[0]
-            expect(issueA.title).to(equal("Income and Wealth Inequality"))
+            expect(issueA.title).to(equal("Fighting for Women\u{2019}s Rights"))
             
             var issueB = issues[1]
-            expect(issueB.title).to(equal("Getting Big Money Out of Politics"))
+            expect(issueB.title).to(equal("Reforming Wall Street"))
         }
     }
 }
