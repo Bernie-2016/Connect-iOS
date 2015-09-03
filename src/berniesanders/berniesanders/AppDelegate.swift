@@ -4,10 +4,7 @@ import WebImage
 public class AppDelegate: UIResponder, UIApplicationDelegate {
     public var window: UIWindow?
 
-    public func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
-        application.statusBarStyle = .LightContent
-        
+    public func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {        
         let mainQueue = NSOperationQueue.mainQueue()
         let sharedURLSession = NSURLSession.sharedSession()
         let defaultTheme = DefaultTheme()
@@ -65,7 +62,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
         let issuesNavigationController = NavigationController(theme: defaultTheme)
         issuesNavigationController.pushViewController(issuesController, animated: false)
         
-        let organizeController = OrganizeController(theme: defaultTheme)
+        let organizeController = OrganizeController(urlProvider: urlProvider, theme: defaultTheme)
         
         let connectController = ConnectTableViewController(
             theme: defaultTheme,

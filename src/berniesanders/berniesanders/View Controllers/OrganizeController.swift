@@ -1,7 +1,13 @@
 import UIKit
+import PureLayout
 
 public class OrganizeController : UIViewController {
-    public init(theme: Theme) {
+    public let webView = UIWebView()
+    var urlProvider : URLProvider!
+    
+    public init(urlProvider: URLProvider, theme: Theme) {
+        self.urlProvider = urlProvider
+        
         super.init(nibName: nil, bundle: nil)
         
         self.tabBarItem.image = UIImage(named: "organizeTabBarIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
@@ -21,9 +27,18 @@ public class OrganizeController : UIViewController {
     }
     
     public override func viewDidLoad() {
-        var label = UILabel()
-        label.text = "GET ORGANIZED!"
+        super.viewDidLoad()
+        self.setNeedsStatusBarAppearanceUpdate()
         
-        self.view.addSubview(label)
+        var urlRequest = NSURLRequest(URL: self.urlProvider.bernieCrowdURL())
+        self.webView.loadRequest(urlRequest)
+        
+        self.webView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.view.addSubview(self.webView)
+        self.webView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsMake(20.0, 0.0, 0.0, 0.0))
+    }
+    
+    public override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.Default
     }
 }

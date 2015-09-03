@@ -13,12 +13,21 @@ class OrganizeFakeTheme : FakeTheme {
     }
 }
 
+class OrganizeFakeURLProvider : FakeURLProvider {
+    override func bernieCrowdURL() -> NSURL! {
+        return NSURL(string: "http://example.com/crowd")
+    }
+}
+
 class OrganizeControllerSpec : QuickSpec {
     var subject : OrganizeController!
     
     override func spec() {
         beforeEach {
-            self.subject = OrganizeController(theme: OrganizeFakeTheme())
+            self.subject = OrganizeController(
+                urlProvider: OrganizeFakeURLProvider(),
+                theme: OrganizeFakeTheme()
+            )
         }
         
         it("has the correct tab bar title") {
@@ -45,6 +54,23 @@ class OrganizeControllerSpec : QuickSpec {
             
             expect(selectedTextColor).to(equal(UIColor.purpleColor()))
             expect(selectedFont).to(equal(UIFont.systemFontOfSize(123)))
+        }
+        
+        context("When the view loads") {
+            beforeEach {
+                self.subject.view.layoutSubviews()
+            }
+            
+            it("should add the webview as a subview") {
+                var subviews = self.subject.view.subviews as! [UIView]
+
+                expect(contains(subviews, self.subject.webView)).to(beTrue())
+            }
+            
+            xit("should load the BernieCrowd.org checklist into a webview") {
+                // TODO: pending adding PivotalCoreKit to test this.
+                expect(self.subject.webView.request!.URL).to(equal(NSURL(string: "http://example.com/crowd")))
+            }
         }
     }
 }
