@@ -52,7 +52,7 @@ class DefaultTheme : Theme {
     // MARK: issues
     
     func issuesFeedTitleFont() -> UIFont {
-        return UIFont(name: "Lora-Bold", size: 14)!
+        return UIFont(name: "Lato-Regular", size: 14)!
     }
     
     func issuesFeedTitleColor() -> UIColor {

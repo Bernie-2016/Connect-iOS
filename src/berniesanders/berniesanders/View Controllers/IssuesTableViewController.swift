@@ -68,6 +68,6 @@ public class IssuesTableViewController: UITableViewController {
     }
     
     public override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 60.0
+        return 80.0
     }
 }

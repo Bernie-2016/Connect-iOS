@@ -20,7 +20,7 @@ public class IssueTableViewCell : UITableViewCell {
         self.preservesSuperviewLayoutMargins = false
         
         self.contentView.addSubview(titleLabel)
-        titleLabel.autoPinEdgeToSuperviewEdge(ALEdge.Top, withInset: 20)
-        titleLabel.autoPinEdgeToSuperviewEdge(ALEdge.Left, withInset: 80)
+        titleLabel.autoPinEdgeToSuperviewEdge(ALEdge.Left, withInset: 8)
+        titleLabel.autoAlignAxisToSuperviewAxis(.Horizontal)
     }
 }
