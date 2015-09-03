@@ -53,14 +53,10 @@
 		65AD23AD1B963E2700C32A02 /* ConcreteImageRepositorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AD23AC1B963E2700C32A02 /* ConcreteImageRepositorySpec.swift */; };
 		65AD23AF1B96413200C32A02 /* WebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65AD23AE1B96413200C32A02 /* WebImage.framework */; };
 		65AD23B21B968D6800C32A02 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AD23B11B968D6800C32A02 /* TestUtils.swift */; };
-		65B165501B9747240052EF8D /* KSDeferred.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 65B1654C1B9747240052EF8D /* KSDeferred.framework.dSYM */; };
-		65B165511B9747240052EF8D /* Ono.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 65B1654D1B9747240052EF8D /* Ono.framework.dSYM */; };
-		65B165521B9747240052EF8D /* PureLayout.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 65B1654E1B9747240052EF8D /* PureLayout.framework.dSYM */; };
-		65B165531B9747240052EF8D /* WebImage.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 65B1654F1B9747240052EF8D /* WebImage.framework.dSYM */; };
-		65B165541B9747350052EF8D /* KSDeferred.framework.dSYM in Copy symolication files */ = {isa = PBXBuildFile; fileRef = 65B1654C1B9747240052EF8D /* KSDeferred.framework.dSYM */; };
-		65B165551B9747350052EF8D /* Ono.framework.dSYM in Copy symolication files */ = {isa = PBXBuildFile; fileRef = 65B1654D1B9747240052EF8D /* Ono.framework.dSYM */; };
-		65B165561B9747350052EF8D /* PureLayout.framework.dSYM in Copy symolication files */ = {isa = PBXBuildFile; fileRef = 65B1654E1B9747240052EF8D /* PureLayout.framework.dSYM */; };
-		65B165571B9747350052EF8D /* WebImage.framework.dSYM in Copy symolication files */ = {isa = PBXBuildFile; fileRef = 65B1654F1B9747240052EF8D /* WebImage.framework.dSYM */; };
+		65B165541B9747350052EF8D /* KSDeferred.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 65B1654C1B9747240052EF8D /* KSDeferred.framework.dSYM */; };
+		65B165551B9747350052EF8D /* Ono.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 65B1654D1B9747240052EF8D /* Ono.framework.dSYM */; };
+		65B165561B9747350052EF8D /* PureLayout.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 65B1654E1B9747240052EF8D /* PureLayout.framework.dSYM */; };
+		65B165571B9747350052EF8D /* WebImage.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 65B1654F1B9747240052EF8D /* WebImage.framework.dSYM */; };
 		65B165591B9789C00052EF8D /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65B165581B9789C00052EF8D /* Entitlements.plist */; };
 		65C97A161B8A5CF900088679 /* TabBarControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C97A151B8A5CF900088679 /* TabBarControllerSpec.swift */; };
 		65C97A181B8A5D2F00088679 /* IssuesTableViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C97A171B8A5D2F00088679 /* IssuesTableViewControllerSpec.swift */; };
@@ -113,18 +109,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		65B1654B1B9747070052EF8D /* Copy symolication files */ = {
+		65B1654B1B9747070052EF8D /* Copy symbolication files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
-				65B165541B9747350052EF8D /* KSDeferred.framework.dSYM in Copy symolication files */,
-				65B165551B9747350052EF8D /* Ono.framework.dSYM in Copy symolication files */,
-				65B165561B9747350052EF8D /* PureLayout.framework.dSYM in Copy symolication files */,
-				65B165571B9747350052EF8D /* WebImage.framework.dSYM in Copy symolication files */,
+				65B165541B9747350052EF8D /* KSDeferred.framework.dSYM in Copy symbolication files */,
+				65B165551B9747350052EF8D /* Ono.framework.dSYM in Copy symbolication files */,
+				65B165561B9747350052EF8D /* PureLayout.framework.dSYM in Copy symbolication files */,
+				65B165571B9747350052EF8D /* WebImage.framework.dSYM in Copy symbolication files */,
 			);
-			name = "Copy symolication files";
+			name = "Copy symbolication files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		65EC4CEF1B842A2600DD4C83 /* CopyFiles */ = {
@@ -587,8 +583,8 @@
 				8233FC031B7C28FB00A5E9ED /* Sources */,
 				8233FC041B7C28FB00A5E9ED /* Frameworks */,
 				8233FC051B7C28FB00A5E9ED /* Resources */,
+				65B1654B1B9747070052EF8D /* Copy symbolication files */,
 				65B1654A1B9746940052EF8D /* ShellScript */,
-				65B1654B1B9747070052EF8D /* Copy symolication files */,
 			);
 			buildRules = (
 			);
@@ -663,13 +659,9 @@
 			files = (
 				65B165591B9789C00052EF8D /* Entitlements.plist in Resources */,
 				8233FC161B7C28FB00A5E9ED /* Images.xcassets in Resources */,
-				65B165501B9747240052EF8D /* KSDeferred.framework.dSYM in Resources */,
 				65EDD6241B8BB82E00F545B8 /* Lato-Regular.ttf in Resources */,
 				65F5F6611B8A3CB00049353C /* Localizable.strings in Resources */,
 				65EDD6271B8BBA3800F545B8 /* Lora-Bold.ttf in Resources */,
-				65B165511B9747240052EF8D /* Ono.framework.dSYM in Resources */,
-				65B165521B9747240052EF8D /* PureLayout.framework.dSYM in Resources */,
-				65B165531B9747240052EF8D /* WebImage.framework.dSYM in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
