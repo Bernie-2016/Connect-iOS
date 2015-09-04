@@ -42,7 +42,7 @@ public class NewsItemController : UIViewController {
         
         var screenBounds = UIScreen.mainScreen().bounds
         
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = self.theme.defaultBackgroundColor()
         self.view.addSubview(self.scrollView)
         
         self.scrollView.addSubview(self.containerView)

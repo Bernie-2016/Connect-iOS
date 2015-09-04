@@ -35,6 +35,10 @@ class NewsItemFakeTheme : FakeTheme {
     override func tabBarFont() -> UIFont {
         return UIFont.systemFontOfSize(123)
     }
+    
+    override func defaultBackgroundColor() -> UIColor {
+        return UIColor.orangeColor()
+    }
 }
 
 class NewsItemControllerSpec : QuickSpec {
@@ -104,6 +108,7 @@ class NewsItemControllerSpec : QuickSpec {
             }
             
             it("styles the views according to the theme") {
+                expect(self.subject.view.backgroundColor).to(equal(UIColor.orangeColor()))
                 expect(self.subject.dateLabel.font).to(equal(UIFont.boldSystemFontOfSize(20)))
                 expect(self.subject.dateLabel.textColor).to(equal(UIColor.magentaColor()))
                 expect(self.subject.titleLabel.font).to(equal(UIFont.italicSystemFontOfSize(13)))

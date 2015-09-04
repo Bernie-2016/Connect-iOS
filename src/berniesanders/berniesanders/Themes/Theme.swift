@@ -2,6 +2,10 @@ import UIKit
 
 
 public protocol Theme {
+
+    // MARK: Global
+    
+    func defaultBackgroundColor() -> UIColor
     
     // MARK: Tab Bar
     

@@ -3,7 +3,13 @@ import UIKit
 
 class DefaultTheme : Theme {
     
-    // Mark: Tab Bar
+    // MARK: Global
+    
+    func defaultBackgroundColor() -> UIColor {
+        return UIColor.whiteColor()
+    }
+    
+    // MARK: Tab Bar
     
     func tabBarTintColor() -> UIColor {
         return self.cornflowerBlueColor()
