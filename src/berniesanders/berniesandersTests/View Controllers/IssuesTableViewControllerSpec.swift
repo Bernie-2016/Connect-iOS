@@ -37,7 +37,7 @@ class FakeIssueRepository : berniesanders.IssueRepository {
 }
 
 class FakeIssueControllerProvider : berniesanders.IssueControllerProvider {
-    let controller = IssueController(issue: Issue(title: "a title"), theme: FakeTheme())
+    let controller = IssueController(issue: Issue(title: "a title", body: "body", imageURL: NSURL()), theme: FakeTheme())
     var lastIssue: Issue?
     
     func provideInstanceWithIssue(issue: Issue) -> IssueController {
@@ -105,8 +105,8 @@ class IssuesTableViewControllerSpec: QuickSpec {
             
             describe("when the issue repository returns some issues") {
                 beforeEach {
-                    var issueA = Issue(title: "Big Money in Little DC")
-                    var issueB = Issue(title: "Long Live The NHS")
+                    var issueA = Issue(title: "Big Money in Little DC", body: "body", imageURL: NSURL())
+                    var issueB = Issue(title: "Long Live The NHS", body: "body", imageURL: NSURL())
                     
                     self.issueRepository.lastCompletionBlock!([issueA, issueB])
                 }
@@ -131,12 +131,12 @@ class IssuesTableViewControllerSpec: QuickSpec {
         }
         
         describe("Tapping on an issue") {
-            let expectedIssue = Issue(title: "expected")
+            let expectedIssue = Issue(title: "expected", body: "body", imageURL: NSURL())
             
             beforeEach {
                 self.subject.view.layoutIfNeeded()
                 self.subject.viewWillAppear(false)
-                var otherIssue = Issue(title: "unexpected")
+                var otherIssue = Issue(title: "unexpected", body: "body", imageURL: NSURL())
                 
                 var issues = [otherIssue, expectedIssue]
                 

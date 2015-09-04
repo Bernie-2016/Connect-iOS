@@ -20,7 +20,7 @@ class IssueFakeTheme : FakeTheme {
 
 class IssueControllerSpec : QuickSpec {
     var subject : IssueController!
-    let issue = Issue(title: "Some issue")
+    let issue = Issue(title: "Some issue", body: "body", imageURL: NSURL())
     
     override func spec() {
         beforeEach {

@@ -11,7 +11,7 @@ class IssueRepositoryFakeURLProvider: FakeURLProvider {
 
 class FakeIssueDeserializer: IssueDeserializer {
     var lastReceivedJSONDictionary: NSDictionary!
-    let returnedIssues = [Issue(title: "fake issue")]
+    let returnedIssues = [Issue(title: "fake issue", body: "body", imageURL: NSURL())]
     
     func deserializeIssues(jsonDictionary: NSDictionary) -> Array<Issue> {
         self.lastReceivedJSONDictionary = jsonDictionary
