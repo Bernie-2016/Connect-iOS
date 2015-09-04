@@ -2,12 +2,14 @@ import UIKit
 
 public class IssuesTableViewController: UITableViewController {
     private let issueRepository: IssueRepository!
+    private let issueControllerProvider: IssueControllerProvider!
     private let theme: Theme!
     
     private var issues: Array<Issue>!
     
-    public init(issueRepository: IssueRepository, theme: Theme) {
+    public init(issueRepository: IssueRepository, issueControllerProvider: IssueControllerProvider, theme: Theme) {
         self.issueRepository = issueRepository
+        self.issueControllerProvider = issueControllerProvider
         self.theme = theme
         self.issues = []
         
@@ -69,5 +71,12 @@ public class IssuesTableViewController: UITableViewController {
     
     public override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 70.0
+    }
+    
+    public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        var issue = self.issues[indexPath.row]
+        let controller = self.issueControllerProvider.provideInstanceWithIssue(issue)
+        
+        self.navigationController?.pushViewController(controller, animated: true)
     }
 }

@@ -36,15 +36,27 @@ class FakeIssueRepository : berniesanders.IssueRepository {
     }
 }
 
+class FakeIssueControllerProvider : berniesanders.IssueControllerProvider {
+    let controller = IssueController(issue: Issue(title: "a title"))
+    var lastIssue: Issue?
+    
+    func provideInstanceWithIssue(issue: Issue) -> IssueController {
+        self.lastIssue = issue;
+        return self.controller
+    }
+}
+
 
 class IssuesTableViewControllerSpec: QuickSpec {
     var subject: IssuesTableViewController!
     var issueRepository: FakeIssueRepository! = FakeIssueRepository()
+    var issueControllerProvider = FakeIssueControllerProvider()
     
     override func spec() {
         beforeEach {
             self.subject = IssuesTableViewController(
                 issueRepository: self.issueRepository,
+                issueControllerProvider: self.issueControllerProvider,
                 theme: IssuesFakeTheme()
             )
         }
@@ -117,5 +129,30 @@ class IssuesTableViewControllerSpec: QuickSpec {
                 }
             }
         }
+        
+        describe("Tapping on an issue") {
+            let expectedIssue = Issue(title: "expected")
+            
+            beforeEach {
+                self.subject.view.layoutIfNeeded()
+                self.subject.viewWillAppear(false)
+                var otherIssue = Issue(title: "unexpected")
+                
+                var issues = [otherIssue, expectedIssue]
+                
+                self.issueRepository.lastCompletionBlock!(issues)
+            }
+            
+            it("should push a correctly configured issue controller onto the nav stack") {
+                let tableView = self.subject.tableView
+                tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
+                
+                expect(self.issueControllerProvider.lastIssue).to(beIdenticalTo(expectedIssue))
+                
+                // TODO: bring in PCK so we can test the line below
+//                expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.issueControllerProvider.controller))
+            }
+        }
+
     }
 }

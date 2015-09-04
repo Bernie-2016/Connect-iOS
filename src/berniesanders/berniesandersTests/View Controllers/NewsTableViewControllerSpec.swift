@@ -167,17 +167,13 @@ class NewsTableViewControllerSpecs: QuickSpec {
                 self.newsItemRepository.lastCompletionBlock!(newsItems)
             }
             
-            xit("should push a correctly configured news item view controller onto the nav stack") {
-                // PENDING: need to pull in PCK
+            it("should push a correctly configured news item view controller onto the nav stack") {
+                let tableView = self.subject.tableView
+                tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
                 
-//                let tableView = self.subject.tableView
-//                                println(self.navigationController.topViewController)
-//                tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
-//                
-//                println(self.navigationController.topViewController)
-//                println(self.subject.navigationController)
-//                println(self.subject.navigationController?.topViewController)
-//                expect(self.newsItemControllerProvider.lastNewsItem).to(beIdenticalTo(expectedNewsItem))
+                expect(self.newsItemControllerProvider.lastNewsItem).to(beIdenticalTo(expectedNewsItem))
+                
+                // PENDING: need to pull in PCK
 //                expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.newsItemControllerProvider.controller))
             }
         }
