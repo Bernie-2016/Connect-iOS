@@ -1,7 +1,7 @@
 import UIKit
 
 public class TableHeaderView : UITableViewHeaderFooterView {
-    private(set) public var titleLabel : UILabel = UILabel()
+    public let titleLabel : UILabel = UILabel()
     
     override init(frame:CGRect) {
         super.init(frame:frame)

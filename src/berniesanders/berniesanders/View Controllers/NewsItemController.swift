@@ -2,10 +2,10 @@ import UIKit
 import PureLayout
 
 public class NewsItemController : UIViewController {
-    private(set) public var newsItem : NewsItem!
-    private(set) public var imageRepository : ImageRepository!
-    private(set) public var dateFormatter : NSDateFormatter!
-    private(set) public var theme : Theme!
+    public let newsItem : NewsItem!
+    public let imageRepository : ImageRepository!
+    public let dateFormatter : NSDateFormatter!
+    public let theme : Theme!
     
     let containerView = UIView()
     let scrollView = UIScrollView()
@@ -42,7 +42,7 @@ public class NewsItemController : UIViewController {
         
         self.tabBarItem.setTitleTextAttributes(attributes, forState: .Selected)
         
-        var screenBounds = UIScreen.mainScreen().bounds
+        let screenBounds = UIScreen.mainScreen().bounds
         
         self.view.backgroundColor = self.theme.defaultBackgroundColor()
 

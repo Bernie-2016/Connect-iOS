@@ -3,7 +3,7 @@ import PureLayout
 
 public class OrganizeController : UIViewController {
     public let webView = UIWebView()
-    var urlProvider : URLProvider!
+    let urlProvider : URLProvider!
     
     public init(urlProvider: URLProvider, theme: Theme) {
         self.urlProvider = urlProvider
