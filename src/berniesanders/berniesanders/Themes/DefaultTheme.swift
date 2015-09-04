@@ -123,6 +123,16 @@ class DefaultTheme : Theme {
         return UIColor.blackColor()
     }
 
+    // MARK: Issue detail screen
+    
+    func issueTitleFont() -> UIFont {
+        return UIFont(name: "Lato-Regular", size: 15)!
+    }
+    
+    func issueTitleColor() -> UIColor {
+        return self.cornflowerBlueColor()
+    }
+    
     
     // MARK: color definitions
     

@@ -52,5 +52,10 @@ public protocol Theme {
     func newsItemTitleColor() -> UIColor;
     func newsItemBodyFont() -> UIFont;
     func newsItemBodyColor() -> UIColor;
+    
+    // MARK: Issue detail screen
+    
+    func issueTitleFont() -> UIFont;
+    func issueTitleColor() -> UIColor;
 
 }

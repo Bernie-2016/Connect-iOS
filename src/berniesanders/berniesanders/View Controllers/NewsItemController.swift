@@ -30,6 +30,8 @@ public class NewsItemController : UIViewController {
         self.hidesBottomBarWhenPushed = true
     }
     
+    // MARK: UIViewController
+    
     override public func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,8 +45,8 @@ public class NewsItemController : UIViewController {
         var screenBounds = UIScreen.mainScreen().bounds
         
         self.view.backgroundColor = self.theme.defaultBackgroundColor()
+
         self.view.addSubview(self.scrollView)
-        
         self.scrollView.addSubview(self.containerView)
         self.containerView.addSubview(self.storyImageView)
         self.containerView.addSubview(self.dateLabel)

@@ -37,7 +37,7 @@ class FakeIssueRepository : berniesanders.IssueRepository {
 }
 
 class FakeIssueControllerProvider : berniesanders.IssueControllerProvider {
-    let controller = IssueController(issue: Issue(title: "a title"))
+    let controller = IssueController(issue: Issue(title: "a title"), theme: FakeTheme())
     var lastIssue: Issue?
     
     func provideInstanceWithIssue(issue: Issue) -> IssueController {

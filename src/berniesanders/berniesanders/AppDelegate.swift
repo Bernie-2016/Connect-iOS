@@ -50,7 +50,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             operationQueue: mainQueue
         )
         
-        let issueControllerProvider = ConcreteIssueControllerProvider()
+        let issueControllerProvider = ConcreteIssueControllerProvider(theme: defaultTheme)
         
         let issuesController = IssuesTableViewController(
             issueRepository: issueRepository,
