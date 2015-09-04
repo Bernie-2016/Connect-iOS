@@ -70,8 +70,8 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
         let viewControllers = [
             newsNavigationController,
             issuesNavigationController,
-            organizeController,
-            connectNavigationController
+            connectNavigationController,
+            organizeController
         ]
         
         let tabBarController = TabBarController(theme: defaultTheme, viewControllers: viewControllers)
