@@ -133,6 +133,13 @@ class DefaultTheme : Theme {
         return self.cornflowerBlueColor()
     }
     
+    func issueBodyFont() -> UIFont {
+        return UIFont(name: "Lora-Bold", size: 12)!
+    }
+    
+    func issueBodyColor() -> UIColor {
+        return UIColor.blackColor()
+    }    
     
     // MARK: color definitions
     

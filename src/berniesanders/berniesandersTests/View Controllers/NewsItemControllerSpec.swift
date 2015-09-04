@@ -27,15 +27,7 @@ class NewsItemFakeTheme : FakeTheme {
     override func newsItemBodyColor() -> UIColor {
         return UIColor.yellowColor()
     }
-    
-    override func tabBarTextColor() -> UIColor {
-        return UIColor.purpleColor()
-    }
-    
-    override func tabBarFont() -> UIFont {
-        return UIFont.systemFontOfSize(123)
-    }
-    
+        
     override func defaultBackgroundColor() -> UIColor {
         return UIColor.orangeColor()
     }

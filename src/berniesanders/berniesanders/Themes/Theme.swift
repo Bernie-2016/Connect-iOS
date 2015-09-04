@@ -56,6 +56,7 @@ public protocol Theme {
     // MARK: Issue detail screen
     
     func issueTitleFont() -> UIFont;
-    func issueTitleColor() -> UIColor;
-
+    func issueTitleColor() -> UIColor
+    func issueBodyFont() -> UIFont
+    func issueBodyColor() -> UIColor
 }

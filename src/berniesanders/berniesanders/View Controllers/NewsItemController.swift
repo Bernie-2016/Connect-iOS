@@ -35,15 +35,6 @@ public class NewsItemController : UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         
-        let attributes = [
-            NSFontAttributeName: theme.tabBarFont(),
-            NSForegroundColorAttributeName: theme.tabBarTextColor()
-        ]
-        
-        self.tabBarItem.setTitleTextAttributes(attributes, forState: .Selected)
-        
-        let screenBounds = UIScreen.mainScreen().bounds
-        
         self.view.backgroundColor = self.theme.defaultBackgroundColor()
 
         self.view.addSubview(self.scrollView)
@@ -53,6 +44,31 @@ public class NewsItemController : UIViewController {
         self.containerView.addSubview(self.titleLabel)
         self.containerView.addSubview(self.bodyTextView)
         
+        self.dateLabel.text = self.dateFormatter.stringFromDate(self.newsItem.date)
+        self.titleLabel.text = self.newsItem.title
+        self.bodyTextView.text = self.newsItem.body
+        
+        self.imageRepository.fetchImageWithURL(self.newsItem.imageURL).then({ (image) -> AnyObject! in
+            self.storyImageView.image = image as? UIImage
+            return image
+        }, error: { (error) -> AnyObject! in
+            self.storyImageView.removeFromSuperview()
+            return error
+        })
+        
+        self.setupConstraintsAndLayout()
+        self.applyThemeToViews()
+    }
+
+    required public init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: Private
+
+    private func setupConstraintsAndLayout() {
+        let screenBounds = UIScreen.mainScreen().bounds
+
         self.scrollView.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.scrollView.contentSize.width = self.view.bounds.width
         self.scrollView.autoPinEdgesToSuperviewEdges()
@@ -63,26 +79,19 @@ public class NewsItemController : UIViewController {
         
         self.storyImageView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: ALEdge.Bottom)
         self.storyImageView.autoSetDimension(ALDimension.Height, toSize: screenBounds.height / 3, relation: NSLayoutRelation.LessThanOrEqual)
-
-        self.dateLabel.font = self.theme.newsItemDateFont()
-        self.dateLabel.textColor = self.theme.newsItemDateColor()
-        self.dateLabel.text = self.dateFormatter.stringFromDate(self.newsItem.date)
         
         NSLayoutConstraint.autoSetPriority(1000, forConstraints: { () -> Void in
             self.dateLabel.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.storyImageView, withOffset: 8)
         })
-
+        
         NSLayoutConstraint.autoSetPriority(500, forConstraints: { () -> Void in
             self.dateLabel.autoPinEdgeToSuperviewEdge(ALEdge.Top, withInset: 8)
         })
         
         self.dateLabel.autoPinEdgeToSuperviewEdge(ALEdge.Leading, withInset: 8)
         self.dateLabel.autoPinEdgeToSuperviewEdge(ALEdge.Trailing)
-        self.dateLabel.autoSetDimension(ALDimension.Height, toSize: 20) //, relation: NSLayoutRelation.GreaterThanOrEqual)
+        self.dateLabel.autoSetDimension(ALDimension.Height, toSize: 20)
         
-        self.titleLabel.font = self.theme.newsItemTitleFont()
-        self.titleLabel.textColor = self.theme.newsItemTitleColor()
-        self.titleLabel.text = self.newsItem.title
         self.titleLabel.numberOfLines = 3
         self.titleLabel.preferredMaxLayoutWidth = screenBounds.width - 8
         self.titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -90,29 +99,25 @@ public class NewsItemController : UIViewController {
         self.titleLabel.autoPinEdgeToSuperviewEdge(ALEdge.Trailing)
         self.titleLabel.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.dateLabel)
         self.titleLabel.autoSetDimension(ALDimension.Height, toSize: 20, relation: NSLayoutRelation.GreaterThanOrEqual)
-
-        self.bodyTextView.font = self.theme.newsItemBodyFont()
-        self.bodyTextView.textColor = self.theme.newsItemBodyColor()
+        
         self.bodyTextView.scrollEnabled = false
         self.bodyTextView.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.bodyTextView.textContainerInset = UIEdgeInsetsZero
         self.bodyTextView.textContainer.lineFragmentPadding = 0;
-        self.bodyTextView.text = self.newsItem.body
+
         self.bodyTextView.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.titleLabel, withOffset: 16)
         self.bodyTextView.autoPinEdgeToSuperviewEdge(ALEdge.Bottom)
         self.bodyTextView.autoPinEdgeToSuperviewEdge(ALEdge.Leading, withInset: 8)
         self.bodyTextView.autoPinEdgeToSuperviewEdge(ALEdge.Trailing)
-        
-        self.imageRepository.fetchImageWithURL(self.newsItem.imageURL).then({ (image) -> AnyObject! in
-            self.storyImageView.image = image as? UIImage
-            return image
-        }, error: { (error) -> AnyObject! in
-            self.storyImageView.removeFromSuperview()
-            return error
-        })
     }
+    
+    private func applyThemeToViews() {
+        self.dateLabel.font = self.theme.newsItemDateFont()
+        self.dateLabel.textColor = self.theme.newsItemDateColor()
+        self.titleLabel.font = self.theme.newsItemTitleFont()
+        self.titleLabel.textColor = self.theme.newsItemTitleColor()
+        self.bodyTextView.font = self.theme.newsItemBodyFont()
+        self.bodyTextView.textColor = self.theme.newsItemBodyColor()
 
-    required public init(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
