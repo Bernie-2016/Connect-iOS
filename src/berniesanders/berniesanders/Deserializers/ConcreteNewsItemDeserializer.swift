@@ -23,8 +23,10 @@ public class ConcreteNewsItemDeserializer : NewsItemDeserializer {
             var date = dateFormatter.dateFromString(pubDate)!
             var imageURLString = sourceDictionary["img_url"] as! String
             var imageURL = NSURL(string: imageURLString)!
+            var urlString = sourceDictionary["url"] as! String
+            var url = NSURL(string: urlString)!
             
-            var newsItem = NewsItem(title: title, date: date, body: body, imageURL: imageURL)
+            var newsItem = NewsItem(title: title, date: date, body: body, imageURL: imageURL, url: url)
             newsItems.append(newsItem);
         }
         
