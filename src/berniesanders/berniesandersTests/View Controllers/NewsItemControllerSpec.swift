@@ -68,7 +68,19 @@ class NewsItemControllerSpec : QuickSpec {
             it("has a share button on the navigation item") {
                 var shareBarButtonItem = self.subject.navigationItem.rightBarButtonItem!
                 expect(shareBarButtonItem.valueForKey("systemItem") as? Int).to(equal(UIBarButtonSystemItem.Action.rawValue))
-                expect(shareBarButtonItem.action).to(equal("share"))
+            }
+            
+            describe("tapping on the share button") {
+                it("should present an activity view controller for sharing the story URL") {
+                    self.subject.navigationItem.rightBarButtonItem!
+                        .tap()
+                    
+                    let activityViewControler = self.subject.presentedViewController as! UIActivityViewController
+                    let activityItems = activityViewControler.activityItems()
+
+                    expect(activityItems.count).to(equal(1))
+                    expect(activityItems.first as? NSURL).to(beIdenticalTo(self.newsItemURL))
+                }
             }
             
             it("has a scroll view containing the UI elements") {
