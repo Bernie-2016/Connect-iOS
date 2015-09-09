@@ -51,7 +51,8 @@ class IssuesTableViewControllerSpec: QuickSpec {
     var subject: IssuesTableViewController!
     var issueRepository: FakeIssueRepository! = FakeIssueRepository()
     var issueControllerProvider = FakeIssueControllerProvider()
-    
+    let navigationController = UINavigationController()
+
     override func spec() {
         beforeEach {
             self.subject = IssuesTableViewController(
@@ -59,6 +60,7 @@ class IssuesTableViewControllerSpec: QuickSpec {
                 issueControllerProvider: self.issueControllerProvider,
                 theme: IssuesFakeTheme()
             )
+            self.navigationController.pushViewController(self.subject, animated: false)
         }
         
         it("has the correct tab bar title") {
@@ -146,13 +148,10 @@ class IssuesTableViewControllerSpec: QuickSpec {
             it("should push a correctly configured issue controller onto the nav stack") {
                 let tableView = self.subject.tableView
                 tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
-                
+ 
                 expect(self.issueControllerProvider.lastIssue).to(beIdenticalTo(expectedIssue))
-                
-                // TODO: bring in PCK so we can test the line below
-//                expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.issueControllerProvider.controller))
+                expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.issueControllerProvider.controller))
             }
         }
-
     }
 }

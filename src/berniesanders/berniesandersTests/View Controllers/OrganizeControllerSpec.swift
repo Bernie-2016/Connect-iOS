@@ -3,6 +3,7 @@ import Quick
 import Nimble
 import berniesanders
 
+
 class OrganizeFakeTheme : FakeTheme {
     override func tabBarTextColor() -> UIColor {
         return UIColor.purpleColor()
@@ -67,8 +68,7 @@ class OrganizeControllerSpec : QuickSpec {
                 expect(contains(subviews, self.subject.webView)).to(beTrue())
             }
             
-            xit("should load the BernieCrowd.org checklist into a webview") {
-                // TODO: pending adding PivotalCoreKit to test this.
+            it("should load the BernieCrowd.org checklist into a webview") {
                 expect(self.subject.webView.request!.URL).to(equal(NSURL(string: "http://example.com/crowd")))
             }
         }

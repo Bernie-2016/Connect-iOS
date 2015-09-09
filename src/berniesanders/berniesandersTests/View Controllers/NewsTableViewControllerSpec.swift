@@ -58,6 +58,7 @@ class NewsTableViewControllerSpecs: QuickSpec {
     let newsItemRepository: FakeNewsItemRepository! =  FakeNewsItemRepository()
     let theme: Theme! = NewsFakeTheme()
     let newsItemControllerProvider = FakeNewsItemControllerProvider()
+    let navigationController = UINavigationController()
     
     override func spec() {
         beforeEach {
@@ -72,6 +73,8 @@ class NewsTableViewControllerSpecs: QuickSpec {
                 dateFormatter: dateFormatter,
                 newsItemControllerProvider: self.newsItemControllerProvider
             )
+            
+            self.navigationController.pushViewController(self.subject, animated: false)
         }
         
         it("has the correct tab bar title") {
@@ -172,9 +175,7 @@ class NewsTableViewControllerSpecs: QuickSpec {
                 tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
                 
                 expect(self.newsItemControllerProvider.lastNewsItem).to(beIdenticalTo(expectedNewsItem))
-                
-                // PENDING: need to pull in PCK
-//                expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.newsItemControllerProvider.controller))
+                expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.newsItemControllerProvider.controller))
             }
         }
     }

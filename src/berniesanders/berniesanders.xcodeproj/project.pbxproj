@@ -43,6 +43,7 @@
 		6592FA3A1B99E30C00746EC3 /* IssueControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6592FA391B99E30C00746EC3 /* IssueControllerProvider.swift */; };
 		6592FA3C1B99E33300746EC3 /* IssueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6592FA3B1B99E33300746EC3 /* IssueController.swift */; };
 		659A12031B8BA5CF00BE08F4 /* FakeOperationQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659A12021B8BA5CF00BE08F4 /* FakeOperationQueue.swift */; };
+		659D06861B9FD79D0099DA3F /* UIKit+PivotalSpecHelperStubs-iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659D06831B9FD79D0099DA3F /* UIKit+PivotalSpecHelperStubs-iOS.framework */; };
 		659F0E1C1B95EC0B0049FA12 /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659F0E1B1B95EC0B0049FA12 /* ImageRepository.swift */; };
 		659F0E1E1B95EC780049FA12 /* ConcreteImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659F0E1D1B95EC780049FA12 /* ConcreteImageRepository.swift */; };
 		659F0E201B95F0180049FA12 /* FakeImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659F0E1F1B95F0180049FA12 /* FakeImageRepository.swift */; };
@@ -167,6 +168,8 @@
 		6592FA391B99E30C00746EC3 /* IssueControllerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueControllerProvider.swift; sourceTree = "<group>"; };
 		6592FA3B1B99E33300746EC3 /* IssueController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueController.swift; sourceTree = "<group>"; };
 		659A12021B8BA5CF00BE08F4 /* FakeOperationQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeOperationQueue.swift; sourceTree = "<group>"; };
+		659D06831B9FD79D0099DA3F /* UIKit+PivotalSpecHelperStubs-iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "UIKit+PivotalSpecHelperStubs-iOS.framework"; sourceTree = "<group>"; };
+		659D06871B9FD7E00099DA3F /* berniesandersTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "berniesandersTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		659F0E1B1B95EC0B0049FA12 /* ImageRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageRepository.swift; path = "../../Network Clients/Protocols/ImageRepository.swift"; sourceTree = "<group>"; };
 		659F0E1D1B95EC780049FA12 /* ConcreteImageRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConcreteImageRepository.swift; path = "../Network Clients/ConcreteImageRepository.swift"; sourceTree = "<group>"; };
 		659F0E1F1B95F0180049FA12 /* FakeImageRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeImageRepository.swift; sourceTree = "<group>"; };
@@ -235,6 +238,7 @@
 			files = (
 				65EC4CEC1B842A0B00DD4C83 /* Nimble.framework in Frameworks */,
 				65EC4CEE1B842A1900DD4C83 /* Quick.framework in Frameworks */,
+				659D06861B9FD79D0099DA3F /* UIKit+PivotalSpecHelperStubs-iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,6 +358,14 @@
 				655B57BC1B86C16F00E69C0C /* NewsItem.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		659D06801B9FD79D0099DA3F /* Externals */ = {
+			isa = PBXGroup;
+			children = (
+				659D06831B9FD79D0099DA3F /* UIKit+PivotalSpecHelperStubs-iOS.framework */,
+			);
+			path = Externals;
 			sourceTree = "<group>";
 		};
 		65CA5E891B86CB350001D870 /* Protocols */ = {
@@ -521,6 +533,7 @@
 			isa = PBXGroup;
 			children = (
 				6507632D1B8B7F5B00BA0659 /* Deserializers */,
+				659D06801B9FD79D0099DA3F /* Externals */,
 				65F5F6551B89678E0049353C /* Fakes */,
 				650763301B8B809600BA0659 /* Fixtures */,
 				652860A11B8B8B3500899FAF /* Network Clients */,
@@ -528,6 +541,7 @@
 				650763161B8B6FF800BA0659 /* Repositories */,
 				8233FC221B7C28FB00A5E9ED /* Supporting Files */,
 				65F01FC41B8A5B5700D021A1 /* View Controllers */,
+				659D06871B9FD7E00099DA3F /* berniesandersTests-Bridging-Header.h */,
 				65CA5E841B86CA930001D870 /* SpecAppDelegate.swift */,
 			);
 			path = berniesandersTests;
@@ -919,6 +933,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/berniesandersTests/Externals",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -926,7 +941,14 @@
 				);
 				INFOPLIST_FILE = berniesandersTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+					"-all_load",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "berniesandersTests/berniesandersTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/berniesanders.app/berniesanders";
 			};
@@ -941,10 +963,18 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/berniesandersTests/Externals",
 				);
 				INFOPLIST_FILE = berniesandersTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+					"-all_load",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "berniesandersTests/berniesandersTests-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/berniesanders.app/berniesanders";
 			};
 			name = Release;

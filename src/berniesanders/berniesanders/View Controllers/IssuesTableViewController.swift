@@ -76,7 +76,6 @@ public class IssuesTableViewController: UITableViewController {
     public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var issue = self.issues[indexPath.row]
         let controller = self.issueControllerProvider.provideInstanceWithIssue(issue)
-        
-        self.navigationController?.pushViewController(controller, animated: true)
+        self.navigationController!.pushViewController(controller, animated: true)
     }
 }
