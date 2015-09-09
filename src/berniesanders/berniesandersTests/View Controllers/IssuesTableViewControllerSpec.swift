@@ -71,6 +71,10 @@ class IssuesTableViewControllerSpec: QuickSpec {
             expect(self.subject.navigationItem.title).to(equal("ISSUES"))
         }
         
+        it("should set the back bar button item title correctly") {
+            expect(self.subject.navigationItem.backBarButtonItem?.title).to(equal("Back"))
+        }
+        
         it("styles its tab bar item from the theme") {
             let normalAttributes = self.subject.tabBarItem.titleTextAttributesForState(UIControlState.Normal)
             

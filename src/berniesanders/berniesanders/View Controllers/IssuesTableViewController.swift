@@ -24,6 +24,12 @@ public class IssuesTableViewController: UITableViewController {
         self.tabBarItem.setTitleTextAttributes(attributes, forState: .Selected)
         self.title = NSLocalizedString("Issues_tabBarTitle", comment: "")
         self.navigationItem.title = NSLocalizedString("Issues_navigationTitle", comment: "")
+        
+        let backBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Issues_backButtonTitle", comment: ""),
+            style: UIBarButtonItemStyle.Plain,
+            target: nil, action: nil)
+        
+        self.navigationItem.backBarButtonItem = backBarButtonItem
     }
 
     required public init!(coder aDecoder: NSCoder!) {
