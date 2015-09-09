@@ -81,7 +81,8 @@
 		65EDD62B1B8BC83900F545B8 /* NewsItemDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EDD62A1B8BC83900F545B8 /* NewsItemDeserializer.swift */; };
 		65EDD62F1B8BCA1C00F545B8 /* ConcreteNewsItemDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EDD62E1B8BCA1C00F545B8 /* ConcreteNewsItemDeserializer.swift */; };
 		65EDD6311B8BCACB00F545B8 /* ConcreteNewsItemDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EDD6301B8BCACB00F545B8 /* ConcreteNewsItemDeserializerSpec.swift */; };
-		65F01FC61B8A5BDA00D021A1 /* ConnectTableViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F01FC51B8A5BDA00D021A1 /* ConnectTableViewControllerSpec.swift */; };
+		65F112EE1B9FFE8700BA585C /* ConnectControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F112ED1B9FFE8700BA585C /* ConnectControllerSpec.swift */; };
+		65F112F01B9FFF1C00BA585C /* ConnectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F112EF1B9FFF1C00BA585C /* ConnectController.swift */; };
 		65F5F64E1B87B8300049353C /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F5F64D1B87B8300049353C /* UIColorExtension.swift */; };
 		65F5F6541B8967630049353C /* NavigationControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F5F6531B8967630049353C /* NavigationControllerSpec.swift */; };
 		65F5F6571B8967AD0049353C /* FakeTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F5F6561B8967AD0049353C /* FakeTheme.swift */; };
@@ -92,7 +93,6 @@
 		8233FC161B7C28FB00A5E9ED /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8233FC151B7C28FB00A5E9ED /* Images.xcassets */; };
 		8233FC301B7C48A500A5E9ED /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8233FC2F1B7C48A500A5E9ED /* NewsTableViewController.swift */; };
 		8233FC321B7C4A9600A5E9ED /* IssuesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8233FC311B7C4A9600A5E9ED /* IssuesTableViewController.swift */; };
-		8233FC361B7C4AD200A5E9ED /* ConnectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8233FC351B7C4AD200A5E9ED /* ConnectTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -205,7 +205,8 @@
 		65EDD62A1B8BC83900F545B8 /* NewsItemDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsItemDeserializer.swift; sourceTree = "<group>"; };
 		65EDD62E1B8BCA1C00F545B8 /* ConcreteNewsItemDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteNewsItemDeserializer.swift; sourceTree = "<group>"; };
 		65EDD6301B8BCACB00F545B8 /* ConcreteNewsItemDeserializerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteNewsItemDeserializerSpec.swift; sourceTree = "<group>"; };
-		65F01FC51B8A5BDA00D021A1 /* ConnectTableViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectTableViewControllerSpec.swift; sourceTree = "<group>"; };
+		65F112ED1B9FFE8700BA585C /* ConnectControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectControllerSpec.swift; sourceTree = "<group>"; };
+		65F112EF1B9FFF1C00BA585C /* ConnectController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectController.swift; sourceTree = "<group>"; };
 		65F5F64D1B87B8300049353C /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		65F5F6531B8967630049353C /* NavigationControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationControllerSpec.swift; sourceTree = "<group>"; };
 		65F5F6561B8967AD0049353C /* FakeTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeTheme.swift; sourceTree = "<group>"; };
@@ -220,7 +221,6 @@
 		8233FC231B7C28FB00A5E9ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8233FC2F1B7C48A500A5E9ED /* NewsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
 		8233FC311B7C4A9600A5E9ED /* IssuesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuesTableViewController.swift; sourceTree = "<group>"; };
-		8233FC351B7C4AD200A5E9ED /* ConnectTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -441,7 +441,7 @@
 		65F01FC41B8A5B5700D021A1 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				65F01FC51B8A5BDA00D021A1 /* ConnectTableViewControllerSpec.swift */,
+				65F112ED1B9FFE8700BA585C /* ConnectControllerSpec.swift */,
 				653601031B99E74300FE3735 /* IssueControllerSpec.swift */,
 				65C97A171B8A5D2F00088679 /* IssuesTableViewControllerSpec.swift */,
 				65F5F6531B8967630049353C /* NavigationControllerSpec.swift */,
@@ -562,7 +562,7 @@
 		8233FC2E1B7C2DA400A5E9ED /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				8233FC351B7C4AD200A5E9ED /* ConnectTableViewController.swift */,
+				65F112EF1B9FFF1C00BA585C /* ConnectController.swift */,
 				6592FA3B1B99E33300746EC3 /* IssueController.swift */,
 				8233FC311B7C4A9600A5E9ED /* IssuesTableViewController.swift */,
 				65F5F6581B8968440049353C /* NavigationController.swift */,
@@ -718,9 +718,9 @@
 				65EDD62F1B8BCA1C00F545B8 /* ConcreteNewsItemDeserializer.swift in Sources */,
 				65CA5E8C1B86CB6B0001D870 /* ConcreteNewsItemRepository.swift in Sources */,
 				650763241B8B768300BA0659 /* ConcreteURLProvider.swift in Sources */,
+				65F112F01B9FFF1C00BA585C /* ConnectController.swift in Sources */,
 				65324D5B1B8AA00D00BC864F /* ConnectItem.swift in Sources */,
 				65324D571B8A9F7500BC864F /* ConnectItemRepository.swift in Sources */,
-				8233FC361B7C4AD200A5E9ED /* ConnectTableViewController.swift in Sources */,
 				65CA5E931B86E4A00001D870 /* DefaultTheme.swift in Sources */,
 				659F0E1C1B95EC0B0049FA12 /* ImageRepository.swift in Sources */,
 				6587FF5A1B8A7E3200AC65F1 /* Issue.swift in Sources */,
@@ -763,7 +763,7 @@
 				653885251B94E89600DCA808 /* ConcreteNewsItemControllerProviderSpec.swift in Sources */,
 				65EDD6311B8BCACB00F545B8 /* ConcreteNewsItemDeserializerSpec.swift in Sources */,
 				65EDD6291B8BC73C00F545B8 /* ConcreteNewsItemRepositorySpec.swift in Sources */,
-				65F01FC61B8A5BDA00D021A1 /* ConnectTableViewControllerSpec.swift in Sources */,
+				65F112EE1B9FFE8700BA585C /* ConnectControllerSpec.swift in Sources */,
 				659F0E201B95F0180049FA12 /* FakeImageRepository.swift in Sources */,
 				653885101B90F13600DCA808 /* FakeJSONClient.swift in Sources */,
 				6538851A1B90F7DD00DCA808 /* FakeNSURLSession.swift in Sources */,

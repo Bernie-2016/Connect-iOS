@@ -31,13 +31,6 @@ public protocol Theme {
     func issuesFeedTitleFont() -> UIFont;
     func issuesFeedTitleColor() -> UIColor;
     
-    // MARK: Connect
-    
-    func connectFeedTitleFont() -> UIFont;
-    func connectFeedTitleColor() -> UIColor;
-    func connectFeedDateFont() -> UIFont;
-    func connectFeedDateColor() -> UIColor;
-
     // MARK: feed header
     
     func feedHeaderBackgroundColor() -> UIColor;

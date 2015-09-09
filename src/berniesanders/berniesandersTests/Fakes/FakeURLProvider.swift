@@ -13,4 +13,8 @@ class FakeURLProvider : berniesanders.URLProvider {
     func bernieCrowdURL() -> NSURL! {
         fatalError("override me in spec!")
     }
+    
+    func bernieEventsURL() -> NSURL! {
+        fatalError("override me in spec!")        
+    }
 }

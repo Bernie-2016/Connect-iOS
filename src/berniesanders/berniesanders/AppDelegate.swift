@@ -62,18 +62,13 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let organizeController = OrganizeController(urlProvider: urlProvider, theme: defaultTheme)
         
-        let connectController = ConnectTableViewController(
-            theme: defaultTheme,
-            connectItemRepository: ConcreteConnectItemRepository(),
-            dateFormatter: longDateFormatter
-        )
-        let connectNavigationController = NavigationController(theme: defaultTheme)
-        connectNavigationController.pushViewController(connectController, animated: false)
+        let connectController = ConnectController(urlProvider: urlProvider, theme: defaultTheme)
+
 
         let viewControllers = [
             newsNavigationController,
             issuesNavigationController,
-            connectNavigationController,
+            connectController,
             organizeController
         ]
         

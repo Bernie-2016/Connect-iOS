@@ -79,24 +79,6 @@ class DefaultTheme : Theme {
         return UIFont(name: "Lora-Bold", size: 10)!
     }
     
-    // MARK: Connect
-    
-    func connectFeedTitleFont() -> UIFont {
-        return UIFont(name: "Lato-Regular", size: 14)!
-    }
-    
-    func connectFeedTitleColor() -> UIColor {
-        return self.cornflowerBlueColor()
-    }
-    
-    func connectFeedDateFont() -> UIFont {
-        return UIFont(name: "Lora-Bold", size: 12)!
-    }
-    
-    func connectFeedDateColor() -> UIColor {
-        return self.carnationColor()
-    }
-    
     // MARK: News Item detail screen
     
     func newsItemDateFont() -> UIFont {

@@ -12,4 +12,8 @@ class ConcreteURLProvider : URLProvider {
     func bernieCrowdURL() -> NSURL! {
         return NSURL(string: "https://berniecrowd.org/")
     }
+    
+    func bernieEventsURL() -> NSURL! {
+         return NSURL(string: "https://berniesanders.com/events")       
+    }
 }
