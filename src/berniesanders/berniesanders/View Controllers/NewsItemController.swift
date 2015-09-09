@@ -36,6 +36,7 @@ public class NewsItemController : UIViewController {
         super.viewDidLoad()
         
         self.view.backgroundColor = self.theme.defaultBackgroundColor()
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "share")
 
         self.view.addSubview(self.scrollView)
         self.scrollView.addSubview(self.containerView)
@@ -62,6 +63,13 @@ public class NewsItemController : UIViewController {
 
     required public init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: Selectors
+    
+    func share() {
+        let activityVC = UIActivityViewController(activityItems: [newsItem.url], applicationActivities: nil)
+        presentViewController(activityVC, animated: true, completion: nil)
     }
     
     // MARK: Private

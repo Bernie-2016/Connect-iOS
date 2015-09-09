@@ -37,11 +37,12 @@ class NewsItemControllerSpec : QuickSpec {
     var subject: NewsItemController!
     let imageRepository = FakeImageRepository()
     let newsItemImageURL = NSURL(string: "http://a.com")!
+    let newsItemURL = NSURL(string: "http//b.com")!
     
     override func spec() {
         beforeEach {
             let newsItemDate = NSDate(timeIntervalSince1970: 1441081523)
-            let newsItem = NewsItem(title: "some title", date: newsItemDate, body: "some body text", imageURL: self.newsItemImageURL)
+            let newsItem = NewsItem(title: "some title", date: newsItemDate, body: "some body text", imageURL: self.newsItemImageURL, url:self.newsItemURL)
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
             dateFormatter.timeZone = NSTimeZone(name: "UTC")
@@ -62,6 +63,12 @@ class NewsItemControllerSpec : QuickSpec {
         describe("when the view loads") {
             beforeEach {
                 self.subject.view.layoutIfNeeded()
+            }
+            
+            it("has a share button on the navigation item") {
+                var shareBarButtonItem = self.subject.navigationItem.rightBarButtonItem!
+                expect(shareBarButtonItem.valueForKey("systemItem") as? Int).to(equal(UIBarButtonSystemItem.Action.rawValue))
+                expect(shareBarButtonItem.action).to(equal("share"))
             }
             
             it("has a scroll view containing the UI elements") {

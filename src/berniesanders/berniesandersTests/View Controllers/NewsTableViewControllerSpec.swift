@@ -44,7 +44,7 @@ class FakeNewsItemRepository : berniesanders.NewsItemRepository {
 }
 
 class FakeNewsItemControllerProvider : berniesanders.NewsItemControllerProvider {
-    let controller = NewsItemController(newsItem: NewsItem(title: "a", date: NSDate(), body: "a body", imageURL: NSURL()), dateFormatter: NSDateFormatter(), imageRepository: FakeImageRepository(), theme: FakeTheme())
+    let controller = NewsItemController(newsItem: NewsItem(title: "a", date: NSDate(), body: "a body", imageURL: NSURL(), url: NSURL()), dateFormatter: NSDateFormatter(), imageRepository: FakeImageRepository(), theme: FakeTheme())
     var lastNewsItem: NewsItem?
     
     func provideInstanceWithNewsItem(newsItem: NewsItem) -> NewsItemController {
@@ -127,8 +127,8 @@ class NewsTableViewControllerSpecs: QuickSpec {
                 var newsItemBDate = NSDate(timeIntervalSince1970: 86401)
                 
                 beforeEach {
-                    var newsItemA = NewsItem(title: "Bernie to release new album", date: newsItemADate, body: "yeahhh", imageURL: NSURL())
-                    var newsItemB = NewsItem(title: "Bernie up in the polls!", date: newsItemBDate, body: "body text", imageURL: NSURL())
+                    var newsItemA = NewsItem(title: "Bernie to release new album", date: newsItemADate, body: "yeahhh", imageURL: NSURL(), url: NSURL())
+                    var newsItemB = NewsItem(title: "Bernie up in the polls!", date: newsItemBDate, body: "body text", imageURL: NSURL(), url: NSURL())
 
                     var newsItems = [newsItemA, newsItemB]
                     self.newsItemRepository.lastCompletionBlock!(newsItems)
@@ -158,12 +158,12 @@ class NewsTableViewControllerSpecs: QuickSpec {
         }
         
         describe("Tapping on a news item") {
-            let expectedNewsItem = NewsItem(title: "B", date: NSDate(), body: "B Body", imageURL: NSURL())
+            let expectedNewsItem = NewsItem(title: "B", date: NSDate(), body: "B Body", imageURL: NSURL(), url: NSURL())
             
             beforeEach {
                 self.subject.view.layoutIfNeeded()
                 self.subject.viewWillAppear(false)
-                var newsItemA = NewsItem(title: "A", date: NSDate(), body: "A Body", imageURL: NSURL())
+                var newsItemA = NewsItem(title: "A", date: NSDate(), body: "A Body", imageURL: NSURL(), url: NSURL())
             
                 var newsItems = [newsItemA, expectedNewsItem]
                 
