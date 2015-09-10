@@ -72,8 +72,7 @@ class NewsItemControllerSpec : QuickSpec {
             
             describe("tapping on the share button") {
                 it("should present an activity view controller for sharing the story URL") {
-                    self.subject.navigationItem.rightBarButtonItem!
-                        .tap()
+                    self.subject.navigationItem.rightBarButtonItem!.tap()
                     
                     let activityViewControler = self.subject.presentedViewController as! UIActivityViewController
                     let activityItems = activityViewControler.activityItems()

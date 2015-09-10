@@ -22,16 +22,18 @@ class ConcreteNewsItemDeserializerSpec : QuickSpec {
 
             expect(newsItems.count).to(equal(2))
             var newsItemA = newsItems[0]
-            expect(newsItemA.title).to(equal("Jobs with Bernie 2016"))
-            expect(newsItemA.date).to(equal(NSDate(timeIntervalSince1970: 1440589188)))
-            expect(newsItemA.body).to(equal("Bernie 2016 is an equal opportunity employer; women, people of color, and people with disabilities are strongly encouraged to apply."))
-            expect(newsItemA.imageURL).to(equal(NSURL(string: "https://berniesanders.com/wp-content/uploads/2015/07/20150704_Bernie_Iowa_IMG_2327.jpg")))
+            expect(newsItemA.title).to(equal("On the Road for Bernie in Iowa"))
+            expect(newsItemA.date).to(equal(NSDate(timeIntervalSince1970: 1441756800)))
+            expect(newsItemA.body).to(equal("Larry Cohen reports from Iowa:\n\nOn a hot Iowa Labor Day weekend, everyone was feeling the Bern!"))
+            expect(newsItemA.imageURL).to(equal(NSURL(string: "https://berniesanders.com/wp-content/uploads/2015/09/iowa-600x250.jpg")))
+            expect(newsItemA.url).to(equal(NSURL(string: "https://berniesanders.com/on-the-road-for-bernie-in-iowa/")))
 
             var newsItemB = newsItems[1]
-            expect(newsItemB.title).to(equal("Sanders in North Country Calls on News Media to Cover ‘Real Problems Facing America’"))
-            expect(newsItemB.date).to(equal(NSDate(timeIntervalSince1970: 1406284727)))
-            expect(newsItemB.body).to(equal("LITTLETON, N.H. \u{2013} Speaking to packed town meetings across northern New Hampshire on Monday, U.S. Sen. Bernie Sanders urged the news media to focus on important issues like jobs, income and wealth inequality, climate change, racism, college costs, retirement security, criminal justice and poverty in America."))
-            expect(newsItemB.imageURL).to(equal(NSURL(string: "https://s.bsd.net/bernie16/main/page/-/website/fb-share.png")))
+            expect(newsItemB.title).to(equal("Labor Day 2015: Stand Together and Fight Back"))
+            expect(newsItemB.date).to(equal(NSDate(timeIntervalSince1970: 1441584000)))
+            expect(newsItemB.body).to(equal("Labor Day is a time for honoring the working people of this country."))
+            expect(newsItemB.imageURL).to(equal(NSURL(string: "https://berniesanders.com/wp-content/uploads/2015/08/20150818-Bernie-NV-7838-600x250.jpg")))
+            expect(newsItemB.url).to(equal(NSURL(string: "https://berniesanders.com/labor-day-2015-stand-together-and-fight-back/")))
         }
         
         context("when an image URL is missing") {

@@ -31,7 +31,7 @@ class ConnectControllerSpec : QuickSpec {
             )
         }
         
-        fit("has the correct tab bar title") {
+        it("has the correct tab bar title") {
             expect(self.subject.title).to(equal("Connect"))
         }
         

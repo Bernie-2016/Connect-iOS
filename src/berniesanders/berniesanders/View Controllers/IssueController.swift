@@ -40,16 +40,20 @@ public class IssueController : UIViewController {
         self.titleLabel.text = self.issue.title
         self.bodyTextView.text = self.issue.body
         
-        self.imageRepository.fetchImageWithURL(self.issue.imageURL).then({ (image) -> AnyObject! in
-            self.issueImageView.image = image as? UIImage
-            return image
-            }, error: { (error) -> AnyObject! in
-                self.issueImageView.removeFromSuperview()
-                return error
-        })
-        
         self.setupConstraintsAndLayout()
         self.applyThemeToViews()
+        
+        if(self.issue.imageURL != nil) {
+            self.imageRepository.fetchImageWithURL(self.issue.imageURL!).then({ (image) -> AnyObject! in
+                self.issueImageView.image = image as? UIImage
+                return image
+                }, error: { (error) -> AnyObject! in
+                    self.issueImageView.removeFromSuperview()
+                    return error
+            })
+        } else {
+            self.issueImageView.removeFromSuperview()
+        }
     }
     
     

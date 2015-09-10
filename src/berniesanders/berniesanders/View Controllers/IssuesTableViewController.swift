@@ -51,6 +51,7 @@ public class IssuesTableViewController: UITableViewController {
             self.issues = receivedIssues
             self.tableView.reloadData()
             }, error: { (error) -> Void in
+                println(error)
                 // TODO: error handling.
         })
     }

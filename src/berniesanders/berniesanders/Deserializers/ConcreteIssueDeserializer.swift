@@ -14,8 +14,12 @@ public class ConcreteIssueDeserializer : IssueDeserializer {
             var sourceDictionary = issueDictionary["_source"] as! NSDictionary;
             var title = sourceDictionary["title"] as! String
             var body = sourceDictionary["body"] as! String
-            var imageURLString = sourceDictionary["img_url"] as! String
-            var imageURL = NSURL(string: imageURLString)!
+            var imageURLString = sourceDictionary["image_url"] as? String
+            var imageURL : NSURL?
+
+            if((imageURLString) != nil) {
+                imageURL = NSURL(string: imageURLString!)!
+            }
 
             var issue = Issue(title: title, body: body, imageURL: imageURL)
             issues.append(issue);

@@ -8,7 +8,7 @@ public class ConcreteNewsItemDeserializer : NewsItemDeserializer {
     public func deserializeNewsItems(jsonDictionary: NSDictionary) -> Array<NewsItem> {
         var dateFormatter = NSDateFormatter()
         dateFormatter.timeZone = NSTimeZone(name: "UTC")
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"  // "2015-08-28T05:10:21.393Z"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"  // "2015-08-28T05:10:21"
                                                                  // TODO: inject a dateformatter.
         
         var newsItems = [NewsItem]()
@@ -19,9 +19,9 @@ public class ConcreteNewsItemDeserializer : NewsItemDeserializer {
             var sourceDictionary = newsItemDictionary["_source"] as! NSDictionary;
             var title = sourceDictionary["title"] as! String
             var body = sourceDictionary["body"] as! String
-            var pubDate = sourceDictionary["published_time"] as! String
+            var pubDate = sourceDictionary["created_at"] as! String
             var date = dateFormatter.dateFromString(pubDate)!
-            var imageURLString = sourceDictionary["img_url"] as! String
+            var imageURLString = sourceDictionary["image_url"] as! String
             var imageURL = NSURL(string: imageURLString)!
             var urlString = sourceDictionary["url"] as! String
             var url = NSURL(string: urlString)!
