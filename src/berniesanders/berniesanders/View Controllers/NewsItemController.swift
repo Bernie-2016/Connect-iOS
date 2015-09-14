@@ -49,16 +49,20 @@ public class NewsItemController : UIViewController {
         self.titleLabel.text = self.newsItem.title
         self.bodyTextView.text = self.newsItem.body
         
-        self.imageRepository.fetchImageWithURL(self.newsItem.imageURL).then({ (image) -> AnyObject! in
-            self.storyImageView.image = image as? UIImage
-            return image
-        }, error: { (error) -> AnyObject! in
-            self.storyImageView.removeFromSuperview()
-            return error
-        })
-        
         self.setupConstraintsAndLayout()
         self.applyThemeToViews()
+        
+        if(self.newsItem.imageURL != nil) {
+            self.imageRepository.fetchImageWithURL(self.newsItem.imageURL!).then({ (image) -> AnyObject! in
+                self.storyImageView.image = image as? UIImage
+                return image
+                }, error: { (error) -> AnyObject! in
+                    self.storyImageView.removeFromSuperview()
+                    return error
+            })
+        } else {
+            self.storyImageView.removeFromSuperview()
+        }
     }
 
     required public init(coder aDecoder: NSCoder) {

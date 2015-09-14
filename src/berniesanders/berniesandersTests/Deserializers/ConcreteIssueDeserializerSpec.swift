@@ -29,7 +29,7 @@ class ConcreteIssueDeserializerSpec : QuickSpec {
             var issueB = issues[1]
             expect(issueB.title).to(equal("Getting Big Money Out of Politics"))
             expect(issueB.body).to(equal("\nFreedom of speech does not mean the freedom to buy the United States government."))
-            expect(issueB.imageURL).to(equal(NSURL(string: "https://s.bsd.net/bernie16/main/page/-/website/fb-share.png")))
+            expect(issueB.imageURL).to(beNil())
         }
     }
 }
