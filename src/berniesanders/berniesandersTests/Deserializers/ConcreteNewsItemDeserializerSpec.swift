@@ -4,7 +4,6 @@ import Nimble
 import berniesanders
 
 class ConcreteNewsItemDeserializerSpec : QuickSpec {
-    let bundle = NSBundle(forClass: ConcreteIssueDeserializerSpec.self)
     var subject: ConcreteNewsItemDeserializer!
     
     override func spec() {
@@ -13,8 +12,7 @@ class ConcreteNewsItemDeserializerSpec : QuickSpec {
         }
         
         it("deserializes the news items correctly") {
-            let path = self.bundle.pathForResource("news_feed", ofType: "json")
-            let data = NSData(contentsOfFile: path!)!
+            let data = TestUtils.dataFromFixtureFileNamed("news_feed", type: "json")
             var error: NSError?
             
             let jsonDictionary = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.allZeros, error: &error) as! NSDictionary
@@ -38,8 +36,7 @@ class ConcreteNewsItemDeserializerSpec : QuickSpec {
         
         context("when title, body or url are missing") {
             it("should not explode and ignore stories that lack them") {
-                let path = self.bundle.pathForResource("dodgy_news_feed", ofType: "json")
-                let data = NSData(contentsOfFile: path!)!
+                let data = TestUtils.dataFromFixtureFileNamed("dodgy_news_feed", type: "json")
                 var error: NSError?
                 
                 let jsonDictionary = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.allZeros, error: &error) as! NSDictionary
@@ -53,13 +50,13 @@ class ConcreteNewsItemDeserializerSpec : QuickSpec {
         
         context("when there's not enough hits") {
             it("should not explode") {
-                var newsItems = self.subject.deserializeNewsItems([String: AnyObject]());
-                expect(newsItems.count).to(equal(0));
+                var newsItems = self.subject.deserializeNewsItems([String: AnyObject]())
+                expect(newsItems.count).to(equal(0))
                 
-                newsItems = self.subject.deserializeNewsItems(["hits": [String: AnyObject]()]);
-                expect(newsItems.count).to(equal(0));
+                newsItems = self.subject.deserializeNewsItems(["hits": [String: AnyObject]()])
+                expect(newsItems.count).to(equal(0))
                 
-                newsItems = self.subject.deserializeNewsItems(["hits": [ "hits": [String: AnyObject]()]]);
+                newsItems = self.subject.deserializeNewsItems(["hits": [ "hits": [String: AnyObject]()]])
                 expect(newsItems.count).to(equal(0));
             }
         }

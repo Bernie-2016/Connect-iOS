@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		65003A561BA7C5E900C66902 /* dodgy_issue_feed.json in Resources */ = {isa = PBXBuildFile; fileRef = 65003A551BA7C5E900C66902 /* dodgy_issue_feed.json */; };
 		650763141B8AB79F00BA0659 /* KSDeferred.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650763131B8AB79F00BA0659 /* KSDeferred.framework */; };
 		650763181B8B705400BA0659 /* ConcreteIssueRepositorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650763171B8B705400BA0659 /* ConcreteIssueRepositorySpec.swift */; };
 		6507631C1B8B71D900BA0659 /* URLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6507631B1B8B71D900BA0659 /* URLProvider.swift */; };
@@ -136,6 +137,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		65003A551BA7C5E900C66902 /* dodgy_issue_feed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dodgy_issue_feed.json; sourceTree = "<group>"; };
 		650763131B8AB79F00BA0659 /* KSDeferred.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KSDeferred.framework; path = Carthage/Build/iOS/KSDeferred.framework; sourceTree = "<group>"; };
 		650763171B8B705400BA0659 /* ConcreteIssueRepositorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteIssueRepositorySpec.swift; sourceTree = "<group>"; };
 		6507631B1B8B71D900BA0659 /* URLProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLProvider.swift; sourceTree = "<group>"; };
@@ -337,6 +339,7 @@
 			isa = PBXGroup;
 			children = (
 				659F0E211B95F44E0049FA12 /* bernie.jpg */,
+				65003A551BA7C5E900C66902 /* dodgy_issue_feed.json */,
 				65B70F991BA7BBD5007BF72C /* dodgy_news_feed.json */,
 				6592FA321B98D8F600746EC3 /* issue_feed.json */,
 				653885151B90F51300DCA808 /* news_feed.json */,
@@ -696,6 +699,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				659F0E221B95F44E0049FA12 /* bernie.jpg in Resources */,
+				65003A561BA7C5E900C66902 /* dodgy_issue_feed.json in Resources */,
 				65B70F9A1BA7BBD5007BF72C /* dodgy_news_feed.json in Resources */,
 				6592FA331B98D8F600746EC3 /* issue_feed.json in Resources */,
 				653885161B90F51300DCA808 /* news_feed.json in Resources */,

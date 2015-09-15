@@ -1,0 +1,34 @@
+{
+    "took": 4,
+    "timed_out": false,
+    "_shards": {
+        "total": 6,
+        "successful": 6,
+        "failed": 0
+    },
+    "hits": {
+        "total": 34,
+        "max_score": null,
+        "hits": [
+                 {
+                 "_source": {
+                 "image_url": "https://berniesanders.com/wp-content/uploads/2015/09/iowa-600x250.jpg",
+                 "title": "On the Road for Bernie in Iowa"
+                 }
+                 },
+                 {
+                 "_source": {
+                 "body": "Larry Cohen reports from Iowa:\n\nOn a hot Iowa Labor Day weekend, everyone was feeling the Bern!"
+                 }
+                 },
+                 {
+                 },
+                 {
+                 "_source": {
+                 "body": "Larry Cohen reports from Iowa:\n\nOn a hot Iowa Labor Day weekend, everyone was feeling the Bern!",
+                 "title": "This is good news"
+                 }
+                 }
+                 ]
+    }
+}
