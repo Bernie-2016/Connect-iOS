@@ -13,25 +13,49 @@ public class ConcreteNewsItemDeserializer : NewsItemDeserializer {
         
         var newsItems = [NewsItem]()
         
-        var hitsDictionary = jsonDictionary["hits"] as! NSDictionary;
-        var newsItemDictionaries = hitsDictionary["hits"] as! Array<NSDictionary>;
-        for(newsItemDictionary: NSDictionary) in newsItemDictionaries {
-            var sourceDictionary = newsItemDictionary["_source"] as! NSDictionary;
-            var title = sourceDictionary["title"] as! String
-            var body = sourceDictionary["body"] as! String
-            var pubDate = sourceDictionary["created_at"] as! String
-            var date = dateFormatter.dateFromString(pubDate)!
-            var imageURLString = sourceDictionary["image_url"] as? String
+        var hitsDictionary = jsonDictionary["hits"] as? NSDictionary;
+
+        if (hitsDictionary == nil) {
+            return newsItems
+        }
+        
+        var newsItemDictionaries = hitsDictionary!["hits"] as? Array<NSDictionary>;
+        
+        if (newsItemDictionaries == nil) {
+            return newsItems
+        }
+        
+        for(newsItemDictionary: NSDictionary) in newsItemDictionaries! {
+            var sourceDictionary = newsItemDictionary["_source"] as? NSDictionary;
+
+            if(sourceDictionary == nil) {
+                continue;
+            }
+            
+            var title = sourceDictionary!["title"] as? String
+            var body = sourceDictionary!["body"] as? String
+            var dateString = sourceDictionary!["created_at"] as? String
+            var urlString = sourceDictionary!["url"] as? String
+            
+            if (title == nil) || (body == nil) || (dateString == nil) || (urlString == nil) {
+                continue;
+            }
+
+            var url = NSURL(string: urlString!)
+            var date = dateFormatter.dateFromString(dateString!)
+            
+            if (url == nil) || (date == nil) {
+                continue;
+            }
+
+            var imageURLString = sourceDictionary!["image_url"] as? String
             var imageURL : NSURL?
             
             if(imageURLString != nil) {
-                imageURL = NSURL(string: imageURLString!)!
+                imageURL = NSURL(string: imageURLString!)
             }
             
-            var urlString = sourceDictionary["url"] as! String
-            var url = NSURL(string: urlString)!
-            
-            var newsItem = NewsItem(title: title, date: date, body: body, imageURL: imageURL, url: url)
+            var newsItem = NewsItem(title: title!, date: date!, body: body!, imageURL: imageURL, url: url!)
             newsItems.append(newsItem);
         }
         
