@@ -56,7 +56,7 @@ class FakeNewsItemRepository : berniesanders.NewsItemRepository {
 }
 
 class FakeNewsItemControllerProvider : berniesanders.NewsItemControllerProvider {
-    let controller = NewsItemController(newsItem: NewsItem(title: "a", date: NSDate(), body: "a body", imageURL: NSURL(), url: NSURL()), dateFormatter: NSDateFormatter(), imageRepository: FakeImageRepository(), theme: FakeTheme())
+    let controller = NewsItemController(newsItem: NewsItem(title: "a", date: NSDate(), body: "a body", imageURL: NSURL(), URL: NSURL()), dateFormatter: NSDateFormatter(), imageRepository: FakeImageRepository(), theme: FakeTheme())
     var lastNewsItem: NewsItem?
     
     func provideInstanceWithNewsItem(newsItem: NewsItem) -> NewsItemController {
@@ -143,8 +143,8 @@ class NewsTableViewControllerSpecs: QuickSpec {
             describe("when the news repository returns some news items", {
                 var newsItemADate = NSDate(timeIntervalSince1970: 0)
                 var newsItemBDate = NSDate(timeIntervalSince1970: 86401)
-                var newsItemA = NewsItem(title: "Bernie to release new album", date: newsItemADate, body: "yeahhh", imageURL: NSURL(string: "http://bs.com")!, url: NSURL())
-                var newsItemB = NewsItem(title: "Bernie up in the polls!", date: newsItemBDate, body: "body text", imageURL: NSURL(), url: NSURL())
+                var newsItemA = NewsItem(title: "Bernie to release new album", date: newsItemADate, body: "yeahhh", imageURL: NSURL(string: "http://bs.com")!, URL: NSURL())
+                var newsItemB = NewsItem(title: "Bernie up in the polls!", date: newsItemBDate, body: "body text", imageURL: NSURL(), URL: NSURL())
                 
                 var newsItems = [newsItemA, newsItemB]
                 
@@ -222,7 +222,7 @@ class NewsTableViewControllerSpecs: QuickSpec {
                     
                     context("when the first news item does not have an image URL") {
                         beforeEach {
-                            var newsItemWithoutImage =  NewsItem(title: "no pics", date: newsItemADate, body: "nope", imageURL: nil, url: NSURL())
+                            var newsItemWithoutImage =  NewsItem(title: "no pics", date: newsItemADate, body: "nope", imageURL: nil, URL: NSURL())
 
                             self.newsItemRepository.lastCompletionBlock!([newsItemWithoutImage])
                             
@@ -269,12 +269,12 @@ class NewsTableViewControllerSpecs: QuickSpec {
         }
         
         describe("Tapping on a news item") {
-            let expectedNewsItem = NewsItem(title: "B", date: NSDate(), body: "B Body", imageURL: NSURL(), url: NSURL())
+            let expectedNewsItem = NewsItem(title: "B", date: NSDate(), body: "B Body", imageURL: NSURL(), URL: NSURL())
             
             beforeEach {
                 self.subject.view.layoutIfNeeded()
                 self.subject.viewWillAppear(false)
-                var newsItemA = NewsItem(title: "A", date: NSDate(), body: "A Body", imageURL: NSURL(), url: NSURL())
+                var newsItemA = NewsItem(title: "A", date: NSDate(), body: "A Body", imageURL: NSURL(), URL: NSURL())
             
                 var newsItems = [newsItemA, expectedNewsItem]
                 

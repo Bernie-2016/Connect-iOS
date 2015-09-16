@@ -21,7 +21,7 @@ public class ConcreteNewsItemControllerProviderSpec : QuickSpec {
             }
             
             it("should return a correctly configured instance") {
-                let newsItem = NewsItem(title: "a", date: NSDate(), body: "a body", imageURL: NSURL(), url: NSURL())
+                let newsItem = NewsItem(title: "a", date: NSDate(), body: "a body", imageURL: NSURL(), URL: NSURL())
                 
                 let controller = self.subject.provideInstanceWithNewsItem(newsItem)
                 

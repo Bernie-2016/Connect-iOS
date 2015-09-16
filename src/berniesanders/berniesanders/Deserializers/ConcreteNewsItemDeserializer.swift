@@ -55,7 +55,7 @@ public class ConcreteNewsItemDeserializer : NewsItemDeserializer {
                 imageURL = NSURL(string: imageURLString!)
             }
             
-            var newsItem = NewsItem(title: title!, date: date!, body: body!, imageURL: imageURL, url: url!)
+            var newsItem = NewsItem(title: title!, date: date!, body: body!, imageURL: imageURL, URL: url!)
             newsItems.append(newsItem);
         }
         

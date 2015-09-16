@@ -73,7 +73,7 @@ public class NewsItemController : UIViewController {
     // MARK: Selectors
     
     func share() {
-        let activityVC = UIActivityViewController(activityItems: [newsItem.url], applicationActivities: nil)
+        let activityVC = UIActivityViewController(activityItems: [newsItem.URL], applicationActivities: nil)
         presentViewController(activityVC, animated: true, completion: nil)
     }
     
