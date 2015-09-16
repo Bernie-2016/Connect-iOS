@@ -20,6 +20,6 @@ class TestUtils {
     }
     
     class func settingsController() -> SettingsController {
-        return SettingsController()
+        return SettingsController(theme: FakeTheme())
     }
 }

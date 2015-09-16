@@ -36,7 +36,7 @@ class OrganizeControllerSpec : QuickSpec {
         }
         
         it("has the correct navigation item title") {
-            expect(self.subject.navigationItem.title).to(equal("ORGANIZE"))
+            expect(self.subject.navigationItem.title).to(equal("Organize"))
         }
         
         it("styles its tab bar item from the theme") {

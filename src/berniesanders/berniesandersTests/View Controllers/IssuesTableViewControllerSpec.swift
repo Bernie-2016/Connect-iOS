@@ -70,7 +70,7 @@ class IssuesTableViewControllerSpec: QuickSpec {
         }
         
         it("has the correct navigation item title") {
-            expect(self.subject.navigationItem.title).to(equal("ISSUES"))
+            expect(self.subject.navigationItem.title).to(equal("Issues"))
         }
         
         it("should set the back bar button item title correctly") {

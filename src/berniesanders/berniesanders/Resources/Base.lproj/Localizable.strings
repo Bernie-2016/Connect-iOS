@@ -2,21 +2,25 @@
 // News Feed
 
 "NewsFeed_tabBarTitle" = "News";
-"NewsFeed_navigationTitle" = "NEWS";
+"NewsFeed_navigationTitle" = "News";
 "NewsFeed_backButtonTitle" = "Back";
 
 // Issues
 
 "Issues_tabBarTitle" = "Issues";
-"Issues_navigationTitle" = "ISSUES";
+"Issues_navigationTitle" = "Issues";
 "Issues_backButtonTitle" = "Back";
 
 // Organize
 
 "Organize_tabBarTitle" = "Organize";
-"Organize_navigationTitle" = "ORGANIZE";
+"Organize_navigationTitle" = "Organize";
 
 // Connect
 
 "Connect_tabBarTitle" = "Connect";
-"Connect_navigationTitle" = "CONNECT";
+"Connect_navigationTitle" = "Connect";
+
+// Settings
+
+"Settings_navigationTitle" = "Settings";

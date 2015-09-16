@@ -101,7 +101,7 @@ class NewsTableViewControllerSpecs: QuickSpec {
         }
         
         it("has the correct navigation item title") {
-            expect(self.subject.navigationItem.title).to(equal("NEWS"))
+            expect(self.subject.navigationItem.title).to(equal("News"))
         }
         
         it("should set the back bar button item title correctly") {

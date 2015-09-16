@@ -36,7 +36,7 @@ class ConnectControllerSpec : QuickSpec {
         }
         
         it("has the correct navigation item title") {
-            expect(self.subject.navigationItem.title).to(equal("CONNECT"))
+            expect(self.subject.navigationItem.title).to(equal("Connect"))
         }
         
         it("styles its tab bar item from the theme") {

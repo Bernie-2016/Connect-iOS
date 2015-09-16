@@ -17,6 +17,7 @@
 		6507632C1B8B7B5D00BA0659 /* ConcreteIssueDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6507632B1B8B7B5D00BA0659 /* ConcreteIssueDeserializer.swift */; };
 		6507632F1B8B7F7700BA0659 /* ConcreteIssueDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6507632E1B8B7F7700BA0659 /* ConcreteIssueDeserializerSpec.swift */; };
 		65318D091BA9FC770029A15D /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65318D081BA9FC770029A15D /* SettingsController.swift */; };
+		65318D0B1BAA012B0029A15D /* SettingsControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65318D0A1BAA012B0029A15D /* SettingsControllerSpec.swift */; };
 		65324D571B8A9F7500BC864F /* ConnectItemRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65324D561B8A9F7500BC864F /* ConnectItemRepository.swift */; };
 		65324D591B8A9FB000BC864F /* ConcreteConnectItemRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65324D581B8A9FB000BC864F /* ConcreteConnectItemRepository.swift */; };
 		65324D5B1B8AA00D00BC864F /* ConnectItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65324D5A1B8AA00D00BC864F /* ConnectItem.swift */; };
@@ -148,6 +149,7 @@
 		6507632B1B8B7B5D00BA0659 /* ConcreteIssueDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteIssueDeserializer.swift; sourceTree = "<group>"; };
 		6507632E1B8B7F7700BA0659 /* ConcreteIssueDeserializerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteIssueDeserializerSpec.swift; sourceTree = "<group>"; };
 		65318D081BA9FC770029A15D /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
+		65318D0A1BAA012B0029A15D /* SettingsControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsControllerSpec.swift; sourceTree = "<group>"; };
 		65324D561B8A9F7500BC864F /* ConnectItemRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectItemRepository.swift; sourceTree = "<group>"; };
 		65324D581B8A9FB000BC864F /* ConcreteConnectItemRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteConnectItemRepository.swift; sourceTree = "<group>"; };
 		65324D5A1B8AA00D00BC864F /* ConnectItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectItem.swift; sourceTree = "<group>"; };
@@ -471,6 +473,7 @@
 				65DE8D921B955E15008C239F /* NewsItemControllerSpec.swift */,
 				65EC4CF31B84443100DD4C83 /* NewsTableViewControllerSpec.swift */,
 				65B1655C1B97E3CD0052EF8D /* OrganizeControllerSpec.swift */,
+				65318D0A1BAA012B0029A15D /* SettingsControllerSpec.swift */,
 				65C97A151B8A5CF900088679 /* TabBarControllerSpec.swift */,
 			);
 			path = "View Controllers";
@@ -821,6 +824,7 @@
 				65DE8D931B955E15008C239F /* NewsItemControllerSpec.swift in Sources */,
 				65EC4CF41B84443100DD4C83 /* NewsTableViewControllerSpec.swift in Sources */,
 				65B1655D1B97E3CD0052EF8D /* OrganizeControllerSpec.swift in Sources */,
+				65318D0B1BAA012B0029A15D /* SettingsControllerSpec.swift in Sources */,
 				65CA5E851B86CA930001D870 /* SpecAppDelegate.swift in Sources */,
 				65C97A161B8A5CF900088679 /* TabBarControllerSpec.swift in Sources */,
 				65AD23B21B968D6800C32A02 /* TestUtils.swift in Sources */,
