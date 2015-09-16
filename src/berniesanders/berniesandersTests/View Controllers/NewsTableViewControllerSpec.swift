@@ -73,7 +73,7 @@ class NewsTableViewControllerSpecs: QuickSpec {
     let theme: Theme! = NewsFakeTheme()
     let newsItemControllerProvider = FakeNewsItemControllerProvider()
     let navigationController = UINavigationController()
-
+    let settingsController = TestUtils.settingsController()
     
     override func spec() {
         beforeEach {
@@ -89,7 +89,8 @@ class NewsTableViewControllerSpecs: QuickSpec {
                 newsItemRepository: self.newsItemRepository,
                 imageRepository: self.imageRepository,
                 dateFormatter: dateFormatter,
-                newsItemControllerProvider: self.newsItemControllerProvider
+                newsItemControllerProvider: self.newsItemControllerProvider,
+                settingsController: self.settingsController
             )
             
             self.navigationController.pushViewController(self.subject, animated: false)
@@ -123,6 +124,14 @@ class NewsTableViewControllerSpecs: QuickSpec {
             
             expect(selectedTextColor).to(equal(UIColor.purpleColor()))
             expect(selectedFont).to(equal(UIFont.systemFontOfSize(123)))
+        }
+                
+        describe("tapping on the settings button") {
+            it("should push the settings controller onto the nav stack") {
+                self.subject.navigationItem.leftBarButtonItem!.tap()
+                
+                expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.settingsController))
+            }
         }
         
         describe("when the controller appears") {

@@ -52,12 +52,14 @@ class IssuesTableViewControllerSpec: QuickSpec {
     var issueRepository: FakeIssueRepository! = FakeIssueRepository()
     var issueControllerProvider = FakeIssueControllerProvider()
     let navigationController = UINavigationController()
-
+    let settingsController = TestUtils.settingsController()
+    
     override func spec() {
         beforeEach {
             self.subject = IssuesTableViewController(
                 issueRepository: self.issueRepository,
                 issueControllerProvider: self.issueControllerProvider,
+                settingsController: self.settingsController,
                 theme: IssuesFakeTheme()
             )
             self.navigationController.pushViewController(self.subject, animated: false)
@@ -91,6 +93,14 @@ class IssuesTableViewControllerSpec: QuickSpec {
             
             expect(selectedTextColor).to(equal(UIColor.purpleColor()))
             expect(selectedFont).to(equal(UIFont.systemFontOfSize(123)))
+        }
+                
+        describe("tapping on the settings button") {
+            it("should push the settings controller onto the nav stack") {
+                self.subject.navigationItem.leftBarButtonItem!.tap()
+                
+                expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.settingsController))
+            }
         }
         
         describe("when the controller appears") {

@@ -29,6 +29,8 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             let webImageManager = SDWebImageManager()
             let imageRepository = ConcreteImageRepository(webImageManager: webImageManager)
             
+            let settingsController = SettingsController()
+            
             let newsItemDeserializer = ConcreteNewsItemDeserializer()
             let newsItemRepository = ConcreteNewsItemRepository(
                 urlProvider: urlProvider,
@@ -43,16 +45,17 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
                 dateFormatter: longDateFormatter, imageRepository: imageRepository, theme: defaultTheme
             )
             
-            let newsController = NewsTableViewController(
+            let newsTableController = NewsTableViewController(
                 theme: defaultTheme,
                 newsItemRepository: newsItemRepository,
                 imageRepository: imageRepository,
                 dateFormatter: longDateFormatter,
-                newsItemControllerProvider: newsItemControllerProvider
+                newsItemControllerProvider: newsItemControllerProvider,
+                settingsController: settingsController
             )
             
             let newsNavigationController = NavigationController(theme: defaultTheme)
-            newsNavigationController.pushViewController(newsController, animated: false)
+            newsNavigationController.pushViewController(newsTableController, animated: false)
             let issueDeserializer = ConcreteIssueDeserializer()
             
             let issueRepository = ConcreteIssueRepository(
@@ -64,17 +67,20 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             
             let issueControllerProvider = ConcreteIssueControllerProvider(imageRepository: imageRepository, theme: defaultTheme)
             
-            let issuesController = IssuesTableViewController(
+            let issuesTableController = IssuesTableViewController(
                 issueRepository: issueRepository,
                 issueControllerProvider: issueControllerProvider,
+                settingsController: settingsController,
                 theme: defaultTheme
             )
             let issuesNavigationController = NavigationController(theme: defaultTheme)
-            issuesNavigationController.pushViewController(issuesController, animated: false)
+            issuesNavigationController.pushViewController(issuesTableController, animated: false)
             
-            let organizeController = OrganizeController(urlProvider: urlProvider, theme: defaultTheme)
+            let organizeController = OrganizeController(urlProvider: urlProvider,
+                theme: defaultTheme)
             
-            let connectController = ConnectController(urlProvider: urlProvider, theme: defaultTheme)
+            let connectController = ConnectController(urlProvider: urlProvider,
+                theme: defaultTheme)
             
             
             let viewControllers = [

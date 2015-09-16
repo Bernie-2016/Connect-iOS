@@ -1,19 +1,25 @@
 import UIKit
 
 public class IssuesTableViewController: UITableViewController {
-    private let issueRepository: IssueRepository!
-    private let issueControllerProvider: IssueControllerProvider!
-    private let theme: Theme!
+    let issueRepository: IssueRepository!
+    let issueControllerProvider: IssueControllerProvider!
+    let settingsController : SettingsController!
+    let theme: Theme!
     
-    private var issues: Array<Issue>!
+    var issues: Array<Issue>!
     
-    public init(issueRepository: IssueRepository, issueControllerProvider: IssueControllerProvider, theme: Theme) {
+    public init(issueRepository: IssueRepository, issueControllerProvider: IssueControllerProvider, settingsController: SettingsController, theme: Theme) {
         self.issueRepository = issueRepository
         self.issueControllerProvider = issueControllerProvider
+        self.settingsController = settingsController
         self.theme = theme
+        
         self.issues = []
         
         super.init(nibName: nil, bundle: nil)
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "\u{2699}", style: .Plain, target: self, action: "didTapSettings")
+
         self.tabBarItem.image = UIImage(named: "issuesTabBarIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
         let attributes = [
             NSFontAttributeName: theme.tabBarFont(),
@@ -84,5 +90,11 @@ public class IssuesTableViewController: UITableViewController {
         var issue = self.issues[indexPath.row]
         let controller = self.issueControllerProvider.provideInstanceWithIssue(issue)
         self.navigationController!.pushViewController(controller, animated: true)
+    }
+    
+    // MARK: Actions
+    
+    func didTapSettings() {
+        self.navigationController?.pushViewController(self.settingsController, animated: true)
     }
 }

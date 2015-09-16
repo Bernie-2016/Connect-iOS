@@ -70,7 +70,7 @@ public class NewsItemController : UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: Selectors
+    // MARK: Actions
     
     func share() {
         let activityVC = UIActivityViewController(activityItems: [newsItem.URL], applicationActivities: nil)

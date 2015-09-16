@@ -6,7 +6,8 @@ public class NewsTableViewController: UITableViewController {
     let newsItemRepository: NewsItemRepository!
     let imageRepository: ImageRepository!
     let dateFormatter: NSDateFormatter!
-    let newsItemControllerProvider : NewsItemControllerProvider!
+    let newsItemControllerProvider: NewsItemControllerProvider!
+    let settingsController: SettingsController!
     
     private var newsItems: Array<NewsItem>!
     
@@ -15,7 +16,8 @@ public class NewsTableViewController: UITableViewController {
         newsItemRepository: NewsItemRepository,
         imageRepository: ImageRepository,
         dateFormatter: NSDateFormatter,
-        newsItemControllerProvider: NewsItemControllerProvider
+        newsItemControllerProvider: NewsItemControllerProvider,
+        settingsController: SettingsController
         ) {
             
             self.theme = theme
@@ -23,10 +25,13 @@ public class NewsTableViewController: UITableViewController {
             self.imageRepository = imageRepository
             self.dateFormatter = dateFormatter
             self.newsItemControllerProvider = newsItemControllerProvider
+            self.settingsController = settingsController
             
             self.newsItems = []
             
             super.init(nibName: nil, bundle: nil)
+            
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "\u{2699}", style: .Plain, target: self, action: "didTapSettings")
             
             self.tabBarItem.image = UIImage(named: "newsTabBarIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
             
@@ -138,5 +143,11 @@ public class NewsTableViewController: UITableViewController {
         let controller = self.newsItemControllerProvider.provideInstanceWithNewsItem(newsItem)
         
         self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    // MARK: Actions
+    
+    func didTapSettings() {
+        self.navigationController?.pushViewController(self.settingsController, animated: true)
     }
 }

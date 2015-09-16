@@ -58,7 +58,7 @@ public class IssueController : UIViewController {
         }
     }
     
-    // MARK: Selectors
+    // MARK: Actions
     
     func share() {
         let activityVC = UIActivityViewController(activityItems: [issue.URL], applicationActivities: nil)
