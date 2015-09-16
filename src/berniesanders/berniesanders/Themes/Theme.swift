@@ -25,6 +25,9 @@ public protocol Theme {
     func newsFeedTitleColor() -> UIColor
     func newsFeedDateFont() -> UIFont
     func newsFeedDateColor() -> UIColor
+    func newsFeedHeadlineTitleFont() -> UIFont
+    func newsfeedHeadlineTitleColor() -> UIColor
+    func newsFeedHeadlineTitleBackgroundColor() -> UIColor
     
     // MARK: Issues
     

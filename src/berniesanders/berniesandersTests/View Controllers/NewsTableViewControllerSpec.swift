@@ -26,6 +26,18 @@ class NewsFakeTheme : FakeTheme {
     override func tabBarFont() -> UIFont {
         return UIFont.systemFontOfSize(123)
     }
+    
+    override func newsFeedHeadlineTitleFont() -> UIFont {
+        return UIFont.systemFontOfSize(666)
+    }
+    
+    override func newsfeedHeadlineTitleColor() -> UIColor {
+        return UIColor.yellowColor()
+    }
+    
+    override func newsFeedHeadlineTitleBackgroundColor() -> UIColor {
+        return UIColor.orangeColor()
+    }
 }
 
 class FakeNewsItemRepository : berniesanders.NewsItemRepository {
@@ -56,12 +68,17 @@ class FakeNewsItemControllerProvider : berniesanders.NewsItemControllerProvider 
 class NewsTableViewControllerSpecs: QuickSpec {
     var subject: NewsTableViewController!
     let newsItemRepository: FakeNewsItemRepository! =  FakeNewsItemRepository()
+    var imageRepository : FakeImageRepository!
+    
     let theme: Theme! = NewsFakeTheme()
     let newsItemControllerProvider = FakeNewsItemControllerProvider()
     let navigationController = UINavigationController()
+
     
     override func spec() {
         beforeEach {
+            self.imageRepository = FakeImageRepository()
+            
             let theme = NewsFakeTheme()
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
@@ -70,6 +87,7 @@ class NewsTableViewControllerSpecs: QuickSpec {
             self.subject = NewsTableViewController(
                 theme: theme,
                 newsItemRepository: self.newsItemRepository,
+                imageRepository: self.imageRepository,
                 dateFormatter: dateFormatter,
                 newsItemControllerProvider: self.newsItemControllerProvider
             )
@@ -125,34 +143,127 @@ class NewsTableViewControllerSpecs: QuickSpec {
             describe("when the news repository returns some news items", {
                 var newsItemADate = NSDate(timeIntervalSince1970: 0)
                 var newsItemBDate = NSDate(timeIntervalSince1970: 86401)
+                var newsItemA = NewsItem(title: "Bernie to release new album", date: newsItemADate, body: "yeahhh", imageURL: NSURL(string: "http://bs.com")!, url: NSURL())
+                var newsItemB = NewsItem(title: "Bernie up in the polls!", date: newsItemBDate, body: "body text", imageURL: NSURL(), url: NSURL())
                 
-                beforeEach {
-                    var newsItemA = NewsItem(title: "Bernie to release new album", date: newsItemADate, body: "yeahhh", imageURL: NSURL(), url: NSURL())
-                    var newsItemB = NewsItem(title: "Bernie up in the polls!", date: newsItemBDate, body: "body text", imageURL: NSURL(), url: NSURL())
-
-                    var newsItems = [newsItemA, newsItemB]
+                var newsItems = [newsItemA, newsItemB]
+                
+                it("has 2 sections") {
                     self.newsItemRepository.lastCompletionBlock!(newsItems)
+
+                    expect(self.subject.tableView.numberOfSections()).to(equal(2))
                 }
                 
-                it("shows the items in the table with upcased text") {
-                    expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(2))
+                describe("the top news story") {
+                    var cell : NewsHeadlineTableViewCell!
+
+                    it("shows the first news item as a headline news cell") {
+                        self.newsItemRepository.lastCompletionBlock!(newsItems)
+                        
+                        expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(1))
+                        
+                        cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NewsHeadlineTableViewCell
+                        expect(cell.titleLabel.text).to(equal("Bernie to release new album"))
+                    }
                     
-                    var cellA = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! TitleSubTitleTableViewCell
-                    expect(cellA.titleLabel.text).to(equal("BERNIE TO RELEASE NEW ALBUM"))
-                    expect(cellA.dateLabel.text).to(equal("1/1/70"))
+                    it("styles the cell") {
+                        self.newsItemRepository.lastCompletionBlock!(newsItems)
+                        cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NewsHeadlineTableViewCell
+                        
+                        expect(cell.titleLabel.textColor).to(equal(UIColor.yellowColor()))
+                        expect(cell.titleLabel.font).to(equal(UIFont.systemFontOfSize(666)))
+                        expect(cell.titleLabel.backgroundColor).to(equal(UIColor.orangeColor()))
+                    }
                     
-                    var cellB = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! TitleSubTitleTableViewCell
-                    expect(cellB.titleLabel.text).to(equal("BERNIE UP IN THE POLLS!"))
-                    expect(cellB.dateLabel.text).to(equal("1/2/70"))
+                    context("when the first news item has an image URL") {
+                        
+                        beforeEach() {
+                            self.newsItemRepository.lastCompletionBlock!(newsItems)
+
+                            cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NewsHeadlineTableViewCell
+                        }
+                        
+                        it("sets a placeholder image") {
+                            var placeholderImage = UIImage(named: "newsHeadlinePlaceholder")
+                            var expectedImageData = UIImagePNGRepresentation(placeholderImage)
+                            var headlineImageData = UIImagePNGRepresentation(cell.headlineImageView.image)
+                            
+                            expect(headlineImageData).to(equal(expectedImageData))
+                        }
+                        
+                        it("makes a request for the image") {
+                            expect(self.imageRepository.imageRequested).to(beTrue())
+                            expect(self.imageRepository.lastReceivedURL).to(beIdenticalTo(newsItemA.imageURL))
+                        }
+                        
+                        context("when the image loads successfully") {
+                            it("shows the loaded image in the image view") {
+                                var storyImage = TestUtils.testImageNamed("bernie", type: "jpg")
+                                
+                                self.imageRepository.lastRequestDeferred.resolveWithValue(storyImage)
+                                
+                                var expectedImageData = UIImagePNGRepresentation(storyImage)
+                                var storyImageData = UIImagePNGRepresentation(cell.headlineImageView.image)
+                                
+                                expect(storyImageData).to(equal(expectedImageData))
+                            }
+                        }
+                        
+                        context("when the image cannot be loaded") {
+                            it("still shows the placeholder image") {
+                                var placeholderImage = UIImage(named: "newsHeadlinePlaceholder")
+                                var expectedImageData = UIImagePNGRepresentation(placeholderImage)
+                                var headlineImageData = UIImagePNGRepresentation(cell.headlineImageView.image)
+                                
+                                expect(headlineImageData).to(equal(expectedImageData)) 
+                            }
+                        }
+                    }
+                    
+                    context("when the first news item does not have an image URL") {
+                        beforeEach {
+                            var newsItemWithoutImage =  NewsItem(title: "no pics", date: newsItemADate, body: "nope", imageURL: nil, url: NSURL())
+
+                            self.newsItemRepository.lastCompletionBlock!([newsItemWithoutImage])
+                            
+                            cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NewsHeadlineTableViewCell
+                        }
+
+                        it("sets a default image") {
+                            var defaultImage = UIImage(named: "newsHeadlinePlaceholder")
+                            var expectedImageData = UIImagePNGRepresentation(defaultImage)
+                            var headlineImageData = UIImagePNGRepresentation(cell.headlineImageView.image)
+                            
+                            expect(headlineImageData).to(equal(expectedImageData))
+                        }
+                        
+                        it("does not make a request for an image") {
+                            expect(self.imageRepository.imageRequested).to(beFalse())
+                        }
+                    }
                 }
                 
-                it("styles the items in the table") {
-                    var cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! TitleSubTitleTableViewCell
+                describe("the rest of the news story") {
+                    beforeEach {
+                        self.newsItemRepository.lastCompletionBlock!(newsItems)
+                    }
                     
-                    expect(cell.titleLabel.textColor).to(equal(UIColor.magentaColor()))
-                    expect(cell.titleLabel.font).to(equal(UIFont.boldSystemFontOfSize(20)))
-                    expect(cell.dateLabel.textColor).to(equal(UIColor.brownColor()))
-                    expect(cell.dateLabel.font).to(equal(UIFont.italicSystemFontOfSize(13)))
+                    it("shows the items in the table with upcased text") {
+                        expect(self.subject.tableView.numberOfRowsInSection(1)).to(equal(1))
+                        
+                        var cellB = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! TitleSubTitleTableViewCell
+                        expect(cellB.titleLabel.text).to(equal("Bernie up in the polls!"))
+                        expect(cellB.dateLabel.text).to(equal("1/2/70"))
+                    }
+                
+                    it("styles the items in the table") {
+                        var cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! TitleSubTitleTableViewCell
+                        
+                        expect(cell.titleLabel.textColor).to(equal(UIColor.magentaColor()))
+                        expect(cell.titleLabel.font).to(equal(UIFont.boldSystemFontOfSize(20)))
+                        expect(cell.dateLabel.textColor).to(equal(UIColor.brownColor()))
+                        expect(cell.dateLabel.font).to(equal(UIFont.italicSystemFontOfSize(13)))
+                    }
                 }
             })
         }

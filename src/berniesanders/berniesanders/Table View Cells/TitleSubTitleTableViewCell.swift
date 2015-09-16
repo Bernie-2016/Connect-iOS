@@ -25,9 +25,8 @@ public class TitleSubTitleTableViewCell : UITableViewCell {
         dateLabel.autoPinEdgeToSuperviewEdge(ALEdge.Top, withInset: 4)
         dateLabel.autoPinEdgeToSuperviewEdge(ALEdge.Left, withInset: 8)
 
-        
         self.contentView.addSubview(titleLabel)
-        titleLabel.numberOfLines = 2
+        titleLabel.numberOfLines = 3
         titleLabel.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: dateLabel, withOffset: 4)
         titleLabel.autoPinEdge(ALEdge.Left, toEdge: ALEdge.Left, ofView: dateLabel, withOffset: 0)
         titleLabel.autoSetDimension(.Width, toSize: self.bounds.width - 85, relation: .LessThanOrEqual)

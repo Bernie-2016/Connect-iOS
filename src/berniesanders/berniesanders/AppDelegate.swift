@@ -46,6 +46,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             let newsController = NewsTableViewController(
                 theme: defaultTheme,
                 newsItemRepository: newsItemRepository,
+                imageRepository: imageRepository,
                 dateFormatter: longDateFormatter,
                 newsItemControllerProvider: newsItemControllerProvider
             )

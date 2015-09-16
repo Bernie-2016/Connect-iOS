@@ -104,6 +104,16 @@ class DefaultTheme : Theme {
     func newsItemBodyColor() -> UIColor {
         return UIColor.blackColor()
     }
+    
+    func newsFeedHeadlineTitleFont() -> UIFont {
+        return UIFont(name: "Lora-Bold", size: 16)!
+    }
+    func newsfeedHeadlineTitleColor() -> UIColor {
+        return UIColor.whiteColor()
+    }
+    func newsFeedHeadlineTitleBackgroundColor() -> UIColor {
+        return UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
+    }
 
     // MARK: Issue detail screen
     
