@@ -35,9 +35,10 @@ public class NewsItemController : UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = self.theme.defaultBackgroundColor()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "share")
-
+        
+        self.view.backgroundColor = self.theme.defaultBackgroundColor()
+        
         self.view.addSubview(self.scrollView)
         self.scrollView.addSubview(self.containerView)
         self.containerView.addSubview(self.storyImageView)

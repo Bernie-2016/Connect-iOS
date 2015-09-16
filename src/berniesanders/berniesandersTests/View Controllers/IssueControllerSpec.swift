@@ -29,16 +29,15 @@ class IssueFakeTheme : FakeTheme {
 class IssueControllerSpec : QuickSpec {
     var subject : IssueController!
     var imageRepository : FakeImageRepository!
-    let issueImageURL = NSURL(string: "http://a.com")!
-    
+    let issue = TestUtils.issue()
+
     override func spec() {
         context("with a standard issue") {
             beforeEach {
                 self.imageRepository = FakeImageRepository()
-                let issue = Issue(title: "Some issue", body: "body", imageURL: self.issueImageURL)
                 
                 self.subject = IssueController(
-                    issue: issue,
+                    issue: self.issue,
                     imageRepository: self.imageRepository,
                     theme: IssueFakeTheme())
             }
@@ -50,6 +49,23 @@ class IssueControllerSpec : QuickSpec {
             describe("when the view loads") {
                 beforeEach {
                     self.subject.view.layoutIfNeeded()
+                }
+                
+                it("has a share button on the navigation item") {
+                    var shareBarButtonItem = self.subject.navigationItem.rightBarButtonItem!
+                    expect(shareBarButtonItem.valueForKey("systemItem") as? Int).to(equal(UIBarButtonSystemItem.Action.rawValue))
+                }
+                
+                describe("tapping on the share button") {
+                    it("should present an activity view controller for sharing the story URL") {
+                        self.subject.navigationItem.rightBarButtonItem!.tap()
+                        
+                        let activityViewControler = self.subject.presentedViewController as! UIActivityViewController
+                        let activityItems = activityViewControler.activityItems()
+                        
+                        expect(activityItems.count).to(equal(1))
+                        expect(activityItems.first as? NSURL).to(beIdenticalTo(self.issue.URL))
+                    }
                 }
                 
                 it("has a scroll view containing the UI elements") {
@@ -79,15 +95,15 @@ class IssueControllerSpec : QuickSpec {
                 }
                 
                 it("displays the title from the issue") {
-                    expect(self.subject.titleLabel.text).to(equal("Some issue"))
+                    expect(self.subject.titleLabel.text).to(equal("An issue title made by TestUtils"))
                 }
                 
                 it("displays the issue body") {
-                    expect(self.subject.bodyTextView.text).to(equal("body"))
+                    expect(self.subject.bodyTextView.text).to(equal("An issue body made by TestUtils"))
                 }
                 
                 it("makes a request for the story's image") {
-                    expect(self.imageRepository.lastReceivedURL).to(beIdenticalTo(self.issueImageURL))
+                    expect(self.imageRepository.lastReceivedURL).to(beIdenticalTo(self.issue.imageURL))
                 }
                 
                 context("when the request for the story's image succeeds") {
@@ -117,7 +133,7 @@ class IssueControllerSpec : QuickSpec {
             
             context("with an issue that lacks an image") {
                 beforeEach {
-                    let issue = Issue(title: "Some issue", body: "body", imageURL: nil)
+                    let issue = Issue(title: "Some issue", body: "body", imageURL: nil, URL: NSURL(string: "http://b.com")!)
                     
                     self.subject = IssueController(
                         issue: issue,

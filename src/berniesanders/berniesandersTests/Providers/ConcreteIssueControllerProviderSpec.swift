@@ -19,7 +19,7 @@ public class ConcreteIssueControllerProviderSpec : QuickSpec {
             }
             
             it("should return a correctly configured instance") {
-                let issue = Issue(title: "a", body: "body", imageURL: NSURL())
+                let issue = TestUtils.issue()
                 
                 let controller = self.subject.provideInstanceWithIssue(issue)
                 

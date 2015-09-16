@@ -29,11 +29,17 @@ public class ConcreteIssueDeserializer : IssueDeserializer {
             
             var title = sourceDictionary!["title"] as? String
             var body = sourceDictionary!["body"] as? String
-            
-            if (title == nil) || (body == nil) {
+            var urlString = sourceDictionary!["url"] as? String
+
+            if (title == nil) || (body == nil) || (urlString == nil) {
                 continue;
             }
             
+            var url = NSURL(string: urlString!)
+            if (url == nil) {
+                continue;
+            }
+
             var imageURLString = sourceDictionary!["image_url"] as? String
             var imageURL : NSURL?
 
@@ -41,7 +47,7 @@ public class ConcreteIssueDeserializer : IssueDeserializer {
                 imageURL = NSURL(string: imageURLString!)
             }
 
-            var issue = Issue(title: title!, body: body!, imageURL: imageURL)
+            var issue = Issue(title: title!, body: body!, imageURL: imageURL, URL: url!)
             issues.append(issue);
         }
         

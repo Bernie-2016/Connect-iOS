@@ -11,7 +11,7 @@ class IssueRepositoryFakeURLProvider: FakeURLProvider {
 
 class FakeIssueDeserializer: IssueDeserializer {
     var lastReceivedJSONDictionary: NSDictionary!
-    let returnedIssues = [Issue(title: "fake issue", body: "body", imageURL: NSURL())]
+    let returnedIssues = [TestUtils.issue()]
     
     func deserializeIssues(jsonDictionary: NSDictionary) -> Array<Issue> {
         self.lastReceivedJSONDictionary = jsonDictionary
@@ -67,7 +67,7 @@ class ConcreteIssueRepositorySpec : QuickSpec {
                 it("calls the completion handler with the deserialized value objects on the operation queue") {
                     self.operationQueue.lastReceivedBlock()
                     expect(self.receivedIssues.count).to(equal(1))
-                    expect(self.receivedIssues.first!.title).to(equal("fake issue"))
+                    expect(self.receivedIssues.first!).to(beIdenticalTo(expectedIssues.first!))
                 }
             }
             

@@ -30,6 +30,8 @@ public class IssueController : UIViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "share")
 
         self.view.addSubview(self.scrollView)
         self.scrollView.addSubview(self.containerView)
@@ -56,6 +58,12 @@ public class IssueController : UIViewController {
         }
     }
     
+    // MARK: Selectors
+    
+    func share() {
+        let activityVC = UIActivityViewController(activityItems: [issue.URL], applicationActivities: nil)
+        presentViewController(activityVC, animated: true, completion: nil)
+    }
     
     // MARK: Private
     
