@@ -90,6 +90,7 @@ public class NewsItemController : UIViewController {
         self.containerView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: ALEdge.Trailing)
         self.containerView.autoSetDimension(ALDimension.Width, toSize: screenBounds.width)
         
+        self.storyImageView.contentMode = UIViewContentMode.ScaleAspectFill
         self.storyImageView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: ALEdge.Bottom)
         self.storyImageView.autoSetDimension(ALDimension.Height, toSize: screenBounds.height / 3, relation: NSLayoutRelation.LessThanOrEqual)
         
