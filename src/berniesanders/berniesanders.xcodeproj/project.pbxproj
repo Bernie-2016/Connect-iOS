@@ -229,7 +229,7 @@
 		65F5F6581B8968440049353C /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		65F5F65C1B896FFF0049353C /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		65F5F6621B8A3CB00049353C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
-		8233FC071B7C28FB00A5E9ED /* Bernie 2016.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bernie 2016.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8233FC071B7C28FB00A5E9ED /* berniesanders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = berniesanders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8233FC0B1B7C28FB00A5E9ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8233FC0C1B7C28FB00A5E9ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8233FC151B7C28FB00A5E9ED /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -529,7 +529,7 @@
 		8233FC081B7C28FB00A5E9ED /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8233FC071B7C28FB00A5E9ED /* Bernie 2016.app */,
+				8233FC071B7C28FB00A5E9ED /* berniesanders.app */,
 				8233FC1E1B7C28FB00A5E9ED /* berniesandersTests.xctest */,
 			);
 			name = Products;
@@ -628,7 +628,7 @@
 			);
 			name = berniesanders;
 			productName = berniesanders;
-			productReference = 8233FC071B7C28FB00A5E9ED /* Bernie 2016.app */;
+			productReference = 8233FC071B7C28FB00A5E9ED /* berniesanders.app */;
 			productType = "com.apple.product-type.application";
 		};
 		8233FC1D1B7C28FB00A5E9ED /* berniesandersTests */ = {
@@ -962,7 +962,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MACH_O_TYPE = mh_execute;
 				OTHER_SWIFT_FLAGS = "";
-				PRODUCT_NAME = "Bernie 2016";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -986,7 +986,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MACH_O_TYPE = mh_execute;
 				OTHER_SWIFT_FLAGS = "-DRELEASE";
-				PRODUCT_NAME = "Bernie 2016";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
