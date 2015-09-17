@@ -31,28 +31,33 @@ public protocol Theme {
     
     // MARK: Issues
     
-    func issuesFeedTitleFont() -> UIFont;
-    func issuesFeedTitleColor() -> UIColor;
+    func issuesFeedTitleFont() -> UIFont
+    func issuesFeedTitleColor() -> UIColor
     
     // MARK: feed header
     
-    func feedHeaderBackgroundColor() -> UIColor;
-    func feedHeaderTextColor() -> UIColor;
-    func feedHeaderFont() -> UIFont;
+    func feedHeaderBackgroundColor() -> UIColor
+    func feedHeaderTextColor() -> UIColor
+    func feedHeaderFont() -> UIFont
     
     // MARK: News Item detail screen
     
-    func newsItemDateFont() -> UIFont;
-    func newsItemDateColor() -> UIColor;
-    func newsItemTitleFont() -> UIFont;
-    func newsItemTitleColor() -> UIColor;
-    func newsItemBodyFont() -> UIFont;
-    func newsItemBodyColor() -> UIColor;
+    func newsItemDateFont() -> UIFont
+    func newsItemDateColor() -> UIColor
+    func newsItemTitleFont() -> UIFont
+    func newsItemTitleColor() -> UIColor
+    func newsItemBodyFont() -> UIFont
+    func newsItemBodyColor() -> UIColor
     
     // MARK: Issue detail screen
     
-    func issueTitleFont() -> UIFont;
+    func issueTitleFont() -> UIFont
     func issueTitleColor() -> UIColor
     func issueBodyFont() -> UIFont
     func issueBodyColor() -> UIColor
+    
+    // MARK: Settings
+    
+    func settingsTitleFont() -> UIFont
+    func settingsTitleColor() -> UIColor
 }

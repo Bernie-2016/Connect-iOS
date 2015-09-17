@@ -20,6 +20,10 @@ class TestUtils {
     }
     
     class func settingsController() -> SettingsController {
-        return SettingsController(theme: FakeTheme())
+        return SettingsController(privacyPolicyController: self.privacyPolicyController(), theme: FakeTheme())
+    }
+    
+    class func privacyPolicyController() -> PrivacyPolicyController {
+        return PrivacyPolicyController(urlProvider: FakeURLProvider())
     }
 }

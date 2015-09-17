@@ -117,4 +117,12 @@ class FakeTheme : berniesanders.Theme {
     func newsFeedHeadlineTitleBackgroundColor() -> UIColor {
         fatalError("override me in the spec!")
     }
+    
+    func settingsTitleFont() -> UIFont {
+        fatalError("override me in the spec!")
+    }
+    
+    func settingsTitleColor() -> UIColor {
+        fatalError("override me in the spec!")        
+    }
 }

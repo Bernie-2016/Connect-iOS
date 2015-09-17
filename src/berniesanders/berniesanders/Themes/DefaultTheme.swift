@@ -131,7 +131,17 @@ class DefaultTheme : Theme {
     
     func issueBodyColor() -> UIColor {
         return UIColor.blackColor()
-    }    
+    }
+    
+    // MARK: Settings
+    
+    func settingsTitleFont() -> UIFont {
+        return UIFont(name: "Lato-Regular", size: 15)!  
+    }
+    
+    func settingsTitleColor() -> UIColor {
+        return self.cornflowerBlueColor()
+    }
     
     // MARK: color definitions
     
@@ -142,4 +152,5 @@ class DefaultTheme : Theme {
     func carnationColor() -> UIColor {
         return UIColor(rgba: "#fc625c")
     }
+    
 }

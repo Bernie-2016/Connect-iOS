@@ -29,7 +29,10 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             let webImageManager = SDWebImageManager()
             let imageRepository = ConcreteImageRepository(webImageManager: webImageManager)
             
-            let settingsController = SettingsController(theme: defaultTheme)
+            let privacyPolicyController = PrivacyPolicyController(urlProvider: urlProvider)
+            let settingsController = SettingsController(
+                privacyPolicyController: privacyPolicyController,
+                theme: defaultTheme)
             
             let newsItemDeserializer = ConcreteNewsItemDeserializer()
             let newsItemRepository = ConcreteNewsItemRepository(

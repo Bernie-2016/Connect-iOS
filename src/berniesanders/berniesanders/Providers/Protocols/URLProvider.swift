@@ -5,4 +5,5 @@ public protocol URLProvider {
     func newsFeedURL() -> NSURL!
     func bernieCrowdURL() -> NSURL!
     func bernieEventsURL() -> NSURL!
+    func privacyPolicyURL() -> NSURL!
 }
