@@ -139,7 +139,13 @@ public class NewsTableViewController: UITableViewController {
     }
     
     public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var newsItem = self.newsItems[indexPath.row]
+        var newsItem : NewsItem!
+        if(indexPath.section == 0) {
+            newsItem = self.newsItems[0]
+        } else {
+            newsItem = self.newsItems[indexPath.row + 1]
+        }
+
         let controller = self.newsItemControllerProvider.provideInstanceWithNewsItem(newsItem)
         
         self.navigationController?.pushViewController(controller, animated: true)

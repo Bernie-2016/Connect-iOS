@@ -278,24 +278,39 @@ class NewsTableViewControllerSpecs: QuickSpec {
         }
         
         describe("Tapping on a news item") {
-            let expectedNewsItem = NewsItem(title: "B", date: NSDate(), body: "B Body", imageURL: NSURL(), URL: NSURL())
-            
+            let expectedNewsItemA = NewsItem(title: "A", date: NSDate(), body: "A Body", imageURL: NSURL(), URL: NSURL())
+            let expectedNewsItemB = NewsItem(title: "B", date: NSDate(), body: "B Body", imageURL: NSURL(), URL: NSURL())
             beforeEach {
                 self.subject.view.layoutIfNeeded()
                 self.subject.viewWillAppear(false)
-                var newsItemA = NewsItem(title: "A", date: NSDate(), body: "A Body", imageURL: NSURL(), URL: NSURL())
             
-                var newsItems = [newsItemA, expectedNewsItem]
-                
+                var newsItems = [expectedNewsItemA, expectedNewsItemB]
+
                 self.newsItemRepository.lastCompletionBlock!(newsItems)
             }
             
-            it("should push a correctly configured news item view controller onto the nav stack") {
-                let tableView = self.subject.tableView
-                tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
-                
-                expect(self.newsItemControllerProvider.lastNewsItem).to(beIdenticalTo(expectedNewsItem))
-                expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.newsItemControllerProvider.controller))
+            afterEach {
+                self.navigationController.popViewControllerAnimated(false)
+            }
+            
+            context("that is the headline news story") {
+                it("should push a correctly configured news item view controller onto the nav stack") {
+                    let tableView = self.subject.tableView
+                    tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+                    
+                    expect(self.newsItemControllerProvider.lastNewsItem).to(beIdenticalTo(expectedNewsItemA))
+                    expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.newsItemControllerProvider.controller))
+                }
+            }
+            
+            context("that is another news story") {
+                it("should push a correctly configured news item view controller onto the nav stack") {
+                    let tableView = self.subject.tableView
+                    tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 1))
+                    
+                    expect(self.newsItemControllerProvider.lastNewsItem).to(beIdenticalTo(expectedNewsItemB))
+                    expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.newsItemControllerProvider.controller))
+                }
             }
         }
     }
