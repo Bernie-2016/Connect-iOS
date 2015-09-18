@@ -20,7 +20,9 @@ public class IssuesTableViewController: UITableViewController {
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "\u{2699}", style: .Plain, target: self, action: "didTapSettings")
 
-        self.tabBarItem.image = UIImage(named: "issuesTabBarIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
+        self.tabBarItem.image = UIImage(named: "issuesTabBarIconInactive")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
+        self.tabBarItem.selectedImage = UIImage(named: "issuesTabBarIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
+        
         let attributes = [
             NSFontAttributeName: theme.tabBarFont(),
             NSForegroundColorAttributeName: theme.tabBarTextColor()

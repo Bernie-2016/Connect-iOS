@@ -10,7 +10,9 @@ public class OrganizeController : UIViewController {
         
         super.init(nibName: nil, bundle: nil)
         
-        self.tabBarItem.image = UIImage(named: "organizeTabBarIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
+        self.tabBarItem.image = UIImage(named: "organizeTabBarIconInactive")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
+        self.tabBarItem.selectedImage = UIImage(named: "organizeTabBarIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
+        
         let attributes = [
             NSFontAttributeName: theme.tabBarFont(),
             NSForegroundColorAttributeName: theme.tabBarTextColor()
