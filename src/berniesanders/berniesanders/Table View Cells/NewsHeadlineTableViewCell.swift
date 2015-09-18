@@ -30,9 +30,9 @@ public class NewsHeadlineTableViewCell : UITableViewCell {
         
         self.titleLabel.autoPinEdgeToSuperviewEdge(.Leading, withInset: 0)
         self.titleLabel.autoPinEdgeToSuperviewEdge(.Trailing, withInset: 0)
-        self.titleLabel.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 16)
+        self.titleLabel.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 4)
         
-        self.titleLabel.numberOfLines = 0
+        self.titleLabel.numberOfLines = 2
         self.titleLabel.textAlignment = .Center
     }
 }
