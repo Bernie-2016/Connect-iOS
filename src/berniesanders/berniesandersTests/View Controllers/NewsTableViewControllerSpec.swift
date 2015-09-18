@@ -19,8 +19,12 @@ class NewsFakeTheme : FakeTheme {
         return UIColor.brownColor()
     }
     
-    override func tabBarTextColor() -> UIColor {
+    override func tabBarActiveTextColor() -> UIColor {
         return UIColor.purpleColor()
+    }
+    
+    override func tabBarInactiveTextColor() -> UIColor {
+        return UIColor.redColor()
     }
     
     override func tabBarFont() -> UIFont {

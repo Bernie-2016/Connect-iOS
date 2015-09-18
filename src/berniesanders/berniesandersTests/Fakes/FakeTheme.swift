@@ -34,7 +34,11 @@ class FakeTheme : berniesanders.Theme {
         fatalError("override me in the spec!")
     }
     
-    func tabBarTextColor() -> UIColor {
+    func tabBarActiveTextColor() -> UIColor {
+         fatalError("override me in the spec!")
+    }
+    
+    func tabBarInactiveTextColor() -> UIColor {
          fatalError("override me in the spec!")
     }
     

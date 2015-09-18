@@ -100,7 +100,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window!.backgroundColor = defaultTheme.defaultBackgroundColor()
             self.window!.makeKeyAndVisible()
             
-            UITabBar.appearance().tintColor = defaultTheme.tabBarTextColor()
+            UITabBar.appearance().tintColor = defaultTheme.tabBarActiveTextColor()
             UINavigationBar.appearance().tintColor = defaultTheme.navigationBarTextColor()
             UIBarButtonItem.appearance().setTitleTextAttributes([
                 NSFontAttributeName: defaultTheme.navigationBarFont(), NSForegroundColorAttributeName: defaultTheme.navigationBarTextColor()], forState: UIControlState.Normal)

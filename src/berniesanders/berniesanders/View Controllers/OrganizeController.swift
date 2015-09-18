@@ -13,13 +13,12 @@ public class OrganizeController : UIViewController {
         self.tabBarItem.image = UIImage(named: "organizeTabBarIconInactive")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
         self.tabBarItem.selectedImage = UIImage(named: "organizeTabBarIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
         
-        let attributes = [
-            NSFontAttributeName: theme.tabBarFont(),
-            NSForegroundColorAttributeName: theme.tabBarTextColor()
-        ]
+        let activeTabBarTextAttributes = [NSFontAttributeName: theme.tabBarFont(), NSForegroundColorAttributeName: theme.tabBarActiveTextColor()]
+        let inactiveTabBarTextAttributes = [NSFontAttributeName: theme.tabBarFont(), NSForegroundColorAttributeName: theme.tabBarInactiveTextColor()]
         
-        self.tabBarItem.setTitleTextAttributes(attributes, forState: .Normal)
-        self.tabBarItem.setTitleTextAttributes(attributes, forState: .Selected)
+        self.tabBarItem.setTitleTextAttributes(inactiveTabBarTextAttributes, forState: .Normal)
+        self.tabBarItem.setTitleTextAttributes(activeTabBarTextAttributes, forState: .Selected)
+
         self.title = NSLocalizedString("Organize_tabBarTitle", comment: "")
         self.navigationItem.title = NSLocalizedString("Organize_navigationTitle", comment: "")
     }

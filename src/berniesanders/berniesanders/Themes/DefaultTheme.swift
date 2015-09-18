@@ -19,8 +19,12 @@ class DefaultTheme : Theme {
         return UIFont(name: "Lato-Regular", size: 10)!
     }
     
-    func tabBarTextColor() -> UIColor {
+    func tabBarActiveTextColor() -> UIColor {
         return UIColor.whiteColor()
+    }
+    
+    func tabBarInactiveTextColor() -> UIColor {
+        return self.silverColor()
     }
     
     // MARK: Navigation Bar
@@ -153,4 +157,7 @@ class DefaultTheme : Theme {
         return UIColor(rgba: "#fc625c")
     }
     
+    func silverColor() -> UIColor {
+        return UIColor(rgba: "#c9c9c9")
+    }
 }

@@ -5,8 +5,12 @@ import berniesanders
 
 
 class OrganizeFakeTheme : FakeTheme {
-    override func tabBarTextColor() -> UIColor {
+    override func tabBarActiveTextColor() -> UIColor {
         return UIColor.purpleColor()
+    }
+    
+    override func tabBarInactiveTextColor() -> UIColor {
+        return UIColor.magentaColor()
     }
     
     override func tabBarFont() -> UIFont {

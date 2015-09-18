@@ -36,13 +36,12 @@ public class NewsTableViewController: UITableViewController {
             self.tabBarItem.image = UIImage(named: "newsTabBarIconInactive")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
             self.tabBarItem.selectedImage = UIImage(named: "newsTabBarIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
             
-            let attributes = [
-                NSFontAttributeName: theme.tabBarFont(),
-                NSForegroundColorAttributeName: theme.tabBarTextColor()
-            ]
+            let activeTabBarTextAttributes = [NSFontAttributeName: theme.tabBarFont(), NSForegroundColorAttributeName: theme.tabBarActiveTextColor()]
+            let inactiveTabBarTextAttributes = [NSFontAttributeName: theme.tabBarFont(), NSForegroundColorAttributeName: theme.tabBarInactiveTextColor()]
             
-            self.tabBarItem.setTitleTextAttributes(attributes, forState: .Normal)
-            self.tabBarItem.setTitleTextAttributes(attributes, forState: .Selected)
+            self.tabBarItem.setTitleTextAttributes(inactiveTabBarTextAttributes, forState: .Normal)
+            self.tabBarItem.setTitleTextAttributes(activeTabBarTextAttributes, forState: .Selected)
+
             self.title = NSLocalizedString("NewsFeed_tabBarTitle", comment: "")
             self.navigationItem.title = NSLocalizedString("NewsFeed_navigationTitle", comment: "")
             

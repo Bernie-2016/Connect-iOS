@@ -10,7 +10,8 @@ public protocol Theme {
     // MARK: Tab Bar
     
     func tabBarTintColor() -> UIColor
-    func tabBarTextColor() -> UIColor
+    func tabBarActiveTextColor() -> UIColor
+    func tabBarInactiveTextColor() -> UIColor
     func tabBarFont() -> UIFont
     
     // MARK: Navigation Bar

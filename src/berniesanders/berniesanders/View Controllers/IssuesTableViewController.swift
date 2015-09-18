@@ -23,13 +23,12 @@ public class IssuesTableViewController: UITableViewController {
         self.tabBarItem.image = UIImage(named: "issuesTabBarIconInactive")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
         self.tabBarItem.selectedImage = UIImage(named: "issuesTabBarIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
         
-        let attributes = [
-            NSFontAttributeName: theme.tabBarFont(),
-            NSForegroundColorAttributeName: theme.tabBarTextColor()
-        ]
+        let activeTabBarTextAttributes = [NSFontAttributeName: theme.tabBarFont(), NSForegroundColorAttributeName: theme.tabBarActiveTextColor()]
+        let inactiveTabBarTextAttributes = [NSFontAttributeName: theme.tabBarFont(), NSForegroundColorAttributeName: theme.tabBarInactiveTextColor()]
         
-        self.tabBarItem.setTitleTextAttributes(attributes, forState: .Normal)
-        self.tabBarItem.setTitleTextAttributes(attributes, forState: .Selected)
+        self.tabBarItem.setTitleTextAttributes(inactiveTabBarTextAttributes, forState: .Normal)
+        self.tabBarItem.setTitleTextAttributes(activeTabBarTextAttributes, forState: .Selected)
+        
         self.title = NSLocalizedString("Issues_tabBarTitle", comment: "")
         self.navigationItem.title = NSLocalizedString("Issues_navigationTitle", comment: "")
         
