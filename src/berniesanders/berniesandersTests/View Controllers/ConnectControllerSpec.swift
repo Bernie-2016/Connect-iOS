@@ -18,19 +18,12 @@ class ConnectFakeTheme : FakeTheme {
     }
 }
 
-class ConnectFakeURLProvider : FakeURLProvider {
-    override func bernieEventsURL() -> NSURL! {
-        return NSURL(string: "http://example.com/events")
-    }
-}
-
 class ConnectControllerSpec : QuickSpec {
     var subject : ConnectController!
     
     override func spec() {
         beforeEach {
             self.subject = ConnectController(
-                urlProvider: ConnectFakeURLProvider(),
                 theme: ConnectFakeTheme()
             )
         }
@@ -61,20 +54,5 @@ class ConnectControllerSpec : QuickSpec {
             expect(selectedFont).to(equal(UIFont.systemFontOfSize(123)))
         }
         
-        context("When the view loads") {
-            beforeEach {
-                self.subject.view.layoutSubviews()
-            }
-            
-            it("should add the webview as a subview") {
-                var subviews = self.subject.view.subviews as! [UIView]
-                
-                expect(contains(subviews, self.subject.webView)).to(beTrue())
-            }
-            
-            it("should load the BS.com events page into a webview") {
-                expect(self.subject.webView.request!.URL).to(equal(NSURL(string: "http://example.com/events")))
-            }
-        }
-    }
+           }
 }

@@ -82,8 +82,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             let organizeController = OrganizeController(urlProvider: urlProvider,
                 theme: defaultTheme)
             
-            let connectController = ConnectController(urlProvider: urlProvider,
-                theme: defaultTheme)
+            let connectController = ConnectController(theme: defaultTheme)
             
             
             let viewControllers = [

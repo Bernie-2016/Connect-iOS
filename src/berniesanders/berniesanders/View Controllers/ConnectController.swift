@@ -2,11 +2,8 @@ import UIKit
 import PureLayout
 
 public class ConnectController : UIViewController {
-    public let webView = UIWebView()
-    let urlProvider : URLProvider!
     
-    public init(urlProvider: URLProvider, theme: Theme) {
-        self.urlProvider = urlProvider
+    public init(theme: Theme) {
         
         super.init(nibName: nil, bundle: nil)
         
@@ -30,14 +27,7 @@ public class ConnectController : UIViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        self.setNeedsStatusBarAppearanceUpdate()
-        
-        var urlRequest = NSURLRequest(URL: self.urlProvider.bernieEventsURL())
-        self.webView.loadRequest(urlRequest)
-        
-        self.webView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        self.view.addSubview(self.webView)
-        self.webView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsMake(20.0, 0.0, 0.0, 0.0))
+        self.setNeedsStatusBarAppearanceUpdate()        
     }
     
     public override func preferredStatusBarStyle() -> UIStatusBarStyle {
