@@ -87,7 +87,7 @@ class IssuesTableViewControllerSpec: QuickSpec {
             let normalTextColor = normalAttributes[NSForegroundColorAttributeName] as! UIColor
             let normalFont = normalAttributes[NSFontAttributeName] as! UIFont
             
-            expect(normalTextColor).to(equal(UIColor.purpleColor()))
+            expect(normalTextColor).to(equal(UIColor.redColor()))
             expect(normalFont).to(equal(UIFont.systemFontOfSize(123)))
             
             let selectedAttributes = self.subject.tabBarItem.titleTextAttributesForState(UIControlState.Selected)
@@ -98,7 +98,8 @@ class IssuesTableViewControllerSpec: QuickSpec {
             expect(selectedTextColor).to(equal(UIColor.purpleColor()))
             expect(selectedFont).to(equal(UIFont.systemFontOfSize(123)))
         }
-                
+
+        
         describe("tapping on the settings button") {
             it("should push the settings controller onto the nav stack") {
                 self.subject.navigationItem.leftBarButtonItem!.tap()

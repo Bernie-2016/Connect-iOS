@@ -49,7 +49,7 @@ class OrganizeControllerSpec : QuickSpec {
             let normalTextColor = normalAttributes[NSForegroundColorAttributeName] as! UIColor
             let normalFont = normalAttributes[NSFontAttributeName] as! UIFont
             
-            expect(normalTextColor).to(equal(UIColor.purpleColor()))
+            expect(normalTextColor).to(equal(UIColor.magentaColor()))
             expect(normalFont).to(equal(UIFont.systemFontOfSize(123)))
             
             let selectedAttributes = self.subject.tabBarItem.titleTextAttributesForState(UIControlState.Selected)

@@ -31,7 +31,8 @@ public class NewsTableViewController: UITableViewController {
             
             super.init(nibName: nil, bundle: nil)
             
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "\u{2699}", style: .Plain, target: self, action: "didTapSettings")
+            let settingsIcon = UIImage(named: "settingsIcon")
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: settingsIcon, style: .Plain, target: self, action: "didTapSettings")
             
             self.tabBarItem.image = UIImage(named: "newsTabBarIconInactive")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
             self.tabBarItem.selectedImage = UIImage(named: "newsTabBarIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
