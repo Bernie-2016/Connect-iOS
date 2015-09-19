@@ -10,6 +10,7 @@ public class ConnectController : UIViewController {
         
         super.init(nibName: nil, bundle: nil)
         
+        self.tabBarItem.setTitlePositionAdjustment(UIOffsetMake(0, -4))
         self.tabBarItem.image = UIImage(named: "connectTabBarIconInactive")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
         self.tabBarItem.selectedImage = UIImage(named: "connectTabBarIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
         

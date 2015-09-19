@@ -33,7 +33,8 @@ public class NewsTableViewController: UITableViewController {
             
             let settingsIcon = UIImage(named: "settingsIcon")
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: settingsIcon, style: .Plain, target: self, action: "didTapSettings")
-            
+
+            self.tabBarItem.setTitlePositionAdjustment(UIOffsetMake(0, -4))
             self.tabBarItem.image = UIImage(named: "newsTabBarIconInactive")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
             self.tabBarItem.selectedImage = UIImage(named: "newsTabBarIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
             

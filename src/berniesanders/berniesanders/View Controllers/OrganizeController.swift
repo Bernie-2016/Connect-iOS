@@ -10,6 +10,7 @@ public class OrganizeController : UIViewController {
         
         super.init(nibName: nil, bundle: nil)
         
+        self.tabBarItem.setTitlePositionAdjustment(UIOffsetMake(0, -4))
         self.tabBarItem.image = UIImage(named: "organizeTabBarIconInactive")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
         self.tabBarItem.selectedImage = UIImage(named: "organizeTabBarIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
         

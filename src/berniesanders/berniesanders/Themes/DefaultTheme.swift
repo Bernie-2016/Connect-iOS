@@ -16,7 +16,7 @@ class DefaultTheme : Theme {
     }
     
     func tabBarFont() -> UIFont {
-        return UIFont(name: "Lato-Regular", size: 10)!
+        return UIFont(name: "Lato-Regular", size: 11)!
     }
     
     func tabBarActiveTextColor() -> UIColor {
