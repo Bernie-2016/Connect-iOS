@@ -34,7 +34,7 @@ class DefaultTheme : Theme {
     }
     
     func navigationBarFont() -> UIFont {
-        return UIFont(name: "Lato-Regular", size: 15)!
+        return UIFont(name: "Lato-Regular", size: 17)!
     }
     
     func navigationBarTextColor() -> UIColor {
@@ -102,7 +102,7 @@ class DefaultTheme : Theme {
     }
     
     func newsItemBodyFont() -> UIFont {
-        return UIFont(name: "Lora-Bold", size: 12)!
+        return UIFont(name: "Lora-Bold", size: 13)!
     }
     
     func newsItemBodyColor() -> UIColor {
@@ -130,7 +130,7 @@ class DefaultTheme : Theme {
     }
     
     func issueBodyFont() -> UIFont {
-        return UIFont(name: "Lora-Bold", size: 12)!
+        return UIFont(name: "Lora-Bold", size: 13)!
     }
     
     func issueBodyColor() -> UIColor {
