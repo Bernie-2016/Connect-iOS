@@ -124,6 +124,10 @@ class ConnectControllerSpec : QuickSpec {
                 expect(self.subject.noResultsLabel.hidden).to(beTrue())
             }
             
+            it("has a search button button") {
+                expect(self.subject.eventSearchButton.titleForState(.Normal)).to(equal("Go"))
+            }
+            
             describe("making a search by zip code") {
                 xit("has the correct range of values in the radius picker") {
                     
@@ -145,8 +149,6 @@ class ConnectControllerSpec : QuickSpec {
                 
                 context("when entering a valid zip code") {
                     beforeEach {
-                        self.subject.view.layoutSubviews()
-                        
                         self.subject.zipCodeTextField.text = "90210"
                         self.subject.eventSearchButton.tap()
                     }

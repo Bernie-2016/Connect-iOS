@@ -55,30 +55,32 @@ public class ConnectController : UIViewController, UITableViewDataSource, UITabl
     public override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.edgesForExtendedLayout = .None
         self.resultsTableView.dataSource = self
         self.resultsTableView.delegate = self // TODO: TEST ME!
         self.resultsTableView.registerClass(EventListTableViewCell.self, forCellReuseIdentifier: "eventCell")
         
         setNeedsStatusBarAppearanceUpdate()
         
-        view.backgroundColor = UIColor.redColor()
-        zipCodeTextField.backgroundColor = UIColor.yellowColor()
-        eventSearchButton.backgroundColor = UIColor.blueColor()
-        resultsTableView.backgroundColor = UIColor.purpleColor()
-        noResultsLabel.backgroundColor = UIColor.greenColor()
+        zipCodeTextField.backgroundColor = UIColor.redColor()
+        eventSearchButton.backgroundColor = UIColor.purpleColor()
+
+        view.backgroundColor = UIColor.greenColor()
         
         view.addSubview(zipCodeTextField)
         view.addSubview(eventSearchButton)
         view.addSubview(resultsTableView)
         view.addSubview(noResultsLabel)
         
+        eventSearchButton.setTitle(NSLocalizedString("Connect_eventSearchButtonTitle", comment: ""), forState: .Normal)
         eventSearchButton.addTarget(self, action: "didTapSearch:", forControlEvents: .TouchUpInside)
         
-        zipCodeTextField.autoPinEdgeToSuperviewEdge(.Top, withInset: 20)
+        zipCodeTextField.autoPinEdgeToSuperviewEdge(.Top, withInset: 8)
         zipCodeTextField.autoPinEdgeToSuperviewMargin(.Left)
+        zipCodeTextField.placeholder = NSLocalizedString("Connect_zipCodeTextBoxPlaceholder",  comment: "")
 
-        eventSearchButton.autoPinEdgeToSuperviewEdge(.Top, withInset: 20)
-        eventSearchButton.autoPinEdge(.Left, toEdge: .Right, ofView: zipCodeTextField)
+        eventSearchButton.autoPinEdgeToSuperviewEdge(.Top, withInset: 8)
+        eventSearchButton.autoPinEdge(.Left, toEdge: .Right, ofView: zipCodeTextField, withOffset: 8)
         eventSearchButton.autoPinEdgeToSuperviewMargin(.Right)
         eventSearchButton.autoPinEdge(.Bottom, toEdge: .Bottom, ofView: zipCodeTextField)
         

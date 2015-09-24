@@ -12,7 +12,7 @@ public class EventListTableViewCell : UITableViewCell {
     override public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        self.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        self.accessoryType = UITableViewCellAccessoryType.None
         self.separatorInset = UIEdgeInsetsZero
         self.layoutMargins = UIEdgeInsetsZero
         self.preservesSuperviewLayoutMargins = false

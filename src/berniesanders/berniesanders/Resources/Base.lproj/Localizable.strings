@@ -25,6 +25,8 @@
 "Connect_eventAttendeeLabel" = "%d of RSVP: %d";
 "Connect_eventAttendeeWithoutCapacityLimitLabel" = "%d attending";
 "Connect_noEventsFound" = "No events match your query";
+"Connect_zipCodeTextBoxPlaceholder" = "Zip Code";
+"Connect_eventSearchButtonTitle" = "Go";
 
 // Settings
 
