@@ -22,6 +22,7 @@
 "Connect_navigationTitle" = "Connect";
 "Connect_eventAddressLabel" =  "%@, %@ - %@";
 "Connect_eventAttendeeLabel" = "%d of RSVP: %d";
+"Connect_noEventsFound" = "No events match your query";
 
 // Settings
 

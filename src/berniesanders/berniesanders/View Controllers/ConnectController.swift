@@ -73,6 +73,7 @@ public class ConnectController : UIViewController, UITableViewDataSource, UITabl
 
         resultsTableView.hidden = true
         noResultsLabel.hidden = true
+        noResultsLabel.text = NSLocalizedString("Connect_noEventsFound", comment: "")
     }
     
     public override func preferredStatusBarStyle() -> UIStatusBarStyle {

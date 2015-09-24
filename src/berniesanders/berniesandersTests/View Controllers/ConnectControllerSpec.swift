@@ -143,6 +143,7 @@ class ConnectControllerSpec : QuickSpec {
                             
                             it("should display a no results message") {
                                 expect(self.subject.noResultsLabel.hidden).to(beFalse())
+                                expect(self.subject.noResultsLabel.text).to(equal("No events match your query"))
                             }
                             
                             it("should leave the table view hidden") {
