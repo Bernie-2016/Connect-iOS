@@ -2,7 +2,8 @@ import UIKit
 import PureLayout
 
 public class ConnectController : UIViewController, UITableViewDataSource, UITableViewDelegate {
-    public let eventRepository : EventRepository!
+    public let eventRepository: EventRepository!
+    public let settingsController: SettingsController!
     
     public let zipCodeTextField = UITextField.newAutoLayoutView()
     public let eventSearchButton = UIButton.newAutoLayoutView()
@@ -11,8 +12,10 @@ public class ConnectController : UIViewController, UITableViewDataSource, UITabl
     
     var events: Array<Event>!
     
-    public init(eventRepository: EventRepository, theme: Theme) {
+    public init(eventRepository: EventRepository, settingsController: SettingsController, theme: Theme) {
         self.eventRepository = eventRepository
+        self.settingsController = settingsController
+        
         self.events = []
         
         super.init(nibName: nil, bundle: nil)
@@ -28,7 +31,15 @@ public class ConnectController : UIViewController, UITableViewDataSource, UITabl
         self.tabBarItem.setTitleTextAttributes(activeTabBarTextAttributes, forState: .Selected)
         
         self.title = NSLocalizedString("Connect_tabBarTitle", comment: "")
+        
         self.navigationItem.title = NSLocalizedString("Connect_navigationTitle", comment: "")
+        let settingsIcon = UIImage(named: "settingsIcon")
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: settingsIcon, style: .Plain, target: self, action: "didTapSettings")
+        let backBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Connect_backButtonTitle", comment: ""),
+            style: UIBarButtonItemStyle.Plain,
+            target: nil, action: nil)
+        
+        self.navigationItem.backBarButtonItem = backBarButtonItem
     }
     
     required public init(coder aDecoder: NSCoder) {
@@ -105,7 +116,11 @@ public class ConnectController : UIViewController, UITableViewDataSource, UITabl
         return 90
     }
     
-    // MARK: private
+    // MARK: Actions
+    
+    func didTapSettings() {
+        self.navigationController?.pushViewController(self.settingsController, animated: true)
+    }
     
     func didTapSearch(sender : UIButton!) {
         resultsTableView.hidden = true

@@ -35,15 +35,23 @@ class FakeEventRepository : EventRepository {
 class ConnectControllerSpec : QuickSpec {
     var subject : ConnectController!
     var eventRepository : FakeEventRepository!
-    
+    let settingsController = TestUtils.settingsController()
+
+    let navigationController = UINavigationController()
+
     override func spec() {
         beforeEach {
             self.eventRepository = FakeEventRepository()
             
             self.subject = ConnectController(
                 eventRepository: self.eventRepository,
+                settingsController: self.settingsController,
                 theme: ConnectFakeTheme()
             )
+            
+            self.navigationController.pushViewController(self.subject, animated: false)
+
+            self.subject.view.layoutSubviews()
         }
         
        describe("ConnectController") {
@@ -54,7 +62,19 @@ class ConnectControllerSpec : QuickSpec {
             it("has the correct navigation item title") {
                 expect(self.subject.navigationItem.title).to(equal("Connect"))
             }
-            
+
+            it("should set the back bar button item title correctly") {
+                expect(self.subject.navigationItem.backBarButtonItem?.title).to(equal("Back"))
+            }
+        
+            describe("tapping on the settings button") {
+                it("should push the settings controller onto the nav stack") {
+                    self.subject.navigationItem.leftBarButtonItem!.tap()
+                    
+                    expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.settingsController))
+                }
+            }
+        
             it("styles its tab bar item from the theme") {
                 let normalAttributes = self.subject.tabBarItem.titleTextAttributesForState(UIControlState.Normal)
                 
@@ -72,35 +92,31 @@ class ConnectControllerSpec : QuickSpec {
                 expect(selectedTextColor).to(equal(UIColor.purpleColor()))
                 expect(selectedFont).to(equal(UIFont.systemFontOfSize(123)))
             }
-            
-            describe("making a search by zip code") {
-                beforeEach {
-                    self.subject.view.layoutSubviews()
-                }
+        
+            it("should add its view components as subviews") {
+                var subViews = self.subject.view.subviews as! [UIView]
                 
+                expect(contains(subViews, self.subject.zipCodeTextField)).to(beTrue())
+                expect(contains(subViews, self.subject.eventSearchButton)).to(beTrue())
+                expect(contains(subViews, self.subject.noResultsLabel)).to(beTrue())
+                expect(contains(subViews, self.subject.resultsTableView)).to(beTrue())
+            }
+            
+            it("should hide the results table view by default") {
+                expect(self.subject.resultsTableView.hidden).to(beTrue())
+            }
+            
+            it("should hide the no results label by default") {
+                expect(self.subject.noResultsLabel.hidden).to(beTrue())
+            }
+        
+            describe("making a search by zip code") {
                 xit("has the correct range of values in the radius picker") {
                     
                 }
                 
                 xit("has the correct default value for the radius picker") {
                     
-                }
-                
-                it("should add its view components as subviews") {
-                    var subViews = self.subject.view.subviews as! [UIView]
-                    
-                    expect(contains(subViews, self.subject.zipCodeTextField)).to(beTrue())
-                    expect(contains(subViews, self.subject.eventSearchButton)).to(beTrue())
-                    expect(contains(subViews, self.subject.noResultsLabel)).to(beTrue())
-                    expect(contains(subViews, self.subject.resultsTableView)).to(beTrue())
-                }
-                
-                it("should leave the table view hidden") {
-                    expect(self.subject.resultsTableView.hidden).to(beTrue())
-                }
-                
-                it("should hide the no results label by default") {
-                    expect(self.subject.noResultsLabel.hidden).to(beTrue())
                 }
                 
                 context("when entering an invalid zip code and range") {

@@ -89,13 +89,15 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
                 jsonClient: jsonClient,
                 eventDeserializer: eventDeserializer,
                 operationQueue: mainQueue)
-            let connectController = ConnectController(eventRepository: eventRepository, theme: defaultTheme)
-            
+            let connectController = ConnectController(eventRepository: eventRepository, settingsController: settingsController, theme: defaultTheme)
+            let connectNavigationController = NavigationController(theme: defaultTheme)
+            connectNavigationController.pushViewController(connectController, animated: false)
+
             
             let viewControllers = [
                 newsNavigationController,
                 issuesNavigationController,
-                connectController,
+                connectNavigationController,
                 organizeController
             ]
             

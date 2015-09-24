@@ -20,6 +20,7 @@
 
 "Connect_tabBarTitle" = "Connect";
 "Connect_navigationTitle" = "Connect";
+"Connect_backButtonTitle" = "Back";
 "Connect_eventAddressLabel" =  "%@, %@ - %@";
 "Connect_eventAttendeeLabel" = "%d of RSVP: %d";
 "Connect_noEventsFound" = "No events match your query";
