@@ -45,6 +45,8 @@
 		654773FF1BB23FAE00B87670 /* ConcreteEventRepositorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654773FE1BB23FAE00B87670 /* ConcreteEventRepositorySpec.swift */; };
 		654774031BB2418400B87670 /* EventDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654774021BB2418400B87670 /* EventDeserializer.swift */; };
 		654774051BB241D900B87670 /* ConcreteEventDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654774041BB241D900B87670 /* ConcreteEventDeserializer.swift */; };
+		654B55B51BB4882700492610 /* EventListTableViewCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654B55B41BB4882700492610 /* EventListTableViewCellPresenter.swift */; };
+		654B55B71BB4888D00492610 /* EventListTableViewCellPresenterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654B55B61BB4888D00492610 /* EventListTableViewCellPresenterSpec.swift */; };
 		655887141BA866CF0077CC56 /* NewsHeadlineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655887131BA866CF0077CC56 /* NewsHeadlineTableViewCell.swift */; };
 		655A3AD01B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655A3ACF1B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework */; };
 		655AF0C41BB095BA00F0448E /* EventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655AF0C31BB095BA00F0448E /* EventRepository.swift */; };
@@ -189,6 +191,8 @@
 		654773FE1BB23FAE00B87670 /* ConcreteEventRepositorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteEventRepositorySpec.swift; sourceTree = "<group>"; };
 		654774021BB2418400B87670 /* EventDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDeserializer.swift; sourceTree = "<group>"; };
 		654774041BB241D900B87670 /* ConcreteEventDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteEventDeserializer.swift; sourceTree = "<group>"; };
+		654B55B41BB4882700492610 /* EventListTableViewCellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventListTableViewCellPresenter.swift; sourceTree = "<group>"; };
+		654B55B61BB4888D00492610 /* EventListTableViewCellPresenterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventListTableViewCellPresenterSpec.swift; sourceTree = "<group>"; };
 		655887131BA866CF0077CC56 /* NewsHeadlineTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsHeadlineTableViewCell.swift; sourceTree = "<group>"; };
 		655A3ACF1B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "UIKit+PivotalSpecHelper-iOS.framework"; sourceTree = "<group>"; };
 		655AF0C31BB095BA00F0448E /* EventRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventRepository.swift; sourceTree = "<group>"; };
@@ -399,6 +403,22 @@
 			path = Providers;
 			sourceTree = "<group>";
 		};
+		654B55B21BB487E200492610 /* Presenters */ = {
+			isa = PBXGroup;
+			children = (
+				654B55B41BB4882700492610 /* EventListTableViewCellPresenter.swift */,
+			);
+			path = Presenters;
+			sourceTree = "<group>";
+		};
+		654B55B31BB4880000492610 /* Presenters */ = {
+			isa = PBXGroup;
+			children = (
+				654B55B61BB4888D00492610 /* EventListTableViewCellPresenterSpec.swift */,
+			);
+			path = Presenters;
+			sourceTree = "<group>";
+		};
 		655B57BB1B86C15700E69C0C /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -573,6 +593,7 @@
 				65A5C0F41BA27C5400D46500 /* Externals */,
 				655B57BB1B86C15700E69C0C /* Models */,
 				6507631F1B8B733000BA0659 /* Network Clients */,
+				654B55B21BB487E200492610 /* Presenters */,
 				650763191B8B71B400BA0659 /* Providers */,
 				65EC4CF61B866B6700DD4C83 /* Repositories */,
 				65F5F6501B87B9440049353C /* Resources */,
@@ -603,6 +624,7 @@
 				65F5F6551B89678E0049353C /* Fakes */,
 				650763301B8B809600BA0659 /* Fixtures */,
 				652860A11B8B8B3500899FAF /* Network Clients */,
+				654B55B31BB4880000492610 /* Presenters */,
 				653885231B94E86D00DCA808 /* Providers */,
 				650763161B8B6FF800BA0659 /* Repositories */,
 				8233FC221B7C28FB00A5E9ED /* Supporting Files */,
@@ -811,6 +833,7 @@
 				655AF0C61BB095E500F0448E /* Event.swift in Sources */,
 				654774031BB2418400B87670 /* EventDeserializer.swift in Sources */,
 				654773FD1BB1EEBC00B87670 /* EventListTableViewCell.swift in Sources */,
+				654B55B51BB4882700492610 /* EventListTableViewCellPresenter.swift in Sources */,
 				655AF0C41BB095BA00F0448E /* EventRepository.swift in Sources */,
 				659F0E1C1B95EC0B0049FA12 /* ImageRepository.swift in Sources */,
 				6587FF5A1B8A7E3200AC65F1 /* Issue.swift in Sources */,
@@ -858,6 +881,7 @@
 				65EDD6311B8BCACB00F545B8 /* ConcreteNewsItemDeserializerSpec.swift in Sources */,
 				65EDD6291B8BC73C00F545B8 /* ConcreteNewsItemRepositorySpec.swift in Sources */,
 				65F112EE1B9FFE8700BA585C /* ConnectControllerSpec.swift in Sources */,
+				654B55B71BB4888D00492610 /* EventListTableViewCellPresenterSpec.swift in Sources */,
 				659F0E201B95F0180049FA12 /* FakeImageRepository.swift in Sources */,
 				653885101B90F13600DCA808 /* FakeJSONClient.swift in Sources */,
 				6538851A1B90F7DD00DCA808 /* FakeNSURLSession.swift in Sources */,

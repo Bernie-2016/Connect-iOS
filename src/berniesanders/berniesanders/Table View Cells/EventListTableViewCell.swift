@@ -9,7 +9,7 @@ public class EventListTableViewCell : UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         self.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator

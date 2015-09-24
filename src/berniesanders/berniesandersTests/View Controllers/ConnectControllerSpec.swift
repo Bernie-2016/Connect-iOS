@@ -32,29 +32,43 @@ class FakeEventRepository : EventRepository {
     }
 }
 
+class FakeEventListTableViewCellPresenter : EventListTableViewCellPresenter {
+    var lastReceivedEvent: Event?
+    var lastReceivedCell: EventListTableViewCell?
+    
+    override func presentEvent(event: Event, cell: EventListTableViewCell) -> EventListTableViewCell {
+        lastReceivedEvent = event
+        lastReceivedCell = cell
+        return cell
+    }
+}
+
 class ConnectControllerSpec : QuickSpec {
     var subject : ConnectController!
     var eventRepository : FakeEventRepository!
+    var eventListTableViewCellPresenter : FakeEventListTableViewCellPresenter!
     let settingsController = TestUtils.settingsController()
-
+    
     let navigationController = UINavigationController()
-
+    
     override func spec() {
-        beforeEach {
-            self.eventRepository = FakeEventRepository()
+        describe("ConnectController") {
+            beforeEach {
+                self.eventRepository = FakeEventRepository()
+                self.eventListTableViewCellPresenter = FakeEventListTableViewCellPresenter()
+                
+                self.subject = ConnectController(
+                    eventRepository: self.eventRepository,
+                    eventListTableViewCellPresenter: self.eventListTableViewCellPresenter,
+                    settingsController: self.settingsController,
+                    theme: ConnectFakeTheme()
+                )
+                
+                self.navigationController.pushViewController(self.subject, animated: false)
+                
+                self.subject.view.layoutSubviews()
+            }
             
-            self.subject = ConnectController(
-                eventRepository: self.eventRepository,
-                settingsController: self.settingsController,
-                theme: ConnectFakeTheme()
-            )
-            
-            self.navigationController.pushViewController(self.subject, animated: false)
-
-            self.subject.view.layoutSubviews()
-        }
-        
-       describe("ConnectController") {
             it("has the correct tab bar title") {
                 expect(self.subject.title).to(equal("Connect"))
             }
@@ -62,11 +76,11 @@ class ConnectControllerSpec : QuickSpec {
             it("has the correct navigation item title") {
                 expect(self.subject.navigationItem.title).to(equal("Connect"))
             }
-
+            
             it("should set the back bar button item title correctly") {
                 expect(self.subject.navigationItem.backBarButtonItem?.title).to(equal("Back"))
             }
-        
+            
             describe("tapping on the settings button") {
                 it("should push the settings controller onto the nav stack") {
                     self.subject.navigationItem.leftBarButtonItem!.tap()
@@ -74,7 +88,7 @@ class ConnectControllerSpec : QuickSpec {
                     expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.settingsController))
                 }
             }
-        
+            
             it("styles its tab bar item from the theme") {
                 let normalAttributes = self.subject.tabBarItem.titleTextAttributesForState(UIControlState.Normal)
                 
@@ -92,7 +106,7 @@ class ConnectControllerSpec : QuickSpec {
                 expect(selectedTextColor).to(equal(UIColor.purpleColor()))
                 expect(selectedFont).to(equal(UIFont.systemFontOfSize(123)))
             }
-        
+            
             it("should add its view components as subviews") {
                 var subViews = self.subject.view.subviews as! [UIView]
                 
@@ -109,7 +123,7 @@ class ConnectControllerSpec : QuickSpec {
             it("should hide the no results label by default") {
                 expect(self.subject.noResultsLabel.hidden).to(beTrue())
             }
-        
+            
             describe("making a search by zip code") {
                 xit("has the correct range of values in the radius picker") {
                     
@@ -169,7 +183,7 @@ class ConnectControllerSpec : QuickSpec {
                             describe("making a subsequent search") {
                                 beforeEach {
                                     self.subject.zipCodeTextField.text = "11111"
-
+                                    
                                     self.subject.eventSearchButton.tap()
                                 }
                                 
@@ -196,7 +210,7 @@ class ConnectControllerSpec : QuickSpec {
                                 var events : Array<Event> = [eventA, eventB]
                                 self.eventRepository.lastCompletionBlock!(events)
                             }
-
+                            
                             
                             xit("should hide the spinner") {
                                 
@@ -210,35 +224,35 @@ class ConnectControllerSpec : QuickSpec {
                                 expect(self.subject.resultsTableView.hidden).to(beFalse())
                             }
                             
-
+                            
                             describe("the results table") {
-                                it("has content from the search results") {
+                                it("uses the presenter to set up the returned cells from the search results") {
                                     expect(self.subject.resultsTableView.numberOfSections()).to(equal(1))
                                     expect(self.subject.resultsTableView.numberOfRowsInSection(0)).to(equal(2))
                                     
                                     var cellA = self.subject.resultsTableView.dataSource!.tableView(self.subject.resultsTableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0)) as! EventListTableViewCell
-                                    expect(cellA.nameLabel.text).to(equal("Bigtime Bernie BBQ"))
-                                    expect(cellA.addressLabel.text).to(equal("Beverley Hills, CA - 90210"))
-                                    expect(cellA.attendeesLabel.text).to(equal("2 of RSVP: 10"))
+                                    
+                                    expect(self.eventListTableViewCellPresenter.lastReceivedEvent).to(beIdenticalTo(eventA))
+                                    expect(self.eventListTableViewCellPresenter.lastReceivedCell).to(beIdenticalTo(cellA))
                                     
                                     var cellB = self.subject.resultsTableView.dataSource!.tableView(self.subject.resultsTableView, cellForRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0)) as! EventListTableViewCell
-                                    expect(cellB.nameLabel.text).to(equal("Slammin' Sanders Salsa Serenade"))
-                                    expect(cellB.addressLabel.text).to(equal("Beverley Hills, CA - 90210"))
-                                    expect(cellB.attendeesLabel.text).to(equal("2 of RSVP: 10"))
+                                    
+                                    expect(self.eventListTableViewCellPresenter.lastReceivedEvent).to(beIdenticalTo(eventB))
+                                    expect(self.eventListTableViewCellPresenter.lastReceivedCell).to(beIdenticalTo(cellB))
                                 }
                             }
                             
                             describe("making a subsequent search") {
                                 beforeEach {
                                     self.subject.zipCodeTextField.text = "11111"
-
+                                    
                                     self.subject.eventSearchButton.tap()
                                 }
                                 
                                 it("should hide the results table view") {
                                     expect(self.subject.resultsTableView.hidden).to(beTrue())
                                 }
-
+                                
                                 
                                 xit("should show the spinner") {
                                     

@@ -3,6 +3,7 @@ import PureLayout
 
 public class ConnectController : UIViewController, UITableViewDataSource, UITableViewDelegate {
     public let eventRepository: EventRepository!
+    public let eventListTableViewCellPresenter: EventListTableViewCellPresenter!
     public let settingsController: SettingsController!
     
     public let zipCodeTextField = UITextField.newAutoLayoutView()
@@ -12,8 +13,13 @@ public class ConnectController : UIViewController, UITableViewDataSource, UITabl
     
     var events: Array<Event>!
     
-    public init(eventRepository: EventRepository, settingsController: SettingsController, theme: Theme) {
+    public init(eventRepository: EventRepository,
+        eventListTableViewCellPresenter: EventListTableViewCellPresenter,
+        settingsController: SettingsController,
+        theme: Theme) {
+        
         self.eventRepository = eventRepository
+        self.eventListTableViewCellPresenter = eventListTableViewCellPresenter
         self.settingsController = settingsController
         
         self.events = []
@@ -104,10 +110,7 @@ public class ConnectController : UIViewController, UITableViewDataSource, UITabl
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("eventCell") as! EventListTableViewCell
         let event = events[indexPath.row]
-        cell.nameLabel.text = event.name
-        cell.addressLabel.text = String(format: NSLocalizedString("Connect_eventAddressLabel", comment: ""), event.city, event.state, event.zip)
-        cell.attendeesLabel.text = String(format: NSLocalizedString("Connect_eventAttendeeLabel", comment: ""), event.attendeeCount, event.attendeeCapacity)
-        return cell
+        return self.eventListTableViewCellPresenter.presentEvent(event, cell: cell)
     }
     
     // MARK: <UITableViewDelegate>
