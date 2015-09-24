@@ -34,26 +34,11 @@ public class ConcreteEventRepository : EventRepository {
 
             let url = self.urlProvider.eventsURL()
 
-            let HTTPBodyDictionary = [
-                "query": [
-                    "filtered": [
-                        "query": [
-                            "match_all": [
-                                
-                            ]
-                        ],
-                        "filter": [
-                            "geo_distance": [
-                                "distance": "\(radiusMiles)mi",
-                                "location": [
-                                    "lat": location.coordinate.latitude,
-                                    "lon": location.coordinate.longitude
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ]
+
+            let HTTPBodyDictionary = self.HTTPBodyDictionaryWithLatitude(
+                location.coordinate.latitude,
+                longitude: location.coordinate.longitude,
+                radiusMiles: radiusMiles)
             
             let eventsPromise = self.jsonClient.JSONPromiseWithURL(url, method: "POST", bodyDictionary: HTTPBodyDictionary)
             
@@ -72,5 +57,47 @@ public class ConcreteEventRepository : EventRepository {
                     return receivedError
             })
         })
+    }
+    
+    // MARK: Private
+    
+    func HTTPBodyDictionaryWithLatitude(latitude: CLLocationDegrees, longitude: CLLocationDegrees, radiusMiles: Float) -> NSDictionary {
+        let filterConditions : Array = [
+            [
+                "geo_distance": [
+                    "distance": "\(radiusMiles)mi",
+                    "location": [
+                        "lat": latitude,
+                        "lon": longitude
+                    ]
+                ]
+            ],
+            [
+                "range": [
+                    "start_time": [
+                        "lte": "now+6M/d",
+                        "gte": "now"
+                    ]
+                ]
+            ]
+        ]
+        
+        
+        return [
+            "query": [
+                "filtered": [
+                    "query": [
+                        "match_all": [
+                            
+                        ]
+                    ],
+                    "filter": [
+                        "bool": [
+                            "must": filterConditions
+                        ]
+                    ]
+                ]
+            ]
+        ]
     }
 }

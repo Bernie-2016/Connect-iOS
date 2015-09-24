@@ -78,7 +78,28 @@ class ConcreteEventRepositorySpec : QuickSpec {
                     it("makes a single request to the JSON Client with the correct URL, method and parametrs") {
                         expect(self.jsonClient.deferredsByURL.count).to(equal(1))
                         expect(self.jsonClient.deferredsByURL.keys.first).to(equal(NSURL(string: "https://example.com/berneseeventsss/")))
-                        let expectedHTTPBodyDictionary = [
+                        let expectedFilterConditions = [
+                            [
+                                "geo_distance": [
+                                    "distance": "50.1mi",
+                                    "location": [
+                                        "lat": 12.34,
+                                        "lon": 23.45
+                                    ]
+                                ]
+                            ],
+                            [
+                                "range": [
+                                    "start_time": [
+                                        "lte": "now+6M/d",
+                                        "gte": "now"
+                                    ]
+                                ]
+                            ]
+                        ]
+                        
+                        let expectedHTTPBodyDictionary =
+                        [
                             "query": [
                                 "filtered": [
                                     "query": [
@@ -87,12 +108,8 @@ class ConcreteEventRepositorySpec : QuickSpec {
                                         ]
                                     ],
                                     "filter": [
-                                        "geo_distance": [
-                                            "distance": "50.1mi",
-                                            "location": [
-                                                "lat": 12.34,
-                                                "lon": 23.45
-                                            ]
+                                        "bool": [
+                                            "must": expectedFilterConditions
                                         ]
                                     ]
                                 ]
