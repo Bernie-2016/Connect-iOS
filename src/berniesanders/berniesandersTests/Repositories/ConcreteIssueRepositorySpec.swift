@@ -45,7 +45,7 @@ class ConcreteIssueRepositorySpec : QuickSpec {
                 })
             }
             
-            it("makes a single request to the XML Client with the correct URL") {
+            it("makes a single request to the JSON Client with the correct URL") {
                 expect(self.jsonClient.deferredsByURL.count).to(equal(1))
                 expect(self.jsonClient.deferredsByURL.keys.first).to(equal(NSURL(string: "https://example.com/bernese/")))
             }
@@ -60,7 +60,7 @@ class ConcreteIssueRepositorySpec : QuickSpec {
                     deferred.resolveWithValue(expectedJSONDictionary)
                 }
                 
-                it("passes the xml document to the issue deserialzier") {
+                it("passes the JSON document to the issue deserializer") {
                     expect(self.issueDeserializer.lastReceivedJSONDictionary).to(beIdenticalTo(expectedJSONDictionary))
                 }
                 

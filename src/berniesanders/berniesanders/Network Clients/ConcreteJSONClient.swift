@@ -2,6 +2,10 @@ import Foundation
 import KSDeferred
 
 public class ConcreteJSONClient : JSONClient {
+    public struct Error {
+        public static let BadResponse = "BadResponse"
+    }
+
     let urlSession: NSURLSession
     let jsonSerializationProvider: NSJSONSerializationProvider
     
@@ -11,9 +15,33 @@ public class ConcreteJSONClient : JSONClient {
     }
     
     public func fetchJSONWithURL(url: NSURL) -> KSPromise {
-        var deferred = KSDeferred.defer()
+        return self.JSONPromiseWithURL(url, method: "GET", bodyDictionary: nil)
+    }
+    
+    public func JSONPromiseWithURL(url: NSURL, method: String, bodyDictionary: NSDictionary?) -> KSPromise {
+        let deferred = KSDeferred()
         
-        var task = self.urlSession.dataTaskWithURL(url) { (data, response, error) -> Void in
+        var jsonSerializationError : NSError?
+        let httpBody : NSData?
+        if(bodyDictionary !=  nil) {
+            httpBody = self.jsonSerializationProvider.dataWithJSONObject(bodyDictionary!, options: NSJSONWritingOptions.allZeros, error: &jsonSerializationError)
+        } else {
+            httpBody = nil
+        }
+        
+        if(jsonSerializationError != nil) {
+            deferred.rejectWithError(jsonSerializationError)
+            return deferred.promise
+        }
+        
+        let request = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = method
+        
+        var jsonError : NSError?
+
+        request.HTTPBody = httpBody
+        
+        let task = self.urlSession.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
             if(error != nil) {
                 deferred.rejectWithError(error)
                 return
@@ -26,21 +54,17 @@ public class ConcreteJSONClient : JSONClient {
                 return
             }
             
-            var jsonError : NSError?
-            var jsonBody: AnyObject? = self.jsonSerializationProvider.jsonObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &jsonError)
-            if jsonError != nil {
-                deferred.rejectWithError(jsonError)
+            var jsonDeserializationError : NSError?
+            var jsonBody: AnyObject? = self.jsonSerializationProvider.jsonObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &jsonDeserializationError)
+            if jsonDeserializationError != nil {
+                deferred.rejectWithError(jsonDeserializationError)
             } else {
                 deferred.resolveWithValue(jsonBody)
             }
-        }
+        })
+        
         task.resume()
         
         return deferred.promise
     }
-    
-    public struct Error {
-        public static let BadResponse = "BadResponse"
-    }
-
 }

@@ -1,5 +1,6 @@
 import Foundation
 import berniesanders
+import CoreLocation
 
 class FakeURLProvider : berniesanders.URLProvider {
     func issuesFeedURL() -> NSURL! {
@@ -15,6 +16,10 @@ class FakeURLProvider : berniesanders.URLProvider {
     }
     
     func privacyPolicyURL() -> NSURL! {
+        fatalError("override me in spec!")        
+    }
+    
+    func eventsURL() -> NSURL! {
         fatalError("override me in spec!")        
     }
 }

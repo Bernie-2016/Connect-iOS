@@ -1,21 +1,20 @@
 import Foundation
 
 public class ConcreteIssueRepository : IssueRepository {
-    private let urlProvider: URLProvider!
-    private let jsonClient: JSONClient!
-    private let issueDeserializer: IssueDeserializer!
-    private let operationQueue: NSOperationQueue!
+    let urlProvider: URLProvider!
+    let jsonClient: JSONClient!
+    let issueDeserializer: IssueDeserializer!
+    let operationQueue: NSOperationQueue!
     
     public init(
         urlProvider: URLProvider,
         jsonClient: JSONClient,
         issueDeserializer: IssueDeserializer,
         operationQueue: NSOperationQueue) {
-            
-        self.urlProvider = urlProvider
-        self.jsonClient = jsonClient
-        self.issueDeserializer = issueDeserializer
-        self.operationQueue = operationQueue
+            self.urlProvider = urlProvider
+            self.jsonClient = jsonClient
+            self.issueDeserializer = issueDeserializer
+            self.operationQueue = operationQueue
     }
     
     public func fetchIssues(completion: (Array<Issue>) -> Void, error: (NSError) -> Void) {

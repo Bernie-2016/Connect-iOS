@@ -1,4 +1,5 @@
 import Foundation
+import CoreLocation
 
 class ConcreteURLProvider : URLProvider {
     func issuesFeedURL() -> NSURL! {
@@ -13,8 +14,11 @@ class ConcreteURLProvider : URLProvider {
         return NSURL(string: "https://berniecrowd.org/")
     }
     
-    
     func privacyPolicyURL() -> NSURL! {
         return NSURL(string: "https://www.iubenda.com/privacy-policy/128001")
+    }
+    
+    func eventsURL() -> NSURL! {
+        return NSURL(string: "https://search.berniesanders.tech/events/berniesanders_com/_search")
     }
 }

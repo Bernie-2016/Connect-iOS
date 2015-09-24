@@ -60,7 +60,7 @@ class ConcreteNewsItemRepositorySpec : QuickSpec {
                     deferred.resolveWithValue(expectedJSONDictionary)
                 }
                 
-                it("passes the json dictionary to the news item deserialzier") {
+                it("passes the json dictionary to the news item deserializer") {
                     expect(self.newsItemDeserializer.lastReceivedJSONDictionary).to(beIdenticalTo(expectedJSONDictionary))
                 }
                 

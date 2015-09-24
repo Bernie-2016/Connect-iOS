@@ -82,7 +82,14 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             let organizeController = OrganizeController(urlProvider: urlProvider,
                 theme: defaultTheme)
             
-            let connectController = ConnectController(theme: defaultTheme)
+            let eventDeserializer = ConcreteEventDeserializer()
+            let eventRepository = ConcreteEventRepository(
+                geocoder: CLGeocoder(),
+                urlProvider: urlProvider,
+                jsonClient: jsonClient,
+                eventDeserializer: eventDeserializer,
+                operationQueue: mainQueue)
+            let connectController = ConnectController(eventRepository: eventRepository, theme: defaultTheme)
             
             
             let viewControllers = [

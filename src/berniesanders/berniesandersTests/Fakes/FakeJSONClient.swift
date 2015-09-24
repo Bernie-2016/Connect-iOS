@@ -4,10 +4,20 @@ import KSDeferred
 
 class FakeJSONClient: berniesanders.JSONClient {
     private (set) var deferredsByURL = [NSURL: KSDeferred]()
+    var lastMethod: String!
+    var lastBodyDictionary: NSDictionary!
     
     func fetchJSONWithURL(url: NSURL) -> KSPromise {
         var deferred =  KSDeferred.defer()
         self.deferredsByURL[url] = deferred
+        return deferred.promise
+    }
+    
+    func JSONPromiseWithURL(url: NSURL, method: String, bodyDictionary: NSDictionary?) -> KSPromise {
+        var deferred =  KSDeferred.defer()
+        self.deferredsByURL[url] = deferred
+        self.lastMethod = method
+        self.lastBodyDictionary = bodyDictionary
         return deferred.promise
     }
 }

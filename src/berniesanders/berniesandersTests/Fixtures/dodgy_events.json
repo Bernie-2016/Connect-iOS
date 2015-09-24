@@ -1,0 +1,278 @@
+{
+   "_shards":{
+      "failed":0,
+      "successful":6,
+      "total":6
+   },
+   "hits":{
+      "hits":[
+         {
+
+         },
+         {
+            "_source":{
+
+            }
+         },
+         {
+            "_id":"55fcd85ea82dd400017f0f6e",
+            "_index":"events_en_v1",
+            "_score":1.0,
+            "_source":{
+               "_id":"55fcd85ea82dd400017f0f6e",
+               "attendee_count":0,
+               "capacity":0,
+               "description":"Deputy Voter Registrar Training Class - Travis County\nCall (512) 854-9473 a week ahead to R.S.V.P.",
+               "id_obfuscated":null,
+               "inserted_at":"2015-09-19T03:37:02.799000",
+               "is_official":false,
+               "lang":"en",
+               "original_id":"9168",
+               "site":"berniesanders.com",
+               "start_time":"2015-11-03T18:30:00",
+               "timestamp":1442868284.023266,
+               "timezone":"CST",
+               "url":"https://go.berniesanders.com/page/event/detail/registeringvoters/4vfdg",
+               "venue":{
+                  "address1":"5501 Airport Blvd.",
+                  "city":"Austin",
+                  "location":{
+                     "lat":30.31706,
+                     "lon":-97.713631
+                  },
+                  "name":"Travis County Courthouse Annex",
+                  "state":"TX",
+                  "zip":"78746"
+               }
+            },
+            "_type":"berniesanders_com"
+         },
+         {
+            "_id":"55fcd85ea82dd400017f0f72",
+            "_index":"events_en_v1",
+            "_score":1.0,
+            "_source":{
+               "_id":"55fcd85ea82dd400017f0f72",
+               "capacity":0,
+               "description":"Deputy Voter Registrar Training Class - Travis County\nCall (512) 854-9473 a week ahead to R.S.V.P.",
+               "id_obfuscated":null,
+               "inserted_at":"2015-09-19T03:37:02.811000",
+               "is_official":false,
+               "lang":"en",
+               "name":"Deputy Dawg Training Class - Travis County",
+               "original_id":"9175",
+               "site":"berniesanders.com",
+               "start_time":"2016-06-05T18:30:00",
+               "timestamp":1442868284.050573,
+               "timezone":"CDT",
+               "url":"https://go.berniesanders.com/page/event/detail/registeringvoters/4vfd4",
+               "venue":{
+                  "address1":"5501 Airport Blvd.",
+                  "city":"Austin",
+                  "location":{
+                     "lat":30.31706,
+                     "lon":-97.713631
+                  },
+                  "name":"Travis County Courthouse Annex",
+                  "state":"TX",
+                  "zip":"78746"
+               }
+            },
+            "_type":"berniesanders_com"
+         },
+         {
+            "_id":"55fcd85ea82dd400017f0f72",
+            "_index":"events_en_v1",
+            "_score":1.0,
+            "_source":{
+               "_id":"55fcd85ea82dd400017f0f72",
+               "attendee_count":1,
+               "description":"Deputy Voter Registrar Training Class - Travis County\nCall (512) 854-9473 a week ahead to R.S.V.P.",
+               "id_obfuscated":null,
+               "inserted_at":"2015-09-19T03:37:02.811000",
+               "is_official":false,
+               "lang":"en",
+               "name":"Deputy Dawg Training Class - Travis County",
+               "original_id":"9175",
+               "site":"berniesanders.com",
+               "start_time":"2016-06-05T18:30:00",
+               "timestamp":1442868284.050573,
+               "timezone":"CDT",
+               "url":"https://go.berniesanders.com/page/event/detail/registeringvoters/4vfd4",
+               "venue":{
+                  "address1":"5501 Airport Blvd.",
+                  "city":"Austin",
+                  "location":{
+                     "lat":30.31706,
+                     "lon":-97.713631
+                  },
+                  "name":"Travis County Courthouse Annex",
+                  "state":"TX",
+                  "zip":"78746"
+               }
+            },
+            "_type":"berniesanders_com"
+         },
+         {
+            "_id":"55fcd85ea82dd400017f0f72",
+            "_index":"events_en_v1",
+            "_score":1.0,
+            "_source":{
+               "_id":"55fcd85ea82dd400017f0f72",
+               "attendee_count":1,
+               "capacity":0,
+               "description":"Deputy Voter Registrar Training Class - Travis County\nCall (512) 854-9473 a week ahead to R.S.V.P.",
+               "id_obfuscated":null,
+               "inserted_at":"2015-09-19T03:37:02.811000",
+               "is_official":false,
+               "lang":"en",
+               "name":"Deputy Dawg Training Class - Travis County",
+               "original_id":"9175",
+               "site":"berniesanders.com",
+               "start_time":"2016-06-05T18:30:00",
+               "timestamp":1442868284.050573,
+               "timezone":"CDT",
+               "url":"https://go.berniesanders.com/page/event/detail/registeringvoters/4vfd4"
+            },
+            "_type":"berniesanders_com"
+         },
+         {
+            "_id":"55fcd85ea82dd400017f0f72",
+            "_index":"events_en_v1",
+            "_score":1.0,
+            "_source":{
+               "_id":"55fcd85ea82dd400017f0f72",
+               "attendee_count":1,
+               "capacity":0,
+               "description":"Deputy Voter Registrar Training Class - Travis County\nCall (512) 854-9473 a week ahead to R.S.V.P.",
+               "id_obfuscated":null,
+               "inserted_at":"2015-09-19T03:37:02.811000",
+               "is_official":false,
+               "lang":"en",
+               "name":"Deputy Dawg Training Class - Travis County",
+               "original_id":"9175",
+               "site":"berniesanders.com",
+               "start_time":"2016-06-05T18:30:00",
+               "timestamp":1442868284.050573,
+               "timezone":"CDT",
+               "url":"https://go.berniesanders.com/page/event/detail/registeringvoters/4vfd4",
+               "venue":{
+                  "address1":"5501 Airport Blvd.",
+                  "location":{
+                     "lat":30.31706,
+                     "lon":-97.713631
+                  },
+                  "name":"Travis County Courthouse Annex",
+                  "state":"TX",
+                  "zip":"78746"
+               }
+            },
+            "_type":"berniesanders_com"
+         },
+         {
+            "_id":"55fcd85ea82dd400017f0f72",
+            "_index":"events_en_v1",
+            "_score":1.0,
+            "_source":{
+               "_id":"55fcd85ea82dd400017f0f72",
+               "attendee_count":1,
+               "capacity":0,
+               "description":"Deputy Voter Registrar Training Class - Travis County\nCall (512) 854-9473 a week ahead to R.S.V.P.",
+               "id_obfuscated":null,
+               "inserted_at":"2015-09-19T03:37:02.811000",
+               "is_official":false,
+               "lang":"en",
+               "name":"Deputy Dawg Training Class - Travis County",
+               "original_id":"9175",
+               "site":"berniesanders.com",
+               "start_time":"2016-06-05T18:30:00",
+               "timestamp":1442868284.050573,
+               "timezone":"CDT",
+               "url":"https://go.berniesanders.com/page/event/detail/registeringvoters/4vfd4",
+               "venue":{
+                  "address1":"5501 Airport Blvd.",
+                  "location":{
+                     "lat":30.31706,
+                     "lon":-97.713631
+                  },
+                  "name":"Travis County Courthouse Annex",
+                  "state":"TX",
+                  "zip":"78746"
+               }
+            },
+            "_type":"berniesanders_com"
+         },
+         {
+            "_id":"55fcd85ea82dd400017f0f72",
+            "_index":"events_en_v1",
+            "_score":1.0,
+            "_source":{
+               "_id":"55fcd85ea82dd400017f0f72",
+               "attendee_count":1,
+               "capacity":0,
+               "description":"Deputy Voter Registrar Training Class - Travis County\nCall (512) 854-9473 a week ahead to R.S.V.P.",
+               "id_obfuscated":null,
+               "inserted_at":"2015-09-19T03:37:02.811000",
+               "is_official":false,
+               "lang":"en",
+               "name":"Deputy Dawg Training Class - Travis County",
+               "original_id":"9175",
+               "site":"berniesanders.com",
+               "start_time":"2016-06-05T18:30:00",
+               "timestamp":1442868284.050573,
+               "timezone":"CDT",
+               "url":"https://go.berniesanders.com/page/event/detail/registeringvoters/4vfd4",
+               "venue":{
+                  "address1":"5501 Airport Blvd.",
+                  "city":"Austin",
+                  "location":{
+                     "lat":30.31706,
+                     "lon":-97.713631
+                  },
+                  "name":"Travis County Courthouse Annex",
+                  "state":"TX"
+               }
+            },
+            "_type":"berniesanders_com"
+         },
+         {
+            "_id":"55fcd85ea82dd400017f0f72",
+            "_index":"events_en_v1",
+            "_score":1.0,
+            "_source":{
+               "_id":"55fcd85ea82dd400017f0f72",
+               "attendee_count":1,
+               "capacity":0,
+               "description":"Deputy Voter Registrar Training Class - Travis County\nCall (512) 854-9473 a week ahead to R.S.V.P.",
+               "id_obfuscated":null,
+               "inserted_at":"2015-09-19T03:37:02.811000",
+               "is_official":false,
+               "lang":"en",
+               "name":"Deputy Dawg Training Class - Travis County",
+               "original_id":"9175",
+               "site":"berniesanders.com",
+               "start_time":"2016-06-05T18:30:00",
+               "timestamp":1442868284.050573,
+               "timezone":"CDT",
+               "url":"https://go.berniesanders.com/page/event/detail/registeringvoters/4vfd4",
+               "venue":{
+                  "address1":"5501 Airport Blvd.",
+                  "city":"Austin",
+                  "location":{
+                     "lat":30.31706,
+                     "lon":-97.713631
+                  },
+                  "name":"Travis County Courthouse Annex",
+                  "state":"TX",
+                  "zip":"78746"
+               }
+            },
+            "_type":"berniesanders_com"
+         }
+      ],
+      "max_score":1.0,
+      "total":3744
+   },
+   "timed_out":false,
+   "took":3
+}

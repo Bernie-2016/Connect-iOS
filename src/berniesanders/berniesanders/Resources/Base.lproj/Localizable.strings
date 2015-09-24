@@ -20,6 +20,8 @@
 
 "Connect_tabBarTitle" = "Connect";
 "Connect_navigationTitle" = "Connect";
+"Connect_eventAddressLabel" =  "%@, %@ - %@";
+"Connect_eventAttendeeLabel" = "%d of RSVP: %d";
 
 // Settings
 
