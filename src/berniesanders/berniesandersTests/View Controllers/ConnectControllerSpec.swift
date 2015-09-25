@@ -2,7 +2,7 @@ import UIKit
 import Quick
 import Nimble
 import berniesanders
-
+import QuartzCore
 
 class ConnectFakeTheme : FakeTheme {
     override func tabBarActiveTextColor() -> UIColor {
@@ -15,6 +15,66 @@ class ConnectFakeTheme : FakeTheme {
     
     override func tabBarFont() -> UIFont {
         return UIFont.systemFontOfSize(123)
+    }
+    
+    override func connectListFont() -> UIFont {
+        return UIFont.italicSystemFontOfSize(333)
+    }
+    
+    override func connectListColor() -> UIColor {
+        return UIColor.yellowColor()
+    }
+    
+    override func connectGoButtonFont() -> UIFont {
+        return UIFont.boldSystemFontOfSize(555)
+    }
+    
+    override func connectGoButtonTextColor() -> UIColor {
+        return UIColor.magentaColor()
+    }
+    
+    override func connectGoButtonBackgroundColor() -> UIColor {
+        return UIColor.greenColor()
+    }
+    
+    override func connectZipCodeTextColor() -> UIColor {
+        return UIColor.redColor()
+    }
+    
+    override func connectZipCodeBackgroundColor() -> UIColor {
+        return UIColor.brownColor()
+    }
+    
+    override func connectZipCodeBorderColor() -> UIColor {
+        return UIColor.orangeColor()
+    }
+    
+    override func connectZipCodeFont() -> UIFont {
+        return UIFont.boldSystemFontOfSize(4444)
+    }
+    
+    override func connectZipCodeCornerRadius() -> CGFloat {
+        return 100.0
+    }
+    
+    override func connectZipCodeBorderWidth() -> CGFloat {
+        return 200.0
+    }
+    
+    override func connectZipCodeTextOffset() -> CATransform3D {
+        return CATransform3DMakeTranslation(4, 5, 6);
+    }
+    
+    override func connectGoButtonCornerRadius() -> CGFloat {
+        return 300
+    }
+    
+    override func connectNoResultsFont() -> UIFont {
+        return UIFont.italicSystemFontOfSize(888)
+    }
+    
+    override func connectNoResultsTextColor() -> UIColor {
+        return UIColor.blueColor()
     }
 }
 
@@ -128,6 +188,30 @@ class ConnectControllerSpec : QuickSpec {
                 expect(self.subject.eventSearchButton.titleForState(.Normal)).to(equal("Go"))
             }
             
+            it("styles the page components with the theme") {
+                expect(self.subject.eventSearchButton.backgroundColor).to(equal(UIColor.greenColor()))
+                expect(self.subject.eventSearchButton.titleLabel!.font).to(equal(UIFont.boldSystemFontOfSize(555)))
+                expect(self.subject.eventSearchButton.layer.cornerRadius).to(equal(300.0))
+                
+                expect(self.subject.zipCodeTextField.backgroundColor).to(equal(UIColor.brownColor()))
+                expect(self.subject.zipCodeTextField.font).to(equal(UIFont.boldSystemFontOfSize(4444)))
+                expect(self.subject.zipCodeTextField.textColor).to(equal(UIColor.redColor()))
+                expect(self.subject.zipCodeTextField.layer.cornerRadius).to(equal(100.0))
+                expect(self.subject.zipCodeTextField.layer.borderWidth).to(equal(200.0))
+                
+                // TODO: Figure out how to test this.
+                //                expect(self.subject.zipCodeTextField.layer.sublayerTransform).to(equal(CATransform3DMakeTranslation(4, 5, 6)))
+                
+                
+                // TODO: why does this not compile?
+                //                var a = self.subject.zipCodeTextField.layer.borderColor
+                //                var b = UIColor.orangeColor().CGColor
+                //                expect(a).to(equal(b))
+                
+                expect(self.subject.noResultsLabel.font).to(equal(UIFont.italicSystemFontOfSize(888)))
+                expect(self.subject.noResultsLabel.textColor).to(equal(UIColor.blueColor()))
+            }
+            
             describe("making a search by zip code") {
                 xit("has the correct range of values in the radius picker") {
                     
@@ -162,6 +246,46 @@ class ConnectControllerSpec : QuickSpec {
                         expect(self.eventRepository.lastReceivedRadiusMiles).to(equal(50.0))
                     }
                     
+                    context("when the search results in an error") {
+                        beforeEach {
+                            self.eventRepository.lastErrorBlock!(NSError(domain: "someerror", code: 0, userInfo: nil))
+                        }
+                        
+                        xit("should hide the spinner") {
+                            
+                        }
+                        
+                        it("should display a no results message") {
+                            expect(self.subject.noResultsLabel.hidden).to(beFalse())
+                            expect(self.subject.noResultsLabel.text).to(equal("No events match your search"))
+                        }
+                        
+                        it("should leave the table view hidden") {
+                            expect(self.subject.resultsTableView.hidden).to(beTrue())
+                        }
+                        
+                        describe("making a subsequent search") {
+                            beforeEach {
+                                self.subject.zipCodeTextField.text = "11111"
+                                
+                                self.subject.eventSearchButton.tap()
+                            }
+                            
+                            it("should hide the no results message") {
+                                expect(self.subject.noResultsLabel.hidden).to(beTrue())
+                            }
+                            
+                            xit("should show the spinner") {
+                                
+                            }
+                            
+                            it("should ask the events repository for events within 50 miles") {
+                                expect(self.eventRepository.lastReceivedZipCode).to(equal("11111"))
+                                expect(self.eventRepository.lastReceivedRadiusMiles).to(equal(50.0))
+                            }
+                        }
+                    }
+                    
                     context("when the search completes succesfully") {
                         context("with no results") {
                             beforeEach {
@@ -169,13 +293,13 @@ class ConnectControllerSpec : QuickSpec {
                                 self.eventRepository.lastCompletionBlock!(events)
                             }
                             
-                            xit("should hide the spinner") {
-                                
+                            it("should hide the spinner") {
+                                expect(self.subject.loadingActivityIndicatorView.isAnimating()).to(beFalse())
                             }
                             
                             it("should display a no results message") {
                                 expect(self.subject.noResultsLabel.hidden).to(beFalse())
-                                expect(self.subject.noResultsLabel.text).to(equal("No events match your query"))
+                                expect(self.subject.noResultsLabel.text).to(equal("No events match your search"))
                             }
                             
                             it("should leave the table view hidden") {
@@ -241,6 +365,18 @@ class ConnectControllerSpec : QuickSpec {
                                     
                                     expect(self.eventListTableViewCellPresenter.lastReceivedEvent).to(beIdenticalTo(eventB))
                                     expect(self.eventListTableViewCellPresenter.lastReceivedCell).to(beIdenticalTo(cellB))
+                                }
+                                
+                                it("styles the cells from the theme") {
+                                    var cell = self.subject.resultsTableView.dataSource!.tableView(self.subject.resultsTableView, cellForRowAtIndexPath:NSIndexPath(forRow: 0, inSection: 0)) as! EventListTableViewCell
+                                    
+                                    expect(cell.nameLabel.font).to(equal(UIFont.italicSystemFontOfSize(333)))
+                                    expect(cell.addressLabel.font).to(equal(UIFont.italicSystemFontOfSize(333)))
+                                    expect(cell.attendeesLabel.font).to(equal(UIFont.italicSystemFontOfSize(333)))
+                                    
+                                    expect(cell.nameLabel.textColor).to(equal(UIColor.yellowColor()))
+                                    expect(cell.addressLabel.textColor).to(equal(UIColor.yellowColor()))
+                                    expect(cell.attendeesLabel.textColor).to(equal(UIColor.yellowColor()))
                                 }
                             }
                             

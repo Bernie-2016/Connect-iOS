@@ -29,31 +29,31 @@ class FakeTheme : berniesanders.Theme {
     func navigationBarFont() -> UIFont {
         fatalError("override me in the spec!")
     }
-
+    
     func navigationBarTextColor() -> UIColor {
         fatalError("override me in the spec!")
     }
     
     func tabBarActiveTextColor() -> UIColor {
-         fatalError("override me in the spec!")
+        fatalError("override me in the spec!")
     }
     
     func tabBarInactiveTextColor() -> UIColor {
-         fatalError("override me in the spec!")
+        fatalError("override me in the spec!")
     }
     
     func tabBarFont() -> UIFont {
-         fatalError("override me in the spec!")
+        fatalError("override me in the spec!")
     }
     
     func issuesFeedTitleFont() -> UIFont {
-         fatalError("override me in the spec!")
+        fatalError("override me in the spec!")
     }
     
     func issuesFeedTitleColor() -> UIColor {
-         fatalError("override me in the spec!")
+        fatalError("override me in the spec!")
     }
-        
+    
     func feedHeaderBackgroundColor() -> UIColor {
         fatalError("override me in the spec!")
     }
@@ -65,7 +65,7 @@ class FakeTheme : berniesanders.Theme {
     func feedHeaderFont() -> UIFont {
         fatalError("override me in the spec!")
     }
-        
+    
     func newsItemDateFont() -> UIFont {
         fatalError("override me in the spec!")
     }
@@ -91,7 +91,7 @@ class FakeTheme : berniesanders.Theme {
     }
     
     func defaultBackgroundColor() -> UIColor {
-        fatalError("override me in the spec!")        
+        fatalError("override me in the spec!")
     }
     
     func issueTitleColor() -> UIColor {
@@ -99,7 +99,7 @@ class FakeTheme : berniesanders.Theme {
     }
     
     func issueTitleFont() -> UIFont {
-        fatalError("override me in the spec!")        
+        fatalError("override me in the spec!")
     }
     
     func issueBodyFont() -> UIFont {
@@ -127,6 +127,22 @@ class FakeTheme : berniesanders.Theme {
     }
     
     func settingsTitleColor() -> UIColor {
-        fatalError("override me in the spec!")        
+        fatalError("override me in the spec!")
     }
+    func connectListFont() -> UIFont { fatalError("override me in the spec!") }
+    func connectListColor() -> UIColor { fatalError("override me in the spec!") }
+    func connectGoButtonFont() -> UIFont { fatalError("override me in the spec!") }
+    func connectGoButtonTextColor() -> UIColor { fatalError("override me in the spec!") }
+    func connectGoButtonBackgroundColor() -> UIColor { fatalError("override me in the spec!") }
+    func connectZipCodeTextColor() -> UIColor { fatalError("override me in the spec!") }
+    func connectZipCodeBackgroundColor() -> UIColor { fatalError("override me in the spec!") }
+    func connectZipCodeBorderColor() -> UIColor { fatalError("override me in the spec!") }
+    func connectZipCodeFont() -> UIFont { fatalError("override me in the spec!") }
+    func connectZipCodeCornerRadius() -> CGFloat { fatalError("override me in the spec!") }
+    func connectZipCodeBorderWidth() -> CGFloat { fatalError("override me in the spec!") }
+    func connectZipCodeTextOffset() -> CATransform3D { fatalError("override me in the spec!") }
+    func connectGoButtonCornerRadius() -> CGFloat { fatalError("override me in the spec!") }
+    func connectNoResultsTextColor() -> UIColor { fatalError("override me in the spec!") }
+    func connectNoResultsFont() -> UIFont { fatalError("override me in the spec!") }
+
 }

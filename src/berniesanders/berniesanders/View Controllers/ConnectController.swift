@@ -1,10 +1,12 @@
 import UIKit
 import PureLayout
+import QuartzCore
 
 public class ConnectController : UIViewController, UITableViewDataSource, UITableViewDelegate {
     public let eventRepository: EventRepository!
     public let eventListTableViewCellPresenter: EventListTableViewCellPresenter!
     public let settingsController: SettingsController!
+    public let theme: Theme!
     
     public let zipCodeTextField = UITextField.newAutoLayoutView()
     public let eventSearchButton = UIButton.newAutoLayoutView()
@@ -21,6 +23,7 @@ public class ConnectController : UIViewController, UITableViewDataSource, UITabl
         self.eventRepository = eventRepository
         self.eventListTableViewCellPresenter = eventListTableViewCellPresenter
         self.settingsController = settingsController
+        self.theme = theme
         
         self.events = []
         
@@ -62,11 +65,6 @@ public class ConnectController : UIViewController, UITableViewDataSource, UITabl
         
         setNeedsStatusBarAppearanceUpdate()
         
-        zipCodeTextField.backgroundColor = UIColor.redColor()
-        eventSearchButton.backgroundColor = UIColor.purpleColor()
-
-        view.backgroundColor = UIColor.greenColor()
-        
         view.addSubview(zipCodeTextField)
         view.addSubview(eventSearchButton)
         view.addSubview(resultsTableView)
@@ -74,25 +72,42 @@ public class ConnectController : UIViewController, UITableViewDataSource, UITabl
         
         eventSearchButton.setTitle(NSLocalizedString("Connect_eventSearchButtonTitle", comment: ""), forState: .Normal)
         eventSearchButton.addTarget(self, action: "didTapSearch:", forControlEvents: .TouchUpInside)
+        eventSearchButton.backgroundColor = self.theme.connectGoButtonBackgroundColor()
+        eventSearchButton.titleLabel!.font = self.theme.connectGoButtonFont()
+        eventSearchButton.titleLabel!.textColor = self.theme.connectGoButtonTextColor()
+        eventSearchButton.layer.cornerRadius = self.theme.connectGoButtonCornerRadius()
         
         zipCodeTextField.autoPinEdgeToSuperviewEdge(.Top, withInset: 8)
-        zipCodeTextField.autoPinEdgeToSuperviewMargin(.Left)
+        zipCodeTextField.autoPinEdgeToSuperviewEdge(.Left, withInset: 8)
         zipCodeTextField.placeholder = NSLocalizedString("Connect_zipCodeTextBoxPlaceholder",  comment: "")
-
+        zipCodeTextField.textColor = self.theme.connectZipCodeTextColor()
+        zipCodeTextField.font = self.theme.connectZipCodeFont()
+        zipCodeTextField.backgroundColor = self.theme.connectZipCodeBackgroundColor()
+        zipCodeTextField.layer.borderColor = self.theme.connectZipCodeBorderColor().CGColor
+        zipCodeTextField.layer.borderWidth = self.theme.connectZipCodeBorderWidth()
+        zipCodeTextField.layer.cornerRadius = self.theme.connectZipCodeCornerRadius()
+        zipCodeTextField.layer.sublayerTransform = self.theme.connectZipCodeTextOffset()
+        
         eventSearchButton.autoPinEdgeToSuperviewEdge(.Top, withInset: 8)
+        eventSearchButton.autoSetDimension(.Width, toSize: 70)
         eventSearchButton.autoPinEdge(.Left, toEdge: .Right, ofView: zipCodeTextField, withOffset: 8)
-        eventSearchButton.autoPinEdgeToSuperviewMargin(.Right)
+        eventSearchButton.autoPinEdgeToSuperviewEdge(.Right, withInset: 8)
         eventSearchButton.autoPinEdge(.Bottom, toEdge: .Bottom, ofView: zipCodeTextField)
         
-        resultsTableView.autoPinEdge(.Top, toEdge: .Bottom, ofView: eventSearchButton)
-        resultsTableView.autoPinEdgesToSuperviewMarginsExcludingEdge(.Top)
+        resultsTableView.autoPinEdge(.Top, toEdge: .Bottom, ofView: zipCodeTextField, withOffset: 8)
+        resultsTableView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Top)
         
-        noResultsLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: eventSearchButton)
-        noResultsLabel.autoPinEdgesToSuperviewMarginsExcludingEdge(.Top)
-
+        noResultsLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: zipCodeTextField, withOffset: 16)
+        noResultsLabel.autoPinEdgeToSuperviewEdge(.Left)
+        noResultsLabel.autoPinEdgeToSuperviewEdge(.Right)
+        noResultsLabel.textAlignment = .Center
+        noResultsLabel.text = NSLocalizedString("Connect_noEventsFound", comment: "")
+        noResultsLabel.textColor = self.theme.connectNoResultsTextColor()
+        noResultsLabel.font = self.theme.connectNoResultsFont()
+        noResultsLabel.lineBreakMode = NSLineBreakMode.ByTruncatingTail;
+        
         resultsTableView.hidden = true
         noResultsLabel.hidden = true
-        noResultsLabel.text = NSLocalizedString("Connect_noEventsFound", comment: "")
     }
     
     public override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -112,6 +127,14 @@ public class ConnectController : UIViewController, UITableViewDataSource, UITabl
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("eventCell") as! EventListTableViewCell
         let event = events[indexPath.row]
+        
+        cell.addressLabel.textColor = self.theme.connectListColor()
+        cell.addressLabel.font = self.theme.connectListFont()
+        cell.attendeesLabel.textColor = self.theme.connectListColor()
+        cell.attendeesLabel.font = self.theme.connectListFont()
+        cell.nameLabel.textColor = self.theme.connectListColor()
+        cell.nameLabel.font = self.theme.connectListFont()
+        
         return self.eventListTableViewCellPresenter.presentEvent(event, cell: cell)
     }
     
@@ -130,7 +153,7 @@ public class ConnectController : UIViewController, UITableViewDataSource, UITabl
     func didTapSearch(sender : UIButton!) {
         resultsTableView.hidden = true
         noResultsLabel.hidden = true
-        
+
         self.eventRepository.fetchEventsWithZipCode(self.zipCodeTextField.text, radiusMiles: 50.0,
             completion: { (events: Array<Event>) -> Void in
                 var matchingEventsFound = events.count > 0
@@ -140,6 +163,7 @@ public class ConnectController : UIViewController, UITableViewDataSource, UITabl
                 
                 self.resultsTableView.reloadData()  // TODO: test me
             }) { (error: NSError) -> Void in
+                self.noResultsLabel.hidden = false
         }
     }
 }

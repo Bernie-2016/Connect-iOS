@@ -147,6 +147,78 @@ class DefaultTheme : Theme {
         return self.cornflowerBlueColor()
     }
     
+    // MARK: Connect
+    
+    func connectListFont() -> UIFont {
+        return UIFont(name: "Lato-Regular", size: 14)!
+    }
+    
+    func connectListColor() -> UIColor {
+        return self.cornflowerBlueColor()
+    }
+    
+    func connectGoButtonFont() -> UIFont {
+        return UIFont(name: "Lato-Regular", size: 15)!
+    }
+    
+    func connectGoButtonTextColor() -> UIColor {
+        return UIColor.whiteColor()
+    }
+    
+    func connectGoButtonBackgroundColor() -> UIColor {
+        return self.cornflowerBlueColor()
+    }
+    
+    func connectZipCodeTextColor() -> UIColor {
+        return UIColor.blackColor()
+    }
+    
+    func connectZipCodeBackgroundColor() -> UIColor {
+        return self.galleryColor()
+    }
+    
+    func connectZipCodeBorderColor() -> UIColor {
+        return self.altoColor()
+    }
+    
+    func connectZipCodeFont() -> UIFont {
+        return UIFont(name: "Lato-Regular", size: 14)!
+    }
+    
+    func connectZipCodeCornerRadius() -> CGFloat {
+        return self.defaultCornerRadius()
+    }
+    
+    func connectZipCodeBorderWidth() -> CGFloat {
+        return self.defaultBorderWidth()
+    }
+    
+    func connectZipCodeTextOffset() -> CATransform3D {
+        return CATransform3DMakeTranslation(4, 0, 0);
+    }
+    
+    func connectGoButtonCornerRadius() -> CGFloat {
+        return self.defaultCornerRadius()
+    }
+    
+    func connectNoResultsTextColor() -> UIColor {
+        return self.cornflowerBlueColor()
+    }
+    
+    func connectNoResultsFont() -> UIFont {
+        return UIFont(name: "Lato-Regular", size: 15)!
+    }
+
+    // MARK: default dimensions
+    
+    func defaultCornerRadius() -> CGFloat {
+        return 2.0
+    }
+    
+    func defaultBorderWidth() -> CGFloat {
+        return 1.0
+    }
+    
     // MARK: color definitions
     
     func cornflowerBlueColor() -> UIColor {
@@ -159,5 +231,13 @@ class DefaultTheme : Theme {
     
     func silverColor() -> UIColor {
         return UIColor(rgba: "#c9c9c9")
+    }
+    
+    func galleryColor() -> UIColor {
+        return UIColor(rgba: "#eeeeee")
+    }
+    
+    func altoColor() -> UIColor {
+        return UIColor(rgba: "#dcdcdc")
     }
 }

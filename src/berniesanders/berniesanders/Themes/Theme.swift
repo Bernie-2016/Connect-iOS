@@ -57,6 +57,24 @@ public protocol Theme {
     func issueBodyFont() -> UIFont
     func issueBodyColor() -> UIColor
     
+    // MARK: Connect screen
+    
+    func connectListFont() -> UIFont
+    func connectListColor() -> UIColor
+    func connectGoButtonFont() -> UIFont
+    func connectGoButtonTextColor() -> UIColor
+    func connectGoButtonBackgroundColor() -> UIColor
+    func connectGoButtonCornerRadius() -> CGFloat
+    func connectZipCodeTextColor() -> UIColor
+    func connectZipCodeBackgroundColor() -> UIColor
+    func connectZipCodeBorderColor() -> UIColor
+    func connectZipCodeFont() -> UIFont
+    func connectZipCodeCornerRadius() -> CGFloat
+    func connectZipCodeBorderWidth() -> CGFloat
+    func connectZipCodeTextOffset() -> CATransform3D
+    func connectNoResultsTextColor() -> UIColor
+    func connectNoResultsFont() -> UIFont
+    
     // MARK: Settings
     
     func settingsTitleFont() -> UIFont

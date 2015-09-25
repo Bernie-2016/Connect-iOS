@@ -18,18 +18,19 @@ public class EventListTableViewCell : UITableViewCell {
         self.preservesSuperviewLayoutMargins = false
         
         self.contentView.addSubview(nameLabel)
-        nameLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: 4)
+        nameLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: 16)
         nameLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 8)
+        nameLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 8)
         
         self.contentView.addSubview(addressLabel)
         addressLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: nameLabel, withOffset: 4)
         addressLabel.autoPinEdge(.Left, toEdge: .Left, ofView: nameLabel, withOffset: 0)
-        addressLabel.autoSetDimension(.Width, toSize: self.bounds.width - 85, relation: .LessThanOrEqual)
+        addressLabel.autoPinEdge(.Right, toEdge: .Right, ofView: nameLabel, withOffset: 0)
         
         self.contentView.addSubview(attendeesLabel)
         attendeesLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: addressLabel, withOffset: 4)
         attendeesLabel.autoPinEdge(.Left, toEdge: .Left, ofView: addressLabel, withOffset: 0)
-        attendeesLabel.autoSetDimension(.Width, toSize: self.bounds.width - 85, relation: .LessThanOrEqual)
+        attendeesLabel.autoPinEdge(.Right, toEdge: .Right, ofView: attendeesLabel, withOffset: 0)
     }
 
 }
