@@ -6,6 +6,7 @@ public protocol Theme {
     // MARK: Global
     
     func defaultBackgroundColor() -> UIColor
+    func defaultSpinnerColor() -> UIColor
     
     // MARK: Tab Bar
     

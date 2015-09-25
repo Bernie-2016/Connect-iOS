@@ -76,6 +76,10 @@ class ConnectFakeTheme : FakeTheme {
     override func connectNoResultsTextColor() -> UIColor {
         return UIColor.blueColor()
     }
+    
+    override func defaultSpinnerColor() -> UIColor {
+        return UIColor.blackColor()
+    }
 }
 
 class FakeEventRepository : EventRepository {
@@ -174,6 +178,7 @@ class ConnectControllerSpec : QuickSpec {
                 expect(contains(subViews, self.subject.eventSearchButton)).to(beTrue())
                 expect(contains(subViews, self.subject.noResultsLabel)).to(beTrue())
                 expect(contains(subViews, self.subject.resultsTableView)).to(beTrue())
+                expect(contains(subViews, self.subject.loadingActivityIndicatorView)).to(beTrue())
             }
             
             it("should hide the results table view by default") {
@@ -182,6 +187,10 @@ class ConnectControllerSpec : QuickSpec {
             
             it("should hide the no results label by default") {
                 expect(self.subject.noResultsLabel.hidden).to(beTrue())
+            }
+            
+            it("should hide the spinner by default") {
+                expect(self.subject.loadingActivityIndicatorView.isAnimating()).to(beFalse())
             }
             
             it("has a search button button") {
@@ -210,6 +219,8 @@ class ConnectControllerSpec : QuickSpec {
                 
                 expect(self.subject.noResultsLabel.font).to(equal(UIFont.italicSystemFontOfSize(888)))
                 expect(self.subject.noResultsLabel.textColor).to(equal(UIColor.blueColor()))
+                
+                expect(self.subject.loadingActivityIndicatorView.color).to(equal(UIColor.blackColor()))
             }
             
             describe("making a search by zip code") {
@@ -237,9 +248,10 @@ class ConnectControllerSpec : QuickSpec {
                         self.subject.eventSearchButton.tap()
                     }
                     
-                    xit("should show a spinner") {
-                        
+                    it("should show the spinner") {
+                        expect(self.subject.loadingActivityIndicatorView.isAnimating()).to(beTrue())
                     }
+
                     
                     it("should ask the events repository for events within 50 miles") {
                         expect(self.eventRepository.lastReceivedZipCode).to(equal("90210"))
@@ -251,9 +263,10 @@ class ConnectControllerSpec : QuickSpec {
                             self.eventRepository.lastErrorBlock!(NSError(domain: "someerror", code: 0, userInfo: nil))
                         }
                         
-                        xit("should hide the spinner") {
-                            
+                        it("should hide the spinner") {
+                            expect(self.subject.loadingActivityIndicatorView.isAnimating()).to(beFalse())
                         }
+
                         
                         it("should display a no results message") {
                             expect(self.subject.noResultsLabel.hidden).to(beFalse())
@@ -275,10 +288,10 @@ class ConnectControllerSpec : QuickSpec {
                                 expect(self.subject.noResultsLabel.hidden).to(beTrue())
                             }
                             
-                            xit("should show the spinner") {
-                                
+                            it("should show the spinner") {
+                                expect(self.subject.loadingActivityIndicatorView.isAnimating()).to(beTrue())
                             }
-                            
+
                             it("should ask the events repository for events within 50 miles") {
                                 expect(self.eventRepository.lastReceivedZipCode).to(equal("11111"))
                                 expect(self.eventRepository.lastReceivedRadiusMiles).to(equal(50.0))
@@ -317,8 +330,8 @@ class ConnectControllerSpec : QuickSpec {
                                     expect(self.subject.noResultsLabel.hidden).to(beTrue())
                                 }
                                 
-                                xit("should show the spinner") {
-                                    
+                                it("should show the spinner by default") {
+                                    expect(self.subject.loadingActivityIndicatorView.isAnimating()).to(beTrue())
                                 }
                                 
                                 it("should ask the events repository for events within 50 miles") {
@@ -338,8 +351,8 @@ class ConnectControllerSpec : QuickSpec {
                             }
                             
                             
-                            xit("should hide the spinner") {
-                                
+                            it("should hide the spinner") {
+                                expect(self.subject.loadingActivityIndicatorView.isAnimating()).to(beFalse())
                             }
                             
                             it("should leave the no results message hidden") {
@@ -392,8 +405,8 @@ class ConnectControllerSpec : QuickSpec {
                                 }
                                 
                                 
-                                xit("should show the spinner") {
-                                    
+                                it("should show the spinner") {
+                                    expect(self.subject.loadingActivityIndicatorView.isAnimating()).to(beTrue())
                                 }
                                 
                                 it("should ask the events repository for events within 50 miles") {

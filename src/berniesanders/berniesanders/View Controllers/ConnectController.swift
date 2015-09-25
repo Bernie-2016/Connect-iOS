@@ -12,6 +12,7 @@ public class ConnectController : UIViewController, UITableViewDataSource, UITabl
     public let eventSearchButton = UIButton.newAutoLayoutView()
     public let resultsTableView = UITableView.newAutoLayoutView()
     public let noResultsLabel = UILabel.newAutoLayoutView()
+    public let loadingActivityIndicatorView = UIActivityIndicatorView.newAutoLayoutView()
     
     var events: Array<Event>!
     
@@ -69,6 +70,7 @@ public class ConnectController : UIViewController, UITableViewDataSource, UITabl
         view.addSubview(eventSearchButton)
         view.addSubview(resultsTableView)
         view.addSubview(noResultsLabel)
+        view.addSubview(loadingActivityIndicatorView)
         
         eventSearchButton.setTitle(NSLocalizedString("Connect_eventSearchButtonTitle", comment: ""), forState: .Normal)
         eventSearchButton.addTarget(self, action: "didTapSearch:", forControlEvents: .TouchUpInside)
@@ -106,8 +108,14 @@ public class ConnectController : UIViewController, UITableViewDataSource, UITabl
         noResultsLabel.font = self.theme.connectNoResultsFont()
         noResultsLabel.lineBreakMode = NSLineBreakMode.ByTruncatingTail;
         
+        loadingActivityIndicatorView.autoPinEdge(.Top, toEdge: .Bottom, ofView: zipCodeTextField, withOffset: 16)
+        loadingActivityIndicatorView.autoAlignAxisToSuperviewAxis(.Vertical)
+        loadingActivityIndicatorView.color = self.theme.defaultSpinnerColor()
+
         resultsTableView.hidden = true
         noResultsLabel.hidden = true
+        loadingActivityIndicatorView.hidesWhenStopped = true
+        loadingActivityIndicatorView.stopAnimating()
     }
     
     public override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -153,17 +161,22 @@ public class ConnectController : UIViewController, UITableViewDataSource, UITabl
     func didTapSearch(sender : UIButton!) {
         resultsTableView.hidden = true
         noResultsLabel.hidden = true
-
+        loadingActivityIndicatorView.hidden = false
+        loadingActivityIndicatorView.startAnimating()
+        
         self.eventRepository.fetchEventsWithZipCode(self.zipCodeTextField.text, radiusMiles: 50.0,
             completion: { (events: Array<Event>) -> Void in
                 var matchingEventsFound = events.count > 0
                 self.events = events
+
                 self.noResultsLabel.hidden = matchingEventsFound
                 self.resultsTableView.hidden = !matchingEventsFound
+                self.loadingActivityIndicatorView.stopAnimating()
                 
                 self.resultsTableView.reloadData()  // TODO: test me
             }) { (error: NSError) -> Void in
                 self.noResultsLabel.hidden = false
+                self.loadingActivityIndicatorView.stopAnimating()
         }
     }
 }

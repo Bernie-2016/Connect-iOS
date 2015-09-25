@@ -144,5 +144,6 @@ class FakeTheme : berniesanders.Theme {
     func connectGoButtonCornerRadius() -> CGFloat { fatalError("override me in the spec!") }
     func connectNoResultsTextColor() -> UIColor { fatalError("override me in the spec!") }
     func connectNoResultsFont() -> UIFont { fatalError("override me in the spec!") }
+    func defaultSpinnerColor() -> UIColor { fatalError("override me in the spec!") }
 
 }

@@ -9,6 +9,10 @@ class DefaultTheme : Theme {
         return UIColor.whiteColor()
     }
     
+    func defaultSpinnerColor() -> UIColor {
+        return self.silverColor()
+    }
+    
     // MARK: Tab Bar
     
     func tabBarTintColor() -> UIColor {
