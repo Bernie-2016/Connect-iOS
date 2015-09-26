@@ -109,6 +109,7 @@ class FakeEventListTableViewCellPresenter : EventListTableViewCellPresenter {
 
 class ConnectControllerSpec : QuickSpec {
     var subject : ConnectController!
+    var window : UIWindow!
     var eventRepository : FakeEventRepository!
     var eventListTableViewCellPresenter : FakeEventListTableViewCellPresenter!
     let settingsController = TestUtils.settingsController()
@@ -121,6 +122,8 @@ class ConnectControllerSpec : QuickSpec {
                 self.eventRepository = FakeEventRepository()
                 self.eventListTableViewCellPresenter = FakeEventListTableViewCellPresenter()
                 
+                self.window = UIWindow.new()
+                
                 self.subject = ConnectController(
                     eventRepository: self.eventRepository,
                     eventListTableViewCellPresenter: self.eventListTableViewCellPresenter,
@@ -130,7 +133,14 @@ class ConnectControllerSpec : QuickSpec {
                 
                 self.navigationController.pushViewController(self.subject, animated: false)
                 
+                self.window.rootViewController = self.navigationController
+                self.window.makeKeyAndVisible()
+                
                 self.subject.view.layoutSubviews()
+            }
+            
+            afterEach {
+                self.window = nil
             }
             
             it("has the correct tab bar title") {
@@ -197,6 +207,10 @@ class ConnectControllerSpec : QuickSpec {
                 expect(self.subject.eventSearchButton.titleForState(.Normal)).to(equal("Go"))
             }
             
+            it("configures the keyboard to be a number pad") {
+                expect(self.subject.zipCodeTextField.keyboardType).to(equal(UIKeyboardType.NumberPad))
+            }
+            
             it("styles the page components with the theme") {
                 expect(self.subject.eventSearchButton.backgroundColor).to(equal(UIColor.greenColor()))
                 expect(self.subject.eventSearchButton.titleLabel!.font).to(equal(UIFont.boldSystemFontOfSize(555)))
@@ -244,8 +258,14 @@ class ConnectControllerSpec : QuickSpec {
                 
                 context("when entering a valid zip code") {
                     beforeEach {
+                        self.subject.zipCodeTextField.becomeFirstResponder()
                         self.subject.zipCodeTextField.text = "90210"
                         self.subject.eventSearchButton.tap()
+                    }
+                    
+                    xit("should resign first responder") {
+                        // TODO: we never become first responder in the test - fix this :/
+                        expect(self.subject.zipCodeTextField.isFirstResponder()).to(beFalse())
                     }
                     
                     it("should show the spinner") {

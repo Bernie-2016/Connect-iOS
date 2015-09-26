@@ -82,6 +82,7 @@ public class ConnectController : UIViewController, UITableViewDataSource, UITabl
         zipCodeTextField.autoPinEdgeToSuperviewEdge(.Top, withInset: 8)
         zipCodeTextField.autoPinEdgeToSuperviewEdge(.Left, withInset: 8)
         zipCodeTextField.placeholder = NSLocalizedString("Connect_zipCodeTextBoxPlaceholder",  comment: "")
+        zipCodeTextField.keyboardType = .NumberPad
         zipCodeTextField.textColor = self.theme.connectZipCodeTextColor()
         zipCodeTextField.font = self.theme.connectZipCodeFont()
         zipCodeTextField.backgroundColor = self.theme.connectZipCodeBackgroundColor()
@@ -159,6 +160,7 @@ public class ConnectController : UIViewController, UITableViewDataSource, UITabl
     }
     
     func didTapSearch(sender : UIButton!) {
+        self.zipCodeTextField.resignFirstResponder()
         resultsTableView.hidden = true
         noResultsLabel.hidden = true
         loadingActivityIndicatorView.hidden = false
