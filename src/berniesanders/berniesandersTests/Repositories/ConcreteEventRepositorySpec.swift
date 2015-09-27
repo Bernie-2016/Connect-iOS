@@ -113,6 +113,7 @@ class ConcreteEventRepositorySpec : QuickSpec {
                         
                         let expectedHTTPBodyDictionary =
                         [
+                            "from": 0, "size": 30,
                             "query": [
                                 "filtered": [
                                     "query": [

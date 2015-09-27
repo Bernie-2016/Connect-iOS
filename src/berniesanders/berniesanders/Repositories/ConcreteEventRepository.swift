@@ -84,6 +84,7 @@ public class ConcreteEventRepository : EventRepository {
         
         
         return [
+            "from": 0, "size": 30,
             "query": [
                 "filtered": [
                     "query": [
