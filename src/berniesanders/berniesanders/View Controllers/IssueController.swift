@@ -103,7 +103,7 @@ public class IssueController : UIViewController {
         self.bodyTextView.textContainer.lineFragmentPadding = 0;
         
         self.bodyTextView.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.titleLabel, withOffset: 16)
-        self.bodyTextView.autoPinEdgeToSuperviewEdge(ALEdge.Bottom)
+        self.bodyTextView.autoPinEdgeToSuperviewEdge(ALEdge.Bottom, withInset: 8)
         self.bodyTextView.autoPinEdgeToSuperviewEdge(ALEdge.Leading, withInset: 8)
         self.bodyTextView.autoPinEdgeToSuperviewEdge(ALEdge.Trailing)
     }
