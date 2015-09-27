@@ -20,39 +20,38 @@ public class IssuesController: UIViewController, UITableViewDataSource, UITableV
         self.issues = []
         
         super.init(nibName: nil, bundle: nil)
-        
-        let settingsIcon = UIImage(named: "settingsIcon")
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: settingsIcon, style: .Plain, target: self, action: "didTapSettings")
 
-        self.tabBarItem.setTitlePositionAdjustment(UIOffsetMake(0, -4))        
-        self.tabBarItem.image = UIImage(named: "issuesTabBarIconInactive")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
-        self.tabBarItem.selectedImage = UIImage(named: "issuesTabBarIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
+        tabBarItem.setTitlePositionAdjustment(UIOffsetMake(0, -4))        
+        tabBarItem.image = UIImage(named: "issuesTabBarIconInactive")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
+        tabBarItem.selectedImage = UIImage(named: "issuesTabBarIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
         
         let activeTabBarTextAttributes = [NSFontAttributeName: theme.tabBarFont(), NSForegroundColorAttributeName: theme.tabBarActiveTextColor()]
         let inactiveTabBarTextAttributes = [NSFontAttributeName: theme.tabBarFont(), NSForegroundColorAttributeName: theme.tabBarInactiveTextColor()]
         
-        self.tabBarItem.setTitleTextAttributes(inactiveTabBarTextAttributes, forState: .Normal)
-        self.tabBarItem.setTitleTextAttributes(activeTabBarTextAttributes, forState: .Selected)
-        
-        self.title = NSLocalizedString("Issues_tabBarTitle", comment: "")
-        self.navigationItem.title = NSLocalizedString("Issues_navigationTitle", comment: "")
-        
-        let backBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Issues_backButtonTitle", comment: ""),
-            style: UIBarButtonItemStyle.Plain,
-            target: nil, action: nil)
-        
-        self.navigationItem.backBarButtonItem = backBarButtonItem
+        tabBarItem.setTitleTextAttributes(inactiveTabBarTextAttributes, forState: .Normal)
+        tabBarItem.setTitleTextAttributes(activeTabBarTextAttributes, forState: .Selected)
+        title = NSLocalizedString("Issues_tabBarTitle", comment: "")
     }
 
     required public init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
+    }    
     
     // MARK: UIViewController
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let settingsIcon = UIImage(named: "settingsIcon")
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: settingsIcon, style: .Plain, target: self, action: "didTapSettings")
+        
+        navigationItem.title = NSLocalizedString("Issues_navigationTitle", comment: "")
+        
+        let backBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Issues_backButtonTitle", comment: ""),
+            style: UIBarButtonItemStyle.Plain,
+            target: nil, action: nil)
+        
+        navigationItem.backBarButtonItem = backBarButtonItem
 
         view.addSubview(tableView)
         view.addSubview(loadingIndicatorView)

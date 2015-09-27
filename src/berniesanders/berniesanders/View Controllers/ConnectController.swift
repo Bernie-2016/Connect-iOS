@@ -29,7 +29,7 @@ public class ConnectController : UIViewController, UITableViewDataSource, UITabl
         self.events = []
         
         super.init(nibName: nil, bundle: nil)
-        
+            
         self.tabBarItem.setTitlePositionAdjustment(UIOffsetMake(0, -4))
         self.tabBarItem.image = UIImage(named: "connectTabBarIconInactive")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
         self.tabBarItem.selectedImage = UIImage(named: "connectTabBarIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
@@ -41,6 +41,14 @@ public class ConnectController : UIViewController, UITableViewDataSource, UITabl
         self.tabBarItem.setTitleTextAttributes(activeTabBarTextAttributes, forState: .Selected)
         
         self.title = NSLocalizedString("Connect_tabBarTitle", comment: "")
+    }
+    
+    required public init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    public override func viewDidLoad() {
+        super.viewDidLoad()
         
         self.navigationItem.title = NSLocalizedString("Connect_navigationTitle", comment: "")
         let settingsIcon = UIImage(named: "settingsIcon")
@@ -50,14 +58,6 @@ public class ConnectController : UIViewController, UITableViewDataSource, UITabl
             target: nil, action: nil)
         
         self.navigationItem.backBarButtonItem = backBarButtonItem
-    }
-    
-    required public init(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    public override func viewDidLoad() {
-        super.viewDidLoad()
         
         self.edgesForExtendedLayout = .None
         self.resultsTableView.dataSource = self

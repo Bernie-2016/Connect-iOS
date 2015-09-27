@@ -70,7 +70,9 @@ class IssuesControllerSpec: QuickSpec {
                 settingsController: self.settingsController,
                 theme: IssuesFakeTheme()
             )
+
             self.navigationController.pushViewController(self.subject, animated: false)
+            self.subject.view.layoutSubviews()
         }
         
         it("has the correct tab bar title") {
@@ -104,8 +106,6 @@ class IssuesControllerSpec: QuickSpec {
         }
         
         it("initially hides the table view, and shows the loading spinner") {
-            self.subject.view.layoutSubviews()
-            
             expect(self.subject.tableView.hidden).to(equal(true));
             expect(self.subject.loadingIndicatorView.isAnimating()).to(equal(true))
         }
@@ -122,8 +122,6 @@ class IssuesControllerSpec: QuickSpec {
         }
         
         it("styles the spinner from the theme") {
-            self.subject.view.layoutSubviews()
-            
             expect(self.subject.loadingIndicatorView.color).to(equal(UIColor.greenColor()))
         }
         

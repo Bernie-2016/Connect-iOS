@@ -10,18 +10,17 @@ public class OrganizeController : UIViewController {
         
         super.init(nibName: nil, bundle: nil)
         
-        self.tabBarItem.setTitlePositionAdjustment(UIOffsetMake(0, -4))
-        self.tabBarItem.image = UIImage(named: "organizeTabBarIconInactive")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
-        self.tabBarItem.selectedImage = UIImage(named: "organizeTabBarIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
+        tabBarItem.setTitlePositionAdjustment(UIOffsetMake(0, -4))
+        tabBarItem.image = UIImage(named: "organizeTabBarIconInactive")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
+        tabBarItem.selectedImage = UIImage(named: "organizeTabBarIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
         
         let activeTabBarTextAttributes = [NSFontAttributeName: theme.tabBarFont(), NSForegroundColorAttributeName: theme.tabBarActiveTextColor()]
         let inactiveTabBarTextAttributes = [NSFontAttributeName: theme.tabBarFont(), NSForegroundColorAttributeName: theme.tabBarInactiveTextColor()]
         
-        self.tabBarItem.setTitleTextAttributes(inactiveTabBarTextAttributes, forState: .Normal)
-        self.tabBarItem.setTitleTextAttributes(activeTabBarTextAttributes, forState: .Selected)
+        tabBarItem.setTitleTextAttributes(inactiveTabBarTextAttributes, forState: .Normal)
+        tabBarItem.setTitleTextAttributes(activeTabBarTextAttributes, forState: .Selected)
 
-        self.title = NSLocalizedString("Organize_tabBarTitle", comment: "")
-        self.navigationItem.title = NSLocalizedString("Organize_navigationTitle", comment: "")
+        title = NSLocalizedString("Organize_tabBarTitle", comment: "")
     }
 
     required public init(coder aDecoder: NSCoder) {
@@ -30,6 +29,9 @@ public class OrganizeController : UIViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationItem.title = NSLocalizedString("Organize_navigationTitle", comment: "")
+        
         self.setNeedsStatusBarAppearanceUpdate()
         
         var urlRequest = NSURLRequest(URL: self.urlProvider.bernieCrowdURL())

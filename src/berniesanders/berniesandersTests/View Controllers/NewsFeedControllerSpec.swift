@@ -102,6 +102,7 @@ class NewsFeedControllerSpecs: QuickSpec {
             )
             
             self.navigationController.pushViewController(self.subject, animated: false)
+            self.subject.view.layoutSubviews()
         }
         
         it("has the correct tab bar title") {
@@ -135,8 +136,6 @@ class NewsFeedControllerSpecs: QuickSpec {
         }
         
         it("initially hides the table view, and shows the loading spinner") {
-            self.subject.view.layoutSubviews()
-            
             expect(self.subject.tableView.hidden).to(equal(true));
             expect(self.subject.loadingIndicatorView.isAnimating()).to(equal(true))
         }
@@ -149,8 +148,6 @@ class NewsFeedControllerSpecs: QuickSpec {
         }
         
         it("styles the spinner from the theme") {
-            self.subject.view.layoutSubviews()
-            
             expect(self.subject.loadingIndicatorView.color).to(equal(UIColor.greenColor()))
         }
         
@@ -168,7 +165,6 @@ class NewsFeedControllerSpecs: QuickSpec {
         
         describe("when the controller appears") {
             beforeEach {
-                self.subject.view.layoutIfNeeded()
                 self.subject.viewWillAppear(false)
             }
             
@@ -320,7 +316,6 @@ class NewsFeedControllerSpecs: QuickSpec {
             let expectedNewsItemA = NewsItem(title: "A", date: NSDate(), body: "A Body", imageURL: NSURL(), URL: NSURL())
             let expectedNewsItemB = NewsItem(title: "B", date: NSDate(), body: "B Body", imageURL: NSURL(), URL: NSURL())
             beforeEach {
-                self.subject.view.layoutIfNeeded()
                 self.subject.viewWillAppear(false)
             
                 var newsItems = [expectedNewsItemA, expectedNewsItemB]
