@@ -75,6 +75,10 @@ class NewsItemControllerSpec : QuickSpec {
                     expect(shareBarButtonItem.valueForKey("systemItem") as? Int).to(equal(UIBarButtonSystemItem.Action.rawValue))
                 }
                 
+                it("sets up the body text view not to be editable") {
+                    expect(self.subject.bodyTextView.editable).to(beFalse())
+                }
+                
                 describe("tapping on the share button") {
                     it("should present an activity view controller for sharing the story URL") {
                         self.subject.navigationItem.rightBarButtonItem!.tap()
@@ -130,7 +134,6 @@ class NewsItemControllerSpec : QuickSpec {
                     expect(self.subject.titleLabel.textColor).to(equal(UIColor.brownColor()))
                     expect(self.subject.bodyTextView.font).to(equal(UIFont.systemFontOfSize(3)))
                     expect(self.subject.bodyTextView.textColor).to(equal(UIColor.yellowColor()))
-                    
                 }
                 
                 context("when the request for the story's image succeeds") {

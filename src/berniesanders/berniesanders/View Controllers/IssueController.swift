@@ -89,7 +89,6 @@ public class IssueController : UIViewController {
             self.titleLabel.autoPinEdgeToSuperviewEdge(ALEdge.Top, withInset: 8)
         })
 
-        
         self.titleLabel.numberOfLines = 3
         self.titleLabel.preferredMaxLayoutWidth = screenBounds.width - 8
         self.titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -101,6 +100,7 @@ public class IssueController : UIViewController {
         self.bodyTextView.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.bodyTextView.textContainerInset = UIEdgeInsetsZero
         self.bodyTextView.textContainer.lineFragmentPadding = 0;
+        self.bodyTextView.editable = false
         
         self.bodyTextView.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.titleLabel, withOffset: 16)
         self.bodyTextView.autoPinEdgeToSuperviewEdge(ALEdge.Bottom, withInset: 8)

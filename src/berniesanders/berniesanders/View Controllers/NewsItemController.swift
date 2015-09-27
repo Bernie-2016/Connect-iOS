@@ -118,7 +118,8 @@ public class NewsItemController : UIViewController {
         self.bodyTextView.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.bodyTextView.textContainerInset = UIEdgeInsetsZero
         self.bodyTextView.textContainer.lineFragmentPadding = 0;
-
+        self.bodyTextView.editable = false
+        
         self.bodyTextView.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.titleLabel, withOffset: 16)
         self.bodyTextView.autoPinEdgeToSuperviewEdge(ALEdge.Bottom, withInset: 8)
         self.bodyTextView.autoPinEdgeToSuperviewEdge(ALEdge.Leading, withInset: 8)
