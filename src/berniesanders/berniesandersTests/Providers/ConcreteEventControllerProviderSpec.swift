@@ -7,11 +7,13 @@ public class ConcreteEventControllerProviderSpec : QuickSpec {
     var subject : ConcreteEventControllerProvider!
     let dateFormatter = NSDateFormatter()
     let theme = FakeTheme()
+    let eventPresenter = EventPresenter()
     
     override public func spec() {
         describe("providing an instance with an event") {
             beforeEach {
                 self.subject = ConcreteEventControllerProvider(
+                    eventPresenter: self.eventPresenter,
                     dateFormatter: self.dateFormatter,
                     theme: self.theme
                 )
@@ -24,6 +26,7 @@ public class ConcreteEventControllerProviderSpec : QuickSpec {
                 
                 expect(controller).to(beAnInstanceOf(EventController.self))
                 expect(controller.event).to(beIdenticalTo(event))
+                expect(controller.eventPresenter).to(beIdenticalTo(self.eventPresenter))
                 expect(controller.dateFormatter).to(beIdenticalTo(self.dateFormatter))
                 expect(controller.theme as? FakeTheme).to(beIdenticalTo(self.theme))
             }

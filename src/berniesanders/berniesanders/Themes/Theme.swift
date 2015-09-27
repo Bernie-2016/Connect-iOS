@@ -76,6 +76,11 @@ public protocol Theme {
     func connectNoResultsTextColor() -> UIColor
     func connectNoResultsFont() -> UIFont
     
+    // MARK: Event screen
+    
+    func eventNameFont() -> UIFont
+    func eventNameColor() -> UIColor
+    
     // MARK: Settings
     
     func settingsTitleFont() -> UIFont

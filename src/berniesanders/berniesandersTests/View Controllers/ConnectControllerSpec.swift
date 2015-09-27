@@ -96,19 +96,12 @@ class FakeEventRepository : EventRepository {
     }
 }
 
-class FakeEventListTableViewCellPresenter : EventListTableViewCellPresenter {
-    var lastReceivedEvent: Event?
-    var lastReceivedCell: EventListTableViewCell?
-    
-    override func presentEvent(event: Event, cell: EventListTableViewCell) -> EventListTableViewCell {
-        lastReceivedEvent = event
-        lastReceivedCell = cell
-        return cell
-    }
-}
-
 class FakeEventControllerProvider : berniesanders.EventControllerProvider {
-    let controller = EventController(event: TestUtils.eventWithName("some event"), dateFormatter: NSDateFormatter(), theme: FakeTheme())
+    let controller = EventController(
+        event: TestUtils.eventWithName("some event"),
+        eventPresenter: FakeEventPresenter(),
+        dateFormatter: NSDateFormatter(),
+        theme: FakeTheme())
     var lastEvent: Event?
     
     init() {}
@@ -123,24 +116,24 @@ class ConnectControllerSpec : QuickSpec {
     var subject : ConnectController!
     var window : UIWindow!
     var eventRepository : FakeEventRepository!
-    var eventListTableViewCellPresenter : FakeEventListTableViewCellPresenter!
+    var eventPresenter : FakeEventPresenter!
     let settingsController = TestUtils.settingsController()
     var eventControllerProvider : FakeEventControllerProvider!
     
     let navigationController = UINavigationController()
     
     override func spec() {
-        fdescribe("ConnectController") {
+        describe("ConnectController") {
             beforeEach {
                 self.eventRepository = FakeEventRepository()
-                self.eventListTableViewCellPresenter = FakeEventListTableViewCellPresenter()
+                self.eventPresenter = FakeEventPresenter()
                 self.eventControllerProvider = FakeEventControllerProvider()
                 
                 self.window = UIWindow.new()
                 
                 self.subject = ConnectController(
                     eventRepository: self.eventRepository,
-                    eventListTableViewCellPresenter: self.eventListTableViewCellPresenter,
+                    eventPresenter: self.eventPresenter,
                     settingsController: self.settingsController,
                     eventControllerProvider: self.eventControllerProvider,
                     theme: ConnectFakeTheme()
@@ -406,13 +399,13 @@ class ConnectControllerSpec : QuickSpec {
                                     
                                     var cellA = self.subject.resultsTableView.dataSource!.tableView(self.subject.resultsTableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0)) as! EventListTableViewCell
                                     
-                                    expect(self.eventListTableViewCellPresenter.lastReceivedEvent).to(beIdenticalTo(eventA))
-                                    expect(self.eventListTableViewCellPresenter.lastReceivedCell).to(beIdenticalTo(cellA))
+                                    expect(self.eventPresenter.lastReceivedEvent).to(beIdenticalTo(eventA))
+                                    expect(self.eventPresenter.lastReceivedCell).to(beIdenticalTo(cellA))
                                     
                                     var cellB = self.subject.resultsTableView.dataSource!.tableView(self.subject.resultsTableView, cellForRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0)) as! EventListTableViewCell
                                     
-                                    expect(self.eventListTableViewCellPresenter.lastReceivedEvent).to(beIdenticalTo(eventB))
-                                    expect(self.eventListTableViewCellPresenter.lastReceivedCell).to(beIdenticalTo(cellB))
+                                    expect(self.eventPresenter.lastReceivedEvent).to(beIdenticalTo(eventB))
+                                    expect(self.eventPresenter.lastReceivedCell).to(beIdenticalTo(cellB))
                                 }
                                 
                                 it("styles the cells from the theme") {

@@ -89,11 +89,11 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
                 jsonClient: jsonClient,
                 eventDeserializer: eventDeserializer,
                 operationQueue: mainQueue)
-            let eventListTableViewCellPresenter = EventListTableViewCellPresenter()
-            let eventControllerProvider = ConcreteEventControllerProvider(dateFormatter: longDateFormatter, theme: defaultTheme)
+            let eventPresenter = EventPresenter()
+            let eventControllerProvider = ConcreteEventControllerProvider(eventPresenter: eventPresenter, dateFormatter: longDateFormatter, theme: defaultTheme)
             let connectController = ConnectController(
                 eventRepository: eventRepository,
-                eventListTableViewCellPresenter: eventListTableViewCellPresenter,
+                eventPresenter: eventPresenter,
                 settingsController: settingsController,
                 eventControllerProvider: eventControllerProvider,
                 theme: defaultTheme

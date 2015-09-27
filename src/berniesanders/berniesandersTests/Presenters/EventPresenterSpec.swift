@@ -2,17 +2,44 @@ import berniesanders
 import Quick
 import Nimble
 
-class EventListTableViewCellPresenterSpec : QuickSpec {
-    var subject : EventListTableViewCellPresenter!
+class EventPresenterSpec : QuickSpec {
+    var subject : EventPresenter!
 
     override func spec() {
-        describe("EventListTableViewCellPresenter") {
+        fdescribe("EventPresenter") {
+            var event : Event!
+ 
             beforeEach {
-                self.subject = EventListTableViewCellPresenter()
+                event = Event(name: "some event", attendeeCapacity: 10, attendeeCount: 2, city: "Bigtown", state: "CA", zip: "94104")
+                
+                self.subject = EventPresenter()
             }
             
-            describe("presenting an event") {
-                var event : Event!
+            describe("formatting an address") {
+                it("correctly formats the address") {
+                    expect(self.subject.presentAddressForEvent(event)).to(equal("Bigtown, CA - 94104"))
+                }
+            }
+            
+            describe("formatting attendance") {
+                context("when the event has a non-zero attendee capacity") {
+                    it("sets up the rsvp label correctly") {
+                        expect(self.subject.presentAttendeesForEvent(event)).to(equal("2 of RSVP: 10"))
+                    }
+                }
+                
+                context("when the event has a zero attendee capacity") {
+                    beforeEach {
+                        event = Event(name: "some event", attendeeCapacity: 0, attendeeCount: 2, city: "Bigtown", state: "CA", zip: "94104")
+                    }
+                    
+                    it("sets up the rsvp label correctly") {
+                        expect(self.subject.presentAttendeesForEvent(event)).to(equal("2 attending"))
+                    }
+                }
+            }
+            
+            describe("presenting an event in a table view cell") {
                 var cell : EventListTableViewCell!
                 
                 beforeEach {
@@ -20,9 +47,8 @@ class EventListTableViewCellPresenterSpec : QuickSpec {
                 }
                 
                 context("when the event has a non-zero attendee capacity") {
+
                     beforeEach {
-                        event = Event(name: "some event", attendeeCapacity: 10, attendeeCount: 2, city: "Bigtown", state: "CA", zip: "94104")
-                        
                         self.subject.presentEvent(event, cell: cell)
                     }
                     

@@ -212,6 +212,17 @@ class DefaultTheme : Theme {
     func connectNoResultsFont() -> UIFont {
         return UIFont(name: "Lato-Regular", size: 15)!
     }
+    
+    // MARK: Event screen
+    
+    func eventNameFont() -> UIFont {
+        return UIFont(name: "Lora-Bold", size: 15)!
+    }
+    
+    func eventNameColor() -> UIColor {
+        return self.cornflowerBlueColor()
+    }
+
 
     // MARK: default dimensions
     

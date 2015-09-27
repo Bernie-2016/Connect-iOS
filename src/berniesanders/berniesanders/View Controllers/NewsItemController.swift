@@ -7,8 +7,8 @@ public class NewsItemController : UIViewController {
     public let dateFormatter : NSDateFormatter!
     public let theme : Theme!
     
-    let containerView = UIView()
-    let scrollView = UIScrollView()
+    let containerView = UIView.newAutoLayoutView()
+    let scrollView = UIScrollView.newAutoLayoutView()
     public let dateLabel = UILabel()
     public let titleLabel = UILabel()
     public let bodyTextView = UITextView()
@@ -26,8 +26,6 @@ public class NewsItemController : UIViewController {
         self.theme = theme
         
         super.init(nibName: nil, bundle: nil)
-            
-        self.hidesBottomBarWhenPushed = true
     }
     
     // MARK: UIViewController
@@ -35,6 +33,8 @@ public class NewsItemController : UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         
+        self.hidesBottomBarWhenPushed = true
+
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "share")
         
         self.view.backgroundColor = self.theme.defaultBackgroundColor()
@@ -82,11 +82,9 @@ public class NewsItemController : UIViewController {
     private func setupConstraintsAndLayout() {
         let screenBounds = UIScreen.mainScreen().bounds
 
-        self.scrollView.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.scrollView.contentSize.width = self.view.bounds.width
         self.scrollView.autoPinEdgesToSuperviewEdges()
         
-        self.containerView.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.containerView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: ALEdge.Trailing)
         self.containerView.autoSetDimension(ALDimension.Width, toSize: screenBounds.width)
         

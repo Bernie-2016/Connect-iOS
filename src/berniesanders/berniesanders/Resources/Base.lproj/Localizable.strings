@@ -28,6 +28,10 @@
 "Connect_zipCodeTextBoxPlaceholder" = "Zip Code";
 "Connect_eventSearchButtonTitle" = "Go";
 
+// Event
+
+"Event_descriptionHeading" = "Description";
+
 // Settings
 
 "Settings_navigationTitle" = "Settings";

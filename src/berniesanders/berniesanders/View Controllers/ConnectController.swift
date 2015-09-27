@@ -4,7 +4,7 @@ import QuartzCore
 
 public class ConnectController : UIViewController, UITableViewDataSource, UITableViewDelegate {
     public let eventRepository: EventRepository!
-    public let eventListTableViewCellPresenter: EventListTableViewCellPresenter!
+    public let eventPresenter: EventPresenter!
     public let settingsController: SettingsController!
     let eventControllerProvider: EventControllerProvider
     public let theme: Theme!
@@ -18,13 +18,13 @@ public class ConnectController : UIViewController, UITableViewDataSource, UITabl
     var events: Array<Event>!
     
     public init(eventRepository: EventRepository,
-        eventListTableViewCellPresenter: EventListTableViewCellPresenter,
+        eventPresenter: EventPresenter,
         settingsController: SettingsController,
         eventControllerProvider: EventControllerProvider,
         theme: Theme) {
         
         self.eventRepository = eventRepository
-        self.eventListTableViewCellPresenter = eventListTableViewCellPresenter
+        self.eventPresenter = eventPresenter
         self.settingsController = settingsController
         self.eventControllerProvider = eventControllerProvider
         self.theme = theme
@@ -147,7 +147,7 @@ public class ConnectController : UIViewController, UITableViewDataSource, UITabl
         cell.nameLabel.textColor = self.theme.connectListColor()
         cell.nameLabel.font = self.theme.connectListFont()
         
-        return self.eventListTableViewCellPresenter.presentEvent(event, cell: cell)
+        return self.eventPresenter.presentEvent(event, cell: cell)
     }
     
     // MARK: <UITableViewDelegate>
