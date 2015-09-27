@@ -97,6 +97,18 @@ public class ConcreteEventRepository : EventRepository {
                         ]
                     ]
                 ]
+            ],
+            "sort": [
+                "_geo_distance": [
+                    "location": [
+                        "lat":  latitude,
+                        "lon": longitude
+                    ],
+                    "order":         "asc",
+                    "unit":          "km",
+                    "distance_type": "plane" 
+                ],
+                "start_time": ["order": "desc"]
             ]
         ]
     }

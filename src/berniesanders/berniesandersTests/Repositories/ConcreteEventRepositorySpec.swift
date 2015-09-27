@@ -98,6 +98,19 @@ class ConcreteEventRepositorySpec : QuickSpec {
                             ]
                         ]
                         
+                        let expectedSortCriteria = [
+                            "_geo_distance": [
+                                "location": [
+                                    "lat":  12.34,
+                                    "lon": 23.45
+                                ],
+                                "order":         "asc",
+                                "unit":          "km",
+                                "distance_type": "plane"
+                            ],
+                            "start_time": ["order": "desc"]
+                        ]
+                        
                         let expectedHTTPBodyDictionary =
                         [
                             "query": [
@@ -113,7 +126,8 @@ class ConcreteEventRepositorySpec : QuickSpec {
                                         ]
                                     ]
                                 ]
-                            ]
+                            ],
+                            "sort": expectedSortCriteria
                         ]
                         
                         expect(self.jsonClient.lastBodyDictionary).to(equal(expectedHTTPBodyDictionary))
