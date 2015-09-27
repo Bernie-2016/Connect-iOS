@@ -6,6 +6,7 @@ public class ConnectController : UIViewController, UITableViewDataSource, UITabl
     public let eventRepository: EventRepository!
     public let eventListTableViewCellPresenter: EventListTableViewCellPresenter!
     public let settingsController: SettingsController!
+    let eventControllerProvider: EventControllerProvider
     public let theme: Theme!
     
     public let zipCodeTextField = UITextField.newAutoLayoutView()
@@ -19,11 +20,13 @@ public class ConnectController : UIViewController, UITableViewDataSource, UITabl
     public init(eventRepository: EventRepository,
         eventListTableViewCellPresenter: EventListTableViewCellPresenter,
         settingsController: SettingsController,
+        eventControllerProvider: EventControllerProvider,
         theme: Theme) {
         
         self.eventRepository = eventRepository
         self.eventListTableViewCellPresenter = eventListTableViewCellPresenter
         self.settingsController = settingsController
+        self.eventControllerProvider = eventControllerProvider
         self.theme = theme
         
         self.events = []
@@ -151,6 +154,13 @@ public class ConnectController : UIViewController, UITableViewDataSource, UITabl
     
     public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 90
+    }
+    
+    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let event = self.events[indexPath.row]
+        let controller = self.eventControllerProvider.provideInstanceWithEvent(event)
+
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     // MARK: Actions

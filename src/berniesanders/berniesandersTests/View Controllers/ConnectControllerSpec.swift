@@ -107,20 +107,34 @@ class FakeEventListTableViewCellPresenter : EventListTableViewCellPresenter {
     }
 }
 
+class FakeEventControllerProvider : berniesanders.EventControllerProvider {
+    let controller = EventController(event: TestUtils.eventWithName("some event"), dateFormatter: NSDateFormatter(), theme: FakeTheme())
+    var lastEvent: Event?
+    
+    init() {}
+    
+    func provideInstanceWithEvent(event: Event) -> EventController {
+        self.lastEvent = event
+        return self.controller
+    }
+}
+
 class ConnectControllerSpec : QuickSpec {
     var subject : ConnectController!
     var window : UIWindow!
     var eventRepository : FakeEventRepository!
     var eventListTableViewCellPresenter : FakeEventListTableViewCellPresenter!
     let settingsController = TestUtils.settingsController()
+    var eventControllerProvider : FakeEventControllerProvider!
     
     let navigationController = UINavigationController()
     
     override func spec() {
-        describe("ConnectController") {
+        fdescribe("ConnectController") {
             beforeEach {
                 self.eventRepository = FakeEventRepository()
                 self.eventListTableViewCellPresenter = FakeEventListTableViewCellPresenter()
+                self.eventControllerProvider = FakeEventControllerProvider()
                 
                 self.window = UIWindow.new()
                 
@@ -128,6 +142,7 @@ class ConnectControllerSpec : QuickSpec {
                     eventRepository: self.eventRepository,
                     eventListTableViewCellPresenter: self.eventListTableViewCellPresenter,
                     settingsController: self.settingsController,
+                    eventControllerProvider: self.eventControllerProvider,
                     theme: ConnectFakeTheme()
                 )
                 
@@ -410,6 +425,16 @@ class ConnectControllerSpec : QuickSpec {
                                     expect(cell.nameLabel.textColor).to(equal(UIColor.yellowColor()))
                                     expect(cell.addressLabel.textColor).to(equal(UIColor.yellowColor()))
                                     expect(cell.attendeesLabel.textColor).to(equal(UIColor.yellowColor()))
+                                }
+                                
+                                describe("tapping on an event") {
+                                    it("should push a correctly configured news item view controller onto the nav stack") {
+                                        let tableView = self.subject.resultsTableView
+                                        tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
+                                        
+                                        expect(self.eventControllerProvider.lastEvent).to(beIdenticalTo(eventB))
+                                        expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.eventControllerProvider.controller))
+                                    }
                                 }
                             }
                             

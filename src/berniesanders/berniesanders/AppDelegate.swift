@@ -90,7 +90,14 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
                 eventDeserializer: eventDeserializer,
                 operationQueue: mainQueue)
             let eventListTableViewCellPresenter = EventListTableViewCellPresenter()
-            let connectController = ConnectController(eventRepository: eventRepository, eventListTableViewCellPresenter: eventListTableViewCellPresenter, settingsController: settingsController, theme: defaultTheme)
+            let eventControllerProvider = ConcreteEventControllerProvider(dateFormatter: longDateFormatter, theme: defaultTheme)
+            let connectController = ConnectController(
+                eventRepository: eventRepository,
+                eventListTableViewCellPresenter: eventListTableViewCellPresenter,
+                settingsController: settingsController,
+                eventControllerProvider: eventControllerProvider,
+                theme: defaultTheme
+            )
             let connectNavigationController = NavigationController(theme: defaultTheme)
             connectNavigationController.pushViewController(connectController, animated: false)
 

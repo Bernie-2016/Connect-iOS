@@ -42,6 +42,9 @@
 		654773FF1BB23FAE00B87670 /* ConcreteEventRepositorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654773FE1BB23FAE00B87670 /* ConcreteEventRepositorySpec.swift */; };
 		654774031BB2418400B87670 /* EventDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654774021BB2418400B87670 /* EventDeserializer.swift */; };
 		654774051BB241D900B87670 /* ConcreteEventDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654774041BB241D900B87670 /* ConcreteEventDeserializer.swift */; };
+		654AD3531BB876A200A59966 /* EventControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654AD3521BB876A200A59966 /* EventControllerProvider.swift */; };
+		654AD3551BB876C700A59966 /* EventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654AD3541BB876C700A59966 /* EventController.swift */; };
+		654AD3571BB8787000A59966 /* ConcreteEventControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654AD3561BB8787000A59966 /* ConcreteEventControllerProvider.swift */; };
 		654B55B51BB4882700492610 /* EventListTableViewCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654B55B41BB4882700492610 /* EventListTableViewCellPresenter.swift */; };
 		654B55B71BB4888D00492610 /* EventListTableViewCellPresenterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654B55B61BB4888D00492610 /* EventListTableViewCellPresenterSpec.swift */; };
 		655887141BA866CF0077CC56 /* NewsHeadlineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655887131BA866CF0077CC56 /* NewsHeadlineTableViewCell.swift */; };
@@ -50,6 +53,7 @@
 		655AF0C61BB095E500F0448E /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655AF0C51BB095E500F0448E /* Event.swift */; };
 		655AF0C81BB0981800F0448E /* ConcreteEventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655AF0C71BB0981800F0448E /* ConcreteEventRepository.swift */; };
 		655B57BD1B86C16F00E69C0C /* NewsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B57BC1B86C16F00E69C0C /* NewsItem.swift */; };
+		6581F7BD1BB87E7700B26B76 /* ConcreteEventControllerProviderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6581F7BC1BB87E7700B26B76 /* ConcreteEventControllerProviderSpec.swift */; };
 		6587FF581B8A7E1000AC65F1 /* IssueRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6587FF571B8A7E1000AC65F1 /* IssueRepository.swift */; };
 		6587FF5A1B8A7E3200AC65F1 /* Issue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6587FF591B8A7E3200AC65F1 /* Issue.swift */; };
 		6587FF5C1B8A7FA500AC65F1 /* ConcreteIssueRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6587FF5B1B8A7FA500AC65F1 /* ConcreteIssueRepository.swift */; };
@@ -185,6 +189,9 @@
 		654773FE1BB23FAE00B87670 /* ConcreteEventRepositorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteEventRepositorySpec.swift; sourceTree = "<group>"; };
 		654774021BB2418400B87670 /* EventDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDeserializer.swift; sourceTree = "<group>"; };
 		654774041BB241D900B87670 /* ConcreteEventDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteEventDeserializer.swift; sourceTree = "<group>"; };
+		654AD3521BB876A200A59966 /* EventControllerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventControllerProvider.swift; sourceTree = "<group>"; };
+		654AD3541BB876C700A59966 /* EventController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventController.swift; sourceTree = "<group>"; };
+		654AD3561BB8787000A59966 /* ConcreteEventControllerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteEventControllerProvider.swift; sourceTree = "<group>"; };
 		654B55B41BB4882700492610 /* EventListTableViewCellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventListTableViewCellPresenter.swift; sourceTree = "<group>"; };
 		654B55B61BB4888D00492610 /* EventListTableViewCellPresenterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventListTableViewCellPresenterSpec.swift; sourceTree = "<group>"; };
 		655887131BA866CF0077CC56 /* NewsHeadlineTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsHeadlineTableViewCell.swift; sourceTree = "<group>"; };
@@ -193,6 +200,7 @@
 		655AF0C51BB095E500F0448E /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		655AF0C71BB0981800F0448E /* ConcreteEventRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteEventRepository.swift; sourceTree = "<group>"; };
 		655B57BC1B86C16F00E69C0C /* NewsItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsItem.swift; sourceTree = "<group>"; };
+		6581F7BC1BB87E7700B26B76 /* ConcreteEventControllerProviderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteEventControllerProviderSpec.swift; sourceTree = "<group>"; };
 		6587FF571B8A7E1000AC65F1 /* IssueRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueRepository.swift; sourceTree = "<group>"; };
 		6587FF591B8A7E3200AC65F1 /* Issue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Issue.swift; sourceTree = "<group>"; };
 		6587FF5B1B8A7FA500AC65F1 /* ConcreteIssueRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteIssueRepository.swift; sourceTree = "<group>"; };
@@ -299,6 +307,7 @@
 			isa = PBXGroup;
 			children = (
 				6507631A1B8B71B900BA0659 /* Protocols */,
+				654AD3561BB8787000A59966 /* ConcreteEventControllerProvider.swift */,
 				653601011B99E4EB00FE3735 /* ConcreteIssueControllerProvider.swift */,
 				653885261B94E91800DCA808 /* ConcreteNewsItemControllerProvider.swift */,
 				650763231B8B768300BA0659 /* ConcreteURLProvider.swift */,
@@ -310,6 +319,7 @@
 		6507631A1B8B71B900BA0659 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				654AD3521BB876A200A59966 /* EventControllerProvider.swift */,
 				6592FA391B99E30C00746EC3 /* IssueControllerProvider.swift */,
 				6538851F1B94E63400DCA808 /* NewsItemControllerProvider.swift */,
 				6507631B1B8B71D900BA0659 /* URLProvider.swift */,
@@ -391,6 +401,7 @@
 		653885231B94E86D00DCA808 /* Providers */ = {
 			isa = PBXGroup;
 			children = (
+				6581F7BC1BB87E7700B26B76 /* ConcreteEventControllerProviderSpec.swift */,
 				653601051B99E9F700FE3735 /* ConcreteIssueControllerProviderSpec.swift */,
 				653885241B94E89600DCA808 /* ConcreteNewsItemControllerProviderSpec.swift */,
 			);
@@ -638,6 +649,7 @@
 			isa = PBXGroup;
 			children = (
 				65F112EF1B9FFF1C00BA585C /* ConnectController.swift */,
+				654AD3541BB876C700A59966 /* EventController.swift */,
 				6592FA3B1B99E33300746EC3 /* IssueController.swift */,
 				8233FC311B7C4A9600A5E9ED /* IssuesController.swift */,
 				65F5F6581B8968440049353C /* NavigationController.swift */,
@@ -805,6 +817,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8233FC0D1B7C28FB00A5E9ED /* AppDelegate.swift in Sources */,
+				654AD3571BB8787000A59966 /* ConcreteEventControllerProvider.swift in Sources */,
 				654774051BB241D900B87670 /* ConcreteEventDeserializer.swift in Sources */,
 				655AF0C81BB0981800F0448E /* ConcreteEventRepository.swift in Sources */,
 				659F0E1E1B95EC780049FA12 /* ConcreteImageRepository.swift in Sources */,
@@ -819,6 +832,8 @@
 				65F112F01B9FFF1C00BA585C /* ConnectController.swift in Sources */,
 				65CA5E931B86E4A00001D870 /* DefaultTheme.swift in Sources */,
 				655AF0C61BB095E500F0448E /* Event.swift in Sources */,
+				654AD3551BB876C700A59966 /* EventController.swift in Sources */,
+				654AD3531BB876A200A59966 /* EventControllerProvider.swift in Sources */,
 				654774031BB2418400B87670 /* EventDeserializer.swift in Sources */,
 				654773FD1BB1EEBC00B87670 /* EventListTableViewCell.swift in Sources */,
 				654B55B51BB4882700492610 /* EventListTableViewCellPresenter.swift in Sources */,
@@ -858,6 +873,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6581F7BD1BB87E7700B26B76 /* ConcreteEventControllerProviderSpec.swift in Sources */,
 				65384D111BB2EDBF0057F6FF /* ConcreteEventDeserializerSpec.swift in Sources */,
 				654773FF1BB23FAE00B87670 /* ConcreteEventRepositorySpec.swift in Sources */,
 				65AD23AD1B963E2700C32A02 /* ConcreteImageRepositorySpec.swift in Sources */,
