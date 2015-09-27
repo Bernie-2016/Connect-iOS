@@ -45,9 +45,26 @@ class ConcreteNewsItemRepositorySpec : QuickSpec {
                 })
             }
             
-            it("makes a single request to the JSON Client with the correct URL") {
+            it("makes a single request to the JSON Client with the correct URL, method and parametrs") {
                 expect(self.jsonClient.deferredsByURL.count).to(equal(1))
                 expect(self.jsonClient.deferredsByURL.keys.first).to(equal(NSURL(string: "https://example.com/bernese/")))
+                
+                let expectedHTTPBodyDictionary =
+                [
+                    "from": 0, "size": 30,
+                    "query": [
+                        "query_string": [
+                            "default_field": "article_type",
+                            "query": "NOT ExternalLink OR NOT Issues"
+                        ]
+                    ],
+                    "sort": [
+                        "created_at": ["order": "desc"]
+                    ]
+                ]
+                
+                expect(self.jsonClient.lastBodyDictionary).to(equal(expectedHTTPBodyDictionary))
+                expect(self.jsonClient.lastMethod).to(equal("POST"))
             }
             
             context("when the request to the JSON client succeeds") {

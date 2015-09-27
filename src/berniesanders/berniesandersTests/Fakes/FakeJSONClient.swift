@@ -7,12 +7,6 @@ class FakeJSONClient: berniesanders.JSONClient {
     var lastMethod: String!
     var lastBodyDictionary: NSDictionary!
     
-    func fetchJSONWithURL(url: NSURL) -> KSPromise {
-        var deferred =  KSDeferred.defer()
-        self.deferredsByURL[url] = deferred
-        return deferred.promise
-    }
-    
     func JSONPromiseWithURL(url: NSURL, method: String, bodyDictionary: NSDictionary?) -> KSPromise {
         var deferred =  KSDeferred.defer()
         self.deferredsByURL[url] = deferred

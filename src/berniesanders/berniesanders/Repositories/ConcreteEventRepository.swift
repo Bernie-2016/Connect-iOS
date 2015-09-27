@@ -88,9 +88,7 @@ public class ConcreteEventRepository : EventRepository {
             "query": [
                 "filtered": [
                     "query": [
-                        "match_all": [
-                            
-                        ]
+                        "match_all": []
                     ],
                     "filter": [
                         "bool": [

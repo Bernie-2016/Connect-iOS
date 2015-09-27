@@ -14,10 +14,6 @@ public class ConcreteJSONClient : JSONClient {
         self.jsonSerializationProvider = jsonSerializationProvider
     }
     
-    public func fetchJSONWithURL(url: NSURL) -> KSPromise {
-        return self.JSONPromiseWithURL(url, method: "GET", bodyDictionary: nil)
-    }
-    
     public func JSONPromiseWithURL(url: NSURL, method: String, bodyDictionary: NSDictionary?) -> KSPromise {
         let deferred = KSDeferred()
         

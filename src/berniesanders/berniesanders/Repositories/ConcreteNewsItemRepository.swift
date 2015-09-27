@@ -17,9 +17,8 @@ public class ConcreteNewsItemRepository : NewsItemRepository {
             self.operationQueue = operationQueue
     }
     
-    
     public func fetchNewsItems(completion: (Array<NewsItem>) -> Void, error: (NSError) -> Void) {
-        var newsFeedJSONPromise = self.jsonClient.fetchJSONWithURL(self.urlProvider.newsFeedURL())
+        var newsFeedJSONPromise = self.jsonClient.JSONPromiseWithURL(self.urlProvider.newsFeedURL(), method: "POST", bodyDictionary: self.HTTPBodyDictionary())
         
         newsFeedJSONPromise.then({ (jsonDictionary) -> AnyObject! in
             var parsedNewsItems = self.newsItemDeserializer.deserializeNewsItems(jsonDictionary as! NSDictionary)
@@ -36,5 +35,22 @@ public class ConcreteNewsItemRepository : NewsItemRepository {
                 return receivedError
         })
         
+    }
+    
+    // MARK: Private
+    
+    func HTTPBodyDictionary() -> NSDictionary {
+        return [
+            "from": 0, "size": 30,
+            "query": [
+                "query_string": [
+                    "default_field": "article_type",
+                    "query": "NOT ExternalLink OR NOT Issues"
+                ]
+            ],
+            "sort": [
+                "created_at": ["order": "desc"]
+            ]
+        ]
     }
 }

@@ -18,7 +18,7 @@ public class ConcreteIssueRepository : IssueRepository {
     }
     
     public func fetchIssues(completion: (Array<Issue>) -> Void, error: (NSError) -> Void) {
-        var issuesJSONPromise = self.jsonClient.fetchJSONWithURL(self.urlProvider.issuesFeedURL())
+        var issuesJSONPromise = self.jsonClient.JSONPromiseWithURL(self.urlProvider.issuesFeedURL(), method: "POST", bodyDictionary: self.HTTPBodyDictionary())
         
 
         issuesJSONPromise.then({ (jsonDictionary) -> AnyObject! in
@@ -35,5 +35,22 @@ public class ConcreteIssueRepository : IssueRepository {
                 })
             return receivedError
         })
+    }
+    
+    // MARK: Private
+    
+    func HTTPBodyDictionary() -> NSDictionary {
+        return [
+            "from": 0, "size": 30,
+            "query": [
+                "query_string": [
+                    "default_field": "article_type",
+                    "query": "Issues"
+                ]
+            ],
+            "sort": [
+                "created_at": ["order": "desc"]
+            ]
+        ]
     }
 }
