@@ -48,7 +48,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
                 dateFormatter: longDateFormatter, imageRepository: imageRepository, theme: defaultTheme
             )
             
-            let newsTableController = NewsTableViewController(
+            let newsFeedController = NewsFeedController(
                 theme: defaultTheme,
                 newsItemRepository: newsItemRepository,
                 imageRepository: imageRepository,
@@ -58,7 +58,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             )
             
             let newsNavigationController = NavigationController(theme: defaultTheme)
-            newsNavigationController.pushViewController(newsTableController, animated: false)
+            newsNavigationController.pushViewController(newsFeedController, animated: false)
             let issueDeserializer = ConcreteIssueDeserializer()
             
             let issueRepository = ConcreteIssueRepository(

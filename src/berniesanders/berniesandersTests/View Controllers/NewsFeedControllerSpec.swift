@@ -73,8 +73,8 @@ class FakeNewsItemControllerProvider : berniesanders.NewsItemControllerProvider 
     }
 }
 
-class NewsTableViewControllerSpecs: QuickSpec {
-    var subject: NewsTableViewController!
+class NewsFeedControllerSpecs: QuickSpec {
+    var subject: NewsFeedController!
     let newsItemRepository: FakeNewsItemRepository! =  FakeNewsItemRepository()
     var imageRepository : FakeImageRepository!
     
@@ -92,7 +92,7 @@ class NewsTableViewControllerSpecs: QuickSpec {
             dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
             dateFormatter.timeZone = NSTimeZone(name: "UTC")
             
-            self.subject = NewsTableViewController(
+            self.subject = NewsFeedController(
                 theme: theme,
                 newsItemRepository: self.newsItemRepository,
                 imageRepository: self.imageRepository,

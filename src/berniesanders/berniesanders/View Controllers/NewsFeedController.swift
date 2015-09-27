@@ -1,7 +1,7 @@
 import UIKit
 
 
-public class NewsTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+public class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     let theme: Theme!
     let newsItemRepository: NewsItemRepository!
     let imageRepository: ImageRepository!
