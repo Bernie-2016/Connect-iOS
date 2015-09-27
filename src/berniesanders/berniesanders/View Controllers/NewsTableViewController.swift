@@ -1,13 +1,16 @@
 import UIKit
 
 
-public class NewsTableViewController: UITableViewController {
+public class NewsTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     let theme: Theme!
     let newsItemRepository: NewsItemRepository!
     let imageRepository: ImageRepository!
     let dateFormatter: NSDateFormatter!
     let newsItemControllerProvider: NewsItemControllerProvider!
     let settingsController: SettingsController!
+    
+    public let tableView = UITableView.newAutoLayoutView()
+    public let loadingIndicatorView = UIActivityIndicatorView.newAutoLayoutView()
     
     private var newsItems: Array<NewsItem>!
     
@@ -53,8 +56,8 @@ public class NewsTableViewController: UITableViewController {
             
             self.navigationItem.backBarButtonItem = backBarButtonItem
     }
-    
-    public required init!(coder aDecoder: NSCoder!) {
+
+    required public init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -64,19 +67,35 @@ public class NewsTableViewController: UITableViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.contentInset = UIEdgeInsetsZero
-        self.tableView.layoutMargins = UIEdgeInsetsZero
-        self.tableView.separatorInset = UIEdgeInsetsZero
+        tableView.contentInset = UIEdgeInsetsZero
+        tableView.layoutMargins = UIEdgeInsetsZero
+        tableView.separatorInset = UIEdgeInsetsZero
+        tableView.hidden = true
+        tableView.registerClass(TitleSubTitleTableViewCell.self, forCellReuseIdentifier: "regularCell")
+        tableView.registerClass(NewsHeadlineTableViewCell.self, forCellReuseIdentifier: "headlineCell")
+        tableView.dataSource = self
+        tableView.delegate = self
         
-        self.tableView.registerClass(TitleSubTitleTableViewCell.self, forCellReuseIdentifier: "regularCell")
-        self.tableView.registerClass(NewsHeadlineTableViewCell.self, forCellReuseIdentifier: "headlineCell")
+        loadingIndicatorView.color = self.theme.defaultSpinnerColor()
+        loadingIndicatorView.startAnimating()
+        loadingIndicatorView.hidesWhenStopped = true
         
+        view.addSubview(tableView)
+        view.addSubview(loadingIndicatorView)
+        
+        tableView.autoPinEdgesToSuperviewEdges()
+        
+        loadingIndicatorView.autoAlignAxisToSuperviewAxis(.Vertical)
+        loadingIndicatorView.autoAlignAxisToSuperviewAxis(.Horizontal)
+        loadingIndicatorView.color = self.theme.defaultSpinnerColor()
     }
     
     override public func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
         self.newsItemRepository.fetchNewsItems({ (receivedNewsItems) -> Void in
+            self.tableView.hidden = false
+            self.loadingIndicatorView.stopAnimating()
             self.newsItems = receivedNewsItems
             self.tableView.reloadData()
             }, error: { (error) -> Void in
@@ -85,13 +104,13 @@ public class NewsTableViewController: UITableViewController {
         })
     }
     
-    // MARK: UITableViewController
+    // MARK: UITableViewDataSource    
     
-    override public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return self.newsItems.count > 0 ? 2 : 1
     }
     
-    public override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(self.newsItems.count == 0) {
             return 0
         }
@@ -100,7 +119,7 @@ public class NewsTableViewController: UITableViewController {
     }
     
     
-    public override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if(indexPath.section == 0) {
             let cell = tableView.dequeueReusableCellWithIdentifier("headlineCell", forIndexPath: indexPath) as! NewsHeadlineTableViewCell
             let newsItem = self.newsItems[indexPath.row]
@@ -136,11 +155,13 @@ public class NewsTableViewController: UITableViewController {
         }
     }
     
-    public override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    // MARK: UITableViewDelegate
+    
+    public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return indexPath.section == 0 ? 180.0 : 90.0
     }
     
-    public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var newsItem : NewsItem!
         if(indexPath.section == 0) {
             newsItem = self.newsItems[0]

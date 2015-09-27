@@ -42,6 +42,10 @@ class NewsFakeTheme : FakeTheme {
     override func newsFeedHeadlineTitleBackgroundColor() -> UIColor {
         return UIColor.orangeColor()
     }
+    
+    override func defaultSpinnerColor() -> UIColor {
+        return UIColor.greenColor()
+    }
 }
 
 class FakeNewsItemRepository : berniesanders.NewsItemRepository {
@@ -129,6 +133,30 @@ class NewsTableViewControllerSpecs: QuickSpec {
             expect(selectedTextColor).to(equal(UIColor.purpleColor()))
             expect(selectedFont).to(equal(UIFont.systemFontOfSize(123)))
         }
+        
+        it("initially hides the table view, and shows the loading spinner") {
+            self.subject.view.layoutSubviews()
+            
+            expect(self.subject.tableView.hidden).to(equal(true));
+            expect(self.subject.loadingIndicatorView.isAnimating()).to(equal(true))
+        }
+        
+        it("has the page components as subviews") {
+            let subViews = self.subject.view.subviews as! [UIView]
+
+            expect(contains(subViews, self.subject.tableView)).to(beTrue())
+            expect(contains(subViews, self.subject.loadingIndicatorView)).to(beTrue())
+        }
+        
+        it("styles the spinner from the theme") {
+            self.subject.view.layoutSubviews()
+            
+            expect(self.subject.loadingIndicatorView.color).to(equal(UIColor.greenColor()))
+        }
+        
+        it("sets the spinner up to hide when stopped") {
+            expect(self.subject.loadingIndicatorView.hidesWhenStopped).to(equal(true))
+        }
                 
         describe("tapping on the settings button") {
             it("should push the settings controller onto the nav stack") {
@@ -165,6 +193,13 @@ class NewsTableViewControllerSpecs: QuickSpec {
                     self.newsItemRepository.lastCompletionBlock!(newsItems)
 
                     expect(self.subject.tableView.numberOfSections()).to(equal(2))
+                }
+                
+                it("shows the table view, and stops the loading spinner") {
+                    self.newsItemRepository.lastCompletionBlock!(newsItems)
+
+                    expect(self.subject.tableView.hidden).to(equal(false));
+                    expect(self.subject.loadingIndicatorView.isAnimating()).to(equal(false))
                 }
                 
                 describe("the top news story") {

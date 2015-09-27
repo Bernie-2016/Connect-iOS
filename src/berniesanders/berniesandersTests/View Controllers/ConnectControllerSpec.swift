@@ -182,7 +182,7 @@ class ConnectControllerSpec : QuickSpec {
             }
             
             it("should add its view components as subviews") {
-                var subViews = self.subject.view.subviews as! [UIView]
+                let subViews = self.subject.view.subviews as! [UIView]
                 
                 expect(contains(subViews, self.subject.zipCodeTextField)).to(beTrue())
                 expect(contains(subViews, self.subject.eventSearchButton)).to(beTrue())
