@@ -70,7 +70,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             
             let issueControllerProvider = ConcreteIssueControllerProvider(imageRepository: imageRepository, theme: defaultTheme)
             
-            let issuesTableController = IssuesTableViewController(
+            let issuesTableController = IssuesController(
                 issueRepository: issueRepository,
                 issueControllerProvider: issueControllerProvider,
                 settingsController: settingsController,

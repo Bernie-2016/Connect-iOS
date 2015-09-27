@@ -51,8 +51,8 @@ class FakeIssueControllerProvider : berniesanders.IssueControllerProvider {
 }
 
 
-class IssuesTableViewControllerSpec: QuickSpec {
-    var subject: IssuesTableViewController!
+class IssuesControllerSpec: QuickSpec {
+    var subject: IssuesController!
     var issueRepository: FakeIssueRepository! = FakeIssueRepository()
     var issueControllerProvider = FakeIssueControllerProvider()
     let navigationController = UINavigationController()
@@ -60,7 +60,7 @@ class IssuesTableViewControllerSpec: QuickSpec {
     
     override func spec() {
         beforeEach {
-            self.subject = IssuesTableViewController(
+            self.subject = IssuesController(
                 issueRepository: self.issueRepository,
                 issueControllerProvider: self.issueControllerProvider,
                 settingsController: self.settingsController,
@@ -98,7 +98,12 @@ class IssuesTableViewControllerSpec: QuickSpec {
             expect(selectedTextColor).to(equal(UIColor.purpleColor()))
             expect(selectedFont).to(equal(UIFont.systemFontOfSize(123)))
         }
-
+        
+        it("has the page components as subviews") {
+            let subViews = self.subject.view.subviews as! [UIView]
+            
+            expect(contains(subViews, self.subject.tableView)).to(beTrue())
+        }
         
         describe("tapping on the settings button") {
             it("should push the settings controller onto the nav stack") {

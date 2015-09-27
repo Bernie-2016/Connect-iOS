@@ -1,10 +1,12 @@
 import UIKit
 
-public class IssuesTableViewController: UITableViewController {
+public class IssuesController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     let issueRepository: IssueRepository!
     let issueControllerProvider: IssueControllerProvider!
     let settingsController : SettingsController!
     let theme: Theme!
+    
+    public let tableView = UITableView.newAutoLayoutView()
     
     var issues: Array<Issue>!
     
@@ -41,16 +43,23 @@ public class IssuesTableViewController: UITableViewController {
         self.navigationItem.backBarButtonItem = backBarButtonItem
     }
 
-    required public init!(coder aDecoder: NSCoder!) {
+    required public init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     
     // MARK: UIViewController
     
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.registerClass(IssueTableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.registerClass(IssueTableViewCell.self, forCellReuseIdentifier: "cell")
+        
+        view.addSubview(tableView)
+        
+        tableView.autoPinEdgesToSuperviewEdges()
     }
     
     override public func viewWillAppear(animated: Bool) {
@@ -65,17 +74,17 @@ public class IssuesTableViewController: UITableViewController {
         })
     }
     
-    // MARK: UITableViewController
+    // MARK: UITableViewDataSource
     
-    public override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
-    public override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.issues.count
     }
     
-    public override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! IssueTableViewCell
         let issue = self.issues[indexPath.row]
         cell.titleLabel.text = issue.title
@@ -84,12 +93,14 @@ public class IssuesTableViewController: UITableViewController {
         
         return cell
     }
+
+    // MARK: UITableViewDelegate
     
-    public override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 70.0
     }
     
-    public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var issue = self.issues[indexPath.row]
         let controller = self.issueControllerProvider.provideInstanceWithIssue(issue)
         self.navigationController!.pushViewController(controller, animated: true)
