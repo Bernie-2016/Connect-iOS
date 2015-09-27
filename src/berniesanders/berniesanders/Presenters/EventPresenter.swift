@@ -14,15 +14,15 @@ public class EventPresenter {
     }
     
     public func presentAddressForEvent(event: Event) -> String {
-      return String(format: NSLocalizedString("Connect_eventAddressLabel", comment: ""), event.city, event.state, event.zip)
+      return String(format: NSLocalizedString("Events_eventAddressLabel", comment: ""), event.city, event.state, event.zip)
     }
     
     public func presentAttendeesForEvent(event: Event) -> String {
         if(event.attendeeCapacity == 0) {
-            return String(format: NSLocalizedString("Connect_eventAttendeeWithoutCapacityLimitLabel", comment: ""), event.attendeeCount)
+            return String(format: NSLocalizedString("Events_eventAttendeeWithoutCapacityLimitLabel", comment: ""), event.attendeeCount)
             
         } else {
-            return String(format: NSLocalizedString("Connect_eventAttendeeLabel", comment: ""), event.attendeeCount, event.attendeeCapacity)
+            return String(format: NSLocalizedString("Events_eventAttendeeLabel", comment: ""), event.attendeeCount, event.attendeeCapacity)
         }
     }
 }

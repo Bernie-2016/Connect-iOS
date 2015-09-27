@@ -16,17 +16,17 @@
 "Organize_tabBarTitle" = "Organize";
 "Organize_navigationTitle" = "Organize";
 
-// Connect
+// Events
 
-"Connect_tabBarTitle" = "Connect";
-"Connect_navigationTitle" = "Connect";
-"Connect_backButtonTitle" = "Back";
-"Connect_eventAddressLabel" =  "%@, %@ - %@";
-"Connect_eventAttendeeLabel" = "%d of RSVP: %d";
-"Connect_eventAttendeeWithoutCapacityLimitLabel" = "%d attending";
-"Connect_noEventsFound" = "No events match your search";
-"Connect_zipCodeTextBoxPlaceholder" = "Zip Code";
-"Connect_eventSearchButtonTitle" = "Go";
+"Events_tabBarTitle" = "Events";
+"Events_navigationTitle" = "Events";
+"Events_backButtonTitle" = "Back";
+"Events_eventAddressLabel" =  "%@, %@ - %@";
+"Events_eventAttendeeLabel" = "%d of RSVP: %d";
+"Events_eventAttendeeWithoutCapacityLimitLabel" = "%d attending";
+"Events_noEventsFound" = "No events match your search";
+"Events_zipCodeTextBoxPlaceholder" = "Zip Code";
+"Events_eventSearchButtonTitle" = "Go";
 
 // Event
 

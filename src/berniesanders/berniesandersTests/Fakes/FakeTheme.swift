@@ -129,21 +129,21 @@ class FakeTheme : berniesanders.Theme {
     func settingsTitleColor() -> UIColor {
         fatalError("FakeTheme used without being overridden in spec!")
     }
-    func connectListFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
-    func connectListColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
-    func connectGoButtonFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
-    func connectGoButtonTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
-    func connectGoButtonBackgroundColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
-    func connectZipCodeTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
-    func connectZipCodeBackgroundColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
-    func connectZipCodeBorderColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
-    func connectZipCodeFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
-    func connectZipCodeCornerRadius() -> CGFloat { fatalError("FakeTheme used without being overridden in spec!") }
-    func connectZipCodeBorderWidth() -> CGFloat { fatalError("FakeTheme used without being overridden in spec!") }
-    func connectZipCodeTextOffset() -> CATransform3D { fatalError("FakeTheme used without being overridden in spec!") }
-    func connectGoButtonCornerRadius() -> CGFloat { fatalError("FakeTheme used without being overridden in spec!") }
-    func connectNoResultsTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
-    func connectNoResultsFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
+    func eventsListFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
+    func eventsListColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func eventsGoButtonFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
+    func eventsGoButtonTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func eventsGoButtonBackgroundColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func eventsZipCodeTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func eventsZipCodeBackgroundColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func eventsZipCodeBorderColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func eventsZipCodeFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
+    func eventsZipCodeCornerRadius() -> CGFloat { fatalError("FakeTheme used without being overridden in spec!") }
+    func eventsZipCodeBorderWidth() -> CGFloat { fatalError("FakeTheme used without being overridden in spec!") }
+    func eventsZipCodeTextOffset() -> CATransform3D { fatalError("FakeTheme used without being overridden in spec!") }
+    func eventsGoButtonCornerRadius() -> CGFloat { fatalError("FakeTheme used without being overridden in spec!") }
+    func eventsNoResultsTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func eventsNoResultsFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
     func defaultSpinnerColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func eventNameFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
     func eventNameColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }

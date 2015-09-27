@@ -151,65 +151,65 @@ class DefaultTheme : Theme {
         return self.cornflowerBlueColor()
     }
     
-    // MARK: Connect
+    // MARK: Events
     
-    func connectListFont() -> UIFont {
+    func eventsListFont() -> UIFont {
         return UIFont(name: "Lato-Regular", size: 14)!
     }
     
-    func connectListColor() -> UIColor {
+    func eventsListColor() -> UIColor {
         return self.cornflowerBlueColor()
     }
     
-    func connectGoButtonFont() -> UIFont {
+    func eventsGoButtonFont() -> UIFont {
         return UIFont(name: "Lato-Regular", size: 15)!
     }
     
-    func connectGoButtonTextColor() -> UIColor {
+    func eventsGoButtonTextColor() -> UIColor {
         return UIColor.whiteColor()
     }
     
-    func connectGoButtonBackgroundColor() -> UIColor {
+    func eventsGoButtonBackgroundColor() -> UIColor {
         return self.cornflowerBlueColor()
     }
     
-    func connectZipCodeTextColor() -> UIColor {
+    func eventsZipCodeTextColor() -> UIColor {
         return UIColor.blackColor()
     }
     
-    func connectZipCodeBackgroundColor() -> UIColor {
+    func eventsZipCodeBackgroundColor() -> UIColor {
         return self.galleryColor()
     }
     
-    func connectZipCodeBorderColor() -> UIColor {
+    func eventsZipCodeBorderColor() -> UIColor {
         return self.altoColor()
     }
     
-    func connectZipCodeFont() -> UIFont {
+    func eventsZipCodeFont() -> UIFont {
         return UIFont(name: "Lato-Regular", size: 14)!
     }
     
-    func connectZipCodeCornerRadius() -> CGFloat {
+    func eventsZipCodeCornerRadius() -> CGFloat {
         return self.defaultCornerRadius()
     }
     
-    func connectZipCodeBorderWidth() -> CGFloat {
+    func eventsZipCodeBorderWidth() -> CGFloat {
         return self.defaultBorderWidth()
     }
     
-    func connectZipCodeTextOffset() -> CATransform3D {
+    func eventsZipCodeTextOffset() -> CATransform3D {
         return CATransform3DMakeTranslation(4, 0, 0);
     }
     
-    func connectGoButtonCornerRadius() -> CGFloat {
+    func eventsGoButtonCornerRadius() -> CGFloat {
         return self.defaultCornerRadius()
     }
     
-    func connectNoResultsTextColor() -> UIColor {
+    func eventsNoResultsTextColor() -> UIColor {
         return self.cornflowerBlueColor()
     }
     
-    func connectNoResultsFont() -> UIFont {
+    func eventsNoResultsFont() -> UIFont {
         return UIFont(name: "Lato-Regular", size: 15)!
     }
     

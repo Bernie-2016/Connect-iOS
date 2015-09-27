@@ -2,7 +2,7 @@ import UIKit
 import PureLayout
 import QuartzCore
 
-public class ConnectController : UIViewController, UITableViewDataSource, UITableViewDelegate {
+public class EventsController : UIViewController, UITableViewDataSource, UITableViewDelegate {
     public let eventRepository: EventRepository!
     public let eventPresenter: EventPresenter!
     public let settingsController: SettingsController!
@@ -34,8 +34,8 @@ public class ConnectController : UIViewController, UITableViewDataSource, UITabl
         super.init(nibName: nil, bundle: nil)
             
         self.tabBarItem.setTitlePositionAdjustment(UIOffsetMake(0, -4))
-        self.tabBarItem.image = UIImage(named: "connectTabBarIconInactive")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
-        self.tabBarItem.selectedImage = UIImage(named: "connectTabBarIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
+        self.tabBarItem.image = UIImage(named: "eventsTabBarIconInactive")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
+        self.tabBarItem.selectedImage = UIImage(named: "eventsTabBarIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
         
         let activeTabBarTextAttributes = [NSFontAttributeName: theme.tabBarFont(), NSForegroundColorAttributeName: theme.tabBarActiveTextColor()]
         let inactiveTabBarTextAttributes = [NSFontAttributeName: theme.tabBarFont(), NSForegroundColorAttributeName: theme.tabBarInactiveTextColor()]
@@ -43,7 +43,7 @@ public class ConnectController : UIViewController, UITableViewDataSource, UITabl
         self.tabBarItem.setTitleTextAttributes(inactiveTabBarTextAttributes, forState: .Normal)
         self.tabBarItem.setTitleTextAttributes(activeTabBarTextAttributes, forState: .Selected)
         
-        self.title = NSLocalizedString("Connect_tabBarTitle", comment: "")
+        self.title = NSLocalizedString("Events_tabBarTitle", comment: "")
     }
     
     required public init(coder aDecoder: NSCoder) {
@@ -53,10 +53,10 @@ public class ConnectController : UIViewController, UITableViewDataSource, UITabl
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = NSLocalizedString("Connect_navigationTitle", comment: "")
+        self.navigationItem.title = NSLocalizedString("Events_navigationTitle", comment: "")
         let settingsIcon = UIImage(named: "settingsIcon")
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: settingsIcon, style: .Plain, target: self, action: "didTapSettings")
-        let backBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Connect_backButtonTitle", comment: ""),
+        let backBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Events_backButtonTitle", comment: ""),
             style: UIBarButtonItemStyle.Plain,
             target: nil, action: nil)
         
@@ -75,24 +75,24 @@ public class ConnectController : UIViewController, UITableViewDataSource, UITabl
         view.addSubview(noResultsLabel)
         view.addSubview(loadingActivityIndicatorView)
         
-        eventSearchButton.setTitle(NSLocalizedString("Connect_eventSearchButtonTitle", comment: ""), forState: .Normal)
+        eventSearchButton.setTitle(NSLocalizedString("Events_eventSearchButtonTitle", comment: ""), forState: .Normal)
         eventSearchButton.addTarget(self, action: "didTapSearch:", forControlEvents: .TouchUpInside)
-        eventSearchButton.backgroundColor = self.theme.connectGoButtonBackgroundColor()
-        eventSearchButton.titleLabel!.font = self.theme.connectGoButtonFont()
-        eventSearchButton.titleLabel!.textColor = self.theme.connectGoButtonTextColor()
-        eventSearchButton.layer.cornerRadius = self.theme.connectGoButtonCornerRadius()
+        eventSearchButton.backgroundColor = self.theme.eventsGoButtonBackgroundColor()
+        eventSearchButton.titleLabel!.font = self.theme.eventsGoButtonFont()
+        eventSearchButton.titleLabel!.textColor = self.theme.eventsGoButtonTextColor()
+        eventSearchButton.layer.cornerRadius = self.theme.eventsGoButtonCornerRadius()
         
         zipCodeTextField.autoPinEdgeToSuperviewEdge(.Top, withInset: 8)
         zipCodeTextField.autoPinEdgeToSuperviewEdge(.Left, withInset: 8)
-        zipCodeTextField.placeholder = NSLocalizedString("Connect_zipCodeTextBoxPlaceholder",  comment: "")
+        zipCodeTextField.placeholder = NSLocalizedString("Events_zipCodeTextBoxPlaceholder",  comment: "")
         zipCodeTextField.keyboardType = .NumberPad
-        zipCodeTextField.textColor = self.theme.connectZipCodeTextColor()
-        zipCodeTextField.font = self.theme.connectZipCodeFont()
-        zipCodeTextField.backgroundColor = self.theme.connectZipCodeBackgroundColor()
-        zipCodeTextField.layer.borderColor = self.theme.connectZipCodeBorderColor().CGColor
-        zipCodeTextField.layer.borderWidth = self.theme.connectZipCodeBorderWidth()
-        zipCodeTextField.layer.cornerRadius = self.theme.connectZipCodeCornerRadius()
-        zipCodeTextField.layer.sublayerTransform = self.theme.connectZipCodeTextOffset()
+        zipCodeTextField.textColor = self.theme.eventsZipCodeTextColor()
+        zipCodeTextField.font = self.theme.eventsZipCodeFont()
+        zipCodeTextField.backgroundColor = self.theme.eventsZipCodeBackgroundColor()
+        zipCodeTextField.layer.borderColor = self.theme.eventsZipCodeBorderColor().CGColor
+        zipCodeTextField.layer.borderWidth = self.theme.eventsZipCodeBorderWidth()
+        zipCodeTextField.layer.cornerRadius = self.theme.eventsZipCodeCornerRadius()
+        zipCodeTextField.layer.sublayerTransform = self.theme.eventsZipCodeTextOffset()
         
         eventSearchButton.autoPinEdgeToSuperviewEdge(.Top, withInset: 8)
         eventSearchButton.autoSetDimension(.Width, toSize: 70)
@@ -107,9 +107,9 @@ public class ConnectController : UIViewController, UITableViewDataSource, UITabl
         noResultsLabel.autoPinEdgeToSuperviewEdge(.Left)
         noResultsLabel.autoPinEdgeToSuperviewEdge(.Right)
         noResultsLabel.textAlignment = .Center
-        noResultsLabel.text = NSLocalizedString("Connect_noEventsFound", comment: "")
-        noResultsLabel.textColor = self.theme.connectNoResultsTextColor()
-        noResultsLabel.font = self.theme.connectNoResultsFont()
+        noResultsLabel.text = NSLocalizedString("Events_noEventsFound", comment: "")
+        noResultsLabel.textColor = self.theme.eventsNoResultsTextColor()
+        noResultsLabel.font = self.theme.eventsNoResultsFont()
         noResultsLabel.lineBreakMode = NSLineBreakMode.ByTruncatingTail;
         
         loadingActivityIndicatorView.autoPinEdge(.Top, toEdge: .Bottom, ofView: zipCodeTextField, withOffset: 16)
@@ -140,12 +140,12 @@ public class ConnectController : UIViewController, UITableViewDataSource, UITabl
         let cell = tableView.dequeueReusableCellWithIdentifier("eventCell") as! EventListTableViewCell
         let event = events[indexPath.row]
         
-        cell.addressLabel.textColor = self.theme.connectListColor()
-        cell.addressLabel.font = self.theme.connectListFont()
-        cell.attendeesLabel.textColor = self.theme.connectListColor()
-        cell.attendeesLabel.font = self.theme.connectListFont()
-        cell.nameLabel.textColor = self.theme.connectListColor()
-        cell.nameLabel.font = self.theme.connectListFont()
+        cell.addressLabel.textColor = self.theme.eventsListColor()
+        cell.addressLabel.font = self.theme.eventsListFont()
+        cell.attendeesLabel.textColor = self.theme.eventsListColor()
+        cell.attendeesLabel.font = self.theme.eventsListFont()
+        cell.nameLabel.textColor = self.theme.eventsListColor()
+        cell.nameLabel.font = self.theme.eventsListFont()
         
         return self.eventPresenter.presentEvent(event, cell: cell)
     }

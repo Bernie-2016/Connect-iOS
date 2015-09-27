@@ -58,23 +58,23 @@ public protocol Theme {
     func issueBodyFont() -> UIFont
     func issueBodyColor() -> UIColor
     
-    // MARK: Connect screen
+    // MARK: Events screen
     
-    func connectListFont() -> UIFont
-    func connectListColor() -> UIColor
-    func connectGoButtonFont() -> UIFont
-    func connectGoButtonTextColor() -> UIColor
-    func connectGoButtonBackgroundColor() -> UIColor
-    func connectGoButtonCornerRadius() -> CGFloat
-    func connectZipCodeTextColor() -> UIColor
-    func connectZipCodeBackgroundColor() -> UIColor
-    func connectZipCodeBorderColor() -> UIColor
-    func connectZipCodeFont() -> UIFont
-    func connectZipCodeCornerRadius() -> CGFloat
-    func connectZipCodeBorderWidth() -> CGFloat
-    func connectZipCodeTextOffset() -> CATransform3D
-    func connectNoResultsTextColor() -> UIColor
-    func connectNoResultsFont() -> UIFont
+    func eventsListFont() -> UIFont
+    func eventsListColor() -> UIColor
+    func eventsGoButtonFont() -> UIFont
+    func eventsGoButtonTextColor() -> UIColor
+    func eventsGoButtonBackgroundColor() -> UIColor
+    func eventsGoButtonCornerRadius() -> CGFloat
+    func eventsZipCodeTextColor() -> UIColor
+    func eventsZipCodeBackgroundColor() -> UIColor
+    func eventsZipCodeBorderColor() -> UIColor
+    func eventsZipCodeFont() -> UIFont
+    func eventsZipCodeCornerRadius() -> CGFloat
+    func eventsZipCodeBorderWidth() -> CGFloat
+    func eventsZipCodeTextOffset() -> CATransform3D
+    func eventsNoResultsTextColor() -> UIColor
+    func eventsNoResultsFont() -> UIFont
     
     // MARK: Event screen
     

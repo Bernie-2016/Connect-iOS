@@ -25,7 +25,7 @@ class EventControllerSpec: QuickSpec {
     let event = Event(name: "limited event", attendeeCapacity: 10, attendeeCount: 2, city: "San Francisco", state: "CA", zip: "94117")
     
     override func spec() {
-        fdescribe("EventController") {
+        describe("EventController") {
             beforeEach {
                 self.dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
                 self.dateFormatter.timeZone = NSTimeZone(name: "UTC")

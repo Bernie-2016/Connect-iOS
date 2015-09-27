@@ -91,21 +91,20 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
                 operationQueue: mainQueue)
             let eventPresenter = EventPresenter()
             let eventControllerProvider = ConcreteEventControllerProvider(eventPresenter: eventPresenter, dateFormatter: longDateFormatter, theme: defaultTheme)
-            let connectController = ConnectController(
+            let eventsController = EventsController(
                 eventRepository: eventRepository,
                 eventPresenter: eventPresenter,
                 settingsController: settingsController,
                 eventControllerProvider: eventControllerProvider,
                 theme: defaultTheme
             )
-            let connectNavigationController = NavigationController(theme: defaultTheme)
-            connectNavigationController.pushViewController(connectController, animated: false)
-
+            let eventsNavigationController = NavigationController(theme: defaultTheme)
+            eventsNavigationController.pushViewController(eventsController, animated: false)
             
             let viewControllers = [
                 newsNavigationController,
                 issuesNavigationController,
-                connectNavigationController,
+                eventsNavigationController,
                 organizeController
             ]
             

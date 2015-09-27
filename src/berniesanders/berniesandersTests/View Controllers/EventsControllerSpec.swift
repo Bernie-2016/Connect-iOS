@@ -4,7 +4,7 @@ import Nimble
 import berniesanders
 import QuartzCore
 
-class ConnectFakeTheme : FakeTheme {
+class EventsFakeTheme : FakeTheme {
     override func tabBarActiveTextColor() -> UIColor {
         return UIColor.purpleColor()
     }
@@ -17,63 +17,63 @@ class ConnectFakeTheme : FakeTheme {
         return UIFont.systemFontOfSize(123)
     }
     
-    override func connectListFont() -> UIFont {
+    override func eventsListFont() -> UIFont {
         return UIFont.italicSystemFontOfSize(333)
     }
     
-    override func connectListColor() -> UIColor {
+    override func eventsListColor() -> UIColor {
         return UIColor.yellowColor()
     }
     
-    override func connectGoButtonFont() -> UIFont {
+    override func eventsGoButtonFont() -> UIFont {
         return UIFont.boldSystemFontOfSize(555)
     }
     
-    override func connectGoButtonTextColor() -> UIColor {
+    override func eventsGoButtonTextColor() -> UIColor {
         return UIColor.magentaColor()
     }
     
-    override func connectGoButtonBackgroundColor() -> UIColor {
+    override func eventsGoButtonBackgroundColor() -> UIColor {
         return UIColor.greenColor()
     }
     
-    override func connectZipCodeTextColor() -> UIColor {
+    override func eventsZipCodeTextColor() -> UIColor {
         return UIColor.redColor()
     }
     
-    override func connectZipCodeBackgroundColor() -> UIColor {
+    override func eventsZipCodeBackgroundColor() -> UIColor {
         return UIColor.brownColor()
     }
     
-    override func connectZipCodeBorderColor() -> UIColor {
+    override func eventsZipCodeBorderColor() -> UIColor {
         return UIColor.orangeColor()
     }
     
-    override func connectZipCodeFont() -> UIFont {
+    override func eventsZipCodeFont() -> UIFont {
         return UIFont.boldSystemFontOfSize(4444)
     }
     
-    override func connectZipCodeCornerRadius() -> CGFloat {
+    override func eventsZipCodeCornerRadius() -> CGFloat {
         return 100.0
     }
     
-    override func connectZipCodeBorderWidth() -> CGFloat {
+    override func eventsZipCodeBorderWidth() -> CGFloat {
         return 200.0
     }
     
-    override func connectZipCodeTextOffset() -> CATransform3D {
+    override func eventsZipCodeTextOffset() -> CATransform3D {
         return CATransform3DMakeTranslation(4, 5, 6);
     }
     
-    override func connectGoButtonCornerRadius() -> CGFloat {
+    override func eventsGoButtonCornerRadius() -> CGFloat {
         return 300
     }
     
-    override func connectNoResultsFont() -> UIFont {
+    override func eventsNoResultsFont() -> UIFont {
         return UIFont.italicSystemFontOfSize(888)
     }
     
-    override func connectNoResultsTextColor() -> UIColor {
+    override func eventsNoResultsTextColor() -> UIColor {
         return UIColor.blueColor()
     }
     
@@ -112,8 +112,8 @@ class FakeEventControllerProvider : berniesanders.EventControllerProvider {
     }
 }
 
-class ConnectControllerSpec : QuickSpec {
-    var subject : ConnectController!
+class EventsControllerSpec : QuickSpec {
+    var subject : EventsController!
     var window : UIWindow!
     var eventRepository : FakeEventRepository!
     var eventPresenter : FakeEventPresenter!
@@ -123,7 +123,7 @@ class ConnectControllerSpec : QuickSpec {
     let navigationController = UINavigationController()
     
     override func spec() {
-        describe("ConnectController") {
+        describe("EventsController") {
             beforeEach {
                 self.eventRepository = FakeEventRepository()
                 self.eventPresenter = FakeEventPresenter()
@@ -131,12 +131,12 @@ class ConnectControllerSpec : QuickSpec {
                 
                 self.window = UIWindow.new()
                 
-                self.subject = ConnectController(
+                self.subject = EventsController(
                     eventRepository: self.eventRepository,
                     eventPresenter: self.eventPresenter,
                     settingsController: self.settingsController,
                     eventControllerProvider: self.eventControllerProvider,
-                    theme: ConnectFakeTheme()
+                    theme: EventsFakeTheme()
                 )
                 
                 self.navigationController.pushViewController(self.subject, animated: false)
@@ -152,11 +152,11 @@ class ConnectControllerSpec : QuickSpec {
             }
             
             it("has the correct tab bar title") {
-                expect(self.subject.title).to(equal("Connect"))
+                expect(self.subject.title).to(equal("Events"))
             }
             
             it("has the correct navigation item title") {
-                expect(self.subject.navigationItem.title).to(equal("Connect"))
+                expect(self.subject.navigationItem.title).to(equal("Events"))
             }
             
             it("should set the back bar button item title correctly") {

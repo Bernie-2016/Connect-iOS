@@ -6,7 +6,7 @@ class EventPresenterSpec : QuickSpec {
     var subject : EventPresenter!
 
     override func spec() {
-        fdescribe("EventPresenter") {
+        describe("EventPresenter") {
             var event : Event!
  
             beforeEach {
