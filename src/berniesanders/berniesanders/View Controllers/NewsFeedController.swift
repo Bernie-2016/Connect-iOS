@@ -67,6 +67,9 @@ public class NewsFeedController: UIViewController, UITableViewDelegate, UITableV
     public override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.addSubview(tableView)
+        view.addSubview(loadingIndicatorView)
+
         tableView.contentInset = UIEdgeInsetsZero
         tableView.layoutMargins = UIEdgeInsetsZero
         tableView.separatorInset = UIEdgeInsetsZero
@@ -75,16 +78,10 @@ public class NewsFeedController: UIViewController, UITableViewDelegate, UITableV
         tableView.registerClass(NewsHeadlineTableViewCell.self, forCellReuseIdentifier: "headlineCell")
         tableView.dataSource = self
         tableView.delegate = self
-        
-        loadingIndicatorView.color = self.theme.defaultSpinnerColor()
-        loadingIndicatorView.startAnimating()
-        loadingIndicatorView.hidesWhenStopped = true
-        
-        view.addSubview(tableView)
-        view.addSubview(loadingIndicatorView)
-        
         tableView.autoPinEdgesToSuperviewEdges()
         
+        loadingIndicatorView.startAnimating()
+        loadingIndicatorView.hidesWhenStopped = true
         loadingIndicatorView.autoAlignAxisToSuperviewAxis(.Vertical)
         loadingIndicatorView.autoAlignAxisToSuperviewAxis(.Horizontal)
         loadingIndicatorView.color = self.theme.defaultSpinnerColor()

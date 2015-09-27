@@ -23,6 +23,10 @@ class IssuesFakeTheme : FakeTheme {
     override func tabBarFont() -> UIFont {
         return UIFont.systemFontOfSize(123)
     }
+    
+    override func defaultSpinnerColor() -> UIColor {
+        return UIColor.greenColor()
+    }
 }
 
 class FakeIssueRepository : berniesanders.IssueRepository {
@@ -99,10 +103,28 @@ class IssuesControllerSpec: QuickSpec {
             expect(selectedFont).to(equal(UIFont.systemFontOfSize(123)))
         }
         
+        it("initially hides the table view, and shows the loading spinner") {
+            self.subject.view.layoutSubviews()
+            
+            expect(self.subject.tableView.hidden).to(equal(true));
+            expect(self.subject.loadingIndicatorView.isAnimating()).to(equal(true))
+        }
+        
         it("has the page components as subviews") {
             let subViews = self.subject.view.subviews as! [UIView]
             
             expect(contains(subViews, self.subject.tableView)).to(beTrue())
+            expect(contains(subViews, self.subject.loadingIndicatorView)).to(beTrue())
+        }
+        
+        it("sets the spinner up to hide when stopped") {
+            expect(self.subject.loadingIndicatorView.hidesWhenStopped).to(equal(true))
+        }
+        
+        it("styles the spinner from the theme") {
+            self.subject.view.layoutSubviews()
+            
+            expect(self.subject.loadingIndicatorView.color).to(equal(UIColor.greenColor()))
         }
         
         describe("tapping on the settings button") {
@@ -135,6 +157,13 @@ class IssuesControllerSpec: QuickSpec {
                     var issueB = Issue(title: "Long Live The NHS", body: "body", imageURL: NSURL(string: "http://c.com")!, URL: NSURL(string: "http://d.com")!)
                     
                     self.issueRepository.lastCompletionBlock!([issueA, issueB])
+                }
+                
+                it("shows the table view, and stops the loading spinner") {
+                    self.issueRepository.lastCompletionBlock!([])
+                    
+                    expect(self.subject.tableView.hidden).to(equal(false));
+                    expect(self.subject.loadingIndicatorView.isAnimating()).to(equal(false))
                 }
                 
                 it("shows the issues in the table") {

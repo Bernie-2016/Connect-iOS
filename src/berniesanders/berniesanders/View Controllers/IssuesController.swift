@@ -7,7 +7,8 @@ public class IssuesController: UIViewController, UITableViewDataSource, UITableV
     let theme: Theme!
     
     public let tableView = UITableView.newAutoLayoutView()
-    
+    public let loadingIndicatorView = UIActivityIndicatorView.newAutoLayoutView()
+
     var issues: Array<Issue>!
     
     public init(issueRepository: IssueRepository, issueControllerProvider: IssueControllerProvider, settingsController: SettingsController, theme: Theme) {
@@ -52,14 +53,21 @@ public class IssuesController: UIViewController, UITableViewDataSource, UITableV
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        view.addSubview(tableView)
+        view.addSubview(loadingIndicatorView)
+
         tableView.dataSource = self
         tableView.delegate = self
         tableView.registerClass(IssueTableViewCell.self, forCellReuseIdentifier: "cell")
-        
-        view.addSubview(tableView)
-        
         tableView.autoPinEdgesToSuperviewEdges()
+        tableView.hidden = true
+        
+        loadingIndicatorView.startAnimating()
+        loadingIndicatorView.hidesWhenStopped = true
+        loadingIndicatorView.autoAlignAxisToSuperviewAxis(.Vertical)
+        loadingIndicatorView.autoAlignAxisToSuperviewAxis(.Horizontal)
+        loadingIndicatorView.color = self.theme.defaultSpinnerColor()
     }
     
     override public func viewWillAppear(animated: Bool) {
@@ -67,6 +75,8 @@ public class IssuesController: UIViewController, UITableViewDataSource, UITableV
         
         self.issueRepository.fetchIssues({ (receivedIssues) -> Void in
             self.issues = receivedIssues
+            self.loadingIndicatorView.stopAnimating()
+            self.tableView.hidden = false
             self.tableView.reloadData()
             }, error: { (error) -> Void in
                 println(error)
