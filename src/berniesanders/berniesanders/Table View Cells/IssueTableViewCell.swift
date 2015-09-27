@@ -10,16 +10,16 @@ public class IssueTableViewCell : UITableViewCell {
     }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        self.titleLabel = UILabel.newAutoLayoutView()
+        titleLabel = UILabel.newAutoLayoutView()
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        self.accessoryType = UITableViewCellAccessoryType.None
-        self.separatorInset = UIEdgeInsetsZero
-        self.layoutMargins = UIEdgeInsetsZero
-        self.preservesSuperviewLayoutMargins = false
+        accessoryType = .DisclosureIndicator
+        separatorInset = UIEdgeInsetsZero
+        layoutMargins = UIEdgeInsetsZero
+        preservesSuperviewLayoutMargins = false
         
-        self.contentView.addSubview(titleLabel)
+        contentView.addSubview(titleLabel)
         titleLabel.autoPinEdgeToSuperviewEdge(ALEdge.Left, withInset: 8)
         titleLabel.autoAlignAxisToSuperviewAxis(.Horizontal)
     }
