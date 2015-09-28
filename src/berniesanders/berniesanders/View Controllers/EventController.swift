@@ -33,6 +33,8 @@ public class EventController : UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "share")
+        
         view.backgroundColor = theme.defaultBackgroundColor()
         nameLabel.textColor = theme.eventNameColor()
         nameLabel.font = theme.eventNameFont()
@@ -89,5 +91,12 @@ public class EventController : UIViewController {
 
     required public init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: Actions
+    
+    func share() {
+        let activityVC = UIActivityViewController(activityItems: [event.URL], applicationActivities: nil)
+        presentViewController(activityVC, animated: true, completion: nil)
     }
 }

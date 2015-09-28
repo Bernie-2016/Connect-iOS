@@ -41,15 +41,22 @@ public class ConcreteEventDeserializer : EventDeserializer {
             var state = venueDictionary!["state"] as? String
             var zip = venueDictionary!["zip"] as? String
             var description = sourceDictionary!["description"] as? String
+            var URLString = sourceDictionary!["url"] as? String
             
             if (name == nil || attendeeCapacity == nil || attendeeCount == nil
                 || city == nil || state == nil || zip == nil
-                || description == nil) {
+                || description == nil || URLString == nil) {
+                continue;
+            }
+            
+            var URL = NSURL(string: URLString!)
+            
+            if (URL == nil) {
                 continue;
             }
             
             var event = Event(name: name!, attendeeCapacity: attendeeCapacity!, attendeeCount: attendeeCount!,
-                city: city!, state: state!, zip: zip!, description: description!)
+                city: city!, state: state!, zip: zip!, description: description!, URL: URL!)
             
             events.append(event)
         }

@@ -24,7 +24,7 @@ class TestUtils {
     }
     
     class func eventWithName(name: String) -> Event {
-        return Event(name: name, attendeeCapacity: 10, attendeeCount: 2, city: "Beverley Hills", state: "CA", zip: "90210", description: "This isn't Beverly Hills! It's Knot's Landing!")
+        return Event(name: name, attendeeCapacity: 10, attendeeCount: 2, city: "Beverley Hills", state: "CA", zip: "90210", description: "This isn't Beverly Hills! It's Knot's Landing!", URL: NSURL(string: "https://example.com")!)
     }
     
     // MARK: Controllers

@@ -28,6 +28,7 @@ class ConcreteEventDeserializerSpec : QuickSpec {
                 expect(eventA.state).to(equal("TX"))
                 expect(eventA.zip).to(equal("78746"))
                 expect(eventA.description).to(equal("Deputy Voter Registrar Training Class - Travis County\nCall (512) 854-9473 a year ahead to R.S.V.P."))
+                expect(eventA.URL).to(equal(NSURL(string: "https://go.berniesanders.com/page/event/detail/registeringvoters/4vfdg")))
                 
                 var eventB = events[1]
                 expect(eventB.name).to(equal("Deputy Dawg Training Class - Travis County"))
@@ -37,6 +38,7 @@ class ConcreteEventDeserializerSpec : QuickSpec {
                 expect(eventB.state).to(equal("TX"))
                 expect(eventB.zip).to(equal("78747"))
                 expect(eventB.description).to(equal("Deputy Dawg Registrar Training Class - Travis County\nCall (512) 854-9473 a week ahead to R.S.V.P."))
+                expect(eventB.URL).to(equal(NSURL(string: "https://go.berniesanders.com/page/event/detail/registeringvoters/4vfd4")))
             }
             
             context("when name, OTHER STUFF are missing") {

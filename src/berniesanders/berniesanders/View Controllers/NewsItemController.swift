@@ -35,24 +35,23 @@ public class NewsItemController : UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         
-
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "share")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "share")
         
-        self.view.backgroundColor = self.theme.defaultBackgroundColor()
+        view.backgroundColor = self.theme.defaultBackgroundColor()
         
-        self.view.addSubview(self.scrollView)
-        self.scrollView.addSubview(self.containerView)
-        self.containerView.addSubview(self.storyImageView)
-        self.containerView.addSubview(self.dateLabel)
-        self.containerView.addSubview(self.titleLabel)
-        self.containerView.addSubview(self.bodyTextView)
+        view.addSubview(self.scrollView)
+        scrollView.addSubview(self.containerView)
+        containerView.addSubview(self.storyImageView)
+        containerView.addSubview(self.dateLabel)
+        containerView.addSubview(self.titleLabel)
+        containerView.addSubview(self.bodyTextView)
         
-        self.dateLabel.text = self.dateFormatter.stringFromDate(self.newsItem.date)
-        self.titleLabel.text = self.newsItem.title
-        self.bodyTextView.text = self.newsItem.body
+        dateLabel.text = self.dateFormatter.stringFromDate(self.newsItem.date)
+        titleLabel.text = self.newsItem.title
+        bodyTextView.text = self.newsItem.body
         
-        self.setupConstraintsAndLayout()
-        self.applyThemeToViews()
+        setupConstraintsAndLayout()
+        applyThemeToViews()
         
         if(self.newsItem.imageURL != nil) {
             self.imageRepository.fetchImageWithURL(self.newsItem.imageURL!).then({ (image) -> AnyObject! in
