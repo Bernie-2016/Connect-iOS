@@ -10,14 +10,25 @@ class EventPresenterSpec : QuickSpec {
             var event : Event!
  
             beforeEach {
-                event = Event(name: "some event", attendeeCapacity: 10, attendeeCount: 2, city: "Bigtown", state: "CA", zip: "94104", description: "Words about the event", URL: NSURL(string: "https://example.com")!)
+                event = Event(name: "some event", attendeeCapacity: 10, attendeeCount: 2, streetAddress: "100 Main Street", city: "Bigtown", state: "CA", zip: "94104", description: "Words about the event", URL: NSURL(string: "https://example.com")!)
                 
                 self.subject = EventPresenter()
             }
             
             describe("formatting an address") {
-                it("correctly formats the address") {
-                    expect(self.subject.presentAddressForEvent(event)).to(equal("Bigtown, CA - 94104"))
+                context("when the address has a street address") {
+                    it("correctly formats the address") {
+                        expect(self.subject.presentAddressForEvent(event)).to(equal("100 Main Street\nBigtown, CA - 94104"))
+                    }
+                }
+                
+                context("when the address lacks a street address") {
+                    beforeEach {
+                        event = Event(name: "some event", attendeeCapacity: 10, attendeeCount: 2, streetAddress: nil, city: "Bigtown", state: "CA", zip: "94104", description: "Words about the event", URL: NSURL(string: "https://example.com")!)
+                    }
+                    it("correctly formats the address") {
+                        expect(self.subject.presentAddressForEvent(event)).to(equal("Bigtown, CA - 94104"))
+                    }
                 }
             }
             
@@ -30,7 +41,7 @@ class EventPresenterSpec : QuickSpec {
                 
                 context("when the event has a zero attendee capacity") {
                     beforeEach {
-                        event = Event(name: "some event", attendeeCapacity: 0, attendeeCount: 2, city: "Bigtown", state: "CA", zip: "94104", description: "Words about the event", URL: NSURL(string: "https://example.com")!)
+                        event = Event(name: "some event", attendeeCapacity: 0, attendeeCount: 2, streetAddress: "100 Main Street", city: "Bigtown", state: "CA", zip: "94104", description: "Words about the event", URL: NSURL(string: "https://example.com")!)
                     }
                     
                     it("sets up the rsvp label correctly") {
@@ -67,7 +78,7 @@ class EventPresenterSpec : QuickSpec {
                 
                 context("when the event has a zero attendee capacity") {
                     beforeEach {
-                        event = Event(name: "some event", attendeeCapacity: 0, attendeeCount: 2, city: "Bigtown", state: "CA", zip: "94104", description: "Words about the event", URL: NSURL(string: "https://example.com")!)
+                        event = Event(name: "some event", attendeeCapacity: 0, attendeeCount: 2, streetAddress: "100 Main Street", city: "Bigtown", state: "CA", zip: "94104", description: "Words about the event", URL: NSURL(string: "https://example.com")!)
                         
                         self.subject.presentEvent(event, cell: cell)
                     }

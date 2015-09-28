@@ -37,6 +37,7 @@ public class ConcreteEventDeserializer : EventDeserializer {
             var attendeeCapacity = sourceDictionary!["capacity"] as? Int
             var attendeeCount = sourceDictionary!["attendee_count"] as? Int
             
+            var streetAddress = venueDictionary!["address1"] as? String
             var city = venueDictionary!["city"] as? String
             var state = venueDictionary!["state"] as? String
             var zip = venueDictionary!["zip"] as? String
@@ -56,7 +57,8 @@ public class ConcreteEventDeserializer : EventDeserializer {
             }
             
             var event = Event(name: name!, attendeeCapacity: attendeeCapacity!, attendeeCount: attendeeCount!,
-                city: city!, state: state!, zip: zip!, description: description!, URL: URL!)
+                streetAddress: streetAddress, city: city!, state: state!, zip: zip!,
+                description: description!, URL: URL!)
             
             events.append(event)
         }

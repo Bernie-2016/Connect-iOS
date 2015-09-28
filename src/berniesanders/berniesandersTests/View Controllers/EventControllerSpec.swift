@@ -22,7 +22,7 @@ class EventControllerSpec: QuickSpec {
     let dateFormatter = NSDateFormatter()
     var eventPresenter : FakeEventPresenter!
     let theme = EventFakeTheme()
-    let event = Event(name: "limited event", attendeeCapacity: 10, attendeeCount: 2, city: "San Francisco", state: "CA", zip: "94117", description: "Words about the event", URL: NSURL(string: "https://example.com")!)
+    let event = Event(name: "limited event", attendeeCapacity: 10, attendeeCount: 2, streetAddress: "1 Post Street", city: "San Francisco", state: "CA", zip: "94117", description: "Words about the event", URL: NSURL(string: "https://example.com")!)
     
     override func spec() {
         describe("EventController") {

@@ -75,6 +75,7 @@ public class EventController : UIViewController {
         attendeesLabel.autoPinEdgeToSuperviewMargin(.Left)
         attendeesLabel.autoPinEdgeToSuperviewMargin(.Right)
 
+        addressLabel.numberOfLines = 0
         addressLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: attendeesLabel, withOffset: 8)
         addressLabel.autoPinEdgeToSuperviewMargin(.Left)
         addressLabel.autoPinEdgeToSuperviewMargin(.Right)

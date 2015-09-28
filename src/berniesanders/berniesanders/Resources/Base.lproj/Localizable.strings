@@ -22,6 +22,7 @@
 "Events_navigationTitle" = "Events";
 "Events_backButtonTitle" = "Back";
 "Events_eventAddressLabel" =  "%@, %@ - %@";
+"Events_eventStreetAddressLabel" =  "%@\n%@, %@ - %@";
 "Events_eventAttendeeLabel" = "%d of RSVP: %d";
 "Events_eventAttendeeWithoutCapacityLimitLabel" = "%d attending";
 "Events_noEventsFound" = "No events match your search";
