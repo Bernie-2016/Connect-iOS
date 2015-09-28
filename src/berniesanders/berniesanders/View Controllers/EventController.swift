@@ -1,4 +1,6 @@
 import UIKit
+import CoreLocation
+import MapKit
 
 public class EventController : UIViewController {
     public let event : Event!
@@ -7,6 +9,7 @@ public class EventController : UIViewController {
     
     let containerView = UIView.newAutoLayoutView()
     let scrollView = UIScrollView.newAutoLayoutView()
+    public let mapView = MKMapView.newAutoLayoutView()
     public let nameLabel = UILabel.newAutoLayoutView()
     public let dateLabel = UILabel.newAutoLayoutView()
     public let attendeesLabel = UILabel.newAutoLayoutView()
@@ -30,6 +33,15 @@ public class EventController : UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         
+        let eventCoordinate = event.location.coordinate
+        let regionRadius: CLLocationDistance = 800
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(eventCoordinate,
+            regionRadius * 2.0, regionRadius * 2.0)
+        let eventPin = MKPointAnnotation()
+        eventPin.coordinate = eventCoordinate
+        mapView.setRegion(coordinateRegion, animated: true)
+        mapView.addAnnotation(eventPin)
+
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "share")
         
         view.backgroundColor = theme.defaultBackgroundColor()
@@ -45,6 +57,7 @@ public class EventController : UIViewController {
         
         view.addSubview(scrollView)
         scrollView.addSubview(containerView)
+        containerView.addSubview(mapView)
         containerView.addSubview(nameLabel)
         containerView.addSubview(dateLabel)
         containerView.addSubview(attendeesLabel)
@@ -59,9 +72,14 @@ public class EventController : UIViewController {
 
         containerView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Trailing)
         containerView.autoSetDimension(.Width, toSize: screenBounds.width)
+        
+        mapView.autoPinEdgeToSuperviewMargin(.Top)
+        mapView.autoPinEdgeToSuperviewMargin(.Left)
+        mapView.autoPinEdgeToSuperviewMargin(.Right)
+        mapView.autoSetDimension(.Height, toSize: self.view.bounds.height / 3)
 
         nameLabel.numberOfLines = 0
-        nameLabel.autoPinEdgeToSuperviewMargin(.Top)
+        nameLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: mapView)
         nameLabel.autoPinEdgeToSuperviewMargin(.Left)
         nameLabel.autoPinEdgeToSuperviewMargin(.Right)
         

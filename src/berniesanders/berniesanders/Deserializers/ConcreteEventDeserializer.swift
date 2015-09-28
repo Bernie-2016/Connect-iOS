@@ -1,4 +1,5 @@
 import Foundation
+import CoreLocation
 
 public class ConcreteEventDeserializer : EventDeserializer {
     public init() {
@@ -29,13 +30,19 @@ public class ConcreteEventDeserializer : EventDeserializer {
         for(eventDictionary: NSDictionary) in eventsDictionaries! {
             var sourceDictionary = eventDictionary["_source"] as? [String:AnyObject];
             
-            if(sourceDictionary == nil) {
+            if (sourceDictionary == nil) {
                 continue;
             }
             
             var venueDictionary = sourceDictionary!["venue"] as? [String:AnyObject];
             
-            if(venueDictionary == nil) {
+            if (venueDictionary == nil) {
+                continue;
+            }
+            
+            var locationDictionary = venueDictionary!["location"] as? [String:CLLocationDegrees]
+
+            if (locationDictionary == nil) {
                 continue;
             }
             
@@ -49,12 +56,14 @@ public class ConcreteEventDeserializer : EventDeserializer {
             var city = venueDictionary!["city"] as? String
             var state = venueDictionary!["state"] as? String
             var zip = venueDictionary!["zip"] as? String
+            var latitude = locationDictionary!["lat"]
+            var longitude = locationDictionary!["lon"]
             var description = sourceDictionary!["description"] as? String
             var URLString = sourceDictionary!["url"] as? String
             
             if (name == nil || timeZoneString == nil || startDateString == nil
                 || attendeeCapacity == nil || attendeeCount == nil
-                || city == nil || state == nil || zip == nil
+                || city == nil || state == nil || zip == nil || latitude == nil || longitude == nil
                 || description == nil || URLString == nil) {
                 continue;
             }
@@ -73,9 +82,9 @@ public class ConcreteEventDeserializer : EventDeserializer {
                 continue;
             }
 
-            
+            var location = CLLocation(latitude: latitude!, longitude: longitude!)
             var event = Event(name: name!, startDate: startDate!, timeZone: timeZone!, attendeeCapacity: attendeeCapacity!, attendeeCount: attendeeCount!,
-                streetAddress: streetAddress, city: city!, state: state!, zip: zip!,
+                streetAddress: streetAddress, city: city!, state: state!, zip: zip!, location: location,
                 description: description!, URL: URL!)
             
             events.append(event)

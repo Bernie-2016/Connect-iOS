@@ -2,6 +2,8 @@ import UIKit
 import Quick
 import Nimble
 import berniesanders
+import CoreLocation
+import MapKit
 
 class EventFakeTheme : FakeTheme {
     override func defaultBackgroundColor() -> UIColor {
@@ -23,7 +25,8 @@ class EventControllerSpec: QuickSpec {
     let theme = EventFakeTheme()
     let event = Event(name: "limited event", startDate: NSDate(timeIntervalSince1970: 1433565000), timeZone: NSTimeZone(abbreviation: "PST")!,
         attendeeCapacity: 10, attendeeCount: 2,
-        streetAddress: "1 Post Street", city: "San Francisco", state: "CA", zip: "94117", description: "Words about the event", URL: NSURL(string: "https://example.com")!)
+        streetAddress: "1 Post Street", city: "San Francisco", state: "CA", zip: "94117", location: CLLocation(latitude: 12.34, longitude: 23.45),
+        description: "Words about the event", URL: NSURL(string: "https://example.com")!)
     
     override func spec() {
         describe("EventController") {
@@ -70,16 +73,35 @@ class EventControllerSpec: QuickSpec {
                     
                     var containerView = scrollView.subviews.first as! UIView
                     
-                    expect(containerView.subviews.count).to(equal(6))
+                    expect(containerView.subviews.count).to(equal(7))
                     
                     var containerViewSubViews = containerView.subviews as! [UIView]
-                    
+
+                    expect(contains(containerViewSubViews, self.subject.mapView)).to(beTrue())
                     expect(contains(containerViewSubViews, self.subject.nameLabel)).to(beTrue())
                     expect(contains(containerViewSubViews, self.subject.dateLabel)).to(beTrue())
                     expect(contains(containerViewSubViews, self.subject.attendeesLabel)).to(beTrue())
                     expect(contains(containerViewSubViews, self.subject.addressLabel)).to(beTrue())
                     expect(contains(containerViewSubViews, self.subject.descriptionHeadingLabel)).to(beTrue())
                     expect(contains(containerViewSubViews, self.subject.descriptionLabel)).to(beTrue())
+                }
+                
+                xit("centers the map around the event") {
+                    // TODO: for some reason, the region's center is coming back as NaN under test
+                    // We should also test the region bounds
+                    
+                    let region = self.subject.mapView.region
+                                       expect(region.center.latitude).to(equal(self.event.location.coordinate.latitude))
+                    expect(region.center.longitude).to(equal(self.event.location.coordinate.longitude))
+                    
+                }
+                
+                it("adds a pin to the map for the event") {
+                    expect(self.subject.mapView.annotations.count).to(equal(1))
+                    let pin = self.subject.mapView.annotations.first as! MKAnnotation
+
+                    expect(pin.coordinate.latitude).to(equal(self.event.location.coordinate.latitude))
+                    expect(pin.coordinate.longitude).to(equal(self.event.location.coordinate.longitude))
                 }
                 
                 it("displays the title") {

@@ -1,5 +1,6 @@
 import UIKit
 import berniesanders
+import CoreLocation
 
 class TestUtils {
     // MARK: Fixture loaders
@@ -26,7 +27,8 @@ class TestUtils {
     class func eventWithName(name: String) -> Event {
         return Event(name: name, startDate: NSDate(timeIntervalSince1970: 1433565000), timeZone: NSTimeZone(abbreviation: "PST")!,
             attendeeCapacity: 10, attendeeCount: 2,
-            streetAddress: "100 Main Street", city: "Beverley Hills", state: "CA", zip: "90210", description: "This isn't Beverly Hills! It's Knot's Landing!", URL: NSURL(string: "https://example.com")!)
+            streetAddress: "100 Main Street", city: "Beverley Hills", state: "CA", zip: "90210", location: CLLocation(),
+            description: "This isn't Beverly Hills! It's Knot's Landing!", URL: NSURL(string: "https://example.com")!)
     }
     
     // MARK: Controllers

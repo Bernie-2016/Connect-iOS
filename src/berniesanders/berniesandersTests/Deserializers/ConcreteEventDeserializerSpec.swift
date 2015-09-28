@@ -2,6 +2,7 @@ import Foundation
 import Quick
 import Nimble
 import berniesanders
+import CoreLocation
 
 class ConcreteEventDeserializerSpec : QuickSpec {
     var subject: ConcreteEventDeserializer!
@@ -30,6 +31,8 @@ class ConcreteEventDeserializerSpec : QuickSpec {
                 expect(eventA.city).to(equal("Austin"))
                 expect(eventA.state).to(equal("TX"))
                 expect(eventA.zip).to(equal("78746"))
+                expect(eventA.location.coordinate.latitude).to(equal(30.31706))
+                expect(eventA.location.coordinate.longitude).to(equal(-97.713631))
                 expect(eventA.description).to(equal("Deputy Voter Registrar Training Class - Travis County\nCall (512) 854-9473 a year ahead to R.S.V.P."))
                 expect(eventA.URL).to(equal(NSURL(string: "https://go.berniesanders.com/page/event/detail/registeringvoters/4vfdg")))
                 
@@ -43,6 +46,8 @@ class ConcreteEventDeserializerSpec : QuickSpec {
                 expect(eventB.city).to(equal("Dallas"))
                 expect(eventB.state).to(equal("TX"))
                 expect(eventB.zip).to(equal("78747"))
+                expect(eventB.location.coordinate.latitude).to(equal(31.31706))
+                expect(eventB.location.coordinate.longitude).to(equal(-98.713631))
                 expect(eventB.description).to(equal("Deputy Dawg Registrar Training Class - Travis County\nCall (512) 854-9473 a week ahead to R.S.V.P."))
                 expect(eventB.URL).to(equal(NSURL(string: "https://go.berniesanders.com/page/event/detail/registeringvoters/4vfd4")))
             }

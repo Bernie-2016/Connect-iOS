@@ -1,7 +1,7 @@
 import berniesanders
 import Quick
 import Nimble
-
+import CoreLocation
 
 class EventPresenterSpec : QuickSpec {
     var subject : EventPresenter!
@@ -16,7 +16,7 @@ class EventPresenterSpec : QuickSpec {
                 
                 event = Event(name: "some event", startDate: NSDate(timeIntervalSince1970: 1433565000), timeZone: NSTimeZone(abbreviation: "PST")!,
                     attendeeCapacity: 10, attendeeCount: 2,
-                    streetAddress: "100 Main Street", city: "Bigtown", state: "CA", zip: "94104",
+                    streetAddress: "100 Main Street", city: "Bigtown", state: "CA", zip: "94104", location: CLLocation(),
                     description: "Words about the event", URL: NSURL(string: "https://example.com")!)
                 
                 self.subject = EventPresenter(dateFormatter: self.dateFormatter)
@@ -33,7 +33,8 @@ class EventPresenterSpec : QuickSpec {
                     beforeEach {
                         event = Event(name: "some event", startDate: NSDate(timeIntervalSince1970: 1433565000), timeZone: NSTimeZone(abbreviation: "PST")!,
                             attendeeCapacity: 10, attendeeCount: 2,
-                            streetAddress: nil, city: "Bigtown", state: "CA", zip: "94104", description: "Words about the event", URL: NSURL(string: "https://example.com")!)
+                            streetAddress: nil, city: "Bigtown", state: "CA", zip: "94104", location: CLLocation(),
+                            description: "Words about the event", URL: NSURL(string: "https://example.com")!)
                     }
                     it("correctly formats the address") {
                         expect(self.subject.presentAddressForEvent(event)).to(equal("Bigtown, CA - 94104"))
@@ -52,7 +53,8 @@ class EventPresenterSpec : QuickSpec {
                     beforeEach {
                         event = Event(name: "some event", startDate: NSDate(timeIntervalSince1970: 1433565000), timeZone: NSTimeZone(abbreviation: "PST")!,
                             attendeeCapacity: 0, attendeeCount: 2,
-                            streetAddress: "100 Main Street", city: "Bigtown", state: "CA", zip: "94104", description: "Words about the event", URL: NSURL(string: "https://example.com")!)
+                            streetAddress: "100 Main Street", city: "Bigtown", state: "CA", zip: "94104", location: CLLocation(),
+                            description: "Words about the event", URL: NSURL(string: "https://example.com")!)
                     }
                     
                     it("sets up the rsvp label correctly") {
@@ -91,7 +93,8 @@ class EventPresenterSpec : QuickSpec {
                     beforeEach {
                         event = Event(name: "some event", startDate: NSDate(timeIntervalSince1970: 1433565000), timeZone: NSTimeZone(abbreviation: "PST")!,
                             attendeeCapacity: 0, attendeeCount: 2,
-                            streetAddress: "100 Main Street", city: "Bigtown", state: "CA", zip: "94104", description: "Words about the event", URL: NSURL(string: "https://example.com")!)
+                            streetAddress: "100 Main Street", city: "Bigtown", state: "CA", zip: "94104", location: CLLocation(),
+                            description: "Words about the event", URL: NSURL(string: "https://example.com")!)
                         
                         self.subject.presentEvent(event, cell: cell)
                     }
