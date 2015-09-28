@@ -107,8 +107,7 @@ class ConcreteEventRepositorySpec : QuickSpec {
                                 "order":         "asc",
                                 "unit":          "km",
                                 "distance_type": "plane"
-                            ],
-                            "start_time": ["order": "desc"]
+                            ]
                         ]
                         
                         let expectedHTTPBodyDictionary =

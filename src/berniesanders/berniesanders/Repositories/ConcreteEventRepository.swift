@@ -106,8 +106,7 @@ public class ConcreteEventRepository : EventRepository {
                     "order":         "asc",
                     "unit":          "km",
                     "distance_type": "plane" 
-                ],
-                "start_time": ["order": "desc"]
+                ]
             ]
         ]
     }
