@@ -54,10 +54,10 @@ public class EventController : UIViewController {
         dateIconImageView.image = UIImage(named: "eventCalendar")
         dateIconImageView.contentMode = .ScaleAspectFit
         dateLabel.text = eventPresenter.presentDateForEvent(event)
-        addressIconImageView.image = UIImage(named: "eventPhone")
+        addressIconImageView.image = UIImage(named: "eventPin")
         addressIconImageView.contentMode = .ScaleAspectFit
         addressLabel.text = eventPresenter.presentAddressForEvent(event)
-        attendeesIconImageView.image = UIImage(named: "eventPin")
+        attendeesIconImageView.image = UIImage(named: "eventPhone")
         attendeesIconImageView.contentMode = .ScaleAspectFit
         attendeesLabel.text = eventPresenter.presentAttendeesForEvent(event)
         descriptionHeadingLabel.text = NSLocalizedString("Event_descriptionHeading", comment: "")
