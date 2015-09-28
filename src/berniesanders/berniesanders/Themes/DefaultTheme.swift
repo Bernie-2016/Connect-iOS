@@ -13,6 +13,14 @@ class DefaultTheme : Theme {
         return self.silverColor()
     }
     
+    func defaultHeaderFont() -> UIFont {
+        return UIFont(name: "Lato-Regular", size: 17)!
+    }
+    
+    func defaultBodyTextFont() -> UIFont {
+        return UIFont(name: "Lora-Bold", size: 15)!
+    }
+    
     // MARK: Tab Bar
     
     func tabBarTintColor() -> UIColor {
@@ -98,7 +106,7 @@ class DefaultTheme : Theme {
     }
     
     func newsItemTitleFont() -> UIFont {
-        return UIFont(name: "Lato-Regular", size: 15)!
+        return defaultHeaderFont()
     }
     
     func newsItemTitleColor() -> UIColor {
@@ -106,7 +114,7 @@ class DefaultTheme : Theme {
     }
     
     func newsItemBodyFont() -> UIFont {
-        return UIFont(name: "Lora-Bold", size: 13)!
+        return defaultBodyTextFont()
     }
     
     func newsItemBodyColor() -> UIColor {
@@ -126,7 +134,7 @@ class DefaultTheme : Theme {
     // MARK: Issue detail screen
     
     func issueTitleFont() -> UIFont {
-        return UIFont(name: "Lato-Regular", size: 15)!
+        return self.defaultHeaderFont()
     }
     
     func issueTitleColor() -> UIColor {
@@ -134,7 +142,7 @@ class DefaultTheme : Theme {
     }
     
     func issueBodyFont() -> UIFont {
-        return UIFont(name: "Lora-Bold", size: 13)!
+        return self.defaultBodyTextFont()
     }
     
     func issueBodyColor() -> UIColor {
