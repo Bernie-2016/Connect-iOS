@@ -16,6 +16,10 @@ class OrganizeFakeTheme : FakeTheme {
     override func tabBarFont() -> UIFont {
         return UIFont.systemFontOfSize(123)
     }
+    
+    override func defaultSpinnerColor() -> UIColor {
+        return UIColor.redColor()
+    }
 }
 
 class OrganizeFakeURLProvider : FakeURLProvider {
@@ -70,10 +74,34 @@ class OrganizeControllerSpec : QuickSpec {
                 var subviews = self.subject.view.subviews as! [UIView]
 
                 expect(contains(subviews, self.subject.webView)).to(beTrue())
+                expect(contains(subviews, self.subject.loadingIndicatorView)).to(beTrue())
             }
             
             it("should load the BernieCrowd.org checklist into a webview") {
                 expect(self.subject.webView.request!.URL).to(equal(NSURL(string: "http://example.com/crowd")))
+            }
+            
+            it("should initially not animate the loading indicator") {
+                expect(self.subject.loadingIndicatorView.isAnimating()).to(beFalse())
+                expect(self.subject.loadingIndicatorView.hidesWhenStopped).to(beTrue())
+            }
+            
+            it("styles the spinner from the theme") {
+                expect(self.subject.loadingIndicatorView.color).to(equal(UIColor.redColor()))
+            }
+            
+            context("When the webview starts to load") {
+                it("starts the spinner") {
+                    self.subject.webView.delegate!.webViewDidStartLoad!(self.subject.webView)
+                    expect(self.subject.loadingIndicatorView.isAnimating()).to(beTrue())
+                }
+                
+                context("and then the webview finishes loading") {
+                    it("stops the spinner") {
+                        self.subject.webView.delegate!.webViewDidFinishLoad!(self.subject.webView)
+                        expect(self.subject.loadingIndicatorView.isAnimating()).to(beFalse())
+                    }
+                }
             }
         }
     }

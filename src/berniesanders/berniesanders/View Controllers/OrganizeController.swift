@@ -1,12 +1,16 @@
 import UIKit
 import PureLayout
 
-public class OrganizeController : UIViewController {
-    public let webView = UIWebView()
+public class OrganizeController : UIViewController, UIWebViewDelegate {
     let urlProvider : URLProvider!
+    let theme : Theme!
+    
+    public let webView = UIWebView()
+    public let loadingIndicatorView = UIActivityIndicatorView.newAutoLayoutView()
     
     public init(urlProvider: URLProvider, theme: Theme) {
         self.urlProvider = urlProvider
+        self.theme = theme
         
         super.init(nibName: nil, bundle: nil)
         
@@ -29,20 +33,38 @@ public class OrganizeController : UIViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        loadingIndicatorView.color = theme.defaultSpinnerColor()
         
-        self.navigationItem.title = NSLocalizedString("Organize_navigationTitle", comment: "")
+        webView.delegate = self
+        loadingIndicatorView.stopAnimating()
         
-        self.setNeedsStatusBarAppearanceUpdate()
+        navigationItem.title = NSLocalizedString("Organize_navigationTitle", comment: "")
+        
+        setNeedsStatusBarAppearanceUpdate()
         
         var urlRequest = NSURLRequest(URL: self.urlProvider.bernieCrowdURL())
-        self.webView.loadRequest(urlRequest)
+        webView.loadRequest(urlRequest)
         
-        self.webView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        self.view.addSubview(self.webView)
-        self.webView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsMake(20.0, 0.0, 0.0, 0.0))
+        webView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
+        view.addSubview(self.webView)
+        view.addSubview(self.loadingIndicatorView)
+        
+        loadingIndicatorView.autoCenterInSuperviewMargins()
+        webView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsMake(20.0, 0.0, 0.0, 0.0))
     }
     
     public override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return UIStatusBarStyle.Default
+    }
+    
+    // MARK: UIWebViewDelegate
+    
+    public func webViewDidStartLoad(webView: UIWebView) {
+        self.loadingIndicatorView.startAnimating()
+    }
+    
+    public func webViewDidFinishLoad(webView: UIWebView) {
+        self.loadingIndicatorView.stopAnimating()
     }
 }

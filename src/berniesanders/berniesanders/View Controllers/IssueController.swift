@@ -103,9 +103,7 @@ public class IssueController : UIViewController {
         self.bodyTextView.editable = false
         
         self.bodyTextView.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.titleLabel, withOffset: 16)
-        self.bodyTextView.autoPinEdgeToSuperviewEdge(ALEdge.Bottom, withInset: 8)
-        self.bodyTextView.autoPinEdgeToSuperviewEdge(ALEdge.Leading, withInset: 8)
-        self.bodyTextView.autoPinEdgeToSuperviewEdge(ALEdge.Trailing)
+        self.bodyTextView.autoPinEdgesToSuperviewMarginsExcludingEdge(.Top)
     }
     
     private func applyThemeToViews() {
