@@ -10,7 +10,7 @@ class EventPresenterSpec : QuickSpec {
             var event : Event!
  
             beforeEach {
-                event = Event(name: "some event", attendeeCapacity: 10, attendeeCount: 2, city: "Bigtown", state: "CA", zip: "94104")
+                event = Event(name: "some event", attendeeCapacity: 10, attendeeCount: 2, city: "Bigtown", state: "CA", zip: "94104", description: "Words about the event")
                 
                 self.subject = EventPresenter()
             }
@@ -30,7 +30,7 @@ class EventPresenterSpec : QuickSpec {
                 
                 context("when the event has a zero attendee capacity") {
                     beforeEach {
-                        event = Event(name: "some event", attendeeCapacity: 0, attendeeCount: 2, city: "Bigtown", state: "CA", zip: "94104")
+                        event = Event(name: "some event", attendeeCapacity: 0, attendeeCount: 2, city: "Bigtown", state: "CA", zip: "94104", description: "Words about the event")
                     }
                     
                     it("sets up the rsvp label correctly") {
@@ -67,7 +67,7 @@ class EventPresenterSpec : QuickSpec {
                 
                 context("when the event has a zero attendee capacity") {
                     beforeEach {
-                        event = Event(name: "some event", attendeeCapacity: 0, attendeeCount: 2, city: "Bigtown", state: "CA", zip: "94104")
+                        event = Event(name: "some event", attendeeCapacity: 0, attendeeCount: 2, city: "Bigtown", state: "CA", zip: "94104", description: "Words about the event")
                         
                         self.subject.presentEvent(event, cell: cell)
                     }

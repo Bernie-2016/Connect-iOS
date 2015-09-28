@@ -7,13 +7,15 @@ public class Event {
     public let city: String!
     public let state: String!
     public let zip: String!
+    public let description: String!
     
-    public init(name: String, attendeeCapacity: Int, attendeeCount: Int, city: String, state: String, zip: String) {
+    public init(name: String, attendeeCapacity: Int, attendeeCount: Int, city: String, state: String, zip: String, description: String) {
         self.name = name
         self.attendeeCapacity = attendeeCapacity
         self.attendeeCount = attendeeCount
         self.city = city
         self.state = state
         self.zip = zip
+        self.description = description
     }
 }

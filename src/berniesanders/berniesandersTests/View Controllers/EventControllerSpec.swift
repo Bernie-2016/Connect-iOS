@@ -22,7 +22,7 @@ class EventControllerSpec: QuickSpec {
     let dateFormatter = NSDateFormatter()
     var eventPresenter : FakeEventPresenter!
     let theme = EventFakeTheme()
-    let event = Event(name: "limited event", attendeeCapacity: 10, attendeeCount: 2, city: "San Francisco", state: "CA", zip: "94117")
+    let event = Event(name: "limited event", attendeeCapacity: 10, attendeeCount: 2, city: "San Francisco", state: "CA", zip: "94117", description: "Words about the event")
     
     override func spec() {
         describe("EventController") {
@@ -64,7 +64,7 @@ class EventControllerSpec: QuickSpec {
                 expect(contains(containerViewSubViews, self.subject.descriptionLabel)).to(beTrue())
             }
             
-            it("displays the title from the news item") {
+            it("displays the title") {
                 expect(self.subject.nameLabel.text).to(equal("limited event"))
             }
             
@@ -76,6 +76,10 @@ class EventControllerSpec: QuickSpec {
             it("uses the presenter to display the attendees") {
                 expect(self.eventPresenter.lastEventWithPresentedAttendees).to(beIdenticalTo(self.event))
                 expect(self.subject.attendeesLabel.text).to(equal("LOTS OF PEOPLE!"))
+            }
+            
+            it("displays the event description") {
+                expect(self.subject.descriptionLabel.text).to(equal("Words about the event"))
             }
             
             it("has a heading for the description") {

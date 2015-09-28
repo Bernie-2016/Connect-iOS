@@ -38,18 +38,19 @@ public class EventController : UIViewController {
         nameLabel.font = theme.eventNameFont()
         
         nameLabel.text = event.name
-        addressLabel.text = self.eventPresenter.presentAddressForEvent(event)
-        attendeesLabel.text = self.eventPresenter.presentAttendeesForEvent(event)
+        addressLabel.text = eventPresenter.presentAddressForEvent(event)
+        attendeesLabel.text = eventPresenter.presentAttendeesForEvent(event)
         descriptionHeadingLabel.text = NSLocalizedString("Event_descriptionHeading", comment: "")
+        descriptionLabel.text = event.description
         
-        view.addSubview(self.scrollView)
-        scrollView.addSubview(self.containerView)
-        containerView.addSubview(self.nameLabel)
-        containerView.addSubview(self.dateLabel)
-        containerView.addSubview(self.attendeesLabel)
-        containerView.addSubview(self.addressLabel)
-        containerView.addSubview(self.descriptionHeadingLabel)
-        containerView.addSubview(self.descriptionLabel)
+        view.addSubview(scrollView)
+        scrollView.addSubview(containerView)
+        containerView.addSubview(nameLabel)
+        containerView.addSubview(dateLabel)
+        containerView.addSubview(attendeesLabel)
+        containerView.addSubview(addressLabel)
+        containerView.addSubview(descriptionHeadingLabel)
+        containerView.addSubview(descriptionLabel)
         
         let screenBounds = UIScreen.mainScreen().bounds
 
@@ -59,7 +60,7 @@ public class EventController : UIViewController {
         containerView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Trailing)
         containerView.autoSetDimension(.Width, toSize: screenBounds.width)
 
-        nameLabel.numberOfLines = 3
+        nameLabel.numberOfLines = 0
         nameLabel.autoPinEdgeToSuperviewMargin(.Top)
         nameLabel.autoPinEdgeToSuperviewMargin(.Left)
         nameLabel.autoPinEdgeToSuperviewMargin(.Right)
@@ -76,6 +77,7 @@ public class EventController : UIViewController {
         addressLabel.autoPinEdgeToSuperviewMargin(.Left)
         addressLabel.autoPinEdgeToSuperviewMargin(.Right)
         
+        descriptionLabel.numberOfLines = 0
         descriptionHeadingLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: addressLabel, withOffset: 8)
         descriptionHeadingLabel.autoPinEdgeToSuperviewMargin(.Left)
         descriptionHeadingLabel.autoPinEdgeToSuperviewMargin(.Right)

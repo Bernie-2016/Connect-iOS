@@ -40,14 +40,16 @@ public class ConcreteEventDeserializer : EventDeserializer {
             var city = venueDictionary!["city"] as? String
             var state = venueDictionary!["state"] as? String
             var zip = venueDictionary!["zip"] as? String
+            var description = sourceDictionary!["description"] as? String
             
             if (name == nil || attendeeCapacity == nil || attendeeCount == nil
-                || city == nil || state == nil || zip == nil) {
+                || city == nil || state == nil || zip == nil
+                || description == nil) {
                 continue;
             }
             
             var event = Event(name: name!, attendeeCapacity: attendeeCapacity!, attendeeCount: attendeeCount!,
-                city: city!, state: state!, zip: zip!)
+                city: city!, state: state!, zip: zip!, description: description!)
             
             events.append(event)
         }

@@ -24,9 +24,7 @@ class TestUtils {
     }
     
     class func eventWithName(name: String) -> Event {
-        return Event(name: name, attendeeCapacity: 10, attendeeCount: 2, city: "Beverley Hills", state: "CA", zip: "90210")
-//        return Event(name: "Bigtime Bernie BBQ", description: "", date: NSDate(), attendees: 10, capacity: 12
-//            address: "251 N. Bristol Avenue" city: "Bel Air", state: "CA", zip: "90049", lat:, lon:
+        return Event(name: name, attendeeCapacity: 10, attendeeCount: 2, city: "Beverley Hills", state: "CA", zip: "90210", description: "This isn't Beverly Hills! It's Knot's Landing!")
     }
     
     // MARK: Controllers

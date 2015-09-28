@@ -26,6 +26,8 @@ public class NewsItemController : UIViewController {
         self.theme = theme
         
         super.init(nibName: nil, bundle: nil)
+            
+        self.hidesBottomBarWhenPushed = true
     }
     
     // MARK: UIViewController
@@ -33,7 +35,6 @@ public class NewsItemController : UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         
-        self.hidesBottomBarWhenPushed = true
 
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "share")
         
