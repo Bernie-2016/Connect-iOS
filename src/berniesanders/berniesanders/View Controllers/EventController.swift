@@ -11,8 +11,11 @@ public class EventController : UIViewController {
     let scrollView = UIScrollView.newAutoLayoutView()
     public let mapView = MKMapView.newAutoLayoutView()
     public let nameLabel = UILabel.newAutoLayoutView()
+    public let dateIconImageView = UIImageView.newAutoLayoutView()
     public let dateLabel = UILabel.newAutoLayoutView()
+    public let attendeesIconImageView = UIImageView.newAutoLayoutView()
     public let attendeesLabel = UILabel.newAutoLayoutView()
+    public let addressIconImageView = UIImageView.newAutoLayoutView()
     public let addressLabel = UILabel.newAutoLayoutView()
     public let descriptionHeadingLabel = UILabel.newAutoLayoutView()
     public let descriptionLabel = UILabel.newAutoLayoutView()
@@ -48,62 +51,33 @@ public class EventController : UIViewController {
         applyTheme()
         
         nameLabel.text = event.name
+        dateIconImageView.image = UIImage(named: "eventCalendar")
+        dateIconImageView.contentMode = .ScaleAspectFit
+        dateLabel.text = eventPresenter.presentDateForEvent(event)
+        addressIconImageView.image = UIImage(named: "eventPhone")
+        addressIconImageView.contentMode = .ScaleAspectFit
         addressLabel.text = eventPresenter.presentAddressForEvent(event)
+        attendeesIconImageView.image = UIImage(named: "eventPin")
+        attendeesIconImageView.contentMode = .ScaleAspectFit
         attendeesLabel.text = eventPresenter.presentAttendeesForEvent(event)
         descriptionHeadingLabel.text = NSLocalizedString("Event_descriptionHeading", comment: "")
         descriptionLabel.text = event.description
-        dateLabel.text = eventPresenter.presentDateForEvent(event)
+        
         
         view.addSubview(scrollView)
         scrollView.addSubview(containerView)
         containerView.addSubview(mapView)
         containerView.addSubview(nameLabel)
+        containerView.addSubview(dateIconImageView)
         containerView.addSubview(dateLabel)
+        containerView.addSubview(attendeesIconImageView)
         containerView.addSubview(attendeesLabel)
+        containerView.addSubview(addressIconImageView)
         containerView.addSubview(addressLabel)
         containerView.addSubview(descriptionHeadingLabel)
         containerView.addSubview(descriptionLabel)
         
-        let screenBounds = UIScreen.mainScreen().bounds
-
-        scrollView.contentSize.width = self.view.bounds.width
-        scrollView.autoPinEdgesToSuperviewEdges()
-
-        containerView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Trailing)
-        containerView.autoSetDimension(.Width, toSize: screenBounds.width)
-        
-        mapView.autoPinEdgeToSuperviewEdge(.Top)
-        mapView.autoPinEdgeToSuperviewEdge(.Left)
-        mapView.autoPinEdgeToSuperviewEdge(.Right)
-        mapView.autoSetDimension(.Height, toSize: self.view.bounds.height / 3)
-
-        nameLabel.numberOfLines = 0
-        nameLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: mapView, withOffset: 12)
-        nameLabel.autoPinEdgeToSuperviewMargin(.Left)
-        nameLabel.autoPinEdgeToSuperviewMargin(.Right)
-        
-        dateLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: nameLabel, withOffset: 12)
-        dateLabel.autoPinEdgeToSuperviewMargin(.Left)
-        dateLabel.autoPinEdgeToSuperviewMargin(.Right)
-
-        attendeesLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: dateLabel, withOffset: 8)
-        attendeesLabel.autoPinEdgeToSuperviewMargin(.Left)
-        attendeesLabel.autoPinEdgeToSuperviewMargin(.Right)
-
-        addressLabel.numberOfLines = 0
-        addressLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: attendeesLabel, withOffset: 8)
-        addressLabel.autoPinEdgeToSuperviewMargin(.Left)
-        addressLabel.autoPinEdgeToSuperviewMargin(.Right)
-        
-        descriptionLabel.numberOfLines = 0
-        descriptionHeadingLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: addressLabel, withOffset: 8)
-        descriptionHeadingLabel.autoPinEdgeToSuperviewMargin(.Left)
-        descriptionHeadingLabel.autoPinEdgeToSuperviewMargin(.Right)
-        
-        descriptionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: descriptionHeadingLabel, withOffset: 8)
-        descriptionLabel.autoPinEdgeToSuperviewMargin(.Left)
-        descriptionLabel.autoPinEdgeToSuperviewMargin(.Right)
-        descriptionLabel.autoPinEdgeToSuperviewMargin(.Bottom)
+        setupConstraints()
     }
 
     required public init(coder aDecoder: NSCoder) {
@@ -131,5 +105,57 @@ public class EventController : UIViewController {
         descriptionHeadingLabel.font = theme.eventDescriptionHeadingFont()
         descriptionLabel.textColor = theme.eventDescriptionColor()
         descriptionLabel.font = theme.eventDescriptionFont()
+    }
+    
+    func setupConstraints() {
+        let screenBounds = UIScreen.mainScreen().bounds
+        
+        scrollView.contentSize.width = self.view.bounds.width
+        scrollView.autoPinEdgesToSuperviewEdges()
+        
+        containerView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Trailing)
+        containerView.autoSetDimension(.Width, toSize: screenBounds.width)
+        
+        mapView.autoPinEdgeToSuperviewEdge(.Top)
+        mapView.autoPinEdgeToSuperviewEdge(.Left)
+        mapView.autoPinEdgeToSuperviewEdge(.Right)
+        mapView.autoSetDimension(.Height, toSize: self.view.bounds.height / 3)
+        
+        nameLabel.numberOfLines = 0
+        nameLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: mapView, withOffset: 12)
+        nameLabel.autoPinEdgeToSuperviewMargin(.Left)
+        nameLabel.autoPinEdgeToSuperviewMargin(.Right)
+        
+        dateIconImageView.autoPinEdgeToSuperviewMargin(.Left)
+        dateIconImageView.autoSetDimension(.Width, toSize: 20)
+        dateIconImageView.autoAlignAxis(.Horizontal, toSameAxisOfView: dateLabel)
+        dateLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: nameLabel, withOffset: 20)
+        dateLabel.autoPinEdge(.Left, toEdge: .Right, ofView: dateIconImageView, withOffset: 12)
+        dateLabel.autoPinEdgeToSuperviewMargin(.Right)
+        
+        attendeesIconImageView.autoPinEdgeToSuperviewMargin(.Left)
+        attendeesIconImageView.autoSetDimension(.Width, toSize: 20)
+        attendeesIconImageView.autoAlignAxis(.Horizontal, toSameAxisOfView: attendeesLabel)
+        attendeesLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: dateLabel, withOffset: 16)
+        attendeesLabel.autoPinEdge(.Left, toEdge: .Right, ofView: attendeesIconImageView, withOffset: 12)
+        attendeesLabel.autoPinEdgeToSuperviewMargin(.Right)
+        
+        addressIconImageView.autoPinEdgeToSuperviewMargin(.Left)
+        addressIconImageView.autoSetDimension(.Width, toSize: 20)
+        addressIconImageView.autoAlignAxis(.Horizontal, toSameAxisOfView: addressLabel)
+        addressLabel.numberOfLines = 0
+        addressLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: attendeesLabel, withOffset: 12)
+        addressLabel.autoPinEdge(.Left, toEdge: .Right, ofView: addressIconImageView, withOffset: 12)
+        addressLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 12)
+        
+        descriptionHeadingLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: addressLabel, withOffset: 16)
+        descriptionHeadingLabel.autoPinEdgeToSuperviewMargin(.Left)
+        descriptionHeadingLabel.autoPinEdgeToSuperviewMargin(.Right)
+        
+        descriptionLabel.numberOfLines = 0
+        descriptionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: descriptionHeadingLabel, withOffset: 8)
+        descriptionLabel.autoPinEdgeToSuperviewMargin(.Left)
+        descriptionLabel.autoPinEdgeToSuperviewMargin(.Right)
+        descriptionLabel.autoPinEdgeToSuperviewMargin(.Bottom)
     }
 }

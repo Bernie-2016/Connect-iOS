@@ -79,14 +79,17 @@ class EventControllerSpec: QuickSpec {
                     
                     var containerView = scrollView.subviews.first as! UIView
                     
-                    expect(containerView.subviews.count).to(equal(7))
+                    expect(containerView.subviews.count).to(equal(10))
                     
                     var containerViewSubViews = containerView.subviews as! [UIView]
 
                     expect(contains(containerViewSubViews, self.subject.mapView)).to(beTrue())
                     expect(contains(containerViewSubViews, self.subject.nameLabel)).to(beTrue())
+                    expect(contains(containerViewSubViews, self.subject.dateIconImageView)).to(beTrue())
                     expect(contains(containerViewSubViews, self.subject.dateLabel)).to(beTrue())
+                    expect(contains(containerViewSubViews, self.subject.attendeesIconImageView)).to(beTrue())
                     expect(contains(containerViewSubViews, self.subject.attendeesLabel)).to(beTrue())
+                    expect(contains(containerViewSubViews, self.subject.addressIconImageView)).to(beTrue())
                     expect(contains(containerViewSubViews, self.subject.addressLabel)).to(beTrue())
                     expect(contains(containerViewSubViews, self.subject.descriptionHeadingLabel)).to(beTrue())
                     expect(contains(containerViewSubViews, self.subject.descriptionLabel)).to(beTrue())

@@ -44,8 +44,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             let longDateFormatter = NSDateFormatter()
             longDateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
             let fullDateWithTimeFormatter = NSDateFormatter()
-            fullDateWithTimeFormatter.dateStyle = NSDateFormatterStyle.FullStyle
-            fullDateWithTimeFormatter.timeStyle = NSDateFormatterStyle.LongStyle
+            fullDateWithTimeFormatter.dateFormat = "EEEE MMMM d, y h:mm a z"
             
             let newsItemControllerProvider = ConcreteNewsItemControllerProvider(
                 dateFormatter: longDateFormatter, imageRepository: imageRepository, theme: defaultTheme
