@@ -224,13 +224,23 @@ class DefaultTheme : Theme {
     // MARK: Event screen
     
     func eventNameFont() -> UIFont {
-        return UIFont(name: "Lora-Bold", size: 15)!
+        return self.defaultHeaderFont()
     }
     
     func eventNameColor() -> UIColor {
         return self.cornflowerBlueColor()
     }
-
+    
+    func eventStartDateFont() -> UIFont { return UIFont(name: "Lato-Regular", size: 13)! }
+    func eventStartDateColor() -> UIColor { return self.cornflowerBlueColor() }
+    func eventAttendeesFont() -> UIFont { return UIFont(name: "Lato-Regular", size: 13)! }
+    func eventAttendeesColor() -> UIColor { return self.cornflowerBlueColor() }
+    func eventAddressFont() -> UIFont { return UIFont(name: "Lato-Regular", size: 13)! }
+    func eventAddressColor() -> UIColor { return self.cornflowerBlueColor() }
+    func eventDescriptionHeadingFont() -> UIFont { return UIFont(name: "Lato-Regular", size: 17)! }
+    func eventDescriptionHeadingColor() -> UIColor { return self.cornflowerBlueColor() }
+    func eventDescriptionFont() -> UIFont { return UIFont(name: "Lato-Regular", size: 13)! }
+    func eventDescriptionColor() -> UIColor { return self.cornflowerBlueColor() }
 
     // MARK: default dimensions
     

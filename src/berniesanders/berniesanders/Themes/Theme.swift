@@ -80,6 +80,16 @@ public protocol Theme {
     
     func eventNameFont() -> UIFont
     func eventNameColor() -> UIColor
+    func eventStartDateFont() -> UIFont
+    func eventStartDateColor() -> UIColor
+    func eventAttendeesFont() -> UIFont
+    func eventAttendeesColor() -> UIColor
+    func eventAddressFont() -> UIFont
+    func eventAddressColor() -> UIColor
+    func eventDescriptionHeadingFont() -> UIFont
+    func eventDescriptionHeadingColor() -> UIColor
+    func eventDescriptionFont() -> UIFont
+    func eventDescriptionColor() -> UIColor
     
     // MARK: Settings
     

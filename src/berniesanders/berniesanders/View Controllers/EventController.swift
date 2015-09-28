@@ -43,10 +43,9 @@ public class EventController : UIViewController {
         mapView.addAnnotation(eventPin)
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "share")
+        navigationItem.title = NSLocalizedString("Event_navigationTitle", comment: "")
         
-        view.backgroundColor = theme.defaultBackgroundColor()
-        nameLabel.textColor = theme.eventNameColor()
-        nameLabel.font = theme.eventNameFont()
+        applyTheme()
         
         nameLabel.text = event.name
         addressLabel.text = eventPresenter.presentAddressForEvent(event)
@@ -73,17 +72,17 @@ public class EventController : UIViewController {
         containerView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Trailing)
         containerView.autoSetDimension(.Width, toSize: screenBounds.width)
         
-        mapView.autoPinEdgeToSuperviewMargin(.Top)
-        mapView.autoPinEdgeToSuperviewMargin(.Left)
-        mapView.autoPinEdgeToSuperviewMargin(.Right)
+        mapView.autoPinEdgeToSuperviewEdge(.Top)
+        mapView.autoPinEdgeToSuperviewEdge(.Left)
+        mapView.autoPinEdgeToSuperviewEdge(.Right)
         mapView.autoSetDimension(.Height, toSize: self.view.bounds.height / 3)
 
         nameLabel.numberOfLines = 0
-        nameLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: mapView)
+        nameLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: mapView, withOffset: 12)
         nameLabel.autoPinEdgeToSuperviewMargin(.Left)
         nameLabel.autoPinEdgeToSuperviewMargin(.Right)
         
-        dateLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: nameLabel, withOffset: 8)
+        dateLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: nameLabel, withOffset: 12)
         dateLabel.autoPinEdgeToSuperviewMargin(.Left)
         dateLabel.autoPinEdgeToSuperviewMargin(.Right)
 
@@ -104,6 +103,7 @@ public class EventController : UIViewController {
         descriptionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: descriptionHeadingLabel, withOffset: 8)
         descriptionLabel.autoPinEdgeToSuperviewMargin(.Left)
         descriptionLabel.autoPinEdgeToSuperviewMargin(.Right)
+        descriptionLabel.autoPinEdgeToSuperviewMargin(.Bottom)
     }
 
     required public init(coder aDecoder: NSCoder) {
@@ -115,5 +115,21 @@ public class EventController : UIViewController {
     func share() {
         let activityVC = UIActivityViewController(activityItems: [event.URL], applicationActivities: nil)
         presentViewController(activityVC, animated: true, completion: nil)
+    }
+    
+    func applyTheme() {
+        view.backgroundColor = theme.defaultBackgroundColor()
+        nameLabel.textColor = theme.eventNameColor()
+        nameLabel.font = theme.eventNameFont()
+        dateLabel.textColor = theme.eventStartDateColor()
+        dateLabel.font = theme.eventStartDateFont()
+        attendeesLabel.textColor = theme.eventAttendeesColor()
+        attendeesLabel.font = theme.eventAttendeesFont()
+        addressLabel.textColor = theme.eventAddressColor()
+        addressLabel.font = theme.eventAddressFont()
+        descriptionHeadingLabel.textColor = theme.eventDescriptionHeadingColor()
+        descriptionHeadingLabel.font = theme.eventDescriptionHeadingFont()
+        descriptionLabel.textColor = theme.eventDescriptionColor()
+        descriptionLabel.font = theme.eventDescriptionFont()
     }
 }

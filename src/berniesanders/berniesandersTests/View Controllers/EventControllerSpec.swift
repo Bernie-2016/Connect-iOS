@@ -6,17 +6,19 @@ import CoreLocation
 import MapKit
 
 class EventFakeTheme : FakeTheme {
-    override func defaultBackgroundColor() -> UIColor {
-        return UIColor.orangeColor()
-    }
-    
-    override func eventNameFont() -> UIFont {
-        return UIFont.systemFontOfSize(111)
-    }
-    
-    override func eventNameColor() -> UIColor {
-        return UIColor.purpleColor()
-    }
+    override func defaultBackgroundColor() -> UIColor { return UIColor.orangeColor() }
+    override func eventNameFont() -> UIFont { return UIFont.systemFontOfSize(111) }
+    override func eventNameColor() -> UIColor { return UIColor.purpleColor() }
+    override func eventStartDateFont() -> UIFont { return UIFont.systemFontOfSize(222)  }
+    override func eventStartDateColor() -> UIColor { return UIColor.yellowColor() }
+    override func eventAttendeesFont() -> UIFont { return UIFont.systemFontOfSize(333) }
+    override func eventAttendeesColor() -> UIColor { return UIColor.greenColor() }
+    override func eventAddressFont() -> UIFont { return UIFont.systemFontOfSize(444) }
+    override func eventAddressColor() -> UIColor { return UIColor.blueColor() }
+    override func eventDescriptionHeadingFont() -> UIFont { return UIFont.systemFontOfSize(555) }
+    override func eventDescriptionHeadingColor() -> UIColor { return UIColor.brownColor() }
+    override func eventDescriptionFont() -> UIFont { return UIFont.systemFontOfSize(666) }
+    override func eventDescriptionColor() -> UIColor { return UIColor.magentaColor() }
 }
 
 class EventControllerSpec: QuickSpec {
@@ -45,6 +47,10 @@ class EventControllerSpec: QuickSpec {
             describe("when the view loads") {
                 beforeEach {
                     self.subject.view.layoutSubviews()
+                }
+                
+                it("has the correct navigation item title") {
+                    expect(self.subject.navigationItem.title).to(equal("Event Details"))
                 }
                 
                 it("has a share button on the navigation item") {
@@ -93,7 +99,6 @@ class EventControllerSpec: QuickSpec {
                     let region = self.subject.mapView.region
                                        expect(region.center.latitude).to(equal(self.event.location.coordinate.latitude))
                     expect(region.center.longitude).to(equal(self.event.location.coordinate.longitude))
-                    
                 }
                 
                 it("adds a pin to the map for the event") {
@@ -139,6 +144,21 @@ class EventControllerSpec: QuickSpec {
                     expect(self.subject.view.backgroundColor).to(equal(UIColor.orangeColor()))
                     expect(self.subject.nameLabel.font).to(equal(UIFont.systemFontOfSize(111)))
                     expect(self.subject.nameLabel.textColor).to(equal(UIColor.purpleColor()))
+
+                    expect(self.subject.dateLabel.font).to(equal(UIFont.systemFontOfSize(222)))
+                    expect(self.subject.dateLabel.textColor).to(equal(UIColor.yellowColor()))
+
+                    expect(self.subject.attendeesLabel.font).to(equal(UIFont.systemFontOfSize(333)))
+                    expect(self.subject.attendeesLabel.textColor).to(equal(UIColor.greenColor()))
+                    
+                    expect(self.subject.addressLabel.font).to(equal(UIFont.systemFontOfSize(444)))
+                    expect(self.subject.addressLabel.textColor).to(equal(UIColor.blueColor()))
+
+                    expect(self.subject.descriptionHeadingLabel.font).to(equal(UIFont.systemFontOfSize(555)))
+                    expect(self.subject.descriptionHeadingLabel.textColor).to(equal(UIColor.brownColor()))
+
+                    expect(self.subject.descriptionLabel.font).to(equal(UIFont.systemFontOfSize(666)))
+                    expect(self.subject.descriptionLabel.textColor).to(equal(UIColor.magentaColor()))
                 }
             }
         }
