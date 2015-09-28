@@ -81,8 +81,7 @@ class OrganizeControllerSpec : QuickSpec {
                 expect(self.subject.webView.request!.URL).to(equal(NSURL(string: "http://example.com/crowd")))
             }
             
-            it("should initially not animate the loading indicator") {
-                expect(self.subject.loadingIndicatorView.isAnimating()).to(beFalse())
+            it("should not show the loading indicator when it's not animating") {
                 expect(self.subject.loadingIndicatorView.hidesWhenStopped).to(beTrue())
             }
             
