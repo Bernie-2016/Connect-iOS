@@ -157,7 +157,7 @@ class NewsFeedControllerSpecs: QuickSpec {
                 
         describe("tapping on the settings button") {
             it("should push the settings controller onto the nav stack") {
-                self.subject.navigationItem.leftBarButtonItem!.tap()
+                self.subject.navigationItem.rightBarButtonItem!.tap()
                 
                 expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.settingsController))
             }

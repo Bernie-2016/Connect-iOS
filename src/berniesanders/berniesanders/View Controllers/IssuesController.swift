@@ -43,7 +43,7 @@ public class IssuesController: UIViewController, UITableViewDataSource, UITableV
         super.viewDidLoad()
         
         let settingsIcon = UIImage(named: "settingsIcon")
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: settingsIcon, style: .Plain, target: self, action: "didTapSettings")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: settingsIcon, style: .Plain, target: self, action: "didTapSettings")
         
         navigationItem.title = NSLocalizedString("Issues_navigationTitle", comment: "")
         

@@ -55,7 +55,7 @@ public class EventsController : UIViewController, UITableViewDataSource, UITable
         
         self.navigationItem.title = NSLocalizedString("Events_navigationTitle", comment: "")
         let settingsIcon = UIImage(named: "settingsIcon")
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: settingsIcon, style: .Plain, target: self, action: "didTapSettings")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: settingsIcon, style: .Plain, target: self, action: "didTapSettings")
         let backBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Events_backButtonTitle", comment: ""),
             style: UIBarButtonItemStyle.Plain,
             target: nil, action: nil)

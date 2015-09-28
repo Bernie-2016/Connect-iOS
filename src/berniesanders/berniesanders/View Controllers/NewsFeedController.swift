@@ -58,7 +58,7 @@ public class NewsFeedController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidLoad()
 
         let settingsIcon = UIImage(named: "settingsIcon")
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: settingsIcon, style: .Plain, target: self, action: "didTapSettings")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: settingsIcon, style: .Plain, target: self, action: "didTapSettings")
 
         navigationItem.title = NSLocalizedString("NewsFeed_navigationTitle", comment: "")
         
