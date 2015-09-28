@@ -6,6 +6,12 @@ public class ConcreteEventDeserializer : EventDeserializer {
     }
     
     public func deserializeEvents(jsonDictionary: NSDictionary) -> Array<Event> {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.timeZone = NSTimeZone(name: "UTC")
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"  // "2015-08-28T05:10:21"
+        // TODO: inject a dateformatter.
+
+        
         var events = [Event]()
 
         var hitsDictionary = jsonDictionary["hits"] as? NSDictionary;
@@ -34,6 +40,8 @@ public class ConcreteEventDeserializer : EventDeserializer {
             }
             
             var name = sourceDictionary!["name"] as? String
+            var timeZoneString = sourceDictionary!["timezone"] as? String
+            var startDateString = sourceDictionary!["start_time"] as? String
             var attendeeCapacity = sourceDictionary!["capacity"] as? Int
             var attendeeCount = sourceDictionary!["attendee_count"] as? Int
             
@@ -44,19 +52,29 @@ public class ConcreteEventDeserializer : EventDeserializer {
             var description = sourceDictionary!["description"] as? String
             var URLString = sourceDictionary!["url"] as? String
             
-            if (name == nil || attendeeCapacity == nil || attendeeCount == nil
+            if (name == nil || timeZoneString == nil || startDateString == nil
+                || attendeeCapacity == nil || attendeeCount == nil
                 || city == nil || state == nil || zip == nil
                 || description == nil || URLString == nil) {
                 continue;
             }
             
             var URL = NSURL(string: URLString!)
+            var timeZone = NSTimeZone(abbreviation: timeZoneString!)
             
-            if (URL == nil) {
+            if (URL == nil || timeZone == nil) {
                 continue;
             }
+
+            dateFormatter.timeZone = timeZone
+            var startDate = dateFormatter.dateFromString(startDateString!)
             
-            var event = Event(name: name!, attendeeCapacity: attendeeCapacity!, attendeeCount: attendeeCount!,
+            if(startDate == nil) {
+                continue;
+            }
+
+            
+            var event = Event(name: name!, startDate: startDate!, timeZone: timeZone!, attendeeCapacity: attendeeCapacity!, attendeeCount: attendeeCount!,
                 streetAddress: streetAddress, city: city!, state: state!, zip: zip!,
                 description: description!, URL: URL!)
             

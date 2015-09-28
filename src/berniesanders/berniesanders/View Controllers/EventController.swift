@@ -3,7 +3,6 @@ import UIKit
 public class EventController : UIViewController {
     public let event : Event!
     public let eventPresenter: EventPresenter!
-    public let dateFormatter : NSDateFormatter!
     public let theme : Theme!
     
     let containerView = UIView.newAutoLayoutView()
@@ -18,11 +17,9 @@ public class EventController : UIViewController {
     public init(
         event: Event,
         eventPresenter: EventPresenter,
-        dateFormatter: NSDateFormatter,
         theme: Theme) {            
             self.event = event
             self.eventPresenter = eventPresenter
-            self.dateFormatter = dateFormatter
             self.theme = theme
             
             super.init(nibName: nil, bundle: nil)
@@ -44,6 +41,7 @@ public class EventController : UIViewController {
         attendeesLabel.text = eventPresenter.presentAttendeesForEvent(event)
         descriptionHeadingLabel.text = NSLocalizedString("Event_descriptionHeading", comment: "")
         descriptionLabel.text = event.description
+        dateLabel.text = eventPresenter.presentDateForEvent(event)
         
         view.addSubview(scrollView)
         scrollView.addSubview(containerView)

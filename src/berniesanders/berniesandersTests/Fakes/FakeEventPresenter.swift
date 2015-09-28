@@ -6,6 +6,7 @@ class FakeEventPresenter : EventPresenter {
     var lastReceivedCell: EventListTableViewCell?
     var lastEventWithPresentedAddress : Event!
     var lastEventWithPresentedAttendees : Event!
+    var lastEventWithPresentedDate : Event!
     
     override func presentAddressForEvent(event: Event) -> String {
         self.lastEventWithPresentedAddress = event
@@ -21,5 +22,10 @@ class FakeEventPresenter : EventPresenter {
         lastReceivedEvent = event
         lastReceivedCell = cell
         return cell
+    }
+    
+    override func presentDateForEvent(event: Event) -> String {
+        lastEventWithPresentedDate = event
+        return "PRESENTED DATE!"
     }
 }

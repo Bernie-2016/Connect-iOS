@@ -1,8 +1,10 @@
 import UIKit
 
 public class EventPresenter {
-    public init() {
-        
+    let dateFormatter: NSDateFormatter!
+    
+    public init(dateFormatter: NSDateFormatter) {
+        self.dateFormatter = dateFormatter
     }
     
     public func presentEvent(event: Event, cell: EventListTableViewCell) -> EventListTableViewCell {
@@ -28,6 +30,11 @@ public class EventPresenter {
         } else {
             return String(format: NSLocalizedString("Events_eventAttendeeLabel", comment: ""), event.attendeeCount, event.attendeeCapacity)
         }
+    }
+    
+    public func presentDateForEvent(event: Event) -> String {
+        self.dateFormatter.timeZone = event.timeZone
+        return self.dateFormatter.stringFromDate(event.startDate)
     }
     
     // MARK: Private

@@ -99,8 +99,7 @@ class FakeEventRepository : EventRepository {
 class FakeEventControllerProvider : berniesanders.EventControllerProvider {
     let controller = EventController(
         event: TestUtils.eventWithName("some event"),
-        eventPresenter: FakeEventPresenter(),
-        dateFormatter: NSDateFormatter(),
+        eventPresenter: FakeEventPresenter(dateFormatter: FakeDateFormatter()),
         theme: FakeTheme())
     var lastEvent: Event?
     
@@ -126,7 +125,7 @@ class EventsControllerSpec : QuickSpec {
         describe("EventsController") {
             beforeEach {
                 self.eventRepository = FakeEventRepository()
-                self.eventPresenter = FakeEventPresenter()
+                self.eventPresenter = FakeEventPresenter(dateFormatter: FakeDateFormatter())
                 self.eventControllerProvider = FakeEventControllerProvider()
                 
                 self.window = UIWindow.new()

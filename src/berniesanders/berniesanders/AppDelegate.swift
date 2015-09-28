@@ -43,6 +43,9 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             )
             let longDateFormatter = NSDateFormatter()
             longDateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
+            let longDateWithTimeFormatter = NSDateFormatter()
+            longDateWithTimeFormatter.dateStyle = NSDateFormatterStyle.LongStyle
+            longDateWithTimeFormatter.timeStyle = NSDateFormatterStyle.LongStyle
             
             let newsItemControllerProvider = ConcreteNewsItemControllerProvider(
                 dateFormatter: longDateFormatter, imageRepository: imageRepository, theme: defaultTheme
@@ -89,8 +92,8 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
                 jsonClient: jsonClient,
                 eventDeserializer: eventDeserializer,
                 operationQueue: mainQueue)
-            let eventPresenter = EventPresenter()
-            let eventControllerProvider = ConcreteEventControllerProvider(eventPresenter: eventPresenter, dateFormatter: longDateFormatter, theme: defaultTheme)
+            let eventPresenter = EventPresenter(dateFormatter: longDateWithTimeFormatter)
+            let eventControllerProvider = ConcreteEventControllerProvider(eventPresenter: eventPresenter, theme: defaultTheme)
             let eventsController = EventsController(
                 eventRepository: eventRepository,
                 eventPresenter: eventPresenter,

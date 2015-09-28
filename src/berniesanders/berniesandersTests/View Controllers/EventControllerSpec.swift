@@ -19,21 +19,19 @@ class EventFakeTheme : FakeTheme {
 
 class EventControllerSpec: QuickSpec {
     var subject: EventController!
-    let dateFormatter = NSDateFormatter()
     var eventPresenter : FakeEventPresenter!
     let theme = EventFakeTheme()
-    let event = Event(name: "limited event", attendeeCapacity: 10, attendeeCount: 2, streetAddress: "1 Post Street", city: "San Francisco", state: "CA", zip: "94117", description: "Words about the event", URL: NSURL(string: "https://example.com")!)
+    let event = Event(name: "limited event", startDate: NSDate(timeIntervalSince1970: 1433565000), timeZone: NSTimeZone(abbreviation: "PST")!,
+        attendeeCapacity: 10, attendeeCount: 2,
+        streetAddress: "1 Post Street", city: "San Francisco", state: "CA", zip: "94117", description: "Words about the event", URL: NSURL(string: "https://example.com")!)
     
     override func spec() {
         describe("EventController") {
             beforeEach {
-                self.dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
-                self.dateFormatter.timeZone = NSTimeZone(name: "UTC")
-                self.eventPresenter = FakeEventPresenter()
+                self.eventPresenter = FakeEventPresenter(dateFormatter: FakeDateFormatter())
                 self.subject = EventController(
                     event: self.event,
                     eventPresenter: self.eventPresenter,
-                    dateFormatter: self.dateFormatter,
                     theme: self.theme)
             }
             
@@ -96,6 +94,11 @@ class EventControllerSpec: QuickSpec {
                 it("uses the presenter to display the attendees") {
                     expect(self.eventPresenter.lastEventWithPresentedAttendees).to(beIdenticalTo(self.event))
                     expect(self.subject.attendeesLabel.text).to(equal("LOTS OF PEOPLE!"))
+                }
+                
+                it("uses the presenter to display the start date/time") {
+                    expect(self.eventPresenter.lastEventWithPresentedDate).to(beIdenticalTo(self.event))
+                    expect(self.subject.dateLabel.text).to(equal("PRESENTED DATE!"))
                 }
                 
                 it("displays the event description") {

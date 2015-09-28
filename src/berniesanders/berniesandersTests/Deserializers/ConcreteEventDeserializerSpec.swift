@@ -22,6 +22,8 @@ class ConcreteEventDeserializerSpec : QuickSpec {
                 expect(events.count).to(equal(2))
                 var eventA = events[0]
                 expect(eventA.name).to(equal("Deputy Voter Registrar Training Class - Travis County"))
+                expect(eventA.startDate).to(equal(NSDate(timeIntervalSince1970: 1446597000)))
+                expect(eventA.timeZone).to(equal(NSTimeZone(abbreviation: "CST")))
                 expect(eventA.attendeeCapacity).to(equal(10))
                 expect(eventA.attendeeCount).to(equal(2))
                 expect(eventA.streetAddress).to(equal("5501 Airport Blvd."))
@@ -33,6 +35,8 @@ class ConcreteEventDeserializerSpec : QuickSpec {
                 
                 var eventB = events[1]
                 expect(eventB.name).to(equal("Deputy Dawg Training Class - Travis County"))
+                expect(eventB.startDate).to(equal(NSDate(timeIntervalSince1970: 1465176600)))
+                expect(eventB.timeZone).to(equal(NSTimeZone(abbreviation: "PST")))
                 expect(eventB.attendeeCapacity).to(equal(11))
                 expect(eventB.attendeeCount).to(equal(1))
                 expect(eventB.streetAddress).to(beNil())

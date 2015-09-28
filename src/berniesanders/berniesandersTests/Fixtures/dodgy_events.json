@@ -320,6 +320,38 @@
               "site":"berniesanders.com",
               "start_time":"2016-06-05T18:30:00",
               "timestamp":1442868284.050573,
+              "venue":{
+              "address1":"5501 Airport Blvd.",
+              "city":"Austin",
+              "location":{
+              "lat":30.31706,
+              "lon":-97.713631
+              },
+              "name":"Travis County Courthouse Annex",
+              "state":"TX",
+              "zip":"78746"
+              }
+              },
+              "_type":"berniesanders_com"
+              }
+              ,
+              {
+              "_id":"55fcd85ea82dd400017f0f72",
+              "_index":"events_en_v1",
+              "_score":1.0,
+              "_source":{
+              "_id":"55fcd85ea82dd400017f0f72",
+              "attendee_count":1,
+              "capacity":0,
+              "description":"Deputy Voter Registrar Training Class - Travis County\nCall (512) 854-9473 a week ahead to R.S.V.P.",
+              "id_obfuscated":null,
+              "inserted_at":"2015-09-19T03:37:02.811000",
+              "is_official":false,
+              "lang":"en",
+              "name":"Deputy Dawg Training Class - Travis County",
+              "original_id":"9175",
+              "site":"berniesanders.com",
+              "timestamp":1442868284.050573,
               "timezone":"CDT",
               "venue":{
               "address1":"5501 Airport Blvd.",
@@ -335,6 +367,42 @@
               },
               "_type":"berniesanders_com"
               }
+
+              ,
+              {
+              "_id":"55fcd85ea82dd400017f0f72",
+              "_index":"events_en_v1",
+              "_score":1.0,
+              "_source":{
+              "_id":"55fcd85ea82dd400017f0f72",
+              "attendee_count":1,
+              "capacity":0,
+              "description":"Deputy Voter Registrar Training Class - Travis County\nCall (512) 854-9473 a week ahead to R.S.V.P.",
+              "id_obfuscated":null,
+              "inserted_at":"2015-09-19T03:37:02.811000",
+              "is_official":false,
+              "lang":"en",
+              "name":"Deputy Dawg Training Class - Travis County",
+              "original_id":"9175",
+              "site":"berniesanders.com",
+              "start_time":"2016-06-05T18:30:00",
+              "timestamp":1442868284.050573,
+              "timezone":"CDT",
+              "venue":{
+              "address1":"5501 Airport Blvd.",
+              "city":"Austin",
+              "location":{
+              "lat":30.31706,
+              "lon":-97.713631
+              },
+              "name":"Travis County Courthouse Annex",
+              "state":"TX",
+              "zip":"78746"
+              }
+              },
+              "_type":"berniesanders_com"
+              }
+
 
       ],
       "max_score":1.0,
