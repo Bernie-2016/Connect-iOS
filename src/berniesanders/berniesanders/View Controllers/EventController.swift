@@ -4,11 +4,14 @@ import MapKit
 
 public class EventController : UIViewController {
     public let event : Event!
+    public let urlProvider : URLProvider!
+    public let urlOpener : URLOpener!
     public let eventPresenter: EventPresenter!
     public let theme : Theme!
     
     let containerView = UIView.newAutoLayoutView()
     let scrollView = UIScrollView.newAutoLayoutView()
+    public let directionsButton = UIButton.newAutoLayoutView()
     public let mapView = MKMapView.newAutoLayoutView()
     public let nameLabel = UILabel.newAutoLayoutView()
     public let dateIconImageView = UIImageView.newAutoLayoutView()
@@ -23,9 +26,13 @@ public class EventController : UIViewController {
     public init(
         event: Event,
         eventPresenter: EventPresenter,
+        urlProvider: URLProvider,
+        urlOpener: URLOpener,
         theme: Theme) {            
             self.event = event
             self.eventPresenter = eventPresenter
+            self.urlProvider = urlProvider
+            self.urlOpener = urlOpener
             self.theme = theme
             
             super.init(nibName: nil, bundle: nil)
@@ -48,6 +55,9 @@ public class EventController : UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "share")
         navigationItem.title = NSLocalizedString("Event_navigationTitle", comment: "")
         
+        directionsButton.setTitle(NSLocalizedString("Event_directionsButtonTitle", comment: ""), forState: .Normal)
+        directionsButton.addTarget(self, action: "didTapDirections", forControlEvents: .TouchUpInside)
+        
         applyTheme()
         
         nameLabel.text = event.name
@@ -66,6 +76,7 @@ public class EventController : UIViewController {
         
         view.addSubview(scrollView)
         scrollView.addSubview(containerView)
+        containerView.addSubview(directionsButton)
         containerView.addSubview(mapView)
         containerView.addSubview(nameLabel)
         containerView.addSubview(dateIconImageView)
@@ -91,8 +102,17 @@ public class EventController : UIViewController {
         presentViewController(activityVC, animated: true, completion: nil)
     }
     
+    func didTapDirections() {        
+        self.urlOpener.openURL(self.urlProvider.mapsURLForEvent(self.event))
+    }
+    
+    // MARK: Private
+    
     func applyTheme() {
         view.backgroundColor = theme.defaultBackgroundColor()
+        directionsButton.backgroundColor = theme.eventDirectionsButtonBackgroundColor()
+        directionsButton.setTitleColor(theme.eventDirectionsButtonTextColor(), forState: .Normal)
+        directionsButton.titleLabel!.font = theme.eventDirectionsButtonFont()
         nameLabel.textColor = theme.eventNameColor()
         nameLabel.font = theme.eventNameFont()
         dateLabel.textColor = theme.eventStartDateColor()
@@ -121,8 +141,13 @@ public class EventController : UIViewController {
         mapView.autoPinEdgeToSuperviewEdge(.Right)
         mapView.autoSetDimension(.Height, toSize: self.view.bounds.height / 3)
         
+        directionsButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: mapView)
+        directionsButton.autoPinEdgeToSuperviewEdge(.Left)
+        directionsButton.autoPinEdgeToSuperviewEdge(.Right)
+        directionsButton.autoSetDimension(.Height, toSize: 55)
+        
         nameLabel.numberOfLines = 0
-        nameLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: mapView, withOffset: 12)
+        nameLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: directionsButton, withOffset: 12)
         nameLabel.autoPinEdgeToSuperviewMargin(.Left)
         nameLabel.autoPinEdgeToSuperviewMargin(.Right)
         

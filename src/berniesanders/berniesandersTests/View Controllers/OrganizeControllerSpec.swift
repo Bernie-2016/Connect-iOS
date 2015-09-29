@@ -32,7 +32,7 @@ class OrganizeControllerSpec : QuickSpec {
     var subject : OrganizeController!
     
     override func spec() {
-        beforeEach {
+        beforeEach {            
             self.subject = OrganizeController(
                 urlProvider: OrganizeFakeURLProvider(),
                 theme: OrganizeFakeTheme()

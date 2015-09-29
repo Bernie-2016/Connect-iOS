@@ -1,24 +1,36 @@
 import Foundation
 import CoreLocation
 
-class ConcreteURLProvider : URLProvider {
-    func issuesFeedURL() -> NSURL! {
+public class ConcreteURLProvider : URLProvider {
+    public init() {}
+    
+    public func issuesFeedURL() -> NSURL! {
         return NSURL(string: "https://search.berniesanders.tech/articles_en/berniesanders_com/_search")
     }
     
-    func newsFeedURL() -> NSURL! {
+    public func newsFeedURL() -> NSURL! {
         return NSURL(string: "https://search.berniesanders.tech/articles_en/berniesanders_com/_search")
     }
     
-    func bernieCrowdURL() -> NSURL! {
+    public func bernieCrowdURL() -> NSURL! {
         return NSURL(string: "https://berniecrowd.org/")
     }
     
-    func privacyPolicyURL() -> NSURL! {
+    public func privacyPolicyURL() -> NSURL! {
         return NSURL(string: "https://www.iubenda.com/privacy-policy/128001")
     }
     
-    func eventsURL() -> NSURL! {
+    public func eventsURL() -> NSURL! {
         return NSURL(string: "https://search.berniesanders.tech/events/berniesanders_com/_search")
+    }
+    
+    public func mapsURLForEvent(event: Event) -> NSURL! {
+        if(event.streetAddress != nil) {
+            let urlString = String(format: "https://maps.apple.com/?address=%@,%@,%@,%@", event.streetAddress!, event.city, event.state, event.zip)
+            return NSURL(string: urlString.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)!
+        } else {
+            let urlString = String(format: "https://maps.apple.com/?address=%@,%@,%@", event.city, event.state, event.zip)
+            return NSURL(string: urlString.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)!
+        }
     }
 }

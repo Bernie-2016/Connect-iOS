@@ -92,7 +92,8 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
                 eventDeserializer: eventDeserializer,
                 operationQueue: mainQueue)
             let eventPresenter = EventPresenter(dateFormatter: fullDateWithTimeFormatter)
-            let eventControllerProvider = ConcreteEventControllerProvider(eventPresenter: eventPresenter, theme: defaultTheme)
+            let urlOpener = URLOpener()
+            let eventControllerProvider = ConcreteEventControllerProvider(eventPresenter: eventPresenter, urlProvider: urlProvider, urlOpener: urlOpener, theme: defaultTheme)
             let eventsController = EventsController(
                 eventRepository: eventRepository,
                 eventPresenter: eventPresenter,

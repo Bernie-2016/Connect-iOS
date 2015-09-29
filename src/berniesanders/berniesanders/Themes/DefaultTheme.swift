@@ -241,6 +241,9 @@ class DefaultTheme : Theme {
     func eventDescriptionHeadingColor() -> UIColor { return self.cornflowerBlueColor() }
     func eventDescriptionFont() -> UIFont { return UIFont(name: "Lato-Regular", size: 13)! }
     func eventDescriptionColor() -> UIColor { return self.cornflowerBlueColor() }
+    func eventDirectionsButtonBackgroundColor() -> UIColor { return self.cornflowerBlueColor() }
+    func eventDirectionsButtonTextColor() -> UIColor { return UIColor.whiteColor() }
+    func eventDirectionsButtonFont() -> UIFont { return UIFont(name: "Lato-Regular", size: 15)! }
 
     // MARK: default dimensions
     

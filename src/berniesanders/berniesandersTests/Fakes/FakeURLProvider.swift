@@ -22,4 +22,8 @@ class FakeURLProvider : berniesanders.URLProvider {
     func eventsURL() -> NSURL! {
         fatalError("override me in spec!")        
     }
+    
+    func mapsURLForEvent(event: Event) -> NSURL! {
+        fatalError("override me in spec!")
+    }
 }

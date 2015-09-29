@@ -32,6 +32,7 @@
 // Event
 
 "Event_navigationTitle" = "Event Details";
+"Event_directionsButtonTitle" = "Directions";
 "Event_descriptionHeading" = "Description";
 
 // Settings

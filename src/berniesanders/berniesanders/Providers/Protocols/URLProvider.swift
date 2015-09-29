@@ -7,4 +7,5 @@ public protocol URLProvider {
     func bernieCrowdURL() -> NSURL!
     func privacyPolicyURL() -> NSURL!
     func eventsURL() -> NSURL!
+    func mapsURLForEvent(event: Event) -> NSURL!
 }

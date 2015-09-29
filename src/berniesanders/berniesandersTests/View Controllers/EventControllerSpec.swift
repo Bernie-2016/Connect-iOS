@@ -19,11 +19,26 @@ class EventFakeTheme : FakeTheme {
     override func eventDescriptionHeadingColor() -> UIColor { return UIColor.brownColor() }
     override func eventDescriptionFont() -> UIFont { return UIFont.systemFontOfSize(666) }
     override func eventDescriptionColor() -> UIColor { return UIColor.magentaColor() }
+    override func eventDirectionsButtonBackgroundColor() -> UIColor { return UIColor.lightGrayColor() }
+    override func eventDirectionsButtonTextColor() -> UIColor { return UIColor.darkGrayColor() }
+    override func eventDirectionsButtonFont() -> UIFont { return UIFont.italicSystemFontOfSize(777) }
+
 }
 
+class EventControllerFakeURLProvider : FakeURLProvider {
+    var lastReceivedEvent : Event!
+    
+    override func mapsURLForEvent(event: Event) -> NSURL! {
+        self.lastReceivedEvent = event
+        return NSURL(string: "http://example.com/mapz")!
+    }
+}
 class EventControllerSpec: QuickSpec {
     var subject: EventController!
     var eventPresenter : FakeEventPresenter!
+    var urlOpener : FakeURLOpener!
+    var urlProvider: EventControllerFakeURLProvider!
+
     let theme = EventFakeTheme()
     let event = Event(name: "limited event", startDate: NSDate(timeIntervalSince1970: 1433565000), timeZone: NSTimeZone(abbreviation: "PST")!,
         attendeeCapacity: 10, attendeeCount: 2,
@@ -33,10 +48,15 @@ class EventControllerSpec: QuickSpec {
     override func spec() {
         describe("EventController") {
             beforeEach {
+                self.urlOpener = FakeURLOpener()
+                self.urlProvider = EventControllerFakeURLProvider()
+
                 self.eventPresenter = FakeEventPresenter(dateFormatter: FakeDateFormatter())
                 self.subject = EventController(
                     event: self.event,
                     eventPresenter: self.eventPresenter,
+                    urlProvider: self.urlProvider,
+                    urlOpener: self.urlOpener,
                     theme: self.theme)
             }
             
@@ -79,11 +99,12 @@ class EventControllerSpec: QuickSpec {
                     
                     var containerView = scrollView.subviews.first as! UIView
                     
-                    expect(containerView.subviews.count).to(equal(10))
+                    expect(containerView.subviews.count).to(equal(11))
                     
                     var containerViewSubViews = containerView.subviews as! [UIView]
 
                     expect(contains(containerViewSubViews, self.subject.mapView)).to(beTrue())
+                    expect(contains(containerViewSubViews, self.subject.directionsButton)).to(beTrue())
                     expect(contains(containerViewSubViews, self.subject.nameLabel)).to(beTrue())
                     expect(contains(containerViewSubViews, self.subject.dateIconImageView)).to(beTrue())
                     expect(contains(containerViewSubViews, self.subject.dateLabel)).to(beTrue())
@@ -143,7 +164,24 @@ class EventControllerSpec: QuickSpec {
                     expect(self.subject.descriptionLabel.text).to(equal("some description text we need to parse yet"))
                 }
                 
+                it("has a directions button") {
+                    expect(self.subject.directionsButton.titleForState(.Normal)).to(equal("Directions"))
+                }
+                
+                describe("tapping on the directions button") {
+                    it("opens maps with the correct arugments") {
+                        self.subject.directionsButton.tap()
+                        
+                        expect(self.urlProvider.lastReceivedEvent).to(beIdenticalTo(self.event))
+                        expect(self.urlOpener.lastOpenedURL).to(equal(NSURL(string: "http://example.com/mapz")))
+                    }
+                }
+                
                 it("styles the screen according to the theme") {
+                    expect(self.subject.directionsButton.backgroundColor).to(equal(UIColor.lightGrayColor()))
+                    expect(self.subject.directionsButton.titleColorForState(.Normal)).to(equal(UIColor.darkGrayColor()))
+                    expect(self.subject.directionsButton.titleLabel!.font).to(equal(UIFont.italicSystemFontOfSize(777)))
+                    
                     expect(self.subject.view.backgroundColor).to(equal(UIColor.orangeColor()))
                     expect(self.subject.nameLabel.font).to(equal(UIFont.systemFontOfSize(111)))
                     expect(self.subject.nameLabel.textColor).to(equal(UIColor.purpleColor()))
