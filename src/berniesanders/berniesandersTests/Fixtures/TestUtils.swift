@@ -34,7 +34,7 @@ class TestUtils {
     // MARK: Controllers
     
     class func settingsController() -> SettingsController {
-        return SettingsController(privacyPolicyController: self.privacyPolicyController(), theme: FakeTheme())
+        return SettingsController(tappableControllers: [self.privacyPolicyController()], theme: FakeTheme())
     }
     
     class func privacyPolicyController() -> PrivacyPolicyController {

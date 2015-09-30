@@ -17,17 +17,36 @@ class SettingsFakeTheme : FakeTheme {
     }
 }
 
+class FakeSettingsController : UIViewController {
+    init(title: String) {
+        super.init(nibName: nil, bundle: nil)
+        self.title = title
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 
 class SettingsControllerSpec : QuickSpec {
     var subject: SettingsController!
     let theme = SettingsFakeTheme()
-    let privacyPolicyController = TestUtils.privacyPolicyController()
+
+    let controllerA = FakeSettingsController(title: "controller a")
+    let controllerB = FakeSettingsController(title: "controller b")
+    
+    let flossController = TestUtils.privacyPolicyController()
     let navigationController = UINavigationController()
 
     override func spec() {
         describe("SettingsController") {
             beforeEach {
-                self.subject = SettingsController(privacyPolicyController: self.privacyPolicyController, theme: self.theme)
+                self.subject = SettingsController(tappableControllers: [
+                        self.controllerA,
+                        self.controllerB
+                    ],
+                    theme: self.theme)
                 
                 self.navigationController.pushViewController(self.subject, animated: false)
             }
@@ -49,9 +68,9 @@ class SettingsControllerSpec : QuickSpec {
                     expect(self.subject.view.backgroundColor).to(equal(UIColor.orangeColor()))
                 }
                 
-                it("should have one row in the table") {
+                it("should have rows in the table") {
                     expect(self.subject.tableView.numberOfSections()).to(equal(1))
-                    expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(1))
+                    expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(2))
                 }
                 
                 it("should style the rows") {
@@ -61,21 +80,27 @@ class SettingsControllerSpec : QuickSpec {
                     expect(cell.textLabel!.font).to(equal(UIFont.systemFontOfSize(123)))
                 }
                 
-                describe("the Privacy Policy row") {
-                    it("has a Privacy Policy row") {
+                describe("the table contents") {
+                    it("has a row for evey configured tappable controller") {
                         var cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))!
-                        expect(cell.textLabel!.text).to(equal("Privacy Policy"))
+                        expect(cell.textLabel!.text).to(equal("controller a"))
+                        
+                        cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))!
+                        expect(cell.textLabel!.text).to(equal("controller b"))
                     }
                     
-                    describe("tapping the Privacy Policy row") {
+                    describe("tapping the rows") {
                         it("should push a correctly configured news item view controller onto the nav stack") {
                             let tableView = self.subject.tableView
                             tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
-
-                            expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.privacyPolicyController))
+                            expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.controllerA))
+                            
+                            tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
+                            expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.controllerB))
                         }
                     }
                 }
+                
             }
         }
     }

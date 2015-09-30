@@ -44,4 +44,7 @@
 // Settings
 
 "Settings_navigationTitle" = "Settings";
-"Settings_privacyPolicy" = "Privacy Policy";
+
+// Privacy Policy
+
+"PrivacyPolicy_title" = "Privacy Policy";

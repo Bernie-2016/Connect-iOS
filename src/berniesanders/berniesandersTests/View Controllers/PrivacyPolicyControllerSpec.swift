@@ -19,6 +19,10 @@ class PrivacyPolicyControllerSpec : QuickSpec {
                 self.subject = PrivacyPolicyController(urlProvider: PrivacyPolicyFakeURLProvider())
             }
             
+            it("has the correct title") {
+                expect(self.subject.title).to(equal("Privacy Policy"))
+            }
+            
             context("When the view loads") {
                 beforeEach {
                     self.subject.view.layoutSubviews()

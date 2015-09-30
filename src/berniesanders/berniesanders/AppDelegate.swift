@@ -31,7 +31,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             
             let privacyPolicyController = PrivacyPolicyController(urlProvider: urlProvider)
             let settingsController = SettingsController(
-                privacyPolicyController: privacyPolicyController,
+                tappableControllers: [privacyPolicyController],
                 theme: defaultTheme)
             
             let newsItemDeserializer = ConcreteNewsItemDeserializer()

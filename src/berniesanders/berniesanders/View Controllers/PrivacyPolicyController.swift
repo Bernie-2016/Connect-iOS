@@ -9,6 +9,7 @@ public class PrivacyPolicyController : UIViewController {
         self.urlProvider = urlProvider
         
         super.init(nibName: nil, bundle: nil)
+        self.title = NSLocalizedString("PrivacyPolicy_title", comment: "")
     }
     
     required public init(coder aDecoder: NSCoder) {
@@ -17,6 +18,7 @@ public class PrivacyPolicyController : UIViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         var urlRequest = NSURLRequest(URL: self.urlProvider.privacyPolicyURL())
         self.webView.loadRequest(urlRequest)

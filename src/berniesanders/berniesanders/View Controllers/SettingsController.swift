@@ -3,11 +3,11 @@ import PureLayout
 
 
 public class SettingsController : UITableViewController {
-    let privacyPolicyController : PrivacyPolicyController!
+    let tappableControllers : [UIViewController]!
     let theme : Theme!
     
-    public init(privacyPolicyController: PrivacyPolicyController, theme: Theme) {
-        self.privacyPolicyController = privacyPolicyController
+    public init(tappableControllers: [UIViewController], theme: Theme) {
+        self.tappableControllers = tappableControllers
         self.theme = theme
         
         super.init(nibName: nil, bundle: nil)
@@ -35,12 +35,12 @@ public class SettingsController : UITableViewController {
     }
     
     public override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return self.tappableControllers.count
     }
     
     public override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("regularCell") as! UITableViewCell
-        cell.textLabel!.text = NSLocalizedString("Settings_privacyPolicy", comment: "")
+        cell.textLabel!.text = self.tappableControllers[indexPath.row].title
         cell.textLabel!.textColor = self.theme.settingsTitleColor()
         cell.textLabel!.font = self.theme.settingsTitleFont()
         
@@ -50,6 +50,6 @@ public class SettingsController : UITableViewController {
     // MARK: <UITableViewDelegate>
     
     public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.navigationController?.pushViewController(self.privacyPolicyController, animated: true)
+        self.navigationController?.pushViewController(self.tappableControllers[indexPath.row], animated: true)
     }
 }
