@@ -8,6 +8,7 @@ public class ConcreteEventControllerProviderSpec : QuickSpec {
     let dateFormatter = NSDateFormatter()
     let theme = FakeTheme()
     let eventPresenter = EventPresenter(dateFormatter: FakeDateFormatter())
+    let eventRSVPControllerProvider = FakeEventRSVPControllerProvider()
     let urlProvider = FakeURLProvider()
     let urlOpener = FakeURLOpener()
     
@@ -16,6 +17,7 @@ public class ConcreteEventControllerProviderSpec : QuickSpec {
             beforeEach {
                 self.subject = ConcreteEventControllerProvider(
                     eventPresenter: self.eventPresenter,
+                    eventRSVPControllerProvider: self.eventRSVPControllerProvider,
                     urlProvider: self.urlProvider,
                     urlOpener: self.urlOpener,
                     theme: self.theme

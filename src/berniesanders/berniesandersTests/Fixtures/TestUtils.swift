@@ -40,4 +40,8 @@ class TestUtils {
     class func privacyPolicyController() -> PrivacyPolicyController {
         return PrivacyPolicyController(urlProvider: FakeURLProvider())
     }
+    
+    class func eventRSVPController() -> EventRSVPController {
+        return EventRSVPController(event: self.eventWithName("some event"), theme: FakeTheme())
+    }
 }

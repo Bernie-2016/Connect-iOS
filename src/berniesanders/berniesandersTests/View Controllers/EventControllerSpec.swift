@@ -20,9 +20,9 @@ class EventFakeTheme : FakeTheme {
     override func eventDescriptionFont() -> UIFont { return UIFont.systemFontOfSize(666) }
     override func eventDescriptionColor() -> UIColor { return UIColor.magentaColor() }
     override func eventDirectionsButtonBackgroundColor() -> UIColor { return UIColor.lightGrayColor() }
-    override func eventDirectionsButtonTextColor() -> UIColor { return UIColor.darkGrayColor() }
+    override func eventButtonTextColor() -> UIColor { return UIColor.darkGrayColor() }
     override func eventDirectionsButtonFont() -> UIFont { return UIFont.italicSystemFontOfSize(777) }
-
+    override func eventRSVPButtonBackgroundColor() -> UIColor { return UIColor.whiteColor() }
 }
 
 class EventControllerFakeURLProvider : FakeURLProvider {
@@ -33,12 +33,15 @@ class EventControllerFakeURLProvider : FakeURLProvider {
         return NSURL(string: "http://example.com/mapz")!
     }
 }
+
 class EventControllerSpec: QuickSpec {
     var subject: EventController!
     var eventPresenter : FakeEventPresenter!
     var urlOpener : FakeURLOpener!
     var urlProvider: EventControllerFakeURLProvider!
-
+    var eventRSVPControllerProvider: FakeEventRSVPControllerProvider!
+    let navigationController = UINavigationController()
+    
     let theme = EventFakeTheme()
     let event = Event(name: "limited event", startDate: NSDate(timeIntervalSince1970: 1433565000), timeZone: NSTimeZone(abbreviation: "PST")!,
         attendeeCapacity: 10, attendeeCount: 2,
@@ -52,12 +55,17 @@ class EventControllerSpec: QuickSpec {
                 self.urlProvider = EventControllerFakeURLProvider()
 
                 self.eventPresenter = FakeEventPresenter(dateFormatter: FakeDateFormatter())
+                self.eventRSVPControllerProvider = FakeEventRSVPControllerProvider()
+                
                 self.subject = EventController(
                     event: self.event,
                     eventPresenter: self.eventPresenter,
+                    eventRSVPControllerProvider: self.eventRSVPControllerProvider,
                     urlProvider: self.urlProvider,
                     urlOpener: self.urlOpener,
                     theme: self.theme)
+                
+                self.navigationController.pushViewController(self.subject, animated: false)
             }
             
             it("should hide the tab bar when pushed") {
@@ -76,6 +84,10 @@ class EventControllerSpec: QuickSpec {
                 it("has a share button on the navigation item") {
                     var shareBarButtonItem = self.subject.navigationItem.rightBarButtonItem!
                     expect(shareBarButtonItem.valueForKey("systemItem") as? Int).to(equal(UIBarButtonSystemItem.Action.rawValue))
+                }
+                
+                it("should set the back bar button item title correctly") {
+                    expect(self.subject.navigationItem.backBarButtonItem?.title).to(equal("Back"))
                 }
 
                 describe("tapping on the share button") {
@@ -99,11 +111,12 @@ class EventControllerSpec: QuickSpec {
                     
                     var containerView = scrollView.subviews.first as! UIView
                     
-                    expect(containerView.subviews.count).to(equal(11))
+                    expect(containerView.subviews.count).to(equal(12))
                     
                     var containerViewSubViews = containerView.subviews as! [UIView]
 
                     expect(contains(containerViewSubViews, self.subject.mapView)).to(beTrue())
+                    expect(contains(containerViewSubViews, self.subject.rsvpButton)).to(beTrue())
                     expect(contains(containerViewSubViews, self.subject.directionsButton)).to(beTrue())
                     expect(contains(containerViewSubViews, self.subject.nameLabel)).to(beTrue())
                     expect(contains(containerViewSubViews, self.subject.dateIconImageView)).to(beTrue())
@@ -164,10 +177,23 @@ class EventControllerSpec: QuickSpec {
                     expect(self.subject.descriptionLabel.text).to(equal("some description text we need to parse yet"))
                 }
                 
+                it("has an RSVP button") {
+                    expect(self.subject.rsvpButton.titleForState(.Normal)).to(equal("RSVP"))
+                }
+
+                describe("tapping on the rsvp button") {
+                    it("pushes an rsvp controller") {
+                        self.subject.rsvpButton.tap()
+                        
+                        expect(self.eventRSVPControllerProvider.lastReceivedEvent).to(beIdenticalTo(self.event))
+                        expect(self.subject.navigationController!.topViewController).to(beAKindOf(EventRSVPController.self))
+                    }
+                }
+                
                 it("has a directions button") {
                     expect(self.subject.directionsButton.titleForState(.Normal)).to(equal("Directions"))
                 }
-                
+
                 describe("tapping on the directions button") {
                     it("opens maps with the correct arugments") {
                         self.subject.directionsButton.tap()
@@ -178,6 +204,10 @@ class EventControllerSpec: QuickSpec {
                 }
                 
                 it("styles the screen according to the theme") {
+                    expect(self.subject.rsvpButton.backgroundColor).to(equal(UIColor.whiteColor()))
+                    expect(self.subject.rsvpButton.titleColorForState(.Normal)).to(equal(UIColor.darkGrayColor()))
+                    expect(self.subject.rsvpButton.titleLabel!.font).to(equal(UIFont.italicSystemFontOfSize(777)))
+                    
                     expect(self.subject.directionsButton.backgroundColor).to(equal(UIColor.lightGrayColor()))
                     expect(self.subject.directionsButton.titleColorForState(.Normal)).to(equal(UIColor.darkGrayColor()))
                     expect(self.subject.directionsButton.titleLabel!.font).to(equal(UIFont.italicSystemFontOfSize(777)))

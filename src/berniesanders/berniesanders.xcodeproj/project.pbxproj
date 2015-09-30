@@ -94,6 +94,12 @@
 		65CA5E931B86E4A00001D870 /* DefaultTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CA5E921B86E4A00001D870 /* DefaultTheme.swift */; };
 		65CA5E971B86E5950001D870 /* TitleSubTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CA5E961B86E5950001D870 /* TitleSubTitleTableViewCell.swift */; };
 		65CA5E991B86E76D0001D870 /* PureLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65CA5E981B86E76D0001D870 /* PureLayout.framework */; };
+		65D0ECE11BBAD7780063B1D0 /* EventRSVPControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D0ECE01BBAD7780063B1D0 /* EventRSVPControllerProvider.swift */; };
+		65D0ECE31BBAD7A20063B1D0 /* EventRSVPController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D0ECE21BBAD7A20063B1D0 /* EventRSVPController.swift */; };
+		65D0ECE51BBAD93D0063B1D0 /* ConcreteEventRSVPControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D0ECE41BBAD93D0063B1D0 /* ConcreteEventRSVPControllerProvider.swift */; };
+		65D0ECE71BBAD9940063B1D0 /* FakeEventRSVPControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D0ECE61BBAD9940063B1D0 /* FakeEventRSVPControllerProvider.swift */; };
+		65D0ECE91BBB8C360063B1D0 /* EventRSVPControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D0ECE81BBB8C360063B1D0 /* EventRSVPControllerSpec.swift */; };
+		65D0ECEB1BBB8DD20063B1D0 /* ConcreteEventRSVPControllerProviderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D0ECEA1BBB8DD20063B1D0 /* ConcreteEventRSVPControllerProviderSpec.swift */; };
 		65DE8D931B955E15008C239F /* NewsItemControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DE8D921B955E15008C239F /* NewsItemControllerSpec.swift */; };
 		65EA2F291BB9B648001D8FD5 /* FakeDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EA2F281BB9B648001D8FD5 /* FakeDateFormatter.swift */; };
 		65EC4CEC1B842A0B00DD4C83 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */; };
@@ -247,6 +253,12 @@
 		65CA5E921B86E4A00001D870 /* DefaultTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultTheme.swift; sourceTree = "<group>"; };
 		65CA5E961B86E5950001D870 /* TitleSubTitleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleSubTitleTableViewCell.swift; sourceTree = "<group>"; };
 		65CA5E981B86E76D0001D870 /* PureLayout.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PureLayout.framework; path = Carthage/Build/iOS/PureLayout.framework; sourceTree = "<group>"; };
+		65D0ECE01BBAD7780063B1D0 /* EventRSVPControllerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventRSVPControllerProvider.swift; sourceTree = "<group>"; };
+		65D0ECE21BBAD7A20063B1D0 /* EventRSVPController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventRSVPController.swift; sourceTree = "<group>"; };
+		65D0ECE41BBAD93D0063B1D0 /* ConcreteEventRSVPControllerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteEventRSVPControllerProvider.swift; sourceTree = "<group>"; };
+		65D0ECE61BBAD9940063B1D0 /* FakeEventRSVPControllerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeEventRSVPControllerProvider.swift; sourceTree = "<group>"; };
+		65D0ECE81BBB8C360063B1D0 /* EventRSVPControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventRSVPControllerSpec.swift; sourceTree = "<group>"; };
+		65D0ECEA1BBB8DD20063B1D0 /* ConcreteEventRSVPControllerProviderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteEventRSVPControllerProviderSpec.swift; sourceTree = "<group>"; };
 		65DE8D921B955E15008C239F /* NewsItemControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsItemControllerSpec.swift; sourceTree = "<group>"; };
 		65EA2F281BB9B648001D8FD5 /* FakeDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeDateFormatter.swift; sourceTree = "<group>"; };
 		65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
@@ -328,6 +340,7 @@
 			children = (
 				6507631A1B8B71B900BA0659 /* Protocols */,
 				654AD3561BB8787000A59966 /* ConcreteEventControllerProvider.swift */,
+				65D0ECE41BBAD93D0063B1D0 /* ConcreteEventRSVPControllerProvider.swift */,
 				653601011B99E4EB00FE3735 /* ConcreteIssueControllerProvider.swift */,
 				653885261B94E91800DCA808 /* ConcreteNewsItemControllerProvider.swift */,
 				650763231B8B768300BA0659 /* ConcreteURLProvider.swift */,
@@ -340,6 +353,7 @@
 			isa = PBXGroup;
 			children = (
 				654AD3521BB876A200A59966 /* EventControllerProvider.swift */,
+				65D0ECE01BBAD7780063B1D0 /* EventRSVPControllerProvider.swift */,
 				6592FA391B99E30C00746EC3 /* IssueControllerProvider.swift */,
 				6538851F1B94E63400DCA808 /* NewsItemControllerProvider.swift */,
 				6507631B1B8B71D900BA0659 /* URLProvider.swift */,
@@ -422,6 +436,7 @@
 			isa = PBXGroup;
 			children = (
 				6581F7BC1BB87E7700B26B76 /* ConcreteEventControllerProviderSpec.swift */,
+				65D0ECEA1BBB8DD20063B1D0 /* ConcreteEventRSVPControllerProviderSpec.swift */,
 				653601051B99E9F700FE3735 /* ConcreteIssueControllerProviderSpec.swift */,
 				653885241B94E89600DCA808 /* ConcreteNewsItemControllerProviderSpec.swift */,
 				65C426111BBA0B7700595E1B /* ConcreteURLProviderSpec.swift */,
@@ -544,6 +559,7 @@
 			isa = PBXGroup;
 			children = (
 				6581F7BE1BB87FF500B26B76 /* EventControllerSpec.swift */,
+				65D0ECE81BBB8C360063B1D0 /* EventRSVPControllerSpec.swift */,
 				65F112ED1B9FFE8700BA585C /* EventsControllerSpec.swift */,
 				653601031B99E74300FE3735 /* IssueControllerSpec.swift */,
 				65C97A171B8A5D2F00088679 /* IssuesControllerSpec.swift */,
@@ -581,6 +597,7 @@
 			children = (
 				65EA2F281BB9B648001D8FD5 /* FakeDateFormatter.swift */,
 				65A337001BB88FFA0012877F /* FakeEventPresenter.swift */,
+				65D0ECE61BBAD9940063B1D0 /* FakeEventRSVPControllerProvider.swift */,
 				659F0E1F1B95F0180049FA12 /* FakeImageRepository.swift */,
 				6538850F1B90F13600DCA808 /* FakeJSONClient.swift */,
 				653885191B90F7DD00DCA808 /* FakeNSURLSession.swift */,
@@ -675,6 +692,7 @@
 			isa = PBXGroup;
 			children = (
 				654AD3541BB876C700A59966 /* EventController.swift */,
+				65D0ECE21BBAD7A20063B1D0 /* EventRSVPController.swift */,
 				65F112EF1B9FFF1C00BA585C /* EventsController.swift */,
 				6592FA3B1B99E33300746EC3 /* IssueController.swift */,
 				8233FC311B7C4A9600A5E9ED /* IssuesController.swift */,
@@ -846,6 +864,7 @@
 				654AD3571BB8787000A59966 /* ConcreteEventControllerProvider.swift in Sources */,
 				654774051BB241D900B87670 /* ConcreteEventDeserializer.swift in Sources */,
 				655AF0C81BB0981800F0448E /* ConcreteEventRepository.swift in Sources */,
+				65D0ECE51BBAD93D0063B1D0 /* ConcreteEventRSVPControllerProvider.swift in Sources */,
 				659F0E1E1B95EC780049FA12 /* ConcreteImageRepository.swift in Sources */,
 				653601021B99E4EB00FE3735 /* ConcreteIssueControllerProvider.swift in Sources */,
 				6507632C1B8B7B5D00BA0659 /* ConcreteIssueDeserializer.swift in Sources */,
@@ -863,6 +882,8 @@
 				654773FD1BB1EEBC00B87670 /* EventListTableViewCell.swift in Sources */,
 				654B55B51BB4882700492610 /* EventPresenter.swift in Sources */,
 				655AF0C41BB095BA00F0448E /* EventRepository.swift in Sources */,
+				65D0ECE31BBAD7A20063B1D0 /* EventRSVPController.swift in Sources */,
+				65D0ECE11BBAD7780063B1D0 /* EventRSVPControllerProvider.swift in Sources */,
 				65F112F01B9FFF1C00BA585C /* EventsController.swift in Sources */,
 				659F0E1C1B95EC0B0049FA12 /* ImageRepository.swift in Sources */,
 				6587FF5A1B8A7E3200AC65F1 /* Issue.swift in Sources */,
@@ -903,6 +924,7 @@
 				6581F7BD1BB87E7700B26B76 /* ConcreteEventControllerProviderSpec.swift in Sources */,
 				65384D111BB2EDBF0057F6FF /* ConcreteEventDeserializerSpec.swift in Sources */,
 				654773FF1BB23FAE00B87670 /* ConcreteEventRepositorySpec.swift in Sources */,
+				65D0ECEB1BBB8DD20063B1D0 /* ConcreteEventRSVPControllerProviderSpec.swift in Sources */,
 				65AD23AD1B963E2700C32A02 /* ConcreteImageRepositorySpec.swift in Sources */,
 				653601061B99E9F700FE3735 /* ConcreteIssueControllerProviderSpec.swift in Sources */,
 				6507632F1B8B7F7700BA0659 /* ConcreteIssueDeserializerSpec.swift in Sources */,
@@ -914,9 +936,11 @@
 				65C426121BBA0B7700595E1B /* ConcreteURLProviderSpec.swift in Sources */,
 				6581F7BF1BB87FF500B26B76 /* EventControllerSpec.swift in Sources */,
 				654B55B71BB4888D00492610 /* EventPresenterSpec.swift in Sources */,
+				65D0ECE91BBB8C360063B1D0 /* EventRSVPControllerSpec.swift in Sources */,
 				65F112EE1B9FFE8700BA585C /* EventsControllerSpec.swift in Sources */,
 				65EA2F291BB9B648001D8FD5 /* FakeDateFormatter.swift in Sources */,
 				65A337011BB88FFA0012877F /* FakeEventPresenter.swift in Sources */,
+				65D0ECE71BBAD9940063B1D0 /* FakeEventRSVPControllerProvider.swift in Sources */,
 				659F0E201B95F0180049FA12 /* FakeImageRepository.swift in Sources */,
 				653885101B90F13600DCA808 /* FakeJSONClient.swift in Sources */,
 				6538851A1B90F7DD00DCA808 /* FakeNSURLSession.swift in Sources */,

@@ -79,7 +79,8 @@ public protocol Theme {
     // MARK: Event screen
     
     func eventDirectionsButtonBackgroundColor() -> UIColor
-    func eventDirectionsButtonTextColor() -> UIColor
+    func eventRSVPButtonBackgroundColor() -> UIColor
+    func eventButtonTextColor() -> UIColor
     func eventDirectionsButtonFont() -> UIFont
     func eventNameFont() -> UIFont
     func eventNameColor() -> UIColor

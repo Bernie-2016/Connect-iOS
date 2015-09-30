@@ -4,15 +4,17 @@ import MapKit
 
 public class EventController : UIViewController {
     public let event : Event!
+    public let eventPresenter: EventPresenter!
+    public let eventRSVPControllerProvider: EventRSVPControllerProvider!
     public let urlProvider : URLProvider!
     public let urlOpener : URLOpener!
-    public let eventPresenter: EventPresenter!
     public let theme : Theme!
     
     let containerView = UIView.newAutoLayoutView()
     let scrollView = UIScrollView.newAutoLayoutView()
-    public let directionsButton = UIButton.newAutoLayoutView()
     public let mapView = MKMapView.newAutoLayoutView()
+    public let rsvpButton = UIButton.newAutoLayoutView()
+    public let directionsButton = UIButton.newAutoLayoutView()
     public let nameLabel = UILabel.newAutoLayoutView()
     public let dateIconImageView = UIImageView.newAutoLayoutView()
     public let dateLabel = UILabel.newAutoLayoutView()
@@ -26,11 +28,13 @@ public class EventController : UIViewController {
     public init(
         event: Event,
         eventPresenter: EventPresenter,
+        eventRSVPControllerProvider: EventRSVPControllerProvider,
         urlProvider: URLProvider,
         urlOpener: URLOpener,
         theme: Theme) {            
             self.event = event
             self.eventPresenter = eventPresenter
+            self.eventRSVPControllerProvider = eventRSVPControllerProvider
             self.urlProvider = urlProvider
             self.urlOpener = urlOpener
             self.theme = theme
@@ -52,11 +56,21 @@ public class EventController : UIViewController {
         mapView.setRegion(coordinateRegion, animated: true)
         mapView.addAnnotation(eventPin)
 
+        let backBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Event_backButtonTitle", comment: ""),
+            style: UIBarButtonItemStyle.Plain,
+            target: nil, action: nil)
+        
+        navigationItem.backBarButtonItem = backBarButtonItem
+
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "share")
         navigationItem.title = NSLocalizedString("Event_navigationTitle", comment: "")
         
         directionsButton.setTitle(NSLocalizedString("Event_directionsButtonTitle", comment: ""), forState: .Normal)
         directionsButton.addTarget(self, action: "didTapDirections", forControlEvents: .TouchUpInside)
+
+        rsvpButton.setTitle(NSLocalizedString("Event_rsvpButtonTitle", comment: ""), forState: .Normal)
+        rsvpButton.addTarget(self, action: "didTapRSVP", forControlEvents: .TouchUpInside)
         
         applyTheme()
         
@@ -76,6 +90,7 @@ public class EventController : UIViewController {
         
         view.addSubview(scrollView)
         scrollView.addSubview(containerView)
+        containerView.addSubview(rsvpButton)
         containerView.addSubview(directionsButton)
         containerView.addSubview(mapView)
         containerView.addSubview(nameLabel)
@@ -106,12 +121,21 @@ public class EventController : UIViewController {
         self.urlOpener.openURL(self.urlProvider.mapsURLForEvent(self.event))
     }
     
+    func didTapRSVP() {
+        let rsvpController = self.eventRSVPControllerProvider.provideControllerWithEvent(event)
+        navigationController?.pushViewController(rsvpController, animated: true)
+    }
+    
     // MARK: Private
     
     func applyTheme() {
         view.backgroundColor = theme.defaultBackgroundColor()
+        rsvpButton.backgroundColor = theme.eventRSVPButtonBackgroundColor()
+        rsvpButton.setTitleColor(theme.eventButtonTextColor(), forState: .Normal)
+        rsvpButton.titleLabel!.font = theme.eventDirectionsButtonFont()
+
         directionsButton.backgroundColor = theme.eventDirectionsButtonBackgroundColor()
-        directionsButton.setTitleColor(theme.eventDirectionsButtonTextColor(), forState: .Normal)
+        directionsButton.setTitleColor(theme.eventButtonTextColor(), forState: .Normal)
         directionsButton.titleLabel!.font = theme.eventDirectionsButtonFont()
         nameLabel.textColor = theme.eventNameColor()
         nameLabel.font = theme.eventNameFont()
@@ -141,8 +165,13 @@ public class EventController : UIViewController {
         mapView.autoPinEdgeToSuperviewEdge(.Right)
         mapView.autoSetDimension(.Height, toSize: self.view.bounds.height / 3)
         
+        rsvpButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: mapView)
+        rsvpButton.autoPinEdgeToSuperviewEdge(.Left)
+        rsvpButton.autoSetDimension(.Height, toSize: 55)
+        rsvpButton.autoSetDimension(.Width, toSize: screenBounds.width / 2)
+
         directionsButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: mapView)
-        directionsButton.autoPinEdgeToSuperviewEdge(.Left)
+        directionsButton.autoPinEdge(.Left, toEdge: .Right, ofView: rsvpButton)
         directionsButton.autoPinEdgeToSuperviewEdge(.Right)
         directionsButton.autoSetDimension(.Height, toSize: 55)
         

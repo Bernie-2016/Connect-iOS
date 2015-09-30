@@ -242,9 +242,10 @@ class DefaultTheme : Theme {
     func eventDescriptionFont() -> UIFont { return UIFont(name: "Lato-Regular", size: 13)! }
     func eventDescriptionColor() -> UIColor { return self.cornflowerBlueColor() }
     func eventDirectionsButtonBackgroundColor() -> UIColor { return self.cornflowerBlueColor() }
-    func eventDirectionsButtonTextColor() -> UIColor { return UIColor.whiteColor() }
+    func eventButtonTextColor() -> UIColor { return UIColor.whiteColor() }
     func eventDirectionsButtonFont() -> UIFont { return UIFont(name: "Lato-Regular", size: 15)! }
-
+    func eventRSVPButtonBackgroundColor() -> UIColor { return self.carnationColor() }
+    
     // MARK: default dimensions
     
     func defaultCornerRadius() -> CGFloat {

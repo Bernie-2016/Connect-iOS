@@ -32,8 +32,14 @@
 // Event
 
 "Event_navigationTitle" = "Event Details";
+"Event_backButtonTitle" = "Back";
+"Event_rsvpButtonTitle" = "RSVP";
 "Event_directionsButtonTitle" = "Directions";
 "Event_descriptionHeading" = "Description";
+
+// Event RSVP
+
+"EventRSVP_navigationTitle" = "RSVP to Event";
 
 // Settings
 

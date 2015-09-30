@@ -100,6 +100,7 @@ class FakeEventControllerProvider : berniesanders.EventControllerProvider {
     let controller = EventController(
         event: TestUtils.eventWithName("some event"),
         eventPresenter: FakeEventPresenter(dateFormatter: FakeDateFormatter()),
+        eventRSVPControllerProvider: FakeEventRSVPControllerProvider(),
         urlProvider: FakeURLProvider(),
         urlOpener: FakeURLOpener(),
         theme: FakeTheme())
