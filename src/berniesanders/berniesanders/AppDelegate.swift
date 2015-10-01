@@ -18,6 +18,8 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             
             let mainQueue = NSOperationQueue.mainQueue()
             let sharedURLSession = NSURLSession.sharedSession()
+            let analyticsService = ConcreteAnalyticsService()
+            
             let defaultTheme = DefaultTheme()
             let urlProvider = ConcreteURLProvider()
             let jsonSerializerProvider = NSJSONSerializationProvider()
@@ -111,14 +113,14 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             let eventsNavigationController = NavigationController(theme: defaultTheme)
             eventsNavigationController.pushViewController(eventsController, animated: false)
             
-            let viewControllers = [
+            let tabBarViewControllers = [
                 newsNavigationController,
                 issuesNavigationController,
                 eventsNavigationController,
                 organizeController
             ]
             
-            let tabBarController = TabBarController(theme: defaultTheme, viewControllers: viewControllers)
+            let tabBarController = TabBarController(viewControllers: tabBarViewControllers, analyticsService: analyticsService, theme: defaultTheme)
             
             self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
             self.window!.rootViewController = tabBarController

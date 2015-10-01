@@ -1,12 +1,17 @@
 import UIKit
 
-public class TabBarController : UITabBarController {
-    private let theme : Theme!
+public class TabBarController : UITabBarController, UITabBarControllerDelegate {
+    let theme : Theme!
+    let analyticsService : AnalyticsService!
     
-    public init(theme: Theme, viewControllers: Array<UIViewController>) {
+    public init(viewControllers: Array<UIViewController>, analyticsService: AnalyticsService, theme: Theme) {
+        self.analyticsService = analyticsService
         self.theme = theme
+        
         super.init(nibName: nil, bundle: nil)
+        
         self.viewControllers = viewControllers
+        self.delegate = self
     }
 
     required public init(coder aDecoder: NSCoder) {
@@ -20,5 +25,9 @@ public class TabBarController : UITabBarController {
     
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+    }
+    
+    public func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+        self.analyticsService.trackCustomEventWithName("Tapped \"\(viewController.tabBarItem.title!)\" on tab bar")
     }
 }

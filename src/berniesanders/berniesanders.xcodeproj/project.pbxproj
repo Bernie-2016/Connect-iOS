@@ -50,6 +50,9 @@
 		654B55B51BB4882700492610 /* EventPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654B55B41BB4882700492610 /* EventPresenter.swift */; };
 		654B55B71BB4888D00492610 /* EventPresenterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654B55B61BB4888D00492610 /* EventPresenterSpec.swift */; };
 		655887141BA866CF0077CC56 /* NewsHeadlineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655887131BA866CF0077CC56 /* NewsHeadlineTableViewCell.swift */; };
+		6559D70D1BBDC32100CBC7EE /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6559D70C1BBDC32100CBC7EE /* AnalyticsService.swift */; };
+		6559D70F1BBDC37000CBC7EE /* FakeAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6559D70E1BBDC37000CBC7EE /* FakeAnalyticsService.swift */; };
+		6559D7111BBDC5F200CBC7EE /* ConcreteAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6559D7101BBDC5F200CBC7EE /* ConcreteAnalyticsService.swift */; };
 		655A3AD01B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655A3ACF1B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework */; };
 		655A3DB31BBCCC8700E08051 /* FLOSSController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A3DB21BBCCC8700E08051 /* FLOSSController.swift */; };
 		655A3DB51BBCCD3600E08051 /* FlossControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A3DB41BBCCD3600E08051 /* FlossControllerSpec.swift */; };
@@ -212,6 +215,9 @@
 		654B55B41BB4882700492610 /* EventPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventPresenter.swift; sourceTree = "<group>"; };
 		654B55B61BB4888D00492610 /* EventPresenterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventPresenterSpec.swift; sourceTree = "<group>"; };
 		655887131BA866CF0077CC56 /* NewsHeadlineTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsHeadlineTableViewCell.swift; sourceTree = "<group>"; };
+		6559D70C1BBDC32100CBC7EE /* AnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
+		6559D70E1BBDC37000CBC7EE /* FakeAnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeAnalyticsService.swift; sourceTree = "<group>"; };
+		6559D7101BBDC5F200CBC7EE /* ConcreteAnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteAnalyticsService.swift; sourceTree = "<group>"; };
 		655A3ACF1B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "UIKit+PivotalSpecHelper-iOS.framework"; sourceTree = "<group>"; };
 		655A3DB21BBCCC8700E08051 /* FLOSSController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FLOSSController.swift; sourceTree = "<group>"; };
 		655A3DB41BBCCD3600E08051 /* FlossControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlossControllerSpec.swift; sourceTree = "<group>"; };
@@ -466,6 +472,23 @@
 			path = Presenters;
 			sourceTree = "<group>";
 		};
+		6559D70A1BBDC2F400CBC7EE /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				6559D70B1BBDC30800CBC7EE /* Protocols */,
+				6559D7101BBDC5F200CBC7EE /* ConcreteAnalyticsService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		6559D70B1BBDC30800CBC7EE /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				6559D70C1BBDC32100CBC7EE /* AnalyticsService.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		655A3DB61BBCCE5400E08051 /* HTML */ = {
 			isa = PBXGroup;
 			children = (
@@ -611,6 +634,7 @@
 		65F5F6551B89678E0049353C /* Fakes */ = {
 			isa = PBXGroup;
 			children = (
+				6559D70E1BBDC37000CBC7EE /* FakeAnalyticsService.swift */,
 				65EA2F281BB9B648001D8FD5 /* FakeDateFormatter.swift */,
 				65A337001BB88FFA0012877F /* FakeEventPresenter.swift */,
 				65D0ECE61BBAD9940063B1D0 /* FakeEventRSVPControllerProvider.swift */,
@@ -658,6 +682,7 @@
 				6505C9561BBA0196008DD278 /* Proxies */,
 				65EC4CF61B866B6700DD4C83 /* Repositories */,
 				65F5F6501B87B9440049353C /* Resources */,
+				6559D70A1BBDC2F400CBC7EE /* Services */,
 				8233FC0A1B7C28FB00A5E9ED /* Supporting Files */,
 				65CA5E951B86E5710001D870 /* Table View Cells */,
 				65CA5E8F1B86E3490001D870 /* Themes */,
@@ -878,7 +903,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6559D70D1BBDC32100CBC7EE /* AnalyticsService.swift in Sources */,
 				8233FC0D1B7C28FB00A5E9ED /* AppDelegate.swift in Sources */,
+				6559D7111BBDC5F200CBC7EE /* ConcreteAnalyticsService.swift in Sources */,
 				654AD3571BB8787000A59966 /* ConcreteEventControllerProvider.swift in Sources */,
 				654774051BB241D900B87670 /* ConcreteEventDeserializer.swift in Sources */,
 				655AF0C81BB0981800F0448E /* ConcreteEventRepository.swift in Sources */,
@@ -957,6 +984,7 @@
 				654B55B71BB4888D00492610 /* EventPresenterSpec.swift in Sources */,
 				65D0ECE91BBB8C360063B1D0 /* EventRSVPControllerSpec.swift in Sources */,
 				65F112EE1B9FFE8700BA585C /* EventsControllerSpec.swift in Sources */,
+				6559D70F1BBDC37000CBC7EE /* FakeAnalyticsService.swift in Sources */,
 				65EA2F291BB9B648001D8FD5 /* FakeDateFormatter.swift in Sources */,
 				65A337011BB88FFA0012877F /* FakeEventPresenter.swift in Sources */,
 				65D0ECE71BBAD9940063B1D0 /* FakeEventRSVPControllerProvider.swift in Sources */,
