@@ -168,16 +168,8 @@ class DefaultTheme : Theme {
     func eventsListColor() -> UIColor {
         return self.cornflowerBlueColor()
     }
-    
-    func eventsGoButtonFont() -> UIFont {
-        return UIFont(name: "Lato-Regular", size: 15)!
-    }
-    
-    func eventsGoButtonTextColor() -> UIColor {
-        return UIColor.whiteColor()
-    }
-    
-    func eventsGoButtonBackgroundColor() -> UIColor {
+        
+    func eventsInputAccessoryBackgroundColor() -> UIColor {
         return self.cornflowerBlueColor()
     }
     
@@ -194,7 +186,7 @@ class DefaultTheme : Theme {
     }
     
     func eventsZipCodeFont() -> UIFont {
-        return UIFont(name: "Lato-Regular", size: 14)!
+        return UIFont(name: "Lato-Regular", size: 17)!
     }
     
     func eventsZipCodeCornerRadius() -> CGFloat {

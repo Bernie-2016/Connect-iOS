@@ -62,10 +62,7 @@ public protocol Theme {
     
     func eventsListFont() -> UIFont
     func eventsListColor() -> UIColor
-    func eventsGoButtonFont() -> UIFont
-    func eventsGoButtonTextColor() -> UIColor
-    func eventsGoButtonBackgroundColor() -> UIColor
-    func eventsGoButtonCornerRadius() -> CGFloat
+    func eventsInputAccessoryBackgroundColor() -> UIColor
     func eventsZipCodeTextColor() -> UIColor
     func eventsZipCodeBackgroundColor() -> UIColor
     func eventsZipCodeBorderColor() -> UIColor

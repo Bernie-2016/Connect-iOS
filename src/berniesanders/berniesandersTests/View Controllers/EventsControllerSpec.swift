@@ -25,15 +25,7 @@ class EventsFakeTheme : FakeTheme {
         return UIColor.yellowColor()
     }
     
-    override func eventsGoButtonFont() -> UIFont {
-        return UIFont.boldSystemFontOfSize(555)
-    }
-    
-    override func eventsGoButtonTextColor() -> UIColor {
-        return UIColor.magentaColor()
-    }
-    
-    override func eventsGoButtonBackgroundColor() -> UIColor {
+    override func eventsInputAccessoryBackgroundColor() -> UIColor {
         return UIColor.greenColor()
     }
     
@@ -143,7 +135,7 @@ class EventsControllerSpec : QuickSpec {
                 
                 self.navigationController.pushViewController(self.subject, animated: false)
                 
-                self.window.rootViewController = self.navigationController
+                self.window.addSubview(self.subject.view)
                 self.window.makeKeyAndVisible()
                 
                 self.subject.view.layoutSubviews()
@@ -195,7 +187,6 @@ class EventsControllerSpec : QuickSpec {
                 let subViews = self.subject.view.subviews as! [UIView]
                 
                 expect(contains(subViews, self.subject.zipCodeTextField)).to(beTrue())
-                expect(contains(subViews, self.subject.eventSearchButton)).to(beTrue())
                 expect(contains(subViews, self.subject.noResultsLabel)).to(beTrue())
                 expect(contains(subViews, self.subject.resultsTableView)).to(beTrue())
                 expect(contains(subViews, self.subject.loadingActivityIndicatorView)).to(beTrue())
@@ -213,19 +204,11 @@ class EventsControllerSpec : QuickSpec {
                 expect(self.subject.loadingActivityIndicatorView.isAnimating()).to(beFalse())
             }
             
-            it("has a search button button") {
-                expect(self.subject.eventSearchButton.titleForState(.Normal)).to(equal("Go"))
-            }
-            
             it("configures the keyboard to be a number pad") {
                 expect(self.subject.zipCodeTextField.keyboardType).to(equal(UIKeyboardType.NumberPad))
             }
             
             it("styles the page components with the theme") {
-                expect(self.subject.eventSearchButton.backgroundColor).to(equal(UIColor.greenColor()))
-                expect(self.subject.eventSearchButton.titleLabel!.font).to(equal(UIFont.boldSystemFontOfSize(555)))
-                expect(self.subject.eventSearchButton.layer.cornerRadius).to(equal(300.0))
-                
                 expect(self.subject.zipCodeTextField.backgroundColor).to(equal(UIColor.brownColor()))
                 expect(self.subject.zipCodeTextField.font).to(equal(UIFont.boldSystemFontOfSize(4444)))
                 expect(self.subject.zipCodeTextField.textColor).to(equal(UIColor.redColor()))
@@ -247,34 +230,43 @@ class EventsControllerSpec : QuickSpec {
                 expect(self.subject.loadingActivityIndicatorView.color).to(equal(UIColor.blackColor()))
             }
             
+            it("has an input accessory view for the zip code entry field") {
+                let inputToolbar = self.subject.zipCodeTextField.inputAccessoryView as! UIToolbar
+                let doneButton = inputToolbar.items![1] as! UIBarButtonItem
+                let cancelButton = inputToolbar.items![2] as! UIBarButtonItem
+                
+                expect(doneButton.title).to(equal("Search"))
+                expect(cancelButton.title).to(equal("Cancel"))
+            }
+            
             describe("making a search by zip code") {
-                xit("has the correct range of values in the radius picker") {
-                    
-                }
-                
-                xit("has the correct default value for the radius picker") {
-                    
-                }
-                
-                context("when entering an invalid zip code and range") {
-                    xit("should display an error") {
+                describe("aborting a search") {
+                    it("should resign first responder") {
+                        self.subject.zipCodeTextField.becomeFirstResponder()
+
+                        expect(self.subject.zipCodeTextField.isFirstResponder()).to(beTrue())
                         
-                    }
-                    
-                    xit("should not make a search") {
+                        let inputToolbar = self.subject.zipCodeTextField.inputAccessoryView as! UIToolbar
+                        let cancelButton = inputToolbar.items![2] as! UIBarButtonItem
+                        cancelButton.tap()
                         
+                        expect(self.subject.zipCodeTextField.isFirstResponder()).to(beFalse())
                     }
                 }
                 
                 context("when entering a valid zip code") {
                     beforeEach {
                         self.subject.zipCodeTextField.becomeFirstResponder()
+                        
+                        expect(self.subject.zipCodeTextField.isFirstResponder()).to(beTrue())
+
                         self.subject.zipCodeTextField.text = "90210"
-                        self.subject.eventSearchButton.tap()
+                        let inputToolbar = self.subject.zipCodeTextField.inputAccessoryView as! UIToolbar
+                        let doneButton = inputToolbar.items![1] as! UIBarButtonItem
+                        doneButton.tap()
                     }
                     
-                    xit("should resign first responder") {
-                        // TODO: we never become first responder in the test - fix this :/
+                    it("should resign first responder") {
                         expect(self.subject.zipCodeTextField.isFirstResponder()).to(beFalse())
                     }
                     
@@ -311,7 +303,9 @@ class EventsControllerSpec : QuickSpec {
                             beforeEach {
                                 self.subject.zipCodeTextField.text = "11111"
                                 
-                                self.subject.eventSearchButton.tap()
+                                let inputToolbar = self.subject.zipCodeTextField.inputAccessoryView as! UIToolbar
+                                let doneButton = inputToolbar.items![1] as! UIBarButtonItem
+                                doneButton.tap()
                             }
                             
                             it("should hide the no results message") {
@@ -353,7 +347,9 @@ class EventsControllerSpec : QuickSpec {
                                 beforeEach {
                                     self.subject.zipCodeTextField.text = "11111"
                                     
-                                    self.subject.eventSearchButton.tap()
+                                    let inputToolbar = self.subject.zipCodeTextField.inputAccessoryView as! UIToolbar
+                                    let doneButton = inputToolbar.items![1] as! UIBarButtonItem
+                                    doneButton.tap()
                                 }
                                 
                                 it("should hide the no results message") {
@@ -437,7 +433,9 @@ class EventsControllerSpec : QuickSpec {
                                 beforeEach {
                                     self.subject.zipCodeTextField.text = "11111"
                                     
-                                    self.subject.eventSearchButton.tap()
+                                    let inputToolbar = self.subject.zipCodeTextField.inputAccessoryView as! UIToolbar
+                                    let doneButton = inputToolbar.items![1] as! UIBarButtonItem
+                                    doneButton.tap()
                                 }
                                 
                                 it("should hide the results table view") {

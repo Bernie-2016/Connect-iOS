@@ -10,7 +10,6 @@ public class EventsController : UIViewController, UITableViewDataSource, UITable
     public let theme: Theme!
     
     public let zipCodeTextField = UITextField.newAutoLayoutView()
-    public let eventSearchButton = UIButton.newAutoLayoutView()
     public let resultsTableView = UITableView.newAutoLayoutView()
     public let noResultsLabel = UILabel.newAutoLayoutView()
     public let loadingActivityIndicatorView = UIActivityIndicatorView.newAutoLayoutView()
@@ -70,20 +69,15 @@ public class EventsController : UIViewController, UITableViewDataSource, UITable
         setNeedsStatusBarAppearanceUpdate()
         
         view.addSubview(zipCodeTextField)
-        view.addSubview(eventSearchButton)
         view.addSubview(resultsTableView)
         view.addSubview(noResultsLabel)
         view.addSubview(loadingActivityIndicatorView)
         
-        eventSearchButton.setTitle(NSLocalizedString("Events_eventSearchButtonTitle", comment: ""), forState: .Normal)
-        eventSearchButton.addTarget(self, action: "didTapSearch:", forControlEvents: .TouchUpInside)
-        eventSearchButton.backgroundColor = self.theme.eventsGoButtonBackgroundColor()
-        eventSearchButton.titleLabel!.font = self.theme.eventsGoButtonFont()
-        eventSearchButton.titleLabel!.textColor = self.theme.eventsGoButtonTextColor()
-        eventSearchButton.layer.cornerRadius = self.theme.eventsGoButtonCornerRadius()
-        
         zipCodeTextField.autoPinEdgeToSuperviewEdge(.Top, withInset: 8)
         zipCodeTextField.autoPinEdgeToSuperviewEdge(.Left, withInset: 8)
+        zipCodeTextField.autoPinEdgeToSuperviewEdge(.Right, withInset: 8)
+        zipCodeTextField.autoSetDimension(.Height, toSize: 30)
+        
         zipCodeTextField.placeholder = NSLocalizedString("Events_zipCodeTextBoxPlaceholder",  comment: "")
         zipCodeTextField.keyboardType = .NumberPad
         zipCodeTextField.textColor = self.theme.eventsZipCodeTextColor()
@@ -93,12 +87,6 @@ public class EventsController : UIViewController, UITableViewDataSource, UITable
         zipCodeTextField.layer.borderWidth = self.theme.eventsZipCodeBorderWidth()
         zipCodeTextField.layer.cornerRadius = self.theme.eventsZipCodeCornerRadius()
         zipCodeTextField.layer.sublayerTransform = self.theme.eventsZipCodeTextOffset()
-        
-        eventSearchButton.autoPinEdgeToSuperviewEdge(.Top, withInset: 8)
-        eventSearchButton.autoSetDimension(.Width, toSize: 70)
-        eventSearchButton.autoPinEdge(.Left, toEdge: .Right, ofView: zipCodeTextField, withOffset: 8)
-        eventSearchButton.autoPinEdgeToSuperviewEdge(.Right, withInset: 8)
-        eventSearchButton.autoPinEdge(.Bottom, toEdge: .Bottom, ofView: zipCodeTextField)
         
         resultsTableView.autoPinEdge(.Top, toEdge: .Bottom, ofView: zipCodeTextField, withOffset: 8)
         resultsTableView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Top)
@@ -120,6 +108,18 @@ public class EventsController : UIViewController, UITableViewDataSource, UITable
         noResultsLabel.hidden = true
         loadingActivityIndicatorView.hidesWhenStopped = true
         loadingActivityIndicatorView.stopAnimating()
+        
+        let inputAccessoryView = UIToolbar(frame: CGRectMake(0, 0, 320, 50))
+        inputAccessoryView.barTintColor = self.theme.eventsInputAccessoryBackgroundColor()
+
+        let spacer = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
+        let searchButton = UIBarButtonItem(title: NSLocalizedString("Events_eventSearchButtonTitle", comment: ""), style: .Done, target: self, action: "didTapSearch:")
+        let cancelButton = UIBarButtonItem(title: NSLocalizedString("Events_eventCancelButtonTitle", comment: ""), style: .Done, target: self, action: "didTapCancel:")
+
+        let inputAccessoryItems = [spacer, searchButton, cancelButton]
+        inputAccessoryView.items = inputAccessoryItems
+
+        zipCodeTextField.inputAccessoryView = inputAccessoryView
     }
     
     public override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -190,5 +190,9 @@ public class EventsController : UIViewController, UITableViewDataSource, UITable
                 self.noResultsLabel.hidden = false
                 self.loadingActivityIndicatorView.stopAnimating()
         }
+    }
+    
+    func didTapCancel(sender: UIButton!) {
+        self.zipCodeTextField.resignFirstResponder()
     }
 }
