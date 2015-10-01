@@ -72,6 +72,8 @@ public protocol Theme {
     func eventsZipCodeTextOffset() -> CATransform3D
     func eventsNoResultsTextColor() -> UIColor
     func eventsNoResultsFont() -> UIFont
+    func eventsInstructionsFont() -> UIFont
+    func eventsInstructionsTextColor() -> UIColor
     
     // MARK: Event screen
     

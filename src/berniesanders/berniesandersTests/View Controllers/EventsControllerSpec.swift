@@ -72,6 +72,14 @@ class EventsFakeTheme : FakeTheme {
     override func defaultSpinnerColor() -> UIColor {
         return UIColor.blackColor()
     }
+    
+    override func eventsInstructionsFont() -> UIFont {
+        return UIFont.italicSystemFontOfSize(666)
+    }
+    
+    override func eventsInstructionsTextColor() -> UIColor {
+        return UIColor.whiteColor()
+    }
 }
 
 class FakeEventRepository : EventRepository {
@@ -187,6 +195,7 @@ class EventsControllerSpec : QuickSpec {
                 let subViews = self.subject.view.subviews as! [UIView]
                 
                 expect(contains(subViews, self.subject.zipCodeTextField)).to(beTrue())
+                expect(contains(subViews, self.subject.instructionsLabel)).to(beTrue())
                 expect(contains(subViews, self.subject.noResultsLabel)).to(beTrue())
                 expect(contains(subViews, self.subject.resultsTableView)).to(beTrue())
                 expect(contains(subViews, self.subject.loadingActivityIndicatorView)).to(beTrue())
@@ -204,6 +213,11 @@ class EventsControllerSpec : QuickSpec {
                 expect(self.subject.loadingActivityIndicatorView.isAnimating()).to(beFalse())
             }
             
+            it("should show the instructions by default") {
+                expect(self.subject.instructionsLabel.hidden).to(beFalse())
+                expect(self.subject.instructionsLabel.text).to(equal("Enter your ZIP code above to find Bernie events near you!"))
+            }
+            
             it("configures the keyboard to be a number pad") {
                 expect(self.subject.zipCodeTextField.keyboardType).to(equal(UIKeyboardType.NumberPad))
             }
@@ -215,6 +229,7 @@ class EventsControllerSpec : QuickSpec {
                 expect(self.subject.zipCodeTextField.layer.cornerRadius).to(equal(100.0))
                 expect(self.subject.zipCodeTextField.layer.borderWidth).to(equal(200.0))
                 
+                
                 // TODO: Figure out how to test this.
                 //                expect(self.subject.zipCodeTextField.layer.sublayerTransform).to(equal(CATransform3DMakeTranslation(4, 5, 6)))
                 
@@ -223,6 +238,9 @@ class EventsControllerSpec : QuickSpec {
                 //                var a = self.subject.zipCodeTextField.layer.borderColor
                 //                var b = UIColor.orangeColor().CGColor
                 //                expect(a).to(equal(b))
+                
+                expect(self.subject.instructionsLabel.textColor).to(equal(UIColor.whiteColor()))
+                expect(self.subject.instructionsLabel.font).to(equal(UIFont.italicSystemFontOfSize(666)))
                 
                 expect(self.subject.noResultsLabel.font).to(equal(UIFont.italicSystemFontOfSize(888)))
                 expect(self.subject.noResultsLabel.textColor).to(equal(UIColor.blueColor()))
@@ -273,7 +291,10 @@ class EventsControllerSpec : QuickSpec {
                     it("should show the spinner") {
                         expect(self.subject.loadingActivityIndicatorView.isAnimating()).to(beTrue())
                     }
-
+                    
+                    it("should hide the instructions") {
+                        expect(self.subject.instructionsLabel.hidden).to(beTrue())
+                    }
                     
                     it("should ask the events repository for events within 50 miles") {
                         expect(self.eventRepository.lastReceivedZipCode).to(equal("90210"))

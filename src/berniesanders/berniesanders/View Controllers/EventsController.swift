@@ -12,6 +12,7 @@ public class EventsController : UIViewController, UITableViewDataSource, UITable
     public let zipCodeTextField = UITextField.newAutoLayoutView()
     public let resultsTableView = UITableView.newAutoLayoutView()
     public let noResultsLabel = UILabel.newAutoLayoutView()
+    public let instructionsLabel = UILabel.newAutoLayoutView()
     public let loadingActivityIndicatorView = UIActivityIndicatorView.newAutoLayoutView()
     
     var events: Array<Event>!
@@ -52,23 +53,26 @@ public class EventsController : UIViewController, UITableViewDataSource, UITable
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = NSLocalizedString("Events_navigationTitle", comment: "")
+        navigationItem.title = NSLocalizedString("Events_navigationTitle", comment: "")
         let settingsIcon = UIImage(named: "settingsIcon")
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: settingsIcon, style: .Plain, target: self, action: "didTapSettings")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: settingsIcon, style: .Plain, target: self, action: "didTapSettings")
         let backBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Events_backButtonTitle", comment: ""),
             style: UIBarButtonItemStyle.Plain,
             target: nil, action: nil)
         
-        self.navigationItem.backBarButtonItem = backBarButtonItem
+        navigationItem.backBarButtonItem = backBarButtonItem
         
-        self.edgesForExtendedLayout = .None
-        self.resultsTableView.dataSource = self
-        self.resultsTableView.delegate = self // TODO: TEST ME!
-        self.resultsTableView.registerClass(EventListTableViewCell.self, forCellReuseIdentifier: "eventCell")
+        edgesForExtendedLayout = .None
+        resultsTableView.dataSource = self
+        resultsTableView.delegate = self // TODO: TEST ME!
+        resultsTableView.registerClass(EventListTableViewCell.self, forCellReuseIdentifier: "eventCell")
+        
+        instructionsLabel.text = NSLocalizedString("Events_instructions", comment: "")
         
         setNeedsStatusBarAppearanceUpdate()
         
         view.addSubview(zipCodeTextField)
+        view.addSubview(instructionsLabel)
         view.addSubview(resultsTableView)
         view.addSubview(noResultsLabel)
         view.addSubview(loadingActivityIndicatorView)
@@ -88,6 +92,14 @@ public class EventsController : UIViewController, UITableViewDataSource, UITable
         zipCodeTextField.layer.cornerRadius = self.theme.eventsZipCodeCornerRadius()
         zipCodeTextField.layer.sublayerTransform = self.theme.eventsZipCodeTextOffset()
         
+        instructionsLabel.font = theme.eventsInstructionsFont()
+        instructionsLabel.textColor = theme.eventsInstructionsTextColor()
+        instructionsLabel.textAlignment = .Center
+        instructionsLabel.numberOfLines = 0
+        instructionsLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: zipCodeTextField, withOffset: 24)
+        instructionsLabel.autoAlignAxisToSuperviewAxis(.Vertical)
+        instructionsLabel.autoSetDimension(.Width, toSize: 220)
+
         resultsTableView.autoPinEdge(.Top, toEdge: .Bottom, ofView: zipCodeTextField, withOffset: 8)
         resultsTableView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Top)
         
@@ -170,10 +182,12 @@ public class EventsController : UIViewController, UITableViewDataSource, UITable
     }
     
     func didTapSearch(sender : UIButton!) {
-        self.zipCodeTextField.resignFirstResponder()
-        resultsTableView.hidden = true
-        noResultsLabel.hidden = true
-        loadingActivityIndicatorView.hidden = false
+        zipCodeTextField.resignFirstResponder()
+        
+        self.instructionsLabel.hidden = true
+        self.resultsTableView.hidden = true
+        self.noResultsLabel.hidden = true
+        
         loadingActivityIndicatorView.startAnimating()
         
         self.eventRepository.fetchEventsWithZipCode(self.zipCodeTextField.text, radiusMiles: 50.0,

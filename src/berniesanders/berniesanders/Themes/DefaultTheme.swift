@@ -13,14 +13,6 @@ class DefaultTheme : Theme {
         return self.silverColor()
     }
     
-    func defaultHeaderFont() -> UIFont {
-        return UIFont(name: "Lato-Regular", size: 17)!
-    }
-    
-    func defaultBodyTextFont() -> UIFont {
-        return UIFont(name: "Lora-Bold", size: 15)!
-    }
-    
     // MARK: Tab Bar
     
     func tabBarTintColor() -> UIColor {
@@ -237,6 +229,8 @@ class DefaultTheme : Theme {
     func eventButtonTextColor() -> UIColor { return UIColor.whiteColor() }
     func eventDirectionsButtonFont() -> UIFont { return UIFont(name: "Lato-Regular", size: 15)! }
     func eventRSVPButtonBackgroundColor() -> UIColor { return self.carnationColor() }
+    func eventsInstructionsFont() -> UIFont { return defaultHeaderFont() }
+    func eventsInstructionsTextColor() -> UIColor { return cornflowerBlueColor() }
     
     // MARK: default dimensions
     
@@ -268,5 +262,15 @@ class DefaultTheme : Theme {
     
     func altoColor() -> UIColor {
         return UIColor(rgba: "#dcdcdc")
+    }
+    
+    // MARK: font definitions
+    
+    func defaultHeaderFont() -> UIFont {
+        return UIFont(name: "Lato-Regular", size: 17)!
+    }
+    
+    func defaultBodyTextFont() -> UIFont {
+        return UIFont(name: "Lora-Bold", size: 15)!
     }
 }
