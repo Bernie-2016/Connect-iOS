@@ -51,6 +51,9 @@
 		654B55B71BB4888D00492610 /* EventPresenterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654B55B61BB4888D00492610 /* EventPresenterSpec.swift */; };
 		655887141BA866CF0077CC56 /* NewsHeadlineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655887131BA866CF0077CC56 /* NewsHeadlineTableViewCell.swift */; };
 		655A3AD01B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655A3ACF1B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework */; };
+		655A3DB31BBCCC8700E08051 /* FLOSSController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A3DB21BBCCC8700E08051 /* FLOSSController.swift */; };
+		655A3DB51BBCCD3600E08051 /* FlossControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655A3DB41BBCCD3600E08051 /* FlossControllerSpec.swift */; };
+		655A3DB81BBCCE7400E08051 /* floss_licenses.html in Resources */ = {isa = PBXBuildFile; fileRef = 655A3DB71BBCCE7400E08051 /* floss_licenses.html */; };
 		655AF0C41BB095BA00F0448E /* EventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655AF0C31BB095BA00F0448E /* EventRepository.swift */; };
 		655AF0C61BB095E500F0448E /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655AF0C51BB095E500F0448E /* Event.swift */; };
 		655AF0C81BB0981800F0448E /* ConcreteEventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655AF0C71BB0981800F0448E /* ConcreteEventRepository.swift */; };
@@ -210,6 +213,9 @@
 		654B55B61BB4888D00492610 /* EventPresenterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventPresenterSpec.swift; sourceTree = "<group>"; };
 		655887131BA866CF0077CC56 /* NewsHeadlineTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsHeadlineTableViewCell.swift; sourceTree = "<group>"; };
 		655A3ACF1B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "UIKit+PivotalSpecHelper-iOS.framework"; sourceTree = "<group>"; };
+		655A3DB21BBCCC8700E08051 /* FLOSSController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FLOSSController.swift; sourceTree = "<group>"; };
+		655A3DB41BBCCD3600E08051 /* FlossControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlossControllerSpec.swift; sourceTree = "<group>"; };
+		655A3DB71BBCCE7400E08051 /* floss_licenses.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = floss_licenses.html; sourceTree = "<group>"; };
 		655AF0C31BB095BA00F0448E /* EventRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventRepository.swift; sourceTree = "<group>"; };
 		655AF0C51BB095E500F0448E /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		655AF0C71BB0981800F0448E /* ConcreteEventRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteEventRepository.swift; sourceTree = "<group>"; };
@@ -460,6 +466,14 @@
 			path = Presenters;
 			sourceTree = "<group>";
 		};
+		655A3DB61BBCCE5400E08051 /* HTML */ = {
+			isa = PBXGroup;
+			children = (
+				655A3DB71BBCCE7400E08051 /* floss_licenses.html */,
+			);
+			path = HTML;
+			sourceTree = "<group>";
+		};
 		655B57BB1B86C15700E69C0C /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -561,6 +575,7 @@
 				6581F7BE1BB87FF500B26B76 /* EventControllerSpec.swift */,
 				65D0ECE81BBB8C360063B1D0 /* EventRSVPControllerSpec.swift */,
 				65F112ED1B9FFE8700BA585C /* EventsControllerSpec.swift */,
+				655A3DB41BBCCD3600E08051 /* FlossControllerSpec.swift */,
 				653601031B99E74300FE3735 /* IssueControllerSpec.swift */,
 				65C97A171B8A5D2F00088679 /* IssuesControllerSpec.swift */,
 				65F5F6531B8967630049353C /* NavigationControllerSpec.swift */,
@@ -586,6 +601,7 @@
 			isa = PBXGroup;
 			children = (
 				65EDD6211B8BB80D00F545B8 /* Fonts */,
+				655A3DB61BBCCE5400E08051 /* HTML */,
 				8233FC151B7C28FB00A5E9ED /* Images.xcassets */,
 				65F5F6631B8A3CB00049353C /* Localizable.strings */,
 			);
@@ -694,6 +710,7 @@
 				654AD3541BB876C700A59966 /* EventController.swift */,
 				65D0ECE21BBAD7A20063B1D0 /* EventRSVPController.swift */,
 				65F112EF1B9FFF1C00BA585C /* EventsController.swift */,
+				655A3DB21BBCCC8700E08051 /* FLOSSController.swift */,
 				6592FA3B1B99E33300746EC3 /* IssueController.swift */,
 				8233FC311B7C4A9600A5E9ED /* IssuesController.swift */,
 				65F5F6581B8968440049353C /* NavigationController.swift */,
@@ -798,6 +815,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				65B165591B9789C00052EF8D /* Entitlements.plist in Resources */,
+				655A3DB81BBCCE7400E08051 /* floss_licenses.html in Resources */,
 				8233FC161B7C28FB00A5E9ED /* Images.xcassets in Resources */,
 				65EDD6241B8BB82E00F545B8 /* Lato-Regular.ttf in Resources */,
 				65F5F6611B8A3CB00049353C /* Localizable.strings in Resources */,
@@ -885,6 +903,7 @@
 				65D0ECE31BBAD7A20063B1D0 /* EventRSVPController.swift in Sources */,
 				65D0ECE11BBAD7780063B1D0 /* EventRSVPControllerProvider.swift in Sources */,
 				65F112F01B9FFF1C00BA585C /* EventsController.swift in Sources */,
+				655A3DB31BBCCC8700E08051 /* FLOSSController.swift in Sources */,
 				659F0E1C1B95EC0B0049FA12 /* ImageRepository.swift in Sources */,
 				6587FF5A1B8A7E3200AC65F1 /* Issue.swift in Sources */,
 				6592FA3C1B99E33300746EC3 /* IssueController.swift in Sources */,
@@ -949,6 +968,7 @@
 				65F5F6571B8967AD0049353C /* FakeTheme.swift in Sources */,
 				6505C9531BB9FF3F008DD278 /* FakeURLOpener.swift in Sources */,
 				6507631E1B8B720E00BA0659 /* FakeURLProvider.swift in Sources */,
+				655A3DB51BBCCD3600E08051 /* FlossControllerSpec.swift in Sources */,
 				653601041B99E74300FE3735 /* IssueControllerSpec.swift in Sources */,
 				65C97A181B8A5D2F00088679 /* IssuesControllerSpec.swift in Sources */,
 				65F5F6541B8967630049353C /* NavigationControllerSpec.swift in Sources */,

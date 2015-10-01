@@ -30,8 +30,9 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             let imageRepository = ConcreteImageRepository(webImageManager: webImageManager)
             
             let privacyPolicyController = PrivacyPolicyController(urlProvider: urlProvider)
+            let flossController = FLOSSController()
             let settingsController = SettingsController(
-                tappableControllers: [privacyPolicyController],
+                tappableControllers: [privacyPolicyController, flossController],
                 theme: defaultTheme)
             
             let newsItemDeserializer = ConcreteNewsItemDeserializer()

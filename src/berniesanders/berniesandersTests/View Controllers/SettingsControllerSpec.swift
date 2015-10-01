@@ -59,6 +59,10 @@ class SettingsControllerSpec : QuickSpec {
                 expect(self.subject.navigationItem.title).to(equal("Settings"))
             }
             
+            it("should set the back bar button item title correctly") {
+                expect(self.subject.navigationItem.backBarButtonItem?.title).to(equal("Back"))
+            }
+            
             describe("when the view loads") {
                 beforeEach {
                     self.subject.view.layoutSubviews()

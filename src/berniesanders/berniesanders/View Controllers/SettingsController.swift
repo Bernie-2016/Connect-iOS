@@ -15,6 +15,13 @@ public class SettingsController : UITableViewController {
 
         hidesBottomBarWhenPushed = true
         navigationItem.title = NSLocalizedString("Settings_navigationTitle", comment: "")
+        
+        let backBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Settings_backButtonTitle", comment: ""),
+            style: UIBarButtonItemStyle.Plain,
+            target: nil, action: nil)
+        
+        navigationItem.backBarButtonItem = backBarButtonItem
+
     }
     
     required public init(coder aDecoder: NSCoder) {

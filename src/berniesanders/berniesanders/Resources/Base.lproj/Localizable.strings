@@ -44,7 +44,12 @@
 // Settings
 
 "Settings_navigationTitle" = "Settings";
+"Settings_backButtonTitle" = "Back";
 
 // Privacy Policy
 
 "PrivacyPolicy_title" = "Privacy Policy";
+
+// Open Source Software
+
+"FLOSS_title" = "Open Source Software";
