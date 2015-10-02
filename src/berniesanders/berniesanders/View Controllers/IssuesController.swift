@@ -4,6 +4,7 @@ public class IssuesController: UIViewController, UITableViewDataSource, UITableV
     let issueRepository: IssueRepository!
     let issueControllerProvider: IssueControllerProvider!
     let settingsController : SettingsController!
+    let analyticsService : AnalyticsService!
     let theme: Theme!
     
     public let tableView = UITableView.newAutoLayoutView()
@@ -11,10 +12,15 @@ public class IssuesController: UIViewController, UITableViewDataSource, UITableV
 
     var issues: Array<Issue>!
     
-    public init(issueRepository: IssueRepository, issueControllerProvider: IssueControllerProvider, settingsController: SettingsController, theme: Theme) {
+    public init(issueRepository: IssueRepository,
+        issueControllerProvider: IssueControllerProvider,
+        settingsController: SettingsController,
+        analyticsService: AnalyticsService!,
+        theme: Theme) {
         self.issueRepository = issueRepository
         self.issueControllerProvider = issueControllerProvider
         self.settingsController = settingsController
+        self.analyticsService = analyticsService
         self.theme = theme
         
         self.issues = []
@@ -78,7 +84,10 @@ public class IssuesController: UIViewController, UITableViewDataSource, UITableV
             self.tableView.hidden = false
             self.tableView.reloadData()
             }, error: { (error) -> Void in
-                println(error)
+                self.analyticsService.trackError(error, context: "Failed to load issues")
+                
+                println(error.localizedDescription)
+
                 // TODO: error handling.
         })
     }
@@ -111,6 +120,9 @@ public class IssuesController: UIViewController, UITableViewDataSource, UITableV
     
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var issue = self.issues[indexPath.row]
+
+        self.analyticsService.trackContentViewWithName(issue.title, type: .Issue, id: issue.URL.absoluteString!)
+        
         let controller = self.issueControllerProvider.provideInstanceWithIssue(issue)
         self.navigationController!.pushViewController(controller, animated: true)
     }
@@ -118,6 +130,7 @@ public class IssuesController: UIViewController, UITableViewDataSource, UITableV
     // MARK: Actions
     
     func didTapSettings() {
+        self.analyticsService.trackCustomEventWithName("Tapped 'Settings' in Issues nav bar")
         self.navigationController?.pushViewController(self.settingsController, animated: true)
     }
 }

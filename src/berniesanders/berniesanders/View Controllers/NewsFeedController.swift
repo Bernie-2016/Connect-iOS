@@ -172,10 +172,7 @@ public class NewsFeedController: UIViewController, UITableViewDelegate, UITableV
             newsItem = self.newsItems[indexPath.row + 1]
         }
         
-        let t = newsItem.title
-        let ty = AnalyticsServiceContentType.NewsItem
-        let id = newsItem.URL.absoluteString!
-        self.analyticsService.trackContentViewWithName(t, type: ty, id: id)
+        self.analyticsService.trackContentViewWithName(newsItem.title, type: .NewsItem, id: newsItem.URL.absoluteString!)
         
         let controller = self.newsItemControllerProvider.provideInstanceWithNewsItem(newsItem)
         

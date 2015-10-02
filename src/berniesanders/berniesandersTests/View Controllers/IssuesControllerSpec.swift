@@ -59,149 +59,183 @@ class IssuesControllerSpec: QuickSpec {
     var subject: IssuesController!
     var issueRepository: FakeIssueRepository! = FakeIssueRepository()
     var issueControllerProvider = FakeIssueControllerProvider()
-    let navigationController = UINavigationController()
+    var navigationController: UINavigationController!
     let settingsController = TestUtils.settingsController()
+    var analyticsService: FakeAnalyticsService!
     
     override func spec() {
-        beforeEach {
-            self.subject = IssuesController(
-                issueRepository: self.issueRepository,
-                issueControllerProvider: self.issueControllerProvider,
-                settingsController: self.settingsController,
-                theme: IssuesFakeTheme()
-            )
-
-            self.navigationController.pushViewController(self.subject, animated: false)
-            self.subject.view.layoutSubviews()
-        }
-        
-        it("has the correct tab bar title") {
-            expect(self.subject.title).to(equal("Issues"))
-        }
-        
-        it("has the correct navigation item title") {
-            expect(self.subject.navigationItem.title).to(equal("Issues"))
-        }
-        
-        it("should set the back bar button item title correctly") {
-            expect(self.subject.navigationItem.backBarButtonItem?.title).to(equal("Back"))
-        }
-        
-        it("styles its tab bar item from the theme") {
-            let normalAttributes = self.subject.tabBarItem.titleTextAttributesForState(UIControlState.Normal)
-            
-            let normalTextColor = normalAttributes[NSForegroundColorAttributeName] as! UIColor
-            let normalFont = normalAttributes[NSFontAttributeName] as! UIFont
-            
-            expect(normalTextColor).to(equal(UIColor.redColor()))
-            expect(normalFont).to(equal(UIFont.systemFontOfSize(123)))
-            
-            let selectedAttributes = self.subject.tabBarItem.titleTextAttributesForState(UIControlState.Selected)
-            
-            let selectedTextColor = selectedAttributes[NSForegroundColorAttributeName] as! UIColor
-            let selectedFont = selectedAttributes[NSFontAttributeName] as! UIFont
-            
-            expect(selectedTextColor).to(equal(UIColor.purpleColor()))
-            expect(selectedFont).to(equal(UIFont.systemFontOfSize(123)))
-        }
-        
-        it("initially hides the table view, and shows the loading spinner") {
-            expect(self.subject.tableView.hidden).to(equal(true));
-            expect(self.subject.loadingIndicatorView.isAnimating()).to(equal(true))
-        }
-        
-        it("has the page components as subviews") {
-            let subViews = self.subject.view.subviews as! [UIView]
-            
-            expect(contains(subViews, self.subject.tableView)).to(beTrue())
-            expect(contains(subViews, self.subject.loadingIndicatorView)).to(beTrue())
-        }
-        
-        it("sets the spinner up to hide when stopped") {
-            expect(self.subject.loadingIndicatorView.hidesWhenStopped).to(equal(true))
-        }
-        
-        it("styles the spinner from the theme") {
-            expect(self.subject.loadingIndicatorView.color).to(equal(UIColor.greenColor()))
-        }
-        
-        describe("tapping on the settings button") {
-            it("should push the settings controller onto the nav stack") {
-                self.subject.navigationItem.rightBarButtonItem!.tap()
-                
-                expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.settingsController))
-            }
-        }
-        
-        describe("when the controller appears") {
+        describe("IssuesController") {
             beforeEach {
-                self.subject.view.layoutIfNeeded()
-                self.subject.viewWillAppear(false)
+                self.analyticsService = FakeAnalyticsService()
+                self.navigationController = UINavigationController()
+                
+                self.subject = IssuesController(
+                    issueRepository: self.issueRepository,
+                    issueControllerProvider: self.issueControllerProvider,
+                    settingsController: self.settingsController,
+                    analyticsService: self.analyticsService,
+                    theme: IssuesFakeTheme()
+                )
+                
+                self.navigationController.pushViewController(self.subject, animated: false)
+                self.subject.view.layoutSubviews()
             }
             
-            it("has an empty table") {
-                expect(self.subject.tableView.numberOfSections()).to(equal(1))
-                expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(0))
+            it("has the correct tab bar title") {
+                expect(self.subject.title).to(equal("Issues"))
             }
             
-            it("asks the issue repository for some news") {
-                expect(self.issueRepository.fetchIssuesCalled).to(beTrue())
+            it("has the correct navigation item title") {
+                expect(self.subject.navigationItem.title).to(equal("Issues"))
             }
             
+            it("should set the back bar button item title correctly") {
+                expect(self.subject.navigationItem.backBarButtonItem?.title).to(equal("Back"))
+            }
             
-            describe("when the issue repository returns some issues") {
+            it("styles its tab bar item from the theme") {
+                let normalAttributes = self.subject.tabBarItem.titleTextAttributesForState(UIControlState.Normal)
+                
+                let normalTextColor = normalAttributes[NSForegroundColorAttributeName] as! UIColor
+                let normalFont = normalAttributes[NSFontAttributeName] as! UIFont
+                
+                expect(normalTextColor).to(equal(UIColor.redColor()))
+                expect(normalFont).to(equal(UIFont.systemFontOfSize(123)))
+                
+                let selectedAttributes = self.subject.tabBarItem.titleTextAttributesForState(UIControlState.Selected)
+                
+                let selectedTextColor = selectedAttributes[NSForegroundColorAttributeName] as! UIColor
+                let selectedFont = selectedAttributes[NSFontAttributeName] as! UIFont
+                
+                expect(selectedTextColor).to(equal(UIColor.purpleColor()))
+                expect(selectedFont).to(equal(UIFont.systemFontOfSize(123)))
+            }
+            
+            it("initially hides the table view, and shows the loading spinner") {
+                expect(self.subject.tableView.hidden).to(equal(true));
+                expect(self.subject.loadingIndicatorView.isAnimating()).to(equal(true))
+            }
+            
+            it("has the page components as subviews") {
+                let subViews = self.subject.view.subviews as! [UIView]
+                
+                expect(contains(subViews, self.subject.tableView)).to(beTrue())
+                expect(contains(subViews, self.subject.loadingIndicatorView)).to(beTrue())
+            }
+            
+            it("sets the spinner up to hide when stopped") {
+                expect(self.subject.loadingIndicatorView.hidesWhenStopped).to(equal(true))
+            }
+            
+            it("styles the spinner from the theme") {
+                expect(self.subject.loadingIndicatorView.color).to(equal(UIColor.greenColor()))
+            }
+            
+            describe("tapping on the settings button") {
                 beforeEach {
-                    var issueA = Issue(title: "Big Money in Little DC", body: "body", imageURL: NSURL(string: "http://a.com")!, URL: NSURL(string: "http://b.com")!)
-                    var issueB = Issue(title: "Long Live The NHS", body: "body", imageURL: NSURL(string: "http://c.com")!, URL: NSURL(string: "http://d.com")!)
-                    
-                    self.issueRepository.lastCompletionBlock!([issueA, issueB])
+                    self.subject.navigationItem.rightBarButtonItem!.tap()
                 }
                 
-                it("shows the table view, and stops the loading spinner") {
-                    self.issueRepository.lastCompletionBlock!([])
-                    
-                    expect(self.subject.tableView.hidden).to(equal(false));
-                    expect(self.subject.loadingIndicatorView.isAnimating()).to(equal(false))
+                it("should push the settings controller onto the nav stack") {
+                    expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.settingsController))
                 }
                 
-                it("shows the issues in the table") {
-                    expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(2))
-                    
-                    var cellA = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! IssueTableViewCell
-                    expect(cellA.titleLabel.text).to(equal("Big Money in Little DC"))
-                    
-                    var cellB = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! IssueTableViewCell
-                    expect(cellB.titleLabel.text).to(equal("Long Live The NHS"))
-                }
-                
-                it("styles the items in the table") {
-                    var cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! IssueTableViewCell
-                    
-                    expect(cell.titleLabel.textColor).to(equal(UIColor.magentaColor()))
-                    expect(cell.titleLabel.font).to(equal(UIFont.boldSystemFontOfSize(20)))                 
+                it("tracks a custom event via the analytics service") {
+                    expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Settings' in Issues nav bar"))
                 }
             }
-        }
-        
-        describe("Tapping on an issue") {
-            let expectedIssue = TestUtils.issue()
             
-            beforeEach {
-                self.subject.view.layoutIfNeeded()
-                self.subject.viewWillAppear(false)
-                var otherIssue = TestUtils.issue()
+            describe("when the controller appears") {
+                beforeEach {
+                    self.subject.view.layoutIfNeeded()
+                    self.subject.viewWillAppear(false)
+                }
                 
-                var issues = [otherIssue, expectedIssue]
+                it("has an empty table") {
+                    expect(self.subject.tableView.numberOfSections()).to(equal(1))
+                    expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(0))
+                }
                 
-                self.issueRepository.lastCompletionBlock!(issues)
+                it("asks the issue repository for some news") {
+                    expect(self.issueRepository.fetchIssuesCalled).to(beTrue())
+                }
+                
+                
+                describe("when the issue repository returns some issues") {
+                    beforeEach {
+                        var issueA = Issue(title: "Big Money in Little DC", body: "body", imageURL: NSURL(string: "http://a.com")!, URL: NSURL(string: "http://b.com")!)
+                        var issueB = Issue(title: "Long Live The NHS", body: "body", imageURL: NSURL(string: "http://c.com")!, URL: NSURL(string: "http://d.com")!)
+                        
+                        self.issueRepository.lastCompletionBlock!([issueA, issueB])
+                    }
+                    
+                    it("shows the table view, and stops the loading spinner") {
+                        self.issueRepository.lastCompletionBlock!([])
+                        
+                        expect(self.subject.tableView.hidden).to(equal(false));
+                        expect(self.subject.loadingIndicatorView.isAnimating()).to(equal(false))
+                    }
+                    
+                    it("shows the issues in the table") {
+                        expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(2))
+                        
+                        var cellA = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! IssueTableViewCell
+                        expect(cellA.titleLabel.text).to(equal("Big Money in Little DC"))
+                        
+                        var cellB = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! IssueTableViewCell
+                        expect(cellB.titleLabel.text).to(equal("Long Live The NHS"))
+                    }
+                    
+                    it("styles the items in the table") {
+                        var cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! IssueTableViewCell
+                        
+                        expect(cell.titleLabel.textColor).to(equal(UIColor.magentaColor()))
+                        expect(cell.titleLabel.font).to(equal(UIFont.boldSystemFontOfSize(20)))
+                    }
+                }
+                
+                context("when the repository encounters an error fetching issues") {
+                    let expectedError = NSError(domain: "some error", code: 666, userInfo: nil)
+                    
+                    beforeEach {
+                        self.issueRepository.lastErrorBlock!(expectedError)
+                    }
+                    
+                    it("logs that error to the analytics service") {
+                        expect(self.analyticsService.lastError).to(beIdenticalTo(expectedError))
+                        expect(self.analyticsService.lastErrorContext).to(equal("Failed to load issues"))
+                    }
+                }
+                
             }
             
-            it("should push a correctly configured issue controller onto the nav stack") {
-                let tableView = self.subject.tableView
-                tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
- 
-                expect(self.issueControllerProvider.lastIssue).to(beIdenticalTo(expectedIssue))
-                expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.issueControllerProvider.controller))
+            describe("Tapping on an issue") {
+                let expectedIssue = TestUtils.issue()
+                
+                beforeEach {
+                    self.subject.view.layoutIfNeeded()
+                    self.subject.viewWillAppear(false)
+                    var otherIssue = TestUtils.issue()
+                    
+                    var issues = [otherIssue, expectedIssue]
+                    
+                    self.issueRepository.lastCompletionBlock!(issues)
+                    
+                    let tableView = self.subject.tableView
+                    tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
+                }
+                
+                it("tracks the content view with the analytics service") {
+                    expect(self.analyticsService.lastContentViewName).to(equal(expectedIssue.title))
+                    expect(self.analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.Issue))
+                    expect(self.analyticsService.lastContentViewID).to(equal(expectedIssue.URL.absoluteString))
+                }
+                
+                
+                it("should push a correctly configured issue controller onto the nav stack") {
+                    expect(self.issueControllerProvider.lastIssue).to(beIdenticalTo(expectedIssue))
+                    expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.issueControllerProvider.controller))
+                }
             }
         }
     }

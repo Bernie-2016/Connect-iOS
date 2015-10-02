@@ -80,6 +80,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
                 issueRepository: issueRepository,
                 issueControllerProvider: issueControllerProvider,
                 settingsController: settingsController,
+                analyticsService: analyticsService,
                 theme: defaultTheme
             )
             let issuesNavigationController = NavigationController(theme: defaultTheme)
