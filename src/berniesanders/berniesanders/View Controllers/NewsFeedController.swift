@@ -2,12 +2,13 @@ import UIKit
 
 
 public class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    let theme: Theme!
     let newsItemRepository: NewsItemRepository!
     let imageRepository: ImageRepository!
     let dateFormatter: NSDateFormatter!
     let newsItemControllerProvider: NewsItemControllerProvider!
     let settingsController: SettingsController!
+    let analyticsService: AnalyticsService!
+    let theme: Theme!
     
     public let tableView = UITableView.newAutoLayoutView()
     public let loadingIndicatorView = UIActivityIndicatorView.newAutoLayoutView()
@@ -15,20 +16,21 @@ public class NewsFeedController: UIViewController, UITableViewDelegate, UITableV
     private var newsItems: Array<NewsItem>!
     
     public init(
-        theme: Theme,
         newsItemRepository: NewsItemRepository,
         imageRepository: ImageRepository,
         dateFormatter: NSDateFormatter,
         newsItemControllerProvider: NewsItemControllerProvider,
-        settingsController: SettingsController
+        settingsController: SettingsController,
+        analyticsService: AnalyticsService,
+        theme: Theme
         ) {
-            
-            self.theme = theme
             self.newsItemRepository = newsItemRepository
             self.imageRepository = imageRepository
             self.dateFormatter = dateFormatter
             self.newsItemControllerProvider = newsItemControllerProvider
             self.settingsController = settingsController
+            self.analyticsService = analyticsService
+            self.theme = theme
             
             self.newsItems = []
             
@@ -168,6 +170,11 @@ public class NewsFeedController: UIViewController, UITableViewDelegate, UITableV
             newsItem = self.newsItems[indexPath.row + 1]
         }
         
+        let t = newsItem.title
+        let ty = AnalyticsServiceContentType.NewsItem
+        let id = newsItem.URL.absoluteString!
+        self.analyticsService.trackContentViewWithName(t, type: ty, id: id)
+        
         let controller = self.newsItemControllerProvider.provideInstanceWithNewsItem(newsItem)
         
         self.navigationController?.pushViewController(controller, animated: true)
@@ -176,6 +183,7 @@ public class NewsFeedController: UIViewController, UITableViewDelegate, UITableV
     // MARK: Actions
     
     func didTapSettings() {
+        self.analyticsService.trackCustomEventWithName("Tapped 'Settings' in News nav bar")
         self.navigationController?.pushViewController(self.settingsController, animated: true)
     }
 }

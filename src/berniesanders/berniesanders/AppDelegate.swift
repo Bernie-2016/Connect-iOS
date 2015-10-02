@@ -54,12 +54,13 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             )
             
             let newsFeedController = NewsFeedController(
-                theme: defaultTheme,
                 newsItemRepository: newsItemRepository,
                 imageRepository: imageRepository,
                 dateFormatter: longDateFormatter,
                 newsItemControllerProvider: newsItemControllerProvider,
-                settingsController: settingsController
+                settingsController: settingsController,
+                analyticsService: analyticsService,
+                theme: defaultTheme
             )
             
             let newsNavigationController = NavigationController(theme: defaultTheme)
