@@ -8,4 +8,8 @@ class ConcreteAnalyticsService : AnalyticsService {
     func trackContentViewWithName(name: String, type: AnalyticsServiceContentType, id: String) {
 
     }
+    
+    func trackError(error: NSError, context: String) {
+
+    }
 }

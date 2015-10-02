@@ -320,6 +320,19 @@ class NewsFeedControllerSpecs: QuickSpec {
                         }
                     }
                 })
+                
+                context("when the repository encounters an error fetching items") {
+                    let expectedError = NSError(domain: "some error", code: 666, userInfo: nil)
+
+                    beforeEach {
+                        self.newsItemRepository.lastErrorBlock!(expectedError)
+                    }
+                    
+                    it("logs that error to the analytics service") {
+                        expect(self.analyticsService.lastError).to(beIdenticalTo(expectedError))
+                        expect(self.analyticsService.lastErrorContext).to(equal("Failed to load news feed"))
+                    }
+                }
             }
             
             describe("Tapping on a news item") {

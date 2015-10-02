@@ -100,7 +100,9 @@ public class NewsFeedController: UIViewController, UITableViewDelegate, UITableV
             self.newsItems = receivedNewsItems
             self.tableView.reloadData()
             }, error: { (error) -> Void in
-                println(error.domain)
+                self.analyticsService.trackError(error, context: "Failed to load news feed")
+                
+                println(error.localizedDescription)
                 // TODO: error handling.
         })
     }
