@@ -12,4 +12,8 @@ class ConcreteAnalyticsService : AnalyticsService {
     func trackError(error: NSError, context: String) {
 
     }
+    
+    func trackShareWithActivityType(activityType: String, contentName: String, contentType: AnalyticsServiceContentType, id: String) {
+        
+    }
 }

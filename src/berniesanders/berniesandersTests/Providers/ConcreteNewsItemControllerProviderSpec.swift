@@ -7,6 +7,7 @@ public class ConcreteNewsItemControllerProviderSpec : QuickSpec {
     var subject : ConcreteNewsItemControllerProvider!
     let dateFormatter = NSDateFormatter()
     let imageRepository = FakeImageRepository()
+    let analyticsService = FakeAnalyticsService()
     let theme = FakeTheme()
     
     override public func spec() {
@@ -16,6 +17,7 @@ public class ConcreteNewsItemControllerProviderSpec : QuickSpec {
                 self.subject = ConcreteNewsItemControllerProvider(
                     dateFormatter: self.dateFormatter,
                     imageRepository: self.imageRepository,
+                    analyticsService: self.analyticsService,
                     theme: self.theme
                 )
             }
@@ -27,8 +29,9 @@ public class ConcreteNewsItemControllerProviderSpec : QuickSpec {
                 
                 expect(controller).to(beAnInstanceOf(NewsItemController.self))
                 expect(controller.newsItem).to(beIdenticalTo(newsItem))
-                expect(controller.dateFormatter).to(beIdenticalTo(self.dateFormatter))
                 expect(controller.imageRepository as? FakeImageRepository).to(beIdenticalTo(self.imageRepository))
+                expect(controller.dateFormatter).to(beIdenticalTo(self.dateFormatter))
+                expect(controller.analyticsService as? FakeAnalyticsService).to(beIdenticalTo(self.analyticsService))
                 expect(controller.theme as? FakeTheme).to(beIdenticalTo(self.theme))
             }
         }

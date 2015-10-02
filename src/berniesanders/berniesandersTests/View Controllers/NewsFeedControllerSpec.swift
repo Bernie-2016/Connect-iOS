@@ -64,7 +64,11 @@ class FakeNewsItemRepository : berniesanders.NewsItemRepository {
 }
 
 class FakeNewsItemControllerProvider : berniesanders.NewsItemControllerProvider {
-    let controller = NewsItemController(newsItem: NewsItem(title: "a", date: NSDate(), body: "a body", imageURL: NSURL(), URL: NSURL()), dateFormatter: NSDateFormatter(), imageRepository: FakeImageRepository(), theme: FakeTheme())
+    let controller = NewsItemController(newsItem: NewsItem(title: "a", date: NSDate(), body: "a body", imageURL: NSURL(), URL: NSURL()),
+        imageRepository: FakeImageRepository(),
+        dateFormatter: NSDateFormatter(),
+        analyticsService: FakeAnalyticsService(),
+        theme: FakeTheme())
     var lastNewsItem: NewsItem?
     
     func provideInstanceWithNewsItem(newsItem: NewsItem) -> NewsItemController {

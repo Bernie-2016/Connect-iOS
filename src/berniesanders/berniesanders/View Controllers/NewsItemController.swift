@@ -5,6 +5,7 @@ public class NewsItemController : UIViewController {
     public let newsItem : NewsItem!
     public let imageRepository : ImageRepository!
     public let dateFormatter : NSDateFormatter!
+    public let analyticsService: AnalyticsService!
     public let theme : Theme!
     
     let containerView = UIView.newAutoLayoutView()
@@ -16,13 +17,15 @@ public class NewsItemController : UIViewController {
     
     public init(
         newsItem: NewsItem,
-        dateFormatter: NSDateFormatter,
         imageRepository: ImageRepository,
+        dateFormatter: NSDateFormatter,
+        analyticsService: AnalyticsService,
         theme: Theme) {
 
         self.newsItem = newsItem
-        self.dateFormatter = dateFormatter
         self.imageRepository = imageRepository
+        self.dateFormatter = dateFormatter
+        self.analyticsService = analyticsService
         self.theme = theme
         
         super.init(nibName: nil, bundle: nil)
@@ -70,10 +73,28 @@ public class NewsItemController : UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    public override func didMoveToParentViewController(parent: UIViewController?) {
+        self.analyticsService.trackCustomEventWithName("Tapped 'Back' on News Item")
+    }
+    
     // MARK: Actions
     
     func share() {
+        self.analyticsService.trackCustomEventWithName("Tapped 'Share' on News Item")
         let activityVC = UIActivityViewController(activityItems: [newsItem.URL], applicationActivities: nil)
+
+        activityVC.completionWithItemsHandler = { activity, success, items, error in
+            if(error != nil) {
+                self.analyticsService.trackError(error, context: "Failed to share News Item")
+            } else {
+                if(success == true) {
+                    self.analyticsService.trackShareWithActivityType(activity, contentName: self.newsItem.title, contentType: .NewsItem, id: self.newsItem.URL.absoluteString!)
+                } else {
+                    self.analyticsService.trackCustomEventWithName("Cancelled share of News Item")
+                }
+            }
+        }
+        
         presentViewController(activityVC, animated: true, completion: nil)
     }
     
