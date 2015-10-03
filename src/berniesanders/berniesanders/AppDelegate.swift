@@ -32,7 +32,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             let imageRepository = ConcreteImageRepository(webImageManager: webImageManager)
             
             let privacyPolicyController = PrivacyPolicyController(urlProvider: urlProvider, analyticsService: analyticsService)
-            let flossController = FLOSSController()
+            let flossController = FLOSSController(analyticsService: analyticsService)
             let settingsController = SettingsController(
                 tappableControllers: [privacyPolicyController, flossController],
                 analyticsService: analyticsService,

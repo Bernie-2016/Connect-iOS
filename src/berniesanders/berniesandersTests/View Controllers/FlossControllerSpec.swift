@@ -5,11 +5,14 @@ import berniesanders
 
 class FLOSSControllerSpec : QuickSpec {
     var subject : FLOSSController!
-    
+    var analyticsService: FakeAnalyticsService!
+
     override func spec() {
         describe("FLOSSController") {
             beforeEach {
-                self.subject = FLOSSController()
+                self.analyticsService = FakeAnalyticsService()
+
+                self.subject = FLOSSController(analyticsService: self.analyticsService)
             }
             
             it("has the correct title") {
@@ -19,6 +22,12 @@ class FLOSSControllerSpec : QuickSpec {
             context("When the view loads") {
                 beforeEach {
                     self.subject.view.layoutSubviews()
+                }
+                
+                it("tracks taps on the back button with the analytics service") {
+                    self.subject.didMoveToParentViewController(nil)
+                    
+                    expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Back' on Open Source Software"))
                 }
                 
                 it("should add the webview as a subview") {
