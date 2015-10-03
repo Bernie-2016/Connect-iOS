@@ -10,6 +10,7 @@ public protocol AnalyticsService {
 public enum AnalyticsServiceContentType : String, Printable {
     case NewsItem = "News Item"
     case Issue = "Issue"
+    case Settings = "Settings"
     
     public var description: String {
         return self.rawValue

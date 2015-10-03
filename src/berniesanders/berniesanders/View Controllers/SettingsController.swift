@@ -4,10 +4,12 @@ import PureLayout
 
 public class SettingsController : UITableViewController {
     let tappableControllers : [UIViewController]!
-    let theme : Theme!
+    let analyticsService: AnalyticsService!
+    let theme: Theme!
     
-    public init(tappableControllers: [UIViewController], theme: Theme) {
+    public init(tappableControllers: [UIViewController], analyticsService: AnalyticsService, theme: Theme) {
         self.tappableControllers = tappableControllers
+        self.analyticsService = analyticsService
         self.theme = theme
         
         super.init(nibName: nil, bundle: nil)
@@ -57,6 +59,8 @@ public class SettingsController : UITableViewController {
     // MARK: <UITableViewDelegate>
     
     public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.navigationController?.pushViewController(self.tappableControllers[indexPath.row], animated: true)
+        let controller = self.tappableControllers[indexPath.row]
+        self.analyticsService.trackContentViewWithName(controller.title!, type: .Settings, id: controller.title!)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
 }

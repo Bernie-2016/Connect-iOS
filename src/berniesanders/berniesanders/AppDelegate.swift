@@ -35,6 +35,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             let flossController = FLOSSController()
             let settingsController = SettingsController(
                 tappableControllers: [privacyPolicyController, flossController],
+                analyticsService: analyticsService,
                 theme: defaultTheme)
             
             let newsItemDeserializer = ConcreteNewsItemDeserializer()

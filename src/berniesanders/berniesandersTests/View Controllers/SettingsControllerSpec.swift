@@ -31,23 +31,28 @@ class FakeSettingsController : UIViewController {
 
 class SettingsControllerSpec : QuickSpec {
     var subject: SettingsController!
+    var analyticsService: FakeAnalyticsService!
     let theme = SettingsFakeTheme()
 
     let controllerA = FakeSettingsController(title: "controller a")
     let controllerB = FakeSettingsController(title: "controller b")
     
     let flossController = TestUtils.privacyPolicyController()
-    let navigationController = UINavigationController()
+    var navigationController: UINavigationController!
 
     override func spec() {
         describe("SettingsController") {
             beforeEach {
+                self.analyticsService = FakeAnalyticsService()
+
                 self.subject = SettingsController(tappableControllers: [
                         self.controllerA,
                         self.controllerB
                     ],
+                    analyticsService: self.analyticsService,
                     theme: self.theme)
-                
+
+                self.navigationController = UINavigationController()
                 self.navigationController.pushViewController(self.subject, animated: false)
             }
             
@@ -101,6 +106,15 @@ class SettingsControllerSpec : QuickSpec {
                             
                             tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
                             expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.controllerB))
+                        }
+                        
+                        it("should log a content view with the analytics service") {
+                            let tableView = self.subject.tableView
+                            tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+
+                            expect(self.analyticsService.lastContentViewName).to(equal("controller a"))
+                            expect(self.analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.Settings))
+                            expect(self.analyticsService.lastContentViewID).to(equal("controller a"))
                         }
                     }
                 }
