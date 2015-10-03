@@ -139,7 +139,6 @@ class NewsItemControllerSpec : QuickSpec {
                                 expect(self.analyticsService.lastErrorContext).to(equal("Failed to share News Item"))
                             }
                         }
-
                     }
                     
                     it("has a scroll view containing the UI elements") {

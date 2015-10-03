@@ -29,16 +29,19 @@ class IssueFakeTheme : FakeTheme {
 class IssueControllerSpec : QuickSpec {
     var subject : IssueController!
     var imageRepository : FakeImageRepository!
+    var analyticsService: FakeAnalyticsService!
     let issue = TestUtils.issue()
 
     override func spec() {
         context("with a standard issue") {
             beforeEach {
                 self.imageRepository = FakeImageRepository()
+                self.analyticsService = FakeAnalyticsService()
                 
                 self.subject = IssueController(
                     issue: self.issue,
                     imageRepository: self.imageRepository,
+                    analyticsService: self.analyticsService,
                     theme: IssueFakeTheme())
             }
             
@@ -61,14 +64,52 @@ class IssueControllerSpec : QuickSpec {
                 }
                 
                 describe("tapping on the share button") {
-                    it("should present an activity view controller for sharing the story URL") {
+                    beforeEach {
                         self.subject.navigationItem.rightBarButtonItem!.tap()
-                        
+                    }
+                    
+                    it("should present an activity view controller for sharing the story URL") {
                         let activityViewControler = self.subject.presentedViewController as! UIActivityViewController
                         let activityItems = activityViewControler.activityItems()
                         
                         expect(activityItems.count).to(equal(1))
                         expect(activityItems.first as? NSURL).to(beIdenticalTo(self.issue.URL))
+                    }
+                    
+                    it("logs that the user tapped share") {
+                        expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Share' on Issue"))
+                    }
+                    
+                    context("and the user completes the share succesfully") {
+                        it("tracks the share via the analytics service") {
+                            let activityViewControler = self.subject.presentedViewController as! UIActivityViewController
+                            activityViewControler.completionWithItemsHandler!("Some activity", true, nil, nil)
+                            
+                            expect(self.analyticsService.lastShareActivityType).to(equal("Some activity"))
+                            expect(self.analyticsService.lastShareContentName).to(equal(self.issue.title))
+                            expect(self.analyticsService.lastShareContentType).to(equal(AnalyticsServiceContentType.Issue))
+                            expect(self.analyticsService.lastShareID).to(equal(self.issue.URL.absoluteString))
+                        }
+                    }
+                    
+                    context("and the user cancels the share") {
+                        it("tracks the share cancellation via the analytics service") {
+                            let activityViewControler = self.subject.presentedViewController as! UIActivityViewController
+                            activityViewControler.completionWithItemsHandler!(nil, false, nil, nil)
+                            
+                            expect(self.analyticsService.lastCustomEventName).to(equal("Cancelled share of Issue"))
+                        }
+                    }
+                    
+                    context("and there is an error when sharing") {
+                        it("tracks the error via the analytics service") {
+                            let expectedError = NSError(domain: "a", code: 0, userInfo: nil)
+                            let activityViewControler = self.subject.presentedViewController as! UIActivityViewController
+                            activityViewControler.completionWithItemsHandler!("asdf", true, nil, expectedError)
+                            
+                            expect(self.analyticsService.lastError).to(beIdenticalTo(expectedError))
+                            expect(self.analyticsService.lastErrorContext).to(equal("Failed to share Issue"))
+                        }
                     }
                 }
                 
@@ -142,6 +183,7 @@ class IssueControllerSpec : QuickSpec {
                     self.subject = IssueController(
                         issue: issue,
                         imageRepository: self.imageRepository,
+                        analyticsService: self.analyticsService,
                         theme: IssueFakeTheme())
                
                 

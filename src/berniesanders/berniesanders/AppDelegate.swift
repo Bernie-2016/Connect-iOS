@@ -75,7 +75,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
                 operationQueue: mainQueue
             )
             
-            let issueControllerProvider = ConcreteIssueControllerProvider(imageRepository: imageRepository, theme: defaultTheme)
+            let issueControllerProvider = ConcreteIssueControllerProvider(imageRepository: imageRepository, analyticsService: analyticsService, theme: defaultTheme)
             
             let issuesTableController = IssuesController(
                 issueRepository: issueRepository,

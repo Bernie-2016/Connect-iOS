@@ -4,6 +4,7 @@ import PureLayout
 public class IssueController : UIViewController {
     public let issue: Issue!
     public let imageRepository: ImageRepository!
+    public let analyticsService: AnalyticsService!
     public let theme: Theme!
     
     let containerView = UIView()
@@ -12,9 +13,10 @@ public class IssueController : UIViewController {
     public let bodyTextView = UITextView()
     public let issueImageView = UIImageView()
 
-    public init(issue: Issue, imageRepository: ImageRepository, theme: Theme) {
+    public init(issue: Issue, imageRepository: ImageRepository, analyticsService: AnalyticsService, theme: Theme) {
         self.issue = issue
         self.imageRepository = imageRepository
+        self.analyticsService = analyticsService
         self.theme = theme
         
         super.init(nibName: nil, bundle: nil)
@@ -58,10 +60,29 @@ public class IssueController : UIViewController {
         }
     }
     
+    public override func didMoveToParentViewController(parent: UIViewController?) {
+        self.analyticsService.trackCustomEventWithName("Tapped 'Back' on Issue")
+    }
+
+    
     // MARK: Actions
     
     func share() {
+        self.analyticsService.trackCustomEventWithName("Tapped 'Share' on Issue")
         let activityVC = UIActivityViewController(activityItems: [issue.URL], applicationActivities: nil)
+        
+        activityVC.completionWithItemsHandler = { activity, success, items, error in
+            if(error != nil) {
+                self.analyticsService.trackError(error, context: "Failed to share Issue")
+            } else {
+                if(success == true) {
+                    self.analyticsService.trackShareWithActivityType(activity, contentName: self.issue.title, contentType: .Issue, id: self.issue.URL.absoluteString!)
+                } else {
+                    self.analyticsService.trackCustomEventWithName("Cancelled share of Issue")
+                }
+            }
+        }
+        
         presentViewController(activityVC, animated: true, completion: nil)
     }
     
