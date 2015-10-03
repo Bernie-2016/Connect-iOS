@@ -2,13 +2,15 @@ import UIKit
 
 public class EventRSVPController : UIViewController, UIWebViewDelegate {
     public let event: Event!
+    public let analyticsService: AnalyticsService!
     public let theme: Theme!    
     
     public let webView = UIWebView()
     public let loadingIndicatorView = UIActivityIndicatorView.newAutoLayoutView()
     
-    public init(event: Event, theme: Theme) {
+    public init(event: Event, analyticsService: AnalyticsService, theme: Theme) {
         self.event = event
+        self.analyticsService = analyticsService
         self.theme = theme
         super.init(nibName: nil, bundle: nil)
     }
@@ -16,6 +18,8 @@ public class EventRSVPController : UIViewController, UIWebViewDelegate {
     required public init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: UIViewController
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +44,10 @@ public class EventRSVPController : UIViewController, UIWebViewDelegate {
         
         loadingIndicatorView.autoCenterInSuperviewMargins()
         webView.autoPinEdgesToSuperviewEdges()
+    }
+    
+    public override func didMoveToParentViewController(parent: UIViewController?) {
+        self.analyticsService.trackCustomEventWithName("Tapped 'Back' on Event RSVP")
     }
     
     // MARK: UIWebViewDelegate

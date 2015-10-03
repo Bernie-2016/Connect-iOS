@@ -8,6 +8,7 @@ public class EventController : UIViewController {
     public let eventRSVPControllerProvider: EventRSVPControllerProvider!
     public let urlProvider : URLProvider!
     public let urlOpener : URLOpener!
+    public let analyticsService: AnalyticsService!
     public let theme : Theme!
     
     let containerView = UIView.newAutoLayoutView()
@@ -31,18 +32,26 @@ public class EventController : UIViewController {
         eventRSVPControllerProvider: EventRSVPControllerProvider,
         urlProvider: URLProvider,
         urlOpener: URLOpener,
+        analyticsService: AnalyticsService,
         theme: Theme) {            
             self.event = event
             self.eventPresenter = eventPresenter
             self.eventRSVPControllerProvider = eventRSVPControllerProvider
             self.urlProvider = urlProvider
             self.urlOpener = urlOpener
+            self.analyticsService = analyticsService
             self.theme = theme
             
             super.init(nibName: nil, bundle: nil)
             
             self.hidesBottomBarWhenPushed = true // TODO: test this when initialized, not when viewDidLoad
     }
+    
+    required public init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: UIViewController
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,7 +95,7 @@ public class EventController : UIViewController {
         attendeesLabel.text = eventPresenter.presentAttendeesForEvent(event)
         descriptionHeadingLabel.text = NSLocalizedString("Event_descriptionHeading", comment: "")
         descriptionLabel.text = event.description
-                
+        
         view.addSubview(scrollView)
         scrollView.addSubview(containerView)
         containerView.addSubview(rsvpButton)
@@ -104,23 +113,38 @@ public class EventController : UIViewController {
         
         setupConstraints()
     }
-
-    required public init(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    
+    public override func didMoveToParentViewController(parent: UIViewController?) {
+        self.analyticsService.trackCustomEventWithName("Tapped 'Back' on Event")
     }
     
     // MARK: Actions
     
     func share() {
+        self.analyticsService.trackCustomEventWithName("Tapped 'Share' on Event")
+
         let activityVC = UIActivityViewController(activityItems: [event.URL], applicationActivities: nil)
         presentViewController(activityVC, animated: true, completion: nil)
+        activityVC.completionWithItemsHandler = { activity, success, items, error in
+            if(error != nil) {
+                self.analyticsService.trackError(error, context: "Failed to share Event")
+            } else {
+                if(success == true) {
+                    self.analyticsService.trackShareWithActivityType(activity, contentName: self.event.name, contentType: .Event, id: self.event.URL.absoluteString!)
+                } else {
+                    self.analyticsService.trackCustomEventWithName("Cancelled share of Event")
+                }
+            }
+        }
     }
     
-    func didTapDirections() {        
+    func didTapDirections() {
+        self.analyticsService.trackCustomEventWithName("Tapped 'Directions' on Event")
         self.urlOpener.openURL(self.urlProvider.mapsURLForEvent(self.event))
     }
     
     func didTapRSVP() {
+        self.analyticsService.trackCustomEventWithName("Tapped 'RSVP' on Event")
         let rsvpController = self.eventRSVPControllerProvider.provideControllerWithEvent(event)
         navigationController?.pushViewController(rsvpController, animated: true)
     }

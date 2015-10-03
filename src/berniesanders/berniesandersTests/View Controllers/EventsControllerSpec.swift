@@ -103,6 +103,7 @@ class FakeEventControllerProvider : berniesanders.EventControllerProvider {
         eventRSVPControllerProvider: FakeEventRSVPControllerProvider(),
         urlProvider: FakeURLProvider(),
         urlOpener: FakeURLOpener(),
+        analyticsService: FakeAnalyticsService(),
         theme: FakeTheme())
     var lastEvent: Event?
     

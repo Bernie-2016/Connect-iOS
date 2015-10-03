@@ -42,6 +42,6 @@ class TestUtils {
     }
     
     class func eventRSVPController() -> EventRSVPController {
-        return EventRSVPController(event: self.eventWithName("some event"), theme: FakeTheme())
+        return EventRSVPController(event: self.eventWithName("some event"), analyticsService: FakeAnalyticsService(), theme: FakeTheme())
     }
 }

@@ -40,7 +40,9 @@ class EventControllerSpec: QuickSpec {
     var urlOpener : FakeURLOpener!
     var urlProvider: EventControllerFakeURLProvider!
     var eventRSVPControllerProvider: FakeEventRSVPControllerProvider!
-    let navigationController = UINavigationController()
+    var analyticsService: FakeAnalyticsService!
+
+    var navigationController: UINavigationController!
     
     let theme = EventFakeTheme()
     let event = Event(name: "limited event", startDate: NSDate(timeIntervalSince1970: 1433565000), timeZone: NSTimeZone(abbreviation: "PST")!,
@@ -56,20 +58,30 @@ class EventControllerSpec: QuickSpec {
 
                 self.eventPresenter = FakeEventPresenter(dateFormatter: FakeDateFormatter())
                 self.eventRSVPControllerProvider = FakeEventRSVPControllerProvider()
-                
+                self.analyticsService = FakeAnalyticsService()
+
                 self.subject = EventController(
                     event: self.event,
                     eventPresenter: self.eventPresenter,
                     eventRSVPControllerProvider: self.eventRSVPControllerProvider,
                     urlProvider: self.urlProvider,
                     urlOpener: self.urlOpener,
+                    analyticsService: self.analyticsService,
                     theme: self.theme)
                 
+                self.navigationController = UINavigationController()
                 self.navigationController.pushViewController(self.subject, animated: false)
             }
             
             it("should hide the tab bar when pushed") {
                 expect(self.subject.hidesBottomBarWhenPushed).to(beTrue())
+            }
+            
+            
+            it("tracks taps on the back button with the analytics service") {
+                self.subject.didMoveToParentViewController(nil)
+                
+                expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Back' on Event"))
             }
             
             describe("when the view loads") {
@@ -91,14 +103,52 @@ class EventControllerSpec: QuickSpec {
                 }
 
                 describe("tapping on the share button") {
-                    it("should present an activity view controller for sharing the story URL") {
+                    beforeEach {
                         self.subject.navigationItem.rightBarButtonItem!.tap()
-                        
+                    }
+                    
+                    it("should present an activity view controller for sharing the story URL") {
                         let activityViewControler = self.subject.presentedViewController as! UIActivityViewController
                         let activityItems = activityViewControler.activityItems()
                         
                         expect(activityItems.count).to(equal(1))
                         expect(activityItems.first as? NSURL).to(beIdenticalTo(self.event.URL))
+                    }
+                    
+                    it("logs that the user tapped share") {
+                        expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Share' on Event"))
+                    }
+                    
+                    context("and the user completes the share succesfully") {
+                        it("tracks the share via the analytics service") {
+                            let activityViewControler = self.subject.presentedViewController as! UIActivityViewController
+                            activityViewControler.completionWithItemsHandler!("Some activity", true, nil, nil)
+                            
+                            expect(self.analyticsService.lastShareActivityType).to(equal("Some activity"))
+                            expect(self.analyticsService.lastShareContentName).to(equal(self.event.name))
+                            expect(self.analyticsService.lastShareContentType).to(equal(AnalyticsServiceContentType.Event))
+                            expect(self.analyticsService.lastShareID).to(equal(self.event.URL.absoluteString))
+                        }
+                    }
+                    
+                    context("and the user cancels the share") {
+                        it("tracks the share cancellation via the analytics service") {
+                            let activityViewControler = self.subject.presentedViewController as! UIActivityViewController
+                            activityViewControler.completionWithItemsHandler!(nil, false, nil, nil)
+                            
+                            expect(self.analyticsService.lastCustomEventName).to(equal("Cancelled share of Event"))
+                        }
+                    }
+                    
+                    context("and there is an error when sharing") {
+                        it("tracks the error via the analytics service") {
+                            let expectedError = NSError(domain: "a", code: 0, userInfo: nil)
+                            let activityViewControler = self.subject.presentedViewController as! UIActivityViewController
+                            activityViewControler.completionWithItemsHandler!("asdf", true, nil, expectedError)
+                            
+                            expect(self.analyticsService.lastError).to(beIdenticalTo(expectedError))
+                            expect(self.analyticsService.lastErrorContext).to(equal("Failed to share Event"))
+                        }
                     }
                 }
                 
@@ -182,11 +232,17 @@ class EventControllerSpec: QuickSpec {
                 }
 
                 describe("tapping on the rsvp button") {
-                    it("pushes an rsvp controller") {
+                    beforeEach {
                         self.subject.rsvpButton.tap()
-                        
+                    }
+                    
+                    it("pushes an rsvp controller") {
                         expect(self.eventRSVPControllerProvider.lastReceivedEvent).to(beIdenticalTo(self.event))
                         expect(self.subject.navigationController!.topViewController).to(beAKindOf(EventRSVPController.self))
+                    }
+                    
+                    it("logs that the user tapped share") {
+                        expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'RSVP' on Event"))
                     }
                 }
                 
@@ -195,11 +251,17 @@ class EventControllerSpec: QuickSpec {
                 }
 
                 describe("tapping on the directions button") {
-                    it("opens maps with the correct arugments") {
+                    beforeEach {
                         self.subject.directionsButton.tap()
-                        
+                    }
+                    
+                    it("opens maps with the correct arugments") {
                         expect(self.urlProvider.lastReceivedEvent).to(beIdenticalTo(self.event))
                         expect(self.urlOpener.lastOpenedURL).to(equal(NSURL(string: "http://example.com/mapz")))
+                    }
+                    
+                    it("logs that the user tapped share") {
+                        expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Directions' on Event"))
                     }
                 }
                 

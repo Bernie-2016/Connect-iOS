@@ -11,6 +11,7 @@ public class ConcreteEventControllerProviderSpec : QuickSpec {
     let eventRSVPControllerProvider = FakeEventRSVPControllerProvider()
     let urlProvider = FakeURLProvider()
     let urlOpener = FakeURLOpener()
+    let analyticsService = FakeAnalyticsService()
     
     override public func spec() {
         describe("providing an instance with an event") {
@@ -20,6 +21,7 @@ public class ConcreteEventControllerProviderSpec : QuickSpec {
                     eventRSVPControllerProvider: self.eventRSVPControllerProvider,
                     urlProvider: self.urlProvider,
                     urlOpener: self.urlOpener,
+                    analyticsService: self.analyticsService,
                     theme: self.theme
                 )
             }
@@ -34,6 +36,7 @@ public class ConcreteEventControllerProviderSpec : QuickSpec {
                 expect(controller.eventPresenter).to(beIdenticalTo(self.eventPresenter))
                 expect(controller.urlProvider as? FakeURLProvider).to(beIdenticalTo(self.urlProvider))
                 expect(controller.urlOpener).to(beIdenticalTo(self.urlOpener))
+                expect(controller.analyticsService as? FakeAnalyticsService).to(beIdenticalTo(self.analyticsService))
                 expect(controller.theme as? FakeTheme).to(beIdenticalTo(self.theme))
             }
         }

@@ -17,12 +17,16 @@ class EventRSVPFakeTheme : FakeTheme {
 class EventRSVPControllerSpec : QuickSpec {
     var subject : EventRSVPController!
     let event = TestUtils.eventWithName("some event")
-    
+    var analyticsService: FakeAnalyticsService!
+
     override func spec() {
         describe("EventRSVPController") {
             beforeEach {
+                self.analyticsService = FakeAnalyticsService()
+                
                 self.subject = EventRSVPController(
                     event: self.event,
+                    analyticsService: self.analyticsService,
                     theme: EventRSVPFakeTheme()
                 )
             }
@@ -31,6 +35,14 @@ class EventRSVPControllerSpec : QuickSpec {
                 beforeEach {
                     self.subject.view.layoutSubviews()
                 }
+                
+                
+                it("tracks taps on the back button with the analytics service") {
+                    self.subject.didMoveToParentViewController(nil)
+                    
+                    expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Back' on Event RSVP"))
+                }
+                
                 
                 it("has the correct navigation item title") {
                     expect(self.subject.navigationItem.title).to(equal("RSVP to Event"))

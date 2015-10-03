@@ -99,12 +99,13 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
                 operationQueue: mainQueue)
             let eventPresenter = EventPresenter(dateFormatter: fullDateWithTimeFormatter)
             let urlOpener = URLOpener()
-            let eventRSVPControllerProvider = ConcreteEventRSVPControllerProvider(theme: defaultTheme)
+            let eventRSVPControllerProvider = ConcreteEventRSVPControllerProvider(analyticsService: analyticsService, theme: defaultTheme)
             let eventControllerProvider = ConcreteEventControllerProvider(
                 eventPresenter: eventPresenter,
                 eventRSVPControllerProvider: eventRSVPControllerProvider,
                 urlProvider: urlProvider,
                 urlOpener: urlOpener,
+                analyticsService: analyticsService,
                 theme: defaultTheme)
             let eventsController = EventsController(
                 eventRepository: eventRepository,
