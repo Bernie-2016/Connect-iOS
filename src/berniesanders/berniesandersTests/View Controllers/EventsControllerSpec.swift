@@ -180,6 +180,7 @@ class EventsControllerSpec : QuickSpec {
                 
                 it("tracks a custom event via the analytics service") {
                     expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Settings' in Events nav bar"))
+                    expect(self.analyticsService.lastCustomEventAttributes).to(beNil())
                 }
             }
             
@@ -279,6 +280,7 @@ class EventsControllerSpec : QuickSpec {
                     xit("should log an event via the analytics service") {
                         // TODO: test is failing on Travis, so marking as pending for now.                        
                         expect(self.analyticsService.lastCustomEventName).to(equal("Tapped on ZIP Code text field on Events"))
+                        expect(self.analyticsService.lastCustomEventAttributes).to(beNil())
                     }
                     
                     describe("aborting a search") {
@@ -295,6 +297,7 @@ class EventsControllerSpec : QuickSpec {
                         xit("should log an event via the analytics service") {
                             // TODO: test is failing on Travis, so marking as pending for now.
                             expect(self.analyticsService.lastCustomEventName).to(equal("Cancelled ZIP Code search on Events"))
+                            expect(self.analyticsService.lastCustomEventAttributes).to(beNil())
                         }
                     }
                     

@@ -182,7 +182,7 @@ public class NewsFeedController: UIViewController, UITableViewDelegate, UITableV
     // MARK: Actions
     
     func didTapSettings() {
-        self.analyticsService.trackCustomEventWithName("Tapped 'Settings' in News nav bar")
+        self.analyticsService.trackCustomEventWithName("Tapped 'Settings' in News nav bar", customAttributes: nil)
         self.navigationController?.pushViewController(self.settingsController, animated: true)
     }
 }

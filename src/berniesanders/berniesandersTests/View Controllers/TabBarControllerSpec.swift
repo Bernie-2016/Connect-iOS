@@ -46,10 +46,11 @@ class TabBarControllerSpec : QuickSpec {
                 it("tracks that tap via analytics") {
                     self.subject.tapTabAtIndex(0)
                     expect(self.analyticsService.lastCustomEventName).to(equal("Tapped \"Controller A\" on tab bar"))
+                    expect(self.analyticsService.lastCustomEventAttributes).to(beNil())
                     
                     self.subject.tapTabAtIndex(1)
                     expect(self.analyticsService.lastCustomEventName).to(equal("Tapped \"Controller B\" on tab bar"))
-
+                    expect(self.analyticsService.lastCustomEventAttributes).to(beNil())
                 }
             }
         }

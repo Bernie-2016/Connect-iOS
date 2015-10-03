@@ -72,6 +72,7 @@ class SettingsControllerSpec : QuickSpec {
                 self.subject.didMoveToParentViewController(nil)
                 
                 expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Back' on Settings"))
+                expect(self.analyticsService.lastCustomEventAttributes).to(beNil())
             }
             
             describe("when the view loads") {

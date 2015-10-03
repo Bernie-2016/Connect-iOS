@@ -74,13 +74,13 @@ public class NewsItemController : UIViewController {
     }
     
     public override func didMoveToParentViewController(parent: UIViewController?) {
-        self.analyticsService.trackCustomEventWithName("Tapped 'Back' on News Item")
+        self.analyticsService.trackCustomEventWithName("Tapped 'Back' on News Item", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.newsItem.URL.absoluteString!])
     }
     
     // MARK: Actions
     
     func share() {
-        self.analyticsService.trackCustomEventWithName("Tapped 'Share' on News Item")
+        self.analyticsService.trackCustomEventWithName("Tapped 'Share' on News Item", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.newsItem.URL.absoluteString!])
         let activityVC = UIActivityViewController(activityItems: [newsItem.URL], applicationActivities: nil)
 
         activityVC.completionWithItemsHandler = { activity, success, items, error in
@@ -90,7 +90,7 @@ public class NewsItemController : UIViewController {
                 if(success == true) {
                     self.analyticsService.trackShareWithActivityType(activity, contentName: self.newsItem.title, contentType: .NewsItem, id: self.newsItem.URL.absoluteString!)
                 } else {
-                    self.analyticsService.trackCustomEventWithName("Cancelled share of News Item")
+                    self.analyticsService.trackCustomEventWithName("Cancelled share of News Item", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.newsItem.URL.absoluteString!])
                 }
             }
         }

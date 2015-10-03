@@ -28,6 +28,7 @@ class FLOSSControllerSpec : QuickSpec {
                     self.subject.didMoveToParentViewController(nil)
                     
                     expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Back' on Open Source Software"))
+                    expect(self.analyticsService.lastCustomEventAttributes).to(beNil())
                 }
                 
                 it("should add the webview as a subview") {

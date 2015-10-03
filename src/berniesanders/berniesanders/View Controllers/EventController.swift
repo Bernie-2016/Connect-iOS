@@ -115,13 +115,13 @@ public class EventController : UIViewController {
     }
     
     public override func didMoveToParentViewController(parent: UIViewController?) {
-        self.analyticsService.trackCustomEventWithName("Tapped 'Back' on Event")
+        self.analyticsService.trackCustomEventWithName("Tapped 'Back' on Event", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString!])
     }
     
     // MARK: Actions
     
     func share() {
-        self.analyticsService.trackCustomEventWithName("Tapped 'Share' on Event")
+        self.analyticsService.trackCustomEventWithName("Tapped 'Share' on Event", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString!])
 
         let activityVC = UIActivityViewController(activityItems: [event.URL], applicationActivities: nil)
         presentViewController(activityVC, animated: true, completion: nil)
@@ -132,19 +132,19 @@ public class EventController : UIViewController {
                 if(success == true) {
                     self.analyticsService.trackShareWithActivityType(activity, contentName: self.event.name, contentType: .Event, id: self.event.URL.absoluteString!)
                 } else {
-                    self.analyticsService.trackCustomEventWithName("Cancelled share of Event")
+                    self.analyticsService.trackCustomEventWithName("Cancelled share of Event", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString!])
                 }
             }
         }
     }
     
     func didTapDirections() {
-        self.analyticsService.trackCustomEventWithName("Tapped 'Directions' on Event")
+        self.analyticsService.trackCustomEventWithName("Tapped 'Directions' on Event", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString!])
         self.urlOpener.openURL(self.urlProvider.mapsURLForEvent(self.event))
     }
     
     func didTapRSVP() {
-        self.analyticsService.trackCustomEventWithName("Tapped 'RSVP' on Event")
+        self.analyticsService.trackCustomEventWithName("Tapped 'RSVP' on Event", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString!])
         let rsvpController = self.eventRSVPControllerProvider.provideControllerWithEvent(event)
         navigationController?.pushViewController(rsvpController, animated: true)
     }

@@ -130,7 +130,7 @@ public class IssuesController: UIViewController, UITableViewDataSource, UITableV
     // MARK: Actions
     
     func didTapSettings() {
-        self.analyticsService.trackCustomEventWithName("Tapped 'Settings' in Issues nav bar")
+        self.analyticsService.trackCustomEventWithName("Tapped 'Settings' in Issues nav bar", customAttributes: nil)
         self.navigationController?.pushViewController(self.settingsController, animated: true)
     }
 }

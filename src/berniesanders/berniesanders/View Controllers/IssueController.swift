@@ -61,14 +61,15 @@ public class IssueController : UIViewController {
     }
     
     public override func didMoveToParentViewController(parent: UIViewController?) {
-        self.analyticsService.trackCustomEventWithName("Tapped 'Back' on Issue")
+        self.analyticsService.trackCustomEventWithName("Tapped 'Back' on Issue", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.issue.URL.absoluteString!])
     }
 
     
     // MARK: Actions
     
     func share() {
-        self.analyticsService.trackCustomEventWithName("Tapped 'Share' on Issue")
+        self.analyticsService.trackCustomEventWithName("Tapped 'Share' on Issue", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.issue.URL.absoluteString!])
+        
         let activityVC = UIActivityViewController(activityItems: [issue.URL], applicationActivities: nil)
         
         activityVC.completionWithItemsHandler = { activity, success, items, error in
@@ -78,7 +79,7 @@ public class IssueController : UIViewController {
                 if(success == true) {
                     self.analyticsService.trackShareWithActivityType(activity, contentName: self.issue.title, contentType: .Issue, id: self.issue.URL.absoluteString!)
                 } else {
-                    self.analyticsService.trackCustomEventWithName("Cancelled share of Issue")
+                    self.analyticsService.trackCustomEventWithName("Cancelled share of Issue", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.issue.URL.absoluteString!])
                 }
             }
         }

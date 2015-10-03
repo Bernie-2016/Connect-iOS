@@ -39,7 +39,7 @@ public class SettingsController : UITableViewController {
     }
     
     public override func didMoveToParentViewController(parent: UIViewController?) {
-        self.analyticsService.trackCustomEventWithName("Tapped 'Back' on Settings")
+        self.analyticsService.trackCustomEventWithName("Tapped 'Back' on Settings", customAttributes: nil)
     }
     
     // MARK: <UITableViewDataSource>

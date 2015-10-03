@@ -32,6 +32,6 @@ public class FLOSSController : UIViewController {
     }
     
     public override func didMoveToParentViewController(parent: UIViewController?) {
-        self.analyticsService.trackCustomEventWithName("Tapped 'Back' on Open Source Software")
+        self.analyticsService.trackCustomEventWithName("Tapped 'Back' on Open Source Software", customAttributes: nil)
     }
 }

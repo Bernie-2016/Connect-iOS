@@ -5,7 +5,7 @@ import Foundation
 #endif
 
 class ConcreteAnalyticsService : AnalyticsService {
-    func trackCustomEventWithName(name: String) {
+    func trackCustomEventWithName(name: String, customAttributes: [NSObject : AnyObject]?) {
         #if RELEASE
             Answers.logCustomEventWithName(name, customAttributes: nil)
         #endif

@@ -182,13 +182,13 @@ public class EventsController : UIViewController, UITableViewDataSource, UITable
     // MARK: <UITextFieldDelegate>
     
     public func textFieldDidBeginEditing(textField: UITextField) {
-        self.analyticsService.trackCustomEventWithName("Tapped on ZIP Code text field on Events")
+        self.analyticsService.trackCustomEventWithName("Tapped on ZIP Code text field on Events", customAttributes: nil)
     }
     
     // MARK: Actions
     
     func didTapSettings() {
-        self.analyticsService.trackCustomEventWithName("Tapped 'Settings' in Events nav bar")
+        self.analyticsService.trackCustomEventWithName("Tapped 'Settings' in Events nav bar", customAttributes: nil)
         self.navigationController?.pushViewController(self.settingsController, animated: true)
     }
     
@@ -222,7 +222,7 @@ public class EventsController : UIViewController, UITableViewDataSource, UITable
     }
     
     func didTapCancel(sender: UIButton!) {
-        self.analyticsService.trackCustomEventWithName("Cancelled ZIP Code search on Events")
+        self.analyticsService.trackCustomEventWithName("Cancelled ZIP Code search on Events", customAttributes: nil)
         self.zipCodeTextField.resignFirstResponder()
     }
 }

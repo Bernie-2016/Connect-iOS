@@ -28,6 +28,6 @@ public class TabBarController : UITabBarController, UITabBarControllerDelegate {
     }
     
     public func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
-        self.analyticsService.trackCustomEventWithName("Tapped \"\(viewController.tabBarItem.title!)\" on tab bar")
+        self.analyticsService.trackCustomEventWithName("Tapped \"\(viewController.tabBarItem.title!)\" on tab bar", customAttributes: nil)
     }
 }

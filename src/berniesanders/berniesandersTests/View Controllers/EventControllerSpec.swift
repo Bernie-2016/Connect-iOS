@@ -82,6 +82,8 @@ class EventControllerSpec: QuickSpec {
                 self.subject.didMoveToParentViewController(nil)
                 
                 expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Back' on Event"))
+                let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString!]
+                expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
             }
             
             describe("when the view loads") {
@@ -117,6 +119,8 @@ class EventControllerSpec: QuickSpec {
                     
                     it("logs that the user tapped share") {
                         expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Share' on Event"))
+                        let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString!]
+                        expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                     }
                     
                     context("and the user completes the share succesfully") {
@@ -137,6 +141,8 @@ class EventControllerSpec: QuickSpec {
                             activityViewControler.completionWithItemsHandler!(nil, false, nil, nil)
                             
                             expect(self.analyticsService.lastCustomEventName).to(equal("Cancelled share of Event"))
+                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString!]
+                            expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                         }
                     }
                     
@@ -243,6 +249,8 @@ class EventControllerSpec: QuickSpec {
                     
                     it("logs that the user tapped share") {
                         expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'RSVP' on Event"))
+                        let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString!]
+                        expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                     }
                 }
                 
@@ -262,6 +270,8 @@ class EventControllerSpec: QuickSpec {
                     
                     it("logs that the user tapped share") {
                         expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Directions' on Event"))
+                        let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString!]
+                        expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                     }
                 }
                 

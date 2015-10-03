@@ -174,6 +174,7 @@ class NewsFeedControllerSpecs: QuickSpec {
                 
                 it("tracks a custom event via the analytics service") {
                     expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Settings' in News nav bar"))
+                    expect(self.analyticsService.lastCustomEventAttributes).to(beNil())
                 }
             }
             

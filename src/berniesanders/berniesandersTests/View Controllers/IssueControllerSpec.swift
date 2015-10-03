@@ -78,6 +78,8 @@ class IssueControllerSpec : QuickSpec {
                     
                     it("logs that the user tapped share") {
                         expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Share' on Issue"))
+                        let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.issue.URL.absoluteString!]
+                        expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                     }
                     
                     context("and the user completes the share succesfully") {
@@ -98,6 +100,8 @@ class IssueControllerSpec : QuickSpec {
                             activityViewControler.completionWithItemsHandler!(nil, false, nil, nil)
                             
                             expect(self.analyticsService.lastCustomEventName).to(equal("Cancelled share of Issue"))
+                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.issue.URL.absoluteString!]
+                            expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                         }
                     }
                     

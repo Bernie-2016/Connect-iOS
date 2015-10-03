@@ -3,9 +3,13 @@ import berniesanders
 
 class FakeAnalyticsService: AnalyticsService {
     var lastCustomEventName: String!
+    var lastCustomEventAttributes: [NSObject : AnyObject]?
     
-    func trackCustomEventWithName(name: String) {
+    func trackCustomEventWithName(name: String, customAttributes: [NSObject : AnyObject]?) {
         self.lastCustomEventName = name
+        if(customAttributes != nil) {
+            self.lastCustomEventAttributes = customAttributes!
+        }
     }
     
     var lastContentViewName: String!
