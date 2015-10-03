@@ -68,6 +68,12 @@ class SettingsControllerSpec : QuickSpec {
                 expect(self.subject.navigationItem.backBarButtonItem?.title).to(equal("Back"))
             }
             
+            it("tracks taps on the back button with the analytics service") {
+                self.subject.didMoveToParentViewController(nil)
+                
+                expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Back' on Settings"))
+            }
+            
             describe("when the view loads") {
                 beforeEach {
                     self.subject.view.layoutSubviews()

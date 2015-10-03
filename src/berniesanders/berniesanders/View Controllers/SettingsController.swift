@@ -38,6 +38,10 @@ public class SettingsController : UITableViewController {
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "regularCell")
     }
     
+    public override func didMoveToParentViewController(parent: UIViewController?) {
+        self.analyticsService.trackCustomEventWithName("Tapped 'Back' on Settings")
+    }
+    
     // MARK: <UITableViewDataSource>
     public override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
