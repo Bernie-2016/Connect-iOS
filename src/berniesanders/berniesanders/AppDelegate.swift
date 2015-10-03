@@ -31,7 +31,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             let webImageManager = SDWebImageManager()
             let imageRepository = ConcreteImageRepository(webImageManager: webImageManager)
             
-            let privacyPolicyController = PrivacyPolicyController(urlProvider: urlProvider)
+            let privacyPolicyController = PrivacyPolicyController(urlProvider: urlProvider, analyticsService: analyticsService)
             let flossController = FLOSSController()
             let settingsController = SettingsController(
                 tappableControllers: [privacyPolicyController, flossController],

@@ -38,7 +38,7 @@ class TestUtils {
     }
     
     class func privacyPolicyController() -> PrivacyPolicyController {
-        return PrivacyPolicyController(urlProvider: FakeURLProvider())
+        return PrivacyPolicyController(urlProvider: FakeURLProvider(), analyticsService: FakeAnalyticsService())
     }
     
     class func eventRSVPController() -> EventRSVPController {
