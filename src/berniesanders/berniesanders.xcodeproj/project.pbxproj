@@ -90,6 +90,8 @@
 		65B1655D1B97E3CD0052EF8D /* OrganizeControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B1655C1B97E3CD0052EF8D /* OrganizeControllerSpec.swift */; };
 		65B70F9A1BA7BBD5007BF72C /* dodgy_news_feed.json in Resources */ = {isa = PBXBuildFile; fileRef = 65B70F991BA7BBD5007BF72C /* dodgy_news_feed.json */; };
 		65C426121BBA0B7700595E1B /* ConcreteURLProviderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C426111BBA0B7700595E1B /* ConcreteURLProviderSpec.swift */; };
+		65C658A01BC085F9001AD5CA /* AboutControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C6589F1BC085F9001AD5CA /* AboutControllerSpec.swift */; };
+		65C658A21BC088FF001AD5CA /* AboutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C658A11BC088FF001AD5CA /* AboutController.swift */; };
 		65C97A161B8A5CF900088679 /* TabBarControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C97A151B8A5CF900088679 /* TabBarControllerSpec.swift */; };
 		65C97A181B8A5D2F00088679 /* IssuesControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C97A171B8A5D2F00088679 /* IssuesControllerSpec.swift */; };
 		65CA5E851B86CA930001D870 /* SpecAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CA5E841B86CA930001D870 /* SpecAppDelegate.swift */; };
@@ -256,6 +258,8 @@
 		65B1655C1B97E3CD0052EF8D /* OrganizeControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizeControllerSpec.swift; sourceTree = "<group>"; };
 		65B70F991BA7BBD5007BF72C /* dodgy_news_feed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dodgy_news_feed.json; sourceTree = "<group>"; };
 		65C426111BBA0B7700595E1B /* ConcreteURLProviderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteURLProviderSpec.swift; sourceTree = "<group>"; };
+		65C6589F1BC085F9001AD5CA /* AboutControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutControllerSpec.swift; sourceTree = "<group>"; };
+		65C658A11BC088FF001AD5CA /* AboutController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutController.swift; sourceTree = "<group>"; };
 		65C97A151B8A5CF900088679 /* TabBarControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarControllerSpec.swift; sourceTree = "<group>"; };
 		65C97A171B8A5D2F00088679 /* IssuesControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuesControllerSpec.swift; sourceTree = "<group>"; };
 		65CA5E841B86CA930001D870 /* SpecAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecAppDelegate.swift; sourceTree = "<group>"; };
@@ -595,6 +599,7 @@
 		65F01FC41B8A5B5700D021A1 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				65C6589F1BC085F9001AD5CA /* AboutControllerSpec.swift */,
 				6581F7BE1BB87FF500B26B76 /* EventControllerSpec.swift */,
 				65D0ECE81BBB8C360063B1D0 /* EventRSVPControllerSpec.swift */,
 				65F112ED1B9FFE8700BA585C /* EventsControllerSpec.swift */,
@@ -732,6 +737,7 @@
 		8233FC2E1B7C2DA400A5E9ED /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				65C658A11BC088FF001AD5CA /* AboutController.swift */,
 				654AD3541BB876C700A59966 /* EventController.swift */,
 				65D0ECE21BBAD7A20063B1D0 /* EventRSVPController.swift */,
 				65F112EF1B9FFF1C00BA585C /* EventsController.swift */,
@@ -903,6 +909,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65C658A21BC088FF001AD5CA /* AboutController.swift in Sources */,
 				6559D70D1BBDC32100CBC7EE /* AnalyticsService.swift in Sources */,
 				8233FC0D1B7C28FB00A5E9ED /* AppDelegate.swift in Sources */,
 				6559D7111BBDC5F200CBC7EE /* ConcreteAnalyticsService.swift in Sources */,
@@ -967,6 +974,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65C658A01BC085F9001AD5CA /* AboutControllerSpec.swift in Sources */,
 				6581F7BD1BB87E7700B26B76 /* ConcreteEventControllerProviderSpec.swift in Sources */,
 				65384D111BB2EDBF0057F6FF /* ConcreteEventDeserializerSpec.swift in Sources */,
 				654773FF1BB23FAE00B87670 /* ConcreteEventRepositorySpec.swift in Sources */,

@@ -98,4 +98,11 @@ public protocol Theme {
     
     func settingsTitleFont() -> UIFont
     func settingsTitleColor() -> UIColor
+    
+    // MARK: About
+    
+    func aboutButtonBackgroundColor() -> UIColor
+    func aboutButtonTextColor() -> UIColor
+    func aboutButtonFont() -> UIFont
+    func aboutBodyTextFont() -> UIFont
 }

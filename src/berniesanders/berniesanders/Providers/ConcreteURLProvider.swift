@@ -33,4 +33,12 @@ public class ConcreteURLProvider : URLProvider {
             return NSURL(string: urlString.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)!
         }
     }
+    
+    public func codersForSandersURL() -> NSURL! {
+        return NSURL(string: "https://www.reddit.com/r/codersforsanders")!
+    }
+    
+    public func designersForSandersURL() -> NSURL! {
+        return NSURL(string: "https://www.reddit.com/r/designersforsanders")!
+    }
 }

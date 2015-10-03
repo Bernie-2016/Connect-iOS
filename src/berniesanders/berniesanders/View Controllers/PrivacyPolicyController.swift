@@ -24,7 +24,6 @@ public class PrivacyPolicyController : UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         var urlRequest = NSURLRequest(URL: self.urlProvider.privacyPolicyURL())
         self.webView.loadRequest(urlRequest)
         

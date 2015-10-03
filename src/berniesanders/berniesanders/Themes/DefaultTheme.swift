@@ -232,6 +232,13 @@ class DefaultTheme : Theme {
     func eventsInstructionsFont() -> UIFont { return defaultHeaderFont() }
     func eventsInstructionsTextColor() -> UIColor { return cornflowerBlueColor() }
     
+    // MARK: About screen
+    
+    func aboutButtonBackgroundColor() -> UIColor { return cornflowerBlueColor() }
+    func aboutButtonTextColor() -> UIColor { return UIColor.whiteColor() }
+    func aboutButtonFont() -> UIFont { return UIFont(name: "Lato-Regular", size: 15)! }
+    func aboutBodyTextFont() -> UIFont { return defaultBodyTextFont() }
+    
     // MARK: default dimensions
     
     func defaultCornerRadius() -> CGFloat {

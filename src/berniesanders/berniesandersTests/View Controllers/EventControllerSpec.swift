@@ -247,7 +247,7 @@ class EventControllerSpec: QuickSpec {
                         expect(self.subject.navigationController!.topViewController).to(beAKindOf(EventRSVPController.self))
                     }
                     
-                    it("logs that the user tapped share") {
+                    it("logs that the user tapped to rsvp") {
                         expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'RSVP' on Event"))
                         let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString!]
                         expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
@@ -268,7 +268,7 @@ class EventControllerSpec: QuickSpec {
                         expect(self.urlOpener.lastOpenedURL).to(equal(NSURL(string: "http://example.com/mapz")))
                     }
                     
-                    it("logs that the user tapped share") {
+                    it("logs that the user tapped to open directions") {
                         expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Directions' on Event"))
                         let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString!]
                         expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))

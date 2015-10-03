@@ -22,6 +22,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             
             let defaultTheme = DefaultTheme()
             let urlProvider = ConcreteURLProvider()
+            let urlOpener = URLOpener()
             let jsonSerializerProvider = NSJSONSerializationProvider()
             let jsonClient = ConcreteJSONClient(
                 urlSession: sharedURLSession,
@@ -31,10 +32,11 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             let webImageManager = SDWebImageManager()
             let imageRepository = ConcreteImageRepository(webImageManager: webImageManager)
             
+            let aboutController = AboutController(analyticsService: analyticsService, urlOpener: urlOpener, urlProvider: urlProvider, theme: defaultTheme)
             let privacyPolicyController = PrivacyPolicyController(urlProvider: urlProvider, analyticsService: analyticsService)
             let flossController = FLOSSController(analyticsService: analyticsService)
             let settingsController = SettingsController(
-                tappableControllers: [privacyPolicyController, flossController],
+                tappableControllers: [aboutController, privacyPolicyController, flossController],
                 analyticsService: analyticsService,
                 theme: defaultTheme)
             
@@ -98,7 +100,6 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
                 eventDeserializer: eventDeserializer,
                 operationQueue: mainQueue)
             let eventPresenter = EventPresenter(dateFormatter: fullDateWithTimeFormatter)
-            let urlOpener = URLOpener()
             let eventRSVPControllerProvider = ConcreteEventRSVPControllerProvider(analyticsService: analyticsService, theme: defaultTheme)
             let eventControllerProvider = ConcreteEventControllerProvider(
                 eventPresenter: eventPresenter,

@@ -8,4 +8,6 @@ public protocol URLProvider {
     func privacyPolicyURL() -> NSURL!
     func eventsURL() -> NSURL!
     func mapsURLForEvent(event: Event) -> NSURL!
+    func codersForSandersURL() -> NSURL!
+    func designersForSandersURL() -> NSURL!
 }
