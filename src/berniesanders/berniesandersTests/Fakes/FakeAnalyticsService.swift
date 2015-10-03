@@ -36,4 +36,12 @@ class FakeAnalyticsService: AnalyticsService {
         lastShareContentType = contentType
         lastShareID = id
     }
+    
+    var lastSearchQuery: String!
+    var lastSearchContext: AnalyticsSearchContext!
+    
+    func trackSearchWithQuery(query: String, context: AnalyticsSearchContext) {
+        self.lastSearchQuery = query
+        self.lastSearchContext = context
+    }
 }

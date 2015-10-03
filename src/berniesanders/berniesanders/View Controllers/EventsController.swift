@@ -2,11 +2,12 @@ import UIKit
 import PureLayout
 import QuartzCore
 
-public class EventsController : UIViewController, UITableViewDataSource, UITableViewDelegate {
+public class EventsController : UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
     public let eventRepository: EventRepository!
     public let eventPresenter: EventPresenter!
     public let settingsController: SettingsController!
     let eventControllerProvider: EventControllerProvider
+    let analyticsService: AnalyticsService!
     public let theme: Theme!
     
     public let zipCodeTextField = UITextField.newAutoLayoutView()
@@ -21,12 +22,14 @@ public class EventsController : UIViewController, UITableViewDataSource, UITable
         eventPresenter: EventPresenter,
         settingsController: SettingsController,
         eventControllerProvider: EventControllerProvider,
+        analyticsService: AnalyticsService,
         theme: Theme) {
         
         self.eventRepository = eventRepository
         self.eventPresenter = eventPresenter
         self.settingsController = settingsController
         self.eventControllerProvider = eventControllerProvider
+        self.analyticsService = analyticsService
         self.theme = theme
         
         self.events = []
@@ -77,6 +80,7 @@ public class EventsController : UIViewController, UITableViewDataSource, UITable
         view.addSubview(noResultsLabel)
         view.addSubview(loadingActivityIndicatorView)
         
+        zipCodeTextField.delegate = self
         zipCodeTextField.autoPinEdgeToSuperviewEdge(.Top, withInset: 8)
         zipCodeTextField.autoPinEdgeToSuperviewEdge(.Left, withInset: 8)
         zipCodeTextField.autoPinEdgeToSuperviewEdge(.Right, withInset: 8)
@@ -171,17 +175,27 @@ public class EventsController : UIViewController, UITableViewDataSource, UITable
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let event = self.events[indexPath.row]
         let controller = self.eventControllerProvider.provideInstanceWithEvent(event)
-
+        self.analyticsService.trackContentViewWithName(event.name, type: .Event, id: event.URL.absoluteString!)
         self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    // MARK: <UITextFieldDelegate>
+    
+    public func textFieldDidBeginEditing(textField: UITextField) {
+        self.analyticsService.trackCustomEventWithName("Tapped on ZIP Code text field on Events")
     }
     
     // MARK: Actions
     
     func didTapSettings() {
+        self.analyticsService.trackCustomEventWithName("Tapped 'Settings' in Events nav bar")
         self.navigationController?.pushViewController(self.settingsController, animated: true)
     }
     
     func didTapSearch(sender : UIButton!) {
+        let enteredZipCode = self.zipCodeTextField.text
+        self.analyticsService.trackSearchWithQuery(enteredZipCode, context: .Events)
+        
         zipCodeTextField.resignFirstResponder()
         
         self.instructionsLabel.hidden = true
@@ -190,7 +204,7 @@ public class EventsController : UIViewController, UITableViewDataSource, UITable
         
         loadingActivityIndicatorView.startAnimating()
         
-        self.eventRepository.fetchEventsWithZipCode(self.zipCodeTextField.text, radiusMiles: 50.0,
+        self.eventRepository.fetchEventsWithZipCode(enteredZipCode, radiusMiles: 50.0,
             completion: { (events: Array<Event>) -> Void in
                 var matchingEventsFound = events.count > 0
                 self.events = events
@@ -201,12 +215,14 @@ public class EventsController : UIViewController, UITableViewDataSource, UITable
                 
                 self.resultsTableView.reloadData()  // TODO: test me
             }) { (error: NSError) -> Void in
+                self.analyticsService.trackError(error, context: "Events")
                 self.noResultsLabel.hidden = false
                 self.loadingActivityIndicatorView.stopAnimating()
         }
     }
     
     func didTapCancel(sender: UIButton!) {
+        self.analyticsService.trackCustomEventWithName("Cancelled ZIP Code search on Events")
         self.zipCodeTextField.resignFirstResponder()
     }
 }

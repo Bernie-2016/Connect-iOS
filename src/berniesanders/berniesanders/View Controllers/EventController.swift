@@ -86,8 +86,7 @@ public class EventController : UIViewController {
         attendeesLabel.text = eventPresenter.presentAttendeesForEvent(event)
         descriptionHeadingLabel.text = NSLocalizedString("Event_descriptionHeading", comment: "")
         descriptionLabel.text = event.description
-        
-        
+                
         view.addSubview(scrollView)
         scrollView.addSubview(containerView)
         containerView.addSubview(rsvpButton)

@@ -111,6 +111,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
                 eventPresenter: eventPresenter,
                 settingsController: settingsController,
                 eventControllerProvider: eventControllerProvider,
+                analyticsService: analyticsService,
                 theme: defaultTheme
             )
             let eventsNavigationController = NavigationController(theme: defaultTheme)

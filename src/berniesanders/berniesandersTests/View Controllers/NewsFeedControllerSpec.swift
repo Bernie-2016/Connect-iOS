@@ -373,12 +373,20 @@ class NewsFeedControllerSpecs: QuickSpec {
                 }
                 
                 context("that is another news story") {
-                    it("should push a correctly configured news item view controller onto the nav stack") {
+                    beforeEach {
                         let tableView = self.subject.tableView
                         tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 1))
-                        
+                    }
+                    
+                    it("should push a correctly configured news item view controller onto the nav stack") {
                         expect(self.newsItemControllerProvider.lastNewsItem).to(beIdenticalTo(expectedNewsItemB))
                         expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.newsItemControllerProvider.controller))
+                    }
+                    
+                    it("tracks the content view with the analytics service") {
+                        expect(self.analyticsService.lastContentViewName).to(equal(expectedNewsItemB.title))
+                        expect(self.analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.NewsItem))
+                        expect(self.analyticsService.lastContentViewID).to(equal(expectedNewsItemB.URL.absoluteString))
                     }
                 }
             }

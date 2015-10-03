@@ -16,4 +16,8 @@ class ConcreteAnalyticsService : AnalyticsService {
     func trackShareWithActivityType(activityType: String, contentName: String, contentType: AnalyticsServiceContentType, id: String) {
         
     }
+    
+    func trackSearchWithQuery(query: String, context: AnalyticsSearchContext) {
+
+    }
 }
