@@ -40,32 +40,32 @@ public class ConcreteStringContentSanitizer: StringContentSanitizer {
     }
     
     func removeClickhere(string: String) -> String {
-        return removeTextMatchingRegEx(string, regEx: " ([`*'*,*\"*\\w+\\s+]+ clickhere\\.)")
+        return removeTextMatchingRegEx(string, regEx: " ([’*`*'*,*\"*\\w+\\s+]+ clickhere\\.)")
     }
     
     func removeIshere (string: String) -> String {
-        var sanitizedString = removeTextMatchingRegEx(string, regEx: "(\\([`*'*,*\"*\\w+\\s+]+ ishere\\.\\))")
-        return removeTextMatchingRegEx(sanitizedString, regEx: "[`*'*,*\"*\\w+\\s+]+ishere\\.")
+        var sanitizedString = removeTextMatchingRegEx(string, regEx: "(\\([’*`*'*,*\"*\\w+\\s+]+ ishere\\.\\))")
+        return removeTextMatchingRegEx(sanitizedString, regEx: "[’*`*'*,*\"*\\w+\\s+]+ishere\\.")
     }
     
     func removeResthere (string: String) -> String {
-        var sanitizedString = removeTextMatchingRegEx(string, regEx: "(`*'*,*\"*\\([\\w+\\s+]+ resthere\\.\\))")
-        return removeTextMatchingRegEx(sanitizedString, regEx: "[`*'*,*\"*\\w+\\s+]+resthere\\.")
+        var sanitizedString = removeTextMatchingRegEx(string, regEx: "(’*`*'*,*\"*\\([\\w+\\s+]+ resthere\\.\\))")
+        return removeTextMatchingRegEx(sanitizedString, regEx: "[’*`*'*,*\"*\\w+\\s+]+resthere\\.")
     }
     
     func removeArticlehere (string: String) -> String {
-        var sanitizedString = removeTextMatchingRegEx(string, regEx: "(`*'*,*\"*\\([\\w+\\s+]+ articlehere\\.\\))")
-        return removeTextMatchingRegEx(sanitizedString, regEx: "[`*'*,*\"*\\w+\\s+]+articlehere\\.")
+        var sanitizedString = removeTextMatchingRegEx(string, regEx: "(’*`*'*,*\"*\\([\\w+\\s+]+ articlehere\\.\\))")
+        return removeTextMatchingRegEx(sanitizedString, regEx: "[’*`*'*,*\"*\\w+\\s+]+articlehere\\.")
     }
     
     func removeHere(string: String) -> String {
-        var sanitizedString = removeTextMatchingRegEx(string, regEx: "[`*'*,*\"*\\w+\\s+]+ here:\\n")
-        return removeTextMatchingRegEx(sanitizedString, regEx: "[`*'*,*\"*\\w+\\s+]+ here:\\z")
+        var sanitizedString = removeTextMatchingRegEx(string, regEx: "[’*`*'*,*\"*\\w+\\s+]+ here:\\n")
+        return removeTextMatchingRegEx(sanitizedString, regEx: "[’*`*'*,*\"*\\w+\\s+]+ here:\\z")
     }
     
     func removeOpEdhere(string: String) -> String {
-        var sanitizedString = removeTextMatchingRegEx(string, regEx: "(`*'*,*\"*\\([\\w+\\s+]+ op-edhere\\.\\))")
-        return removeTextMatchingRegEx(sanitizedString, regEx: "[`*'*,*\"*\\w+\\s+]+op-edhere\\.")
+        var sanitizedString = removeTextMatchingRegEx(string, regEx: "(’*`*'*,*\"*\\([\\w+\\s+]+ op-edhere\\.\\))")
+        return removeTextMatchingRegEx(sanitizedString, regEx: "[’*`*'*,*\"*\\w+\\s+]+op-edhere\\.")
     }
     
     func removeEmailProtected(string: String) -> String {

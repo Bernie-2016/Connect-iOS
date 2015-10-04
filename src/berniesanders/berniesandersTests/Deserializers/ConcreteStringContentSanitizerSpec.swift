@@ -25,35 +25,35 @@ class ConcreteStringContentSanitizerSpec: QuickSpec {
                 }
                 
                 it("strips text telling the user to 'clickhere'") {
-                    let inputString = "Foo bar. To do, `some` 'stuff'  clickhere. And that!"
+                    let inputString = "Foo bar. To do, `’some` 'stuff'  clickhere. And that!"
                     let expectedString = "Foo bar. And that!"
                     
                     expect(self.subject.sanitizeString(inputString)).to(equal(expectedString))
                 }
                 
                 it("strips text telling the user 'ishere'") {
-                    let inputString = "Foo bar. To do, `some` 'stuff'  ishere. (And other stuff ishere.) And that!"
+                    let inputString = "Foo bar. To do, `’some` 'stuff'  ishere. (And other stuff ishere.) And that!"
                     let expectedString = "Foo bar.  And that!"
                     
                     expect(self.subject.sanitizeString(inputString)).to(equal(expectedString))
                 }
                 
                 it("strips text telling the user to read the 'resthere'") {
-                    let inputString = "Foo bar. To do, `some` 'stuff' resthere. (And other stuff resthere.) And that!"
+                    let inputString = "Foo bar. To do, `’some` 'stuff' resthere. (And other stuff resthere.) And that!"
                     let expectedString = "Foo bar.  And that!"
                     
                     expect(self.subject.sanitizeString(inputString)).to(equal(expectedString))
                 }
                 
                 it("strips text telling the user to read the entire 'articlehere'") {
-                    let inputString = "Foo bar. To do, `some` 'stuff' articlehere. (And other stuff articlehere.) And that!"
+                    let inputString = "Foo bar. To do, `’some` 'stuff' articlehere. (And other stuff articlehere.) And that!"
                     let expectedString = "Foo bar.  And that!"
                     
                     expect(self.subject.sanitizeString(inputString)).to(equal(expectedString))
                 }
                 
                 it("strips text telling the user to read the entire 'op-edhere'") {
-                    let inputString = "Foo bar. To do, `some` 'stuff' op-edhere. (And other stuff op-edhere.) And that!"
+                    let inputString = "Foo bar. To do, `’some` 'stuff' op-edhere. (And other stuff op-edhere.) And that!"
                     let expectedString = "Foo bar.  And that!"
                     
                     expect(self.subject.sanitizeString(inputString)).to(equal(expectedString))
