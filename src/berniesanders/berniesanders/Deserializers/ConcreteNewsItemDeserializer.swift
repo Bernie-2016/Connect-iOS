@@ -1,8 +1,10 @@
 import Foundation
 
 public class ConcreteNewsItemDeserializer : NewsItemDeserializer {
-    public init() {
-        
+    let stringContentSanitizer: StringContentSanitizer!
+
+    public init(stringContentSanitizer: StringContentSanitizer) {
+        self.stringContentSanitizer = stringContentSanitizer
     }
     
     public func deserializeNewsItems(jsonDictionary: NSDictionary) -> Array<NewsItem> {
@@ -33,6 +35,7 @@ public class ConcreteNewsItemDeserializer : NewsItemDeserializer {
             }
             
             var title = sourceDictionary!["title"] as? String
+
             var body = sourceDictionary!["body"] as? String
             var dateString = sourceDictionary!["created_at"] as? String
             var urlString = sourceDictionary!["url"] as? String
@@ -40,7 +43,10 @@ public class ConcreteNewsItemDeserializer : NewsItemDeserializer {
             if (title == nil) || (body == nil) || (dateString == nil) || (urlString == nil) {
                 continue;
             }
-
+            
+            title = self.stringContentSanitizer.sanitizeString(title!)
+            body = self.stringContentSanitizer.sanitizeString(body!)
+            
             var url = NSURL(string: urlString!)
             var date = dateFormatter.dateFromString(dateString!)
             

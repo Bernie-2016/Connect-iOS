@@ -81,11 +81,12 @@ class NewsFeedControllerSpecs: QuickSpec {
     var subject: NewsFeedController!
     let newsItemRepository: FakeNewsItemRepository! =  FakeNewsItemRepository()
     var imageRepository : FakeImageRepository!
+    let newsItemControllerProvider = FakeNewsItemControllerProvider()
+    let settingsController = TestUtils.settingsController()
     var analyticsService: FakeAnalyticsService!
     let theme: Theme! = NewsFakeTheme()
-    let newsItemControllerProvider = FakeNewsItemControllerProvider()
+    
     var navigationController: UINavigationController!
-    let settingsController = TestUtils.settingsController()
     
     override func spec() {
         describe("NewsFeedController") {

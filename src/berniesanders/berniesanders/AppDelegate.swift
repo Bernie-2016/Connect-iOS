@@ -19,6 +19,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             let mainQueue = NSOperationQueue.mainQueue()
             let sharedURLSession = NSURLSession.sharedSession()
             let analyticsService = ConcreteAnalyticsService()
+            let stringContentSanitizer = ConcreteStringContentSanitizer()
             
             let defaultTheme = DefaultTheme()
             let urlProvider = ConcreteURLProvider()
@@ -44,7 +45,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
                 analyticsService: analyticsService,
                 theme: defaultTheme)
             
-            let newsItemDeserializer = ConcreteNewsItemDeserializer()
+            let newsItemDeserializer = ConcreteNewsItemDeserializer(stringContentSanitizer: stringContentSanitizer)
             let newsItemRepository = ConcreteNewsItemRepository(
                 urlProvider: urlProvider,
                 jsonClient: jsonClient,
@@ -72,7 +73,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             
             let newsNavigationController = NavigationController(theme: defaultTheme)
             newsNavigationController.pushViewController(newsFeedController, animated: false)
-            let issueDeserializer = ConcreteIssueDeserializer()
+            let issueDeserializer = ConcreteIssueDeserializer(stringContentSanitizer: stringContentSanitizer)
             
             let issueRepository = ConcreteIssueRepository(
                 urlProvider: urlProvider,

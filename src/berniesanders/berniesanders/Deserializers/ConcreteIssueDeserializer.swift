@@ -1,8 +1,10 @@
 import Foundation
 
 public class ConcreteIssueDeserializer : IssueDeserializer {
-    public init() {
-        
+    let stringContentSanitizer: StringContentSanitizer!
+    
+    public init(stringContentSanitizer: StringContentSanitizer) {
+        self.stringContentSanitizer = stringContentSanitizer
     }
     
     public func deserializeIssues(jsonDictionary: NSDictionary) -> Array<Issue> {
@@ -34,6 +36,9 @@ public class ConcreteIssueDeserializer : IssueDeserializer {
             if (title == nil) || (body == nil) || (urlString == nil) {
                 continue;
             }
+            
+            title = self.stringContentSanitizer.sanitizeString(title!)
+            body = self.stringContentSanitizer.sanitizeString(body!)
             
             var url = NSURL(string: urlString!)
             if (url == nil) {
