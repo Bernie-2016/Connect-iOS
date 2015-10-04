@@ -121,17 +121,17 @@ public class NewsItemController : UIViewController {
             self.dateLabel.autoPinEdgeToSuperviewEdge(ALEdge.Top, withInset: 8)
         })
         
-        self.dateLabel.autoPinEdgeToSuperviewEdge(ALEdge.Leading, withInset: 8)
-        self.dateLabel.autoPinEdgeToSuperviewEdge(ALEdge.Trailing)
+        self.dateLabel.autoPinEdgeToSuperviewMargin(ALEdge.Leading)
+        self.dateLabel.autoPinEdgeToSuperviewMargin(ALEdge.Trailing)
         self.dateLabel.autoSetDimension(ALDimension.Height, toSize: 20)
         
         self.titleLabel.numberOfLines = 3
         self.titleLabel.preferredMaxLayoutWidth = screenBounds.width - 8
         self.titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        self.titleLabel.autoPinEdgeToSuperviewEdge(ALEdge.Leading, withInset: 8)
-        self.titleLabel.autoPinEdgeToSuperviewEdge(ALEdge.Trailing)
-        self.titleLabel.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.dateLabel)
-        self.titleLabel.autoSetDimension(ALDimension.Height, toSize: 20, relation: NSLayoutRelation.GreaterThanOrEqual)
+        self.titleLabel.autoPinEdgeToSuperviewMargin(.Leading)
+        self.titleLabel.autoPinEdgeToSuperviewMargin(.Trailing)
+        self.titleLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.dateLabel)
+        self.titleLabel.autoSetDimension(.Height, toSize: 20, relation: NSLayoutRelation.GreaterThanOrEqual)
         
         self.bodyTextView.scrollEnabled = false
         self.bodyTextView.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -139,7 +139,7 @@ public class NewsItemController : UIViewController {
         self.bodyTextView.textContainer.lineFragmentPadding = 0;
         self.bodyTextView.editable = false
         
-        self.bodyTextView.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.titleLabel, withOffset: 16)
+        self.bodyTextView.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.titleLabel, withOffset: 16)
         self.bodyTextView.autoPinEdgesToSuperviewMarginsExcludingEdge(.Top)
     }
     

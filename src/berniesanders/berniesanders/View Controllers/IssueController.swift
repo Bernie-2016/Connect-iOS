@@ -137,8 +137,8 @@ public class IssueController : UIViewController {
         self.titleLabel.numberOfLines = 3
         self.titleLabel.preferredMaxLayoutWidth = screenBounds.width - 8
         self.titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        self.titleLabel.autoPinEdgeToSuperviewEdge(ALEdge.Leading, withInset: 8)
-        self.titleLabel.autoPinEdgeToSuperviewEdge(ALEdge.Trailing)
+        self.titleLabel.autoPinEdgeToSuperviewMargin(.Leading)
+        self.titleLabel.autoPinEdgeToSuperviewMargin(.Trailing)
         self.titleLabel.autoSetDimension(ALDimension.Height, toSize: 20, relation: NSLayoutRelation.GreaterThanOrEqual)
         
         self.bodyTextView.scrollEnabled = false
