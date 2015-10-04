@@ -39,9 +39,9 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             let feedbackController = FeedbackController(urlProvider: urlProvider, analyticsService: analyticsService)
             let privacyPolicyController = PrivacyPolicyController(urlProvider: urlProvider, analyticsService: analyticsService)
             let flossController = FLOSSController(analyticsService: analyticsService)
-
+            let termsAndConditionsController = TermsAndConditionsController(analyticsService: analyticsService)
             let settingsController = SettingsController(
-                tappableControllers: [aboutController, feedbackController, privacyPolicyController, flossController],
+                tappableControllers: [aboutController, feedbackController, termsAndConditionsController, privacyPolicyController, flossController],
                 analyticsService: analyticsService,
                 theme: defaultTheme)
             
