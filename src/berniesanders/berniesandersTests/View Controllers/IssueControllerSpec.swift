@@ -47,7 +47,7 @@ class IssueControllerSpec : QuickSpec {
     let issue = TestUtils.issue()
     
     override func spec() {
-        fdescribe("IssueController") {
+        describe("IssueController") {
             context("with a standard issue") {
                 beforeEach {
                     self.imageRepository = FakeImageRepository()
