@@ -7,6 +7,8 @@ public class ConcreteIssueControllerProviderSpec : QuickSpec {
     var subject : ConcreteIssueControllerProvider!
     let imageRepository = FakeImageRepository()
     let analyticsService = FakeAnalyticsService()
+    let urlOpener = FakeURLOpener()
+    let urlAttributionPresenter = FakeURLAttributionPresenter()
     let theme = FakeTheme()
 
     override public func spec() {
@@ -16,6 +18,8 @@ public class ConcreteIssueControllerProviderSpec : QuickSpec {
                 self.subject = ConcreteIssueControllerProvider(
                     imageRepository: self.imageRepository,
                     analyticsService: self.analyticsService,
+                    urlOpener: self.urlOpener,
+                    urlAttributionPresenter: self.urlAttributionPresenter,
                     theme: self.theme
                 )
             }
@@ -29,6 +33,8 @@ public class ConcreteIssueControllerProviderSpec : QuickSpec {
                 expect(controller.issue).to(beIdenticalTo(issue))
                 expect(controller.imageRepository as? FakeImageRepository).to(beIdenticalTo(self.imageRepository))
                 expect(controller.analyticsService as? FakeAnalyticsService).to(beIdenticalTo(self.analyticsService))
+                expect(controller.urlOpener as? FakeURLOpener).to(beIdenticalTo(self.urlOpener))
+                expect(controller.urlAttributionPresenter as? FakeURLAttributionPresenter).to(beIdenticalTo(self.urlAttributionPresenter))
                 expect(controller.theme as? FakeTheme).to(beIdenticalTo(self.theme))
             }
         }

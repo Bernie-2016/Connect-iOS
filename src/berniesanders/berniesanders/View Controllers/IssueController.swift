@@ -5,6 +5,8 @@ public class IssueController : UIViewController {
     public let issue: Issue!
     public let imageRepository: ImageRepository!
     public let analyticsService: AnalyticsService!
+    public let urlOpener: URLOpener!
+    public let urlAttributionPresenter: URLAttributionPresenter!
     public let theme: Theme!
     
     let containerView = UIView()
@@ -12,11 +14,20 @@ public class IssueController : UIViewController {
     public let titleLabel = UILabel()
     public let bodyTextView = UITextView()
     public let issueImageView = UIImageView()
+    public let attributionLabel = UILabel.newAutoLayoutView()
+    public let viewOriginalButton = UIButton.newAutoLayoutView()
 
-    public init(issue: Issue, imageRepository: ImageRepository, analyticsService: AnalyticsService, theme: Theme) {
+    public init(issue: Issue,
+        imageRepository: ImageRepository,
+        analyticsService: AnalyticsService,
+        urlOpener: URLOpener,
+        urlAttributionPresenter: URLAttributionPresenter,
+        theme: Theme) {
         self.issue = issue
         self.imageRepository = imageRepository
         self.analyticsService = analyticsService
+        self.urlOpener = urlOpener
+        self.urlAttributionPresenter = urlAttributionPresenter
         self.theme = theme
         
         super.init(nibName: nil, bundle: nil)
@@ -33,22 +44,28 @@ public class IssueController : UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "share")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "share")
 
-        self.view.addSubview(self.scrollView)
-        self.scrollView.addSubview(self.containerView)
-        self.containerView.addSubview(self.titleLabel)
-        self.containerView.addSubview(self.issueImageView)
-        self.containerView.addSubview(self.bodyTextView)
+        view.addSubview(scrollView)
+        scrollView.addSubview(containerView)
+        containerView.addSubview(titleLabel)
+        containerView.addSubview(issueImageView)
+        containerView.addSubview(bodyTextView)
+        containerView.addSubview(attributionLabel)
+        containerView.addSubview(viewOriginalButton)
         
-        self.titleLabel.text = self.issue.title
-        self.bodyTextView.text = self.issue.body
+        titleLabel.text = self.issue.title
+        bodyTextView.text = self.issue.body
         
-        self.setupConstraintsAndLayout()
-        self.applyThemeToViews()
+        attributionLabel.text = self.urlAttributionPresenter.attributionTextForURL(issue.URL)
+        viewOriginalButton.setTitle(NSLocalizedString("Issue_viewOriginal", comment: ""), forState: .Normal)
+        viewOriginalButton.addTarget(self, action: "didTapViewOriginal", forControlEvents: .TouchUpInside)
         
-        if(self.issue.imageURL != nil) {
-            self.imageRepository.fetchImageWithURL(self.issue.imageURL!).then({ (image) -> AnyObject! in
+        setupConstraintsAndLayout()
+        applyThemeToViews()
+        
+        if(issue.imageURL != nil) {
+            imageRepository.fetchImageWithURL(self.issue.imageURL!).then({ (image) -> AnyObject! in
                 self.issueImageView.image = image as? UIImage
                 return image
                 }, error: { (error) -> AnyObject! in
@@ -56,19 +73,19 @@ public class IssueController : UIViewController {
                     return error
             })
         } else {
-            self.issueImageView.removeFromSuperview()
+            issueImageView.removeFromSuperview()
         }
     }
     
     public override func didMoveToParentViewController(parent: UIViewController?) {
-        self.analyticsService.trackCustomEventWithName("Tapped 'Back' on Issue", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.issue.URL.absoluteString!])
+        analyticsService.trackCustomEventWithName("Tapped 'Back' on Issue", customAttributes: [AnalyticsServiceConstants.contentIDKey: issue.URL.absoluteString!])
     }
 
     
     // MARK: Actions
     
     func share() {
-        self.analyticsService.trackCustomEventWithName("Tapped 'Share' on Issue", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.issue.URL.absoluteString!])
+        analyticsService.trackCustomEventWithName("Tapped 'Share' on Issue", customAttributes: [AnalyticsServiceConstants.contentIDKey: issue.URL.absoluteString!])
         
         let activityVC = UIActivityViewController(activityItems: [issue.URL], applicationActivities: nil)
         
@@ -85,6 +102,11 @@ public class IssueController : UIViewController {
         }
         
         presentViewController(activityVC, animated: true, completion: nil)
+    }
+    
+    func didTapViewOriginal() {
+        analyticsService.trackCustomEventWithName("Tapped 'View Original' on Issue", customAttributes: [AnalyticsServiceConstants.contentIDKey: issue.URL.absoluteString!])
+        self.urlOpener.openURL(self.issue.URL)
     }
     
     // MARK: Private
@@ -110,6 +132,7 @@ public class IssueController : UIViewController {
         NSLayoutConstraint.autoSetPriority(500, forConstraints: { () -> Void in
             self.titleLabel.autoPinEdgeToSuperviewEdge(ALEdge.Top, withInset: 8)
         })
+        
 
         self.titleLabel.numberOfLines = 3
         self.titleLabel.preferredMaxLayoutWidth = screenBounds.width - 8
@@ -125,7 +148,17 @@ public class IssueController : UIViewController {
         self.bodyTextView.editable = false
         
         self.bodyTextView.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.titleLabel, withOffset: 16)
-        self.bodyTextView.autoPinEdgesToSuperviewMarginsExcludingEdge(.Top)
+        self.bodyTextView.autoPinEdgeToSuperviewMargin(.Left)
+        self.bodyTextView.autoPinEdgeToSuperviewMargin(.Right)
+        
+        self.attributionLabel.numberOfLines = 0
+        self.attributionLabel.textAlignment = .Center
+        self.attributionLabel.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.bodyTextView, withOffset: 16)
+        self.attributionLabel.autoPinEdgeToSuperviewMargin(.Left)
+        self.attributionLabel.autoPinEdgeToSuperviewMargin(.Right)
+
+        self.viewOriginalButton.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.attributionLabel, withOffset: 16)
+        self.viewOriginalButton.autoPinEdgesToSuperviewMarginsExcludingEdge(.Top)
     }
     
     private func applyThemeToViews() {
@@ -134,5 +167,10 @@ public class IssueController : UIViewController {
         self.titleLabel.textColor = self.theme.issueTitleColor()
         self.bodyTextView.font = self.theme.issueBodyFont()
         self.bodyTextView.textColor = self.theme.issueBodyColor()
+        self.attributionLabel.font = self.theme.attributionFont()
+        self.attributionLabel.textColor = self.theme.attributionTextColor()
+        self.viewOriginalButton.backgroundColor = self.theme.issueViewOriginalButtonBackgroundColor()
+        self.viewOriginalButton.setTitleColor(self.theme.issueViewOriginalButtonTextColor(), forState: .Normal)
+        self.viewOriginalButton.titleLabel!.font = self.theme.issueViewOriginalButtonFont()
     }
 }

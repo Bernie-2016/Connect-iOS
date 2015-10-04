@@ -23,6 +23,8 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             let defaultTheme = DefaultTheme()
             let urlProvider = ConcreteURLProvider()
             let urlOpener = URLOpener()
+            let urlAttributionPresenter = ConcreteURLAttributionPresenter()
+            
             let jsonSerializerProvider = NSJSONSerializationProvider()
             let jsonClient = ConcreteJSONClient(
                 urlSession: sharedURLSession,
@@ -77,7 +79,11 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
                 operationQueue: mainQueue
             )
             
-            let issueControllerProvider = ConcreteIssueControllerProvider(imageRepository: imageRepository, analyticsService: analyticsService, theme: defaultTheme)
+            let issueControllerProvider = ConcreteIssueControllerProvider(imageRepository: imageRepository,
+                analyticsService: analyticsService,
+                urlOpener: urlOpener,
+                urlAttributionPresenter: urlAttributionPresenter,
+                theme: defaultTheme)
             
             let issuesTableController = IssuesController(
                 issueRepository: issueRepository,

@@ -7,6 +7,8 @@ public protocol Theme {
     
     func defaultBackgroundColor() -> UIColor
     func defaultSpinnerColor() -> UIColor
+    func attributionFont() -> UIFont
+    func attributionTextColor() -> UIColor
     
     // MARK: Tab Bar
     
@@ -57,6 +59,9 @@ public protocol Theme {
     func issueTitleColor() -> UIColor
     func issueBodyFont() -> UIFont
     func issueBodyColor() -> UIColor
+    func issueViewOriginalButtonBackgroundColor() -> UIColor
+    func issueViewOriginalButtonTextColor() -> UIColor
+    func issueViewOriginalButtonFont() -> UIFont
     
     // MARK: Events screen
     

@@ -13,6 +13,14 @@ class DefaultTheme : Theme {
         return self.silverColor()
     }
     
+    func attributionFont() -> UIFont {
+        return UIFont(name: "Lato-Regular", size: 12)!
+    }
+    
+    func attributionTextColor() -> UIColor {
+        return self.silverColor()
+    }
+    
     // MARK: Tab Bar
     
     func tabBarTintColor() -> UIColor {
@@ -102,7 +110,7 @@ class DefaultTheme : Theme {
     }
     
     func newsItemTitleColor() -> UIColor {
-        return self.cornflowerBlueColor()
+        return cornflowerBlueColor()
     }
     
     func newsItemBodyFont() -> UIFont {
@@ -126,19 +134,31 @@ class DefaultTheme : Theme {
     // MARK: Issue detail screen
     
     func issueTitleFont() -> UIFont {
-        return self.defaultHeaderFont()
+        return defaultHeaderFont()
     }
     
     func issueTitleColor() -> UIColor {
-        return self.cornflowerBlueColor()
+        return cornflowerBlueColor()
     }
     
     func issueBodyFont() -> UIFont {
-        return self.defaultBodyTextFont()
+        return defaultBodyTextFont()
     }
     
     func issueBodyColor() -> UIColor {
         return UIColor.blackColor()
+    }
+    
+    func issueViewOriginalButtonBackgroundColor() -> UIColor {
+        return cornflowerBlueColor()
+    }
+
+    func issueViewOriginalButtonTextColor() -> UIColor {
+        return UIColor.whiteColor()
+    }
+    
+    func issueViewOriginalButtonFont() -> UIFont {
+        return UIFont(name: "Lora-Bold", size: 12)!
     }
     
     // MARK: Settings
