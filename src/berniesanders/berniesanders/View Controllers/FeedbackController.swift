@@ -1,6 +1,6 @@
 import UIKit
 
-public class FeedbackController: UIViewController {
+public class FeedbackController: UIViewController, UIWebViewDelegate {
     let urlProvider : URLProvider!
     let analyticsService: AnalyticsService!
     
@@ -24,6 +24,7 @@ public class FeedbackController: UIViewController {
         super.viewDidLoad()
         
         var urlRequest = NSURLRequest(URL: self.urlProvider.feedbackFormURL())
+        self.webView.delegate = self
         self.webView.loadRequest(urlRequest)
         
         self.webView.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -33,6 +34,18 @@ public class FeedbackController: UIViewController {
     
     public override func didMoveToParentViewController(parent: UIViewController?) {
         self.analyticsService.trackCustomEventWithName("Tapped 'Back' on Feedback", customAttributes: nil)
+
     }
 
+    // MARK: UIWebViewDelegate
+    
+    public func webViewDidFinishLoad(webView: UIWebView) {
+        let overrideCssPath = NSBundle.mainBundle().pathForResource("feedbackGoogleFormOverrides", ofType: "css")!
+        let overrideCss = String(contentsOfFile: overrideCssPath, encoding: NSUTF8StringEncoding, error: nil)!
+        let injectionJSPath = NSBundle.mainBundle().pathForResource("cssInjection", ofType: "js")!
+        let injectionJS = String(contentsOfFile: injectionJSPath, encoding: NSUTF8StringEncoding, error: nil)!
+        
+        let cssInjection = injectionJS.stringByReplacingOccurrencesOfString("CSS_SENTINEL", withString:overrideCss)
+        print(webView.stringByEvaluatingJavaScriptFromString(cssInjection))
+    }
 }

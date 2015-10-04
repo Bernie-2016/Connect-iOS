@@ -54,6 +54,8 @@
 		654B55B71BB4888D00492610 /* EventPresenterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654B55B61BB4888D00492610 /* EventPresenterSpec.swift */; };
 		654FDBB51BC17D2D00A082CF /* FeedbackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654FDBB41BC17D2D00A082CF /* FeedbackController.swift */; };
 		654FDBB71BC17D4900A082CF /* FeedbackControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654FDBB61BC17D4900A082CF /* FeedbackControllerSpec.swift */; };
+		654FDBBB1BC1862800A082CF /* cssInjection.js in Resources */ = {isa = PBXBuildFile; fileRef = 654FDBBA1BC1862800A082CF /* cssInjection.js */; };
+		654FDBBD1BC1867F00A082CF /* feedbackGoogleFormOverrides.css in Resources */ = {isa = PBXBuildFile; fileRef = 654FDBBC1BC1867F00A082CF /* feedbackGoogleFormOverrides.css */; };
 		655887141BA866CF0077CC56 /* NewsHeadlineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655887131BA866CF0077CC56 /* NewsHeadlineTableViewCell.swift */; };
 		6559D70D1BBDC32100CBC7EE /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6559D70C1BBDC32100CBC7EE /* AnalyticsService.swift */; };
 		6559D70F1BBDC37000CBC7EE /* FakeAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6559D70E1BBDC37000CBC7EE /* FakeAnalyticsService.swift */; };
@@ -227,6 +229,8 @@
 		654B55B61BB4888D00492610 /* EventPresenterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventPresenterSpec.swift; sourceTree = "<group>"; };
 		654FDBB41BC17D2D00A082CF /* FeedbackController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackController.swift; sourceTree = "<group>"; };
 		654FDBB61BC17D4900A082CF /* FeedbackControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackControllerSpec.swift; sourceTree = "<group>"; };
+		654FDBBA1BC1862800A082CF /* cssInjection.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = cssInjection.js; sourceTree = "<group>"; };
+		654FDBBC1BC1867F00A082CF /* feedbackGoogleFormOverrides.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = feedbackGoogleFormOverrides.css; sourceTree = "<group>"; };
 		655887131BA866CF0077CC56 /* NewsHeadlineTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsHeadlineTableViewCell.swift; sourceTree = "<group>"; };
 		6559D70C1BBDC32100CBC7EE /* AnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		6559D70E1BBDC37000CBC7EE /* FakeAnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeAnalyticsService.swift; sourceTree = "<group>"; };
@@ -499,6 +503,22 @@
 			path = Presenters;
 			sourceTree = "<group>";
 		};
+		654FDBB81BC185F700A082CF /* JavaScript */ = {
+			isa = PBXGroup;
+			children = (
+				654FDBBA1BC1862800A082CF /* cssInjection.js */,
+			);
+			path = JavaScript;
+			sourceTree = "<group>";
+		};
+		654FDBB91BC1861300A082CF /* CSS */ = {
+			isa = PBXGroup;
+			children = (
+				654FDBBC1BC1867F00A082CF /* feedbackGoogleFormOverrides.css */,
+			);
+			path = CSS;
+			sourceTree = "<group>";
+		};
 		6559D70A1BBDC2F400CBC7EE /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -652,8 +672,10 @@
 		65F5F6501B87B9440049353C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				654FDBB91BC1861300A082CF /* CSS */,
 				65EDD6211B8BB80D00F545B8 /* Fonts */,
 				655A3DB61BBCCE5400E08051 /* HTML */,
+				654FDBB81BC185F700A082CF /* JavaScript */,
 				8233FC151B7C28FB00A5E9ED /* Images.xcassets */,
 				65F5F6631B8A3CB00049353C /* Localizable.strings */,
 			);
@@ -871,7 +893,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				654FDBBB1BC1862800A082CF /* cssInjection.js in Resources */,
 				65B165591B9789C00052EF8D /* Entitlements.plist in Resources */,
+				654FDBBD1BC1867F00A082CF /* feedbackGoogleFormOverrides.css in Resources */,
 				655A3DB81BBCCE7400E08051 /* floss_licenses.html in Resources */,
 				8233FC161B7C28FB00A5E9ED /* Images.xcassets in Resources */,
 				65EDD6241B8BB82E00F545B8 /* Lato-Regular.ttf in Resources */,
