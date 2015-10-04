@@ -35,10 +35,12 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             let imageRepository = ConcreteImageRepository(webImageManager: webImageManager)
             
             let aboutController = AboutController(analyticsService: analyticsService, urlOpener: urlOpener, urlProvider: urlProvider, theme: defaultTheme)
+            let feedbackController = FeedbackController(urlProvider: urlProvider, analyticsService: analyticsService)
             let privacyPolicyController = PrivacyPolicyController(urlProvider: urlProvider, analyticsService: analyticsService)
             let flossController = FLOSSController(analyticsService: analyticsService)
+
             let settingsController = SettingsController(
-                tappableControllers: [aboutController, privacyPolicyController, flossController],
+                tappableControllers: [aboutController, feedbackController, privacyPolicyController, flossController],
                 analyticsService: analyticsService,
                 theme: defaultTheme)
             

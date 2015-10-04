@@ -10,4 +10,5 @@ public protocol URLProvider {
     func mapsURLForEvent(event: Event) -> NSURL!
     func codersForSandersURL() -> NSURL!
     func designersForSandersURL() -> NSURL!
+    func feedbackFormURL() -> NSURL!
 }

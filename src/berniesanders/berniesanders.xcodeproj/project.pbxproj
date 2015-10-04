@@ -52,6 +52,8 @@
 		654AD3571BB8787000A59966 /* ConcreteEventControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654AD3561BB8787000A59966 /* ConcreteEventControllerProvider.swift */; };
 		654B55B51BB4882700492610 /* EventPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654B55B41BB4882700492610 /* EventPresenter.swift */; };
 		654B55B71BB4888D00492610 /* EventPresenterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654B55B61BB4888D00492610 /* EventPresenterSpec.swift */; };
+		654FDBB51BC17D2D00A082CF /* FeedbackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654FDBB41BC17D2D00A082CF /* FeedbackController.swift */; };
+		654FDBB71BC17D4900A082CF /* FeedbackControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654FDBB61BC17D4900A082CF /* FeedbackControllerSpec.swift */; };
 		655887141BA866CF0077CC56 /* NewsHeadlineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655887131BA866CF0077CC56 /* NewsHeadlineTableViewCell.swift */; };
 		6559D70D1BBDC32100CBC7EE /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6559D70C1BBDC32100CBC7EE /* AnalyticsService.swift */; };
 		6559D70F1BBDC37000CBC7EE /* FakeAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6559D70E1BBDC37000CBC7EE /* FakeAnalyticsService.swift */; };
@@ -223,6 +225,8 @@
 		654AD3561BB8787000A59966 /* ConcreteEventControllerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteEventControllerProvider.swift; sourceTree = "<group>"; };
 		654B55B41BB4882700492610 /* EventPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventPresenter.swift; sourceTree = "<group>"; };
 		654B55B61BB4888D00492610 /* EventPresenterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventPresenterSpec.swift; sourceTree = "<group>"; };
+		654FDBB41BC17D2D00A082CF /* FeedbackController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackController.swift; sourceTree = "<group>"; };
+		654FDBB61BC17D4900A082CF /* FeedbackControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackControllerSpec.swift; sourceTree = "<group>"; };
 		655887131BA866CF0077CC56 /* NewsHeadlineTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsHeadlineTableViewCell.swift; sourceTree = "<group>"; };
 		6559D70C1BBDC32100CBC7EE /* AnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		6559D70E1BBDC37000CBC7EE /* FakeAnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeAnalyticsService.swift; sourceTree = "<group>"; };
@@ -622,6 +626,7 @@
 				6581F7BE1BB87FF500B26B76 /* EventControllerSpec.swift */,
 				65D0ECE81BBB8C360063B1D0 /* EventRSVPControllerSpec.swift */,
 				65F112ED1B9FFE8700BA585C /* EventsControllerSpec.swift */,
+				654FDBB61BC17D4900A082CF /* FeedbackControllerSpec.swift */,
 				655A3DB41BBCCD3600E08051 /* FlossControllerSpec.swift */,
 				653601031B99E74300FE3735 /* IssueControllerSpec.swift */,
 				65C97A171B8A5D2F00088679 /* IssuesControllerSpec.swift */,
@@ -761,6 +766,7 @@
 				654AD3541BB876C700A59966 /* EventController.swift */,
 				65D0ECE21BBAD7A20063B1D0 /* EventRSVPController.swift */,
 				65F112EF1B9FFF1C00BA585C /* EventsController.swift */,
+				654FDBB41BC17D2D00A082CF /* FeedbackController.swift */,
 				655A3DB21BBCCC8700E08051 /* FLOSSController.swift */,
 				6592FA3B1B99E33300746EC3 /* IssueController.swift */,
 				8233FC311B7C4A9600A5E9ED /* IssuesController.swift */,
@@ -958,6 +964,7 @@
 				65D0ECE31BBAD7A20063B1D0 /* EventRSVPController.swift in Sources */,
 				65D0ECE11BBAD7780063B1D0 /* EventRSVPControllerProvider.swift in Sources */,
 				65F112F01B9FFF1C00BA585C /* EventsController.swift in Sources */,
+				654FDBB51BC17D2D00A082CF /* FeedbackController.swift in Sources */,
 				655A3DB31BBCCC8700E08051 /* FLOSSController.swift in Sources */,
 				659F0E1C1B95EC0B0049FA12 /* ImageRepository.swift in Sources */,
 				6587FF5A1B8A7E3200AC65F1 /* Issue.swift in Sources */,
@@ -1028,6 +1035,7 @@
 				65205F321BC098DF005A55F2 /* FakeURLAttributionPresenter.swift in Sources */,
 				6505C9531BB9FF3F008DD278 /* FakeURLOpener.swift in Sources */,
 				6507631E1B8B720E00BA0659 /* FakeURLProvider.swift in Sources */,
+				654FDBB71BC17D4900A082CF /* FeedbackControllerSpec.swift in Sources */,
 				655A3DB51BBCCD3600E08051 /* FlossControllerSpec.swift in Sources */,
 				653601041B99E74300FE3735 /* IssueControllerSpec.swift in Sources */,
 				65C97A181B8A5D2F00088679 /* IssuesControllerSpec.swift in Sources */,

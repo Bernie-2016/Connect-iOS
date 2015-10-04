@@ -34,4 +34,8 @@ class FakeURLProvider : berniesanders.URLProvider {
     func designersForSandersURL() -> NSURL! {
         fatalError("override me in spec!")
     }
+    
+    func feedbackFormURL() -> NSURL! {
+        fatalError("override me in spec!")
+    }
 }

@@ -38,6 +38,31 @@ class ConcreteURLProviderSpec : QuickSpec {
                     }
                 }
             }
+            
+            describe("building the feedback form URL") {
+                var urlComponents: NSURLComponents!
+                beforeEach {
+                    let url = self.subject.feedbackFormURL()
+                    urlComponents = NSURLComponents(URL: url, resolvingAgainstBaseURL: false)
+                }
+                
+                it("includes the platform") {
+                    let platformQueryItem = urlComponents.queryItems!.first as! NSURLQueryItem
+                    expect(platformQueryItem.name).to(equal("entry.506"))
+                    expect(platformQueryItem.value).to(equal("iOS"))
+                }
+                
+                it("includes the marketing and internal version numbers") {
+                    let marketingVersion = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
+                    let internalBuildNumber  = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleVersion") as! String
+
+                    let expectedVersionString = "\(marketingVersion) (\(internalBuildNumber))"
+                    let platformQueryItem = urlComponents.queryItems!.last as! NSURLQueryItem
+                    
+                    expect(platformQueryItem.name).to(equal("entry.937851719"))
+                    expect(platformQueryItem.value).to(equal(expectedVersionString))
+                }
+            }
         }
     }
 }
