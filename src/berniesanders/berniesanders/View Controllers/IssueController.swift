@@ -122,17 +122,17 @@ public class IssueController : UIViewController {
         self.containerView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: ALEdge.Trailing)
         self.containerView.autoSetDimension(ALDimension.Width, toSize: screenBounds.width)
         
+        self.issueImageView.contentMode = .ScaleAspectFill
         self.issueImageView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: ALEdge.Bottom)
         self.issueImageView.autoSetDimension(ALDimension.Height, toSize: screenBounds.height / 3, relation: NSLayoutRelation.LessThanOrEqual)
         
         NSLayoutConstraint.autoSetPriority(1000, forConstraints: { () -> Void in
-            self.titleLabel.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.issueImageView, withOffset: 8)
+            self.titleLabel.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.issueImageView, withOffset: 32)
         })
         
         NSLayoutConstraint.autoSetPriority(500, forConstraints: { () -> Void in
             self.titleLabel.autoPinEdgeToSuperviewEdge(ALEdge.Top, withInset: 8)
         })
-        
 
         self.titleLabel.numberOfLines = 3
         self.titleLabel.preferredMaxLayoutWidth = screenBounds.width - 8
