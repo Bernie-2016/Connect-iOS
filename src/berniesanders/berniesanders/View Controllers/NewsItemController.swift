@@ -6,6 +6,8 @@ public class NewsItemController : UIViewController {
     public let imageRepository : ImageRepository!
     public let dateFormatter : NSDateFormatter!
     public let analyticsService: AnalyticsService!
+    public let urlOpener: URLOpener!
+    public let urlAttributionPresenter: URLAttributionPresenter!
     public let theme : Theme!
     
     let containerView = UIView.newAutoLayoutView()
@@ -14,18 +16,24 @@ public class NewsItemController : UIViewController {
     public let titleLabel = UILabel()
     public let bodyTextView = UITextView()
     public let storyImageView = UIImageView()
+    public let attributionLabel = UILabel.newAutoLayoutView()
+    public let viewOriginalButton = UIButton.newAutoLayoutView()
     
     public init(
         newsItem: NewsItem,
         imageRepository: ImageRepository,
         dateFormatter: NSDateFormatter,
         analyticsService: AnalyticsService,
+        urlOpener: URLOpener,
+        urlAttributionPresenter: URLAttributionPresenter,
         theme: Theme) {
 
         self.newsItem = newsItem
         self.imageRepository = imageRepository
         self.dateFormatter = dateFormatter
         self.analyticsService = analyticsService
+        self.urlOpener = urlOpener
+        self.urlAttributionPresenter = urlAttributionPresenter
         self.theme = theme
         
         super.init(nibName: nil, bundle: nil)
