@@ -23,7 +23,6 @@
 typedef struct {
    __unsafe_unretained NSString *escapeSequence;
   unichar uchar;
-    unichar padding;
 } HTMLEscapeMap;
 
 // Taken from http://www.w3.org/TR/xhtml1/dtds.html#a_dtd_Special_characters

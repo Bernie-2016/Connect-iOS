@@ -1232,6 +1232,8 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/berniesanders/Externals",
 				);
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_PEDANTIC = YES;
 				INFOPLIST_FILE = berniesanders/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1242,7 +1244,10 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "berniesanders/Extensions/berniesanders-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
-				WARNING_CFLAGS = "-Weverything";
+				WARNING_CFLAGS = (
+					"-Weverything",
+					"-Wno-padded",
+				);
 				WARNING_LDFLAGS = "";
 			};
 			name = Debug;
@@ -1261,6 +1266,8 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/berniesanders/Externals",
 				);
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_PEDANTIC = YES;
 				INFOPLIST_FILE = berniesanders/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1270,7 +1277,10 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "berniesanders/Extensions/berniesanders-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
-				WARNING_CFLAGS = "-Weverything";
+				WARNING_CFLAGS = (
+					"-Weverything",
+					"-Wno-padded",
+				);
 				WARNING_LDFLAGS = "";
 			};
 			name = Release;
@@ -1290,6 +1300,8 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_PEDANTIC = YES;
 				INFOPLIST_FILE = berniesandersTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1302,7 +1314,10 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "berniesandersTests/berniesandersTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/berniesanders.app/berniesanders";
-				WARNING_CFLAGS = "-Weverything";
+				WARNING_CFLAGS = (
+					"-Weverything",
+					"-Wno-padded",
+				);
 			};
 			name = Debug;
 		};
@@ -1317,6 +1332,8 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/berniesandersTests/Externals",
 				);
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_PEDANTIC = YES;
 				INFOPLIST_FILE = berniesandersTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1328,7 +1345,10 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "berniesandersTests/berniesandersTests-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/berniesanders.app/berniesanders";
-				WARNING_CFLAGS = "-Weverything";
+				WARNING_CFLAGS = (
+					"-Weverything",
+					"-Wno-padded",
+				);
 			};
 			name = Release;
 		};
