@@ -21,6 +21,7 @@
 		6518CBAD1BC1C5A2000C238C /* terms_and_conditions.html in Resources */ = {isa = PBXBuildFile; fileRef = 6518CBAC1BC1C5A2000C238C /* terms_and_conditions.html */; };
 		6518CBAF1BC1C6B2000C238C /* TermsAndConditionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6518CBAE1BC1C6B2000C238C /* TermsAndConditionsController.swift */; };
 		6518CBB11BC1C6CE000C238C /* TermsAndConditionsControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6518CBB01BC1C6CE000C238C /* TermsAndConditionsControllerSpec.swift */; };
+		6518CBBB1BC370A6000C238C /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 6518CBBA1BC370A6000C238C /* GTMNSString+HTML.m */; };
 		65205F301BC098B2005A55F2 /* URLAttributionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65205F2F1BC098B2005A55F2 /* URLAttributionPresenter.swift */; };
 		65205F321BC098DF005A55F2 /* FakeURLAttributionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65205F311BC098DF005A55F2 /* FakeURLAttributionPresenter.swift */; };
 		65205F341BC09A3D005A55F2 /* ConcreteURLAttributionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65205F331BC09A3D005A55F2 /* ConcreteURLAttributionPresenter.swift */; };
@@ -203,6 +204,10 @@
 		6518CBAC1BC1C5A2000C238C /* terms_and_conditions.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = terms_and_conditions.html; sourceTree = "<group>"; };
 		6518CBAE1BC1C6B2000C238C /* TermsAndConditionsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsController.swift; sourceTree = "<group>"; };
 		6518CBB01BC1C6CE000C238C /* TermsAndConditionsControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsControllerSpec.swift; sourceTree = "<group>"; };
+		6518CBB81BC370A5000C238C /* berniesanders-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "berniesanders-Bridging-Header.h"; sourceTree = "<group>"; };
+		6518CBB91BC370A6000C238C /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
+		6518CBBA1BC370A6000C238C /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
+		6518CBBC1BC370F9000C238C /* GTMDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
 		65205F2F1BC098B2005A55F2 /* URLAttributionPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLAttributionPresenter.swift; sourceTree = "<group>"; };
 		65205F311BC098DF005A55F2 /* FakeURLAttributionPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeURLAttributionPresenter.swift; sourceTree = "<group>"; };
 		65205F331BC09A3D005A55F2 /* ConcreteURLAttributionPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteURLAttributionPresenter.swift; sourceTree = "<group>"; };
@@ -683,6 +688,10 @@
 		65F5F64C1B87B80E0049353C /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				6518CBB81BC370A5000C238C /* berniesanders-Bridging-Header.h */,
+				6518CBBC1BC370F9000C238C /* GTMDefines.h */,
+				6518CBB91BC370A6000C238C /* GTMNSString+HTML.h */,
+				6518CBBA1BC370A6000C238C /* GTMNSString+HTML.m */,
 				65F5F64D1B87B8300049353C /* UIColorExtension.swift */,
 			);
 			path = Extensions;
@@ -1013,6 +1022,7 @@
 				65F112F01B9FFF1C00BA585C /* EventsController.swift in Sources */,
 				654FDBB51BC17D2D00A082CF /* FeedbackController.swift in Sources */,
 				655A3DB31BBCCC8700E08051 /* FLOSSController.swift in Sources */,
+				6518CBBB1BC370A6000C238C /* GTMNSString+HTML.m in Sources */,
 				659F0E1C1B95EC0B0049FA12 /* ImageRepository.swift in Sources */,
 				6587FF5A1B8A7E3200AC65F1 /* Issue.swift in Sources */,
 				6592FA3C1B99E33300746EC3 /* IssueController.swift in Sources */,
@@ -1213,6 +1223,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1228,6 +1239,8 @@
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "berniesanders/Extensions/berniesanders-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1237,6 +1250,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1252,6 +1266,7 @@
 				OTHER_SWIFT_FLAGS = "-DRELEASE";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "berniesanders/Extensions/berniesanders-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

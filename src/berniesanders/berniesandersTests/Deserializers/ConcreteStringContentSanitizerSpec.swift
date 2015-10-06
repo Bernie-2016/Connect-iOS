@@ -19,8 +19,7 @@ class ConcreteStringContentSanitizerSpec: QuickSpec {
                 
                 it("strips text telling the user to read the rest at") {
                     let inputString = "Foo bar. Baz.\nBat.\n Read the rest at Bob's News. Bees!\nBar!"
-                    let expectedString = "Foo bar. Baz.\nBat.\n Bees!\nBar!"
-                    
+                    let expectedString = "Foo bar. Baz.\nBat.\n  Bees!\nBar!"
                     expect(self.subject.sanitizeString(inputString)).to(equal(expectedString))
                 }
                 

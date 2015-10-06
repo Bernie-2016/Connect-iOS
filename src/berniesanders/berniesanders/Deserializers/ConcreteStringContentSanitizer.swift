@@ -20,14 +20,7 @@ public class ConcreteStringContentSanitizer: StringContentSanitizer {
     // MARK: Private
     
     func decodeHTMLEntities(string: String) -> String {
-        let encodedLineBreaks = string.stringByReplacingOccurrencesOfString("\n", withString: "<br>")
-        let decodedString = NSAttributedString(
-            data: encodedLineBreaks.dataUsingEncoding(NSUTF8StringEncoding)!,
-            options: [
-                NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-                NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding],
-            documentAttributes: nil, error: nil)!.string
-        return decodedString
+        return string.gtm_stringByUnescapingFromHTML()
     }
     
     func removeTextMatchingRegEx(string: String, regEx: String) -> String {
