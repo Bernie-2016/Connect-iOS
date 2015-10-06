@@ -19,6 +19,11 @@ class AboutFakeURLProvider: FakeURLProvider {
     override func designersForSandersURL() -> NSURL! {
         return NSURL(string: "http://example.com/reddit/designers")!
     }
+    
+    override func sandersForPresidentURL() -> NSURL! {
+        return NSURL(string: "http://example.com/reddit/prez")!
+    }
+
 }
 
 class AboutControllerSpec : QuickSpec {
@@ -74,7 +79,7 @@ class AboutControllerSpec : QuickSpec {
                     
                     var containerView = scrollView.subviews.first as! UIView
                     
-                    expect(containerView.subviews.count).to(equal(5))
+                    expect(containerView.subviews.count).to(equal(6))
                     
                     var containerViewSubViews = containerView.subviews as! [UIView]
                     let subViews = self.subject.view.subviews as! [UIView]
@@ -84,6 +89,7 @@ class AboutControllerSpec : QuickSpec {
                     expect(contains(containerViewSubViews, self.subject.redditLabel)).to(beTrue())
                     expect(contains(containerViewSubViews, self.subject.codersButton)).to(beTrue())
                     expect(contains(containerViewSubViews, self.subject.designersButton)).to(beTrue())
+                    expect(contains(containerViewSubViews, self.subject.sandersForPresidentButton)).to(beTrue())
                 }
                 
                 it("tracks taps on the back button with the analytics service") {
@@ -112,8 +118,8 @@ class AboutControllerSpec : QuickSpec {
                     }
                 }
                 
-                it("has a button for the coders for sanders subreddit") {
-                    expect(self.subject.codersButton.titleForState(.Normal)).to((equal("/r/designersforsanders")))
+                it("has a button for the designers for sanders subreddit") {
+                    expect(self.subject.designersButton.titleForState(.Normal)).to((equal("/r/designersforsanders")))
                 }
 
                 
@@ -132,6 +138,27 @@ class AboutControllerSpec : QuickSpec {
                     }
                 }
                 
+                it("has a button for the sanders for president subreddit") {
+                    expect(self.subject.sandersForPresidentButton.titleForState(.Normal)).to((equal("/r/sandersforpresident")))
+                }
+                
+                
+                describe("tapping on the sanders for president button") {
+                    beforeEach {
+                        self.subject.sandersForPresidentButton.tap()
+                    }
+                    
+                    it("opens maps with the correct arugments") {
+                        expect(self.urlOpener.lastOpenedURL).to(equal(NSURL(string: "http://example.com/reddit/prez")))
+                    }
+                    
+                    it("logs that the user tapped the designers button") {
+                        expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'SandersForPresident' on About"))
+                        expect(self.analyticsService.lastCustomEventAttributes).to(beNil())
+                    }
+                }
+
+                
                 it("styles the screen components with the theme") {
                     expect(self.subject.view.backgroundColor).to(equal(UIColor.orangeColor()))
                     expect(self.subject.bodyTextLabel.font).to(equal(UIFont.italicSystemFontOfSize(222)))
@@ -142,6 +169,9 @@ class AboutControllerSpec : QuickSpec {
                     expect(self.subject.designersButton.backgroundColor).to(equal(UIColor.yellowColor()))
                     expect(self.subject.designersButton.titleLabel!.font).to(equal(UIFont.italicSystemFontOfSize(111)))
                     expect(self.subject.designersButton.titleColorForState(.Normal)).to(equal(UIColor.redColor()))
+                    expect(self.subject.sandersForPresidentButton.backgroundColor).to(equal(UIColor.yellowColor()))
+                    expect(self.subject.sandersForPresidentButton.titleLabel!.font).to(equal(UIFont.italicSystemFontOfSize(111)))
+                    expect(self.subject.sandersForPresidentButton.titleColorForState(.Normal)).to(equal(UIColor.redColor()))
                 }
             }
         }

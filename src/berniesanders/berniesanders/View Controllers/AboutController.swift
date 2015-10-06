@@ -14,6 +14,7 @@ public class AboutController: UIViewController {
     public let redditLabel = UILabel.newAutoLayoutView()
     public let codersButton = UIButton.newAutoLayoutView()
     public let designersButton = UIButton.newAutoLayoutView()
+    public let sandersForPresidentButton = UIButton.newAutoLayoutView()
     
     public init(
         analyticsService: AnalyticsService,
@@ -49,16 +50,19 @@ public class AboutController: UIViewController {
         self.containerView.addSubview(self.redditLabel)
         self.containerView.addSubview(self.codersButton)
         self.containerView.addSubview(self.designersButton)
-        
+        self.containerView.addSubview(self.sandersForPresidentButton)
+
         self.logoImageView.image = UIImage(named: "newsHeadlinePlaceholder")
         self.logoImageView.contentMode = .ScaleAspectFill
         self.bodyTextLabel.text = NSLocalizedString("About_bodyText", comment: "")
         self.redditLabel.text = NSLocalizedString("About_redditText", comment: "")
         self.codersButton.setTitle(NSLocalizedString("About_codersForSanders", comment: ""), forState: .Normal)
         self.designersButton.setTitle(NSLocalizedString("About_designersForSanders", comment: ""), forState: .Normal)
+        self.sandersForPresidentButton.setTitle(NSLocalizedString("About_sandersForPresident", comment: ""), forState: .Normal)
         
         self.codersButton.addTarget(self, action: "didTapCoders", forControlEvents: .TouchUpInside)
         self.designersButton.addTarget(self, action: "didTapDesigners", forControlEvents: .TouchUpInside)
+        self.sandersForPresidentButton.addTarget(self, action: "didTapSandersForPresident", forControlEvents: .TouchUpInside)
         
         self.setupConstraintsAndLayout()
         self.applyTheme()
@@ -78,7 +82,11 @@ public class AboutController: UIViewController {
     func didTapDesigners() {
         self.analyticsService.trackCustomEventWithName("Tapped 'DesignersForSanders' on About", customAttributes: nil)
         self.urlOpener.openURL(self.urlProvider.designersForSandersURL())
-        
+    }
+    
+    func didTapSandersForPresident() {
+        self.analyticsService.trackCustomEventWithName("Tapped 'SandersForPresident' on About", customAttributes: nil)
+        self.urlOpener.openURL(self.urlProvider.sandersForPresidentURL())
     }
     
     // MARK: Private
@@ -113,7 +121,11 @@ public class AboutController: UIViewController {
         self.designersButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: codersButton, withOffset: 8)
         self.designersButton.autoPinEdgeToSuperviewMargin(.Left)
         self.designersButton.autoPinEdgeToSuperviewMargin(.Right)
-        self.designersButton.autoPinEdgeToSuperviewMargin(.Bottom)
+        
+        self.sandersForPresidentButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: designersButton, withOffset: 8)
+        self.sandersForPresidentButton.autoPinEdgeToSuperviewMargin(.Left)
+        self.sandersForPresidentButton.autoPinEdgeToSuperviewMargin(.Right)
+        self.sandersForPresidentButton.autoPinEdgeToSuperviewMargin(.Bottom)
     }
     
     func applyTheme() {
@@ -126,5 +138,8 @@ public class AboutController: UIViewController {
         self.designersButton.backgroundColor = self.theme.aboutButtonBackgroundColor()
         self.designersButton.titleLabel!.font = self.theme.aboutButtonFont()
         self.designersButton.setTitleColor(self.theme.aboutButtonTextColor(), forState: .Normal)
+        self.sandersForPresidentButton.backgroundColor = self.theme.aboutButtonBackgroundColor()
+        self.sandersForPresidentButton.titleLabel!.font = self.theme.aboutButtonFont()
+        self.sandersForPresidentButton.setTitleColor(self.theme.aboutButtonTextColor(), forState: .Normal)
     }
 }

@@ -42,6 +42,10 @@ public class ConcreteURLProvider : URLProvider {
         return NSURL(string: "https://www.reddit.com/r/designersforsanders")!
     }
     
+    public func sandersForPresidentURL() -> NSURL! {
+        return NSURL(string: "https://www.reddit.com/r/sandersforpresident")!
+    }
+    
     public func feedbackFormURL() -> NSURL! {
         let urlComponents = NSURLComponents(string: "https://docs.google.com/forms/d/1YtW1qhtXIb7rdiksI94XjsN6lJ8vkIGqH7LU0xLU_5Q/viewform")!
         let platformQueryItem = NSURLQueryItem(name: "entry.506", value: "iOS")
