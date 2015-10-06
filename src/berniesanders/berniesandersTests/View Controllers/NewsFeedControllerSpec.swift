@@ -68,6 +68,8 @@ class FakeNewsItemControllerProvider : berniesanders.NewsItemControllerProvider 
         imageRepository: FakeImageRepository(),
         dateFormatter: NSDateFormatter(),
         analyticsService: FakeAnalyticsService(),
+        urlOpener: FakeURLOpener(),
+        urlAttributionPresenter: FakeURLAttributionPresenter(),
         theme: FakeTheme())
     var lastNewsItem: NewsItem?
     

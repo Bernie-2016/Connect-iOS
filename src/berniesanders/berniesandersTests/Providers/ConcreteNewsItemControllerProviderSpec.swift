@@ -8,6 +8,8 @@ public class ConcreteNewsItemControllerProviderSpec : QuickSpec {
     let dateFormatter = NSDateFormatter()
     let imageRepository = FakeImageRepository()
     let analyticsService = FakeAnalyticsService()
+    let urlOpener = FakeURLOpener()
+    let urlAttributionPresenter = FakeURLAttributionPresenter()
     let theme = FakeTheme()
     
     override public func spec() {
@@ -18,6 +20,8 @@ public class ConcreteNewsItemControllerProviderSpec : QuickSpec {
                     dateFormatter: self.dateFormatter,
                     imageRepository: self.imageRepository,
                     analyticsService: self.analyticsService,
+                    urlOpener: self.urlOpener,
+                    urlAttributionPresenter: self.urlAttributionPresenter,
                     theme: self.theme
                 )
             }
