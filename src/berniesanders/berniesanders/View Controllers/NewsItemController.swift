@@ -159,7 +159,8 @@ public class NewsItemController : UIViewController {
         self.bodyTextView.editable = false
         
         self.bodyTextView.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.titleLabel, withOffset: 16)
-        self.bodyTextView.autoPinEdgesToSuperviewMarginsExcludingEdge(.Top)
+        self.bodyTextView.autoPinEdgeToSuperviewMargin(.Left)
+        self.bodyTextView.autoPinEdgeToSuperviewMargin(.Right)
         
         self.attributionLabel.numberOfLines = 0
         self.attributionLabel.textAlignment = .Center

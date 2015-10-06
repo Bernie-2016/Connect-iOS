@@ -4,33 +4,19 @@ import Nimble
 import berniesanders
 
 class NewsItemFakeTheme : FakeTheme {
-    override func newsItemDateFont() -> UIFont {
-        return UIFont.boldSystemFontOfSize(20)
-    }
-    
-    override func newsItemDateColor() -> UIColor {
-        return UIColor.magentaColor()
-    }
-    
-    override func newsItemTitleFont() -> UIFont {
-        return UIFont.italicSystemFontOfSize(13)
-    }
-    
-    override func newsItemTitleColor() -> UIColor {
-        return UIColor.brownColor()
-    }
-    
-    override func newsItemBodyFont() -> UIFont {
-        return UIFont.systemFontOfSize(3)
-    }
-    
-    override func newsItemBodyColor() -> UIColor {
-        return UIColor.yellowColor()
-    }
-    
-    override func defaultBackgroundColor() -> UIColor {
-        return UIColor.orangeColor()
-    }
+    override func newsItemDateFont() -> UIFont { return UIFont.boldSystemFontOfSize(20) }
+    override func newsItemDateColor() -> UIColor { return UIColor.magentaColor() }
+    override func newsItemTitleFont() -> UIFont { return UIFont.italicSystemFontOfSize(13) }
+    override func newsItemTitleColor() -> UIColor { return UIColor.brownColor() }
+    override func newsItemBodyFont() -> UIFont { return UIFont.systemFontOfSize(3) }
+    override func newsItemBodyColor() -> UIColor { return UIColor.yellowColor() }
+    override func defaultBackgroundColor() -> UIColor { return UIColor.orangeColor() }
+    override func attributionFont() -> UIFont { return UIFont.boldSystemFontOfSize(111) }
+    override func attributionTextColor() -> UIColor { return UIColor.greenColor() }
+    override func issueViewOriginalButtonBackgroundColor() -> UIColor { return UIColor.redColor() }
+    override func issueViewOriginalButtonTextColor() -> UIColor { return UIColor.blueColor() }
+    override func issueViewOriginalButtonFont() -> UIFont { return UIFont.boldSystemFontOfSize(222) }
+
 }
 
 class NewsItemControllerSpec : QuickSpec {
@@ -162,7 +148,7 @@ class NewsItemControllerSpec : QuickSpec {
                         
                         var containerView = scrollView.subviews.first as! UIView
                         
-                        expect(containerView.subviews.count).to(equal(4))
+                        expect(containerView.subviews.count).to(equal(6))
                         
                         var containerViewSubViews = containerView.subviews as! [UIView]
                         
@@ -203,7 +189,7 @@ class NewsItemControllerSpec : QuickSpec {
                         }
                         
                         it("logs that the user tapped view original") {
-                            expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'View Original' on Issue"))
+                            expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'View Original' on News Item"))
                             let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.newsItem.URL.absoluteString!]
                             expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                         }
@@ -221,6 +207,11 @@ class NewsItemControllerSpec : QuickSpec {
                         expect(self.subject.titleLabel.textColor).to(equal(UIColor.brownColor()))
                         expect(self.subject.bodyTextView.font).to(equal(UIFont.systemFontOfSize(3)))
                         expect(self.subject.bodyTextView.textColor).to(equal(UIColor.yellowColor()))
+                        expect(self.subject.attributionLabel.textColor).to(equal(UIColor.greenColor()))
+                        expect(self.subject.attributionLabel.font).to(equal(UIFont.boldSystemFontOfSize(111)))
+                        expect(self.subject.viewOriginalButton.backgroundColor).to(equal(UIColor.redColor()))
+                        expect(self.subject.viewOriginalButton.titleColorForState(.Normal)).to(equal(UIColor.blueColor()))
+                        expect(self.subject.viewOriginalButton.titleLabel!.font).to(equal(UIFont.boldSystemFontOfSize(222)))
                     }
                     
                     context("when the request for the story's image succeeds") {
