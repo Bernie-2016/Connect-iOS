@@ -56,11 +56,17 @@ public class NewsItemController : UIViewController {
         containerView.addSubview(self.dateLabel)
         containerView.addSubview(self.titleLabel)
         containerView.addSubview(self.bodyTextView)
+        containerView.addSubview(self.attributionLabel)
+        containerView.addSubview(self.viewOriginalButton)
         
         dateLabel.text = self.dateFormatter.stringFromDate(self.newsItem.date)
         titleLabel.text = self.newsItem.title
         bodyTextView.text = self.newsItem.body
         
+        attributionLabel.text = self.urlAttributionPresenter.attributionTextForURL(newsItem.URL)
+        viewOriginalButton.setTitle(NSLocalizedString("NewsItem_viewOriginal", comment: ""), forState: .Normal)
+        viewOriginalButton.addTarget(self, action: "didTapViewOriginal", forControlEvents: .TouchUpInside)
+
         setupConstraintsAndLayout()
         applyThemeToViews()
         
@@ -106,6 +112,11 @@ public class NewsItemController : UIViewController {
         presentViewController(activityVC, animated: true, completion: nil)
     }
     
+    func didTapViewOriginal() {
+        analyticsService.trackCustomEventWithName("Tapped 'View Original' on News Item", customAttributes: [AnalyticsServiceConstants.contentIDKey: newsItem.URL.absoluteString!])
+        self.urlOpener.openURL(self.newsItem.URL)
+    }
+    
     // MARK: Private
 
     private func setupConstraintsAndLayout() {
@@ -148,7 +159,17 @@ public class NewsItemController : UIViewController {
         self.bodyTextView.editable = false
         
         self.bodyTextView.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.titleLabel, withOffset: 16)
-        self.bodyTextView.autoPinEdgesToSuperviewMarginsExcludingEdge(.Top)
+        self.bodyTextView.autoPinEdgeToSuperviewMargin(.Left)
+        self.bodyTextView.autoPinEdgeToSuperviewMargin(.Right)
+        
+        self.attributionLabel.numberOfLines = 0
+        self.attributionLabel.textAlignment = .Center
+        self.attributionLabel.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.bodyTextView, withOffset: 16)
+        self.attributionLabel.autoPinEdgeToSuperviewMargin(.Left)
+        self.attributionLabel.autoPinEdgeToSuperviewMargin(.Right)
+        
+        self.viewOriginalButton.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.attributionLabel, withOffset: 16)
+        self.viewOriginalButton.autoPinEdgesToSuperviewMarginsExcludingEdge(.Top)
     }
     
     private func applyThemeToViews() {
@@ -158,6 +179,10 @@ public class NewsItemController : UIViewController {
         self.titleLabel.textColor = self.theme.newsItemTitleColor()
         self.bodyTextView.font = self.theme.newsItemBodyFont()
         self.bodyTextView.textColor = self.theme.newsItemBodyColor()
-
+        self.attributionLabel.font = self.theme.attributionFont()
+        self.attributionLabel.textColor = self.theme.attributionTextColor()
+        self.viewOriginalButton.backgroundColor = self.theme.issueViewOriginalButtonBackgroundColor()
+        self.viewOriginalButton.setTitleColor(self.theme.issueViewOriginalButtonTextColor(), forState: .Normal)
+        self.viewOriginalButton.titleLabel!.font = self.theme.issueViewOriginalButtonFont()
     }
 }

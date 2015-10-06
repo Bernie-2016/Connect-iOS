@@ -42,6 +42,8 @@ class NewsItemControllerSpec : QuickSpec {
     var imageRepository : FakeImageRepository!
     let dateFormatter = NSDateFormatter()
     var analyticsService: FakeAnalyticsService!
+    var urlOpener: FakeURLOpener!
+    var urlAttributionPresenter: FakeURLAttributionPresenter!
     let theme = NewsItemFakeTheme()
     
     override func spec() {
@@ -51,6 +53,8 @@ class NewsItemControllerSpec : QuickSpec {
                 self.dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
                 self.dateFormatter.timeZone = NSTimeZone(name: "UTC")
                 self.analyticsService = FakeAnalyticsService()
+                self.urlOpener = FakeURLOpener()
+                self.urlAttributionPresenter = FakeURLAttributionPresenter()
             }
             
             context("with a standard news item") {
@@ -62,6 +66,8 @@ class NewsItemControllerSpec : QuickSpec {
                         imageRepository: self.imageRepository,
                         dateFormatter: self.dateFormatter,
                         analyticsService: self.analyticsService,
+                        urlOpener: self.urlOpener,
+                        urlAttributionPresenter: self.urlAttributionPresenter,
                         theme: self.theme
                     )
                 }
@@ -178,6 +184,31 @@ class NewsItemControllerSpec : QuickSpec {
                         expect(self.subject.dateLabel.text).to(equal("9/1/15"))
                     }
                     
+                    it("uses the presenter to get attribution text for the issue") {
+                        expect(self.urlAttributionPresenter.lastPresentedURL).to(beIdenticalTo(self.newsItem.URL))
+                        expect(self.subject.attributionLabel.text).to(equal(self.urlAttributionPresenter.returnedText))
+                    }
+                    
+                    it("has a button to view the original issue") {
+                        expect(self.subject.viewOriginalButton.titleForState(.Normal)).to(equal("View Original"))
+                    }
+                    
+                    describe("tapping on the view original button") {
+                        beforeEach {
+                            self.subject.viewOriginalButton.tap()
+                        }
+                        
+                        it("opens the original issue in safari") {
+                            expect(self.urlOpener.lastOpenedURL).to(beIdenticalTo(self.newsItem.URL))
+                        }
+                        
+                        it("logs that the user tapped view original") {
+                            expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'View Original' on Issue"))
+                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.newsItem.URL.absoluteString!]
+                            expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
+                        }
+                    }
+                    
                     it("makes a request for the story's image") {
                         expect(self.imageRepository.lastReceivedURL).to(beIdenticalTo(self.newsItemImageURL))
                     }
@@ -228,6 +259,8 @@ class NewsItemControllerSpec : QuickSpec {
                         imageRepository: self.imageRepository,
                         dateFormatter: self.dateFormatter,
                         analyticsService: self.analyticsService,
+                        urlOpener: self.urlOpener,
+                        urlAttributionPresenter: self.urlAttributionPresenter,
                         theme: self.theme
                     )
                     

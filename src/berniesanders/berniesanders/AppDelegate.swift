@@ -55,7 +55,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             fullDateWithTimeFormatter.dateFormat = "EEEE MMMM d, y h:mm a z"
             
             let newsItemControllerProvider = ConcreteNewsItemControllerProvider(
-                dateFormatter: longDateFormatter, imageRepository: imageRepository, analyticsService: analyticsService, theme: defaultTheme
+                dateFormatter: longDateFormatter, imageRepository: imageRepository, analyticsService: analyticsService, urlOpener: urlOpener, urlAttributionPresenter: urlAttributionPresenter, theme: defaultTheme
             )
             
             let newsFeedController = NewsFeedController(
