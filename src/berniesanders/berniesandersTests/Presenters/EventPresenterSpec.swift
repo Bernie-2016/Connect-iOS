@@ -45,7 +45,7 @@ class EventPresenterSpec : QuickSpec {
             describe("formatting attendance") {
                 context("when the event has a non-zero attendee capacity") {
                     it("sets up the rsvp label correctly") {
-                        expect(self.subject.presentAttendeesForEvent(event)).to(equal("2 of RSVP: 10"))
+                        expect(self.subject.presentAttendeesForEvent(event)).to(equal("2 attending, 10 spots total"))
                     }
                 }
                 
@@ -85,7 +85,7 @@ class EventPresenterSpec : QuickSpec {
                     }
                     
                     it("sets up the rsvp label correctly") {
-                        expect(cell.attendeesLabel.text).to(equal("2 of RSVP: 10"))
+                        expect(cell.attendeesLabel.text).to(equal("2 attending, 10 spots total"))
                     }
                 }
                 

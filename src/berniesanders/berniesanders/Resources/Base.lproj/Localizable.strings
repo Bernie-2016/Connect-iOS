@@ -30,7 +30,7 @@
 "Events_backButtonTitle" = "Back";
 "Events_eventAddressLabel" =  "%@, %@ - %@";
 "Events_eventStreetAddressLabel" =  "%@\n%@, %@ - %@";
-"Events_eventAttendeeLabel" = "%d of RSVP: %d";
+"Events_eventAttendeeLabel" = "%d attending, %d spots total";
 "Events_eventAttendeeWithoutCapacityLimitLabel" = "%d attending";
 "Events_noEventsFound" = "No events match your search";
 "Events_zipCodeTextBoxPlaceholder" = "ZIP Code";
