@@ -100,7 +100,7 @@ public class AboutController: UIViewController {
         self.containerView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Trailing)
         self.containerView.autoSetDimension(.Width, toSize: screenBounds.width)
 
-        self.logoImageView.autoPinEdgeToSuperviewEdge(.Top)
+        self.logoImageView.autoPinEdgeToSuperviewEdge(.Top, withInset: 16)
         self.logoImageView.autoPinEdgeToSuperviewEdge(.Left)
         self.logoImageView.autoPinEdgeToSuperviewEdge(.Right)
         
