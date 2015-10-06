@@ -18,15 +18,15 @@
 
 // ============================================================================
 
-#include <AvailabilityMacros.h>
-#include <TargetConditionals.h>
+@import Darwin.Availability;
+@import Darwin.TargetConditionals;
 
 #ifdef __OBJC__
-#include <Foundation/NSObjCRuntime.h>
+@import Foundation.NSObjCRuntime;
 #endif  // __OBJC__
 
 #if TARGET_OS_IPHONE
-#include <Availability.h>
+@import Darwin.Availability;
 #endif  // TARGET_OS_IPHONE
 
 // Not all MAC_OS_X_VERSION_10_X macros defined in past SDKs

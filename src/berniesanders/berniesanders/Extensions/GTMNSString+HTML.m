@@ -23,6 +23,7 @@
 typedef struct {
    __unsafe_unretained NSString *escapeSequence;
   unichar uchar;
+    unichar padding;
 } HTMLEscapeMap;
 
 // Taken from http://www.w3.org/TR/xhtml1/dtds.html#a_dtd_Special_characters
@@ -462,7 +463,7 @@ static int EscapeMapCompare(const void *ucharVoid, const void *mapVoid) {
   NSMutableString *finalString = [NSMutableString stringWithString:self];
   do {
     NSRange semiColonRange = NSMakeRange(subrange.location, NSMaxRange(range) - subrange.location);
-    semiColonRange = [self rangeOfString:@";" options:0 range:semiColonRange];
+    semiColonRange = [self rangeOfString:@";" options:NSCaseInsensitiveSearch range:semiColonRange];
     range = NSMakeRange(0, subrange.location);
     // if we don't find a semicolon in the range, we don't have a sequence
     if (semiColonRange.location == NSNotFound) {
