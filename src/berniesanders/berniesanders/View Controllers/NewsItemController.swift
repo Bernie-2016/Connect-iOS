@@ -6,6 +6,8 @@ public class NewsItemController : UIViewController {
     public let imageRepository : ImageRepository!
     public let dateFormatter : NSDateFormatter!
     public let analyticsService: AnalyticsService!
+    public let urlOpener: URLOpener!
+    public let urlAttributionPresenter: URLAttributionPresenter!
     public let theme : Theme!
     
     let containerView = UIView.newAutoLayoutView()
@@ -14,18 +16,24 @@ public class NewsItemController : UIViewController {
     public let titleLabel = UILabel()
     public let bodyTextView = UITextView()
     public let storyImageView = UIImageView()
+    public let attributionLabel = UILabel.newAutoLayoutView()
+    public let viewOriginalButton = UIButton.newAutoLayoutView()
     
     public init(
         newsItem: NewsItem,
         imageRepository: ImageRepository,
         dateFormatter: NSDateFormatter,
         analyticsService: AnalyticsService,
+        urlOpener: URLOpener,
+        urlAttributionPresenter: URLAttributionPresenter,
         theme: Theme) {
 
         self.newsItem = newsItem
         self.imageRepository = imageRepository
         self.dateFormatter = dateFormatter
         self.analyticsService = analyticsService
+        self.urlOpener = urlOpener
+        self.urlAttributionPresenter = urlAttributionPresenter
         self.theme = theme
         
         super.init(nibName: nil, bundle: nil)
@@ -48,11 +56,17 @@ public class NewsItemController : UIViewController {
         containerView.addSubview(self.dateLabel)
         containerView.addSubview(self.titleLabel)
         containerView.addSubview(self.bodyTextView)
+        containerView.addSubview(self.attributionLabel)
+        containerView.addSubview(self.viewOriginalButton)
         
         dateLabel.text = self.dateFormatter.stringFromDate(self.newsItem.date)
         titleLabel.text = self.newsItem.title
         bodyTextView.text = self.newsItem.body
         
+        attributionLabel.text = self.urlAttributionPresenter.attributionTextForURL(newsItem.URL)
+        viewOriginalButton.setTitle(NSLocalizedString("NewsItem_viewOriginal", comment: ""), forState: .Normal)
+        viewOriginalButton.addTarget(self, action: "didTapViewOriginal", forControlEvents: .TouchUpInside)
+
         setupConstraintsAndLayout()
         applyThemeToViews()
         
@@ -98,6 +112,11 @@ public class NewsItemController : UIViewController {
         presentViewController(activityVC, animated: true, completion: nil)
     }
     
+    func didTapViewOriginal() {
+        analyticsService.trackCustomEventWithName("Tapped 'View Original' on News Item", customAttributes: [AnalyticsServiceConstants.contentIDKey: newsItem.URL.absoluteString!])
+        self.urlOpener.openURL(self.newsItem.URL)
+    }
+    
     // MARK: Private
 
     private func setupConstraintsAndLayout() {
@@ -141,6 +160,15 @@ public class NewsItemController : UIViewController {
         
         self.bodyTextView.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.titleLabel, withOffset: 16)
         self.bodyTextView.autoPinEdgesToSuperviewMarginsExcludingEdge(.Top)
+        
+        self.attributionLabel.numberOfLines = 0
+        self.attributionLabel.textAlignment = .Center
+        self.attributionLabel.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.bodyTextView, withOffset: 16)
+        self.attributionLabel.autoPinEdgeToSuperviewMargin(.Left)
+        self.attributionLabel.autoPinEdgeToSuperviewMargin(.Right)
+        
+        self.viewOriginalButton.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.attributionLabel, withOffset: 16)
+        self.viewOriginalButton.autoPinEdgesToSuperviewMarginsExcludingEdge(.Top)
     }
     
     private func applyThemeToViews() {
@@ -150,6 +178,10 @@ public class NewsItemController : UIViewController {
         self.titleLabel.textColor = self.theme.newsItemTitleColor()
         self.bodyTextView.font = self.theme.newsItemBodyFont()
         self.bodyTextView.textColor = self.theme.newsItemBodyColor()
-
+        self.attributionLabel.font = self.theme.attributionFont()
+        self.attributionLabel.textColor = self.theme.attributionTextColor()
+        self.viewOriginalButton.backgroundColor = self.theme.issueViewOriginalButtonBackgroundColor()
+        self.viewOriginalButton.setTitleColor(self.theme.issueViewOriginalButtonTextColor(), forState: .Normal)
+        self.viewOriginalButton.titleLabel!.font = self.theme.issueViewOriginalButtonFont()
     }
 }

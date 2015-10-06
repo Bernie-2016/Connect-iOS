@@ -8,6 +8,10 @@
 "NewsFeed_navigationTitle" = "News";
 "NewsFeed_backButtonTitle" = "Back";
 
+// News Item
+
+"NewsItem_viewOriginal" = "View Original";
+
 // Issues
 
 "Issues_tabBarTitle" = "Issues";
