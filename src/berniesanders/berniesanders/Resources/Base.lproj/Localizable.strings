@@ -55,6 +55,12 @@
 "Settings_navigationTitle" = "Settings";
 "Settings_backButtonTitle" = "Back";
 
+// Settings | Donate
+
+"Settings_donate_buttonText" = "DONATE";
+"Settings_donate_tableCellText" = "Donate diretly to the official Bernie Sanders campaign";
+"Settings_donate_title" = "Donate";
+
 // Privacy Policy
 
 "PrivacyPolicy_title" = "Privacy Policy";
@@ -78,4 +84,5 @@
 // Terms And Conditions
 
 "TermsAndConditions_title" = "Terms and Conditions";
+
 

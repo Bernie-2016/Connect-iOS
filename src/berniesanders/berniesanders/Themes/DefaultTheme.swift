@@ -171,6 +171,18 @@ class DefaultTheme : Theme {
         return self.cornflowerBlueColor()
     }
     
+    func settingsDonateButtonColor() -> UIColor {
+        return self.carnationColor()
+    }
+
+    func settingsDonateButtonTextColor() -> UIColor {
+        return UIColor.whiteColor()
+    }
+
+    func settingsDonateButtonFont() -> UIFont {
+        return UIFont(name: "Lato-Regular", size: 20)!
+    }
+
     // MARK: Events
     
     func eventsListFont() -> UIFont {

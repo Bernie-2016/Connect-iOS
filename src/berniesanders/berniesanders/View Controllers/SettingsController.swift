@@ -29,13 +29,18 @@ public class SettingsController : UITableViewController {
     required public init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
     
     // MARK: UIViewController
     
     public override func viewDidLoad() {
+        
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.estimatedRowHeight = 44.0
         view.backgroundColor = self.theme.defaultBackgroundColor()
 
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "regularCell")
+        self.tableView.registerClass(DonateTableViewCell.self, forCellReuseIdentifier: "donateCell")
     }
     
     public override func didMoveToParentViewController(parent: UIViewController?) {
@@ -52,12 +57,25 @@ public class SettingsController : UITableViewController {
     }
     
     public override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("regularCell") as! UITableViewCell
-        cell.textLabel!.text = self.tappableControllers[indexPath.row].title
-        cell.textLabel!.textColor = self.theme.settingsTitleColor()
-        cell.textLabel!.font = self.theme.settingsTitleFont()
         
-        return cell
+        if self.tappableControllers[indexPath.row].isKindOfClass(DonateController) {
+            
+            let cell = tableView.dequeueReusableCellWithIdentifier("donateCell") as! DonateTableViewCell
+            
+            cell.setupViews(self.theme)
+            
+            return cell
+        }
+        else {
+            
+            let cell = tableView.dequeueReusableCellWithIdentifier("regularCell") as! UITableViewCell
+            
+            cell.textLabel!.text = self.tappableControllers[indexPath.row].title
+            cell.textLabel!.textColor = self.theme.settingsTitleColor()
+            cell.textLabel!.font = self.theme.settingsTitleFont()
+            
+            return cell
+        }
     }
     
     // MARK: <UITableViewDelegate>
@@ -66,5 +84,6 @@ public class SettingsController : UITableViewController {
         let controller = self.tappableControllers[indexPath.row]
         self.analyticsService.trackContentViewWithName(controller.title!, type: .Settings, id: controller.title!)
         self.navigationController?.pushViewController(controller, animated: true)
+
     }
 }

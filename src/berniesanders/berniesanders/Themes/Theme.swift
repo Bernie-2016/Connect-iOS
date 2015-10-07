@@ -103,6 +103,10 @@ public protocol Theme {
     
     func settingsTitleFont() -> UIFont
     func settingsTitleColor() -> UIColor
+    func settingsDonateButtonFont() -> UIFont
+    func settingsDonateButtonColor() -> UIColor
+    func settingsDonateButtonTextColor() -> UIColor
+    
     
     // MARK: About
     

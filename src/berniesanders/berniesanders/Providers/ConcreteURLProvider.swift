@@ -54,4 +54,17 @@ public class ConcreteURLProvider : URLProvider {
         urlComponents.queryItems = [platformQueryItem, versionQueryItem]
         return urlComponents.URL
     }
+    
+    public func donateFormURL() -> NSURL! {
+        let urlComponents = NSURLComponents(string: "https://secure.actblue.com/contribute/page/lets-go-bernie?refcode=berniesanders_iosApp")!
+        let platformQueryItem = NSURLQueryItem(name: "entry.506", value: "iOS")
+        
+        let marketingVersion = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
+        let internalBuildNumber  = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleVersion") as! String
+        let versionString = "\(marketingVersion) (\(internalBuildNumber))"
+        let versionQueryItem = NSURLQueryItem(name: "entry.937851719", value: versionString)
+        
+        urlComponents.queryItems = [platformQueryItem, versionQueryItem]
+        return urlComponents.URL
+    }
 }

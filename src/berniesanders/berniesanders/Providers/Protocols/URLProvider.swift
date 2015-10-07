@@ -11,4 +11,5 @@ public protocol URLProvider {
     func codersForSandersURL() -> NSURL!
     func designersForSandersURL() -> NSURL!
     func feedbackFormURL() -> NSURL!
+    func donateFormURL() -> NSURL!
 }
