@@ -105,9 +105,6 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             let issuesNavigationController = NavigationController(theme: defaultTheme)
             issuesNavigationController.pushViewController(issuesTableController, animated: false)
             
-            let organizeController = OrganizeController(urlProvider: urlProvider,
-                theme: defaultTheme)
-            
             let eventDeserializer = ConcreteEventDeserializer()
             let eventRepository = ConcreteEventRepository(
                 geocoder: CLGeocoder(),
@@ -138,8 +135,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             let tabBarViewControllers = [
                 newsNavigationController,
                 issuesNavigationController,
-                eventsNavigationController,
-                organizeController
+                eventsNavigationController
             ]
             let tabBarController = TabBarController(viewControllers: tabBarViewControllers, analyticsService: analyticsService, theme: defaultTheme)
             
