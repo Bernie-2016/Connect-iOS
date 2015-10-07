@@ -32,9 +32,9 @@ class IssueFakeTheme : FakeTheme {
         return UIColor.magentaColor()
     }
     
-    override func issueViewOriginalButtonBackgroundColor() -> UIColor { return UIColor.greenColor() }
-    override func issueViewOriginalButtonTextColor() -> UIColor { return UIColor.redColor() }
-    override func issueViewOriginalButtonFont() -> UIFont { return UIFont.systemFontOfSize(333) }
+    override func defaultButtonBackgroundColor() -> UIColor { return UIColor.greenColor() }
+    override func defaultButtonTextColor() -> UIColor { return UIColor.redColor() }
+    override func defaultButtonFont() -> UIFont { return UIFont.systemFontOfSize(333) }
 }
 
 

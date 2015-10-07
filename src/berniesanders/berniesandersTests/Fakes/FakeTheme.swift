@@ -168,7 +168,9 @@ class FakeTheme : berniesanders.Theme {
     func aboutBodyTextFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
     func attributionFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
     func attributionTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
-    func issueViewOriginalButtonBackgroundColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
-    func issueViewOriginalButtonTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
-    func issueViewOriginalButtonFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
+    func defaultButtonBackgroundColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func defaultButtonTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func defaultButtonFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
+    func welcomeLabelFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
+    func viewPolicyBackgroundColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
 }

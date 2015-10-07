@@ -31,6 +31,10 @@ public class TermsAndConditionsController : UIViewController {
         self.webView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero)
     }
     
+    public override func viewWillAppear(animated: Bool) {
+        self.navigationController!.setNavigationBarHidden(false, animated: true)
+    }
+    
     public override func didMoveToParentViewController(parent: UIViewController?) {
         self.analyticsService.trackCustomEventWithName("Tapped 'Back' on Terms and Conditions", customAttributes: nil)
     }

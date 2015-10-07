@@ -17,6 +17,7 @@ public enum AnalyticsServiceContentType : String, Printable {
     case Issue = "Issue"
     case Settings = "Settings"
     case Event = "Event"
+    case Onboarding = "Onboarding"
     
     public var description: String {
         return self.rawValue

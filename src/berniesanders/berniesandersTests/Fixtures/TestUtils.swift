@@ -37,11 +37,19 @@ class TestUtils {
         return SettingsController(tappableControllers: [self.privacyPolicyController()], analyticsService: FakeAnalyticsService(), theme: FakeTheme())
     }
     
+    class func termsAndConditionsController() -> TermsAndConditionsController {
+        return TermsAndConditionsController(analyticsService: FakeAnalyticsService())
+    }
+    
     class func privacyPolicyController() -> PrivacyPolicyController {
         return PrivacyPolicyController(urlProvider: FakeURLProvider(), analyticsService: FakeAnalyticsService())
     }
     
     class func eventRSVPController() -> EventRSVPController {
         return EventRSVPController(event: self.eventWithName("some event"), analyticsService: FakeAnalyticsService(), theme: FakeTheme())
+    }
+    
+    class func welcomeController() -> WelcomeController {
+        return WelcomeController(termsAndConditionsAgreementRepository: FakeTermsAndConditionsAgreementRepository(), termsAndConditionsController: self.termsAndConditionsController(), privacyPolicyController: self.privacyPolicyController(), analyticsService: FakeAnalyticsService(), theme: FakeTheme())
     }
 }

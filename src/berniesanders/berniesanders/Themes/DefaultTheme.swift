@@ -149,15 +149,15 @@ class DefaultTheme : Theme {
         return UIColor.blackColor()
     }
     
-    func issueViewOriginalButtonBackgroundColor() -> UIColor {
+    func defaultButtonBackgroundColor() -> UIColor {
         return cornflowerBlueColor()
     }
 
-    func issueViewOriginalButtonTextColor() -> UIColor {
+    func defaultButtonTextColor() -> UIColor {
         return UIColor.whiteColor()
     }
     
-    func issueViewOriginalButtonFont() -> UIFont {
+    func defaultButtonFont() -> UIFont {
         return UIFont(name: "Lora-Bold", size: 12)!
     }
     
@@ -259,6 +259,12 @@ class DefaultTheme : Theme {
     func aboutButtonFont() -> UIFont { return UIFont(name: "Lato-Regular", size: 15)! }
     func aboutBodyTextFont() -> UIFont { return defaultBodyTextFont() }
     
+    
+    // MARK Welcome
+    
+    func welcomeLabelFont() -> UIFont { return defaultBodyTextFont() }
+    func viewPolicyBackgroundColor() -> UIColor { return silverColor() }
+
     // MARK: default dimensions
     
     func defaultCornerRadius() -> CGFloat {
@@ -298,6 +304,6 @@ class DefaultTheme : Theme {
     }
     
     func defaultBodyTextFont() -> UIFont {
-        return UIFont(name: "Lora-Bold", size: 15)!
+        return UIFont(name: "Lato-Regular", size: 15)!
     }
 }

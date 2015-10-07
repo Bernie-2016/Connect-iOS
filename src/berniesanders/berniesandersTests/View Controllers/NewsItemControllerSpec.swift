@@ -13,9 +13,9 @@ class NewsItemFakeTheme : FakeTheme {
     override func defaultBackgroundColor() -> UIColor { return UIColor.orangeColor() }
     override func attributionFont() -> UIFont { return UIFont.boldSystemFontOfSize(111) }
     override func attributionTextColor() -> UIColor { return UIColor.greenColor() }
-    override func issueViewOriginalButtonBackgroundColor() -> UIColor { return UIColor.redColor() }
-    override func issueViewOriginalButtonTextColor() -> UIColor { return UIColor.blueColor() }
-    override func issueViewOriginalButtonFont() -> UIFont { return UIFont.boldSystemFontOfSize(222) }
+    override func defaultButtonBackgroundColor() -> UIColor { return UIColor.redColor() }
+    override func defaultButtonTextColor() -> UIColor { return UIColor.blueColor() }
+    override func defaultButtonFont() -> UIFont { return UIFont.boldSystemFontOfSize(222) }
 
 }
 

@@ -13,12 +13,16 @@ class PrivacyPolicyFakeURLProvider : FakeURLProvider {
 class PrivacyPolicyControllerSpec : QuickSpec {
     var subject : PrivacyPolicyController!
     var analyticsService: FakeAnalyticsService!
+    let navigationController = UINavigationController()
 
     override func spec() {
         describe("PrivacyPolicyController") {
             beforeEach {
                 self.analyticsService = FakeAnalyticsService()
                 self.subject = PrivacyPolicyController(urlProvider: PrivacyPolicyFakeURLProvider(), analyticsService: self.analyticsService)
+                
+                self.navigationController.setNavigationBarHidden(true, animated: false)
+                self.navigationController.pushViewController(self.subject, animated: false)
             }
             
             it("has the correct title") {
@@ -45,6 +49,16 @@ class PrivacyPolicyControllerSpec : QuickSpec {
                 
                 it("should load the iubenda privacy policy page into a webview") {
                     expect(self.subject.webView.request!.URL).to(equal(NSURL(string: "http://example.com/privates")))
+                }
+                
+                describe("when the view appears") {
+                    beforeEach {
+                        self.subject.viewWillAppear(false)
+                    }
+                    
+                    it("ensures that the navigation bar is visible") {
+                        expect(self.subject.navigationController!.navigationBarHidden).to(beFalse())
+                    }
                 }
             }
         }

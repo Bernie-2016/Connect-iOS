@@ -6,6 +6,7 @@ import berniesanders
 class TermsAndConditionsControllerSpec : QuickSpec {
     var subject : TermsAndConditionsController!
     var analyticsService: FakeAnalyticsService!
+    let navigationController = UINavigationController()
     
     override func spec() {
         describe("TermsAndConditionsController") {
@@ -13,17 +14,21 @@ class TermsAndConditionsControllerSpec : QuickSpec {
                 self.analyticsService = FakeAnalyticsService()
                 
                 self.subject = TermsAndConditionsController(analyticsService: self.analyticsService)
+                
+                self.navigationController.setNavigationBarHidden(true, animated: false)
+                self.navigationController.pushViewController(self.subject, animated: false)
             }
             
             it("has the correct title") {
                 expect(self.subject.title).to(equal("Terms and Conditions"))
             }
             
+            
             context("When the view loads") {
                 beforeEach {
                     self.subject.view.layoutSubviews()
                 }
-                
+
                 it("tracks taps on the back button with the analytics service") {
                     self.subject.didMoveToParentViewController(nil)
                     
@@ -42,6 +47,16 @@ class TermsAndConditionsControllerSpec : QuickSpec {
                     let fileURL = NSURL(fileURLWithPath: filePath!)!
                     
                     expect(self.subject.webView.request!.URL).to(equal(fileURL))
+                }
+                
+                describe("when the view appears") {
+                    beforeEach {
+                        self.subject.viewWillAppear(false)
+                    }
+
+                    it("ensures that the navigation bar is visible") {
+                        expect(self.subject.navigationController!.navigationBarHidden).to(beFalse())
+                    }
                 }
             }
         }

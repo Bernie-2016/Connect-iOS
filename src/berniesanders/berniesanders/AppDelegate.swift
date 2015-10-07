@@ -16,12 +16,19 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
                 Fabric.with([Crashlytics.self()])
             #endif
             
+            let defaultTheme = DefaultTheme()
+
+            UITabBar.appearance().tintColor = defaultTheme.tabBarActiveTextColor()
+            UINavigationBar.appearance().tintColor = defaultTheme.navigationBarTextColor()
+            UIBarButtonItem.appearance().setTitleTextAttributes([
+                NSFontAttributeName: defaultTheme.navigationBarFont(), NSForegroundColorAttributeName: defaultTheme.navigationBarTextColor()], forState: UIControlState.Normal)
+            
+            
             let mainQueue = NSOperationQueue.mainQueue()
             let sharedURLSession = NSURLSession.sharedSession()
             let analyticsService = ConcreteAnalyticsService()
             let stringContentSanitizer = ConcreteStringContentSanitizer()
             
-            let defaultTheme = DefaultTheme()
             let urlProvider = ConcreteURLProvider()
             let urlOpener = URLOpener()
             let urlAttributionPresenter = ConcreteURLAttributionPresenter()
@@ -134,18 +141,32 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
                 eventsNavigationController,
                 organizeController
             ]
-            
             let tabBarController = TabBarController(viewControllers: tabBarViewControllers, analyticsService: analyticsService, theme: defaultTheme)
             
-            self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-            self.window!.rootViewController = tabBarController
-            self.window!.backgroundColor = defaultTheme.defaultBackgroundColor()
-            self.window!.makeKeyAndVisible()
+            let termsAndConditionsAgreementRepository = ConcreteTermsAndConditionsAgreementRepository(
+                userDefaults: NSUserDefaults.standardUserDefaults())
+            let welcomeController = WelcomeController(
+                termsAndConditionsAgreementRepository: termsAndConditionsAgreementRepository,
+                termsAndConditionsController: termsAndConditionsController,
+                privacyPolicyController: privacyPolicyController,
+                analyticsService: analyticsService,
+                theme: defaultTheme)
+            let welcomeNavigationController = NavigationController(theme: defaultTheme)
+            welcomeNavigationController.pushViewController(welcomeController, animated: false)
             
-            UITabBar.appearance().tintColor = defaultTheme.tabBarActiveTextColor()
-            UINavigationBar.appearance().tintColor = defaultTheme.navigationBarTextColor()
-            UIBarButtonItem.appearance().setTitleTextAttributes([
-                NSFontAttributeName: defaultTheme.navigationBarFont(), NSForegroundColorAttributeName: defaultTheme.navigationBarTextColor()], forState: UIControlState.Normal)
+            let onboardingRouter = OnboardingRouter(
+                termsAndConditionsAgreementRepository: termsAndConditionsAgreementRepository,
+                onboardingController: welcomeNavigationController,
+                postOnboardingController: tabBarController)
+            
+            welcomeController.onboardingRouter = onboardingRouter
+            
+            onboardingRouter.initialViewController { (controller) -> Void in
+                self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+                self.window!.rootViewController = controller
+                self.window!.backgroundColor = defaultTheme.defaultBackgroundColor()
+                self.window!.makeKeyAndVisible()
+            }
             
             
             return true

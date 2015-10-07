@@ -9,6 +9,10 @@ public protocol Theme {
     func defaultSpinnerColor() -> UIColor
     func attributionFont() -> UIFont
     func attributionTextColor() -> UIColor
+    func defaultButtonBackgroundColor() -> UIColor
+    func defaultButtonTextColor() -> UIColor
+    func defaultButtonFont() -> UIFont
+
     
     // MARK: Tab Bar
     
@@ -59,9 +63,6 @@ public protocol Theme {
     func issueTitleColor() -> UIColor
     func issueBodyFont() -> UIFont
     func issueBodyColor() -> UIColor
-    func issueViewOriginalButtonBackgroundColor() -> UIColor
-    func issueViewOriginalButtonTextColor() -> UIColor
-    func issueViewOriginalButtonFont() -> UIFont
     
     // MARK: Events screen
     
@@ -110,4 +111,10 @@ public protocol Theme {
     func aboutButtonTextColor() -> UIColor
     func aboutButtonFont() -> UIFont
     func aboutBodyTextFont() -> UIFont
+
+    // MARK: Welcome 
+    
+    func welcomeLabelFont() -> UIFont
+    func viewPolicyBackgroundColor() -> UIColor
+    
 }

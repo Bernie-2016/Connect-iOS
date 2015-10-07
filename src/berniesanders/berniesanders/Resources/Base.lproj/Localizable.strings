@@ -84,3 +84,11 @@
 
 "TermsAndConditions_title" = "Terms and Conditions";
 
+// Welcome
+
+"Welcome_welcomeText" = "Something big is happening.\n\nThere’s an unprecedented grassroots movement underway to elect Bernie Sanders and start a new political movement in America.\n\nThis September, Bernie became the fastest candidate in history to gather a million individual contributions, surpassing Barack Obama’s 2012 record.\n\nWe’re a small and dedicated group of volunteers who made this app to bring you the latest news, volunteer opportunities, and event announcements drawing from both official and unofficial sources. We hope you’ll find it useful.\n\nStay tuned, and we’ll see you out there in the field!";
+"Welcome_agreeToTermsButtonTitle" = "Continue to #feelthebern";
+"Welcome_viewTermsTitle" = "Terms and Conditions";
+"Welcome_viewPrivacyPolicyTitle" = "Privacy Policy";
+"Welcome_agreeToTermsNoticeText" = "By tapping continue, you confirm that you have read our Terms and Conditions and Privacy Policy.";
+

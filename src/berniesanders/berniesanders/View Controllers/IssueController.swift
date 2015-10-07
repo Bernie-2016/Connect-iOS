@@ -169,8 +169,8 @@ public class IssueController : UIViewController {
         self.bodyTextView.textColor = self.theme.issueBodyColor()
         self.attributionLabel.font = self.theme.attributionFont()
         self.attributionLabel.textColor = self.theme.attributionTextColor()
-        self.viewOriginalButton.backgroundColor = self.theme.issueViewOriginalButtonBackgroundColor()
-        self.viewOriginalButton.setTitleColor(self.theme.issueViewOriginalButtonTextColor(), forState: .Normal)
-        self.viewOriginalButton.titleLabel!.font = self.theme.issueViewOriginalButtonFont()
+        self.viewOriginalButton.backgroundColor = self.theme.defaultButtonBackgroundColor()
+        self.viewOriginalButton.setTitleColor(self.theme.defaultButtonTextColor(), forState: .Normal)
+        self.viewOriginalButton.titleLabel!.font = self.theme.defaultButtonFont()
     }
 }
