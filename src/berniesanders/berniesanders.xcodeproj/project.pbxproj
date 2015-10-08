@@ -1276,6 +1276,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MACH_O_TYPE = mh_execute;
 				OTHER_SWIFT_FLAGS = "";
+				PRODUCT_MODULE_NAME = berniesanders;
 				PRODUCT_NAME = "Bernie Sanders";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "berniesanders/Extensions/berniesanders-Bridging-Header.h";
@@ -1310,6 +1311,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MACH_O_TYPE = mh_execute;
 				OTHER_SWIFT_FLAGS = "-DRELEASE";
+				PRODUCT_MODULE_NAME = berniesanders;
 				PRODUCT_NAME = "Bernie Sanders";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "berniesanders/Extensions/berniesanders-Bridging-Header.h";
@@ -1350,7 +1352,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "berniesandersTests/berniesandersTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/berniesanders.app/berniesanders";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bernie Sanders.app/Bernie Sanders";
 				WARNING_CFLAGS = (
 					"-Weverything",
 					"-Wno-padded",
@@ -1381,7 +1383,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "berniesandersTests/berniesandersTests-Bridging-Header.h";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/berniesanders.app/berniesanders";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bernie Sanders.app/Bernie Sanders";
 				WARNING_CFLAGS = (
 					"-Weverything",
 					"-Wno-padded",
