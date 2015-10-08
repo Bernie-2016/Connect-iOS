@@ -131,6 +131,7 @@
 		65D0ECEB1BBB8DD20063B1D0 /* ConcreteEventRSVPControllerProviderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D0ECEA1BBB8DD20063B1D0 /* ConcreteEventRSVPControllerProviderSpec.swift */; };
 		65D8ADC31BC1B83E005CD5FD /* FakeStringContentSanitizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D8ADC21BC1B83E005CD5FD /* FakeStringContentSanitizer.swift */; };
 		65DE8D931B955E15008C239F /* NewsItemControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DE8D921B955E15008C239F /* NewsItemControllerSpec.swift */; };
+		65E4A4FC1BC6DA050027501D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8233FC151B7C28FB00A5E9ED /* Images.xcassets */; };
 		65EA2F291BB9B648001D8FD5 /* FakeDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EA2F281BB9B648001D8FD5 /* FakeDateFormatter.swift */; };
 		65EC4CEC1B842A0B00DD4C83 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */; };
 		65EC4CEE1B842A1900DD4C83 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65EC4CED1B842A1900DD4C83 /* Quick.framework */; };
@@ -152,7 +153,6 @@
 		65F5F65D1B896FFF0049353C /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F5F65C1B896FFF0049353C /* TabBarController.swift */; };
 		65F5F6611B8A3CB00049353C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65F5F6631B8A3CB00049353C /* Localizable.strings */; };
 		8233FC0D1B7C28FB00A5E9ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8233FC0C1B7C28FB00A5E9ED /* AppDelegate.swift */; };
-		8233FC161B7C28FB00A5E9ED /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8233FC151B7C28FB00A5E9ED /* Images.xcassets */; };
 		8233FC301B7C48A500A5E9ED /* NewsFeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8233FC2F1B7C48A500A5E9ED /* NewsFeedController.swift */; };
 		8233FC321B7C4A9600A5E9ED /* IssuesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8233FC311B7C4A9600A5E9ED /* IssuesController.swift */; };
 		DF90BBCB1BC5090200F9FA53 /* DonateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF90BBCA1BC5090200F9FA53 /* DonateTableViewCell.swift */; };
@@ -342,7 +342,7 @@
 		65F5F6581B8968440049353C /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		65F5F65C1B896FFF0049353C /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		65F5F6621B8A3CB00049353C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
-		8233FC071B7C28FB00A5E9ED /* berniesanders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = berniesanders.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8233FC071B7C28FB00A5E9ED /* Bernie Sanders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bernie Sanders.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8233FC0B1B7C28FB00A5E9ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8233FC0C1B7C28FB00A5E9ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8233FC151B7C28FB00A5E9ED /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -769,7 +769,7 @@
 		8233FC081B7C28FB00A5E9ED /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8233FC071B7C28FB00A5E9ED /* berniesanders.app */,
+				8233FC071B7C28FB00A5E9ED /* Bernie Sanders.app */,
 				8233FC1E1B7C28FB00A5E9ED /* berniesandersTests.xctest */,
 			);
 			name = Products;
@@ -882,7 +882,7 @@
 			);
 			name = berniesanders;
 			productName = berniesanders;
-			productReference = 8233FC071B7C28FB00A5E9ED /* berniesanders.app */;
+			productReference = 8233FC071B7C28FB00A5E9ED /* Bernie Sanders.app */;
 			productType = "com.apple.product-type.application";
 		};
 		8233FC1D1B7C28FB00A5E9ED /* berniesandersTests */ = {
@@ -912,7 +912,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0640;
-				ORGANIZATIONNAME = "Bill Dwyer";
+				ORGANIZATIONNAME = "Coders For Sanders";
 				TargetAttributes = {
 					8233FC061B7C28FB00A5E9ED = {
 						CreatedOnToolsVersion = 6.4;
@@ -957,7 +957,7 @@
 				65B165591B9789C00052EF8D /* Entitlements.plist in Resources */,
 				654FDBBD1BC1867F00A082CF /* feedbackGoogleFormOverrides.css in Resources */,
 				655A3DB81BBCCE7400E08051 /* floss_licenses.html in Resources */,
-				8233FC161B7C28FB00A5E9ED /* Images.xcassets in Resources */,
+				65E4A4FC1BC6DA050027501D /* Images.xcassets in Resources */,
 				65F5F6611B8A3CB00049353C /* Localizable.strings in Resources */,
 				6518CBAD1BC1C5A2000C238C /* terms_and_conditions.html in Resources */,
 			);
@@ -1276,7 +1276,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MACH_O_TYPE = mh_execute;
 				OTHER_SWIFT_FLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Bernie Sanders";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "berniesanders/Extensions/berniesanders-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1310,7 +1310,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MACH_O_TYPE = mh_execute;
 				OTHER_SWIFT_FLAGS = "-DRELEASE";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Bernie Sanders";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "berniesanders/Extensions/berniesanders-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;

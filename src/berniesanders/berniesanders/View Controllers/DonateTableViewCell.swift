@@ -1,11 +1,3 @@
-//
-//  DonateTableViewCell.swift
-//  berniesanders
-//
-//  Created by Alon Rosenfeld on 10/7/15.
-//  Copyright (c) 2015 Bill Dwyer. All rights reserved.
-//
-
 import UIKit
 import PureLayout
 
