@@ -14,6 +14,7 @@ public class NavigationController : UINavigationController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = self.theme.defaultBackgroundColor()
         self.setNeedsStatusBarAppearanceUpdate()
         self.navigationBar.barTintColor = self.theme.navigationBarBackgroundColor()
         self.navigationBar.titleTextAttributes = [

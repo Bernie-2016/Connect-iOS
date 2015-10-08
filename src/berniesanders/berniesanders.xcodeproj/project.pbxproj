@@ -139,8 +139,6 @@
 		65EC4CF41B84443100DD4C83 /* NewsFeedControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EC4CF31B84443100DD4C83 /* NewsFeedControllerSpec.swift */; };
 		65EC4CF81B866B9200DD4C83 /* NewsItemRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EC4CF71B866B9200DD4C83 /* NewsItemRepository.swift */; };
 		65ED413F1BC09C6A0092C07D /* ConcreteURLAttributionPresenterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65ED413E1BC09C6A0092C07D /* ConcreteURLAttributionPresenterSpec.swift */; };
-		65EDD6241B8BB82E00F545B8 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 65EDD6221B8BB82E00F545B8 /* Lato-Regular.ttf */; };
-		65EDD6271B8BBA3800F545B8 /* Lora-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 65EDD6261B8BB8F900F545B8 /* Lora-Bold.ttf */; };
 		65EDD6291B8BC73C00F545B8 /* ConcreteNewsItemRepositorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EDD6281B8BC73C00F545B8 /* ConcreteNewsItemRepositorySpec.swift */; };
 		65EDD62B1B8BC83900F545B8 /* NewsItemDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EDD62A1B8BC83900F545B8 /* NewsItemDeserializer.swift */; };
 		65EDD62F1B8BCA1C00F545B8 /* ConcreteNewsItemDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EDD62E1B8BCA1C00F545B8 /* ConcreteNewsItemDeserializer.swift */; };
@@ -330,8 +328,6 @@
 		65EC4CF31B84443100DD4C83 /* NewsFeedControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFeedControllerSpec.swift; sourceTree = "<group>"; };
 		65EC4CF71B866B9200DD4C83 /* NewsItemRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewsItemRepository.swift; path = ../NewsItemRepository.swift; sourceTree = "<group>"; };
 		65ED413E1BC09C6A0092C07D /* ConcreteURLAttributionPresenterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteURLAttributionPresenterSpec.swift; sourceTree = "<group>"; };
-		65EDD6221B8BB82E00F545B8 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
-		65EDD6261B8BB8F900F545B8 /* Lora-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lora-Bold.ttf"; sourceTree = "<group>"; };
 		65EDD6281B8BC73C00F545B8 /* ConcreteNewsItemRepositorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteNewsItemRepositorySpec.swift; sourceTree = "<group>"; };
 		65EDD62A1B8BC83900F545B8 /* NewsItemDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsItemDeserializer.swift; sourceTree = "<group>"; };
 		65EDD62E1B8BCA1C00F545B8 /* ConcreteNewsItemDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteNewsItemDeserializer.swift; sourceTree = "<group>"; };
@@ -686,15 +682,6 @@
 			path = Repositories;
 			sourceTree = "<group>";
 		};
-		65EDD6211B8BB80D00F545B8 /* Fonts */ = {
-			isa = PBXGroup;
-			children = (
-				65EDD6221B8BB82E00F545B8 /* Lato-Regular.ttf */,
-				65EDD6261B8BB8F900F545B8 /* Lora-Bold.ttf */,
-			);
-			path = Fonts;
-			sourceTree = "<group>";
-		};
 		65F01FC41B8A5B5700D021A1 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -734,7 +721,6 @@
 			isa = PBXGroup;
 			children = (
 				654FDBB91BC1861300A082CF /* CSS */,
-				65EDD6211B8BB80D00F545B8 /* Fonts */,
 				655A3DB61BBCCE5400E08051 /* HTML */,
 				654FDBB81BC185F700A082CF /* JavaScript */,
 				8233FC151B7C28FB00A5E9ED /* Images.xcassets */,
@@ -965,9 +951,7 @@
 				654FDBBD1BC1867F00A082CF /* feedbackGoogleFormOverrides.css in Resources */,
 				655A3DB81BBCCE7400E08051 /* floss_licenses.html in Resources */,
 				8233FC161B7C28FB00A5E9ED /* Images.xcassets in Resources */,
-				65EDD6241B8BB82E00F545B8 /* Lato-Regular.ttf in Resources */,
 				65F5F6611B8A3CB00049353C /* Localizable.strings in Resources */,
-				65EDD6271B8BBA3800F545B8 /* Lora-Bold.ttf in Resources */,
 				6518CBAD1BC1C5A2000C238C /* terms_and_conditions.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

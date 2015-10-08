@@ -4,6 +4,10 @@ import Nimble
 import UIKit
 
 class NavBarFakeTheme : FakeTheme {
+    override func defaultBackgroundColor() -> UIColor {
+        return UIColor.greenColor()
+    }
+    
     override func navigationBarBackgroundColor() -> UIColor {
         return UIColor.brownColor()
     }
@@ -39,6 +43,7 @@ class NavigationControllerSpec : QuickSpec {
                                 expect(self.subject.navigationBar.barTintColor).to(equal(UIColor.brownColor()))
                 expect(textColor).to(equal(UIColor.magentaColor()))
                 expect(font).to(equal(UIFont.systemFontOfSize(666)))
+                expect(self.subject.view.backgroundColor).to(equal(UIColor.greenColor()))
             }
         }
     }

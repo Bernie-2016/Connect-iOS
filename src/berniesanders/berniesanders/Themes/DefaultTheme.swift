@@ -14,7 +14,7 @@ class DefaultTheme : Theme {
     }
     
     func attributionFont() -> UIFont {
-        return UIFont(name: "Lato-Regular", size: 12)!
+        return UIFont.systemFontOfSize(12)
     }
     
     func attributionTextColor() -> UIColor {
@@ -28,7 +28,7 @@ class DefaultTheme : Theme {
     }
     
     func tabBarFont() -> UIFont {
-        return UIFont(name: "Lato-Regular", size: 11)!
+        return UIFont.systemFontOfSize(11)
     }
     
     func tabBarActiveTextColor() -> UIColor {
@@ -46,13 +46,13 @@ class DefaultTheme : Theme {
     }
     
     func navigationBarFont() -> UIFont {
-        return UIFont(name: "Lato-Regular", size: 17)!
+        return UIFont.systemFontOfSize(17)
     }
     
     func navigationBarTextColor() -> UIColor {
         return UIColor.whiteColor()
     }
-
+    
     // MARK: News Feed
     
     func newsFeedTitleColor() -> UIColor {
@@ -60,7 +60,7 @@ class DefaultTheme : Theme {
     }
     
     func newsFeedTitleFont() -> UIFont {
-        return UIFont(name: "Lato-Regular", size: 14)!
+        return UIFont.systemFontOfSize(14)
     }
     
     func newsFeedDateColor() -> UIColor {
@@ -68,13 +68,13 @@ class DefaultTheme : Theme {
     }
     
     func newsFeedDateFont() -> UIFont {
-        return UIFont(name: "Lora-Bold", size: 12)!
+        return UIFont.boldSystemFontOfSize(12)
     }
     
     // MARK: issues
     
     func issuesFeedTitleFont() -> UIFont {
-        return UIFont(name: "Lato-Regular", size: 14)!
+        return UIFont.systemFontOfSize(14)
     }
     
     func issuesFeedTitleColor() -> UIColor {
@@ -92,13 +92,13 @@ class DefaultTheme : Theme {
     }
     
     func feedHeaderFont() -> UIFont {
-        return UIFont(name: "Lora-Bold", size: 10)!
+        return UIFont.boldSystemFontOfSize(10)
     }
     
     // MARK: News Item detail screen
     
     func newsItemDateFont() -> UIFont {
-        return UIFont(name: "Lora-Bold", size: 12)!
+        return UIFont.boldSystemFontOfSize(12)
     }
     
     func newsItemDateColor() -> UIColor {
@@ -122,7 +122,7 @@ class DefaultTheme : Theme {
     }
     
     func newsFeedHeadlineTitleFont() -> UIFont {
-        return UIFont(name: "Lora-Bold", size: 16)!
+        return UIFont.boldSystemFontOfSize(16)
     }
     func newsfeedHeadlineTitleColor() -> UIColor {
         return UIColor.whiteColor()
@@ -130,7 +130,7 @@ class DefaultTheme : Theme {
     func newsFeedHeadlineTitleBackgroundColor() -> UIColor {
         return UIColor(red: 0, green: 0, blue: 0, alpha: 0.4)
     }
-
+    
     // MARK: Issue detail screen
     
     func issueTitleFont() -> UIFont {
@@ -152,19 +152,19 @@ class DefaultTheme : Theme {
     func defaultButtonBackgroundColor() -> UIColor {
         return cornflowerBlueColor()
     }
-
+    
     func defaultButtonTextColor() -> UIColor {
         return UIColor.whiteColor()
     }
     
     func defaultButtonFont() -> UIFont {
-        return UIFont(name: "Lora-Bold", size: 12)!
+        return UIFont.boldSystemFontOfSize(12)
     }
     
     // MARK: Settings
     
     func settingsTitleFont() -> UIFont {
-        return UIFont(name: "Lato-Regular", size: 15)!  
+        return UIFont.systemFontOfSize(15)
     }
     
     func settingsTitleColor() -> UIColor {
@@ -174,13 +174,13 @@ class DefaultTheme : Theme {
     // MARK: Events
     
     func eventsListFont() -> UIFont {
-        return UIFont(name: "Lato-Regular", size: 14)!
+        return UIFont.systemFontOfSize(14)
     }
     
     func eventsListColor() -> UIColor {
         return self.cornflowerBlueColor()
     }
-        
+    
     func eventsInputAccessoryBackgroundColor() -> UIColor {
         return self.cornflowerBlueColor()
     }
@@ -198,7 +198,7 @@ class DefaultTheme : Theme {
     }
     
     func eventsZipCodeFont() -> UIFont {
-        return UIFont(name: "Lato-Regular", size: 17)!
+        return UIFont.systemFontOfSize(17)
     }
     
     func eventsZipCodeCornerRadius() -> CGFloat {
@@ -222,7 +222,7 @@ class DefaultTheme : Theme {
     }
     
     func eventsNoResultsFont() -> UIFont {
-        return UIFont(name: "Lato-Regular", size: 15)!
+        return UIFont.systemFontOfSize(15)
     }
     
     // MARK: Event screen
@@ -235,19 +235,19 @@ class DefaultTheme : Theme {
         return self.cornflowerBlueColor()
     }
     
-    func eventStartDateFont() -> UIFont { return UIFont(name: "Lato-Regular", size: 13)! }
+    func eventStartDateFont() -> UIFont { return UIFont.systemFontOfSize(13) }
     func eventStartDateColor() -> UIColor { return self.cornflowerBlueColor() }
-    func eventAttendeesFont() -> UIFont { return UIFont(name: "Lato-Regular", size: 13)! }
+    func eventAttendeesFont() -> UIFont { return UIFont.systemFontOfSize(13) }
     func eventAttendeesColor() -> UIColor { return self.cornflowerBlueColor() }
-    func eventAddressFont() -> UIFont { return UIFont(name: "Lato-Regular", size: 13)! }
+    func eventAddressFont() -> UIFont { return UIFont.systemFontOfSize(13)}
     func eventAddressColor() -> UIColor { return self.cornflowerBlueColor() }
-    func eventDescriptionHeadingFont() -> UIFont { return UIFont(name: "Lato-Regular", size: 17)! }
+    func eventDescriptionHeadingFont() -> UIFont { return UIFont.systemFontOfSize(17) }
     func eventDescriptionHeadingColor() -> UIColor { return self.cornflowerBlueColor() }
-    func eventDescriptionFont() -> UIFont { return UIFont(name: "Lato-Regular", size: 13)! }
+    func eventDescriptionFont() -> UIFont { return UIFont.systemFontOfSize(13) }
     func eventDescriptionColor() -> UIColor { return self.cornflowerBlueColor() }
     func eventDirectionsButtonBackgroundColor() -> UIColor { return self.cornflowerBlueColor() }
     func eventButtonTextColor() -> UIColor { return UIColor.whiteColor() }
-    func eventDirectionsButtonFont() -> UIFont { return UIFont(name: "Lato-Regular", size: 15)! }
+    func eventDirectionsButtonFont() -> UIFont { return UIFont.systemFontOfSize(15) }
     func eventRSVPButtonBackgroundColor() -> UIColor { return self.carnationColor() }
     func eventsInstructionsFont() -> UIFont { return defaultHeaderFont() }
     func eventsInstructionsTextColor() -> UIColor { return cornflowerBlueColor() }
@@ -256,7 +256,7 @@ class DefaultTheme : Theme {
     
     func aboutButtonBackgroundColor() -> UIColor { return cornflowerBlueColor() }
     func aboutButtonTextColor() -> UIColor { return UIColor.whiteColor() }
-    func aboutButtonFont() -> UIFont { return UIFont(name: "Lato-Regular", size: 15)! }
+    func aboutButtonFont() -> UIFont { return UIFont.systemFontOfSize(15) }
     func aboutBodyTextFont() -> UIFont { return defaultBodyTextFont() }
     
     
@@ -264,7 +264,7 @@ class DefaultTheme : Theme {
     
     func welcomeLabelFont() -> UIFont { return defaultBodyTextFont() }
     func viewPolicyBackgroundColor() -> UIColor { return silverColor() }
-
+    
     // MARK: default dimensions
     
     func defaultCornerRadius() -> CGFloat {
@@ -300,10 +300,10 @@ class DefaultTheme : Theme {
     // MARK: font definitions
     
     func defaultHeaderFont() -> UIFont {
-        return UIFont(name: "Lato-Regular", size: 17)!
+        return UIFont.systemFontOfSize(17)
     }
     
     func defaultBodyTextFont() -> UIFont {
-        return UIFont(name: "Lato-Regular", size: 15)!
+        return  UIFont.systemFontOfSize(14)
     }
 }

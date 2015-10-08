@@ -13,7 +13,7 @@ public class NewsHeadlineTableViewCell : UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         self.titleLabel = UILabel.newAutoLayoutView()
         self.headlineImageView = UIImageView.newAutoLayoutView()
-        self.headlineImageView.contentMode = .ScaleAspectFill
+        self.headlineImageView.contentMode = .ScaleAspectFit
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
