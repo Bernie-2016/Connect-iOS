@@ -63,7 +63,7 @@ class AboutControllerSpec : QuickSpec {
                 }
                 
                 it("has a label explaining about the app") {
-                    expect(self.subject.bodyTextLabel.text).to(contain("BernieApp is built by a small group of volunteers"))
+                    expect(self.subject.bodyTextLabel.text).to(contain("This app is built by a small group of volunteers"))
                 }
                 
                 it("has a label instructing the user to look at reddit") {

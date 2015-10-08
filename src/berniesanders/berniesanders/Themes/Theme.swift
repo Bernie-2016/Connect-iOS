@@ -120,5 +120,6 @@ public protocol Theme {
     
     func welcomeLabelFont() -> UIFont
     func viewPolicyBackgroundColor() -> UIColor
+    func agreeToTermsLabelFont() -> UIFont
     
 }

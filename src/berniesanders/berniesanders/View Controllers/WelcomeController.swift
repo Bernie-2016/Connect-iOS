@@ -112,7 +112,7 @@ public class WelcomeController: UIViewController {
         viewPrivacyPolicyButton.titleLabel!.font = self.theme.defaultButtonFont()
         viewPrivacyPolicyButton.setTitleColor(self.theme.defaultButtonTextColor(), forState: .Normal)
         
-        agreeToTermsNoticeLabel.font = self.theme.welcomeLabelFont()
+        agreeToTermsNoticeLabel.font = self.theme.agreeToTermsLabelFont()
 
         agreeToTermsButton.backgroundColor = self.theme.defaultButtonBackgroundColor()
         agreeToTermsButton.titleLabel!.font = self.theme.defaultButtonFont()

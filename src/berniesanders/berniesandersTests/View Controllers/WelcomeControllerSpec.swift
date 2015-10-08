@@ -10,6 +10,7 @@ class WelcomeFakeTheme: FakeTheme {
     override func defaultButtonTextColor() -> UIColor { return UIColor.yellowColor() }
     override func welcomeLabelFont() -> UIFont { return UIFont.italicSystemFontOfSize(111) }
     override func viewPolicyBackgroundColor() -> UIColor { return UIColor.magentaColor() }
+    override func agreeToTermsLabelFont() -> UIFont { return UIFont.italicSystemFontOfSize(333) }
 }
 
 class FakeOnboardingRouter: OnboardingRouter {
@@ -94,7 +95,7 @@ class WelcomeControllerSpec: QuickSpec {
                 }
                 
                 it("has a label with some welcome text") {
-                    expect(self.subject.welcomeTextLabel.text).to(contain("Something big is happening"))
+                    expect(self.subject.welcomeTextLabel.text).to(contain("Bernie Sanders is the fastest"))
                 }
                 
                 it("has a button for viewing the privacy policy") {
@@ -138,7 +139,7 @@ class WelcomeControllerSpec: QuickSpec {
                 }
                 
                 it("has a label informing the user to agree to the terms to continue") {
-                    expect(self.subject.agreeToTermsNoticeLabel.text).to(equal("By tapping continue, you confirm that you have read our Terms and Conditions and Privacy Policy."))
+                    expect(self.subject.agreeToTermsNoticeLabel.text).to(equal("By tapping continue, you confirm that you have read our Terms and Conditions and Privacy Policy. This app is not affiliated with or authorized by Bernie 2016."))
                 }
                 
                 it("has a button for agreeing to the terms and conditions") {
@@ -190,7 +191,7 @@ class WelcomeControllerSpec: QuickSpec {
                     expect(self.subject.viewPrivacyPolicyButton.titleLabel!.font).to(equal(UIFont.italicSystemFontOfSize(222)))
                     expect(self.subject.viewPrivacyPolicyButton.titleColorForState(.Normal)).to(equal(UIColor.yellowColor()))
                     
-                    expect(self.subject.agreeToTermsNoticeLabel.font).to(equal(UIFont.italicSystemFontOfSize(111)))
+                    expect(self.subject.agreeToTermsNoticeLabel.font).to(equal(UIFont.italicSystemFontOfSize(333)))
 
                     expect(self.subject.agreeToTermsButton.backgroundColor).to(equal(UIColor.redColor()))
                     expect(self.subject.agreeToTermsButton.titleLabel!.font).to(equal(UIFont.italicSystemFontOfSize(222)))

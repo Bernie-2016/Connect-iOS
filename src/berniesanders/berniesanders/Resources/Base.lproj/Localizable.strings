@@ -76,7 +76,7 @@
 // About
 
 "About_title" = "About";
-"About_bodyText" = "BernieApp is built by a small group of volunteers, functioning independently and without affiliation or endorsement by the official Bernie Sanders Campaign. The purpose of this app is to help raise awareness of Bernie, his work, and the growing political movement. When registering for an event, you will be registering into the website Events page. if making a donation, you will be making a donation through the official Bernie Sanders campaign site, www.berniesanders.com. We function as a connector and a funnel into the campaign website.";
+"About_bodyText" = "This app is built by a small group of volunteers, functioning independently and without affiliation or endorsement by the official Bernie Sanders Campaign. The purpose of this app is to help raise awareness of Bernie, his work, and the growing political movement. When registering for an event, you will be registering into the website Events page. if making a donation, you will be making a donation through the official Bernie Sanders campaign site, www.berniesanders.com. We function as a connector and a funnel into the campaign website.";
 "About_redditText" = "If you'd like to find out more about us, look into these sub-reddits:";
 "About_codersForSanders" = "/r/codersforsanders";
 "About_designersForSanders" = "/r/designersforsanders";
@@ -92,9 +92,9 @@
 
 // Welcome
 
-"Welcome_welcomeText" = "Something big is happening.\n\nThere’s an unprecedented grassroots movement underway to elect Bernie Sanders and start a new political movement in America.\n\nThis September, Bernie became the fastest candidate in history to gather a million individual contributions, surpassing Barack Obama’s 2012 record.\n\nWe’re a small and dedicated group of volunteers who made this app to bring you the latest news, volunteer opportunities, and event announcements drawing from both official and unofficial sources. We hope you’ll find it useful.\n\nStay tuned, and we’ll see you out there in the field!";
+"Welcome_welcomeText" = "Bernie Sanders is the fastest candidate in history to receive one million individual campaign contributions.\n\nThis unofficial app is made by a bunch of geeks to help you stay tuned and get involved. We hope you find it useful!";
 "Welcome_agreeToTermsButtonTitle" = "Continue to #feelthebern";
 "Welcome_viewTermsTitle" = "Terms and Conditions";
 "Welcome_viewPrivacyPolicyTitle" = "Privacy Policy";
-"Welcome_agreeToTermsNoticeText" = "By tapping continue, you confirm that you have read our Terms and Conditions and Privacy Policy.";
+"Welcome_agreeToTermsNoticeText" = "By tapping continue, you confirm that you have read our Terms and Conditions and Privacy Policy. This app is not affiliated with or authorized by Bernie 2016.";
 

@@ -276,6 +276,7 @@ class DefaultTheme : Theme {
     
     func welcomeLabelFont() -> UIFont { return defaultBodyTextFont() }
     func viewPolicyBackgroundColor() -> UIColor { return silverColor() }
+    func agreeToTermsLabelFont() -> UIFont { return UIFont.systemFontOfSize(12) }
     
     // MARK: default dimensions
     
