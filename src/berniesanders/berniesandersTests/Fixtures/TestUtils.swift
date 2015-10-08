@@ -52,4 +52,8 @@ class TestUtils {
     class func welcomeController() -> WelcomeController {
         return WelcomeController(termsAndConditionsAgreementRepository: FakeTermsAndConditionsAgreementRepository(), termsAndConditionsController: self.termsAndConditionsController(), privacyPolicyController: self.privacyPolicyController(), analyticsService: FakeAnalyticsService(), theme: FakeTheme())
     }
+    
+    class func donateController() -> DonateController {
+        return DonateController(urlProvider: FakeURLProvider(), analyticsService: FakeAnalyticsService())
+    }
 }

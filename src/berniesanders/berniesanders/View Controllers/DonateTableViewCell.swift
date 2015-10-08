@@ -1,26 +1,22 @@
 import UIKit
 import PureLayout
 
-class DonateTableViewCell: UITableViewCell
-{
-    var didSetupViews = false
+public class DonateTableViewCell: UITableViewCell {
+    private var didSetupViews = false
     
-    let messageView = UILabel.newAutoLayoutView()
-    let buttonView = UILabel.newAutoLayoutView()
+    public let messageView = UILabel.newAutoLayoutView()
+    public let buttonView = UILabel.newAutoLayoutView()
     
 
-    override init(style: UITableViewCellStyle, reuseIdentifier: String!)
-    {
+    override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
-    required init(coder aDecoder: NSCoder)
-    {
+    required public init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    func setupViews(theme: Theme)
-    {
+    func setupViews(theme: Theme) {
         if didSetupViews {
             return
         }
@@ -28,6 +24,7 @@ class DonateTableViewCell: UITableViewCell
         didSetupViews = true
         
         contentView.addSubview(messageView)
+        
         contentView.addSubview(buttonView)
         
         messageView.text = NSLocalizedString("Settings_donate_tableCellText", comment: "")
@@ -50,9 +47,7 @@ class DonateTableViewCell: UITableViewCell
         
     }
     
-    private func setupConstraintsAndLayout()
-    {
-//        messageView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsMake(10, 90, 10, 90), excludingEdge: .Bottom)
+    private func setupConstraintsAndLayout() {
         messageView.autoPinEdgeToSuperviewEdge(ALEdge.Top, withInset: 10)
         messageView.autoSetDimension(ALDimension.Width, toSize: 230)
         messageView.autoAlignAxisToSuperviewAxis(ALAxis.Vertical)

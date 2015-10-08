@@ -15,6 +15,18 @@ class SettingsFakeTheme : FakeTheme {
     override func settingsTitleColor() -> UIColor {
         return UIColor.purpleColor()
     }
+    
+    override func settingsDonateButtonTextColor() -> UIColor {
+        return UIColor.greenColor()
+    }
+    
+    override func settingsDonateButtonFont() -> UIFont {
+        return UIFont.systemFontOfSize(222)
+    }
+    
+    override func settingsDonateButtonColor() -> UIColor {
+        return UIColor.magentaColor()
+    }
 }
 
 class FakeSettingsController : UIViewController {
@@ -34,8 +46,8 @@ class SettingsControllerSpec : QuickSpec {
     var analyticsService: FakeAnalyticsService!
     let theme = SettingsFakeTheme()
 
-    let controllerA = FakeSettingsController(title: "controller a")
-    let controllerB = FakeSettingsController(title: "controller b")
+    let regularController = FakeSettingsController(title: "Regular Controller")
+    let donateController = TestUtils.donateController()
     
     let flossController = TestUtils.privacyPolicyController()
     var navigationController: UINavigationController!
@@ -46,8 +58,8 @@ class SettingsControllerSpec : QuickSpec {
                 self.analyticsService = FakeAnalyticsService()
 
                 self.subject = SettingsController(tappableControllers: [
-                        self.controllerA,
-                        self.controllerB
+                        self.regularController,
+                        self.donateController
                     ],
                     analyticsService: self.analyticsService,
                     theme: self.theme)
@@ -89,39 +101,54 @@ class SettingsControllerSpec : QuickSpec {
                     expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(2))
                 }
                 
-                it("should style the rows") {
-                    var cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))!
+                it("should style the regular rows using the theme") {
+                    let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))!
                     
                     expect(cell.textLabel!.textColor).to(equal(UIColor.purpleColor()))
                     expect(cell.textLabel!.font).to(equal(UIFont.systemFontOfSize(123)))
                 }
                 
+                it("should style the donate row using the theme") {
+                    let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))! as! DonateTableViewCell
+
+
+                    expect(cell.messageView.textColor).to(equal(UIColor.purpleColor()))
+                    expect(cell.messageView.font).to(equal(UIFont.systemFontOfSize(123)))
+                    
+                    expect(cell.buttonView.backgroundColor).to(equal(UIColor.magentaColor()))
+                    expect(cell.buttonView.font).to(equal(UIFont.systemFontOfSize(222)))
+                    expect(cell.buttonView.textColor).to(equal(UIColor.greenColor()))
+                }
+                
                 describe("the table contents") {
-                    it("has a row for evey configured tappable controller") {
+                    it("has a regular UITableViewCell row for evey configured 'regular' controller") {
                         var cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))!
-                        expect(cell.textLabel!.text).to(equal("controller a"))
-                        
-                        cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))!
-                        expect(cell.textLabel!.text).to(equal("controller b"))
+                        expect(cell.textLabel!.text).to(equal("Regular Controller"))
+                        expect(cell).to(beAnInstanceOf(UITableViewCell.self))
+                    }
+                    
+                    it("has a DonateTableViewCell row for a donate controller") {
+                        var cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))!
+                        expect(cell).to(beAnInstanceOf(DonateTableViewCell.self))
                     }
                     
                     describe("tapping the rows") {
                         it("should push a correctly configured news item view controller onto the nav stack") {
                             let tableView = self.subject.tableView
                             tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
-                            expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.controllerA))
+                            expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.regularController))
                             
                             tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
-                            expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.controllerB))
+                            expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.donateController))
                         }
                         
                         it("should log a content view with the analytics service") {
                             let tableView = self.subject.tableView
                             tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
 
-                            expect(self.analyticsService.lastContentViewName).to(equal("controller a"))
+                            expect(self.analyticsService.lastContentViewName).to(equal("Regular Controller"))
                             expect(self.analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.Settings))
-                            expect(self.analyticsService.lastContentViewID).to(equal("controller a"))
+                            expect(self.analyticsService.lastContentViewID).to(equal("Regular Controller"))
                         }
                     }
                 }

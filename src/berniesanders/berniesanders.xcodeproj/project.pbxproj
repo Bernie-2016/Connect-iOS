@@ -132,6 +132,7 @@
 		65D8ADC31BC1B83E005CD5FD /* FakeStringContentSanitizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D8ADC21BC1B83E005CD5FD /* FakeStringContentSanitizer.swift */; };
 		65DE8D931B955E15008C239F /* NewsItemControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DE8D921B955E15008C239F /* NewsItemControllerSpec.swift */; };
 		65E4A4FC1BC6DA050027501D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8233FC151B7C28FB00A5E9ED /* Images.xcassets */; };
+		65E4A4FE1BC6F6830027501D /* DonateControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E4A4FD1BC6F6830027501D /* DonateControllerSpec.swift */; };
 		65EA2F291BB9B648001D8FD5 /* FakeDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EA2F281BB9B648001D8FD5 /* FakeDateFormatter.swift */; };
 		65EC4CEC1B842A0B00DD4C83 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */; };
 		65EC4CEE1B842A1900DD4C83 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65EC4CED1B842A1900DD4C83 /* Quick.framework */; };
@@ -324,6 +325,7 @@
 		65D0ECEA1BBB8DD20063B1D0 /* ConcreteEventRSVPControllerProviderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteEventRSVPControllerProviderSpec.swift; sourceTree = "<group>"; };
 		65D8ADC21BC1B83E005CD5FD /* FakeStringContentSanitizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeStringContentSanitizer.swift; sourceTree = "<group>"; };
 		65DE8D921B955E15008C239F /* NewsItemControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsItemControllerSpec.swift; sourceTree = "<group>"; };
+		65E4A4FD1BC6F6830027501D /* DonateControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonateControllerSpec.swift; sourceTree = "<group>"; };
 		65EA2F281BB9B648001D8FD5 /* FakeDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeDateFormatter.swift; sourceTree = "<group>"; };
 		65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		65EC4CED1B842A1900DD4C83 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
@@ -691,6 +693,7 @@
 			isa = PBXGroup;
 			children = (
 				65C6589F1BC085F9001AD5CA /* AboutControllerSpec.swift */,
+				65E4A4FD1BC6F6830027501D /* DonateControllerSpec.swift */,
 				6581F7BE1BB87FF500B26B76 /* EventControllerSpec.swift */,
 				65D0ECE81BBB8C360063B1D0 /* EventRSVPControllerSpec.swift */,
 				65F112ED1B9FFE8700BA585C /* EventsControllerSpec.swift */,
@@ -1113,6 +1116,7 @@
 				65B28E3F1BC5610F006B6A65 /* ConcreteTermsAndConditionsAgreementRepositorySpec.swift in Sources */,
 				65ED413F1BC09C6A0092C07D /* ConcreteURLAttributionPresenterSpec.swift in Sources */,
 				65C426121BBA0B7700595E1B /* ConcreteURLProviderSpec.swift in Sources */,
+				65E4A4FE1BC6F6830027501D /* DonateControllerSpec.swift in Sources */,
 				6581F7BF1BB87FF500B26B76 /* EventControllerSpec.swift in Sources */,
 				654B55B71BB4888D00492610 /* EventPresenterSpec.swift in Sources */,
 				65D0ECE91BBB8C360063B1D0 /* EventRSVPControllerSpec.swift in Sources */,

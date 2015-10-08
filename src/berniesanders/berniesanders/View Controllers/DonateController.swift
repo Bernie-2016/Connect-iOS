@@ -1,8 +1,8 @@
 import UIKit
 
 public class DonateController: UIViewController, UIWebViewDelegate {
-    let urlProvider : URLProvider!
-    let analyticsService: AnalyticsService!
+    private let urlProvider : URLProvider!
+    private let analyticsService: AnalyticsService!
     
     public let webView = UIWebView()
     
@@ -34,6 +34,5 @@ public class DonateController: UIViewController, UIWebViewDelegate {
     
     public override func didMoveToParentViewController(parent: UIViewController?) {
         self.analyticsService.trackCustomEventWithName("Tapped 'Back' on Donate", customAttributes: nil)
-
     }
 }
