@@ -4,6 +4,7 @@ public class ConcreteApplicationSettingsRepository: ApplicationSettingsRepositor
     private let userDefaults: NSUserDefaults
     
     private let kUserAgreedToTermsKey = "kUserAgreedToTermsKey"
+    private let kAnalyticsPermissionsKey = "kAnalyticsPermissionsKey"
     
     public init(userDefaults: NSUserDefaults) {
         self.userDefaults = userDefaults
@@ -18,6 +19,14 @@ public class ConcreteApplicationSettingsRepository: ApplicationSettingsRepositor
     public func userAgreedToTerms(completion: (Void) -> Void) {
         self.userDefaults.setObject(NSDate(), forKey: kUserAgreedToTermsKey)
         completion()
+    }
+    
+    public func isAnalyticsEnabled(completion:(Bool) -> Void) {
+        completion(self.userDefaults.boolForKey(kAnalyticsPermissionsKey))
+    }
+    
+    public func updateAnalyticsPermission(permissionGranted: Bool) {
+        self.userDefaults.setBool(permissionGranted, forKey: kAnalyticsPermissionsKey)
     }
 }
 

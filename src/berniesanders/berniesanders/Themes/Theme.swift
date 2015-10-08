@@ -107,7 +107,7 @@ public protocol Theme {
     func settingsDonateButtonFont() -> UIFont
     func settingsDonateButtonColor() -> UIColor
     func settingsDonateButtonTextColor() -> UIColor
-    
+    func settingsAnalyticsFont() -> UIFont    
     
     // MARK: About
     

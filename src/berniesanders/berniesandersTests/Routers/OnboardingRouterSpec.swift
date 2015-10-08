@@ -35,7 +35,7 @@ class OnboardingRouterSpec: QuickSpec {
                 
                 context("when the user has not agreed to the terms and conditions") {
                     beforeEach {
-                        self.applicationSettingsRepository.lastCompletionHandler(false)
+                        self.applicationSettingsRepository.lastTermsAndConditionsCompletionHandler(false)
                     }
                     
                     it("returns the welcome view controller") {
@@ -45,7 +45,7 @@ class OnboardingRouterSpec: QuickSpec {
                 
                 context("when the user has agreed to the terms and conditions") {
                     beforeEach {
-                        self.applicationSettingsRepository.lastCompletionHandler(true)
+                        self.applicationSettingsRepository.lastTermsAndConditionsCompletionHandler(true)
                     }
                     
                     it("returns the post-onboarding view controller") {

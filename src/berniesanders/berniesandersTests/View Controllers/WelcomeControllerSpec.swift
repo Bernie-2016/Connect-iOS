@@ -90,6 +90,10 @@ class WelcomeControllerSpec: QuickSpec {
                     expect(contains(containerViewSubViews, self.subject.agreeToTermsButton)).to(beTrue())
                 }
                 
+                it("enables analytics") {
+                    expect(self.applicationSettingsRepository.lastAnalyticsPermissionGrantedValue).to(beTrue())
+                }
+                
                 it("has the correct image in the banner image view") {
                     expect(self.subject.bannerImageView.image).to(equal(UIImage(named: "welcomeBanner")))
                 }
@@ -159,7 +163,7 @@ class WelcomeControllerSpec: QuickSpec {
                         expect(self.analyticsService.lastCustomEventName).to(equal("User agreed to Terms and Conditions"))
                         expect(self.analyticsService.lastCustomEventAttributes).to(beNil())
                     }
-                    
+
                     context("when the terms agreement repository confirms that the user agreed to terms") {
                         it("tells the onboarding router that the user finished onboarding") {
                             expect(self.onboardingRouter.hasFinishedOnboarding).to(beTrue())

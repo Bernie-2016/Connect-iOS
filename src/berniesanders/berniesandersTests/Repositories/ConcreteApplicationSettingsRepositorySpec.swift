@@ -48,6 +48,41 @@ class ConcreteApplicationSettingsRepositorySpec: QuickSpec {
                     }
                 }
             }
+            
+            describe("asking if the user has enabled analytics") {
+                context("when the user has not enabled analytics") {
+                    it("immediately calls the completion handler with false") {
+                        var analyticsAreEnabled = true
+                        self.subject.isAnalyticsEnabled({ (analyticsEnabled) -> Void in
+                            analyticsAreEnabled = analyticsEnabled
+                        })
+                        
+                        expect(analyticsAreEnabled).to(beFalse())
+
+                        self.subject.updateAnalyticsPermission(true)
+                        self.subject.updateAnalyticsPermission(false)
+                        
+                        self.subject.isAnalyticsEnabled({ (analyticsEnabled) -> Void in
+                            analyticsAreEnabled = analyticsEnabled
+                        })
+                        
+                        expect(analyticsAreEnabled).to(beFalse())
+                    }
+                }
+                
+                context("when the user has enabled analytics") {
+                    it("immediately calls the completion handler with true") {
+                        self.subject.updateAnalyticsPermission(true)
+                        
+                        var analyticsAreEnabled = false
+                        self.subject.isAnalyticsEnabled({ (analyticsEnabled) -> Void in
+                            analyticsAreEnabled = analyticsEnabled
+                        })
+                        
+                        expect(analyticsAreEnabled).to(beTrue())
+                    }
+                }
+            }
         }
     }
 }

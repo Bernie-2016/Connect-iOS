@@ -182,6 +182,10 @@ class DefaultTheme : Theme {
     func settingsDonateButtonFont() -> UIFont {
         return UIFont.systemFontOfSize(20)
     }
+    
+    func settingsAnalyticsFont() -> UIFont {
+        return defaultBodyTextFont()
+    }
 
     // MARK: Events
     

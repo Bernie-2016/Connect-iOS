@@ -26,7 +26,10 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             
             let mainQueue = NSOperationQueue.mainQueue()
             let sharedURLSession = NSURLSession.sharedSession()
-            let analyticsService = ConcreteAnalyticsService()
+            let applicationSettingsRepository = ConcreteApplicationSettingsRepository(
+                userDefaults: NSUserDefaults.standardUserDefaults())
+
+            let analyticsService = ConcreteAnalyticsService(applicationSettingsRepository: applicationSettingsRepository)
             let stringContentSanitizer = ConcreteStringContentSanitizer()
             
             let urlProvider = ConcreteURLProvider()
@@ -48,8 +51,9 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             let privacyPolicyController = PrivacyPolicyController(urlProvider: urlProvider, analyticsService: analyticsService)
             let flossController = FLOSSController(analyticsService: analyticsService)
             let termsAndConditionsController = TermsAndConditionsController(analyticsService: analyticsService)
+            let analyticsSettingsController = AnalyticsSettingsController(applicationSettingsRepository: applicationSettingsRepository, analyticsService: analyticsService, theme: defaultTheme)
             let settingsController = SettingsController(
-                tappableControllers: [aboutController, feedbackController, termsAndConditionsController, privacyPolicyController, flossController, donateController],
+                tappableControllers: [aboutController, feedbackController, analyticsSettingsController, termsAndConditionsController, privacyPolicyController, flossController, donateController],
                 analyticsService: analyticsService,
                 theme: defaultTheme)
             
@@ -140,8 +144,6 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             ]
             let tabBarController = TabBarController(viewControllers: tabBarViewControllers, analyticsService: analyticsService, theme: defaultTheme)
             
-            let applicationSettingsRepository = ConcreteApplicationSettingsRepository(
-                userDefaults: NSUserDefaults.standardUserDefaults())
             let welcomeController = WelcomeController(
                 applicationSettingsRepository: applicationSettingsRepository,
                 termsAndConditionsController: termsAndConditionsController,

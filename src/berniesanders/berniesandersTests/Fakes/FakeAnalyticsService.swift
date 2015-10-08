@@ -6,9 +6,9 @@ class FakeAnalyticsService: AnalyticsService {
     var lastCustomEventAttributes: [NSObject : AnyObject]?
     
     func trackCustomEventWithName(name: String, customAttributes: [NSObject : AnyObject]?) {
-        self.lastCustomEventName = name
+        lastCustomEventName = name
         if(customAttributes != nil) {
-            self.lastCustomEventAttributes = customAttributes!
+            lastCustomEventAttributes = customAttributes!
         }
     }
     
@@ -45,7 +45,13 @@ class FakeAnalyticsService: AnalyticsService {
     var lastSearchContext: AnalyticsSearchContext!
     
     func trackSearchWithQuery(query: String, context: AnalyticsSearchContext) {
-        self.lastSearchQuery = query
-        self.lastSearchContext = context
+        lastSearchQuery = query
+        lastSearchContext = context
+    }
+    
+    var lastAnalyticsPermission: Bool!
+    
+    func updateAnalyticsPermission(permissionGranted: Bool) {
+        lastAnalyticsPermission = permissionGranted
     }
 }

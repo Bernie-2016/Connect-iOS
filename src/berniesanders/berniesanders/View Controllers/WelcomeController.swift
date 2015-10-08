@@ -43,6 +43,8 @@ public class WelcomeController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.applicationSettingsRepository.updateAnalyticsPermission(true)
+        
         bannerImageView.contentMode = .Left
         bannerImageView.image = UIImage(named: "welcomeBanner")
         

@@ -82,6 +82,8 @@
 		655AF0C61BB095E500F0448E /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655AF0C51BB095E500F0448E /* Event.swift */; };
 		655AF0C81BB0981800F0448E /* ConcreteEventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655AF0C71BB0981800F0448E /* ConcreteEventRepository.swift */; };
 		655B57BD1B86C16F00E69C0C /* NewsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B57BC1B86C16F00E69C0C /* NewsItem.swift */; };
+		6568B9D41BC700D800BD149D /* AnalyticsSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6568B9D31BC700D800BD149D /* AnalyticsSettingsController.swift */; };
+		6568B9D61BC7017A00BD149D /* AnalyticsSettingsControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6568B9D51BC7017A00BD149D /* AnalyticsSettingsControllerSpec.swift */; };
 		6581F7BD1BB87E7700B26B76 /* ConcreteEventControllerProviderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6581F7BC1BB87E7700B26B76 /* ConcreteEventControllerProviderSpec.swift */; };
 		6581F7BF1BB87FF500B26B76 /* EventControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6581F7BE1BB87FF500B26B76 /* EventControllerSpec.swift */; };
 		6587FF581B8A7E1000AC65F1 /* IssueRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6587FF571B8A7E1000AC65F1 /* IssueRepository.swift */; };
@@ -276,6 +278,8 @@
 		655AF0C51BB095E500F0448E /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		655AF0C71BB0981800F0448E /* ConcreteEventRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteEventRepository.swift; sourceTree = "<group>"; };
 		655B57BC1B86C16F00E69C0C /* NewsItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsItem.swift; sourceTree = "<group>"; };
+		6568B9D31BC700D800BD149D /* AnalyticsSettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsSettingsController.swift; sourceTree = "<group>"; };
+		6568B9D51BC7017A00BD149D /* AnalyticsSettingsControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsSettingsControllerSpec.swift; sourceTree = "<group>"; };
 		6581F7BC1BB87E7700B26B76 /* ConcreteEventControllerProviderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteEventControllerProviderSpec.swift; sourceTree = "<group>"; };
 		6581F7BE1BB87FF500B26B76 /* EventControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventControllerSpec.swift; sourceTree = "<group>"; };
 		6587FF571B8A7E1000AC65F1 /* IssueRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueRepository.swift; sourceTree = "<group>"; };
@@ -693,6 +697,7 @@
 			isa = PBXGroup;
 			children = (
 				65C6589F1BC085F9001AD5CA /* AboutControllerSpec.swift */,
+				6568B9D51BC7017A00BD149D /* AnalyticsSettingsControllerSpec.swift */,
 				65E4A4FD1BC6F6830027501D /* DonateControllerSpec.swift */,
 				6581F7BE1BB87FF500B26B76 /* EventControllerSpec.swift */,
 				65D0ECE81BBB8C360063B1D0 /* EventRSVPControllerSpec.swift */,
@@ -844,6 +849,7 @@
 			isa = PBXGroup;
 			children = (
 				65C658A11BC088FF001AD5CA /* AboutController.swift */,
+				6568B9D31BC700D800BD149D /* AnalyticsSettingsController.swift */,
 				DFFF9F7D1BC3F83800D7F716 /* DonateController.swift */,
 				654AD3541BB876C700A59966 /* EventController.swift */,
 				65D0ECE21BBAD7A20063B1D0 /* EventRSVPController.swift */,
@@ -1023,6 +1029,7 @@
 			files = (
 				65C658A21BC088FF001AD5CA /* AboutController.swift in Sources */,
 				6559D70D1BBDC32100CBC7EE /* AnalyticsService.swift in Sources */,
+				6568B9D41BC700D800BD149D /* AnalyticsSettingsController.swift in Sources */,
 				8233FC0D1B7C28FB00A5E9ED /* AppDelegate.swift in Sources */,
 				6518CBB71BC30A3B000C238C /* ApplicationSettingsRepository.swift in Sources */,
 				6559D7111BBDC5F200CBC7EE /* ConcreteAnalyticsService.swift in Sources */,
@@ -1100,6 +1107,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				65C658A01BC085F9001AD5CA /* AboutControllerSpec.swift in Sources */,
+				6568B9D61BC7017A00BD149D /* AnalyticsSettingsControllerSpec.swift in Sources */,
 				65B28E3F1BC5610F006B6A65 /* ConcreteApplicationSettingsRepositorySpec.swift in Sources */,
 				6581F7BD1BB87E7700B26B76 /* ConcreteEventControllerProviderSpec.swift in Sources */,
 				65384D111BB2EDBF0057F6FF /* ConcreteEventDeserializerSpec.swift in Sources */,

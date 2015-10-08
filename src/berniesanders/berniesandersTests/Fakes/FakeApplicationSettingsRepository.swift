@@ -3,11 +3,11 @@ import berniesanders
 
 class FakeApplicationSettingsRepository: ApplicationSettingsRepository {
     var hasReceivedQueryForTermsAgreement = false
-    var lastCompletionHandler: ((Bool) -> Void)!
+    var lastTermsAndConditionsCompletionHandler: ((Bool) -> Void)!
     
     func termsAndConditionsAgreed(completion: (Bool) -> Void) {
-        self.hasReceivedQueryForTermsAgreement = true
-        self.lastCompletionHandler = completion
+        hasReceivedQueryForTermsAgreement = true
+        lastTermsAndConditionsCompletionHandler = completion
     }
     
     var hasAgreedToTerms = false
@@ -15,5 +15,18 @@ class FakeApplicationSettingsRepository: ApplicationSettingsRepository {
     func userAgreedToTerms(completion:(Void) -> Void) {
         hasAgreedToTerms = true
         completion()
+    }
+
+    var hasReceivedQueryForAnalytics = false
+    var lastAnalyticsCompletionHandler: ((Bool) -> Void)!
+
+    func isAnalyticsEnabled(completion:(Bool) -> Void) {
+        hasReceivedQueryForAnalytics = true
+        lastAnalyticsCompletionHandler = completion
+    }
+    
+    var lastAnalyticsPermissionGrantedValue: Bool!
+    func updateAnalyticsPermission(permissionGranted: Bool) {
+        lastAnalyticsPermissionGrantedValue = permissionGranted
     }
 }
