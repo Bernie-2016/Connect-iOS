@@ -43,8 +43,8 @@ public class WelcomeController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        bannerImageView.contentMode = .ScaleAspectFill
-        bannerImageView.image = UIImage(named: "newsHeadlinePlaceholder")
+        bannerImageView.contentMode = .Left
+        bannerImageView.image = UIImage(named: "welcomeBanner")
         
         welcomeTextLabel.numberOfLines = 0
         welcomeTextLabel.text = NSLocalizedString("Welcome_welcomeText", comment: "")
@@ -123,13 +123,16 @@ public class WelcomeController: UIViewController {
         let screenBounds = UIScreen.mainScreen().bounds
         
         scrollView.contentSize.width = self.view.bounds.width
-        scrollView.autoPinEdgesToSuperviewEdges()
+        scrollView.autoPinEdgeToSuperviewMargin(.Top)
+        scrollView.autoPinEdgeToSuperviewEdge(.Left)
+        scrollView.autoPinEdgeToSuperviewEdge(.Right)
+        scrollView.autoPinEdgeToSuperviewEdge(.Bottom)
         
         containerView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Trailing)
         containerView.autoSetDimension(.Width, toSize: screenBounds.width)
 
         bannerImageView.autoPinEdgeToSuperviewEdge(.Top, withInset: 16)
-        bannerImageView.autoPinEdgeToSuperviewEdge(.Left)
+        bannerImageView.autoPinEdgeToSuperviewMargin(.Left)
         bannerImageView.autoPinEdgeToSuperviewEdge(.Right)
 
         welcomeTextLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: bannerImageView)

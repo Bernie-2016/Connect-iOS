@@ -90,7 +90,7 @@ class WelcomeControllerSpec: QuickSpec {
                 }
                 
                 it("has the correct image in the banner image view") {
-                    expect(self.subject.bannerImageView.image).to(equal(UIImage(named: "newsHeadlinePlaceholder")))
+                    expect(self.subject.bannerImageView.image).to(equal(UIImage(named: "welcomeBanner")))
                 }
                 
                 it("has a label with some welcome text") {
