@@ -1,6 +1,6 @@
 import Foundation
 
-public class ConcreteTermsAndConditionsAgreementRepository: TermsAndConditionsAgreementRepository {
+public class ConcreteApplicationSettingsRepository: ApplicationSettingsRepository {
     private let userDefaults: NSUserDefaults
     
     private let kUserAgreedToTermsKey = "kUserAgreedToTermsKey"

@@ -21,7 +21,7 @@
 		6518CBAD1BC1C5A2000C238C /* terms_and_conditions.html in Resources */ = {isa = PBXBuildFile; fileRef = 6518CBAC1BC1C5A2000C238C /* terms_and_conditions.html */; };
 		6518CBAF1BC1C6B2000C238C /* TermsAndConditionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6518CBAE1BC1C6B2000C238C /* TermsAndConditionsController.swift */; };
 		6518CBB11BC1C6CE000C238C /* TermsAndConditionsControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6518CBB01BC1C6CE000C238C /* TermsAndConditionsControllerSpec.swift */; };
-		6518CBB71BC30A3B000C238C /* TermsAndConditionsAgreementRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6518CBB61BC30A3B000C238C /* TermsAndConditionsAgreementRepository.swift */; };
+		6518CBB71BC30A3B000C238C /* ApplicationSettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6518CBB61BC30A3B000C238C /* ApplicationSettingsRepository.swift */; };
 		6518CBBB1BC370A6000C238C /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 6518CBBA1BC370A6000C238C /* GTMNSString+HTML.m */; };
 		65205F301BC098B2005A55F2 /* URLAttributionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65205F2F1BC098B2005A55F2 /* URLAttributionPresenter.swift */; };
 		65205F321BC098DF005A55F2 /* FakeURLAttributionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65205F311BC098DF005A55F2 /* FakeURLAttributionPresenter.swift */; };
@@ -70,7 +70,7 @@
 		655906EE1BC45A3000D7B0BA /* WelcomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655906ED1BC45A3000D7B0BA /* WelcomeController.swift */; };
 		655906F01BC45A8900D7B0BA /* OnboardingRouterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655906EF1BC45A8900D7B0BA /* OnboardingRouterSpec.swift */; };
 		655906F21BC45F1700D7B0BA /* WelcomeControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655906F11BC45F1700D7B0BA /* WelcomeControllerSpec.swift */; };
-		655906F41BC4607100D7B0BA /* FakeTermsAndConditionsAgreementRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655906F31BC4607100D7B0BA /* FakeTermsAndConditionsAgreementRepository.swift */; };
+		655906F41BC4607100D7B0BA /* FakeApplicationSettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655906F31BC4607100D7B0BA /* FakeApplicationSettingsRepository.swift */; };
 		6559D70D1BBDC32100CBC7EE /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6559D70C1BBDC32100CBC7EE /* AnalyticsService.swift */; };
 		6559D70F1BBDC37000CBC7EE /* FakeAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6559D70E1BBDC37000CBC7EE /* FakeAnalyticsService.swift */; };
 		6559D7111BBDC5F200CBC7EE /* ConcreteAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6559D7101BBDC5F200CBC7EE /* ConcreteAnalyticsService.swift */; };
@@ -107,8 +107,8 @@
 		65B165561B9747350052EF8D /* PureLayout.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 65B1654E1B9747240052EF8D /* PureLayout.framework.dSYM */; };
 		65B165571B9747350052EF8D /* WebImage.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 65B1654F1B9747240052EF8D /* WebImage.framework.dSYM */; };
 		65B165591B9789C00052EF8D /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65B165581B9789C00052EF8D /* Entitlements.plist */; };
-		65B28E3D1BC56092006B6A65 /* ConcreteTermsAndConditionsAgreementRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B28E3C1BC56092006B6A65 /* ConcreteTermsAndConditionsAgreementRepository.swift */; };
-		65B28E3F1BC5610F006B6A65 /* ConcreteTermsAndConditionsAgreementRepositorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B28E3E1BC5610F006B6A65 /* ConcreteTermsAndConditionsAgreementRepositorySpec.swift */; };
+		65B28E3D1BC56092006B6A65 /* ConcreteApplicationSettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B28E3C1BC56092006B6A65 /* ConcreteApplicationSettingsRepository.swift */; };
+		65B28E3F1BC5610F006B6A65 /* ConcreteApplicationSettingsRepositorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B28E3E1BC5610F006B6A65 /* ConcreteApplicationSettingsRepositorySpec.swift */; };
 		65B70F9A1BA7BBD5007BF72C /* dodgy_news_feed.json in Resources */ = {isa = PBXBuildFile; fileRef = 65B70F991BA7BBD5007BF72C /* dodgy_news_feed.json */; };
 		65C426121BBA0B7700595E1B /* ConcreteURLProviderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C426111BBA0B7700595E1B /* ConcreteURLProviderSpec.swift */; };
 		65C658A01BC085F9001AD5CA /* AboutControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C6589F1BC085F9001AD5CA /* AboutControllerSpec.swift */; };
@@ -212,7 +212,7 @@
 		6518CBAC1BC1C5A2000C238C /* terms_and_conditions.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = terms_and_conditions.html; sourceTree = "<group>"; };
 		6518CBAE1BC1C6B2000C238C /* TermsAndConditionsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsController.swift; sourceTree = "<group>"; };
 		6518CBB01BC1C6CE000C238C /* TermsAndConditionsControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsControllerSpec.swift; sourceTree = "<group>"; };
-		6518CBB61BC30A3B000C238C /* TermsAndConditionsAgreementRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsAgreementRepository.swift; sourceTree = "<group>"; };
+		6518CBB61BC30A3B000C238C /* ApplicationSettingsRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationSettingsRepository.swift; sourceTree = "<group>"; };
 		6518CBB81BC370A5000C238C /* berniesanders-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "berniesanders-Bridging-Header.h"; sourceTree = "<group>"; };
 		6518CBB91BC370A6000C238C /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
 		6518CBBA1BC370A6000C238C /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
@@ -264,7 +264,7 @@
 		655906ED1BC45A3000D7B0BA /* WelcomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeController.swift; sourceTree = "<group>"; };
 		655906EF1BC45A8900D7B0BA /* OnboardingRouterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingRouterSpec.swift; sourceTree = "<group>"; };
 		655906F11BC45F1700D7B0BA /* WelcomeControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeControllerSpec.swift; sourceTree = "<group>"; };
-		655906F31BC4607100D7B0BA /* FakeTermsAndConditionsAgreementRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeTermsAndConditionsAgreementRepository.swift; sourceTree = "<group>"; };
+		655906F31BC4607100D7B0BA /* FakeApplicationSettingsRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeApplicationSettingsRepository.swift; sourceTree = "<group>"; };
 		6559D70C1BBDC32100CBC7EE /* AnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		6559D70E1BBDC37000CBC7EE /* FakeAnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeAnalyticsService.swift; sourceTree = "<group>"; };
 		6559D7101BBDC5F200CBC7EE /* ConcreteAnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteAnalyticsService.swift; sourceTree = "<group>"; };
@@ -302,8 +302,8 @@
 		65B1654E1B9747240052EF8D /* PureLayout.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = PureLayout.framework.dSYM; path = Carthage/Build/iOS/PureLayout.framework.dSYM; sourceTree = "<group>"; };
 		65B1654F1B9747240052EF8D /* WebImage.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = WebImage.framework.dSYM; path = Carthage/Build/iOS/WebImage.framework.dSYM; sourceTree = "<group>"; };
 		65B165581B9789C00052EF8D /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
-		65B28E3C1BC56092006B6A65 /* ConcreteTermsAndConditionsAgreementRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteTermsAndConditionsAgreementRepository.swift; sourceTree = "<group>"; };
-		65B28E3E1BC5610F006B6A65 /* ConcreteTermsAndConditionsAgreementRepositorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteTermsAndConditionsAgreementRepositorySpec.swift; sourceTree = "<group>"; };
+		65B28E3C1BC56092006B6A65 /* ConcreteApplicationSettingsRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteApplicationSettingsRepository.swift; sourceTree = "<group>"; };
+		65B28E3E1BC5610F006B6A65 /* ConcreteApplicationSettingsRepositorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteApplicationSettingsRepositorySpec.swift; sourceTree = "<group>"; };
 		65B70F991BA7BBD5007BF72C /* dodgy_news_feed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dodgy_news_feed.json; sourceTree = "<group>"; };
 		65C426111BBA0B7700595E1B /* ConcreteURLProviderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteURLProviderSpec.swift; sourceTree = "<group>"; };
 		65C6589F1BC085F9001AD5CA /* AboutControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutControllerSpec.swift; sourceTree = "<group>"; };
@@ -394,11 +394,11 @@
 		650763161B8B6FF800BA0659 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				65B28E3E1BC5610F006B6A65 /* ConcreteApplicationSettingsRepositorySpec.swift */,
 				654773FE1BB23FAE00B87670 /* ConcreteEventRepositorySpec.swift */,
 				65AD23AC1B963E2700C32A02 /* ConcreteImageRepositorySpec.swift */,
 				650763171B8B705400BA0659 /* ConcreteIssueRepositorySpec.swift */,
 				65EDD6281B8BC73C00F545B8 /* ConcreteNewsItemRepositorySpec.swift */,
-				65B28E3E1BC5610F006B6A65 /* ConcreteTermsAndConditionsAgreementRepositorySpec.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -631,11 +631,11 @@
 		65CA5E891B86CB350001D870 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				6518CBB61BC30A3B000C238C /* ApplicationSettingsRepository.swift */,
 				655AF0C31BB095BA00F0448E /* EventRepository.swift */,
 				659F0E1B1B95EC0B0049FA12 /* ImageRepository.swift */,
 				6587FF571B8A7E1000AC65F1 /* IssueRepository.swift */,
 				65EC4CF71B866B9200DD4C83 /* NewsItemRepository.swift */,
-				6518CBB61BC30A3B000C238C /* TermsAndConditionsAgreementRepository.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -680,11 +680,11 @@
 			isa = PBXGroup;
 			children = (
 				65CA5E891B86CB350001D870 /* Protocols */,
+				65B28E3C1BC56092006B6A65 /* ConcreteApplicationSettingsRepository.swift */,
 				655AF0C71BB0981800F0448E /* ConcreteEventRepository.swift */,
 				659F0E1D1B95EC780049FA12 /* ConcreteImageRepository.swift */,
 				6587FF5B1B8A7FA500AC65F1 /* ConcreteIssueRepository.swift */,
 				65CA5E8B1B86CB6B0001D870 /* ConcreteNewsItemRepository.swift */,
-				65B28E3C1BC56092006B6A65 /* ConcreteTermsAndConditionsAgreementRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -741,6 +741,7 @@
 			isa = PBXGroup;
 			children = (
 				6559D70E1BBDC37000CBC7EE /* FakeAnalyticsService.swift */,
+				655906F31BC4607100D7B0BA /* FakeApplicationSettingsRepository.swift */,
 				65EA2F281BB9B648001D8FD5 /* FakeDateFormatter.swift */,
 				65A337001BB88FFA0012877F /* FakeEventPresenter.swift */,
 				65D0ECE61BBAD9940063B1D0 /* FakeEventRSVPControllerProvider.swift */,
@@ -750,7 +751,6 @@
 				6538851B1B90F80000DCA808 /* FakeNSURLSessionDataTask.swift */,
 				659A12021B8BA5CF00BE08F4 /* FakeOperationQueue.swift */,
 				65D8ADC21BC1B83E005CD5FD /* FakeStringContentSanitizer.swift */,
-				655906F31BC4607100D7B0BA /* FakeTermsAndConditionsAgreementRepository.swift */,
 				65F5F6561B8967AD0049353C /* FakeTheme.swift */,
 				65205F311BC098DF005A55F2 /* FakeURLAttributionPresenter.swift */,
 				6505C9521BB9FF3F008DD278 /* FakeURLOpener.swift */,
@@ -1024,7 +1024,9 @@
 				65C658A21BC088FF001AD5CA /* AboutController.swift in Sources */,
 				6559D70D1BBDC32100CBC7EE /* AnalyticsService.swift in Sources */,
 				8233FC0D1B7C28FB00A5E9ED /* AppDelegate.swift in Sources */,
+				6518CBB71BC30A3B000C238C /* ApplicationSettingsRepository.swift in Sources */,
 				6559D7111BBDC5F200CBC7EE /* ConcreteAnalyticsService.swift in Sources */,
+				65B28E3D1BC56092006B6A65 /* ConcreteApplicationSettingsRepository.swift in Sources */,
 				654AD3571BB8787000A59966 /* ConcreteEventControllerProvider.swift in Sources */,
 				654774051BB241D900B87670 /* ConcreteEventDeserializer.swift in Sources */,
 				655AF0C81BB0981800F0448E /* ConcreteEventRepository.swift in Sources */,
@@ -1038,7 +1040,6 @@
 				65EDD62F1B8BCA1C00F545B8 /* ConcreteNewsItemDeserializer.swift in Sources */,
 				65CA5E8C1B86CB6B0001D870 /* ConcreteNewsItemRepository.swift in Sources */,
 				654FDBC11BC19F4C00A082CF /* ConcreteStringContentSanitizer.swift in Sources */,
-				65B28E3D1BC56092006B6A65 /* ConcreteTermsAndConditionsAgreementRepository.swift in Sources */,
 				65205F341BC09A3D005A55F2 /* ConcreteURLAttributionPresenter.swift in Sources */,
 				650763241B8B768300BA0659 /* ConcreteURLProvider.swift in Sources */,
 				65CA5E931B86E4A00001D870 /* DefaultTheme.swift in Sources */,
@@ -1083,7 +1084,6 @@
 				65CA5E881B86CABB0001D870 /* SpecAppDelegate.swift in Sources */,
 				654FDBBF1BC19F4100A082CF /* StringContentSanitizer.swift in Sources */,
 				65F5F65D1B896FFF0049353C /* TabBarController.swift in Sources */,
-				6518CBB71BC30A3B000C238C /* TermsAndConditionsAgreementRepository.swift in Sources */,
 				6518CBAF1BC1C6B2000C238C /* TermsAndConditionsController.swift in Sources */,
 				65CA5E911B86E3D00001D870 /* Theme.swift in Sources */,
 				65CA5E971B86E5950001D870 /* TitleSubTitleTableViewCell.swift in Sources */,
@@ -1100,6 +1100,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				65C658A01BC085F9001AD5CA /* AboutControllerSpec.swift in Sources */,
+				65B28E3F1BC5610F006B6A65 /* ConcreteApplicationSettingsRepositorySpec.swift in Sources */,
 				6581F7BD1BB87E7700B26B76 /* ConcreteEventControllerProviderSpec.swift in Sources */,
 				65384D111BB2EDBF0057F6FF /* ConcreteEventDeserializerSpec.swift in Sources */,
 				654773FF1BB23FAE00B87670 /* ConcreteEventRepositorySpec.swift in Sources */,
@@ -1113,7 +1114,6 @@
 				65EDD6311B8BCACB00F545B8 /* ConcreteNewsItemDeserializerSpec.swift in Sources */,
 				65EDD6291B8BC73C00F545B8 /* ConcreteNewsItemRepositorySpec.swift in Sources */,
 				654FDBC31BC19F9D00A082CF /* ConcreteStringContentSanitizerSpec.swift in Sources */,
-				65B28E3F1BC5610F006B6A65 /* ConcreteTermsAndConditionsAgreementRepositorySpec.swift in Sources */,
 				65ED413F1BC09C6A0092C07D /* ConcreteURLAttributionPresenterSpec.swift in Sources */,
 				65C426121BBA0B7700595E1B /* ConcreteURLProviderSpec.swift in Sources */,
 				65E4A4FE1BC6F6830027501D /* DonateControllerSpec.swift in Sources */,
@@ -1122,6 +1122,7 @@
 				65D0ECE91BBB8C360063B1D0 /* EventRSVPControllerSpec.swift in Sources */,
 				65F112EE1B9FFE8700BA585C /* EventsControllerSpec.swift in Sources */,
 				6559D70F1BBDC37000CBC7EE /* FakeAnalyticsService.swift in Sources */,
+				655906F41BC4607100D7B0BA /* FakeApplicationSettingsRepository.swift in Sources */,
 				65EA2F291BB9B648001D8FD5 /* FakeDateFormatter.swift in Sources */,
 				65A337011BB88FFA0012877F /* FakeEventPresenter.swift in Sources */,
 				65D0ECE71BBAD9940063B1D0 /* FakeEventRSVPControllerProvider.swift in Sources */,
@@ -1131,7 +1132,6 @@
 				6538851C1B90F80000DCA808 /* FakeNSURLSessionDataTask.swift in Sources */,
 				659A12031B8BA5CF00BE08F4 /* FakeOperationQueue.swift in Sources */,
 				65D8ADC31BC1B83E005CD5FD /* FakeStringContentSanitizer.swift in Sources */,
-				655906F41BC4607100D7B0BA /* FakeTermsAndConditionsAgreementRepository.swift in Sources */,
 				65F5F6571B8967AD0049353C /* FakeTheme.swift in Sources */,
 				65205F321BC098DF005A55F2 /* FakeURLAttributionPresenter.swift in Sources */,
 				6505C9531BB9FF3F008DD278 /* FakeURLOpener.swift in Sources */,

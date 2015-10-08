@@ -19,7 +19,7 @@ class FakeOnboardingRouter: OnboardingRouter {
     
     init() {
         super.init(
-            termsAndConditionsAgreementRepository: FakeTermsAndConditionsAgreementRepository(),
+            applicationSettingsRepository: FakeApplicationSettingsRepository(),
             onboardingController: UIViewController(),
             postOnboardingController: UIViewController()
         )
@@ -34,7 +34,7 @@ class FakeOnboardingRouter: OnboardingRouter {
 class WelcomeControllerSpec: QuickSpec {
     var subject: WelcomeController!
     var onboardingRouter: FakeOnboardingRouter!
-    var termsAndConditionsAgreementRepository: FakeTermsAndConditionsAgreementRepository!
+    var applicationSettingsRepository: FakeApplicationSettingsRepository!
     let termsAndConditionsController = TestUtils.termsAndConditionsController()
     let privacyPolicyController = TestUtils.privacyPolicyController()
     var analyticsService: FakeAnalyticsService!
@@ -45,12 +45,12 @@ class WelcomeControllerSpec: QuickSpec {
     override func spec() {
         describe("WelcomeController") {
             beforeEach {
-                self.termsAndConditionsAgreementRepository = FakeTermsAndConditionsAgreementRepository()
+                self.applicationSettingsRepository = FakeApplicationSettingsRepository()
                 self.analyticsService = FakeAnalyticsService()
                 self.onboardingRouter = FakeOnboardingRouter()
                 
                 self.subject = WelcomeController(
-                    termsAndConditionsAgreementRepository: self.termsAndConditionsAgreementRepository,
+                    applicationSettingsRepository: self.applicationSettingsRepository,
                     termsAndConditionsController: self.termsAndConditionsController,
                     privacyPolicyController: self.privacyPolicyController,
                     analyticsService: self.analyticsService,
@@ -152,7 +152,7 @@ class WelcomeControllerSpec: QuickSpec {
                     }
                     
                     it("opens tells the terms agreement repository that the user agreed to terms") {
-                        expect(self.termsAndConditionsAgreementRepository.hasAgreedToTerms).to(beTrue())
+                        expect(self.applicationSettingsRepository.hasAgreedToTerms).to(beTrue())
                     }
                     
                     it("logs that the user tapped the coders button") {

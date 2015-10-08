@@ -4,16 +4,16 @@ import Nimble
 import berniesanders
 
 
-class ConcreteTermsAndConditionsAgreementRepositorySpec: QuickSpec {
-    var subject: ConcreteTermsAndConditionsAgreementRepository!
+class ConcreteApplicationSettingsRepositorySpec: QuickSpec {
+    var subject: ConcreteApplicationSettingsRepository!
     var userDefaults: NSUserDefaults!
     
     override func spec() {
-        describe("ConcreteTermsAndConditionsAgreementRepository") {
+        describe("ConcreteApplicationSettingsRepository") {
             beforeEach {
                 self.userDefaults = NSUserDefaults()
                 
-                self.subject = ConcreteTermsAndConditionsAgreementRepository(userDefaults: self.userDefaults)
+                self.subject = ConcreteApplicationSettingsRepository(userDefaults: self.userDefaults)
             }
             
             afterEach {

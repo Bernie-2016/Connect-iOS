@@ -1,7 +1,7 @@
 import Foundation
 import berniesanders
 
-class FakeTermsAndConditionsAgreementRepository: TermsAndConditionsAgreementRepository {
+class FakeApplicationSettingsRepository: ApplicationSettingsRepository {
     var hasReceivedQueryForTermsAgreement = false
     var lastCompletionHandler: ((Bool) -> Void)!
     

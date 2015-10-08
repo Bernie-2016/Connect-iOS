@@ -4,7 +4,7 @@ public class WelcomeController: UIViewController {
     private let analyticsService: AnalyticsService
     private let termsAndConditionsController: TermsAndConditionsController
     private let privacyPolicyController: PrivacyPolicyController
-    private let termsAndConditionsAgreementRepository: TermsAndConditionsAgreementRepository
+    private let applicationSettingsRepository: ApplicationSettingsRepository
     private let theme: Theme
     
     public var onboardingRouter: OnboardingRouter!
@@ -19,13 +19,13 @@ public class WelcomeController: UIViewController {
     public let agreeToTermsButton = UIButton.newAutoLayoutView()
     
     public init(
-        termsAndConditionsAgreementRepository: TermsAndConditionsAgreementRepository,
+        applicationSettingsRepository: ApplicationSettingsRepository,
         termsAndConditionsController: TermsAndConditionsController,
         privacyPolicyController: PrivacyPolicyController,
         analyticsService: AnalyticsService,
         theme: Theme) {
 
-        self.termsAndConditionsAgreementRepository = termsAndConditionsAgreementRepository
+        self.applicationSettingsRepository = applicationSettingsRepository
         self.termsAndConditionsController = termsAndConditionsController
         self.privacyPolicyController = privacyPolicyController
         self.analyticsService = analyticsService
@@ -83,7 +83,7 @@ public class WelcomeController: UIViewController {
     
     func didTapAgreeToTerms() {
         self.analyticsService.trackCustomEventWithName("User agreed to Terms and Conditions", customAttributes: nil)
-        self.termsAndConditionsAgreementRepository.userAgreedToTerms { () -> Void in
+        self.applicationSettingsRepository.userAgreedToTerms { () -> Void in
             self.onboardingRouter.controllerDidFinishOnboarding(self)
         }
     }

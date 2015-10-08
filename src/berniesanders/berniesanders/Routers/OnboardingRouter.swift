@@ -1,21 +1,21 @@
 import UIKit
 
 public class OnboardingRouter {
-    let termsAndConditionsAgreementRepository: TermsAndConditionsAgreementRepository!
+    let applicationSettingsRepository: ApplicationSettingsRepository!
     let onboardingController: UIViewController!
     let postOnboardingController: UIViewController!
     
     public init(
-        termsAndConditionsAgreementRepository: TermsAndConditionsAgreementRepository,
+        applicationSettingsRepository: ApplicationSettingsRepository,
         onboardingController: UIViewController,
         postOnboardingController: UIViewController) {
-            self.termsAndConditionsAgreementRepository = termsAndConditionsAgreementRepository
+            self.applicationSettingsRepository = applicationSettingsRepository
             self.onboardingController = onboardingController
             self.postOnboardingController = postOnboardingController
     }
     
     public func initialViewController(completion: (UIViewController) -> Void) {
-        termsAndConditionsAgreementRepository.termsAndConditionsAgreed { (termsHaveBeenAgreed) -> Void in
+        applicationSettingsRepository.termsAndConditionsAgreed { (termsHaveBeenAgreed) -> Void in
             completion(termsHaveBeenAgreed ? self.postOnboardingController : self.onboardingController)
         }
     }

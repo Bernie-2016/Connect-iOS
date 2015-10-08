@@ -140,10 +140,10 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             ]
             let tabBarController = TabBarController(viewControllers: tabBarViewControllers, analyticsService: analyticsService, theme: defaultTheme)
             
-            let termsAndConditionsAgreementRepository = ConcreteTermsAndConditionsAgreementRepository(
+            let applicationSettingsRepository = ConcreteApplicationSettingsRepository(
                 userDefaults: NSUserDefaults.standardUserDefaults())
             let welcomeController = WelcomeController(
-                termsAndConditionsAgreementRepository: termsAndConditionsAgreementRepository,
+                applicationSettingsRepository: applicationSettingsRepository,
                 termsAndConditionsController: termsAndConditionsController,
                 privacyPolicyController: privacyPolicyController,
                 analyticsService: analyticsService,
@@ -152,7 +152,7 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             welcomeNavigationController.pushViewController(welcomeController, animated: false)
             
             let onboardingRouter = OnboardingRouter(
-                termsAndConditionsAgreementRepository: termsAndConditionsAgreementRepository,
+                applicationSettingsRepository: applicationSettingsRepository,
                 onboardingController: welcomeNavigationController,
                 postOnboardingController: tabBarController)
             

@@ -6,17 +6,17 @@ import berniesanders
 
 class OnboardingRouterSpec: QuickSpec {
     var subject: OnboardingRouter!
-    var termsAndConditionsAgreementRepository: FakeTermsAndConditionsAgreementRepository!
+    var applicationSettingsRepository: FakeApplicationSettingsRepository!
     let onboardingController = UIViewController()
     let postOnboardingController = UIViewController()
     
     override func spec() {
         describe("OnboardingRouter") {
             beforeEach {
-                self.termsAndConditionsAgreementRepository = FakeTermsAndConditionsAgreementRepository()
+                self.applicationSettingsRepository = FakeApplicationSettingsRepository()
                 
                 self.subject = OnboardingRouter(
-                    termsAndConditionsAgreementRepository: self.termsAndConditionsAgreementRepository,
+                    applicationSettingsRepository: self.applicationSettingsRepository,
                     onboardingController: self.onboardingController,
                     postOnboardingController: self.postOnboardingController)
             }
@@ -30,12 +30,12 @@ class OnboardingRouterSpec: QuickSpec {
                 }
                 
                 it("should ask the repository for if the terms and conditions have been agreed to") {
-                    expect(self.termsAndConditionsAgreementRepository.hasReceivedQueryForTermsAgreement).to(beTrue())
+                    expect(self.applicationSettingsRepository.hasReceivedQueryForTermsAgreement).to(beTrue())
                 }
                 
                 context("when the user has not agreed to the terms and conditions") {
                     beforeEach {
-                        self.termsAndConditionsAgreementRepository.lastCompletionHandler(false)
+                        self.applicationSettingsRepository.lastCompletionHandler(false)
                     }
                     
                     it("returns the welcome view controller") {
@@ -45,7 +45,7 @@ class OnboardingRouterSpec: QuickSpec {
                 
                 context("when the user has agreed to the terms and conditions") {
                     beforeEach {
-                        self.termsAndConditionsAgreementRepository.lastCompletionHandler(true)
+                        self.applicationSettingsRepository.lastCompletionHandler(true)
                     }
                     
                     it("returns the post-onboarding view controller") {
