@@ -42,4 +42,8 @@ class FakeURLProvider : berniesanders.URLProvider {
     func sandersForPresidentURL() -> NSURL! {
         fatalError("override me in spec!")
     }
+
+    func donateFormURL() -> NSURL! {
+        fatalError("override me in spec!")
+    }
 }

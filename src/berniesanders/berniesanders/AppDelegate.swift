@@ -44,11 +44,12 @@ public class AppDelegate: UIResponder, UIApplicationDelegate {
             
             let aboutController = AboutController(analyticsService: analyticsService, urlOpener: urlOpener, urlProvider: urlProvider, theme: defaultTheme)
             let feedbackController = FeedbackController(urlProvider: urlProvider, analyticsService: analyticsService)
+            let donateController = DonateController(urlProvider: urlProvider, analyticsService: analyticsService)
             let privacyPolicyController = PrivacyPolicyController(urlProvider: urlProvider, analyticsService: analyticsService)
             let flossController = FLOSSController(analyticsService: analyticsService)
             let termsAndConditionsController = TermsAndConditionsController(analyticsService: analyticsService)
             let settingsController = SettingsController(
-                tappableControllers: [aboutController, feedbackController, termsAndConditionsController, privacyPolicyController, flossController],
+                tappableControllers: [aboutController, feedbackController, termsAndConditionsController, privacyPolicyController, flossController, donateController],
                 analyticsService: analyticsService,
                 theme: defaultTheme)
             
