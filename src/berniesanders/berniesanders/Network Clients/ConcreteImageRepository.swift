@@ -2,8 +2,8 @@ import Foundation
 import KSDeferred
 import WebImage
 
-public class ConcreteImageRepository : ImageRepository {
-    var webImageManager : SDWebImageManager!
+public class ConcreteImageRepository: ImageRepository {
+    var webImageManager: SDWebImageManager
 
     public init(webImageManager: SDWebImageManager) {
         self.webImageManager = webImageManager

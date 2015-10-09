@@ -1,8 +1,8 @@
 import UIKit
 import PureLayout
 
-public class FLOSSController : UIViewController {
-    let analyticsService: AnalyticsService!
+public class FLOSSController: UIViewController {
+    let analyticsService: AnalyticsService
     public let webView = UIWebView()
     
     public init(analyticsService: AnalyticsService) {

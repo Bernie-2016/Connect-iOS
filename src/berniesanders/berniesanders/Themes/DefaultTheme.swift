@@ -1,7 +1,7 @@
 import UIKit
 
 
-class DefaultTheme : Theme {
+class DefaultTheme: Theme {
     
     // MARK: Global
     

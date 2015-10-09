@@ -2,7 +2,7 @@ import UIKit
 import PureLayout
 
 
-public class IssueTableViewCell : UITableViewCell {
+public class IssueTableViewCell: UITableViewCell {
     public let titleLabel: UILabel
     
     required public init(coder aDecoder: NSCoder) {

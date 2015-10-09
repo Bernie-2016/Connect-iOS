@@ -2,7 +2,7 @@ import UIKit
 import PureLayout
 
 
-public class TitleSubTitleTableViewCell : UITableViewCell {
+public class TitleSubTitleTableViewCell: UITableViewCell {
     public let titleLabel: UILabel
     public let dateLabel: UILabel
     

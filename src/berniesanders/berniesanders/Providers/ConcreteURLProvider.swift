@@ -1,7 +1,7 @@
 import Foundation
 import CoreLocation
 
-public class ConcreteURLProvider : URLProvider {
+public class ConcreteURLProvider: URLProvider {
     public init() {}
     
     public func issuesFeedURL() -> NSURL! {

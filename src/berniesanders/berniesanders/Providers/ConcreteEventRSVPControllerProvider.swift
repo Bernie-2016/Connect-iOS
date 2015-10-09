@@ -1,8 +1,8 @@
 import Foundation
 
-public class ConcreteEventRSVPControllerProvider : EventRSVPControllerProvider {
-    let analyticsService: AnalyticsService!
-    let theme: Theme!
+public class ConcreteEventRSVPControllerProvider: EventRSVPControllerProvider {
+    let analyticsService: AnalyticsService
+    let theme: Theme
     
     public init(analyticsService: AnalyticsService, theme: Theme) {
         self.analyticsService = analyticsService

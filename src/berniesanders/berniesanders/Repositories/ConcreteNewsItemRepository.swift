@@ -1,10 +1,10 @@
 import Foundation
 
-public class ConcreteNewsItemRepository : NewsItemRepository {
-    private let urlProvider: URLProvider!
-    private let jsonClient: JSONClient!
-    private let newsItemDeserializer: NewsItemDeserializer!
-    private let operationQueue: NSOperationQueue!
+public class ConcreteNewsItemRepository: NewsItemRepository {
+    private let urlProvider: URLProvider
+    private let jsonClient: JSONClient
+    private let newsItemDeserializer: NewsItemDeserializer
+    private let operationQueue: NSOperationQueue
     
     public init(
         urlProvider: URLProvider,

@@ -1,8 +1,8 @@
 import UIKit
 
-public class TabBarController : UITabBarController, UITabBarControllerDelegate {
-    let theme : Theme!
-    let analyticsService : AnalyticsService!
+public class TabBarController: UITabBarController, UITabBarControllerDelegate {
+    let theme : Theme
+    let analyticsService : AnalyticsService
     
     public init(viewControllers: Array<UIViewController>, analyticsService: AnalyticsService, theme: Theme) {
         self.analyticsService = analyticsService

@@ -2,7 +2,7 @@ import UIKit
 import PureLayout
 
 
-public class NewsHeadlineTableViewCell : UITableViewCell {
+public class NewsHeadlineTableViewCell: UITableViewCell {
     public let titleLabel: UILabel
     public let headlineImageView: UIImageView
     

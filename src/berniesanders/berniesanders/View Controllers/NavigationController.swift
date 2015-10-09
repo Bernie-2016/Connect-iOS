@@ -1,7 +1,7 @@
 import UIKit
 
-public class NavigationController : UINavigationController {
-    private let theme : Theme
+public class NavigationController: UINavigationController {
+    private let theme: Theme
     
     public init(theme: Theme) {
         self.theme = theme

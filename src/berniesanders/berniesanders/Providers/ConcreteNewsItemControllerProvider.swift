@@ -1,13 +1,13 @@
 import Foundation
 import WebImage
 
-public class ConcreteNewsItemControllerProvider : NewsItemControllerProvider {
-    var dateFormatter : NSDateFormatter!
-    var imageRepository : ImageRepository!
-    var analyticsService: AnalyticsService!
-    let urlOpener: URLOpener!
-    let urlAttributionPresenter: URLAttributionPresenter!
-    var theme : Theme!
+public class ConcreteNewsItemControllerProvider: NewsItemControllerProvider {
+    var dateFormatter : NSDateFormatter
+    var imageRepository : ImageRepository
+    var analyticsService: AnalyticsService
+    let urlOpener: URLOpener
+    let urlAttributionPresenter: URLAttributionPresenter
+    var theme: Theme
 
     public init(dateFormatter: NSDateFormatter, imageRepository: ImageRepository, analyticsService: AnalyticsService, urlOpener: URLOpener, urlAttributionPresenter: URLAttributionPresenter, theme: Theme) {
         self.dateFormatter = dateFormatter

@@ -1,9 +1,9 @@
 import UIKit
 import PureLayout
 
-public class PrivacyPolicyController : UIViewController {
-    let urlProvider : URLProvider!
-    let analyticsService: AnalyticsService!
+public class PrivacyPolicyController: UIViewController {
+    let urlProvider : URLProvider
+    let analyticsService: AnalyticsService
     
     public let webView = UIWebView()
     

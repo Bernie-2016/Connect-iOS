@@ -1,7 +1,7 @@
 import Foundation
 import KSDeferred
 
-public class ConcreteJSONClient : JSONClient {
+public class ConcreteJSONClient: JSONClient {
     public struct Error {
         public static let BadResponse = "BadResponse"
     }

@@ -1,12 +1,12 @@
 import UIKit
 
-public class ConcreteEventControllerProvider : EventControllerProvider {
-    let eventPresenter: EventPresenter!
-    let eventRSVPControllerProvider: EventRSVPControllerProvider!
-    let urlProvider: URLProvider!
-    let urlOpener: URLOpener!
-    let analyticsService: AnalyticsService!
-    let theme : Theme!
+public class ConcreteEventControllerProvider: EventControllerProvider {
+    let eventPresenter: EventPresenter
+    let eventRSVPControllerProvider: EventRSVPControllerProvider
+    let urlProvider: URLProvider
+    let urlOpener: URLOpener
+    let analyticsService: AnalyticsService
+    let theme: Theme
     
     public init(eventPresenter: EventPresenter, eventRSVPControllerProvider: EventRSVPControllerProvider, urlProvider: URLProvider, urlOpener: URLOpener, analyticsService: AnalyticsService, theme: Theme) {
         self.eventPresenter = eventPresenter

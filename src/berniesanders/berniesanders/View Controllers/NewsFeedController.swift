@@ -2,13 +2,13 @@ import UIKit
 
 
 public class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    let newsItemRepository: NewsItemRepository!
-    let imageRepository: ImageRepository!
-    let dateFormatter: NSDateFormatter!
-    let newsItemControllerProvider: NewsItemControllerProvider!
-    let settingsController: SettingsController!
-    let analyticsService: AnalyticsService!
-    let theme: Theme!
+    let newsItemRepository: NewsItemRepository
+    let imageRepository: ImageRepository
+    let dateFormatter: NSDateFormatter
+    let newsItemControllerProvider: NewsItemControllerProvider
+    let settingsController: SettingsController
+    let analyticsService: AnalyticsService
+    let theme: Theme
     
     public let tableView = UITableView.newAutoLayoutView()
     public let loadingIndicatorView = UIActivityIndicatorView.newAutoLayoutView()

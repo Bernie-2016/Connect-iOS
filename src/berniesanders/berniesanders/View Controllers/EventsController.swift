@@ -2,13 +2,13 @@ import UIKit
 import PureLayout
 import QuartzCore
 
-public class EventsController : UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
-    public let eventRepository: EventRepository!
-    public let eventPresenter: EventPresenter!
-    public let settingsController: SettingsController!
+public class EventsController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
+    public let eventRepository: EventRepository
+    public let eventPresenter: EventPresenter
+    public let settingsController: SettingsController
     let eventControllerProvider: EventControllerProvider
-    let analyticsService: AnalyticsService!
-    public let theme: Theme!
+    let analyticsService: AnalyticsService
+    public let theme: Theme
     
     public let zipCodeTextField = UITextField.newAutoLayoutView()
     public let resultsTableView = UITableView.newAutoLayoutView()

@@ -1,14 +1,14 @@
 import UIKit
 import PureLayout
 
-public class NewsItemController : UIViewController {
-    public let newsItem : NewsItem!
-    public let imageRepository : ImageRepository!
-    public let dateFormatter : NSDateFormatter!
-    public let analyticsService: AnalyticsService!
-    public let urlOpener: URLOpener!
-    public let urlAttributionPresenter: URLAttributionPresenter!
-    public let theme : Theme!
+public class NewsItemController: UIViewController {
+    public let newsItem: NewsItem
+    public let imageRepository: ImageRepository
+    public let dateFormatter: NSDateFormatter
+    public let analyticsService: AnalyticsService
+    public let urlOpener: URLOpener
+    public let urlAttributionPresenter: URLAttributionPresenter
+    public let theme: Theme
     
     let containerView = UIView.newAutoLayoutView()
     let scrollView = UIScrollView.newAutoLayoutView()

@@ -1,10 +1,8 @@
 import Foundation
 import CoreLocation
 
-public class ConcreteEventDeserializer : EventDeserializer {
-    public init() {
-        
-    }
+public class ConcreteEventDeserializer: EventDeserializer {
+    public init() {}
     
     public func deserializeEvents(jsonDictionary: NSDictionary) -> Array<Event> {
         let dateFormatter = NSDateFormatter()

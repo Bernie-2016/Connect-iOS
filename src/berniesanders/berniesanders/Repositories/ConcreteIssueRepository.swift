@@ -1,10 +1,10 @@
 import Foundation
 
-public class ConcreteIssueRepository : IssueRepository {
-    let urlProvider: URLProvider!
-    let jsonClient: JSONClient!
-    let issueDeserializer: IssueDeserializer!
-    let operationQueue: NSOperationQueue!
+public class ConcreteIssueRepository: IssueRepository {
+    let urlProvider: URLProvider
+    let jsonClient: JSONClient
+    let issueDeserializer: IssueDeserializer
+    let operationQueue: NSOperationQueue
     
     public init(
         urlProvider: URLProvider,

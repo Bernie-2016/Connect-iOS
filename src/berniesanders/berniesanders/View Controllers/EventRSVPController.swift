@@ -1,9 +1,9 @@
 import UIKit
 
-public class EventRSVPController : UIViewController, UIWebViewDelegate {
-    public let event: Event!
-    public let analyticsService: AnalyticsService!
-    public let theme: Theme!    
+public class EventRSVPController: UIViewController, UIWebViewDelegate {
+    public let event: Event
+    public let analyticsService: AnalyticsService
+    public let theme: Theme
     
     public let webView = UIWebView()
     public let loadingIndicatorView = UIActivityIndicatorView.newAutoLayoutView()

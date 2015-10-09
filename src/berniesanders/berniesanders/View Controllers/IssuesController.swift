@@ -1,11 +1,11 @@
 import UIKit
 
 public class IssuesController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    let issueRepository: IssueRepository!
-    let issueControllerProvider: IssueControllerProvider!
-    let settingsController : SettingsController!
-    let analyticsService : AnalyticsService!
-    let theme: Theme!
+    let issueRepository: IssueRepository
+    let issueControllerProvider: IssueControllerProvider
+    let settingsController: SettingsController
+    let analyticsService: AnalyticsService
+    let theme: Theme
     
     public let tableView = UITableView.newAutoLayoutView()
     public let loadingIndicatorView = UIActivityIndicatorView.newAutoLayoutView()

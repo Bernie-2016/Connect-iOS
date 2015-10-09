@@ -2,18 +2,18 @@ import Foundation
 import CoreLocation
 
 public class Event {
-    public let name : String!
-    public let startDate: NSDate!
-    public let timeZone: NSTimeZone!
-    public let attendeeCapacity : Int!
-    public let attendeeCount : Int!
+    public let name: String
+    public let startDate: NSDate
+    public let timeZone: NSTimeZone
+    public let attendeeCapacity: Int
+    public let attendeeCount: Int
     public let streetAddress: String?
-    public let city: String!
-    public let state: String!
-    public let zip: String!
-    public let location : CLLocation!
-    public let description: String!
-    public let URL: NSURL!
+    public let city: String
+    public let state: String
+    public let zip: String
+    public let location: CLLocation
+    public let description: String
+    public let URL: NSURL
     
     public init(name: String, startDate: NSDate, timeZone: NSTimeZone, attendeeCapacity: Int, attendeeCount: Int, streetAddress: String?, city: String, state: String, zip: String, location: CLLocation, description: String, URL: NSURL) {
         self.name = name

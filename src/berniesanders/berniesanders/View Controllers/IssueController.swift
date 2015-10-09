@@ -1,13 +1,13 @@
 import UIKit
 import PureLayout
 
-public class IssueController : UIViewController {
-    public let issue: Issue!
-    public let imageRepository: ImageRepository!
-    public let analyticsService: AnalyticsService!
-    public let urlOpener: URLOpener!
-    public let urlAttributionPresenter: URLAttributionPresenter!
-    public let theme: Theme!
+public class IssueController: UIViewController {
+    public let issue: Issue
+    public let imageRepository: ImageRepository
+    public let analyticsService: AnalyticsService
+    public let urlOpener: URLOpener
+    public let urlAttributionPresenter: URLAttributionPresenter
+    public let theme: Theme
     
     let containerView = UIView()
     let scrollView = UIScrollView()

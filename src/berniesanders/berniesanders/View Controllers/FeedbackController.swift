@@ -1,8 +1,8 @@
 import UIKit
 
 public class FeedbackController: UIViewController, UIWebViewDelegate {
-    let urlProvider : URLProvider!
-    let analyticsService: AnalyticsService!
+    let urlProvider : URLProvider
+    let analyticsService: AnalyticsService
     
     public let webView = UIWebView()
     

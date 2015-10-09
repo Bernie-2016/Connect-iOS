@@ -2,14 +2,14 @@ import UIKit
 import CoreLocation
 import MapKit
 
-public class EventController : UIViewController {
-    public let event : Event!
-    public let eventPresenter: EventPresenter!
-    public let eventRSVPControllerProvider: EventRSVPControllerProvider!
-    public let urlProvider : URLProvider!
-    public let urlOpener : URLOpener!
-    public let analyticsService: AnalyticsService!
-    public let theme : Theme!
+public class EventController: UIViewController {
+    public let event: Event
+    public let eventPresenter: EventPresenter
+    public let eventRSVPControllerProvider: EventRSVPControllerProvider
+    public let urlProvider: URLProvider
+    public let urlOpener: URLOpener
+    public let analyticsService: AnalyticsService
+    public let theme: Theme
     
     let containerView = UIView.newAutoLayoutView()
     let scrollView = UIScrollView.newAutoLayoutView()

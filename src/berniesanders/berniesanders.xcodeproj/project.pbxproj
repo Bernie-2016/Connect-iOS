@@ -65,7 +65,6 @@
 		654FDBC11BC19F4C00A082CF /* ConcreteStringContentSanitizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654FDBC01BC19F4C00A082CF /* ConcreteStringContentSanitizer.swift */; };
 		654FDBC31BC19F9D00A082CF /* ConcreteStringContentSanitizerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654FDBC21BC19F9D00A082CF /* ConcreteStringContentSanitizerSpec.swift */; };
 		655887141BA866CF0077CC56 /* NewsHeadlineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655887131BA866CF0077CC56 /* NewsHeadlineTableViewCell.swift */; };
-		655906E71BC4187300D7B0BA /* InitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655906E61BC4187300D7B0BA /* InitialController.swift */; };
 		655906EC1BC459DE00D7B0BA /* OnboardingRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655906EB1BC459DE00D7B0BA /* OnboardingRouter.swift */; };
 		655906EE1BC45A3000D7B0BA /* WelcomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655906ED1BC45A3000D7B0BA /* WelcomeController.swift */; };
 		655906F01BC45A8900D7B0BA /* OnboardingRouterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655906EF1BC45A8900D7B0BA /* OnboardingRouterSpec.swift */; };
@@ -261,7 +260,6 @@
 		654FDBC01BC19F4C00A082CF /* ConcreteStringContentSanitizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteStringContentSanitizer.swift; sourceTree = "<group>"; };
 		654FDBC21BC19F9D00A082CF /* ConcreteStringContentSanitizerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteStringContentSanitizerSpec.swift; sourceTree = "<group>"; };
 		655887131BA866CF0077CC56 /* NewsHeadlineTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsHeadlineTableViewCell.swift; sourceTree = "<group>"; };
-		655906E61BC4187300D7B0BA /* InitialController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialController.swift; sourceTree = "<group>"; };
 		655906EB1BC459DE00D7B0BA /* OnboardingRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingRouter.swift; sourceTree = "<group>"; };
 		655906ED1BC45A3000D7B0BA /* WelcomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeController.swift; sourceTree = "<group>"; };
 		655906EF1BC45A8900D7B0BA /* OnboardingRouterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingRouterSpec.swift; sourceTree = "<group>"; };
@@ -856,7 +854,6 @@
 				65F112EF1B9FFF1C00BA585C /* EventsController.swift */,
 				654FDBB41BC17D2D00A082CF /* FeedbackController.swift */,
 				655A3DB21BBCCC8700E08051 /* FLOSSController.swift */,
-				655906E61BC4187300D7B0BA /* InitialController.swift */,
 				6592FA3B1B99E33300746EC3 /* IssueController.swift */,
 				8233FC311B7C4A9600A5E9ED /* IssuesController.swift */,
 				65F5F6581B8968440049353C /* NavigationController.swift */,
@@ -1066,7 +1063,6 @@
 				655A3DB31BBCCC8700E08051 /* FLOSSController.swift in Sources */,
 				6518CBBB1BC370A6000C238C /* GTMNSString+HTML.m in Sources */,
 				659F0E1C1B95EC0B0049FA12 /* ImageRepository.swift in Sources */,
-				655906E71BC4187300D7B0BA /* InitialController.swift in Sources */,
 				6587FF5A1B8A7E3200AC65F1 /* Issue.swift in Sources */,
 				6592FA3C1B99E33300746EC3 /* IssueController.swift in Sources */,
 				6592FA3A1B99E30C00746EC3 /* IssueControllerProvider.swift in Sources */,

@@ -1,6 +1,6 @@
 import UIKit
 
-public class EventListTableViewCell : UITableViewCell {
+public class EventListTableViewCell: UITableViewCell {
     public let nameLabel = UILabel.newAutoLayoutView()
     public let addressLabel = UILabel.newAutoLayoutView()
     public let attendeesLabel = UILabel.newAutoLayoutView()

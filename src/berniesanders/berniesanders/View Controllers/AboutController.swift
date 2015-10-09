@@ -1,10 +1,10 @@
 import UIKit
 
 public class AboutController: UIViewController {
-    let analyticsService: AnalyticsService!
-    let urlOpener: URLOpener!
-    let urlProvider: URLProvider!
-    let theme: Theme!
+    let analyticsService: AnalyticsService
+    let urlOpener: URLOpener
+    let urlProvider: URLProvider
+    let theme: Theme
     
     let scrollView = UIScrollView.newAutoLayoutView()
     let containerView = UIView.newAutoLayoutView()
