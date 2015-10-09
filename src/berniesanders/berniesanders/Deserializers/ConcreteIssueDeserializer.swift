@@ -1,7 +1,7 @@
 import Foundation
 
 public class ConcreteIssueDeserializer: IssueDeserializer {
-    let stringContentSanitizer: StringContentSanitizer
+    private let stringContentSanitizer: StringContentSanitizer
     
     public init(stringContentSanitizer: StringContentSanitizer) {
         self.stringContentSanitizer = stringContentSanitizer

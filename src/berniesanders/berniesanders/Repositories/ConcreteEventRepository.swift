@@ -2,11 +2,11 @@ import Foundation
 import CoreLocation
 
 public class ConcreteEventRepository: EventRepository {
-    let geocoder: CLGeocoder
-    let urlProvider: URLProvider
-    let jsonClient: JSONClient
-    let eventDeserializer: EventDeserializer
-    let operationQueue: NSOperationQueue
+    private let geocoder: CLGeocoder
+    private let urlProvider: URLProvider
+    private let jsonClient: JSONClient
+    private let eventDeserializer: EventDeserializer
+    private let operationQueue: NSOperationQueue
     
     public init(
         geocoder: CLGeocoder,

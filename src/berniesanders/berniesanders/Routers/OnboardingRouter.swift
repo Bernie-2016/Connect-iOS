@@ -1,9 +1,9 @@
 import UIKit
 
 public class OnboardingRouter {
-    let applicationSettingsRepository: ApplicationSettingsRepository
-    let onboardingController: UIViewController
-    let postOnboardingController: UIViewController
+    private let applicationSettingsRepository: ApplicationSettingsRepository
+    private let onboardingController: UIViewController
+    private let postOnboardingController: UIViewController
     
     public init(
         applicationSettingsRepository: ApplicationSettingsRepository,

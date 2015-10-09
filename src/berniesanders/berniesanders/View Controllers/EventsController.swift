@@ -6,8 +6,8 @@ public class EventsController: UIViewController, UITableViewDataSource, UITableV
     public let eventRepository: EventRepository
     public let eventPresenter: EventPresenter
     public let settingsController: SettingsController
-    let eventControllerProvider: EventControllerProvider
-    let analyticsService: AnalyticsService
+    private let eventControllerProvider: EventControllerProvider
+    private let analyticsService: AnalyticsService
     public let theme: Theme
     
     public let zipCodeTextField = UITextField.newAutoLayoutView()

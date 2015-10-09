@@ -9,8 +9,8 @@ public class IssueController: UIViewController {
     public let urlAttributionPresenter: URLAttributionPresenter
     public let theme: Theme
     
-    let containerView = UIView()
-    let scrollView = UIScrollView()
+    private let containerView = UIView()
+    private let scrollView = UIScrollView()
     public let titleLabel = UILabel()
     public let bodyTextView = UITextView()
     public let issueImageView = UIImageView()

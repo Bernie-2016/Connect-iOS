@@ -10,8 +10,8 @@ public class NewsItemController: UIViewController {
     public let urlAttributionPresenter: URLAttributionPresenter
     public let theme: Theme
     
-    let containerView = UIView.newAutoLayoutView()
-    let scrollView = UIScrollView.newAutoLayoutView()
+    private let containerView = UIView.newAutoLayoutView()
+    private let scrollView = UIScrollView.newAutoLayoutView()
     public let dateLabel = UILabel()
     public let titleLabel = UILabel()
     public let bodyTextView = UITextView()

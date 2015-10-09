@@ -1,13 +1,13 @@
 import UIKit
 
 public class AboutController: UIViewController {
-    let analyticsService: AnalyticsService
-    let urlOpener: URLOpener
-    let urlProvider: URLProvider
-    let theme: Theme
+    private let analyticsService: AnalyticsService
+    private let urlOpener: URLOpener
+    private let urlProvider: URLProvider
+    private let theme: Theme
     
-    let scrollView = UIScrollView.newAutoLayoutView()
-    let containerView = UIView.newAutoLayoutView()
+    private let scrollView = UIScrollView.newAutoLayoutView()
+    private let containerView = UIView.newAutoLayoutView()
     
     public let logoImageView = UIImageView.newAutoLayoutView()
     public let bodyTextLabel = UILabel.newAutoLayoutView()

@@ -2,7 +2,7 @@ import UIKit
 import PureLayout
 
 public class TermsAndConditionsController: UIViewController {
-    let analyticsService: AnalyticsService
+    private let analyticsService: AnalyticsService
     public let webView = UIWebView()
     
     public init(analyticsService: AnalyticsService) {

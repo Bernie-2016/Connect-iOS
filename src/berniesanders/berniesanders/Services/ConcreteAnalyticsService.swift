@@ -5,7 +5,7 @@ import Foundation
 #endif
 
 class ConcreteAnalyticsService : AnalyticsService {
-    let applicationSettingsRepository: ApplicationSettingsRepository
+    private let applicationSettingsRepository: ApplicationSettingsRepository
     
     init(applicationSettingsRepository: ApplicationSettingsRepository) {
             self.applicationSettingsRepository = applicationSettingsRepository

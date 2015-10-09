@@ -1,11 +1,11 @@
 import Foundation
 
 public class ConcreteIssueControllerProvider: IssueControllerProvider {
-    let imageRepository: ImageRepository
-    let analyticsService: AnalyticsService
-    let urlOpener: URLOpener
-    let urlAttributionPresenter: URLAttributionPresenter
-    let theme : Theme
+    private let imageRepository: ImageRepository
+    private let analyticsService: AnalyticsService
+    private let urlOpener: URLOpener
+    private let urlAttributionPresenter: URLAttributionPresenter
+    private let theme : Theme
     
     public init(imageRepository: ImageRepository, analyticsService: AnalyticsService, urlOpener: URLOpener, urlAttributionPresenter: URLAttributionPresenter, theme: Theme) {
         self.imageRepository = imageRepository

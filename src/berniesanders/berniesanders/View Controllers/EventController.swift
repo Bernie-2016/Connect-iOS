@@ -11,8 +11,8 @@ public class EventController: UIViewController {
     public let analyticsService: AnalyticsService
     public let theme: Theme
     
-    let containerView = UIView.newAutoLayoutView()
-    let scrollView = UIScrollView.newAutoLayoutView()
+    private let containerView = UIView.newAutoLayoutView()
+    private let scrollView = UIScrollView.newAutoLayoutView()
     public let mapView = MKMapView.newAutoLayoutView()
     public let rsvpButton = UIButton.newAutoLayoutView()
     public let directionsButton = UIButton.newAutoLayoutView()

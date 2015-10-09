@@ -1,7 +1,7 @@
 import UIKit
 
 public class EventPresenter {
-    let dateFormatter: NSDateFormatter
+    private let dateFormatter: NSDateFormatter
     
     public init(dateFormatter: NSDateFormatter) {
         self.dateFormatter = dateFormatter

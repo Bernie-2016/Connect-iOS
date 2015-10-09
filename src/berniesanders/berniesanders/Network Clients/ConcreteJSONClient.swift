@@ -6,8 +6,8 @@ public class ConcreteJSONClient: JSONClient {
         public static let BadResponse = "BadResponse"
     }
 
-    let urlSession: NSURLSession
-    let jsonSerializationProvider: NSJSONSerializationProvider
+    private let urlSession: NSURLSession
+    private let jsonSerializationProvider: NSJSONSerializationProvider
     
     public init(urlSession: NSURLSession, jsonSerializationProvider: NSJSONSerializationProvider) {
         self.urlSession = urlSession

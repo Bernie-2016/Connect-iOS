@@ -3,7 +3,7 @@ import KSDeferred
 import WebImage
 
 public class ConcreteImageRepository: ImageRepository {
-    var webImageManager: SDWebImageManager
+    private let webImageManager: SDWebImageManager
 
     public init(webImageManager: SDWebImageManager) {
         self.webImageManager = webImageManager
