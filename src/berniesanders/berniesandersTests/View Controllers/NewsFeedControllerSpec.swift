@@ -53,9 +53,6 @@ class FakeNewsItemRepository : berniesanders.NewsItemRepository {
     var lastErrorBlock: ((NSError) -> Void)?
     var fetchNewsCalled: Bool = false
     
-    init() {
-    }
-    
     func fetchNewsItems(completion: (Array<NewsItem>) -> Void, error: (NSError) -> Void) {
         self.fetchNewsCalled = true
         self.lastCompletionBlock = completion

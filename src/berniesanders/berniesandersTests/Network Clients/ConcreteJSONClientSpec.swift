@@ -13,12 +13,7 @@ class FakeNSJSONSerializationProvider : NSJSONSerializationProvider {
     var lastReceivedData : NSData!
     var lastReceivedReadingOptions : NSJSONReadingOptions!
     var lastReceivedWritingOptions : NSJSONWritingOptions!
-    
-    override init() {
-        super.init()
-    }
-    
-    
+        
     override func jsonObjectWithData(data: NSData, options opt: NSJSONReadingOptions, error: NSErrorPointer) -> AnyObject? {
         self.lastReceivedData = data
         self.lastReceivedReadingOptions = opt

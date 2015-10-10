@@ -34,9 +34,6 @@ class FakeIssueRepository : berniesanders.IssueRepository {
     var lastErrorBlock: ((NSError) -> Void)?
     var fetchIssuesCalled: Bool = false
     
-    init() {
-    }
-    
     func fetchIssues(completion: (Array<Issue>) -> Void, error: (NSError) -> Void) {
         self.fetchIssuesCalled = true
         self.lastCompletionBlock = completion
