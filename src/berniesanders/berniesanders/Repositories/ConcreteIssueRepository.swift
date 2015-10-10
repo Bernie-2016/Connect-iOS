@@ -5,7 +5,7 @@ public class ConcreteIssueRepository: IssueRepository {
     private let jsonClient: JSONClient
     private let issueDeserializer: IssueDeserializer
     private let operationQueue: NSOperationQueue
-    
+
     public init(
         urlProvider: URLProvider,
         jsonClient: JSONClient,
@@ -16,10 +16,10 @@ public class ConcreteIssueRepository: IssueRepository {
             self.issueDeserializer = issueDeserializer
             self.operationQueue = operationQueue
     }
-    
+
     public func fetchIssues(completion: (Array<Issue>) -> Void, error: (NSError) -> Void) {
         var issuesJSONPromise = self.jsonClient.JSONPromiseWithURL(self.urlProvider.issuesFeedURL(), method: "POST", bodyDictionary: self.HTTPBodyDictionary())
-        
+
 
         issuesJSONPromise.then({ (jsonDictionary) -> AnyObject! in
             var parsedIssues = self.issueDeserializer.deserializeIssues(jsonDictionary as! NSDictionary)
@@ -36,9 +36,9 @@ public class ConcreteIssueRepository: IssueRepository {
             return receivedError
         })
     }
-    
+
     // MARK: Private
-    
+
     func HTTPBodyDictionary() -> NSDictionary {
         return [
             "from": 0, "size": 30,

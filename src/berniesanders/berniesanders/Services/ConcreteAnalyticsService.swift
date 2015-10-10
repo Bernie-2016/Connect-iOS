@@ -6,11 +6,11 @@ import Foundation
 
 class ConcreteAnalyticsService : AnalyticsService {
     private let applicationSettingsRepository: ApplicationSettingsRepository
-    
+
     init(applicationSettingsRepository: ApplicationSettingsRepository) {
             self.applicationSettingsRepository = applicationSettingsRepository
     }
-    
+
     func trackCustomEventWithName(name: String, customAttributes: [NSObject : AnyObject]?) {
         self.applicationSettingsRepository.isAnalyticsEnabled { (analyticsEnabled) -> Void in
             if(analyticsEnabled) {
@@ -20,7 +20,7 @@ class ConcreteAnalyticsService : AnalyticsService {
             }
         }
     }
-    
+
     func trackContentViewWithName(name: String, type: AnalyticsServiceContentType, id: String) {
         self.applicationSettingsRepository.isAnalyticsEnabled { (analyticsEnabled) -> Void in
             if(analyticsEnabled) {
@@ -30,7 +30,7 @@ class ConcreteAnalyticsService : AnalyticsService {
             }
         }
     }
-    
+
     func trackError(error: NSError, context: String) {
         self.applicationSettingsRepository.isAnalyticsEnabled { (analyticsEnabled) -> Void in
             if(analyticsEnabled) {
@@ -40,7 +40,7 @@ class ConcreteAnalyticsService : AnalyticsService {
             }
         }
     }
-    
+
     func trackShareWithActivityType(activityType: String, contentName: String, contentType: AnalyticsServiceContentType, id: String) {
         self.applicationSettingsRepository.isAnalyticsEnabled { (analyticsEnabled) -> Void in
             if(analyticsEnabled) {
@@ -50,7 +50,7 @@ class ConcreteAnalyticsService : AnalyticsService {
             }
         }
     }
-    
+
     func trackSearchWithQuery(query: String, context: AnalyticsSearchContext) {
         self.applicationSettingsRepository.isAnalyticsEnabled { (analyticsEnabled) -> Void in
             if(analyticsEnabled) {

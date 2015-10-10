@@ -7,7 +7,7 @@ public class ConcreteEventRepository: EventRepository {
     private let jsonClient: JSONClient
     private let eventDeserializer: EventDeserializer
     private let operationQueue: NSOperationQueue
-    
+
     public init(
         geocoder: CLGeocoder,
         urlProvider: URLProvider,
@@ -21,14 +21,14 @@ public class ConcreteEventRepository: EventRepository {
             self.operationQueue = operationQueue
     }
 
-    
+
     public func fetchEventsWithZipCode(zipCode: String, radiusMiles: Float, completion: (Array<Event>) -> Void, error: (NSError) -> Void) {
         self.geocoder.geocodeAddressString(zipCode, completionHandler: { (placemarks, geocodingError) -> Void in
             if(geocodingError != nil) {
                 error(geocodingError)
                 return
             }
-            
+
             let placemark = placemarks.first as! CLPlacemark
             let location = placemark.location!
 
@@ -39,16 +39,16 @@ public class ConcreteEventRepository: EventRepository {
                 location.coordinate.latitude,
                 longitude: location.coordinate.longitude,
                 radiusMiles: radiusMiles)
-            
+
             let eventsPromise = self.jsonClient.JSONPromiseWithURL(url, method: "POST", bodyDictionary: HTTPBodyDictionary)
-            
+
             eventsPromise.then({ (jsonDictionary) -> AnyObject! in
                 var parsedEvents = self.eventDeserializer.deserializeEvents(jsonDictionary as! NSDictionary)
-                
+
                 self.operationQueue.addOperationWithBlock({ () -> Void in
                     completion(parsedEvents)
                 })
-                
+
                 return parsedEvents
                 }, error: { (receivedError) -> AnyObject! in
                     self.operationQueue.addOperationWithBlock({ () -> Void in
@@ -58,9 +58,9 @@ public class ConcreteEventRepository: EventRepository {
             })
         })
     }
-    
+
     // MARK: Private
-    
+
     func HTTPBodyDictionaryWithLatitude(latitude: CLLocationDegrees, longitude: CLLocationDegrees, radiusMiles: Float) -> NSDictionary {
         let filterConditions : Array = [
             [
@@ -81,8 +81,8 @@ public class ConcreteEventRepository: EventRepository {
                 ]
             ]
         ]
-        
-        
+
+
         return [
             "from": 0, "size": 30,
             "query": [
@@ -105,7 +105,7 @@ public class ConcreteEventRepository: EventRepository {
                     ],
                     "order":         "asc",
                     "unit":          "km",
-                    "distance_type": "plane" 
+                    "distance_type": "plane"
                 ]
             ]
         ]

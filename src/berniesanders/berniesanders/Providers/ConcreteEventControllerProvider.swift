@@ -7,7 +7,7 @@ public class ConcreteEventControllerProvider: EventControllerProvider {
     private let urlOpener: URLOpener
     private let analyticsService: AnalyticsService
     private let theme: Theme
-    
+
     public init(eventPresenter: EventPresenter, eventRSVPControllerProvider: EventRSVPControllerProvider, urlProvider: URLProvider, urlOpener: URLOpener, analyticsService: AnalyticsService, theme: Theme) {
         self.eventPresenter = eventPresenter
         self.eventRSVPControllerProvider = eventRSVPControllerProvider
@@ -16,7 +16,7 @@ public class ConcreteEventControllerProvider: EventControllerProvider {
         self.analyticsService = analyticsService
         self.theme = theme
     }
-    
+
     public func provideInstanceWithEvent(event: Event) -> EventController {
         return EventController(event: event, eventPresenter: self.eventPresenter, eventRSVPControllerProvider: self.eventRSVPControllerProvider,
             urlProvider: self.urlProvider, urlOpener: self.urlOpener, analyticsService: self.analyticsService, theme: self.theme)

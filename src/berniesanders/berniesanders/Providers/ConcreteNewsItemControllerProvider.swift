@@ -17,7 +17,7 @@ public class ConcreteNewsItemControllerProvider: NewsItemControllerProvider {
         self.urlAttributionPresenter = urlAttributionPresenter
         self.theme = theme
     }
-    
+
     public func provideInstanceWithNewsItem(newsItem: NewsItem) -> NewsItemController {
         return NewsItemController(
             newsItem: newsItem,

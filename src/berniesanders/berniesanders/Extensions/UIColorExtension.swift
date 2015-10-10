@@ -14,7 +14,7 @@ extension UIColor {
         var green: CGFloat = 0.0
         var blue:  CGFloat = 0.0
         var alpha: CGFloat = 1.0
-        
+
         if rgba.hasPrefix("#") {
             let index   = advance(rgba.startIndex, 1)
             let hex     = rgba.substringFromIndex(index)

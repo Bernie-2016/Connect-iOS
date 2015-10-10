@@ -14,7 +14,7 @@ public class Event {
     public let location: CLLocation
     public let description: String
     public let URL: NSURL
-    
+
     public init(name: String, startDate: NSDate, timeZone: NSTimeZone, attendeeCapacity: Int, attendeeCount: Int, streetAddress: String?, city: String, state: String, zip: String, location: CLLocation, description: String, URL: NSURL) {
         self.name = name
         self.startDate = startDate

@@ -3,30 +3,30 @@ import PureLayout
 
 public class DonateTableViewCell: UITableViewCell {
     private var didSetupViews = false
-    
+
     public let messageView = UILabel.newAutoLayoutView()
     public let buttonView = UILabel.newAutoLayoutView()
-    
+
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
-    
+
     required public init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     func setupViews(theme: Theme) {
         if didSetupViews {
             return
         }
-        
+
         didSetupViews = true
-        
+
         contentView.addSubview(messageView)
-        
+
         contentView.addSubview(buttonView)
-        
+
         messageView.text = NSLocalizedString("Settings_donate_tableCellText", comment: "")
         messageView.textColor = theme.settingsTitleColor()
         messageView.font = theme.settingsTitleFont()
@@ -34,7 +34,7 @@ public class DonateTableViewCell: UITableViewCell {
         messageView.lineBreakMode = NSLineBreakMode.ByWordWrapping
         messageView.textAlignment = NSTextAlignment.Center
         messageView.numberOfLines = 0
-        
+
         buttonView.text = NSLocalizedString("Settings_donate_buttonText", comment: "")
         buttonView.textColor = theme.settingsDonateButtonTextColor()
         buttonView.font = theme.settingsDonateButtonFont()
@@ -42,16 +42,16 @@ public class DonateTableViewCell: UITableViewCell {
         buttonView.backgroundColor = theme.settingsDonateButtonColor()
         buttonView.layer.cornerRadius = 5
         buttonView.layer.masksToBounds = true
-        
+
         setupConstraintsAndLayout()
-        
+
     }
-    
+
     private func setupConstraintsAndLayout() {
         messageView.autoPinEdgeToSuperviewEdge(ALEdge.Top, withInset: 10)
         messageView.autoSetDimension(ALDimension.Width, toSize: 230)
         messageView.autoAlignAxisToSuperviewAxis(ALAxis.Vertical)
-        
+
         buttonView.autoSetDimension(ALDimension.Height, toSize: 40)
         buttonView.autoSetDimension(ALDimension.Width, toSize: 130)
         buttonView.autoAlignAxisToSuperviewAxis(ALAxis.Vertical)

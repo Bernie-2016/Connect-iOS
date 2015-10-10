@@ -5,7 +5,7 @@ public class ConcreteNewsItemRepository: NewsItemRepository {
     private let jsonClient: JSONClient
     private let newsItemDeserializer: NewsItemDeserializer
     private let operationQueue: NSOperationQueue
-    
+
     public init(
         urlProvider: URLProvider,
         jsonClient: JSONClient,
@@ -16,17 +16,17 @@ public class ConcreteNewsItemRepository: NewsItemRepository {
             self.newsItemDeserializer = newsItemDeserializer
             self.operationQueue = operationQueue
     }
-    
+
     public func fetchNewsItems(completion: (Array<NewsItem>) -> Void, error: (NSError) -> Void) {
         var newsFeedJSONPromise = self.jsonClient.JSONPromiseWithURL(self.urlProvider.newsFeedURL(), method: "POST", bodyDictionary: self.HTTPBodyDictionary())
-        
+
         newsFeedJSONPromise.then({ (jsonDictionary) -> AnyObject! in
             var parsedNewsItems = self.newsItemDeserializer.deserializeNewsItems(jsonDictionary as! NSDictionary)
-            
+
             self.operationQueue.addOperationWithBlock({ () -> Void in
                 completion(parsedNewsItems as Array<NewsItem>)
             })
-            
+
             return parsedNewsItems
             }, error: { (receivedError) -> AnyObject! in
                 self.operationQueue.addOperationWithBlock({ () -> Void in
@@ -34,11 +34,11 @@ public class ConcreteNewsItemRepository: NewsItemRepository {
                 })
                 return receivedError
         })
-        
+
     }
-    
+
     // MARK: Private
-    
+
     func HTTPBodyDictionary() -> NSDictionary {
         return [
             "from": 0, "size": 30,

@@ -5,22 +5,22 @@ import PureLayout
 public class TitleSubTitleTableViewCell: UITableViewCell {
     public let titleLabel: UILabel
     public let dateLabel: UILabel
-    
+
     required public init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         self.titleLabel = UILabel.newAutoLayoutView()
         self.dateLabel = UILabel.newAutoLayoutView()
-        
+
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+
         self.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         self.separatorInset = UIEdgeInsetsZero
         self.layoutMargins = UIEdgeInsetsZero
         self.preservesSuperviewLayoutMargins = false
-        
+
         self.contentView.addSubview(dateLabel)
         dateLabel.autoPinEdgeToSuperviewEdge(ALEdge.Top, withInset: 4)
         dateLabel.autoPinEdgeToSuperviewEdge(ALEdge.Left, withInset: 8)
