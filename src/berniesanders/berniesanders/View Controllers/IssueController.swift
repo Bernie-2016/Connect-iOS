@@ -35,7 +35,7 @@ public class IssueController: UIViewController {
         self.hidesBottomBarWhenPushed = true
     }
 
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -78,25 +78,25 @@ public class IssueController: UIViewController {
     }
 
     public override func didMoveToParentViewController(parent: UIViewController?) {
-        analyticsService.trackCustomEventWithName("Tapped 'Back' on Issue", customAttributes: [AnalyticsServiceConstants.contentIDKey: issue.URL.absoluteString!])
+        analyticsService.trackCustomEventWithName("Tapped 'Back' on Issue", customAttributes: [AnalyticsServiceConstants.contentIDKey: issue.URL.absoluteString])
     }
 
 
     // MARK: Actions
 
     func share() {
-        analyticsService.trackCustomEventWithName("Tapped 'Share' on Issue", customAttributes: [AnalyticsServiceConstants.contentIDKey: issue.URL.absoluteString!])
+        analyticsService.trackCustomEventWithName("Tapped 'Share' on Issue", customAttributes: [AnalyticsServiceConstants.contentIDKey: issue.URL.absoluteString])
 
         let activityVC = UIActivityViewController(activityItems: [issue.URL], applicationActivities: nil)
 
         activityVC.completionWithItemsHandler = { activity, success, items, error in
             if(error != nil) {
-                self.analyticsService.trackError(error, context: "Failed to share Issue")
+                self.analyticsService.trackError(error!, context: "Failed to share Issue")
             } else {
                 if(success == true) {
-                    self.analyticsService.trackShareWithActivityType(activity, contentName: self.issue.title, contentType: .Issue, id: self.issue.URL.absoluteString!)
+                    self.analyticsService.trackShareWithActivityType(activity!, contentName: self.issue.title, contentType: .Issue, id: self.issue.URL.absoluteString)
                 } else {
-                    self.analyticsService.trackCustomEventWithName("Cancelled share of Issue", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.issue.URL.absoluteString!])
+                    self.analyticsService.trackCustomEventWithName("Cancelled share of Issue", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.issue.URL.absoluteString])
                 }
             }
         }
@@ -105,20 +105,20 @@ public class IssueController: UIViewController {
     }
 
     func didTapViewOriginal() {
-        analyticsService.trackCustomEventWithName("Tapped 'View Original' on Issue", customAttributes: [AnalyticsServiceConstants.contentIDKey: issue.URL.absoluteString!])
+        analyticsService.trackCustomEventWithName("Tapped 'View Original' on Issue", customAttributes: [AnalyticsServiceConstants.contentIDKey: issue.URL.absoluteString])
         self.urlOpener.openURL(self.issue.URL)
     }
 
     // MARK: Private
 
     private func setupConstraintsAndLayout() {
-        var screenBounds = UIScreen.mainScreen().bounds
+        let screenBounds = UIScreen.mainScreen().bounds
 
-        self.scrollView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.scrollView.translatesAutoresizingMaskIntoConstraints = false
         self.scrollView.contentSize.width = self.view.bounds.width
         self.scrollView.autoPinEdgesToSuperviewEdges()
 
-        self.containerView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.containerView.translatesAutoresizingMaskIntoConstraints = false
         self.containerView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: ALEdge.Trailing)
         self.containerView.autoSetDimension(ALDimension.Width, toSize: screenBounds.width)
 
@@ -136,13 +136,13 @@ public class IssueController: UIViewController {
 
         self.titleLabel.numberOfLines = 3
         self.titleLabel.preferredMaxLayoutWidth = screenBounds.width - 8
-        self.titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.titleLabel.autoPinEdgeToSuperviewMargin(.Leading)
         self.titleLabel.autoPinEdgeToSuperviewMargin(.Trailing)
         self.titleLabel.autoSetDimension(ALDimension.Height, toSize: 20, relation: NSLayoutRelation.GreaterThanOrEqual)
 
         self.bodyTextView.scrollEnabled = false
-        self.bodyTextView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.bodyTextView.translatesAutoresizingMaskIntoConstraints = false
         self.bodyTextView.textContainerInset = UIEdgeInsetsZero
         self.bodyTextView.textContainer.lineFragmentPadding = 0;
         self.bodyTextView.editable = false

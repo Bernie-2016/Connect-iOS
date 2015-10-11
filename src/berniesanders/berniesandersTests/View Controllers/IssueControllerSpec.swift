@@ -74,7 +74,7 @@ class IssueControllerSpec : QuickSpec {
                     }
                     
                     it("has a share button on the navigation item") {
-                        var shareBarButtonItem = self.subject.navigationItem.rightBarButtonItem!
+                        let shareBarButtonItem = self.subject.navigationItem.rightBarButtonItem!
                         expect(shareBarButtonItem.valueForKey("systemItem") as? Int).to(equal(UIBarButtonSystemItem.Action.rawValue))
                     }
                     
@@ -97,7 +97,7 @@ class IssueControllerSpec : QuickSpec {
                         
                         it("logs that the user tapped share") {
                             expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Share' on Issue"))
-                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.issue.URL.absoluteString!]
+                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.issue.URL.absoluteString]
                             expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                         }
                         
@@ -119,7 +119,7 @@ class IssueControllerSpec : QuickSpec {
                                 activityViewControler.completionWithItemsHandler!(nil, false, nil, nil)
                                 
                                 expect(self.analyticsService.lastCustomEventName).to(equal("Cancelled share of Issue"))
-                                let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.issue.URL.absoluteString!]
+                                let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.issue.URL.absoluteString]
                                 expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                             }
                         }
@@ -138,22 +138,22 @@ class IssueControllerSpec : QuickSpec {
                     
                     it("has a scroll view containing the UI elements") {
                         expect(self.subject.view.subviews.count).to(equal(1))
-                        var scrollView = self.subject.view.subviews.first as! UIScrollView
+                        let scrollView = self.subject.view.subviews.first as! UIScrollView
                         
                         expect(scrollView).to(beAnInstanceOf(UIScrollView.self))
                         expect(scrollView.subviews.count).to(equal(1))
                         
-                        var containerView = scrollView.subviews.first as! UIView
+                        let containerView = scrollView.subviews.first!
                         
                         expect(containerView.subviews.count).to(equal(5))
                         
-                        var containerViewSubViews = containerView.subviews as! [UIView]
+                        let containerViewSubViews = containerView.subviews 
                         
-                        expect(contains(containerViewSubViews, self.subject.issueImageView)).to(beTrue())
-                        expect(contains(containerViewSubViews, self.subject.titleLabel)).to(beTrue())
-                        expect(contains(containerViewSubViews, self.subject.bodyTextView)).to(beTrue())
-                        expect(contains(containerViewSubViews, self.subject.attributionLabel)).to(beTrue())
-                        expect(contains(containerViewSubViews, self.subject.viewOriginalButton)).to(beTrue())
+                        expect(containerViewSubViews.contains(self.subject.issueImageView)).to(beTrue())
+                        expect(containerViewSubViews.contains(self.subject.titleLabel)).to(beTrue())
+                        expect(containerViewSubViews.contains(self.subject.bodyTextView)).to(beTrue())
+                        expect(containerViewSubViews.contains(self.subject.attributionLabel)).to(beTrue())
+                        expect(containerViewSubViews.contains(self.subject.viewOriginalButton)).to(beTrue())
                     }
                     
                     it("styles the views according to the theme") {
@@ -197,7 +197,7 @@ class IssueControllerSpec : QuickSpec {
                         
                         it("logs that the user tapped view original") {
                             expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'View Original' on Issue"))
-                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.issue.URL.absoluteString!]
+                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.issue.URL.absoluteString]
                             expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                         }
                     }
@@ -208,12 +208,12 @@ class IssueControllerSpec : QuickSpec {
                     
                     context("when the request for the story's image succeeds") {
                         it("displays the image") {
-                            var issueImage = TestUtils.testImageNamed("bernie", type: "jpg")
+                            let issueImage = TestUtils.testImageNamed("bernie", type: "jpg")
                             
                             self.imageRepository.lastRequestDeferred.resolveWithValue(issueImage)
                             
-                            var expectedImageData = UIImagePNGRepresentation(issueImage)
-                            var storyImageData = UIImagePNGRepresentation(self.subject.issueImageView.image)
+                            let expectedImageData = UIImagePNGRepresentation(issueImage)
+                            let storyImageData = UIImagePNGRepresentation(self.subject.issueImageView.image!)
                             
                             expect(storyImageData).to(equal(expectedImageData))
                         }
@@ -222,11 +222,11 @@ class IssueControllerSpec : QuickSpec {
                     context("when the request for the story's image fails") {
                         it("removes the image view from the container") {
                             self.imageRepository.lastRequestDeferred.rejectWithError(nil)
-                            var scrollView = self.subject.view.subviews.first as! UIScrollView
-                            var containerView = scrollView.subviews.first as! UIView
-                            var containerViewSubViews = containerView.subviews as! [UIView]
+                            let scrollView = self.subject.view.subviews.first!
+                            let containerView = scrollView.subviews.first!
+                            let containerViewSubViews = containerView.subviews
                             
-                            expect(contains(containerViewSubViews, self.subject.issueImageView)).to(beFalse())
+                            expect(containerViewSubViews.contains(self.subject.issueImageView)).to(beFalse())
                         }
                     }
                 }
@@ -252,11 +252,11 @@ class IssueControllerSpec : QuickSpec {
                     }
                     
                     it("removes the image view from the container") {
-                        var scrollView = self.subject.view.subviews.first as! UIScrollView
-                        var containerView = scrollView.subviews.first as! UIView
-                        var containerViewSubViews = containerView.subviews as! [UIView]
+                        let scrollView = self.subject.view.subviews.first as! UIScrollView
+                        let containerView = scrollView.subviews.first!
+                        let containerViewSubViews = containerView.subviews
                         
-                        expect(contains(containerViewSubViews, self.subject.issueImageView)).to(beFalse())
+                        expect(containerViewSubViews.contains(self.subject.issueImageView)).to(beFalse())
                     }
                 }
             }

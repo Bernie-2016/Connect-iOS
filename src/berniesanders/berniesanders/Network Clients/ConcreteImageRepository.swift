@@ -10,9 +10,9 @@ public class ConcreteImageRepository: ImageRepository {
     }
 
     public func fetchImageWithURL(url: NSURL) -> KSPromise {
-        var deferred = KSDeferred()
+        let deferred = KSDeferred()
 
-        self.webImageManager.downloadImageWithURL(url, options: SDWebImageOptions.allZeros, progress: nil) { (image, error, cacheType, finished, imageURL) -> Void in
+        self.webImageManager.downloadImageWithURL(url, options: SDWebImageOptions(), progress: nil) { (image, error, cacheType, finished, imageURL) -> Void in
             if(error != nil) {
                 deferred.rejectWithError(error)
             } else {

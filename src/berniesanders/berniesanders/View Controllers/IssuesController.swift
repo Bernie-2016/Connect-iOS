@@ -27,7 +27,7 @@ public class IssuesController: UIViewController, UITableViewDataSource, UITableV
 
         super.init(nibName: nil, bundle: nil)
 
-        tabBarItem.setTitlePositionAdjustment(UIOffsetMake(0, -4))
+        tabBarItem.titlePositionAdjustment = UIOffsetMake(0, -4)
         tabBarItem.image = UIImage(named: "issuesTabBarIconInactive")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
         tabBarItem.selectedImage = UIImage(named: "issuesTabBarIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
 
@@ -39,7 +39,7 @@ public class IssuesController: UIViewController, UITableViewDataSource, UITableV
         title = NSLocalizedString("Issues_tabBarTitle", comment: "")
     }
 
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -86,7 +86,7 @@ public class IssuesController: UIViewController, UITableViewDataSource, UITableV
             }, error: { (error) -> Void in
                 self.analyticsService.trackError(error, context: "Failed to load issues")
 
-                println(error.localizedDescription)
+                print(error.localizedDescription)
 
                 // TODO: error handling.
         })
@@ -119,9 +119,9 @@ public class IssuesController: UIViewController, UITableViewDataSource, UITableV
     }
 
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var issue = self.issues[indexPath.row]
+        let issue = self.issues[indexPath.row]
 
-        self.analyticsService.trackContentViewWithName(issue.title, type: .Issue, id: issue.URL.absoluteString!)
+        self.analyticsService.trackContentViewWithName(issue.title, type: .Issue, id: issue.URL.absoluteString)
 
         let controller = self.issueControllerProvider.provideInstanceWithIssue(issue)
         self.navigationController!.pushViewController(controller, animated: true)

@@ -47,7 +47,7 @@ class ConcreteURLProviderSpec : QuickSpec {
                 }
                 
                 it("includes the platform") {
-                    let platformQueryItem = urlComponents.queryItems!.first as! NSURLQueryItem
+                    let platformQueryItem = urlComponents.queryItems!.first!
                     expect(platformQueryItem.name).to(equal("entry.506"))
                     expect(platformQueryItem.value).to(equal("iOS"))
                 }
@@ -57,7 +57,7 @@ class ConcreteURLProviderSpec : QuickSpec {
                     let internalBuildNumber  = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleVersion") as! String
 
                     let expectedVersionString = "\(marketingVersion) (\(internalBuildNumber))"
-                    let platformQueryItem = urlComponents.queryItems!.last as! NSURLQueryItem
+                    let platformQueryItem = urlComponents.queryItems!.last!
                     
                     expect(platformQueryItem.name).to(equal("entry.937851719"))
                     expect(platformQueryItem.value).to(equal(expectedVersionString))

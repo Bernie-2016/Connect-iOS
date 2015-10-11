@@ -70,24 +70,23 @@ class WelcomeControllerSpec: QuickSpec {
                 
                 it("has a scroll view containing the UI elements") {
                     expect(self.subject.view.subviews.count).to(equal(1))
-                    var scrollView = self.subject.view.subviews.first as! UIScrollView
+                    let scrollView = self.subject.view.subviews.first as! UIScrollView
                     
                     expect(scrollView).to(beAnInstanceOf(UIScrollView.self))
                     expect(scrollView.subviews.count).to(equal(1))
                     
-                    var containerView = scrollView.subviews.first as! UIView
+                    let containerView = scrollView.subviews.first!
                     
                     expect(containerView.subviews.count).to(equal(6))
                     
-                    var containerViewSubViews = containerView.subviews as! [UIView]
-                    let subViews = self.subject.view.subviews as! [UIView]
+                    let containerViewSubViews = containerView.subviews
 
-                    expect(contains(containerViewSubViews, self.subject.bannerImageView)).to(beTrue())
-                    expect(contains(containerViewSubViews, self.subject.welcomeTextLabel)).to(beTrue())
-                    expect(contains(containerViewSubViews, self.subject.viewPrivacyPolicyButton)).to(beTrue())
-                    expect(contains(containerViewSubViews, self.subject.viewTermsButton)).to(beTrue())
-                    expect(contains(containerViewSubViews, self.subject.agreeToTermsNoticeLabel)).to(beTrue())
-                    expect(contains(containerViewSubViews, self.subject.agreeToTermsButton)).to(beTrue())
+                    expect(containerViewSubViews.contains(self.subject.bannerImageView)).to(beTrue())
+                    expect(containerViewSubViews.contains(self.subject.welcomeTextLabel)).to(beTrue())
+                    expect(containerViewSubViews.contains(self.subject.viewPrivacyPolicyButton)).to(beTrue())
+                    expect(containerViewSubViews.contains(self.subject.viewTermsButton)).to(beTrue())
+                    expect(containerViewSubViews.contains(self.subject.agreeToTermsNoticeLabel)).to(beTrue())
+                    expect(containerViewSubViews.contains(self.subject.agreeToTermsButton)).to(beTrue())
                 }
                 
                 it("enables analytics") {

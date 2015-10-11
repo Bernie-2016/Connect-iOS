@@ -42,19 +42,19 @@ class AnalyticsSettingsControllerSpec: QuickSpec {
                 
                 it("has all of the view components as subviews inside a scroll view") {
                     expect(self.subject.view.subviews.count).to(equal(1))
-                    var scrollView = self.subject.view.subviews.first as! UIScrollView
+                    let scrollView = self.subject.view.subviews.first as! UIScrollView
                     
                     expect(scrollView).to(beAnInstanceOf(UIScrollView.self))
                     expect(scrollView.subviews.count).to(equal(1))
                     
-                    var containerView = scrollView.subviews.first as! UIView
+                    let containerView = scrollView.subviews.first!
 
-                    let subViews = containerView.subviews as! [UIView]
+                    let subViews = containerView.subviews
                     expect(subViews.count).to(equal(3 + 1)) // including spacer
                     
-                    expect(contains(subViews, self.subject.analyticsExplanationLabel)).to(beTrue())
-                    expect(contains(subViews, self.subject.analyticsSwitch)).to(beTrue())
-                    expect(contains(subViews, self.subject.analyticsStateLabel)).to(beTrue())
+                    expect(subViews.contains(self.subject.analyticsExplanationLabel)).to(beTrue())
+                    expect(subViews.contains(self.subject.analyticsSwitch)).to(beTrue())
+                    expect(subViews.contains(self.subject.analyticsStateLabel)).to(beTrue())
                 }
                 
                 it("has a label explaining the purpose of analytics") {

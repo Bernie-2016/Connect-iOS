@@ -13,19 +13,19 @@ public class ConcreteEventDeserializer: EventDeserializer {
 
         var events = [Event]()
 
-        var hitsDictionary = jsonDictionary["hits"] as? NSDictionary;
+        let hitsDictionary = jsonDictionary["hits"] as? NSDictionary;
 
         if (hitsDictionary == nil) {
             return events
         }
 
-        var eventsDictionaries = hitsDictionary!["hits"] as? Array<NSDictionary>;
+        let eventsDictionaries = hitsDictionary!["hits"] as? Array<NSDictionary>;
 
         if (eventsDictionaries == nil) {
             return events
         }
 
-        for(eventDictionary: NSDictionary) in eventsDictionaries! {
+        for eventDictionary: NSDictionary in eventsDictionaries! {
             var sourceDictionary = eventDictionary["_source"] as? [String:AnyObject];
 
             if (sourceDictionary == nil) {
@@ -44,20 +44,20 @@ public class ConcreteEventDeserializer: EventDeserializer {
                 continue;
             }
 
-            var name = sourceDictionary!["name"] as? String
-            var timeZoneString = sourceDictionary!["timezone"] as? String
-            var startDateString = sourceDictionary!["start_time"] as? String
-            var attendeeCapacity = sourceDictionary!["capacity"] as? Int
-            var attendeeCount = sourceDictionary!["attendee_count"] as? Int
+            let name = sourceDictionary!["name"] as? String
+            let timeZoneString = sourceDictionary!["timezone"] as? String
+            let startDateString = sourceDictionary!["start_time"] as? String
+            let attendeeCapacity = sourceDictionary!["capacity"] as? Int
+            let attendeeCount = sourceDictionary!["attendee_count"] as? Int
 
-            var streetAddress = venueDictionary!["address1"] as? String
-            var city = venueDictionary!["city"] as? String
-            var state = venueDictionary!["state"] as? String
-            var zip = venueDictionary!["zip"] as? String
-            var latitude = locationDictionary!["lat"]
-            var longitude = locationDictionary!["lon"]
-            var description = sourceDictionary!["description"] as? String
-            var URLString = sourceDictionary!["url"] as? String
+            let streetAddress = venueDictionary!["address1"] as? String
+            let city = venueDictionary!["city"] as? String
+            let state = venueDictionary!["state"] as? String
+            let zip = venueDictionary!["zip"] as? String
+            let latitude = locationDictionary!["lat"]
+            let longitude = locationDictionary!["lon"]
+            let description = sourceDictionary!["description"] as? String
+            let URLString = sourceDictionary!["url"] as? String
 
             if (name == nil || timeZoneString == nil || startDateString == nil
                 || attendeeCapacity == nil || attendeeCount == nil
@@ -66,22 +66,22 @@ public class ConcreteEventDeserializer: EventDeserializer {
                 continue;
             }
 
-            var URL = NSURL(string: URLString!)
-            var timeZone = NSTimeZone(abbreviation: timeZoneString!)
+            let URL = NSURL(string: URLString!)
+            let timeZone = NSTimeZone(abbreviation: timeZoneString!)
 
             if (URL == nil || timeZone == nil) {
                 continue;
             }
 
             dateFormatter.timeZone = timeZone
-            var startDate = dateFormatter.dateFromString(startDateString!)
+            let startDate = dateFormatter.dateFromString(startDateString!)
 
             if(startDate == nil) {
                 continue;
             }
 
-            var location = CLLocation(latitude: latitude!, longitude: longitude!)
-            var event = Event(name: name!, startDate: startDate!, timeZone: timeZone!, attendeeCapacity: attendeeCapacity!, attendeeCount: attendeeCount!,
+            let location = CLLocation(latitude: latitude!, longitude: longitude!)
+            let event = Event(name: name!, startDate: startDate!, timeZone: timeZone!, attendeeCapacity: attendeeCapacity!, attendeeCount: attendeeCount!,
                 streetAddress: streetAddress, city: city!, state: state!, zip: zip!, location: location,
                 description: description!, URL: URL!)
 

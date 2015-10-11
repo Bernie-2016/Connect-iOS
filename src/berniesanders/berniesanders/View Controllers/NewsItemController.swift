@@ -83,28 +83,28 @@ public class NewsItemController: UIViewController {
         }
     }
 
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     public override func didMoveToParentViewController(parent: UIViewController?) {
-        self.analyticsService.trackCustomEventWithName("Tapped 'Back' on News Item", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.newsItem.URL.absoluteString!])
+        self.analyticsService.trackCustomEventWithName("Tapped 'Back' on News Item", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.newsItem.URL.absoluteString])
     }
 
     // MARK: Actions
 
     func share() {
-        self.analyticsService.trackCustomEventWithName("Tapped 'Share' on News Item", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.newsItem.URL.absoluteString!])
+        self.analyticsService.trackCustomEventWithName("Tapped 'Share' on News Item", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.newsItem.URL.absoluteString])
         let activityVC = UIActivityViewController(activityItems: [newsItem.URL], applicationActivities: nil)
 
         activityVC.completionWithItemsHandler = { activity, success, items, error in
             if(error != nil) {
-                self.analyticsService.trackError(error, context: "Failed to share News Item")
+                self.analyticsService.trackError(error!, context: "Failed to share News Item")
             } else {
                 if(success == true) {
-                    self.analyticsService.trackShareWithActivityType(activity, contentName: self.newsItem.title, contentType: .NewsItem, id: self.newsItem.URL.absoluteString!)
+                    self.analyticsService.trackShareWithActivityType(activity!, contentName: self.newsItem.title, contentType: .NewsItem, id: self.newsItem.URL.absoluteString)
                 } else {
-                    self.analyticsService.trackCustomEventWithName("Cancelled share of News Item", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.newsItem.URL.absoluteString!])
+                    self.analyticsService.trackCustomEventWithName("Cancelled share of News Item", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.newsItem.URL.absoluteString])
                 }
             }
         }
@@ -113,7 +113,7 @@ public class NewsItemController: UIViewController {
     }
 
     func didTapViewOriginal() {
-        analyticsService.trackCustomEventWithName("Tapped 'View Original' on News Item", customAttributes: [AnalyticsServiceConstants.contentIDKey: newsItem.URL.absoluteString!])
+        analyticsService.trackCustomEventWithName("Tapped 'View Original' on News Item", customAttributes: [AnalyticsServiceConstants.contentIDKey: newsItem.URL.absoluteString])
         self.urlOpener.openURL(self.newsItem.URL)
     }
 
@@ -146,14 +146,14 @@ public class NewsItemController: UIViewController {
 
         self.titleLabel.numberOfLines = 3
         self.titleLabel.preferredMaxLayoutWidth = screenBounds.width - 8
-        self.titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.titleLabel.autoPinEdgeToSuperviewMargin(.Leading)
         self.titleLabel.autoPinEdgeToSuperviewMargin(.Trailing)
         self.titleLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.dateLabel)
         self.titleLabel.autoSetDimension(.Height, toSize: 20, relation: NSLayoutRelation.GreaterThanOrEqual)
 
         self.bodyTextView.scrollEnabled = false
-        self.bodyTextView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.bodyTextView.translatesAutoresizingMaskIntoConstraints = false
         self.bodyTextView.textContainerInset = UIEdgeInsetsZero
         self.bodyTextView.textContainer.lineFragmentPadding = 0;
         self.bodyTextView.editable = false

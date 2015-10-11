@@ -13,7 +13,7 @@ Slack channel (you can request access [here](https://docs.google.com/forms/d/1pm
 
 # Setting up build environment
 
-This app will compile with Xcode 6.4. It is bootstrapped using Carthage for project file purity reasons.
+This app will compile with Xcode 7.0. It is bootstrapped using Carthage for project file purity reasons.
 
 ## Install carthage
 

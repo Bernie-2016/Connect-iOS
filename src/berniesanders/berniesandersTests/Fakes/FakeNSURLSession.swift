@@ -10,14 +10,14 @@ class FakeNSURLSession : NSURLSession {
         
     }
     
-    override func dataTaskWithURL(url: NSURL, completionHandler: ((NSData!, NSURLResponse!, NSError!) -> Void)?) -> NSURLSessionDataTask {
+    override func dataTaskWithURL(url: NSURL, completionHandler: ((NSData?, NSURLResponse?, NSError?) -> Void)) -> NSURLSessionDataTask {
         self.lastURL = url
         self.lastReturnedTask = FakeNSURLSessionDataTask()
         self.lastCompletionHandler = completionHandler
         return self.lastReturnedTask
     }
     
-    override func dataTaskWithRequest(request: NSURLRequest, completionHandler: ((NSData!, NSURLResponse!, NSError!) -> Void)?) -> NSURLSessionDataTask {
+    override func dataTaskWithRequest(request: NSURLRequest, completionHandler: ((NSData?, NSURLResponse?, NSError?) -> Void)) -> NSURLSessionDataTask {
         self.lastRequest = request
         self.lastReturnedTask = FakeNSURLSessionDataTask()
         self.lastCompletionHandler = completionHandler

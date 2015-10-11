@@ -42,9 +42,9 @@ class PrivacyPolicyControllerSpec : QuickSpec {
                 }
                 
                 it("should add the webview as a subview") {
-                    var subviews = self.subject.view.subviews as! [UIView]
+                    let subviews = self.subject.view.subviews 
                     
-                    expect(contains(subviews, self.subject.webView)).to(beTrue())
+                    expect(subviews.contains(self.subject.webView)).to(beTrue())
                 }
                 
                 it("should load the iubenda privacy policy page into a webview") {

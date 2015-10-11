@@ -132,6 +132,7 @@
 		65D0ECEB1BBB8DD20063B1D0 /* ConcreteEventRSVPControllerProviderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D0ECEA1BBB8DD20063B1D0 /* ConcreteEventRSVPControllerProviderSpec.swift */; };
 		65D8ADC31BC1B83E005CD5FD /* FakeStringContentSanitizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D8ADC21BC1B83E005CD5FD /* FakeStringContentSanitizer.swift */; };
 		65DE8D931B955E15008C239F /* NewsItemControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DE8D921B955E15008C239F /* NewsItemControllerSpec.swift */; };
+		65E06CAB1BCB30DC00BDDA61 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8233FC151B7C28FB00A5E9ED /* Images.xcassets */; settings = {ASSET_TAGS = (); }; };
 		65E4A4FC1BC6DA050027501D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8233FC151B7C28FB00A5E9ED /* Images.xcassets */; };
 		65E4A4FE1BC6F6830027501D /* DonateControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E4A4FD1BC6F6830027501D /* DonateControllerSpec.swift */; };
 		65EA2F291BB9B648001D8FD5 /* FakeDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EA2F281BB9B648001D8FD5 /* FakeDateFormatter.swift */; };
@@ -916,8 +917,9 @@
 		8233FBFF1B7C28FB00A5E9ED /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Coders For Sanders";
 				TargetAttributes = {
 					8233FC061B7C28FB00A5E9ED = {
@@ -974,6 +976,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				659F0E221B95F44E0049FA12 /* bernie.jpg in Resources */,
+				65E06CAB1BCB30DC00BDDA61 /* Images.xcassets in Resources */,
 				65384D151BB2F0FF0057F6FF /* dodgy_events.json in Resources */,
 				65003A561BA7C5E900C66902 /* dodgy_issue_feed.json in Resources */,
 				65B70F9A1BA7BBD5007BF72C /* dodgy_news_feed.json in Resources */,
@@ -1201,6 +1204,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1284,6 +1288,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MACH_O_TYPE = mh_execute;
 				OTHER_SWIFT_FLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = tech.berniesanders.bernie2016.ios;
 				PRODUCT_MODULE_NAME = berniesanders;
 				PRODUCT_NAME = "Bernie Sanders";
 				PROVISIONING_PROFILE = "";
@@ -1319,6 +1324,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MACH_O_TYPE = mh_execute;
 				OTHER_SWIFT_FLAGS = "-DRELEASE";
+				PRODUCT_BUNDLE_IDENTIFIER = tech.berniesanders.bernie2016.ios;
 				PRODUCT_MODULE_NAME = berniesanders;
 				PRODUCT_NAME = "Bernie Sanders";
 				PROVISIONING_PROFILE = "";
@@ -1357,6 +1363,7 @@
 					XCTest,
 					"-all_load",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = tech.berniesanders.bernie2016.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "berniesandersTests/berniesandersTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1389,6 +1396,7 @@
 					XCTest,
 					"-all_load",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = tech.berniesanders.bernie2016.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "berniesandersTests/berniesandersTests-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bernie Sanders.app/Bernie Sanders";

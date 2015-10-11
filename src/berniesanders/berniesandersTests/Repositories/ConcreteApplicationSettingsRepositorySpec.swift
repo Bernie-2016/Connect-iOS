@@ -18,7 +18,7 @@ class ConcreteApplicationSettingsRepositorySpec: QuickSpec {
             
             afterEach {
                 for key in self.userDefaults.dictionaryRepresentation().keys {
-                    self.userDefaults.removeObjectForKey(key as! String)
+                    self.userDefaults.removeObjectForKey(key )
                 }
             }
             

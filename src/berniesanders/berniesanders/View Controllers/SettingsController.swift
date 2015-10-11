@@ -60,7 +60,7 @@ public class SettingsController: UITableViewController {
             cell.setupViews(self.theme)
             return cell
         } else {
-            let cell = tableView.dequeueReusableCellWithIdentifier("regularCell") as! UITableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("regularCell")!
 
             cell.textLabel!.text = self.tappableControllers[indexPath.row].title
             cell.textLabel!.textColor = self.theme.settingsTitleColor()

@@ -55,9 +55,9 @@ class AboutControllerSpec : QuickSpec {
                 }
                 
                 it("uses the news placeholder image") {
-                    var placeholderImage = UIImage(named: "newsHeadlinePlaceholder")
-                    var expectedImageData = UIImagePNGRepresentation(placeholderImage)
-                    var headlineImageData = UIImagePNGRepresentation(self.subject.logoImageView.image)
+                    let placeholderImage = UIImage(named: "newsHeadlinePlaceholder")
+                    let expectedImageData = UIImagePNGRepresentation(placeholderImage!)
+                    let headlineImageData = UIImagePNGRepresentation(self.subject.logoImageView.image!)
                     
                     expect(headlineImageData).to(equal(expectedImageData))
                 }
@@ -72,24 +72,23 @@ class AboutControllerSpec : QuickSpec {
                 
                 it("has a scroll view containing the UI elements") {
                     expect(self.subject.view.subviews.count).to(equal(1))
-                    var scrollView = self.subject.view.subviews.first as! UIScrollView
+                    let scrollView = self.subject.view.subviews.first as! UIScrollView
                     
                     expect(scrollView).to(beAnInstanceOf(UIScrollView.self))
                     expect(scrollView.subviews.count).to(equal(1))
                     
-                    var containerView = scrollView.subviews.first as! UIView
+                    let containerView = scrollView.subviews.first!
                     
                     expect(containerView.subviews.count).to(equal(6))
                     
-                    var containerViewSubViews = containerView.subviews as! [UIView]
-                    let subViews = self.subject.view.subviews as! [UIView]
+                    let containerViewSubViews = containerView.subviews
                     
-                    expect(contains(containerViewSubViews, self.subject.logoImageView)).to(beTrue())
-                    expect(contains(containerViewSubViews, self.subject.bodyTextLabel)).to(beTrue())
-                    expect(contains(containerViewSubViews, self.subject.redditLabel)).to(beTrue())
-                    expect(contains(containerViewSubViews, self.subject.codersButton)).to(beTrue())
-                    expect(contains(containerViewSubViews, self.subject.designersButton)).to(beTrue())
-                    expect(contains(containerViewSubViews, self.subject.sandersForPresidentButton)).to(beTrue())
+                    expect(containerViewSubViews.contains(self.subject.logoImageView)).to(beTrue())
+                    expect(containerViewSubViews.contains(self.subject.bodyTextLabel)).to(beTrue())
+                    expect(containerViewSubViews.contains(self.subject.redditLabel)).to(beTrue())
+                    expect(containerViewSubViews.contains(self.subject.codersButton)).to(beTrue())
+                    expect(containerViewSubViews.contains(self.subject.designersButton)).to(beTrue())
+                    expect(containerViewSubViews.contains(self.subject.sandersForPresidentButton)).to(beTrue())
                 }
                 
                 it("tracks taps on the back button with the analytics service") {

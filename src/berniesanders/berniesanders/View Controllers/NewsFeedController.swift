@@ -36,7 +36,7 @@ public class NewsFeedController: UIViewController, UITableViewDelegate, UITableV
 
             super.init(nibName: nil, bundle: nil)
 
-            tabBarItem.setTitlePositionAdjustment(UIOffsetMake(0, -4))
+            tabBarItem.titlePositionAdjustment = UIOffsetMake(0, -4)
             tabBarItem.image = UIImage(named: "newsTabBarIconInactive")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
             tabBarItem.selectedImage = UIImage(named: "newsTabBarIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
 
@@ -49,7 +49,7 @@ public class NewsFeedController: UIViewController, UITableViewDelegate, UITableV
             title = NSLocalizedString("NewsFeed_tabBarTitle", comment: "")
     }
 
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -102,7 +102,7 @@ public class NewsFeedController: UIViewController, UITableViewDelegate, UITableV
             }, error: { (error) -> Void in
                 self.analyticsService.trackError(error, context: "Failed to load news feed")
 
-                println(error.localizedDescription)
+                print(error.localizedDescription)
                 // TODO: error handling.
         })
     }
@@ -172,7 +172,7 @@ public class NewsFeedController: UIViewController, UITableViewDelegate, UITableV
             newsItem = self.newsItems[indexPath.row + 1]
         }
 
-        self.analyticsService.trackContentViewWithName(newsItem.title, type: .NewsItem, id: newsItem.URL.absoluteString!)
+        self.analyticsService.trackContentViewWithName(newsItem.title, type: .NewsItem, id: newsItem.URL.absoluteString)
 
         let controller = self.newsItemControllerProvider.provideInstanceWithNewsItem(newsItem)
 

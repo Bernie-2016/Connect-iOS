@@ -62,7 +62,7 @@ class NewsItemControllerSpec : QuickSpec {
                     self.subject.didMoveToParentViewController(nil)
                     
                     expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Back' on News Item"))
-                    let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.newsItem.URL.absoluteString!]
+                    let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.newsItem.URL.absoluteString]
                     expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                 }
                 
@@ -76,7 +76,7 @@ class NewsItemControllerSpec : QuickSpec {
                     }
                     
                     it("has a share button on the navigation item") {
-                        var shareBarButtonItem = self.subject.navigationItem.rightBarButtonItem!
+                        let shareBarButtonItem = self.subject.navigationItem.rightBarButtonItem!
                         expect(shareBarButtonItem.valueForKey("systemItem") as? Int).to(equal(UIBarButtonSystemItem.Action.rawValue))
                     }
                     
@@ -100,7 +100,7 @@ class NewsItemControllerSpec : QuickSpec {
                         
                         it("logs that the user tapped share") {
                             expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Share' on News Item"))
-                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.newsItem.URL.absoluteString!]
+                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.newsItem.URL.absoluteString]
                             expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                         }
 
@@ -122,7 +122,7 @@ class NewsItemControllerSpec : QuickSpec {
                                 activityViewControler.completionWithItemsHandler!(nil, false, nil, nil)
                                 
                                 expect(self.analyticsService.lastCustomEventName).to(equal("Cancelled share of News Item"))
-                                let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.newsItem.URL.absoluteString!]
+                                let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.newsItem.URL.absoluteString]
                                 expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                             }
                         }
@@ -141,21 +141,21 @@ class NewsItemControllerSpec : QuickSpec {
                     
                     it("has a scroll view containing the UI elements") {
                         expect(self.subject.view.subviews.count).to(equal(1))
-                        var scrollView = self.subject.view.subviews.first as! UIScrollView
+                        let scrollView = self.subject.view.subviews.first as! UIScrollView
                         
                         expect(scrollView).to(beAnInstanceOf(UIScrollView.self))
                         expect(scrollView.subviews.count).to(equal(1))
                         
-                        var containerView = scrollView.subviews.first as! UIView
+                        let containerView = scrollView.subviews.first!
                         
                         expect(containerView.subviews.count).to(equal(6))
                         
-                        var containerViewSubViews = containerView.subviews as! [UIView]
+                        let containerViewSubViews = containerView.subviews
                         
-                        expect(contains(containerViewSubViews, self.subject.titleLabel)).to(beTrue())
-                        expect(contains(containerViewSubViews, self.subject.bodyTextView)).to(beTrue())
-                        expect(contains(containerViewSubViews, self.subject.dateLabel)).to(beTrue())
-                        expect(contains(containerViewSubViews, self.subject.storyImageView)).to(beTrue())
+                        expect(containerViewSubViews.contains(self.subject.titleLabel)).to(beTrue())
+                        expect(containerViewSubViews.contains(self.subject.bodyTextView)).to(beTrue())
+                        expect(containerViewSubViews.contains(self.subject.dateLabel)).to(beTrue())
+                        expect(containerViewSubViews.contains(self.subject.storyImageView)).to(beTrue())
                     }
                     
                     it("displays the title from the news item") {
@@ -190,7 +190,7 @@ class NewsItemControllerSpec : QuickSpec {
                         
                         it("logs that the user tapped view original") {
                             expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'View Original' on News Item"))
-                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.newsItem.URL.absoluteString!]
+                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.newsItem.URL.absoluteString]
                             expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                         }
                     }
@@ -216,12 +216,11 @@ class NewsItemControllerSpec : QuickSpec {
                     
                     context("when the request for the story's image succeeds") {
                         it("displays the image") {
-                            var storyImage = TestUtils.testImageNamed("bernie", type: "jpg")
-                            
+                            let storyImage = TestUtils.testImageNamed("bernie", type: "jpg")
                             self.imageRepository.lastRequestDeferred.resolveWithValue(storyImage)
                             
-                            var expectedImageData = UIImagePNGRepresentation(storyImage)
-                            var storyImageData = UIImagePNGRepresentation(self.subject.storyImageView.image)
+                            let expectedImageData = UIImagePNGRepresentation(storyImage)
+                            let storyImageData = UIImagePNGRepresentation(self.subject.storyImageView.image!)
                             
                             expect(storyImageData).to(equal(expectedImageData))
                         }
@@ -230,11 +229,11 @@ class NewsItemControllerSpec : QuickSpec {
                     context("when the request for the story's image fails") {
                         it("removes the image view from the container") {
                             self.imageRepository.lastRequestDeferred.rejectWithError(nil)
-                            var scrollView = self.subject.view.subviews.first as! UIScrollView
-                            var containerView = scrollView.subviews.first as! UIView
-                            var containerViewSubViews = containerView.subviews as! [UIView]
+                            let scrollView = self.subject.view.subviews.first!
+                            let containerView = scrollView.subviews.first!
+                            let containerViewSubViews = containerView.subviews
                             
-                            expect(contains(containerViewSubViews, self.subject.storyImageView)).to(beFalse())
+                            expect(containerViewSubViews.contains(self.subject.storyImageView)).to(beFalse())
                         }
                     }
                 }
@@ -263,11 +262,11 @@ class NewsItemControllerSpec : QuickSpec {
                 }
                 
                 it("removes the image view from the container") {
-                    var scrollView = self.subject.view.subviews.first as! UIScrollView
-                    var containerView = scrollView.subviews.first as! UIView
-                    var containerViewSubViews = containerView.subviews as! [UIView]
+                    let scrollView = self.subject.view.subviews.first!
+                    let containerView = scrollView.subviews.first!
+                    let containerViewSubViews = containerView.subviews
                     
-                    expect(contains(containerViewSubViews, self.subject.storyImageView)).to(beFalse())
+                    expect(containerViewSubViews.contains(self.subject.storyImageView)).to(beFalse())
                 }
             }
         }

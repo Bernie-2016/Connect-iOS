@@ -6,8 +6,8 @@ class TestUtils {
     // MARK: Fixture loaders
     
     class func testImageNamed(named: String, type: String) -> UIImage {
-        var bundle = NSBundle(forClass: NewsItemControllerSpec.self)
-        var imagePath = bundle.pathForResource(named, ofType: type)!
+        let bundle = NSBundle(forClass: NewsItemControllerSpec.self)
+        let imagePath = bundle.pathForResource(named, ofType: type)!
         return UIImage(contentsOfFile: imagePath)!
     }
     

@@ -14,27 +14,29 @@ class FakeNSJSONSerializationProvider : NSJSONSerializationProvider {
     var lastReceivedReadingOptions : NSJSONReadingOptions!
     var lastReceivedWritingOptions : NSJSONWritingOptions!
         
-    override func jsonObjectWithData(data: NSData, options opt: NSJSONReadingOptions, error: NSErrorPointer) -> AnyObject? {
+    override func jsonObjectWithData(data: NSData, options opt: NSJSONReadingOptions) throws -> AnyObject {
         self.lastReceivedData = data
         self.lastReceivedReadingOptions = opt
         
         if(self.enableError) {
-            error.memory = returnedError
-            return nil
+            throw returnedError
         } else {
             return self.returnedJSON
         }
     }
     
-    override func dataWithJSONObject(obj: AnyObject, options opt: NSJSONWritingOptions, error: NSErrorPointer) -> NSData? {
+    override func dataWithJSONObject(obj: AnyObject, options opt: NSJSONWritingOptions) throws -> NSData {
+        let error: NSError! = NSError(domain: "Migrator", code: 0, userInfo: nil)
         self.lastReceivedObjectToConvertToData = obj
         self.lastReceivedWritingOptions = opt
         
         if(self.enableError) {
-            error.memory = returnedError
-            return nil
+            throw returnedError
         } else {
-            return self.returnedData
+            if let value = self.returnedData {
+                return value
+            }
+            throw error
         }
     }
 }
@@ -84,10 +86,10 @@ class ConcreteJSONClientSpec : QuickSpec {
                     }
                     
                     context("when the task completes without an error") {
-                        var expectedData = NSData()
+                        let expectedData = NSData()
                         
                         context("with a status code of 200") {
-                            var response = NSHTTPURLResponse(URL: expectedURL, statusCode: 200, HTTPVersion: "1.1", headerFields: nil)
+                            let response = NSHTTPURLResponse(URL: expectedURL, statusCode: 200, HTTPVersion: "1.1", headerFields: nil)
                             
                             describe("parsing the JSON") {
                                 it("attempts to parse the received data") {
@@ -101,8 +103,8 @@ class ConcreteJSONClientSpec : QuickSpec {
                                     self.urlSession.lastCompletionHandler!(expectedData, response!, nil)
                                     
                                     expect(promise.fulfilled).to(beTrue())
-                                    var expectedValue = self.jsonSerializationProvider.returnedJSON
-                                    var value : NSDictionary! = (promise.value as! NSDictionary)
+                                    let expectedValue = self.jsonSerializationProvider.returnedJSON
+                                    let value : NSDictionary! = (promise.value as! NSDictionary)
                                     expect(value).to(beIdenticalTo(expectedValue))
                                 }
                             }
@@ -119,20 +121,20 @@ class ConcreteJSONClientSpec : QuickSpec {
                         }
                         
                         context("with a non-200 status code") {
-                            var response = NSHTTPURLResponse(URL: expectedURL, statusCode: 400, HTTPVersion: "1.1", headerFields: nil)
+                            let response = NSHTTPURLResponse(URL: expectedURL, statusCode: 400, HTTPVersion: "1.1", headerFields: nil)
                             
                             it("rejects the promise with an error") {
                                 self.urlSession.lastCompletionHandler!(expectedData, response!, nil)
                                 
                                 expect(promise.rejected).to(beTrue())
-                                expect(promise.error.domain).to(equal(ConcreteJSONClient.Error.BadResponse))
+                                expect(promise.error!.domain).to(equal(ConcreteJSONClient.Error.BadResponse))
                             }
                         }
                     }
                     
                     context("when the task completes with an error") {
                         it("rejects the promise with the network error") {
-                            var expectedError = NSError()
+                            let expectedError = NSError(domain: "some domain", code: 0, userInfo: nil)
                             self.urlSession.lastCompletionHandler!(nil, nil, expectedError)
                             
                             expect(promise.rejected).to(beTrue())

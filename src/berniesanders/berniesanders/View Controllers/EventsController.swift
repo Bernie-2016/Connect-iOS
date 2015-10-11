@@ -36,7 +36,7 @@ public class EventsController: UIViewController, UITableViewDataSource, UITableV
 
         super.init(nibName: nil, bundle: nil)
 
-        self.tabBarItem.setTitlePositionAdjustment(UIOffsetMake(0, -4))
+        self.tabBarItem.titlePositionAdjustment = UIOffsetMake(0, -4)
         self.tabBarItem.image = UIImage(named: "eventsTabBarIconInactive")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
         self.tabBarItem.selectedImage = UIImage(named: "eventsTabBarIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
 
@@ -49,7 +49,7 @@ public class EventsController: UIViewController, UITableViewDataSource, UITableV
         self.title = NSLocalizedString("Events_tabBarTitle", comment: "")
     }
 
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -175,7 +175,7 @@ public class EventsController: UIViewController, UITableViewDataSource, UITableV
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let event = self.events[indexPath.row]
         let controller = self.eventControllerProvider.provideInstanceWithEvent(event)
-        self.analyticsService.trackContentViewWithName(event.name, type: .Event, id: event.URL.absoluteString!)
+        self.analyticsService.trackContentViewWithName(event.name, type: .Event, id: event.URL.absoluteString)
         self.navigationController?.pushViewController(controller, animated: true)
     }
 
@@ -193,7 +193,7 @@ public class EventsController: UIViewController, UITableViewDataSource, UITableV
     }
 
     func didTapSearch(sender : UIButton!) {
-        let enteredZipCode = self.zipCodeTextField.text
+        let enteredZipCode = self.zipCodeTextField.text!
         self.analyticsService.trackSearchWithQuery(enteredZipCode, context: .Events)
 
         zipCodeTextField.resignFirstResponder()
@@ -206,7 +206,7 @@ public class EventsController: UIViewController, UITableViewDataSource, UITableV
 
         self.eventRepository.fetchEventsWithZipCode(enteredZipCode, radiusMiles: 50.0,
             completion: { (events: Array<Event>) -> Void in
-                var matchingEventsFound = events.count > 0
+                let matchingEventsFound = events.count > 0
                 self.events = events
 
                 self.noResultsLabel.hidden = matchingEventsFound

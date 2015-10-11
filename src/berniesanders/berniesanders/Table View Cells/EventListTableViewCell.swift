@@ -5,7 +5,7 @@ public class EventListTableViewCell: UITableViewCell {
     public let addressLabel = UILabel.newAutoLayoutView()
     public let attendeesLabel = UILabel.newAutoLayoutView()
 
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 

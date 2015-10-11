@@ -20,7 +20,12 @@ public class ConcreteJSONClient: JSONClient {
         var jsonSerializationError : NSError?
         let httpBody : NSData?
         if(bodyDictionary !=  nil) {
-            httpBody = self.jsonSerializationProvider.dataWithJSONObject(bodyDictionary!, options: NSJSONWritingOptions.allZeros, error: &jsonSerializationError)
+            do {
+                httpBody = try self.jsonSerializationProvider.dataWithJSONObject(bodyDictionary!, options: NSJSONWritingOptions())
+            } catch let error as NSError {
+                jsonSerializationError = error
+                httpBody = nil
+            }
         } else {
             httpBody = nil
         }
@@ -32,9 +37,6 @@ public class ConcreteJSONClient: JSONClient {
 
         let request = NSMutableURLRequest(URL: url)
         request.HTTPMethod = method
-
-        var jsonError : NSError?
-
         request.HTTPBody = httpBody
 
         let task = self.urlSession.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
@@ -43,15 +45,23 @@ public class ConcreteJSONClient: JSONClient {
                 return
             }
 
-            var httpResponse = response as! NSHTTPURLResponse
+            let httpResponse = response as! NSHTTPURLResponse
             if(httpResponse.statusCode != 200) {
-                var httpError = NSError(domain: ConcreteJSONClient.Error.BadResponse, code: httpResponse.statusCode, userInfo: nil)
+                let httpError = NSError(domain: ConcreteJSONClient.Error.BadResponse, code: httpResponse.statusCode, userInfo: nil)
                 deferred.rejectWithError(httpError)
                 return
             }
 
             var jsonDeserializationError : NSError?
-            var jsonBody: AnyObject? = self.jsonSerializationProvider.jsonObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &jsonDeserializationError)
+            var jsonBody: AnyObject?
+            do {
+                jsonBody = try self.jsonSerializationProvider.jsonObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments)
+            } catch let error as NSError {
+                jsonDeserializationError = error
+                jsonBody = nil
+            } catch {
+                fatalError()
+            }
             if jsonDeserializationError != nil {
                 deferred.rejectWithError(jsonDeserializationError)
             } else {

@@ -6,7 +6,7 @@ public class TitleSubTitleTableViewCell: UITableViewCell {
     public let titleLabel: UILabel
     public let dateLabel: UILabel
 
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 

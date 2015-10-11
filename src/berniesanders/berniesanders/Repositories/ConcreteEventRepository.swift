@@ -25,11 +25,11 @@ public class ConcreteEventRepository: EventRepository {
     public func fetchEventsWithZipCode(zipCode: String, radiusMiles: Float, completion: (Array<Event>) -> Void, error: (NSError) -> Void) {
         self.geocoder.geocodeAddressString(zipCode, completionHandler: { (placemarks, geocodingError) -> Void in
             if(geocodingError != nil) {
-                error(geocodingError)
+                error(geocodingError!)
                 return
             }
 
-            let placemark = placemarks.first as! CLPlacemark
+            let placemark = placemarks!.first!
             let location = placemark.location!
 
             let url = self.urlProvider.eventsURL()
@@ -43,7 +43,7 @@ public class ConcreteEventRepository: EventRepository {
             let eventsPromise = self.jsonClient.JSONPromiseWithURL(url, method: "POST", bodyDictionary: HTTPBodyDictionary)
 
             eventsPromise.then({ (jsonDictionary) -> AnyObject! in
-                var parsedEvents = self.eventDeserializer.deserializeEvents(jsonDictionary as! NSDictionary)
+                let parsedEvents = self.eventDeserializer.deserializeEvents(jsonDictionary as! NSDictionary)
 
                 self.operationQueue.addOperationWithBlock({ () -> Void in
                     completion(parsedEvents)
@@ -52,7 +52,7 @@ public class ConcreteEventRepository: EventRepository {
                 return parsedEvents
                 }, error: { (receivedError) -> AnyObject! in
                     self.operationQueue.addOperationWithBlock({ () -> Void in
-                        error(receivedError)
+                        error(receivedError!)
                     })
                     return receivedError
             })

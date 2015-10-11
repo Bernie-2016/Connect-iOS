@@ -26,7 +26,7 @@ class FakeEventDeserializer: EventDeserializer {
 class FakeGeocoder : CLGeocoder {
     var lastReceivedAddressString : String!
     var lastReceivedCompletionHandler : CLGeocodeCompletionHandler!
-    override func geocodeAddressString(addressString: String!, completionHandler: CLGeocodeCompletionHandler!) {
+    override func geocodeAddressString(addressString: String, completionHandler: CLGeocodeCompletionHandler) {
         self.lastReceivedAddressString = addressString
         self.lastReceivedCompletionHandler = completionHandler
     }
@@ -135,11 +135,11 @@ class ConcreteEventRepositorySpec : QuickSpec {
                     }
                     
                     context("when the request to the JSON client succeeds") {
-                        var expectedJSONDictionary = NSDictionary()
-                        var expectedEvents = self.eventDeserializer.returnedEvents
+                        let expectedJSONDictionary = NSDictionary()
+                        let expectedEvents = self.eventDeserializer.returnedEvents
                         
                         beforeEach {
-                            var deferred: KSDeferred = self.jsonClient.deferredsByURL[self.urlProvider.returnedURL]!
+                            let deferred: KSDeferred = self.jsonClient.deferredsByURL[self.urlProvider.returnedURL]!
                             
                             deferred.resolveWithValue(expectedJSONDictionary)
                         }
@@ -157,8 +157,8 @@ class ConcreteEventRepositorySpec : QuickSpec {
                     
                     context("when the request to the JSON client fails") {
                         it("forwards the error to the caller on the operation queue") {
-                            var deferred: KSDeferred = self.jsonClient.deferredsByURL[self.urlProvider.returnedURL]!
-                            var expectedError = NSError(domain: "somedomain", code: 666, userInfo: nil)
+                            let deferred: KSDeferred = self.jsonClient.deferredsByURL[self.urlProvider.returnedURL]!
+                            let expectedError = NSError(domain: "somedomain", code: 666, userInfo: nil)
                             deferred.rejectWithError(expectedError)
                             
                             self.operationQueue.lastReceivedBlock()

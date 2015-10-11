@@ -35,7 +35,7 @@ class FakeSettingsController : UIViewController {
         self.title = title
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
@@ -97,7 +97,7 @@ class SettingsControllerSpec : QuickSpec {
                 }
                 
                 it("should have rows in the table") {
-                    expect(self.subject.tableView.numberOfSections()).to(equal(1))
+                    expect(self.subject.tableView.numberOfSections).to(equal(1))
                     expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(2))
                 }
                 
@@ -122,13 +122,13 @@ class SettingsControllerSpec : QuickSpec {
                 
                 describe("the table contents") {
                     it("has a regular UITableViewCell row for evey configured 'regular' controller") {
-                        var cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))!
+                        let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))!
                         expect(cell.textLabel!.text).to(equal("Regular Controller"))
                         expect(cell).to(beAnInstanceOf(UITableViewCell.self))
                     }
                     
                     it("has a DonateTableViewCell row for a donate controller") {
-                        var cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))!
+                        let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))!
                         expect(cell).to(beAnInstanceOf(DonateTableViewCell.self))
                     }
                     

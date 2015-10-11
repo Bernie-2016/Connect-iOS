@@ -128,16 +128,16 @@ class NewsFeedControllerSpecs: QuickSpec {
             it("styles its tab bar item from the theme") {
                 let normalAttributes = self.subject.tabBarItem.titleTextAttributesForState(UIControlState.Normal)
                 
-                let normalTextColor = normalAttributes[NSForegroundColorAttributeName] as! UIColor
-                let normalFont = normalAttributes[NSFontAttributeName] as! UIFont
+                let normalTextColor = normalAttributes?[NSForegroundColorAttributeName] as! UIColor
+                let normalFont = normalAttributes?[NSFontAttributeName] as! UIFont
                 
                 expect(normalTextColor).to(equal(UIColor.redColor()))
                 expect(normalFont).to(equal(UIFont.systemFontOfSize(123)))
                 
                 let selectedAttributes = self.subject.tabBarItem.titleTextAttributesForState(UIControlState.Selected)
                 
-                let selectedTextColor = selectedAttributes[NSForegroundColorAttributeName] as! UIColor
-                let selectedFont = selectedAttributes[NSFontAttributeName] as! UIFont
+                let selectedTextColor = selectedAttributes?[NSForegroundColorAttributeName] as! UIColor
+                let selectedFont = selectedAttributes?[NSFontAttributeName] as! UIFont
                 
                 expect(selectedTextColor).to(equal(UIColor.purpleColor()))
                 expect(selectedFont).to(equal(UIFont.systemFontOfSize(123)))
@@ -149,10 +149,10 @@ class NewsFeedControllerSpecs: QuickSpec {
             }
             
             it("has the page components as subviews") {
-                let subViews = self.subject.view.subviews as! [UIView]
+                let subViews = self.subject.view.subviews
                 
-                expect(contains(subViews, self.subject.tableView)).to(beTrue())
-                expect(contains(subViews, self.subject.loadingIndicatorView)).to(beTrue())
+                expect(subViews.contains(self.subject.tableView)).to(beTrue())
+                expect(subViews.contains(self.subject.loadingIndicatorView)).to(beTrue())
             }
             
             it("styles the spinner from the theme") {
@@ -184,7 +184,7 @@ class NewsFeedControllerSpecs: QuickSpec {
                 }
                 
                 it("has an empty table") {
-                    expect(self.subject.tableView.numberOfSections()).to(equal(1))
+                    expect(self.subject.tableView.numberOfSections).to(equal(1))
                     expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(0))
                 }
                 
@@ -193,17 +193,17 @@ class NewsFeedControllerSpecs: QuickSpec {
                 }
                 
                 describe("when the news repository returns some news items", {
-                    var newsItemADate = NSDate(timeIntervalSince1970: 0)
-                    var newsItemBDate = NSDate(timeIntervalSince1970: 86401)
-                    var newsItemA = NewsItem(title: "Bernie to release new album", date: newsItemADate, body: "yeahhh", imageURL: NSURL(string: "http://bs.com")!, URL: NSURL())
-                    var newsItemB = NewsItem(title: "Bernie up in the polls!", date: newsItemBDate, body: "body text", imageURL: NSURL(), URL: NSURL())
+                    let newsItemADate = NSDate(timeIntervalSince1970: 0)
+                    let newsItemBDate = NSDate(timeIntervalSince1970: 86401)
+                    let newsItemA = NewsItem(title: "Bernie to release new album", date: newsItemADate, body: "yeahhh", imageURL: NSURL(string: "http://bs.com")!, URL: NSURL())
+                    let newsItemB = NewsItem(title: "Bernie up in the polls!", date: newsItemBDate, body: "body text", imageURL: NSURL(), URL: NSURL())
                     
-                    var newsItems = [newsItemA, newsItemB]
+                    let newsItems = [newsItemA, newsItemB]
                     
                     it("has 2 sections") {
                         self.newsItemRepository.lastCompletionBlock!(newsItems)
                         
-                        expect(self.subject.tableView.numberOfSections()).to(equal(2))
+                        expect(self.subject.tableView.numberOfSections).to(equal(2))
                     }
                     
                     it("shows the table view, and stops the loading spinner") {
@@ -243,9 +243,9 @@ class NewsFeedControllerSpecs: QuickSpec {
                             }
                             
                             it("sets a placeholder image") {
-                                var placeholderImage = UIImage(named: "newsHeadlinePlaceholder")
-                                var expectedImageData = UIImagePNGRepresentation(placeholderImage)
-                                var headlineImageData = UIImagePNGRepresentation(cell.headlineImageView.image)
+                                let placeholderImage = UIImage(named: "newsHeadlinePlaceholder")!
+                                let expectedImageData = UIImagePNGRepresentation(placeholderImage)
+                                let headlineImageData = UIImagePNGRepresentation(cell.headlineImageView.image!)
                                 
                                 expect(headlineImageData).to(equal(expectedImageData))
                             }
@@ -257,12 +257,12 @@ class NewsFeedControllerSpecs: QuickSpec {
                             
                             context("when the image loads successfully") {
                                 it("shows the loaded image in the image view") {
-                                    var storyImage = TestUtils.testImageNamed("bernie", type: "jpg")
+                                    let storyImage = TestUtils.testImageNamed("bernie", type: "jpg")
                                     
                                     self.imageRepository.lastRequestDeferred.resolveWithValue(storyImage)
                                     
-                                    var expectedImageData = UIImagePNGRepresentation(storyImage)
-                                    var storyImageData = UIImagePNGRepresentation(cell.headlineImageView.image)
+                                    let expectedImageData = UIImagePNGRepresentation(storyImage)
+                                    let storyImageData = UIImagePNGRepresentation(cell.headlineImageView.image!)
                                     
                                     expect(storyImageData).to(equal(expectedImageData))
                                 }
@@ -270,9 +270,9 @@ class NewsFeedControllerSpecs: QuickSpec {
                             
                             context("when the image cannot be loaded") {
                                 it("still shows the placeholder image") {
-                                    var placeholderImage = UIImage(named: "newsHeadlinePlaceholder")
-                                    var expectedImageData = UIImagePNGRepresentation(placeholderImage)
-                                    var headlineImageData = UIImagePNGRepresentation(cell.headlineImageView.image)
+                                    let placeholderImage = UIImage(named: "newsHeadlinePlaceholder")!
+                                    let expectedImageData = UIImagePNGRepresentation(placeholderImage)
+                                    let headlineImageData = UIImagePNGRepresentation(cell.headlineImageView.image!)
                                     
                                     expect(headlineImageData).to(equal(expectedImageData))
                                 }
@@ -281,7 +281,7 @@ class NewsFeedControllerSpecs: QuickSpec {
                         
                         context("when the first news item does not have an image URL") {
                             beforeEach {
-                                var newsItemWithoutImage =  NewsItem(title: "no pics", date: newsItemADate, body: "nope", imageURL: nil, URL: NSURL())
+                                let newsItemWithoutImage =  NewsItem(title: "no pics", date: newsItemADate, body: "nope", imageURL: nil, URL: NSURL())
                                 
                                 self.newsItemRepository.lastCompletionBlock!([newsItemWithoutImage])
                                 
@@ -289,9 +289,9 @@ class NewsFeedControllerSpecs: QuickSpec {
                             }
                             
                             it("sets a default image") {
-                                var defaultImage = UIImage(named: "newsHeadlinePlaceholder")
-                                var expectedImageData = UIImagePNGRepresentation(defaultImage)
-                                var headlineImageData = UIImagePNGRepresentation(cell.headlineImageView.image)
+                                let defaultImage = UIImage(named: "newsHeadlinePlaceholder")!
+                                let expectedImageData = UIImagePNGRepresentation(defaultImage)
+                                let headlineImageData = UIImagePNGRepresentation(cell.headlineImageView.image!)
                                 
                                 expect(headlineImageData).to(equal(expectedImageData))
                             }
@@ -310,13 +310,13 @@ class NewsFeedControllerSpecs: QuickSpec {
                         it("shows the items in the table with upcased text") {
                             expect(self.subject.tableView.numberOfRowsInSection(1)).to(equal(1))
                             
-                            var cellB = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! TitleSubTitleTableViewCell
+                            let cellB = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! TitleSubTitleTableViewCell
                             expect(cellB.titleLabel.text).to(equal("Bernie up in the polls!"))
                             expect(cellB.dateLabel.text).to(equal("1/2/70"))
                         }
                         
                         it("styles the items in the table") {
-                            var cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! TitleSubTitleTableViewCell
+                            let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! TitleSubTitleTableViewCell
                             
                             expect(cell.titleLabel.textColor).to(equal(UIColor.magentaColor()))
                             expect(cell.titleLabel.font).to(equal(UIFont.boldSystemFontOfSize(20)))
@@ -346,7 +346,7 @@ class NewsFeedControllerSpecs: QuickSpec {
                 beforeEach {
                     self.subject.viewWillAppear(false)
                     
-                    var newsItems = [expectedNewsItemA, expectedNewsItemB]
+                    let newsItems = [expectedNewsItemA, expectedNewsItemB]
                     
                     self.newsItemRepository.lastCompletionBlock!(newsItems)
                 }

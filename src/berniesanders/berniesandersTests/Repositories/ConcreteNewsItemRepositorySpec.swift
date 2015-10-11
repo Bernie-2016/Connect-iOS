@@ -68,11 +68,11 @@ class ConcreteNewsItemRepositorySpec : QuickSpec {
             }
             
             context("when the request to the JSON client succeeds") {
-                var expectedJSONDictionary = NSDictionary();
-                var expectedNewsItems = self.newsItemDeserializer.returnedNewsItems
+                let expectedJSONDictionary = NSDictionary();
+                _ = self.newsItemDeserializer.returnedNewsItems
                 
                 beforeEach {
-                    var deferred: KSDeferred = self.jsonClient.deferredsByURL[self.urlProvider.newsFeedURL()]!
+                    let deferred: KSDeferred = self.jsonClient.deferredsByURL[self.urlProvider.newsFeedURL()]!
                     
                     deferred.resolveWithValue(expectedJSONDictionary)
                 }
@@ -90,8 +90,8 @@ class ConcreteNewsItemRepositorySpec : QuickSpec {
             
             context("when the request to the JSON client fails") {
                 it("forwards the error to the caller on the operation queue") {
-                    var deferred: KSDeferred = self.jsonClient.deferredsByURL[self.urlProvider.newsFeedURL()]!
-                    var expectedError = NSError(domain: "somedomain", code: 666, userInfo: nil)
+                    let deferred: KSDeferred = self.jsonClient.deferredsByURL[self.urlProvider.newsFeedURL()]!
+                    let expectedError = NSError(domain: "somedomain", code: 666, userInfo: nil)
                     deferred.rejectWithError(expectedError)
                     
                     self.operationQueue.lastReceivedBlock()

@@ -15,7 +15,7 @@ public class PrivacyPolicyController: UIViewController {
         self.title = NSLocalizedString("PrivacyPolicy_title", comment: "")
     }
 
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -24,10 +24,10 @@ public class PrivacyPolicyController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
 
-        var urlRequest = NSURLRequest(URL: self.urlProvider.privacyPolicyURL())
+        let urlRequest = NSURLRequest(URL: self.urlProvider.privacyPolicyURL())
         self.webView.loadRequest(urlRequest)
 
-        self.webView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.webView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(self.webView)
         self.webView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero)
     }

@@ -61,7 +61,6 @@ class ConcreteStringContentSanitizerSpec: QuickSpec {
                 it("strips text telling the user to watch the event 'here:'") {
                     let inputString = "Foo bar. Avast, here: be dragons. However here:\nNo Dragons. And stuff here:"
                     let expectedString = "Foo bar. Avast, here: be dragons.No Dragons."
-                    let sanitizedString = self.subject.sanitizeString(inputString)
                     
                     expect(self.subject.sanitizeString(inputString)).to(equal(expectedString))
                 }

@@ -12,7 +12,7 @@ public struct AnalyticsServiceConstants {
     public static let contentIDKey = "contentID"
 }
 
-public enum AnalyticsServiceContentType : String, Printable {
+public enum AnalyticsServiceContentType : String, CustomStringConvertible {
     case NewsItem = "News Item"
     case Issue = "Issue"
     case Settings = "Settings"
@@ -24,7 +24,7 @@ public enum AnalyticsServiceContentType : String, Printable {
     }
 }
 
-public enum AnalyticsSearchContext : String, Printable {
+public enum AnalyticsSearchContext : String, CustomStringConvertible {
     case Events = "Events"
 
     public var description: String {

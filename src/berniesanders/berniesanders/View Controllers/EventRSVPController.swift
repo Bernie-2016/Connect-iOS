@@ -15,7 +15,7 @@ public class EventRSVPController: UIViewController, UIWebViewDelegate {
         super.init(nibName: nil, bundle: nil)
     }
 
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -33,11 +33,11 @@ public class EventRSVPController: UIViewController, UIWebViewDelegate {
         webView.delegate = self
         loadingIndicatorView.stopAnimating()
 
-        var anchoredURL = NSURL(string: "#rsvp_container", relativeToURL: self.event.URL)
-        var urlRequest = NSURLRequest(URL: anchoredURL!)
+        let anchoredURL = NSURL(string: "#rsvp_container", relativeToURL: self.event.URL)
+        let urlRequest = NSURLRequest(URL: anchoredURL!)
         webView.loadRequest(urlRequest)
 
-        webView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        webView.translatesAutoresizingMaskIntoConstraints = false
 
         view.addSubview(self.webView)
         view.addSubview(self.loadingIndicatorView)
@@ -47,7 +47,7 @@ public class EventRSVPController: UIViewController, UIWebViewDelegate {
     }
 
     public override func didMoveToParentViewController(parent: UIViewController?) {
-        let d = [AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString!]
+        let d = [AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString]
         self.analyticsService.trackCustomEventWithName("Tapped 'Back' on Event RSVP", customAttributes: d)
     }
 

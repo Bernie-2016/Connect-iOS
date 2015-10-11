@@ -41,7 +41,7 @@ class EventRSVPControllerSpec : QuickSpec {
                     self.subject.didMoveToParentViewController(nil)
                     
                     expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Back' on Event RSVP"))
-                    let expectedAttributes = [AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString!]
+                    let expectedAttributes = [AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString]
                     expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                 }
                 
@@ -51,10 +51,10 @@ class EventRSVPControllerSpec : QuickSpec {
                 }
                 
                 it("should add the webview as a subview") {
-                    var subviews = self.subject.view.subviews as! [UIView]
+                    let subviews = self.subject.view.subviews 
                     
-                    expect(contains(subviews, self.subject.webView)).to(beTrue())
-                    expect(contains(subviews, self.subject.loadingIndicatorView)).to(beTrue())
+                    expect(subviews.contains(self.subject.webView)).to(beTrue())
+                    expect(subviews.contains(self.subject.loadingIndicatorView)).to(beTrue())
                 }
                 
                 it("should load the BernieCrowd.org checklist into a webview") {

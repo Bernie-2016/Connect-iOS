@@ -15,13 +15,12 @@ class ConcreteEventDeserializerSpec : QuickSpec {
         describe("ConcreteEventDeserializer") {
             it("deserializes the events correctly") {
                 let data = TestUtils.dataFromFixtureFileNamed("events", type: "json")
-                var error: NSError?
                 
-                let jsonDictionary = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.allZeros, error: &error) as! NSDictionary
+                let jsonDictionary = (try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions())) as! NSDictionary
                 var events = self.subject.deserializeEvents(jsonDictionary)
                 
                 expect(events.count).to(equal(2))
-                var eventA = events[0]
+                let eventA = events[0]
                 expect(eventA.name).to(equal("Deputy Voter Registrar Training Class - Travis County"))
                 expect(eventA.startDate).to(equal(NSDate(timeIntervalSince1970: 1446597000)))
                 expect(eventA.timeZone).to(equal(NSTimeZone(abbreviation: "CST")))
@@ -36,7 +35,7 @@ class ConcreteEventDeserializerSpec : QuickSpec {
                 expect(eventA.description).to(equal("Deputy Voter Registrar Training Class - Travis County\nCall (512) 854-9473 a year ahead to R.S.V.P."))
                 expect(eventA.URL).to(equal(NSURL(string: "https://go.berniesanders.com/page/event/detail/registeringvoters/4vfdg")))
                 
-                var eventB = events[1]
+                let eventB = events[1]
                 expect(eventB.name).to(equal("Deputy Dawg Training Class - Travis County"))
                 expect(eventB.startDate).to(equal(NSDate(timeIntervalSince1970: 1465176600)))
                 expect(eventB.timeZone).to(equal(NSTimeZone(abbreviation: "PST")))
@@ -55,13 +54,11 @@ class ConcreteEventDeserializerSpec : QuickSpec {
             context("when name, OTHER STUFF are missing") {
                 it("should not explode and ignore stories that lack them") {
                     let data = TestUtils.dataFromFixtureFileNamed("dodgy_events", type: "json")
-                    var error: NSError?
-                    
-                    let jsonDictionary = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.allZeros, error: &error) as! NSDictionary
+                    let jsonDictionary = (try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions())) as! NSDictionary
                     var events = self.subject.deserializeEvents(jsonDictionary)
                     
                     expect(events.count).to(equal(1))
-                    var event = events[0]
+                    let event = events[0]
                     expect(event.name).to(equal("Deputy Dawg Training Class - Travis County"))
                 }
             }

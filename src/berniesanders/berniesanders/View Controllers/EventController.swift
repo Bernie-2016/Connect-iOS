@@ -47,7 +47,7 @@ public class EventController: UIViewController {
             self.hidesBottomBarWhenPushed = true // TODO: test this when initialized, not when viewDidLoad
     }
 
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -115,36 +115,36 @@ public class EventController: UIViewController {
     }
 
     public override func didMoveToParentViewController(parent: UIViewController?) {
-        self.analyticsService.trackCustomEventWithName("Tapped 'Back' on Event", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString!])
+        self.analyticsService.trackCustomEventWithName("Tapped 'Back' on Event", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString])
     }
 
     // MARK: Actions
 
     func share() {
-        self.analyticsService.trackCustomEventWithName("Tapped 'Share' on Event", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString!])
+        self.analyticsService.trackCustomEventWithName("Tapped 'Share' on Event", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString])
 
         let activityVC = UIActivityViewController(activityItems: [event.URL], applicationActivities: nil)
         presentViewController(activityVC, animated: true, completion: nil)
         activityVC.completionWithItemsHandler = { activity, success, items, error in
             if(error != nil) {
-                self.analyticsService.trackError(error, context: "Failed to share Event")
+                self.analyticsService.trackError(error!, context: "Failed to share Event")
             } else {
                 if(success == true) {
-                    self.analyticsService.trackShareWithActivityType(activity, contentName: self.event.name, contentType: .Event, id: self.event.URL.absoluteString!)
+                    self.analyticsService.trackShareWithActivityType(activity!, contentName: self.event.name, contentType: .Event, id: self.event.URL.absoluteString)
                 } else {
-                    self.analyticsService.trackCustomEventWithName("Cancelled share of Event", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString!])
+                    self.analyticsService.trackCustomEventWithName("Cancelled share of Event", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString])
                 }
             }
         }
     }
 
     func didTapDirections() {
-        self.analyticsService.trackCustomEventWithName("Tapped 'Directions' on Event", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString!])
+        self.analyticsService.trackCustomEventWithName("Tapped 'Directions' on Event", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString])
         self.urlOpener.openURL(self.urlProvider.mapsURLForEvent(self.event))
     }
 
     func didTapRSVP() {
-        self.analyticsService.trackCustomEventWithName("Tapped 'RSVP' on Event", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString!])
+        self.analyticsService.trackCustomEventWithName("Tapped 'RSVP' on Event", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString])
         let rsvpController = self.eventRSVPControllerProvider.provideControllerWithEvent(event)
         navigationController?.pushViewController(rsvpController, animated: true)
     }

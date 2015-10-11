@@ -18,11 +18,11 @@ public class ConcreteIssueRepository: IssueRepository {
     }
 
     public func fetchIssues(completion: (Array<Issue>) -> Void, error: (NSError) -> Void) {
-        var issuesJSONPromise = self.jsonClient.JSONPromiseWithURL(self.urlProvider.issuesFeedURL(), method: "POST", bodyDictionary: self.HTTPBodyDictionary())
+        let issuesJSONPromise = self.jsonClient.JSONPromiseWithURL(self.urlProvider.issuesFeedURL(), method: "POST", bodyDictionary: self.HTTPBodyDictionary())
 
 
         issuesJSONPromise.then({ (jsonDictionary) -> AnyObject! in
-            var parsedIssues = self.issueDeserializer.deserializeIssues(jsonDictionary as! NSDictionary)
+            let parsedIssues = self.issueDeserializer.deserializeIssues(jsonDictionary as! NSDictionary)
 
             self.operationQueue.addOperationWithBlock({ () -> Void in
                 completion(parsedIssues)
@@ -31,7 +31,7 @@ public class ConcreteIssueRepository: IssueRepository {
             return parsedIssues
         }, error: { (receivedError) -> AnyObject! in
             self.operationQueue.addOperationWithBlock({ () -> Void in
-                error(receivedError)
+                error(receivedError!)
                 })
             return receivedError
         })

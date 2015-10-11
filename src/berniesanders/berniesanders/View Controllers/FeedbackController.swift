@@ -14,7 +14,7 @@ public class FeedbackController: UIViewController, UIWebViewDelegate {
         self.title = NSLocalizedString("Feedback_title", comment: "")
     }
 
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -23,11 +23,11 @@ public class FeedbackController: UIViewController, UIWebViewDelegate {
     public override func viewDidLoad() {
         super.viewDidLoad()
 
-        var urlRequest = NSURLRequest(URL: self.urlProvider.feedbackFormURL())
+        let urlRequest = NSURLRequest(URL: self.urlProvider.feedbackFormURL())
         self.webView.delegate = self
         self.webView.loadRequest(urlRequest)
 
-        self.webView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.webView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(self.webView)
         self.webView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero)
     }
@@ -41,11 +41,11 @@ public class FeedbackController: UIViewController, UIWebViewDelegate {
 
     public func webViewDidFinishLoad(webView: UIWebView) {
         let overrideCssPath = NSBundle.mainBundle().pathForResource("feedbackGoogleFormOverrides", ofType: "css")!
-        let overrideCss = String(contentsOfFile: overrideCssPath, encoding: NSUTF8StringEncoding, error: nil)!
+        let overrideCss = try! String(contentsOfFile: overrideCssPath, encoding: NSUTF8StringEncoding)
         let injectionJSPath = NSBundle.mainBundle().pathForResource("cssInjection", ofType: "js")!
-        let injectionJS = String(contentsOfFile: injectionJSPath, encoding: NSUTF8StringEncoding, error: nil)!
+        let injectionJS = try! String(contentsOfFile: injectionJSPath, encoding: NSUTF8StringEncoding)
 
         let cssInjection = injectionJS.stringByReplacingOccurrencesOfString("CSS_SENTINEL", withString:overrideCss)
-        print(webView.stringByEvaluatingJavaScriptFromString(cssInjection))
+        print(webView.stringByEvaluatingJavaScriptFromString(cssInjection), terminator: "")
     }
 }

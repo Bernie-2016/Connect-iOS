@@ -69,11 +69,11 @@ class ConcreteIssueRepositorySpec : QuickSpec {
 
             
             context("when the request to the JSON client succeeds") {
-                var expectedJSONDictionary = NSDictionary()
-                var expectedIssues = self.issueDeserializer.returnedIssues
+                let expectedJSONDictionary = NSDictionary()
+                let expectedIssues = self.issueDeserializer.returnedIssues
                 
                 beforeEach {
-                    var deferred: KSDeferred = self.jsonClient.deferredsByURL[self.urlProvider.issuesFeedURL()]!
+                    let deferred: KSDeferred = self.jsonClient.deferredsByURL[self.urlProvider.issuesFeedURL()]!
 
                     deferred.resolveWithValue(expectedJSONDictionary)
                 }
@@ -91,8 +91,8 @@ class ConcreteIssueRepositorySpec : QuickSpec {
             
             context("when the request to the JSON client fails") {
                 it("forwards the error to the caller on the operation queue") {
-                    var deferred: KSDeferred = self.jsonClient.deferredsByURL[self.urlProvider.issuesFeedURL()]!
-                    var expectedError = NSError(domain: "somedomain", code: 666, userInfo: nil)
+                    let deferred: KSDeferred = self.jsonClient.deferredsByURL[self.urlProvider.issuesFeedURL()]!
+                    let expectedError = NSError(domain: "somedomain", code: 666, userInfo: nil)
                     deferred.rejectWithError(expectedError)
                     
                     self.operationQueue.lastReceivedBlock()

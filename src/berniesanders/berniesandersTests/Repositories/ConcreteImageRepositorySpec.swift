@@ -32,8 +32,6 @@ class ConcreteImageRepositorySpec : QuickSpec {
         
         describe("fetching an image by URL") {
             var imagePromise : KSPromise!
-            var receivedImage : UIImage?
-            var receivedError : NSError?
             
             beforeEach {
                 imagePromise = self.subject.fetchImageWithURL(self.expectedURL)
@@ -45,7 +43,7 @@ class ConcreteImageRepositorySpec : QuickSpec {
             
             context("when the image downloads successfully") {
                 it("should resolve the promise with the image") {
-                    var expectedImage = TestUtils.testImageNamed("bernie", type: "jpg")
+                    let expectedImage = TestUtils.testImageNamed("bernie", type: "jpg")
                     
                     self.webImageManager.lastReceivedCompletionBlock(expectedImage, nil, SDImageCacheType.None, true, self.expectedURL)
                 
@@ -56,7 +54,7 @@ class ConcreteImageRepositorySpec : QuickSpec {
             
             context("when the image cannot be downloaded") {
                 it("should reject the promise with the error") {
-                    var expectedError = NSError(domain: "some domain", code: 666, userInfo: nil)
+                    let expectedError = NSError(domain: "some domain", code: 666, userInfo: nil)
                     self.webImageManager.lastReceivedCompletionBlock(nil, expectedError, SDImageCacheType.None, true, self.expectedURL)
                     
                     expect(imagePromise.rejected).to(beTrue())

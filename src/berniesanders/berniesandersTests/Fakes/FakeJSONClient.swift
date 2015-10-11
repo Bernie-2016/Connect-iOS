@@ -8,7 +8,7 @@ class FakeJSONClient: berniesanders.JSONClient {
     var lastBodyDictionary: NSDictionary!
     
     func JSONPromiseWithURL(url: NSURL, method: String, bodyDictionary: NSDictionary?) -> KSPromise {
-        var deferred =  KSDeferred.defer()
+        let deferred =  KSDeferred.`defer`()
         self.deferredsByURL[url] = deferred
         self.lastMethod = method
         self.lastBodyDictionary = bodyDictionary

@@ -94,16 +94,16 @@ class IssuesControllerSpec: QuickSpec {
             it("styles its tab bar item from the theme") {
                 let normalAttributes = self.subject.tabBarItem.titleTextAttributesForState(UIControlState.Normal)
                 
-                let normalTextColor = normalAttributes[NSForegroundColorAttributeName] as! UIColor
-                let normalFont = normalAttributes[NSFontAttributeName] as! UIFont
+                let normalTextColor = normalAttributes?[NSForegroundColorAttributeName] as! UIColor
+                let normalFont = normalAttributes?[NSFontAttributeName] as! UIFont
                 
                 expect(normalTextColor).to(equal(UIColor.redColor()))
                 expect(normalFont).to(equal(UIFont.systemFontOfSize(123)))
                 
                 let selectedAttributes = self.subject.tabBarItem.titleTextAttributesForState(UIControlState.Selected)
                 
-                let selectedTextColor = selectedAttributes[NSForegroundColorAttributeName] as! UIColor
-                let selectedFont = selectedAttributes[NSFontAttributeName] as! UIFont
+                let selectedTextColor = selectedAttributes?[NSForegroundColorAttributeName] as! UIColor
+                let selectedFont = selectedAttributes?[NSFontAttributeName] as! UIFont
                 
                 expect(selectedTextColor).to(equal(UIColor.purpleColor()))
                 expect(selectedFont).to(equal(UIFont.systemFontOfSize(123)))
@@ -115,10 +115,10 @@ class IssuesControllerSpec: QuickSpec {
             }
             
             it("has the page components as subviews") {
-                let subViews = self.subject.view.subviews as! [UIView]
+                let subViews = self.subject.view.subviews
                 
-                expect(contains(subViews, self.subject.tableView)).to(beTrue())
-                expect(contains(subViews, self.subject.loadingIndicatorView)).to(beTrue())
+                expect(subViews.contains(self.subject.tableView)).to(beTrue())
+                expect(subViews.contains(self.subject.loadingIndicatorView)).to(beTrue())
             }
             
             it("sets the spinner up to hide when stopped") {
@@ -151,7 +151,7 @@ class IssuesControllerSpec: QuickSpec {
                 }
                 
                 it("has an empty table") {
-                    expect(self.subject.tableView.numberOfSections()).to(equal(1))
+                    expect(self.subject.tableView.numberOfSections).to(equal(1))
                     expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(0))
                 }
                 
@@ -162,8 +162,8 @@ class IssuesControllerSpec: QuickSpec {
                 
                 describe("when the issue repository returns some issues") {
                     beforeEach {
-                        var issueA = Issue(title: "Big Money in Little DC", body: "body", imageURL: NSURL(string: "http://a.com")!, URL: NSURL(string: "http://b.com")!)
-                        var issueB = Issue(title: "Long Live The NHS", body: "body", imageURL: NSURL(string: "http://c.com")!, URL: NSURL(string: "http://d.com")!)
+                        let issueA = Issue(title: "Big Money in Little DC", body: "body", imageURL: NSURL(string: "http://a.com")!, URL: NSURL(string: "http://b.com")!)
+                        let issueB = Issue(title: "Long Live The NHS", body: "body", imageURL: NSURL(string: "http://c.com")!, URL: NSURL(string: "http://d.com")!)
                         
                         self.issueRepository.lastCompletionBlock!([issueA, issueB])
                     }
@@ -178,15 +178,15 @@ class IssuesControllerSpec: QuickSpec {
                     it("shows the issues in the table") {
                         expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(2))
                         
-                        var cellA = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! IssueTableViewCell
+                        let cellA = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! IssueTableViewCell
                         expect(cellA.titleLabel.text).to(equal("Big Money in Little DC"))
                         
-                        var cellB = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! IssueTableViewCell
+                        let cellB = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! IssueTableViewCell
                         expect(cellB.titleLabel.text).to(equal("Long Live The NHS"))
                     }
                     
                     it("styles the items in the table") {
-                        var cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! IssueTableViewCell
+                        let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! IssueTableViewCell
                         
                         expect(cell.titleLabel.textColor).to(equal(UIColor.magentaColor()))
                         expect(cell.titleLabel.font).to(equal(UIFont.boldSystemFontOfSize(20)))
@@ -214,9 +214,9 @@ class IssuesControllerSpec: QuickSpec {
                 beforeEach {
                     self.subject.view.layoutIfNeeded()
                     self.subject.viewWillAppear(false)
-                    var otherIssue = TestUtils.issue()
+                    let otherIssue = TestUtils.issue()
                     
-                    var issues = [otherIssue, expectedIssue]
+                    let issues = [otherIssue, expectedIssue]
                     
                     self.issueRepository.lastCompletionBlock!(issues)
                     

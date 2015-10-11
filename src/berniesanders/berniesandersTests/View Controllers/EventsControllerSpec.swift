@@ -133,7 +133,7 @@ class EventsControllerSpec : QuickSpec {
                 self.eventControllerProvider = FakeEventControllerProvider()
                 self.analyticsService = FakeAnalyticsService()
                 
-                self.window = UIWindow.new()
+                self.window = UIWindow()
                 
                 self.subject = EventsController(
                     eventRepository: self.eventRepository,
@@ -187,29 +187,29 @@ class EventsControllerSpec : QuickSpec {
             it("styles its tab bar item from the theme") {
                 let normalAttributes = self.subject.tabBarItem.titleTextAttributesForState(UIControlState.Normal)
                 
-                let normalTextColor = normalAttributes[NSForegroundColorAttributeName] as! UIColor
-                let normalFont = normalAttributes[NSFontAttributeName] as! UIFont
+                let normalTextColor = normalAttributes?[NSForegroundColorAttributeName] as! UIColor
+                let normalFont = normalAttributes?[NSFontAttributeName] as! UIFont
                 
                 expect(normalTextColor).to(equal(UIColor.magentaColor()))
                 expect(normalFont).to(equal(UIFont.systemFontOfSize(123)))
                 
                 let selectedAttributes = self.subject.tabBarItem.titleTextAttributesForState(UIControlState.Selected)
                 
-                let selectedTextColor = selectedAttributes[NSForegroundColorAttributeName] as! UIColor
-                let selectedFont = selectedAttributes[NSFontAttributeName] as! UIFont
+                let selectedTextColor = selectedAttributes?[NSForegroundColorAttributeName] as! UIColor
+                let selectedFont = selectedAttributes?[NSFontAttributeName] as! UIFont
                 
                 expect(selectedTextColor).to(equal(UIColor.purpleColor()))
                 expect(selectedFont).to(equal(UIFont.systemFontOfSize(123)))
             }
             
             it("should add its view components as subviews") {
-                let subViews = self.subject.view.subviews as! [UIView]
+                let subViews = self.subject.view.subviews
                 
-                expect(contains(subViews, self.subject.zipCodeTextField)).to(beTrue())
-                expect(contains(subViews, self.subject.instructionsLabel)).to(beTrue())
-                expect(contains(subViews, self.subject.noResultsLabel)).to(beTrue())
-                expect(contains(subViews, self.subject.resultsTableView)).to(beTrue())
-                expect(contains(subViews, self.subject.loadingActivityIndicatorView)).to(beTrue())
+                expect(subViews.contains(self.subject.zipCodeTextField)).to(beTrue())
+                expect(subViews.contains(self.subject.instructionsLabel)).to(beTrue())
+                expect(subViews.contains(self.subject.noResultsLabel)).to(beTrue())
+                expect(subViews.contains(self.subject.resultsTableView)).to(beTrue())
+                expect(subViews.contains(self.subject.loadingActivityIndicatorView)).to(beTrue())
             }
             
             it("should hide the results table view by default") {
@@ -261,8 +261,8 @@ class EventsControllerSpec : QuickSpec {
             
             it("has an input accessory view for the zip code entry field") {
                 let inputToolbar = self.subject.zipCodeTextField.inputAccessoryView as! UIToolbar
-                let doneButton = inputToolbar.items![1] as! UIBarButtonItem
-                let cancelButton = inputToolbar.items![2] as! UIBarButtonItem
+                let doneButton = inputToolbar.items![1]
+                let cancelButton = inputToolbar.items![2]
                 
                 expect(doneButton.title).to(equal("Search"))
                 expect(cancelButton.title).to(equal("Cancel"))
@@ -286,7 +286,7 @@ class EventsControllerSpec : QuickSpec {
                     describe("aborting a search") {
                         beforeEach {
                             let inputToolbar = self.subject.zipCodeTextField.inputAccessoryView as! UIToolbar
-                            let cancelButton = inputToolbar.items![2] as! UIBarButtonItem
+                            let cancelButton = inputToolbar.items![2] 
                             cancelButton.tap()
                         }
 
@@ -304,7 +304,7 @@ class EventsControllerSpec : QuickSpec {
                     describe("and then tapping search") {
                         beforeEach {
                             let inputToolbar = self.subject.zipCodeTextField.inputAccessoryView as! UIToolbar
-                            let doneButton = inputToolbar.items![1] as! UIBarButtonItem
+                            let doneButton = inputToolbar.items![1]
                             doneButton.tap()
                         }
                         
@@ -359,7 +359,7 @@ class EventsControllerSpec : QuickSpec {
                                     self.subject.zipCodeTextField.text = "11111"
                                     
                                     let inputToolbar = self.subject.zipCodeTextField.inputAccessoryView as! UIToolbar
-                                    let doneButton = inputToolbar.items![1] as! UIBarButtonItem
+                                    let doneButton = inputToolbar.items![1]
                                     doneButton.tap()
                                 }
                                 
@@ -381,7 +381,7 @@ class EventsControllerSpec : QuickSpec {
                         context("when the search completes succesfully") {
                             context("with no results") {
                                 beforeEach {
-                                    var events : Array<Event> = []
+                                    let events : Array<Event> = []
                                     self.eventRepository.lastCompletionBlock!(events)
                                 }
                                 
@@ -403,7 +403,7 @@ class EventsControllerSpec : QuickSpec {
                                         self.subject.zipCodeTextField.text = "11111"
                                         
                                         let inputToolbar = self.subject.zipCodeTextField.inputAccessoryView as! UIToolbar
-                                        let doneButton = inputToolbar.items![1] as! UIBarButtonItem
+                                        let doneButton = inputToolbar.items![1]
                                         doneButton.tap()
                                     }
                                     
@@ -427,7 +427,7 @@ class EventsControllerSpec : QuickSpec {
                                 let eventB = TestUtils.eventWithName("Slammin' Sanders Salsa Serenade")
                                 
                                 beforeEach {
-                                    var events : Array<Event> = [eventA, eventB]
+                                    let events : Array<Event> = [eventA, eventB]
                                     self.eventRepository.lastCompletionBlock!(events)
                                 }
                                 
@@ -447,22 +447,22 @@ class EventsControllerSpec : QuickSpec {
                                 
                                 describe("the results table") {
                                     it("uses the presenter to set up the returned cells from the search results") {
-                                        expect(self.subject.resultsTableView.numberOfSections()).to(equal(1))
+                                        expect(self.subject.resultsTableView.numberOfSections).to(equal(1))
                                         expect(self.subject.resultsTableView.numberOfRowsInSection(0)).to(equal(2))
                                         
-                                        var cellA = self.subject.resultsTableView.dataSource!.tableView(self.subject.resultsTableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0)) as! EventListTableViewCell
+                                        let cellA = self.subject.resultsTableView.dataSource!.tableView(self.subject.resultsTableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0)) as! EventListTableViewCell
                                         
                                         expect(self.eventPresenter.lastReceivedEvent).to(beIdenticalTo(eventA))
                                         expect(self.eventPresenter.lastReceivedCell).to(beIdenticalTo(cellA))
                                         
-                                        var cellB = self.subject.resultsTableView.dataSource!.tableView(self.subject.resultsTableView, cellForRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0)) as! EventListTableViewCell
+                                        let cellB = self.subject.resultsTableView.dataSource!.tableView(self.subject.resultsTableView, cellForRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0)) as! EventListTableViewCell
                                         
                                         expect(self.eventPresenter.lastReceivedEvent).to(beIdenticalTo(eventB))
                                         expect(self.eventPresenter.lastReceivedCell).to(beIdenticalTo(cellB))
                                     }
                                     
                                     it("styles the cells from the theme") {
-                                        var cell = self.subject.resultsTableView.dataSource!.tableView(self.subject.resultsTableView, cellForRowAtIndexPath:NSIndexPath(forRow: 0, inSection: 0)) as! EventListTableViewCell
+                                        let cell = self.subject.resultsTableView.dataSource!.tableView(self.subject.resultsTableView, cellForRowAtIndexPath:NSIndexPath(forRow: 0, inSection: 0)) as! EventListTableViewCell
                                         
                                         expect(cell.nameLabel.font).to(equal(UIFont.italicSystemFontOfSize(333)))
                                         expect(cell.addressLabel.font).to(equal(UIFont.italicSystemFontOfSize(333)))
@@ -497,7 +497,7 @@ class EventsControllerSpec : QuickSpec {
                                         self.subject.zipCodeTextField.text = "11111"
                                         
                                         let inputToolbar = self.subject.zipCodeTextField.inputAccessoryView as! UIToolbar
-                                        let doneButton = inputToolbar.items![1] as! UIBarButtonItem
+                                        let doneButton = inputToolbar.items![1]
                                         doneButton.tap()
                                     }
                                     

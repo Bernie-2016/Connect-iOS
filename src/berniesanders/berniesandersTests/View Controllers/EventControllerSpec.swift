@@ -82,7 +82,7 @@ class EventControllerSpec: QuickSpec {
                 self.subject.didMoveToParentViewController(nil)
                 
                 expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Back' on Event"))
-                let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString!]
+                let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString]
                 expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
             }
             
@@ -96,7 +96,7 @@ class EventControllerSpec: QuickSpec {
                 }
                 
                 it("has a share button on the navigation item") {
-                    var shareBarButtonItem = self.subject.navigationItem.rightBarButtonItem!
+                    let shareBarButtonItem = self.subject.navigationItem.rightBarButtonItem!
                     expect(shareBarButtonItem.valueForKey("systemItem") as? Int).to(equal(UIBarButtonSystemItem.Action.rawValue))
                 }
                 
@@ -119,7 +119,7 @@ class EventControllerSpec: QuickSpec {
                     
                     it("logs that the user tapped share") {
                         expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Share' on Event"))
-                        let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString!]
+                        let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString]
                         expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                     }
                     
@@ -141,7 +141,7 @@ class EventControllerSpec: QuickSpec {
                             activityViewControler.completionWithItemsHandler!(nil, false, nil, nil)
                             
                             expect(self.analyticsService.lastCustomEventName).to(equal("Cancelled share of Event"))
-                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString!]
+                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString]
                             expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                         }
                     }
@@ -160,29 +160,29 @@ class EventControllerSpec: QuickSpec {
                 
                 it("has a scroll view containing the UI elements") {
                     expect(self.subject.view.subviews.count).to(equal(1))
-                    var scrollView = self.subject.view.subviews.first as! UIScrollView
+                    let scrollView = self.subject.view.subviews.first as! UIScrollView
                     
                     expect(scrollView).to(beAnInstanceOf(UIScrollView.self))
                     expect(scrollView.subviews.count).to(equal(1))
                     
-                    var containerView = scrollView.subviews.first as! UIView
+                    let containerView = scrollView.subviews.first!
                     
                     expect(containerView.subviews.count).to(equal(12))
                     
-                    var containerViewSubViews = containerView.subviews as! [UIView]
+                    let containerViewSubViews = containerView.subviews
 
-                    expect(contains(containerViewSubViews, self.subject.mapView)).to(beTrue())
-                    expect(contains(containerViewSubViews, self.subject.rsvpButton)).to(beTrue())
-                    expect(contains(containerViewSubViews, self.subject.directionsButton)).to(beTrue())
-                    expect(contains(containerViewSubViews, self.subject.nameLabel)).to(beTrue())
-                    expect(contains(containerViewSubViews, self.subject.dateIconImageView)).to(beTrue())
-                    expect(contains(containerViewSubViews, self.subject.dateLabel)).to(beTrue())
-                    expect(contains(containerViewSubViews, self.subject.attendeesIconImageView)).to(beTrue())
-                    expect(contains(containerViewSubViews, self.subject.attendeesLabel)).to(beTrue())
-                    expect(contains(containerViewSubViews, self.subject.addressIconImageView)).to(beTrue())
-                    expect(contains(containerViewSubViews, self.subject.addressLabel)).to(beTrue())
-                    expect(contains(containerViewSubViews, self.subject.descriptionHeadingLabel)).to(beTrue())
-                    expect(contains(containerViewSubViews, self.subject.descriptionLabel)).to(beTrue())
+                    expect(containerViewSubViews.contains(self.subject.mapView)).to(beTrue())
+                    expect(containerViewSubViews.contains(self.subject.rsvpButton)).to(beTrue())
+                    expect(containerViewSubViews.contains(self.subject.directionsButton)).to(beTrue())
+                    expect(containerViewSubViews.contains(self.subject.nameLabel)).to(beTrue())
+                    expect(containerViewSubViews.contains(self.subject.dateIconImageView)).to(beTrue())
+                    expect(containerViewSubViews.contains(self.subject.dateLabel)).to(beTrue())
+                    expect(containerViewSubViews.contains(self.subject.attendeesIconImageView)).to(beTrue())
+                    expect(containerViewSubViews.contains(self.subject.attendeesLabel)).to(beTrue())
+                    expect(containerViewSubViews.contains(self.subject.addressIconImageView)).to(beTrue())
+                    expect(containerViewSubViews.contains(self.subject.addressLabel)).to(beTrue())
+                    expect(containerViewSubViews.contains(self.subject.descriptionHeadingLabel)).to(beTrue())
+                    expect(containerViewSubViews.contains(self.subject.descriptionLabel)).to(beTrue())
                 }
                 
                 xit("centers the map around the event") {
@@ -196,7 +196,7 @@ class EventControllerSpec: QuickSpec {
                 
                 it("adds a pin to the map for the event") {
                     expect(self.subject.mapView.annotations.count).to(equal(1))
-                    let pin = self.subject.mapView.annotations.first as! MKAnnotation
+                    let pin = self.subject.mapView.annotations.first!
 
                     expect(pin.coordinate.latitude).to(equal(self.event.location.coordinate.latitude))
                     expect(pin.coordinate.longitude).to(equal(self.event.location.coordinate.longitude))
@@ -249,7 +249,7 @@ class EventControllerSpec: QuickSpec {
                     
                     it("logs that the user tapped to rsvp") {
                         expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'RSVP' on Event"))
-                        let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString!]
+                        let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString]
                         expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                     }
                 }
@@ -270,7 +270,7 @@ class EventControllerSpec: QuickSpec {
                     
                     it("logs that the user tapped to open directions") {
                         expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Directions' on Event"))
-                        let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString!]
+                        let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString]
                         expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                     }
                 }
