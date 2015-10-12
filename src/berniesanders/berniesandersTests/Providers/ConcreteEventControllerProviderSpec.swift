@@ -12,7 +12,7 @@ public class ConcreteEventControllerProviderSpec : QuickSpec {
     let urlProvider = FakeURLProvider()
     let urlOpener = FakeURLOpener()
     let analyticsService = FakeAnalyticsService()
-    
+
     override public func spec() {
         describe("providing an instance with an event") {
             beforeEach {
@@ -25,12 +25,12 @@ public class ConcreteEventControllerProviderSpec : QuickSpec {
                     theme: self.theme
                 )
             }
-            
+
             it("should return a correctly configured instance") {
                 let event = TestUtils.eventWithName("some event")
-                
+
                 let controller = self.subject.provideInstanceWithEvent(event)
-                
+
                 expect(controller).to(beAnInstanceOf(EventController.self))
                 expect(controller.event).to(beIdenticalTo(event))
                 expect(controller.eventPresenter).to(beIdenticalTo(self.eventPresenter))

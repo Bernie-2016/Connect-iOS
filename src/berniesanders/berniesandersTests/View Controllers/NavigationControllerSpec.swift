@@ -7,11 +7,11 @@ class NavBarFakeTheme : FakeTheme {
     override func defaultBackgroundColor() -> UIColor {
         return UIColor.greenColor()
     }
-    
+
     override func navigationBarBackgroundColor() -> UIColor {
         return UIColor.brownColor()
     }
-    
+
     override func navigationBarFont() -> UIFont {
         return UIFont.systemFontOfSize(666)
     }
@@ -23,18 +23,18 @@ class NavBarFakeTheme : FakeTheme {
 
 class NavigationControllerSpec : QuickSpec {
     var subject: NavigationController!
-    
+
     override func spec() {
         beforeEach {
             let theme = NavBarFakeTheme()
             self.subject = NavigationController(theme: theme)
         }
-                
+
         describe("when the controller loads the view") {
             beforeEach {
                 self.subject.view.layoutIfNeeded()
             }
-            
+
             it("styles the navigation bar with the theme") {
                 let attributes = self.subject.navigationBar.titleTextAttributes!
                 let textColor = attributes[NSForegroundColorAttributeName] as! UIColor

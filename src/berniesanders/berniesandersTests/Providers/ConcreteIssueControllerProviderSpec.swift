@@ -12,7 +12,7 @@ public class ConcreteIssueControllerProviderSpec : QuickSpec {
     let theme = FakeTheme()
 
     override public func spec() {
-        
+
         describe("providing an instance with an issue") {
             beforeEach {
                 self.subject = ConcreteIssueControllerProvider(
@@ -23,12 +23,12 @@ public class ConcreteIssueControllerProviderSpec : QuickSpec {
                     theme: self.theme
                 )
             }
-            
+
             it("should return a correctly configured instance") {
                 let issue = TestUtils.issue()
-                
+
                 let controller = self.subject.provideInstanceWithIssue(issue)
-                
+
                 expect(controller).to(beAnInstanceOf(IssueController.self))
                 expect(controller.issue).to(beIdenticalTo(issue))
                 expect(controller.imageRepository as? FakeImageRepository).to(beIdenticalTo(self.imageRepository))

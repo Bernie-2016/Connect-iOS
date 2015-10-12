@@ -11,9 +11,9 @@ public class ConcreteNewsItemControllerProviderSpec : QuickSpec {
     let urlOpener = FakeURLOpener()
     let urlAttributionPresenter = FakeURLAttributionPresenter()
     let theme = FakeTheme()
-    
+
     override public func spec() {
-        
+
         describe("providing an instance with a news item") {
             beforeEach {
                 self.subject = ConcreteNewsItemControllerProvider(
@@ -25,12 +25,12 @@ public class ConcreteNewsItemControllerProviderSpec : QuickSpec {
                     theme: self.theme
                 )
             }
-            
+
             it("should return a correctly configured instance") {
                 let newsItem = NewsItem(title: "a", date: NSDate(), body: "a body", imageURL: NSURL(), URL: NSURL())
-                
+
                 let controller = self.subject.provideInstanceWithNewsItem(newsItem)
-                
+
                 expect(controller).to(beAnInstanceOf(NewsItemController.self))
                 expect(controller.newsItem).to(beIdenticalTo(newsItem))
                 expect(controller.imageRepository as? FakeImageRepository).to(beIdenticalTo(self.imageRepository))

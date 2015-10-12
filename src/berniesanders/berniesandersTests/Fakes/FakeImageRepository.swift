@@ -7,7 +7,7 @@ class FakeImageRepository : berniesanders.ImageRepository {
     var lastReceivedURL : NSURL?
     var lastRequestDeferred : KSDeferred!
     var imageRequested = false
-    
+
     func fetchImageWithURL(url: NSURL) -> KSPromise {
         self.lastReceivedURL = url
         self.lastRequestDeferred = KSDeferred()

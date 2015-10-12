@@ -10,7 +10,7 @@ class ConcreteURLAttributionPresenterSpec: QuickSpec {
             beforeEach {
                 self.subject = ConcreteURLAttributionPresenter()
             }
-            
+
             describe("presenting attribution for a URL") {
                 it("returns the correct attribution text") {
                     let url = NSURL(string: "https://foobar.co.uk/article/whatevs/123")!
