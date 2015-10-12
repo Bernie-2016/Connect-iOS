@@ -1,6 +1,6 @@
 namespace :tidy do
   desc "Unfocusses any focussed specs"
-  task :unfocus_specs do
+  task :specs do
     puts "Unfocussing specs..."
 
     find_focussed_files_cmd = []
@@ -22,6 +22,13 @@ namespace :tidy do
       system(unfocus_cmd)
     end
 
+    puts "Done!"
+  end
+
+  desc "Sorts the project file"
+  task :project_file do
+    puts "Sorting the project file..."
+    system("script/sort-Xcode-project-file.pl src/berniesanders/berniesanders.xcodeproj/")
     puts "Done!"
   end
 end
