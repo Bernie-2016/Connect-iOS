@@ -1,3 +1,4 @@
+include Helpers
 
 namespace :git do
   desc "Checks for uncommitted changes and aborts if any are found"
@@ -6,7 +7,7 @@ namespace :git do
     if `git status -s`.chomp.length > 0
       puts("!! Uncommitted changes detected!")
       system("git status")
-      abort("Aborting!")
+      bail
     end
     puts "Done!"
   end
