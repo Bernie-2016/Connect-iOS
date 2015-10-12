@@ -1,15 +1,11 @@
 include Helpers
 task :specs do
   specs_cmd = []
-  specs_cmd << "set -o pipefail"
-  specs_cmd << "&&"
   specs_cmd << "xcodebuild clean build test"
   specs_cmd << "-project #{SRCROOT}/berniesanders.xcodeproj"
   specs_cmd << "-scheme berniesanders"
   specs_cmd << "-sdk iphonesimulator"
   specs_cmd << "ONLY_ACTIVE_ARCH=NO"
-  specs_cmd << "|"
-  specs_cmd << "xcpretty -c"
   specs_cmd = specs_cmd.join(" ")
 
   puts "Running specs..."

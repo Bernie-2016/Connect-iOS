@@ -6,7 +6,9 @@ task :am_i_done_yet  do
    Rake::Task['git:check_for_uncommitted_changes'].reenable
    Rake::Task['git:check_for_uncommitted_changes'].invoke
    Rake::Task['specs'].invoke
+   puts "\n\n"
    puts "👍   👍   👍   👍   👍   👍   👍   👍   👍   👍   👍   👍 "
    puts "🚢        Looks like you're good to ship!    🚢 "
    puts "👍   👍   👍   👍   👍   👍   👍   👍   👍   👍   👍   👍 "
+   puts "\n\n"
 end
