@@ -1,5 +1,8 @@
 language: objective-c
 osx_image: xcode7.0
 before_install:
-  - curl -o Carthage.pkg -L https://www.dropbox.com/s/ebqcikb6a1ae9ff/Carthage-abbeycode.pkg?dl=1 && sudo installer -pkg Carthage.pkg -target /
+  - brew update
+  - brew upgrade xctool
+  - brew install carthage
+  - carthage bootstrap --verbose
 script: script/cibuild
