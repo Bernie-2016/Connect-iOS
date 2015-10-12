@@ -31,5 +31,12 @@ namespace :tidy do
     system("script/sort-Xcode-project-file.pl src/berniesanders/berniesanders.xcodeproj/")
     puts "Done!"
   end
+
+  desc "Remove trailing whitespace from swift files"
+  task :whitespace do
+    puts "Removing trailing whitespace..."
+    system("find src/berniesanders/berniesanders src/berniesanders/berniesandersTests/ -name \"*.swift\" -exec sed -i '' -e's/[ ]*$//' \"{}\" \\;")
+    puts "Done!"
+  end
 end
 
