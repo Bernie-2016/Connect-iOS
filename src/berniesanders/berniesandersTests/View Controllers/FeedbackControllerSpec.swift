@@ -40,7 +40,7 @@ class FeedbackControllerSpec : QuickSpec {
                 }
 
                 it("should add the webview as a subview") {
-                    let subviews = self.subject.view.subviews as! [UIView]
+                    let subviews = self.subject.view.subviews
 
                     expect(subviews.contains(self.subject.webView)).to(beTrue())
                 }
