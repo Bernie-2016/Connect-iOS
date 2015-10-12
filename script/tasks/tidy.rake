@@ -2,6 +2,9 @@ SRCROOT = "src/berniesanders"
 TESTS_DIR = "#{SRCROOT}/berniesandersTests"
 PRODUCTION_DIR = "#{SRCROOT}/berniesanders"
 
+desc "Tidies up common cleanliness problems with the codebase"
+task :tidy => ['tidy:project_file', 'tidy:specs', 'tidy:whitespace']
+
 namespace :tidy do
   desc "Unfocusses any focussed specs"
   task :specs do
