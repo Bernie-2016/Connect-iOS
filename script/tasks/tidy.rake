@@ -1,6 +1,4 @@
-SRCROOT = "src/berniesanders"
-TESTS_DIR = "#{SRCROOT}/berniesandersTests"
-PRODUCTION_DIR = "#{SRCROOT}/berniesanders"
+include Helpers
 
 desc "Tidies up common cleanliness problems with the codebase"
 task :tidy => ['tidy:project_file', 'tidy:specs', 'tidy:whitespace']
