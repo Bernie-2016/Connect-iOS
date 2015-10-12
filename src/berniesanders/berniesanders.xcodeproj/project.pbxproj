@@ -976,11 +976,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				659F0E221B95F44E0049FA12 /* bernie.jpg in Resources */,
-				65E06CAB1BCB30DC00BDDA61 /* Images.xcassets in Resources */,
 				65384D151BB2F0FF0057F6FF /* dodgy_events.json in Resources */,
 				65003A561BA7C5E900C66902 /* dodgy_issue_feed.json in Resources */,
 				65B70F9A1BA7BBD5007BF72C /* dodgy_news_feed.json in Resources */,
 				65384D131BB2EFB50057F6FF /* events.json in Resources */,
+				65E06CAB1BCB30DC00BDDA61 /* Images.xcassets in Resources */,
 				6592FA331B98D8F600746EC3 /* issue_feed.json in Resources */,
 				653885161B90F51300DCA808 /* news_feed.json in Resources */,
 			);
