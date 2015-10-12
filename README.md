@@ -50,3 +50,10 @@ When you have finished making your changes and testing them, go to your forked r
 * Please ensure all tests pass before making a pull request.  Your contribution shouldn't break the app for other users
 * Please ensure all trailing whitespace characters are removed from your changes.
 
+You may find the rake task `am_i_done_yet` helpful with regards to this. It can be run by issueing the following command:
+
+```
+$ rake am_i_done_yet
+```
+
+This will check for uncommitted changes, remove trailing white space, unfocus the specs and finally run the specs. It will inform you if your code looks good-to-go!  
