@@ -5,6 +5,7 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
     private let issueControllerProvider: IssueControllerProvider
     private let settingsController: SettingsController
     private let analyticsService: AnalyticsService
+    private let tabBarItemStylist: TabBarItemStylist
     private let theme: Theme
 
     let tableView = UITableView.newAutoLayoutView()
@@ -16,26 +17,23 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
         issueControllerProvider: IssueControllerProvider,
         settingsController: SettingsController,
         analyticsService: AnalyticsService!,
+        tabBarItemStylist: TabBarItemStylist,
         theme: Theme) {
         self.issueRepository = issueRepository
         self.issueControllerProvider = issueControllerProvider
         self.settingsController = settingsController
         self.analyticsService = analyticsService
+        self.tabBarItemStylist = tabBarItemStylist
         self.theme = theme
 
         self.issues = []
 
         super.init(nibName: nil, bundle: nil)
 
-        tabBarItem.titlePositionAdjustment = UIOffsetMake(0, -4)
-        tabBarItem.image = UIImage(named: "issuesTabBarIconInactive")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
-        tabBarItem.selectedImage = UIImage(named: "issuesTabBarIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
+            self.tabBarItemStylist.applyThemeToBarBarItem(self.tabBarItem,
+                image: UIImage(named: "issuesTabBarIcon")!,
+                selectedImage: UIImage(named: "issuesTabBarIconInactive")!)
 
-        let activeTabBarTextAttributes = [NSFontAttributeName: theme.tabBarFont(), NSForegroundColorAttributeName: theme.tabBarActiveTextColor()]
-        let inactiveTabBarTextAttributes = [NSFontAttributeName: theme.tabBarFont(), NSForegroundColorAttributeName: theme.tabBarInactiveTextColor()]
-
-        tabBarItem.setTitleTextAttributes(inactiveTabBarTextAttributes, forState: .Normal)
-        tabBarItem.setTitleTextAttributes(activeTabBarTextAttributes, forState: .Selected)
         title = NSLocalizedString("Issues_tabBarTitle", comment: "")
     }
 

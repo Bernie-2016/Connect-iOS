@@ -8,6 +8,7 @@ class EventsController: UIViewController, UITableViewDataSource, UITableViewDele
     let settingsController: SettingsController
     private let eventControllerProvider: EventControllerProvider
     private let analyticsService: AnalyticsService
+    private let tabBarItemStylist: TabBarItemStylist
     let theme: Theme
 
     let zipCodeTextField = UITextField.newAutoLayoutView()
@@ -23,6 +24,7 @@ class EventsController: UIViewController, UITableViewDataSource, UITableViewDele
         settingsController: SettingsController,
         eventControllerProvider: EventControllerProvider,
         analyticsService: AnalyticsService,
+        tabBarItemStylist: TabBarItemStylist,
         theme: Theme) {
 
         self.eventRepository = eventRepository
@@ -30,22 +32,16 @@ class EventsController: UIViewController, UITableViewDataSource, UITableViewDele
         self.settingsController = settingsController
         self.eventControllerProvider = eventControllerProvider
         self.analyticsService = analyticsService
+        self.tabBarItemStylist = tabBarItemStylist
         self.theme = theme
 
         self.events = []
 
         super.init(nibName: nil, bundle: nil)
 
-        self.tabBarItem.titlePositionAdjustment = UIOffsetMake(0, -4)
-        self.tabBarItem.image = UIImage(named: "eventsTabBarIconInactive")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
-        self.tabBarItem.selectedImage = UIImage(named: "eventsTabBarIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
-
-        let activeTabBarTextAttributes = [NSFontAttributeName: theme.tabBarFont(), NSForegroundColorAttributeName: theme.tabBarActiveTextColor()]
-        let inactiveTabBarTextAttributes = [NSFontAttributeName: theme.tabBarFont(), NSForegroundColorAttributeName: theme.tabBarInactiveTextColor()]
-
-        self.tabBarItem.setTitleTextAttributes(inactiveTabBarTextAttributes, forState: .Normal)
-        self.tabBarItem.setTitleTextAttributes(activeTabBarTextAttributes, forState: .Selected)
-
+        self.tabBarItemStylist.applyThemeToBarBarItem(self.tabBarItem,
+            image: UIImage(named: "eventsTabBarIcon")!,
+            selectedImage: UIImage(named: "eventsTabBarIconInactive")!)
         self.title = NSLocalizedString("Events_tabBarTitle", comment: "")
     }
 

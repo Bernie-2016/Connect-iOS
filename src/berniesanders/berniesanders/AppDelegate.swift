@@ -29,6 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let applicationSettingsRepository = ConcreteApplicationSettingsRepository(
                 userDefaults: NSUserDefaults.standardUserDefaults())
 
+            let tabBarItemStylist = ConcreteTabBarItemStylist(theme: defaultTheme)
+
             let analyticsService = ConcreteAnalyticsService(applicationSettingsRepository: applicationSettingsRepository)
             let stringContentSanitizer = ConcreteStringContentSanitizer()
 
@@ -80,6 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 newsItemControllerProvider: newsItemControllerProvider,
                 settingsController: settingsController,
                 analyticsService: analyticsService,
+                tabBarItemStylist: tabBarItemStylist,
                 theme: defaultTheme
             )
 
@@ -105,6 +108,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 issueControllerProvider: issueControllerProvider,
                 settingsController: settingsController,
                 analyticsService: analyticsService,
+                tabBarItemStylist: tabBarItemStylist,
                 theme: defaultTheme
             )
             let issuesNavigationController = NavigationController(theme: defaultTheme)
@@ -132,6 +136,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 settingsController: settingsController,
                 eventControllerProvider: eventControllerProvider,
                 analyticsService: analyticsService,
+                tabBarItemStylist: tabBarItemStylist,
                 theme: defaultTheme
             )
             let eventsNavigationController = NavigationController(theme: defaultTheme)

@@ -1,7 +1,8 @@
-@testable import berniesanders
 import Quick
 import Nimble
 import UIKit
+
+@testable import berniesanders
 
 class NewsFakeTheme : FakeTheme {
     override func newsFeedTitleFont() -> UIFont {
@@ -17,18 +18,6 @@ class NewsFakeTheme : FakeTheme {
 
     override func newsFeedDateColor() -> UIColor {
         return UIColor.brownColor()
-    }
-
-    override func tabBarActiveTextColor() -> UIColor {
-        return UIColor.purpleColor()
-    }
-
-    override func tabBarInactiveTextColor() -> UIColor {
-        return UIColor.redColor()
-    }
-
-    override func tabBarFont() -> UIFont {
-        return UIFont.systemFontOfSize(123)
     }
 
     override func newsFeedHeadlineTitleFont() -> UIFont {
@@ -83,6 +72,7 @@ class NewsFeedControllerSpecs: QuickSpec {
     let newsItemControllerProvider = FakeNewsItemControllerProvider()
     let settingsController = TestUtils.settingsController()
     var analyticsService: FakeAnalyticsService!
+    var tabBarItemStylist: FakeTabBarItemStylist!
     let theme: Theme! = NewsFakeTheme()
 
     var navigationController: UINavigationController!
@@ -92,7 +82,7 @@ class NewsFeedControllerSpecs: QuickSpec {
             beforeEach {
                 self.imageRepository = FakeImageRepository()
                 self.analyticsService = FakeAnalyticsService()
-
+                self.tabBarItemStylist = FakeTabBarItemStylist()
                 let theme = NewsFakeTheme()
                 let dateFormatter = NSDateFormatter()
                 dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
@@ -105,6 +95,7 @@ class NewsFeedControllerSpecs: QuickSpec {
                     newsItemControllerProvider: self.newsItemControllerProvider,
                     settingsController: self.settingsController,
                     analyticsService: self.analyticsService,
+                    tabBarItemStylist: self.tabBarItemStylist,
                     theme: theme
                 )
 
@@ -125,22 +116,11 @@ class NewsFeedControllerSpecs: QuickSpec {
                 expect(self.subject.navigationItem.backBarButtonItem?.title).to(equal("Back"))
             }
 
-            it("styles its tab bar item from the theme") {
-                let normalAttributes = self.subject.tabBarItem.titleTextAttributesForState(UIControlState.Normal)
+            it("uses the tab bar item stylist to style its tab bar item") {
+                expect(self.tabBarItemStylist.lastReceivedTabBarItem).to(beIdenticalTo(self.subject.tabBarItem))
 
-                let normalTextColor = normalAttributes?[NSForegroundColorAttributeName] as! UIColor
-                let normalFont = normalAttributes?[NSFontAttributeName] as! UIFont
-
-                expect(normalTextColor).to(equal(UIColor.redColor()))
-                expect(normalFont).to(equal(UIFont.systemFontOfSize(123)))
-
-                let selectedAttributes = self.subject.tabBarItem.titleTextAttributesForState(UIControlState.Selected)
-
-                let selectedTextColor = selectedAttributes?[NSForegroundColorAttributeName] as! UIColor
-                let selectedFont = selectedAttributes?[NSFontAttributeName] as! UIFont
-
-                expect(selectedTextColor).to(equal(UIColor.purpleColor()))
-                expect(selectedFont).to(equal(UIFont.systemFontOfSize(123)))
+                expect(self.tabBarItemStylist.lastReceivedTabBarImage).to(equal(UIImage(named: "newsTabBarIcon")))
+                expect(self.tabBarItemStylist.lastReceivedTabBarSelectedImage).to(equal(UIImage(named: "newsTabBarIconInactive")))
             }
 
             it("initially hides the table view, and shows the loading spinner") {

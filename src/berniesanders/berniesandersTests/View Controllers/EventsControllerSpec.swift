@@ -123,6 +123,7 @@ class EventsControllerSpec : QuickSpec {
     let settingsController = TestUtils.settingsController()
     var eventControllerProvider : FakeEventControllerProvider!
     var analyticsService: FakeAnalyticsService!
+    var tabBarItemStylist: FakeTabBarItemStylist!
     var navigationController: UINavigationController!
 
     override func spec() {
@@ -131,6 +132,7 @@ class EventsControllerSpec : QuickSpec {
                 self.eventRepository = FakeEventRepository()
                 self.eventPresenter = FakeEventPresenter(dateFormatter: FakeDateFormatter())
                 self.eventControllerProvider = FakeEventControllerProvider()
+                self.tabBarItemStylist = FakeTabBarItemStylist()
                 self.analyticsService = FakeAnalyticsService()
 
                 self.window = UIWindow()
@@ -141,6 +143,7 @@ class EventsControllerSpec : QuickSpec {
                     settingsController: self.settingsController,
                     eventControllerProvider: self.eventControllerProvider,
                     analyticsService: self.analyticsService,
+                    tabBarItemStylist: self.tabBarItemStylist,
                     theme: EventsFakeTheme()
                 )
 
@@ -184,22 +187,11 @@ class EventsControllerSpec : QuickSpec {
                 }
             }
 
-            it("styles its tab bar item from the theme") {
-                let normalAttributes = self.subject.tabBarItem.titleTextAttributesForState(UIControlState.Normal)
+            it("uses the tab bar item stylist to style its tab bar item") {
+                expect(self.tabBarItemStylist.lastReceivedTabBarItem).to(beIdenticalTo(self.subject.tabBarItem))
 
-                let normalTextColor = normalAttributes?[NSForegroundColorAttributeName] as! UIColor
-                let normalFont = normalAttributes?[NSFontAttributeName] as! UIFont
-
-                expect(normalTextColor).to(equal(UIColor.magentaColor()))
-                expect(normalFont).to(equal(UIFont.systemFontOfSize(123)))
-
-                let selectedAttributes = self.subject.tabBarItem.titleTextAttributesForState(UIControlState.Selected)
-
-                let selectedTextColor = selectedAttributes?[NSForegroundColorAttributeName] as! UIColor
-                let selectedFont = selectedAttributes?[NSFontAttributeName] as! UIFont
-
-                expect(selectedTextColor).to(equal(UIColor.purpleColor()))
-                expect(selectedFont).to(equal(UIFont.systemFontOfSize(123)))
+                expect(self.tabBarItemStylist.lastReceivedTabBarImage).to(equal(UIImage(named: "eventsTabBarIcon")))
+                expect(self.tabBarItemStylist.lastReceivedTabBarSelectedImage).to(equal(UIImage(named: "eventsTabBarIconInactive")))
             }
 
             it("should add its view components as subviews") {
