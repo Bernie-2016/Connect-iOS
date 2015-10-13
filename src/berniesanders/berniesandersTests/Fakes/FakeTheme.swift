@@ -1,4 +1,4 @@
-import berniesanders
+@testable import berniesanders
 import UIKit
 
 class FakeTheme : berniesanders.Theme {

@@ -1,6 +1,6 @@
 import Foundation
 
 
-public protocol EventControllerProvider {
+protocol EventControllerProvider {
     func provideInstanceWithEvent(event: Event) -> EventController;
 }

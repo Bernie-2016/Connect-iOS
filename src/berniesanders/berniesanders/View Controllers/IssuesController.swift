@@ -1,18 +1,18 @@
 import UIKit
 
-public class IssuesController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class IssuesController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     private let issueRepository: IssueRepository
     private let issueControllerProvider: IssueControllerProvider
     private let settingsController: SettingsController
     private let analyticsService: AnalyticsService
     private let theme: Theme
 
-    public let tableView = UITableView.newAutoLayoutView()
-    public let loadingIndicatorView = UIActivityIndicatorView.newAutoLayoutView()
+    let tableView = UITableView.newAutoLayoutView()
+    let loadingIndicatorView = UIActivityIndicatorView.newAutoLayoutView()
 
     var issues: Array<Issue>!
 
-    public init(issueRepository: IssueRepository,
+    init(issueRepository: IssueRepository,
         issueControllerProvider: IssueControllerProvider,
         settingsController: SettingsController,
         analyticsService: AnalyticsService!,
@@ -39,13 +39,13 @@ public class IssuesController: UIViewController, UITableViewDataSource, UITableV
         title = NSLocalizedString("Issues_tabBarTitle", comment: "")
     }
 
-    required public init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: UIViewController
 
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
 
         let settingsIcon = UIImage(named: "settingsIcon")
@@ -75,7 +75,7 @@ public class IssuesController: UIViewController, UITableViewDataSource, UITableV
         loadingIndicatorView.color = self.theme.defaultSpinnerColor()
     }
 
-    override public func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
         self.issueRepository.fetchIssues({ (receivedIssues) -> Void in
@@ -94,15 +94,15 @@ public class IssuesController: UIViewController, UITableViewDataSource, UITableV
 
     // MARK: UITableViewDataSource
 
-    public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
 
-    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.issues.count
     }
 
-    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! IssueTableViewCell
         let issue = self.issues[indexPath.row]
         cell.titleLabel.text = issue.title
@@ -114,11 +114,11 @@ public class IssuesController: UIViewController, UITableViewDataSource, UITableV
 
     // MARK: UITableViewDelegate
 
-    public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 70.0
     }
 
-    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let issue = self.issues[indexPath.row]
 
         self.analyticsService.trackContentViewWithName(issue.title, type: .Issue, id: issue.URL.absoluteString)

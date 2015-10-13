@@ -1,9 +1,9 @@
 import Foundation
 import Quick
 import Nimble
-import berniesanders
+@testable import berniesanders
 
-public class ConcreteEventControllerProviderSpec : QuickSpec {
+class ConcreteEventControllerProviderSpec : QuickSpec {
     var subject : ConcreteEventControllerProvider!
     let dateFormatter = NSDateFormatter()
     let theme = FakeTheme()
@@ -13,7 +13,7 @@ public class ConcreteEventControllerProviderSpec : QuickSpec {
     let urlOpener = FakeURLOpener()
     let analyticsService = FakeAnalyticsService()
 
-    override public func spec() {
+    override func spec() {
         describe("providing an instance with an event") {
             beforeEach {
                 self.subject = ConcreteEventControllerProvider(

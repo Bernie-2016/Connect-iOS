@@ -1,13 +1,13 @@
 import Foundation
 
-public class ConcreteIssueDeserializer: IssueDeserializer {
+class ConcreteIssueDeserializer: IssueDeserializer {
     private let stringContentSanitizer: StringContentSanitizer
 
-    public init(stringContentSanitizer: StringContentSanitizer) {
+    init(stringContentSanitizer: StringContentSanitizer) {
         self.stringContentSanitizer = stringContentSanitizer
     }
 
-    public func deserializeIssues(jsonDictionary: NSDictionary) -> Array<Issue> {
+    func deserializeIssues(jsonDictionary: NSDictionary) -> Array<Issue> {
         var issues = [Issue]()
 
         let hitsDictionary = jsonDictionary["hits"] as? NSDictionary;

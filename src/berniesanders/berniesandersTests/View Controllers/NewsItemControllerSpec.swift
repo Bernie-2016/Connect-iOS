@@ -1,7 +1,7 @@
 import UIKit
 import Quick
 import Nimble
-import berniesanders
+@testable import berniesanders
 
 class NewsItemFakeTheme : FakeTheme {
     override func newsItemDateFont() -> UIFont { return UIFont.boldSystemFontOfSize(20) }

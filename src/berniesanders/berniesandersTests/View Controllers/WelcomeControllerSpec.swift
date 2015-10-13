@@ -1,7 +1,7 @@
 import Foundation
 import Quick
 import Nimble
-import berniesanders
+@testable import berniesanders
 
 class WelcomeFakeTheme: FakeTheme {
     override func defaultBackgroundColor() -> UIColor { return UIColor.greenColor() }

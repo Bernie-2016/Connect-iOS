@@ -1,9 +1,9 @@
 import Foundation
 import Quick
 import Nimble
-import berniesanders
+@testable import berniesanders
 
-public class ConcreteIssueControllerProviderSpec : QuickSpec {
+class ConcreteIssueControllerProviderSpec : QuickSpec {
     var subject : ConcreteIssueControllerProvider!
     let imageRepository = FakeImageRepository()
     let analyticsService = FakeAnalyticsService()
@@ -11,7 +11,7 @@ public class ConcreteIssueControllerProviderSpec : QuickSpec {
     let urlAttributionPresenter = FakeURLAttributionPresenter()
     let theme = FakeTheme()
 
-    override public func spec() {
+    override func spec() {
 
         describe("providing an instance with an issue") {
             beforeEach {

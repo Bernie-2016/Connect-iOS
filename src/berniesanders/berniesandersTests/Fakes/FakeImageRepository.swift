@@ -1,6 +1,6 @@
 import Foundation
 import KSDeferred
-import berniesanders
+@testable import berniesanders
 
 
 class FakeImageRepository : berniesanders.ImageRepository {

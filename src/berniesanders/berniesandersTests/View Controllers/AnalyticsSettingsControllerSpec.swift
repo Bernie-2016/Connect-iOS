@@ -1,6 +1,6 @@
 import Quick
 import Nimble
-import berniesanders
+@testable import berniesanders
 
 class AnalyticsFakeTheme: FakeTheme {
     override func settingsAnalyticsFont() -> UIFont {

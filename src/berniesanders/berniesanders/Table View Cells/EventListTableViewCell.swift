@@ -1,15 +1,15 @@
 import UIKit
 
-public class EventListTableViewCell: UITableViewCell {
-    public let nameLabel = UILabel.newAutoLayoutView()
-    public let addressLabel = UILabel.newAutoLayoutView()
-    public let attendeesLabel = UILabel.newAutoLayoutView()
+class EventListTableViewCell: UITableViewCell {
+    let nameLabel = UILabel.newAutoLayoutView()
+    let addressLabel = UILabel.newAutoLayoutView()
+    let attendeesLabel = UILabel.newAutoLayoutView()
 
-    required public init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         self.accessoryType = .DisclosureIndicator

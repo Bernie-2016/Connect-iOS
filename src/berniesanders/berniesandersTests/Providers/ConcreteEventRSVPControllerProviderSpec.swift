@@ -1,14 +1,14 @@
 import Foundation
 import Quick
 import Nimble
-import berniesanders
+@testable import berniesanders
 
-public class ConcreteEventRSVPControllerProviderSpec : QuickSpec {
+class ConcreteEventRSVPControllerProviderSpec : QuickSpec {
     var subject : ConcreteEventRSVPControllerProvider!
     let analyticsService = FakeAnalyticsService()
     let theme = FakeTheme()
 
-    override public func spec() {
+    override func spec() {
         describe("providing an instance with an event") {
             beforeEach {
                 self.subject = ConcreteEventRSVPControllerProvider(

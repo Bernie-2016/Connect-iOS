@@ -1,6 +1,6 @@
 import UIKit
 
-public class AboutController: UIViewController {
+class AboutController: UIViewController {
     private let analyticsService: AnalyticsService
     private let urlOpener: URLOpener
     private let urlProvider: URLProvider
@@ -9,14 +9,14 @@ public class AboutController: UIViewController {
     private let scrollView = UIScrollView.newAutoLayoutView()
     private let containerView = UIView.newAutoLayoutView()
 
-    public let logoImageView = UIImageView.newAutoLayoutView()
-    public let bodyTextLabel = UILabel.newAutoLayoutView()
-    public let redditLabel = UILabel.newAutoLayoutView()
-    public let codersButton = UIButton.newAutoLayoutView()
-    public let designersButton = UIButton.newAutoLayoutView()
-    public let sandersForPresidentButton = UIButton.newAutoLayoutView()
+    let logoImageView = UIImageView.newAutoLayoutView()
+    let bodyTextLabel = UILabel.newAutoLayoutView()
+    let redditLabel = UILabel.newAutoLayoutView()
+    let codersButton = UIButton.newAutoLayoutView()
+    let designersButton = UIButton.newAutoLayoutView()
+    let sandersForPresidentButton = UIButton.newAutoLayoutView()
 
-    public init(
+    init(
         analyticsService: AnalyticsService,
         urlOpener: URLOpener,
         urlProvider: URLProvider,
@@ -33,13 +33,13 @@ public class AboutController: UIViewController {
     }
 
 
-    required public init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: UIViewController
 
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
 
         self.view.addSubview(self.scrollView)
@@ -68,7 +68,7 @@ public class AboutController: UIViewController {
         self.applyTheme()
     }
 
-    public override func didMoveToParentViewController(parent: UIViewController?) {
+    override func didMoveToParentViewController(parent: UIViewController?) {
         self.analyticsService.trackCustomEventWithName("Tapped 'Back' on About", customAttributes: nil)
     }
 

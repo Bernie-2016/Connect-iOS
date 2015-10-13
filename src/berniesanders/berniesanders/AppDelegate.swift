@@ -6,10 +6,10 @@ import Fabric
 import Crashlytics
 #endif
 
-public class AppDelegate: UIResponder, UIApplicationDelegate {
-    public var window: UIWindow?
+class AppDelegate: UIResponder, UIApplicationDelegate {
+    var window: UIWindow?
 
-    public func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions:
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions:
         [NSObject: AnyObject]?) -> Bool {
 
             #if RELEASE

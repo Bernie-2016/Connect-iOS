@@ -1,10 +1,10 @@
 import Foundation
-import berniesanders
+@testable import berniesanders
 
-public class FakeURLOpener : berniesanders.URLOpener {
+class FakeURLOpener : berniesanders.URLOpener {
     var lastOpenedURL : NSURL!
 
-    override public func openURL(url: NSURL) {
+    override func openURL(url: NSURL) {
         self.lastOpenedURL = url
     }
 }

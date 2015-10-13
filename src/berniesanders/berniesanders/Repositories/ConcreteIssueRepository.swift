@@ -1,12 +1,12 @@
 import Foundation
 
-public class ConcreteIssueRepository: IssueRepository {
+class ConcreteIssueRepository: IssueRepository {
     private let urlProvider: URLProvider
     private let jsonClient: JSONClient
     private let issueDeserializer: IssueDeserializer
     private let operationQueue: NSOperationQueue
 
-    public init(
+    init(
         urlProvider: URLProvider,
         jsonClient: JSONClient,
         issueDeserializer: IssueDeserializer,
@@ -17,7 +17,7 @@ public class ConcreteIssueRepository: IssueRepository {
             self.operationQueue = operationQueue
     }
 
-    public func fetchIssues(completion: (Array<Issue>) -> Void, error: (NSError) -> Void) {
+    func fetchIssues(completion: (Array<Issue>) -> Void, error: (NSError) -> Void) {
         let issuesJSONPromise = self.jsonClient.JSONPromiseWithURL(self.urlProvider.issuesFeedURL(), method: "POST", bodyDictionary: self.HTTPBodyDictionary())
 
 

@@ -1,13 +1,13 @@
 import Foundation
 
-public class NewsItem {
-    public let title: String
-    public let date: NSDate
-    public let body: String
-    public let imageURL: NSURL?
-    public let URL: NSURL
+class NewsItem {
+    let title: String
+    let date: NSDate
+    let body: String
+    let imageURL: NSURL?
+    let URL: NSURL
 
-    public init(title: String, date: NSDate, body: String, imageURL: NSURL?, URL: NSURL) {
+    init(title: String, date: NSDate, body: String, imageURL: NSURL?, URL: NSURL) {
         self.title = title
         self.date = date
         self.body = body

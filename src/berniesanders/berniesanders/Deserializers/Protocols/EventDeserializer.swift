@@ -1,5 +1,5 @@
 import Foundation
 
-public protocol EventDeserializer {
+protocol EventDeserializer {
     func deserializeEvents(jsonDictionary: NSDictionary) -> Array<Event>
 }

@@ -1,10 +1,10 @@
 import Foundation
 import CoreLocation
 
-public class ConcreteEventDeserializer: EventDeserializer {
-    public init() {}
+class ConcreteEventDeserializer: EventDeserializer {
+    init() {}
 
-    public func deserializeEvents(jsonDictionary: NSDictionary) -> Array<Event> {
+    func deserializeEvents(jsonDictionary: NSDictionary) -> Array<Event> {
         let dateFormatter = NSDateFormatter()
         dateFormatter.timeZone = NSTimeZone(name: "UTC")
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"  // "2015-08-28T05:10:21"

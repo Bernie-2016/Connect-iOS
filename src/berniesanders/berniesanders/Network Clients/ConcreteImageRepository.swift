@@ -2,14 +2,14 @@ import Foundation
 import KSDeferred
 import WebImage
 
-public class ConcreteImageRepository: ImageRepository {
+class ConcreteImageRepository: ImageRepository {
     private let webImageManager: SDWebImageManager
 
-    public init(webImageManager: SDWebImageManager) {
+    init(webImageManager: SDWebImageManager) {
         self.webImageManager = webImageManager
     }
 
-    public func fetchImageWithURL(url: NSURL) -> KSPromise {
+    func fetchImageWithURL(url: NSURL) -> KSPromise {
         let deferred = KSDeferred()
 
         self.webImageManager.downloadImageWithURL(url, options: SDWebImageOptions(), progress: nil) { (image, error, cacheType, finished, imageURL) -> Void in

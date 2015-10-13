@@ -1,12 +1,12 @@
 import Foundation
 
-public class ConcreteNewsItemRepository: NewsItemRepository {
+class ConcreteNewsItemRepository: NewsItemRepository {
     private let urlProvider: URLProvider
     private let jsonClient: JSONClient
     private let newsItemDeserializer: NewsItemDeserializer
     private let operationQueue: NSOperationQueue
 
-    public init(
+    init(
         urlProvider: URLProvider,
         jsonClient: JSONClient,
         newsItemDeserializer: NewsItemDeserializer,
@@ -17,7 +17,7 @@ public class ConcreteNewsItemRepository: NewsItemRepository {
             self.operationQueue = operationQueue
     }
 
-    public func fetchNewsItems(completion: (Array<NewsItem>) -> Void, error: (NSError) -> Void) {
+    func fetchNewsItems(completion: (Array<NewsItem>) -> Void, error: (NSError) -> Void) {
         let newsFeedJSONPromise = self.jsonClient.JSONPromiseWithURL(self.urlProvider.newsFeedURL(), method: "POST", bodyDictionary: self.HTTPBodyDictionary())
 
         newsFeedJSONPromise.then({ (jsonDictionary) -> AnyObject! in

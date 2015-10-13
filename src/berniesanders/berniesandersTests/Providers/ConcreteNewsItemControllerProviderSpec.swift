@@ -1,9 +1,9 @@
 import Foundation
 import Quick
 import Nimble
-import berniesanders
+@testable import berniesanders
 
-public class ConcreteNewsItemControllerProviderSpec : QuickSpec {
+class ConcreteNewsItemControllerProviderSpec : QuickSpec {
     var subject : ConcreteNewsItemControllerProvider!
     let dateFormatter = NSDateFormatter()
     let imageRepository = FakeImageRepository()
@@ -12,7 +12,7 @@ public class ConcreteNewsItemControllerProviderSpec : QuickSpec {
     let urlAttributionPresenter = FakeURLAttributionPresenter()
     let theme = FakeTheme()
 
-    override public func spec() {
+    override func spec() {
 
         describe("providing an instance with a news item") {
             beforeEach {

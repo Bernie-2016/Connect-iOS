@@ -1,4 +1,4 @@
-import berniesanders
+@testable import berniesanders
 import Quick
 import Nimble
 import UIKit

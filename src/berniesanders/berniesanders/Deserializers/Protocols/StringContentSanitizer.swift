@@ -1,5 +1,5 @@
 import Foundation
 
-public protocol StringContentSanitizer {
+protocol StringContentSanitizer {
     func sanitizeString(string: String) -> String
 }

@@ -1,11 +1,11 @@
 import UIKit
 
-public class OnboardingRouter {
+class OnboardingRouter {
     private let applicationSettingsRepository: ApplicationSettingsRepository
     private let onboardingController: UIViewController
     private let postOnboardingController: UIViewController
 
-    public init(
+    init(
         applicationSettingsRepository: ApplicationSettingsRepository,
         onboardingController: UIViewController,
         postOnboardingController: UIViewController) {
@@ -14,13 +14,13 @@ public class OnboardingRouter {
             self.postOnboardingController = postOnboardingController
     }
 
-    public func initialViewController(completion: (UIViewController) -> Void) {
+    func initialViewController(completion: (UIViewController) -> Void) {
         applicationSettingsRepository.termsAndConditionsAgreed { (termsHaveBeenAgreed) -> Void in
             completion(termsHaveBeenAgreed ? self.postOnboardingController : self.onboardingController)
         }
     }
 
-    public func controllerDidFinishOnboarding(controller: UIViewController) {
+    func controllerDidFinishOnboarding(controller: UIViewController) {
         controller.presentViewController(self.postOnboardingController, animated: true, completion: nil)
     }
 }

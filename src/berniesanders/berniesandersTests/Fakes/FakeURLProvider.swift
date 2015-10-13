@@ -1,5 +1,5 @@
 import Foundation
-import berniesanders
+@testable import berniesanders
 import CoreLocation
 
 class FakeURLProvider : berniesanders.URLProvider {

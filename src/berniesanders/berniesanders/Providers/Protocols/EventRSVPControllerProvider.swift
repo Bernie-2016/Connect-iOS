@@ -1,5 +1,5 @@
 import Foundation
 
-public protocol EventRSVPControllerProvider {
+protocol EventRSVPControllerProvider {
     func provideControllerWithEvent(event: Event) -> EventRSVPController
 }

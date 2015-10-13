@@ -1,6 +1,6 @@
 import Foundation
 import KSDeferred
 
-public protocol ImageRepository {
+protocol ImageRepository {
     func fetchImageWithURL(url: NSURL) -> KSPromise
 }

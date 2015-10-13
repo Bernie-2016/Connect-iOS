@@ -2,10 +2,10 @@ import UIKit
 import PureLayout
 
 
-public class IssueTableViewCell: UITableViewCell {
-    public let titleLabel: UILabel
+class IssueTableViewCell: UITableViewCell {
+    let titleLabel: UILabel
 
-    required public init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 

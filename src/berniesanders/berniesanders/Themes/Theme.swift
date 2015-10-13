@@ -1,7 +1,7 @@
 import UIKit
 
 
-public protocol Theme {
+protocol Theme {
 
     // MARK: Global
 

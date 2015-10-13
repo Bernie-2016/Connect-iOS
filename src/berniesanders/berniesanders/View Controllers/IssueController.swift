@@ -1,23 +1,23 @@
 import UIKit
 import PureLayout
 
-public class IssueController: UIViewController {
-    public let issue: Issue
-    public let imageRepository: ImageRepository
-    public let analyticsService: AnalyticsService
-    public let urlOpener: URLOpener
-    public let urlAttributionPresenter: URLAttributionPresenter
-    public let theme: Theme
+class IssueController: UIViewController {
+    let issue: Issue
+    let imageRepository: ImageRepository
+    let analyticsService: AnalyticsService
+    let urlOpener: URLOpener
+    let urlAttributionPresenter: URLAttributionPresenter
+    let theme: Theme
 
     private let containerView = UIView()
     private let scrollView = UIScrollView()
-    public let titleLabel = UILabel()
-    public let bodyTextView = UITextView()
-    public let issueImageView = UIImageView()
-    public let attributionLabel = UILabel.newAutoLayoutView()
-    public let viewOriginalButton = UIButton.newAutoLayoutView()
+    let titleLabel = UILabel()
+    let bodyTextView = UITextView()
+    let issueImageView = UIImageView()
+    let attributionLabel = UILabel.newAutoLayoutView()
+    let viewOriginalButton = UIButton.newAutoLayoutView()
 
-    public init(issue: Issue,
+    init(issue: Issue,
         imageRepository: ImageRepository,
         analyticsService: AnalyticsService,
         urlOpener: URLOpener,
@@ -35,13 +35,13 @@ public class IssueController: UIViewController {
         self.hidesBottomBarWhenPushed = true
     }
 
-    required public init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: UIViewController
 
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "share")
@@ -77,7 +77,7 @@ public class IssueController: UIViewController {
         }
     }
 
-    public override func didMoveToParentViewController(parent: UIViewController?) {
+    override func didMoveToParentViewController(parent: UIViewController?) {
         analyticsService.trackCustomEventWithName("Tapped 'Back' on Issue", customAttributes: [AnalyticsServiceConstants.contentIDKey: issue.URL.absoluteString])
     }
 

@@ -1,9 +1,9 @@
 import Foundation
 
-public class ConcreteURLAttributionPresenter: URLAttributionPresenter {
-    public init() {}
+class ConcreteURLAttributionPresenter: URLAttributionPresenter {
+    init() {}
 
-    public func attributionTextForURL(url: NSURL) -> String {
+    func attributionTextForURL(url: NSURL) -> String {
         let hostname = url.host!
         return String(format: NSLocalizedString("Global_urlAttribution", comment: ""), hostname)
     }

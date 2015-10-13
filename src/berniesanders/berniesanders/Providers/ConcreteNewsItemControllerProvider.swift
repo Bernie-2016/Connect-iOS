@@ -1,7 +1,7 @@
 import Foundation
 import WebImage
 
-public class ConcreteNewsItemControllerProvider: NewsItemControllerProvider {
+class ConcreteNewsItemControllerProvider: NewsItemControllerProvider {
     private let dateFormatter : NSDateFormatter
     private let imageRepository : ImageRepository
     private let analyticsService: AnalyticsService
@@ -9,7 +9,7 @@ public class ConcreteNewsItemControllerProvider: NewsItemControllerProvider {
     private let urlAttributionPresenter: URLAttributionPresenter
     private let theme: Theme
 
-    public init(dateFormatter: NSDateFormatter, imageRepository: ImageRepository, analyticsService: AnalyticsService, urlOpener: URLOpener, urlAttributionPresenter: URLAttributionPresenter, theme: Theme) {
+    init(dateFormatter: NSDateFormatter, imageRepository: ImageRepository, analyticsService: AnalyticsService, urlOpener: URLOpener, urlAttributionPresenter: URLAttributionPresenter, theme: Theme) {
         self.dateFormatter = dateFormatter
         self.imageRepository = imageRepository
         self.analyticsService = analyticsService
@@ -18,7 +18,7 @@ public class ConcreteNewsItemControllerProvider: NewsItemControllerProvider {
         self.theme = theme
     }
 
-    public func provideInstanceWithNewsItem(newsItem: NewsItem) -> NewsItemController {
+    func provideInstanceWithNewsItem(newsItem: NewsItem) -> NewsItemController {
         return NewsItemController(
             newsItem: newsItem,
             imageRepository: self.imageRepository,

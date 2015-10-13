@@ -2,11 +2,11 @@ import UIKit
 import PureLayout
 
 
-public class TitleSubTitleTableViewCell: UITableViewCell {
-    public let titleLabel: UILabel
-    public let dateLabel: UILabel
+class TitleSubTitleTableViewCell: UITableViewCell {
+    let titleLabel: UILabel
+    let dateLabel: UILabel
 
-    required public init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 

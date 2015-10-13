@@ -1,13 +1,13 @@
 import UIKit
 import PureLayout
 
-public class PrivacyPolicyController: UIViewController {
+class PrivacyPolicyController: UIViewController {
     private let urlProvider : URLProvider
     private let analyticsService: AnalyticsService
 
-    public let webView = UIWebView()
+    let webView = UIWebView()
 
-    public init(urlProvider: URLProvider, analyticsService: AnalyticsService) {
+    init(urlProvider: URLProvider, analyticsService: AnalyticsService) {
         self.urlProvider = urlProvider
         self.analyticsService = analyticsService
 
@@ -15,13 +15,13 @@ public class PrivacyPolicyController: UIViewController {
         self.title = NSLocalizedString("PrivacyPolicy_title", comment: "")
     }
 
-    required public init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: UIViewController
 
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
 
         let urlRequest = NSURLRequest(URL: self.urlProvider.privacyPolicyURL())
@@ -32,11 +32,11 @@ public class PrivacyPolicyController: UIViewController {
         self.webView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero)
     }
 
-    public override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(animated: Bool) {
         self.navigationController!.setNavigationBarHidden(false, animated: true)
     }
 
-    public override func didMoveToParentViewController(parent: UIViewController?) {
+    override func didMoveToParentViewController(parent: UIViewController?) {
         self.analyticsService.trackCustomEventWithName("Tapped 'Back' on Privacy Policy", customAttributes: nil)
     }
 }

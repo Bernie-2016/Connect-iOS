@@ -1,12 +1,12 @@
 import UIKit
 
-public class FeedbackController: UIViewController, UIWebViewDelegate {
+class FeedbackController: UIViewController, UIWebViewDelegate {
     private let urlProvider : URLProvider
     private let analyticsService: AnalyticsService
 
-    public let webView = UIWebView()
+    let webView = UIWebView()
 
-    public init(urlProvider: URLProvider, analyticsService: AnalyticsService) {
+    init(urlProvider: URLProvider, analyticsService: AnalyticsService) {
         self.urlProvider = urlProvider
         self.analyticsService = analyticsService
 
@@ -14,13 +14,13 @@ public class FeedbackController: UIViewController, UIWebViewDelegate {
         self.title = NSLocalizedString("Feedback_title", comment: "")
     }
 
-    required public init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: UIViewController
 
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
 
         let urlRequest = NSURLRequest(URL: self.urlProvider.feedbackFormURL())
@@ -32,14 +32,14 @@ public class FeedbackController: UIViewController, UIWebViewDelegate {
         self.webView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero)
     }
 
-    public override func didMoveToParentViewController(parent: UIViewController?) {
+    override func didMoveToParentViewController(parent: UIViewController?) {
         self.analyticsService.trackCustomEventWithName("Tapped 'Back' on Feedback", customAttributes: nil)
 
     }
 
     // MARK: UIWebViewDelegate
 
-    public func webViewDidFinishLoad(webView: UIWebView) {
+    func webViewDidFinishLoad(webView: UIWebView) {
         let overrideCssPath = NSBundle.mainBundle().pathForResource("feedbackGoogleFormOverrides", ofType: "css")!
         let overrideCss = try! String(contentsOfFile: overrideCssPath, encoding: NSUTF8StringEncoding)
         let injectionJSPath = NSBundle.mainBundle().pathForResource("cssInjection", ofType: "js")!

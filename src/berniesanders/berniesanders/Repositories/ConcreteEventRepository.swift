@@ -1,14 +1,14 @@
 import Foundation
 import CoreLocation
 
-public class ConcreteEventRepository: EventRepository {
+class ConcreteEventRepository: EventRepository {
     private let geocoder: CLGeocoder
     private let urlProvider: URLProvider
     private let jsonClient: JSONClient
     private let eventDeserializer: EventDeserializer
     private let operationQueue: NSOperationQueue
 
-    public init(
+    init(
         geocoder: CLGeocoder,
         urlProvider: URLProvider,
         jsonClient: JSONClient,
@@ -22,7 +22,7 @@ public class ConcreteEventRepository: EventRepository {
     }
 
 
-    public func fetchEventsWithZipCode(zipCode: String, radiusMiles: Float, completion: (Array<Event>) -> Void, error: (NSError) -> Void) {
+    func fetchEventsWithZipCode(zipCode: String, radiusMiles: Float, completion: (Array<Event>) -> Void, error: (NSError) -> Void) {
         self.geocoder.geocodeAddressString(zipCode, completionHandler: { (placemarks, geocodingError) -> Void in
             if(geocodingError != nil) {
                 error(geocodingError!)

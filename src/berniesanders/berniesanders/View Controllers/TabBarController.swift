@@ -1,10 +1,10 @@
 import UIKit
 
-public class TabBarController: UITabBarController, UITabBarControllerDelegate {
+class TabBarController: UITabBarController, UITabBarControllerDelegate {
     private let theme : Theme
     private let analyticsService : AnalyticsService
 
-    public init(viewControllers: Array<UIViewController>, analyticsService: AnalyticsService, theme: Theme) {
+    init(viewControllers: Array<UIViewController>, analyticsService: AnalyticsService, theme: Theme) {
         self.analyticsService = analyticsService
         self.theme = theme
 
@@ -14,20 +14,20 @@ public class TabBarController: UITabBarController, UITabBarControllerDelegate {
         self.delegate = self
     }
 
-    required public init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBar.barTintColor = self.theme.tabBarTintColor()
     }
 
-    public override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
     }
 
-    public func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
         self.analyticsService.trackCustomEventWithName("Tapped \"\(viewController.tabBarItem.title!)\" on tab bar", customAttributes: nil)
     }
 }

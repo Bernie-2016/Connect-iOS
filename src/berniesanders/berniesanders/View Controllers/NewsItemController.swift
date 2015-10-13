@@ -1,25 +1,25 @@
 import UIKit
 import PureLayout
 
-public class NewsItemController: UIViewController {
-    public let newsItem: NewsItem
-    public let imageRepository: ImageRepository
-    public let dateFormatter: NSDateFormatter
-    public let analyticsService: AnalyticsService
-    public let urlOpener: URLOpener
-    public let urlAttributionPresenter: URLAttributionPresenter
-    public let theme: Theme
+class NewsItemController: UIViewController {
+    let newsItem: NewsItem
+    let imageRepository: ImageRepository
+    let dateFormatter: NSDateFormatter
+    let analyticsService: AnalyticsService
+    let urlOpener: URLOpener
+    let urlAttributionPresenter: URLAttributionPresenter
+    let theme: Theme
 
     private let containerView = UIView.newAutoLayoutView()
     private let scrollView = UIScrollView.newAutoLayoutView()
-    public let dateLabel = UILabel()
-    public let titleLabel = UILabel()
-    public let bodyTextView = UITextView()
-    public let storyImageView = UIImageView()
-    public let attributionLabel = UILabel.newAutoLayoutView()
-    public let viewOriginalButton = UIButton.newAutoLayoutView()
+    let dateLabel = UILabel()
+    let titleLabel = UILabel()
+    let bodyTextView = UITextView()
+    let storyImageView = UIImageView()
+    let attributionLabel = UILabel.newAutoLayoutView()
+    let viewOriginalButton = UIButton.newAutoLayoutView()
 
-    public init(
+    init(
         newsItem: NewsItem,
         imageRepository: ImageRepository,
         dateFormatter: NSDateFormatter,
@@ -43,7 +43,7 @@ public class NewsItemController: UIViewController {
 
     // MARK: UIViewController
 
-    override public func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "share")
@@ -83,11 +83,11 @@ public class NewsItemController: UIViewController {
         }
     }
 
-    required public init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public override func didMoveToParentViewController(parent: UIViewController?) {
+    override func didMoveToParentViewController(parent: UIViewController?) {
         self.analyticsService.trackCustomEventWithName("Tapped 'Back' on News Item", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.newsItem.URL.absoluteString])
     }
 

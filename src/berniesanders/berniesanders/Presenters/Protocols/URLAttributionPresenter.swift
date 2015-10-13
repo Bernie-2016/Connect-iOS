@@ -1,5 +1,5 @@
 import Foundation
 
-public protocol URLAttributionPresenter {
+protocol URLAttributionPresenter {
     func attributionTextForURL(url: NSURL) -> String
 }

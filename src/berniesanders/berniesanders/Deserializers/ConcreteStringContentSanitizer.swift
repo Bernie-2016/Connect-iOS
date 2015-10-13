@@ -1,9 +1,9 @@
 import UIKit
 
-public class ConcreteStringContentSanitizer: StringContentSanitizer {
-    public init() {}
+class ConcreteStringContentSanitizer: StringContentSanitizer {
+    init() {}
 
-    public func sanitizeString(string: String) -> String {
+    func sanitizeString(string: String) -> String {
         var sanitizedString = decodeHTMLEntities(string)
         sanitizedString = removeReadTheRest(sanitizedString)
         sanitizedString = removeClickhere(sanitizedString)

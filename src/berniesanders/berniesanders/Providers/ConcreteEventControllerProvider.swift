@@ -1,6 +1,6 @@
 import UIKit
 
-public class ConcreteEventControllerProvider: EventControllerProvider {
+class ConcreteEventControllerProvider: EventControllerProvider {
     private let eventPresenter: EventPresenter
     private let eventRSVPControllerProvider: EventRSVPControllerProvider
     private let urlProvider: URLProvider
@@ -8,7 +8,7 @@ public class ConcreteEventControllerProvider: EventControllerProvider {
     private let analyticsService: AnalyticsService
     private let theme: Theme
 
-    public init(eventPresenter: EventPresenter, eventRSVPControllerProvider: EventRSVPControllerProvider, urlProvider: URLProvider, urlOpener: URLOpener, analyticsService: AnalyticsService, theme: Theme) {
+    init(eventPresenter: EventPresenter, eventRSVPControllerProvider: EventRSVPControllerProvider, urlProvider: URLProvider, urlOpener: URLOpener, analyticsService: AnalyticsService, theme: Theme) {
         self.eventPresenter = eventPresenter
         self.eventRSVPControllerProvider = eventRSVPControllerProvider
         self.urlProvider = urlProvider
@@ -17,7 +17,7 @@ public class ConcreteEventControllerProvider: EventControllerProvider {
         self.theme = theme
     }
 
-    public func provideInstanceWithEvent(event: Event) -> EventController {
+    func provideInstanceWithEvent(event: Event) -> EventController {
         return EventController(event: event, eventPresenter: self.eventPresenter, eventRSVPControllerProvider: self.eventRSVPControllerProvider,
             urlProvider: self.urlProvider, urlOpener: self.urlOpener, analyticsService: self.analyticsService, theme: self.theme)
     }

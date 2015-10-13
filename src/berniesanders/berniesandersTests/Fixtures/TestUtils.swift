@@ -1,5 +1,5 @@
 import UIKit
-import berniesanders
+@testable import berniesanders
 import CoreLocation
 
 class TestUtils {

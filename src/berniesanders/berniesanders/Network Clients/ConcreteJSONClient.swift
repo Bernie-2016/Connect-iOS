@@ -1,20 +1,20 @@
 import Foundation
 import KSDeferred
 
-public class ConcreteJSONClient: JSONClient {
-    public struct Error {
-        public static let BadResponse = "BadResponse"
+class ConcreteJSONClient: JSONClient {
+    struct Error {
+        static let BadResponse = "BadResponse"
     }
 
     private let urlSession: NSURLSession
     private let jsonSerializationProvider: NSJSONSerializationProvider
 
-    public init(urlSession: NSURLSession, jsonSerializationProvider: NSJSONSerializationProvider) {
+    init(urlSession: NSURLSession, jsonSerializationProvider: NSJSONSerializationProvider) {
         self.urlSession = urlSession
         self.jsonSerializationProvider = jsonSerializationProvider
     }
 
-    public func JSONPromiseWithURL(url: NSURL, method: String, bodyDictionary: NSDictionary?) -> KSPromise {
+    func JSONPromiseWithURL(url: NSURL, method: String, bodyDictionary: NSDictionary?) -> KSPromise {
         let deferred = KSDeferred()
 
         var jsonSerializationError : NSError?

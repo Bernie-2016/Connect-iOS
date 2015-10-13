@@ -1,7 +1,7 @@
 import Foundation
 import Quick
 import Nimble
-import berniesanders
+@testable import berniesanders
 import CoreLocation
 
 class ConcreteURLProviderSpec : QuickSpec {

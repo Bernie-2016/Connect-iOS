@@ -1,5 +1,5 @@
 import Foundation
-import berniesanders
+@testable import berniesanders
 
 class FakeEventPresenter : EventPresenter {
     var lastReceivedEvent: Event?

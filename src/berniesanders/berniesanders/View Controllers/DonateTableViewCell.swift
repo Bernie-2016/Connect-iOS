@@ -1,18 +1,18 @@
 import UIKit
 import PureLayout
 
-public class DonateTableViewCell: UITableViewCell {
+class DonateTableViewCell: UITableViewCell {
     private var didSetupViews = false
 
-    public let messageView = UILabel.newAutoLayoutView()
-    public let buttonView = UILabel.newAutoLayoutView()
+    let messageView = UILabel.newAutoLayoutView()
+    let buttonView = UILabel.newAutoLayoutView()
 
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
 
-    required public init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 

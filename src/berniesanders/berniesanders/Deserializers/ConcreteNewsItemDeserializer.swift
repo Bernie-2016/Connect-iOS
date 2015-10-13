@@ -1,13 +1,13 @@
 import Foundation
 
-public class ConcreteNewsItemDeserializer: NewsItemDeserializer {
+class ConcreteNewsItemDeserializer: NewsItemDeserializer {
     private let stringContentSanitizer: StringContentSanitizer
 
-    public init(stringContentSanitizer: StringContentSanitizer) {
+    init(stringContentSanitizer: StringContentSanitizer) {
         self.stringContentSanitizer = stringContentSanitizer
     }
 
-    public func deserializeNewsItems(jsonDictionary: NSDictionary) -> Array<NewsItem> {
+    func deserializeNewsItems(jsonDictionary: NSDictionary) -> Array<NewsItem> {
         let dateFormatter = NSDateFormatter()
         dateFormatter.timeZone = NSTimeZone(name: "UTC")
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"  // "2015-08-28T05:10:21"

@@ -1,6 +1,6 @@
 import UIKit
 
-public class AnalyticsSettingsController: UIViewController {
+class AnalyticsSettingsController: UIViewController {
     private let applicationSettingsRepository: ApplicationSettingsRepository
     private let analyticsService: AnalyticsService
     private let theme: Theme
@@ -8,11 +8,11 @@ public class AnalyticsSettingsController: UIViewController {
     private let scrollView = UIScrollView.newAutoLayoutView()
     private let containerView = UIView.newAutoLayoutView()
     private let spacerView = UIView.newAutoLayoutView()
-    public let analyticsExplanationLabel = UILabel.newAutoLayoutView()
-    public let analyticsSwitch = UISwitch.newAutoLayoutView()
-    public let analyticsStateLabel = UILabel.newAutoLayoutView()
+    let analyticsExplanationLabel = UILabel.newAutoLayoutView()
+    let analyticsSwitch = UISwitch.newAutoLayoutView()
+    let analyticsStateLabel = UILabel.newAutoLayoutView()
 
-    public init(
+    init(
         applicationSettingsRepository: ApplicationSettingsRepository,
         analyticsService: AnalyticsService,
         theme: Theme
@@ -28,7 +28,7 @@ public class AnalyticsSettingsController: UIViewController {
 
     // MARK: UIViewController
 
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         view.addSubview(scrollView)
         scrollView.addSubview(containerView)
 
@@ -56,7 +56,7 @@ public class AnalyticsSettingsController: UIViewController {
         setupConstraints()
     }
 
-    required public init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 

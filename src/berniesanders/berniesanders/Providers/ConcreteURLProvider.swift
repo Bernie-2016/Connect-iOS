@@ -1,30 +1,30 @@
 import Foundation
 import CoreLocation
 
-public class ConcreteURLProvider: URLProvider {
-    public init() {}
+class ConcreteURLProvider: URLProvider {
+    init() {}
 
-    public func issuesFeedURL() -> NSURL! {
+    func issuesFeedURL() -> NSURL! {
         return NSURL(string: "https://search.berniesanders.tech/articles_en/berniesanders_com/_search")
     }
 
-    public func newsFeedURL() -> NSURL! {
+    func newsFeedURL() -> NSURL! {
         return NSURL(string: "https://search.berniesanders.tech/articles_en/berniesanders_com/_search")
     }
 
-    public func bernieCrowdURL() -> NSURL! {
+    func bernieCrowdURL() -> NSURL! {
         return NSURL(string: "https://berniecrowd.org/")
     }
 
-    public func privacyPolicyURL() -> NSURL! {
+    func privacyPolicyURL() -> NSURL! {
         return NSURL(string: "https://www.iubenda.com/privacy-policy/128001")
     }
 
-    public func eventsURL() -> NSURL! {
+    func eventsURL() -> NSURL! {
         return NSURL(string: "https://search.berniesanders.tech/events/berniesanders_com/_search")
     }
 
-    public func mapsURLForEvent(event: Event) -> NSURL! {
+    func mapsURLForEvent(event: Event) -> NSURL! {
         let urlString : String!
         if(event.streetAddress != nil) {
             urlString = String(format: "https://maps.apple.com/?address=%@,%@,%@,%@", event.streetAddress!, event.city, event.state, event.zip)
@@ -34,19 +34,19 @@ public class ConcreteURLProvider: URLProvider {
         return NSURL(string: urlString.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())!)!
     }
 
-    public func codersForSandersURL() -> NSURL! {
+    func codersForSandersURL() -> NSURL! {
         return NSURL(string: "https://www.reddit.com/r/codersforsanders")!
     }
 
-    public func designersForSandersURL() -> NSURL! {
+    func designersForSandersURL() -> NSURL! {
         return NSURL(string: "https://www.reddit.com/r/designersforsanders")!
     }
 
-    public func sandersForPresidentURL() -> NSURL! {
+    func sandersForPresidentURL() -> NSURL! {
         return NSURL(string: "https://www.reddit.com/r/sandersforpresident")!
     }
 
-    public func feedbackFormURL() -> NSURL! {
+    func feedbackFormURL() -> NSURL! {
         let urlComponents = NSURLComponents(string: "https://docs.google.com/forms/d/1YtW1qhtXIb7rdiksI94XjsN6lJ8vkIGqH7LU0xLU_5Q/viewform")!
         let platformQueryItem = NSURLQueryItem(name: "entry.506", value: "iOS")
 
@@ -59,7 +59,7 @@ public class ConcreteURLProvider: URLProvider {
         return urlComponents.URL
     }
 
-    public func donateFormURL() -> NSURL! {
+    func donateFormURL() -> NSURL! {
         return NSURL(string: "https://secure.actblue.com/contribute/page/lets-go-bernie?refcode=berniesanders_iosApp")!
     }
 }

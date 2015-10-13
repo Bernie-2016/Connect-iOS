@@ -1,18 +1,18 @@
 import UIKit
 
-public class NavigationController: UINavigationController {
+class NavigationController: UINavigationController {
     private let theme: Theme
 
-    public init(theme: Theme) {
+    init(theme: Theme) {
         self.theme = theme
         super.init(nibName: nil, bundle: nil)
     }
 
-    public required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = self.theme.defaultBackgroundColor()
         self.setNeedsStatusBarAppearanceUpdate()
@@ -23,7 +23,7 @@ public class NavigationController: UINavigationController {
         ]
     }
 
-    public override func preferredStatusBarStyle() -> UIStatusBarStyle {
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return UIStatusBarStyle.LightContent
     }
 }

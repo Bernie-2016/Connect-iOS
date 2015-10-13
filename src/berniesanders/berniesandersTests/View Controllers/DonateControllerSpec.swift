@@ -1,6 +1,6 @@
 import Quick
 import Nimble
-import berniesanders
+@testable import berniesanders
 
 class DonateFakeURLProvider : FakeURLProvider {
     override func donateFormURL() -> NSURL! {

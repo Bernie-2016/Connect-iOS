@@ -2,11 +2,11 @@ import UIKit
 import PureLayout
 
 
-public class NewsHeadlineTableViewCell: UITableViewCell {
-    public let titleLabel: UILabel
-    public let headlineImageView: UIImageView
+class NewsHeadlineTableViewCell: UITableViewCell {
+    let titleLabel: UILabel
+    let headlineImageView: UIImageView
 
-    required public init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 

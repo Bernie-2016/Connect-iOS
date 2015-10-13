@@ -1,4 +1,4 @@
-import berniesanders
+@testable import berniesanders
 import Foundation
 import KSDeferred
 

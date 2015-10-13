@@ -1,24 +1,24 @@
 import UIKit
 
-public class WelcomeController: UIViewController {
+class WelcomeController: UIViewController {
     private let analyticsService: AnalyticsService
     private let termsAndConditionsController: TermsAndConditionsController
     private let privacyPolicyController: PrivacyPolicyController
     private let applicationSettingsRepository: ApplicationSettingsRepository
     private let theme: Theme
 
-    public var onboardingRouter: OnboardingRouter!
+    var onboardingRouter: OnboardingRouter!
 
     private let scrollView = UIScrollView.newAutoLayoutView()
     private let containerView = UIView.newAutoLayoutView()
-    public let bannerImageView = UIImageView.newAutoLayoutView()
-    public let welcomeTextLabel = UILabel.newAutoLayoutView()
-    public let viewTermsButton = UIButton.newAutoLayoutView()
-    public let viewPrivacyPolicyButton = UIButton.newAutoLayoutView()
-    public let agreeToTermsNoticeLabel = UILabel.newAutoLayoutView()
-    public let agreeToTermsButton = UIButton.newAutoLayoutView()
+    let bannerImageView = UIImageView.newAutoLayoutView()
+    let welcomeTextLabel = UILabel.newAutoLayoutView()
+    let viewTermsButton = UIButton.newAutoLayoutView()
+    let viewPrivacyPolicyButton = UIButton.newAutoLayoutView()
+    let agreeToTermsNoticeLabel = UILabel.newAutoLayoutView()
+    let agreeToTermsButton = UIButton.newAutoLayoutView()
 
-    public init(
+    init(
         applicationSettingsRepository: ApplicationSettingsRepository,
         termsAndConditionsController: TermsAndConditionsController,
         privacyPolicyController: PrivacyPolicyController,
@@ -34,13 +34,13 @@ public class WelcomeController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
 
-    required public init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: UIViewController
 
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
 
         self.applicationSettingsRepository.updateAnalyticsPermission(true)
@@ -77,7 +77,7 @@ public class WelcomeController: UIViewController {
         setupConstraints()
     }
 
-    public override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(animated: Bool) {
         self.navigationController!.setNavigationBarHidden(true, animated: true)
     }
 

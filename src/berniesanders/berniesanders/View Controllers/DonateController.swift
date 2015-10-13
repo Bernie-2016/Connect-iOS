@@ -1,12 +1,12 @@
 import UIKit
 
-public class DonateController: UIViewController, UIWebViewDelegate {
+class DonateController: UIViewController, UIWebViewDelegate {
     private let urlProvider: URLProvider
     private let analyticsService: AnalyticsService
 
-    public let webView = UIWebView()
+    let webView = UIWebView()
 
-    public init(urlProvider: URLProvider, analyticsService: AnalyticsService) {
+    init(urlProvider: URLProvider, analyticsService: AnalyticsService) {
         self.urlProvider = urlProvider
         self.analyticsService = analyticsService
 
@@ -14,13 +14,13 @@ public class DonateController: UIViewController, UIWebViewDelegate {
         self.title = NSLocalizedString("Settings_donate_title", comment: "")
     }
 
-    required public init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: UIViewController
 
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
 
         let urlRequest = NSURLRequest(URL: self.urlProvider.donateFormURL())
@@ -32,7 +32,7 @@ public class DonateController: UIViewController, UIWebViewDelegate {
         self.webView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero)
     }
 
-    public override func didMoveToParentViewController(parent: UIViewController?) {
+    override func didMoveToParentViewController(parent: UIViewController?) {
         self.analyticsService.trackCustomEventWithName("Tapped 'Back' on Donate", customAttributes: nil)
     }
 }

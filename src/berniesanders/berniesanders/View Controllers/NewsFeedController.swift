@@ -1,7 +1,7 @@
 import UIKit
 
 
-public class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     private let newsItemRepository: NewsItemRepository
     private let imageRepository: ImageRepository
     private let dateFormatter: NSDateFormatter
@@ -10,12 +10,12 @@ public class NewsFeedController: UIViewController, UITableViewDelegate, UITableV
     private let analyticsService: AnalyticsService
     private let theme: Theme
 
-    public let tableView = UITableView.newAutoLayoutView()
-    public let loadingIndicatorView = UIActivityIndicatorView.newAutoLayoutView()
+    let tableView = UITableView.newAutoLayoutView()
+    let loadingIndicatorView = UIActivityIndicatorView.newAutoLayoutView()
 
     private var newsItems: Array<NewsItem>!
 
-    public init(
+    init(
         newsItemRepository: NewsItemRepository,
         imageRepository: ImageRepository,
         dateFormatter: NSDateFormatter,
@@ -49,14 +49,14 @@ public class NewsFeedController: UIViewController, UITableViewDelegate, UITableV
             title = NSLocalizedString("NewsFeed_tabBarTitle", comment: "")
     }
 
-    required public init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
 
     // MARK: UIViewController
 
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
 
         let settingsIcon = UIImage(named: "settingsIcon")
@@ -91,7 +91,7 @@ public class NewsFeedController: UIViewController, UITableViewDelegate, UITableV
         loadingIndicatorView.color = self.theme.defaultSpinnerColor()
     }
 
-    override public func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
         self.newsItemRepository.fetchNewsItems({ (receivedNewsItems) -> Void in
@@ -109,11 +109,11 @@ public class NewsFeedController: UIViewController, UITableViewDelegate, UITableV
 
     // MARK: UITableViewDataSource
 
-    public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return self.newsItems.count > 0 ? 2 : 1
     }
 
-    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(self.newsItems.count == 0) {
             return 0
         }
@@ -122,7 +122,7 @@ public class NewsFeedController: UIViewController, UITableViewDelegate, UITableV
     }
 
 
-    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if(indexPath.section == 0) {
             let cell = tableView.dequeueReusableCellWithIdentifier("headlineCell", forIndexPath: indexPath) as! NewsHeadlineTableViewCell
             let newsItem = self.newsItems[indexPath.row]
@@ -160,11 +160,11 @@ public class NewsFeedController: UIViewController, UITableViewDelegate, UITableV
 
     // MARK: UITableViewDelegate
 
-    public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return indexPath.section == 0 ? 180.0 : 90.0
     }
 
-    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var newsItem : NewsItem!
         if(indexPath.section == 0) {
             newsItem = self.newsItems[0]

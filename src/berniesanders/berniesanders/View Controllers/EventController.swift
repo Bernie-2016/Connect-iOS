@@ -2,31 +2,31 @@ import UIKit
 import CoreLocation
 import MapKit
 
-public class EventController: UIViewController {
-    public let event: Event
-    public let eventPresenter: EventPresenter
-    public let eventRSVPControllerProvider: EventRSVPControllerProvider
-    public let urlProvider: URLProvider
-    public let urlOpener: URLOpener
-    public let analyticsService: AnalyticsService
-    public let theme: Theme
+class EventController: UIViewController {
+    let event: Event
+    let eventPresenter: EventPresenter
+    let eventRSVPControllerProvider: EventRSVPControllerProvider
+    let urlProvider: URLProvider
+    let urlOpener: URLOpener
+    let analyticsService: AnalyticsService
+    let theme: Theme
 
     private let containerView = UIView.newAutoLayoutView()
     private let scrollView = UIScrollView.newAutoLayoutView()
-    public let mapView = MKMapView.newAutoLayoutView()
-    public let rsvpButton = UIButton.newAutoLayoutView()
-    public let directionsButton = UIButton.newAutoLayoutView()
-    public let nameLabel = UILabel.newAutoLayoutView()
-    public let dateIconImageView = UIImageView.newAutoLayoutView()
-    public let dateLabel = UILabel.newAutoLayoutView()
-    public let attendeesIconImageView = UIImageView.newAutoLayoutView()
-    public let attendeesLabel = UILabel.newAutoLayoutView()
-    public let addressIconImageView = UIImageView.newAutoLayoutView()
-    public let addressLabel = UILabel.newAutoLayoutView()
-    public let descriptionHeadingLabel = UILabel.newAutoLayoutView()
-    public let descriptionLabel = UILabel.newAutoLayoutView()
+    let mapView = MKMapView.newAutoLayoutView()
+    let rsvpButton = UIButton.newAutoLayoutView()
+    let directionsButton = UIButton.newAutoLayoutView()
+    let nameLabel = UILabel.newAutoLayoutView()
+    let dateIconImageView = UIImageView.newAutoLayoutView()
+    let dateLabel = UILabel.newAutoLayoutView()
+    let attendeesIconImageView = UIImageView.newAutoLayoutView()
+    let attendeesLabel = UILabel.newAutoLayoutView()
+    let addressIconImageView = UIImageView.newAutoLayoutView()
+    let addressLabel = UILabel.newAutoLayoutView()
+    let descriptionHeadingLabel = UILabel.newAutoLayoutView()
+    let descriptionLabel = UILabel.newAutoLayoutView()
 
-    public init(
+    init(
         event: Event,
         eventPresenter: EventPresenter,
         eventRSVPControllerProvider: EventRSVPControllerProvider,
@@ -47,13 +47,13 @@ public class EventController: UIViewController {
             self.hidesBottomBarWhenPushed = true // TODO: test this when initialized, not when viewDidLoad
     }
 
-    required public init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: UIViewController
 
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
 
         let eventCoordinate = event.location.coordinate
@@ -114,7 +114,7 @@ public class EventController: UIViewController {
         setupConstraints()
     }
 
-    public override func didMoveToParentViewController(parent: UIViewController?) {
+    override func didMoveToParentViewController(parent: UIViewController?) {
         self.analyticsService.trackCustomEventWithName("Tapped 'Back' on Event", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString])
     }
 

@@ -1,7 +1,7 @@
 import UIKit
 import Quick
 import Nimble
-import berniesanders
+@testable import berniesanders
 
 class FLOSSControllerSpec : QuickSpec {
     var subject : FLOSSController!

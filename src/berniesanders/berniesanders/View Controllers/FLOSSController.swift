@@ -1,24 +1,24 @@
 import UIKit
 import PureLayout
 
-public class FLOSSController: UIViewController {
+class FLOSSController: UIViewController {
     private let analyticsService: AnalyticsService
-    public let webView = UIWebView()
+    let webView = UIWebView()
 
-    public init(analyticsService: AnalyticsService) {
+    init(analyticsService: AnalyticsService) {
         self.analyticsService = analyticsService
 
         super.init(nibName: nil, bundle: nil)
         self.title = NSLocalizedString("FLOSS_title", comment: "")
     }
 
-    required public init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: UIViewController
 
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
 
         let flossLicensesPath = NSBundle.mainBundle().pathForResource("floss_licenses", ofType: "html")!
@@ -31,7 +31,7 @@ public class FLOSSController: UIViewController {
         self.webView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero)
     }
 
-    public override func didMoveToParentViewController(parent: UIViewController?) {
+    override func didMoveToParentViewController(parent: UIViewController?) {
         self.analyticsService.trackCustomEventWithName("Tapped 'Back' on Open Source Software", customAttributes: nil)
     }
 }
