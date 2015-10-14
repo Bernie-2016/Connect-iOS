@@ -206,7 +206,7 @@ class DefaultTheme: Theme {
     }
 
     func eventsZipCodeBackgroundColor() -> UIColor {
-        return self.galleryColor()
+        return UIColor.whiteColor()
     }
 
     func eventsZipCodeBorderColor() -> UIColor {
@@ -266,7 +266,7 @@ class DefaultTheme: Theme {
     func eventDirectionsButtonFont() -> UIFont { return UIFont.systemFontOfSize(15) }
     func eventRSVPButtonBackgroundColor() -> UIColor { return self.carnationColor() }
     func eventsInstructionsFont() -> UIFont { return defaultHeaderFont() }
-    func eventsInstructionsTextColor() -> UIColor { return cornflowerBlueColor() }
+    func eventsInstructionsTextColor() -> UIColor { return silverChaliceColor() }
 
     // MARK: About screen
 
@@ -312,6 +312,10 @@ class DefaultTheme: Theme {
 
     func altoColor() -> UIColor {
         return UIColor(rgba: "#dcdcdc")
+    }
+
+    func silverChaliceColor() -> UIColor {
+        return UIColor(rgba: "#a5a5a5")
     }
 
     // MARK: font definitions

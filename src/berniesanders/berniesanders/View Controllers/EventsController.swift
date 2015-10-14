@@ -77,10 +77,10 @@ class EventsController: UIViewController, UITableViewDataSource, UITableViewDele
         view.addSubview(loadingActivityIndicatorView)
 
         zipCodeTextField.delegate = self
-        zipCodeTextField.autoPinEdgeToSuperviewEdge(.Top, withInset: 8)
+        zipCodeTextField.autoPinEdgeToSuperviewEdge(.Top, withInset: 24)
         zipCodeTextField.autoPinEdgeToSuperviewEdge(.Left, withInset: 8)
         zipCodeTextField.autoPinEdgeToSuperviewEdge(.Right, withInset: 8)
-        zipCodeTextField.autoSetDimension(.Height, toSize: 30)
+        zipCodeTextField.autoSetDimension(.Height, toSize: 45)
 
         zipCodeTextField.placeholder = NSLocalizedString("Events_zipCodeTextBoxPlaceholder",  comment: "")
         zipCodeTextField.keyboardType = .NumberPad
@@ -96,8 +96,8 @@ class EventsController: UIViewController, UITableViewDataSource, UITableViewDele
         instructionsLabel.textColor = theme.eventsInstructionsTextColor()
         instructionsLabel.textAlignment = .Center
         instructionsLabel.numberOfLines = 0
-        instructionsLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: zipCodeTextField, withOffset: 24)
         instructionsLabel.autoAlignAxisToSuperviewAxis(.Vertical)
+        instructionsLabel.autoAlignAxisToSuperviewAxis(.Horizontal)
         instructionsLabel.autoSetDimension(.Width, toSize: 220)
 
         resultsTableView.autoPinEdge(.Top, toEdge: .Bottom, ofView: zipCodeTextField, withOffset: 8)
