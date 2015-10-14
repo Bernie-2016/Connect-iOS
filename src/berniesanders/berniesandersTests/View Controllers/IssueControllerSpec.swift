@@ -150,7 +150,7 @@ class IssueControllerSpec : QuickSpec {
                         let containerViewSubViews = containerView.subviews
 
                         expect(containerViewSubViews.contains(self.subject.issueImageView)).to(beTrue())
-                        expect(containerViewSubViews.contains(self.subject.titleLabel)).to(beTrue())
+                        expect(containerViewSubViews.contains(self.subject.titleButton)).to(beTrue())
                         expect(containerViewSubViews.contains(self.subject.bodyTextView)).to(beTrue())
                         expect(containerViewSubViews.contains(self.subject.attributionLabel)).to(beTrue())
                         expect(containerViewSubViews.contains(self.subject.viewOriginalButton)).to(beTrue())
@@ -158,8 +158,8 @@ class IssueControllerSpec : QuickSpec {
 
                     it("styles the views according to the theme") {
                         expect(self.subject.view.backgroundColor).to(equal(UIColor.orangeColor()))
-                        expect(self.subject.titleLabel.font).to(equal(UIFont.italicSystemFontOfSize(13)))
-                        expect(self.subject.titleLabel.textColor).to(equal(UIColor.brownColor()))
+                        expect(self.subject.titleButton.titleLabel!.font).to(equal(UIFont.italicSystemFontOfSize(13)))
+                        expect(self.subject.titleButton.titleColorForState(.Normal)).to(equal(UIColor.brownColor()))
                         expect(self.subject.bodyTextView.font).to(equal(UIFont.systemFontOfSize(3)))
                         expect(self.subject.bodyTextView.textColor).to(equal(UIColor.yellowColor()))
                         expect(self.subject.attributionLabel.font).to(equal(UIFont.systemFontOfSize(222)))
@@ -169,8 +169,24 @@ class IssueControllerSpec : QuickSpec {
                         expect(self.subject.viewOriginalButton.titleLabel!.font).to(equal(UIFont.systemFontOfSize(333)))
                     }
 
-                    it("displays the title from the issue") {
-                        expect(self.subject.titleLabel.text).to(equal("An issue title made by TestUtils"))
+                    it("displays the title from the issue as a button") {
+                        expect(self.subject.titleButton.titleForState(.Normal)).to(equal("An issue title made by TestUtils"))
+                    }
+
+                    describe("tapping on the title button") {
+                        beforeEach {
+                            self.subject.titleButton.tap()
+                        }
+
+                        it("opens the original issue in safari") {
+                            expect(self.urlOpener.lastOpenedURL).to(beIdenticalTo(self.issue.URL))
+                        }
+
+                        it("logs that the user tapped view original") {
+                            expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'View Original' on Issue"))
+                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.issue.URL.absoluteString]
+                            expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
+                        }
                     }
 
                     it("displays the issue body") {

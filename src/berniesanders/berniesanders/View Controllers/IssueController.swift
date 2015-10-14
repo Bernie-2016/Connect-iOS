@@ -11,9 +11,9 @@ class IssueController: UIViewController {
 
     private let containerView = UIView()
     private let scrollView = UIScrollView()
-    let titleLabel = UILabel()
-    let bodyTextView = UITextView()
-    let issueImageView = UIImageView()
+    let titleButton = UIButton.newAutoLayoutView()
+    let bodyTextView = UITextView.newAutoLayoutView()
+    let issueImageView = UIImageView.newAutoLayoutView()
     let attributionLabel = UILabel.newAutoLayoutView()
     let viewOriginalButton = UIButton.newAutoLayoutView()
 
@@ -48,14 +48,16 @@ class IssueController: UIViewController {
 
         view.addSubview(scrollView)
         scrollView.addSubview(containerView)
-        containerView.addSubview(titleLabel)
+        containerView.addSubview(titleButton)
         containerView.addSubview(issueImageView)
         containerView.addSubview(bodyTextView)
         containerView.addSubview(attributionLabel)
         containerView.addSubview(viewOriginalButton)
 
-        titleLabel.text = self.issue.title
+
         bodyTextView.text = self.issue.body
+        titleButton.setTitle(self.issue.title, forState: .Normal)
+        titleButton.addTarget(self, action: "didTapViewOriginal", forControlEvents: .TouchUpInside)
 
         attributionLabel.text = self.urlAttributionPresenter.attributionTextForURL(issue.URL)
         viewOriginalButton.setTitle(NSLocalizedString("Issue_viewOriginal", comment: ""), forState: .Normal)
@@ -127,19 +129,20 @@ class IssueController: UIViewController {
         self.issueImageView.autoSetDimension(ALDimension.Height, toSize: screenBounds.height / 3, relation: NSLayoutRelation.LessThanOrEqual)
 
         NSLayoutConstraint.autoSetPriority(1000, forConstraints: { () -> Void in
-            self.titleLabel.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.issueImageView, withOffset: 32)
+            self.titleButton.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.issueImageView, withOffset: 32)
         })
 
         NSLayoutConstraint.autoSetPriority(500, forConstraints: { () -> Void in
-            self.titleLabel.autoPinEdgeToSuperviewEdge(ALEdge.Top, withInset: 8)
+            self.titleButton.autoPinEdgeToSuperviewEdge(ALEdge.Top, withInset: 8)
         })
 
-        self.titleLabel.numberOfLines = 3
-        self.titleLabel.preferredMaxLayoutWidth = screenBounds.width - 8
-        self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.titleLabel.autoPinEdgeToSuperviewMargin(.Leading)
-        self.titleLabel.autoPinEdgeToSuperviewMargin(.Trailing)
-        self.titleLabel.autoSetDimension(ALDimension.Height, toSize: 20, relation: NSLayoutRelation.GreaterThanOrEqual)
+        let titleLabel = self.titleButton.titleLabel!
+        titleLabel.numberOfLines = 3
+        titleLabel.preferredMaxLayoutWidth = screenBounds.width - 8
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.titleButton.autoPinEdgeToSuperviewMargin(.Leading)
+        self.titleButton.autoPinEdgeToSuperviewMargin(.Trailing)
+        self.titleButton.autoSetDimension(ALDimension.Height, toSize: 20, relation: NSLayoutRelation.GreaterThanOrEqual)
 
         self.bodyTextView.scrollEnabled = false
         self.bodyTextView.translatesAutoresizingMaskIntoConstraints = false
@@ -147,7 +150,7 @@ class IssueController: UIViewController {
         self.bodyTextView.textContainer.lineFragmentPadding = 0;
         self.bodyTextView.editable = false
 
-        self.bodyTextView.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.titleLabel, withOffset: 16)
+        self.bodyTextView.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.titleButton, withOffset: 16)
         self.bodyTextView.autoPinEdgeToSuperviewMargin(.Left)
         self.bodyTextView.autoPinEdgeToSuperviewMargin(.Right)
 
@@ -163,8 +166,8 @@ class IssueController: UIViewController {
 
     private func applyThemeToViews() {
         self.view.backgroundColor = self.theme.defaultBackgroundColor()
-        self.titleLabel.font = self.theme.issueTitleFont()
-        self.titleLabel.textColor = self.theme.issueTitleColor()
+        self.titleButton.titleLabel!.font = self.theme.issueTitleFont()
+        self.titleButton.setTitleColor(self.theme.issueTitleColor(), forState: .Normal)
         self.bodyTextView.font = self.theme.issueBodyFont()
         self.bodyTextView.textColor = self.theme.issueBodyColor()
         self.attributionLabel.font = self.theme.attributionFont()
