@@ -12,10 +12,10 @@ class NewsItemController: UIViewController {
 
     private let containerView = UIView.newAutoLayoutView()
     private let scrollView = UIScrollView.newAutoLayoutView()
-    let dateLabel = UILabel()
-    let titleLabel = UILabel()
-    let bodyTextView = UITextView()
-    let storyImageView = UIImageView()
+    let dateLabel = UILabel.newAutoLayoutView()
+    let titleButton = UIButton.newAutoLayoutView()
+    let bodyTextView = UITextView.newAutoLayoutView()
+    let storyImageView = UIImageView.newAutoLayoutView()
     let attributionLabel = UILabel.newAutoLayoutView()
     let viewOriginalButton = UIButton.newAutoLayoutView()
 
@@ -54,13 +54,14 @@ class NewsItemController: UIViewController {
         scrollView.addSubview(self.containerView)
         containerView.addSubview(self.storyImageView)
         containerView.addSubview(self.dateLabel)
-        containerView.addSubview(self.titleLabel)
+        containerView.addSubview(self.titleButton)
         containerView.addSubview(self.bodyTextView)
         containerView.addSubview(self.attributionLabel)
         containerView.addSubview(self.viewOriginalButton)
 
         dateLabel.text = self.dateFormatter.stringFromDate(self.newsItem.date)
-        titleLabel.text = self.newsItem.title
+        titleButton.setTitle(self.newsItem.title, forState: .Normal)
+        titleButton.addTarget(self, action: "didTapViewOriginal", forControlEvents: .TouchUpInside)
         bodyTextView.text = self.newsItem.body
 
         attributionLabel.text = self.urlAttributionPresenter.attributionTextForURL(newsItem.URL)
@@ -144,21 +145,21 @@ class NewsItemController: UIViewController {
         self.dateLabel.autoPinEdgeToSuperviewMargin(ALEdge.Trailing)
         self.dateLabel.autoSetDimension(ALDimension.Height, toSize: 20)
 
-        self.titleLabel.numberOfLines = 3
-        self.titleLabel.preferredMaxLayoutWidth = screenBounds.width - 8
-        self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.titleLabel.autoPinEdgeToSuperviewMargin(.Leading)
-        self.titleLabel.autoPinEdgeToSuperviewMargin(.Trailing)
-        self.titleLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.dateLabel)
-        self.titleLabel.autoSetDimension(.Height, toSize: 20, relation: NSLayoutRelation.GreaterThanOrEqual)
+        let titleLabel = self.titleButton.titleLabel!
+        titleLabel.numberOfLines = 3
+        titleLabel.preferredMaxLayoutWidth = screenBounds.width - 8
+        self.titleButton.contentHorizontalAlignment = .Left
+        self.titleButton.autoPinEdgeToSuperviewMargin(.Leading)
+        self.titleButton.autoPinEdgeToSuperviewMargin(.Trailing)
+        self.titleButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.dateLabel)
+        self.titleButton.autoSetDimension(.Height, toSize: 20, relation: NSLayoutRelation.GreaterThanOrEqual)
 
         self.bodyTextView.scrollEnabled = false
-        self.bodyTextView.translatesAutoresizingMaskIntoConstraints = false
         self.bodyTextView.textContainerInset = UIEdgeInsetsZero
         self.bodyTextView.textContainer.lineFragmentPadding = 0;
         self.bodyTextView.editable = false
 
-        self.bodyTextView.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.titleLabel, withOffset: 16)
+        self.bodyTextView.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.titleButton, withOffset: 16)
         self.bodyTextView.autoPinEdgeToSuperviewMargin(.Left)
         self.bodyTextView.autoPinEdgeToSuperviewMargin(.Right)
 
@@ -175,8 +176,8 @@ class NewsItemController: UIViewController {
     private func applyThemeToViews() {
         self.dateLabel.font = self.theme.newsItemDateFont()
         self.dateLabel.textColor = self.theme.newsItemDateColor()
-        self.titleLabel.font = self.theme.newsItemTitleFont()
-        self.titleLabel.textColor = self.theme.newsItemTitleColor()
+        self.self.titleButton.titleLabel!.font = self.theme.newsItemTitleFont()
+        self.titleButton.setTitleColor(self.theme.newsItemTitleColor(), forState: .Normal)
         self.bodyTextView.font = self.theme.newsItemBodyFont()
         self.bodyTextView.textColor = self.theme.newsItemBodyColor()
         self.attributionLabel.font = self.theme.attributionFont()

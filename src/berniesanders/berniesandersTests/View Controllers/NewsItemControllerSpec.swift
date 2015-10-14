@@ -152,14 +152,30 @@ class NewsItemControllerSpec : QuickSpec {
 
                         let containerViewSubViews = containerView.subviews
 
-                        expect(containerViewSubViews.contains(self.subject.titleLabel)).to(beTrue())
+                        expect(containerViewSubViews.contains(self.subject.titleButton)).to(beTrue())
                         expect(containerViewSubViews.contains(self.subject.bodyTextView)).to(beTrue())
                         expect(containerViewSubViews.contains(self.subject.dateLabel)).to(beTrue())
                         expect(containerViewSubViews.contains(self.subject.storyImageView)).to(beTrue())
                     }
 
-                    it("displays the title from the news item") {
-                        expect(self.subject.titleLabel.text).to(equal("some title"))
+                    it("displays the title from the news item as a button") {
+                        expect(self.subject.titleButton.titleForState(.Normal)).to(equal("some title"))
+                    }
+
+                    describe("tapping on the title button") {
+                        beforeEach {
+                            self.subject.titleButton.tap()
+                        }
+
+                        it("opens the original issue in safari") {
+                            expect(self.urlOpener.lastOpenedURL).to(beIdenticalTo(self.newsItem.URL))
+                        }
+
+                        it("logs that the user tapped view original") {
+                            expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'View Original' on News Item"))
+                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.newsItem.URL.absoluteString]
+                            expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
+                        }
                     }
 
                     it("displays the story body") {
@@ -203,15 +219,14 @@ class NewsItemControllerSpec : QuickSpec {
                         expect(self.subject.view.backgroundColor).to(equal(UIColor.orangeColor()))
                         expect(self.subject.dateLabel.font).to(equal(UIFont.boldSystemFontOfSize(20)))
                         expect(self.subject.dateLabel.textColor).to(equal(UIColor.magentaColor()))
-                        expect(self.subject.titleLabel.font).to(equal(UIFont.italicSystemFontOfSize(13)))
-                        expect(self.subject.titleLabel.textColor).to(equal(UIColor.brownColor()))
+                        expect(self.subject.titleButton.titleLabel!.font).to(equal(UIFont.italicSystemFontOfSize(13)))
+                        expect(self.subject.titleButton.titleColorForState(.Normal)).to(equal(UIColor.brownColor()))
                         expect(self.subject.bodyTextView.font).to(equal(UIFont.systemFontOfSize(3)))
                         expect(self.subject.bodyTextView.textColor).to(equal(UIColor.yellowColor()))
                         expect(self.subject.attributionLabel.textColor).to(equal(UIColor.greenColor()))
                         expect(self.subject.attributionLabel.font).to(equal(UIFont.boldSystemFontOfSize(111)))
                         expect(self.subject.viewOriginalButton.backgroundColor).to(equal(UIColor.redColor()))
                         expect(self.subject.viewOriginalButton.titleColorForState(.Normal)).to(equal(UIColor.blueColor()))
-                        expect(self.subject.viewOriginalButton.titleLabel!.font).to(equal(UIFont.boldSystemFontOfSize(222)))
                     }
 
                     context("when the request for the story's image succeeds") {
