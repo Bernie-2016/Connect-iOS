@@ -7,6 +7,7 @@
 "NewsFeed_tabBarTitle" = "News";
 "NewsFeed_navigationTitle" = "News";
 "NewsFeed_backButtonTitle" = "Back";
+"NewsFeed_errorText" = "Oops! Sorry, we couldn't load any news.";
 
 // News Item
 

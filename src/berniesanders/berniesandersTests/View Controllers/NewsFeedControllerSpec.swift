@@ -282,7 +282,7 @@ class NewsFeedControllerSpecs: QuickSpec {
                         }
                     }
 
-                    describe("the rest of the news story") {
+                    describe("the rest of the news stories") {
                         beforeEach {
                             self.newsItemRepository.lastCompletionBlock!(newsItems)
                         }
@@ -290,9 +290,9 @@ class NewsFeedControllerSpecs: QuickSpec {
                         it("shows the items in the table with upcased text") {
                             expect(self.subject.tableView.numberOfRowsInSection(1)).to(equal(1))
 
-                            let cellB = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! TitleSubTitleTableViewCell
-                            expect(cellB.titleLabel.text).to(equal("Bernie up in the polls!"))
-                            expect(cellB.dateLabel.text).to(equal("1/2/70"))
+                            let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! TitleSubTitleTableViewCell
+                            expect(cell.titleLabel.text).to(equal("Bernie up in the polls!"))
+                            expect(cell.dateLabel.text).to(equal("1/2/70"))
                         }
 
                         it("styles the items in the table") {
@@ -316,6 +316,55 @@ class NewsFeedControllerSpecs: QuickSpec {
                     it("logs that error to the analytics service") {
                         expect(self.analyticsService.lastError).to(beIdenticalTo(expectedError))
                         expect(self.analyticsService.lastErrorContext).to(equal("Failed to load news feed"))
+                    }
+
+                    it("shows the an error in the table") {
+                        expect(self.subject.tableView.numberOfSections).to(equal(1))
+                        expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(1))
+
+                        let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))!
+                        expect(cell.textLabel!.text).to(equal("Oops! Sorry, we couldn't load any news."))
+                    }
+
+                    it("styles the items in the table") {
+                        let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))!
+
+                        expect(cell.textLabel!.textColor).to(equal(UIColor.magentaColor()))
+                        expect(cell.textLabel!.font).to(equal(UIFont.boldSystemFontOfSize(20)))
+                    }
+
+                    context("and then the user refreshes the news feed") {
+                        beforeEach {
+                            self.subject.viewWillAppear(false)
+                        }
+
+                        describe("when the news repository returns some news items") {
+                            let newsItemADate = NSDate(timeIntervalSince1970: 0)
+                            let newsItemBDate = NSDate(timeIntervalSince1970: 86401)
+                            let newsItemA = NewsItem(title: "Bernie to release new album", date: newsItemADate, body: "yeahhh", imageURL: NSURL(string: "http://bs.com")!, URL: NSURL())
+                            let newsItemB = NewsItem(title: "Bernie up in the polls!", date: newsItemBDate, body: "body text", imageURL: NSURL(), URL: NSURL())
+
+                            let newsItems = [newsItemA, newsItemB]
+
+                            it("has 2 sections") {
+                                self.newsItemRepository.lastCompletionBlock!(newsItems)
+
+                                expect(self.subject.tableView.numberOfSections).to(equal(2))
+                            }
+
+                            describe("the top news story") {
+                                var cell : NewsHeadlineTableViewCell!
+
+                                it("shows the first news item as a headline news cell") {
+                                    self.newsItemRepository.lastCompletionBlock!(newsItems)
+
+                                    expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(1))
+
+                                    cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NewsHeadlineTableViewCell
+                                    expect(cell.titleLabel.text).to(equal("Bernie to release new album"))
+                                }
+                            }
+                        }
                     }
                 }
             }

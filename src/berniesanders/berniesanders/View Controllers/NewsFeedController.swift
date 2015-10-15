@@ -11,6 +11,8 @@ class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewData
     private let tabBarItemStylist: TabBarItemStylist
     private let theme: Theme
 
+    private var errorLoadingNews = false
+
     let tableView = UITableView.newAutoLayoutView()
     let loadingIndicatorView = UIActivityIndicatorView.newAutoLayoutView()
 
@@ -77,6 +79,7 @@ class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.hidden = true
         tableView.registerClass(TitleSubTitleTableViewCell.self, forCellReuseIdentifier: "regularCell")
         tableView.registerClass(NewsHeadlineTableViewCell.self, forCellReuseIdentifier: "headlineCell")
+        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "errorCell")
         tableView.dataSource = self
         tableView.delegate = self
         tableView.autoPinEdgesToSuperviewEdges()
@@ -92,11 +95,14 @@ class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewWillAppear(animated)
 
         self.newsItemRepository.fetchNewsItems({ (receivedNewsItems) -> Void in
+            self.errorLoadingNews = false
             self.tableView.hidden = false
             self.loadingIndicatorView.stopAnimating()
             self.newsItems = receivedNewsItems
             self.tableView.reloadData()
             }, error: { (error) -> Void in
+                self.errorLoadingNews = true
+                self.tableView.reloadData()
                 self.analyticsService.trackError(error, context: "Failed to load news feed")
 
                 print(error.localizedDescription)
@@ -107,10 +113,14 @@ class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewData
     // MARK: UITableViewDataSource
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return self.newsItems.count > 0 ? 2 : 1
+        return !self.errorLoadingNews && self.newsItems.count > 0 ? 2 : 1
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if(self.errorLoadingNews) {
+            return 1
+        }
+
         if(self.newsItems.count == 0) {
             return 0
         }
@@ -120,6 +130,14 @@ class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewData
 
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if(self.errorLoadingNews) {
+            let cell = tableView.dequeueReusableCellWithIdentifier("errorCell", forIndexPath: indexPath)
+            cell.textLabel!.text = NSLocalizedString("NewsFeed_errorText", comment: "")
+            cell.textLabel!.font = self.theme.newsFeedTitleFont()
+            cell.textLabel!.textColor = self.theme.newsFeedTitleColor()
+            return cell
+        }
+
         if(indexPath.section == 0) {
             let cell = tableView.dequeueReusableCellWithIdentifier("headlineCell", forIndexPath: indexPath) as! NewsHeadlineTableViewCell
             let newsItem = self.newsItems[indexPath.row]
@@ -158,7 +176,7 @@ class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewData
     // MARK: UITableViewDelegate
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return indexPath.section == 0 ? 180.0 : 90.0
+        return !self.errorLoadingNews && indexPath.section == 0 ? 180.0 : 90.0
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
