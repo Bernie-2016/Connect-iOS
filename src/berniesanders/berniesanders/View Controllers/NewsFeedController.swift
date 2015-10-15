@@ -106,7 +106,6 @@ class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewData
                 self.analyticsService.trackError(error, context: "Failed to load news feed")
 
                 print(error.localizedDescription)
-                // TODO: error handling.
         })
     }
 

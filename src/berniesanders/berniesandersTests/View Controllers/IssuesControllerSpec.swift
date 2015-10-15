@@ -184,36 +184,76 @@ class IssuesControllerSpec: QuickSpec {
                         expect(self.analyticsService.lastError).to(beIdenticalTo(expectedError))
                         expect(self.analyticsService.lastErrorContext).to(equal("Failed to load issues"))
                     }
+
+                    it("shows the an error in the table") {
+                        expect(self.subject.tableView.numberOfSections).to(equal(1))
+                        expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(1))
+
+                        let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))!
+                        expect(cell.textLabel!.text).to(equal("Oops! Sorry, we couldn't load any issues."))
+                    }
+
+                    it("styles the items in the table") {
+                        let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))!
+
+                        expect(cell.textLabel!.textColor).to(equal(UIColor.magentaColor()))
+                        expect(cell.textLabel!.font).to(equal(UIFont.boldSystemFontOfSize(20)))
+                    }
+
+                    context("and then the user refreshes the issues screen") {
+                        beforeEach {
+                            self.subject.viewWillAppear(false)
+                        }
+
+                        describe("when the issues repository returns some issues") {
+                            beforeEach {
+                                let issueA = Issue(title: "Big Money in Little DC", body: "body", imageURL: NSURL(string: "http://a.com")!, URL: NSURL(string: "http://b.com")!)
+                                let issueB = Issue(title: "Long Live The NHS", body: "body", imageURL: NSURL(string: "http://c.com")!, URL: NSURL(string: "http://d.com")!)
+
+                                self.issueRepository.lastCompletionBlock!([issueA, issueB])
+                            }
+
+
+                            it("shows the issues in the table") {
+                                expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(2))
+
+                                let cellA = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! IssueTableViewCell
+                                expect(cellA.titleLabel.text).to(equal("Big Money in Little DC"))
+
+                                let cellB = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! IssueTableViewCell
+                                expect(cellB.titleLabel.text).to(equal("Long Live The NHS"))
+                            }
+                        }
+                    }
                 }
 
-            }
+                describe("Tapping on an issue") {
+                    let expectedIssue = TestUtils.issue()
 
-            describe("Tapping on an issue") {
-                let expectedIssue = TestUtils.issue()
+                    beforeEach {
+                        self.subject.view.layoutIfNeeded()
+                        self.subject.viewWillAppear(false)
+                        let otherIssue = TestUtils.issue()
 
-                beforeEach {
-                    self.subject.view.layoutIfNeeded()
-                    self.subject.viewWillAppear(false)
-                    let otherIssue = TestUtils.issue()
+                        let issues = [otherIssue, expectedIssue]
 
-                    let issues = [otherIssue, expectedIssue]
+                        self.issueRepository.lastCompletionBlock!(issues)
 
-                    self.issueRepository.lastCompletionBlock!(issues)
+                        let tableView = self.subject.tableView
+                        tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
+                    }
 
-                    let tableView = self.subject.tableView
-                    tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
-                }
-
-                it("tracks the content view with the analytics service") {
-                    expect(self.analyticsService.lastContentViewName).to(equal(expectedIssue.title))
-                    expect(self.analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.Issue))
-                    expect(self.analyticsService.lastContentViewID).to(equal(expectedIssue.URL.absoluteString))
-                }
+                    it("tracks the content view with the analytics service") {
+                        expect(self.analyticsService.lastContentViewName).to(equal(expectedIssue.title))
+                        expect(self.analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.Issue))
+                        expect(self.analyticsService.lastContentViewID).to(equal(expectedIssue.URL.absoluteString))
+                    }
 
 
-                it("should push a correctly configured issue controller onto the nav stack") {
-                    expect(self.issueControllerProvider.lastIssue).to(beIdenticalTo(expectedIssue))
-                    expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.issueControllerProvider.controller))
+                    it("should push a correctly configured issue controller onto the nav stack") {
+                        expect(self.issueControllerProvider.lastIssue).to(beIdenticalTo(expectedIssue))
+                        expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.issueControllerProvider.controller))
+                    }
                 }
             }
         }

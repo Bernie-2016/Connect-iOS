@@ -8,6 +8,8 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
     private let tabBarItemStylist: TabBarItemStylist
     private let theme: Theme
 
+    var errorLoadingIssues = false
+
     let tableView = UITableView.newAutoLayoutView()
     let loadingIndicatorView = UIActivityIndicatorView.newAutoLayoutView()
 
@@ -63,6 +65,7 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
         tableView.dataSource = self
         tableView.delegate = self
         tableView.registerClass(IssueTableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "errorCell")
         tableView.autoPinEdgesToSuperviewEdges()
         tableView.hidden = true
 
@@ -77,16 +80,17 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
         super.viewWillAppear(animated)
 
         self.issueRepository.fetchIssues({ (receivedIssues) -> Void in
+            self.errorLoadingIssues = false
             self.issues = receivedIssues
             self.loadingIndicatorView.stopAnimating()
             self.tableView.hidden = false
             self.tableView.reloadData()
             }, error: { (error) -> Void in
+                self.errorLoadingIssues = true
+                self.tableView.reloadData()
                 self.analyticsService.trackError(error, context: "Failed to load issues")
 
                 print(error.localizedDescription)
-
-                // TODO: error handling.
         })
     }
 
@@ -97,17 +101,26 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.issues.count
+        return self.errorLoadingIssues ? 1 : self.issues.count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! IssueTableViewCell
-        let issue = self.issues[indexPath.row]
-        cell.titleLabel.text = issue.title
-        cell.titleLabel.font = self.theme.issuesFeedTitleFont()
-        cell.titleLabel.textColor = self.theme.issuesFeedTitleColor()
+        if(self.errorLoadingIssues) {
+            let cell = tableView.dequeueReusableCellWithIdentifier("errorCell", forIndexPath: indexPath)
+            cell.textLabel!.text = NSLocalizedString("Issues_errorText", comment: "")
+            cell.textLabel!.font = self.theme.issuesFeedTitleFont()
+            cell.textLabel!.textColor = self.theme.issuesFeedTitleColor()
+            return cell
 
-        return cell
+        } else {
+            let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! IssueTableViewCell
+            let issue = self.issues[indexPath.row]
+            cell.titleLabel.text = issue.title
+            cell.titleLabel.font = self.theme.issuesFeedTitleFont()
+            cell.titleLabel.textColor = self.theme.issuesFeedTitleColor()
+
+            return cell
+        }
     }
 
     // MARK: UITableViewDelegate

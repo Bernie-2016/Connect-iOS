@@ -18,6 +18,7 @@
 "Issues_tabBarTitle" = "Issues";
 "Issues_navigationTitle" = "Issues";
 "Issues_backButtonTitle" = "Back";
+"Issues_errorText" = "Oops! Sorry, we couldn't load any issues.";
 
 // Issue
 
