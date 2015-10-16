@@ -55,7 +55,6 @@ class SettingsControllerSpec : QuickSpec {
     let theme = SettingsFakeTheme()
 
     let regularController = FakeSettingsController(title: "Regular Controller")
-    let donateController = TestUtils.donateController()
 
     let flossController = TestUtils.privacyPolicyController()
     var navigationController: UINavigationController!

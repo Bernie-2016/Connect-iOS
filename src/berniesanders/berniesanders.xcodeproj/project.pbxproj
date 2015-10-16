@@ -138,7 +138,6 @@
 		65DE8D931B955E15008C239F /* NewsItemControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DE8D921B955E15008C239F /* NewsItemControllerSpec.swift */; };
 		65E06CAB1BCB30DC00BDDA61 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8233FC151B7C28FB00A5E9ED /* Images.xcassets */; settings = {ASSET_TAGS = (); }; };
 		65E4A4FC1BC6DA050027501D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8233FC151B7C28FB00A5E9ED /* Images.xcassets */; };
-		65E4A4FE1BC6F6830027501D /* DonateControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E4A4FD1BC6F6830027501D /* DonateControllerSpec.swift */; };
 		65EA2F291BB9B648001D8FD5 /* FakeDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EA2F281BB9B648001D8FD5 /* FakeDateFormatter.swift */; };
 		65EC4CEC1B842A0B00DD4C83 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */; };
 		65EC4CEE1B842A1900DD4C83 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65EC4CED1B842A1900DD4C83 /* Quick.framework */; };
@@ -163,7 +162,6 @@
 		8233FC301B7C48A500A5E9ED /* NewsFeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8233FC2F1B7C48A500A5E9ED /* NewsFeedController.swift */; };
 		8233FC321B7C4A9600A5E9ED /* IssuesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8233FC311B7C4A9600A5E9ED /* IssuesController.swift */; };
 		DF90BBCB1BC5090200F9FA53 /* DonateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF90BBCA1BC5090200F9FA53 /* DonateTableViewCell.swift */; };
-		DFFF9F7E1BC3F83800D7F716 /* DonateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFF9F7D1BC3F83800D7F716 /* DonateController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -336,7 +334,6 @@
 		65D0ECEA1BBB8DD20063B1D0 /* ConcreteEventRSVPControllerProviderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteEventRSVPControllerProviderSpec.swift; sourceTree = "<group>"; };
 		65D8ADC21BC1B83E005CD5FD /* FakeStringContentSanitizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeStringContentSanitizer.swift; sourceTree = "<group>"; };
 		65DE8D921B955E15008C239F /* NewsItemControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsItemControllerSpec.swift; sourceTree = "<group>"; };
-		65E4A4FD1BC6F6830027501D /* DonateControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonateControllerSpec.swift; sourceTree = "<group>"; };
 		65EA2F281BB9B648001D8FD5 /* FakeDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeDateFormatter.swift; sourceTree = "<group>"; };
 		65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		65EC4CED1B842A1900DD4C83 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
@@ -364,7 +361,6 @@
 		8233FC2F1B7C48A500A5E9ED /* NewsFeedController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFeedController.swift; sourceTree = "<group>"; };
 		8233FC311B7C4A9600A5E9ED /* IssuesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuesController.swift; sourceTree = "<group>"; };
 		DF90BBCA1BC5090200F9FA53 /* DonateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DonateTableViewCell.swift; path = "../View Controllers/DonateTableViewCell.swift"; sourceTree = "<group>"; };
-		DFFF9F7D1BC3F83800D7F716 /* DonateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonateController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -730,7 +726,6 @@
 			children = (
 				65C6589F1BC085F9001AD5CA /* AboutControllerSpec.swift */,
 				6568B9D51BC7017A00BD149D /* AnalyticsSettingsControllerSpec.swift */,
-				65E4A4FD1BC6F6830027501D /* DonateControllerSpec.swift */,
 				6581F7BE1BB87FF500B26B76 /* EventControllerSpec.swift */,
 				65D0ECE81BBB8C360063B1D0 /* EventRSVPControllerSpec.swift */,
 				65F112ED1B9FFE8700BA585C /* EventsControllerSpec.swift */,
@@ -885,7 +880,6 @@
 			children = (
 				65C658A11BC088FF001AD5CA /* AboutController.swift */,
 				6568B9D31BC700D800BD149D /* AnalyticsSettingsController.swift */,
-				DFFF9F7D1BC3F83800D7F716 /* DonateController.swift */,
 				654AD3541BB876C700A59966 /* EventController.swift */,
 				65D0ECE21BBAD7A20063B1D0 /* EventRSVPController.swift */,
 				65F112EF1B9FFF1C00BA585C /* EventsController.swift */,
@@ -1087,7 +1081,6 @@
 				65205F341BC09A3D005A55F2 /* ConcreteURLAttributionPresenter.swift in Sources */,
 				650763241B8B768300BA0659 /* ConcreteURLProvider.swift in Sources */,
 				65CA5E931B86E4A00001D870 /* DefaultTheme.swift in Sources */,
-				DFFF9F7E1BC3F83800D7F716 /* DonateController.swift in Sources */,
 				DF90BBCB1BC5090200F9FA53 /* DonateTableViewCell.swift in Sources */,
 				655AF0C61BB095E500F0448E /* Event.swift in Sources */,
 				654AD3551BB876C700A59966 /* EventController.swift in Sources */,
@@ -1162,7 +1155,6 @@
 				654A4DD21BCD850000FC523F /* ConcreteTabBarItemStylistSpec.swift in Sources */,
 				65ED413F1BC09C6A0092C07D /* ConcreteURLAttributionPresenterSpec.swift in Sources */,
 				65C426121BBA0B7700595E1B /* ConcreteURLProviderSpec.swift in Sources */,
-				65E4A4FE1BC6F6830027501D /* DonateControllerSpec.swift in Sources */,
 				6581F7BF1BB87FF500B26B76 /* EventControllerSpec.swift in Sources */,
 				654B55B71BB4888D00492610 /* EventPresenterSpec.swift in Sources */,
 				65D0ECE91BBB8C360063B1D0 /* EventRSVPControllerSpec.swift in Sources */,
