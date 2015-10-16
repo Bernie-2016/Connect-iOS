@@ -3,7 +3,13 @@ import Quick
 import Nimble
 @testable import berniesanders
 
-class SettingsFakeTheme : FakeTheme {
+class SettingsFakeURLProvider: FakeURLProvider {
+    override func donateFormURL() -> NSURL! {
+        return NSURL(string: "https://example.com/donate")!
+    }
+}
+
+class SettingsFakeTheme: FakeTheme {
     override func defaultBackgroundColor() -> UIColor {
         return UIColor.orangeColor()
     }
@@ -43,6 +49,8 @@ class FakeSettingsController : UIViewController {
 
 class SettingsControllerSpec : QuickSpec {
     var subject: SettingsController!
+    var urlOpener: FakeURLOpener!
+    let urlProvider = SettingsFakeURLProvider()
     var analyticsService: FakeAnalyticsService!
     let theme = SettingsFakeTheme()
 
@@ -55,12 +63,14 @@ class SettingsControllerSpec : QuickSpec {
     override func spec() {
         describe("SettingsController") {
             beforeEach {
+                self.urlOpener = FakeURLOpener()
                 self.analyticsService = FakeAnalyticsService()
 
                 self.subject = SettingsController(tappableControllers: [
-                        self.regularController,
-                        self.donateController
+                        self.regularController
                     ],
+                    urlOpener: self.urlOpener,
+                    urlProvider: self.urlProvider,
                     analyticsService: self.analyticsService,
                     theme: self.theme)
 
@@ -111,7 +121,6 @@ class SettingsControllerSpec : QuickSpec {
                 it("should style the donate row using the theme") {
                     let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))! as! DonateTableViewCell
 
-
                     expect(cell.messageView.textColor).to(equal(UIColor.purpleColor()))
                     expect(cell.messageView.font).to(equal(UIFont.systemFontOfSize(123)))
 
@@ -126,20 +135,18 @@ class SettingsControllerSpec : QuickSpec {
                         expect(cell.textLabel!.text).to(equal("Regular Controller"))
                         expect(cell).to(beAnInstanceOf(UITableViewCell.self))
                     }
-
-                    it("has a DonateTableViewCell row for a donate controller") {
-                        let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))!
-                        expect(cell).to(beAnInstanceOf(DonateTableViewCell.self))
-                    }
-
                     describe("tapping the rows") {
+                        it("opens the donate page in safari when the donate row is tapped") {
+                            let tableView = self.subject.tableView
+                            tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
+
+                            expect(self.urlOpener.lastOpenedURL).to(equal(NSURL(string: "https://example.com/donate")!))
+                        }
+
                         it("should push a correctly configured news item view controller onto the nav stack") {
                             let tableView = self.subject.tableView
                             tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
                             expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.regularController))
-
-                            tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
-                            expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.donateController))
                         }
 
                         it("should log a content view with the analytics service") {

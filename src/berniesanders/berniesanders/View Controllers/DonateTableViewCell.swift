@@ -22,6 +22,7 @@ class DonateTableViewCell: UITableViewCell {
         }
 
         didSetupViews = true
+        selectionStyle = .None
 
         contentView.addSubview(messageView)
 

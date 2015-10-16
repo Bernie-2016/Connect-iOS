@@ -49,13 +49,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
             let aboutController = AboutController(analyticsService: analyticsService, urlOpener: urlOpener, urlProvider: urlProvider, theme: defaultTheme)
             let feedbackController = FeedbackController(urlProvider: urlProvider, analyticsService: analyticsService)
-            let donateController = DonateController(urlProvider: urlProvider, analyticsService: analyticsService)
             let privacyPolicyController = PrivacyPolicyController(urlProvider: urlProvider, analyticsService: analyticsService)
             let flossController = FLOSSController(analyticsService: analyticsService)
             let termsAndConditionsController = TermsAndConditionsController(analyticsService: analyticsService)
             let analyticsSettingsController = AnalyticsSettingsController(applicationSettingsRepository: applicationSettingsRepository, analyticsService: analyticsService, theme: defaultTheme)
             let settingsController = SettingsController(
-                tappableControllers: [aboutController, feedbackController, analyticsSettingsController, termsAndConditionsController, privacyPolicyController, flossController, donateController],
+                tappableControllers: [aboutController, feedbackController, analyticsSettingsController, termsAndConditionsController, privacyPolicyController, flossController],
+                urlOpener: urlOpener,
+                urlProvider: urlProvider,
                 analyticsService: analyticsService,
                 theme: defaultTheme)
 

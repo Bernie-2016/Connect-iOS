@@ -4,11 +4,15 @@ import PureLayout
 
 class SettingsController: UITableViewController {
     private let tappableControllers: [UIViewController]
+    private let urlOpener: URLOpener
+    private let urlProvider: URLProvider
     private let analyticsService: AnalyticsService
     private let theme: Theme
 
-    init(tappableControllers: [UIViewController], analyticsService: AnalyticsService, theme: Theme) {
+    init(tappableControllers: [UIViewController], urlOpener: URLOpener, urlProvider: URLProvider, analyticsService: AnalyticsService, theme: Theme) {
         self.tappableControllers = tappableControllers
+        self.urlOpener = urlOpener
+        self.urlProvider = urlProvider
         self.analyticsService = analyticsService
         self.theme = theme
 
@@ -31,7 +35,6 @@ class SettingsController: UITableViewController {
     // MARK: UIViewController
 
     override func viewDidLoad() {
-
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 44.0
         view.backgroundColor = self.theme.defaultBackgroundColor()
@@ -51,11 +54,11 @@ class SettingsController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.tappableControllers.count
+        return self.tappableControllers.count + 1
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if self.tappableControllers[indexPath.row].isKindOfClass(DonateController) {
+        if indexPath.row == self.tappableControllers.count {
             let cell = tableView.dequeueReusableCellWithIdentifier("donateCell") as! DonateTableViewCell
             cell.setupViews(self.theme)
             return cell
@@ -73,9 +76,12 @@ class SettingsController: UITableViewController {
     // MARK: <UITableViewDelegate>
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let controller = self.tappableControllers[indexPath.row]
-        self.analyticsService.trackContentViewWithName(controller.title!, type: .Settings, id: controller.title!)
-        self.navigationController?.pushViewController(controller, animated: true)
-
+        if indexPath.row == self.tappableControllers.count {
+            self.urlOpener.openURL(self.urlProvider.donateFormURL())
+        } else {
+            let controller = self.tappableControllers[indexPath.row]
+            self.analyticsService.trackContentViewWithName(controller.title!, type: .Settings, id: controller.title!)
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
     }
 }
