@@ -40,8 +40,8 @@ class EventsController: UIViewController, UITableViewDataSource, UITableViewDele
         super.init(nibName: nil, bundle: nil)
 
         self.tabBarItemStylist.applyThemeToBarBarItem(self.tabBarItem,
-            image: UIImage(named: "eventsTabBarIcon")!,
-            selectedImage: UIImage(named: "eventsTabBarIconInactive")!)
+            image: UIImage(named: "eventsTabBarIconInactive")!,
+            selectedImage: UIImage(named: "eventsTabBarIcon")!)
         self.title = NSLocalizedString("Events_tabBarTitle", comment: "")
     }
 

@@ -42,8 +42,8 @@ class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewData
             super.init(nibName: nil, bundle: nil)
 
             self.tabBarItemStylist.applyThemeToBarBarItem(self.tabBarItem,
-                image: UIImage(named: "newsTabBarIcon")!,
-                selectedImage: UIImage(named: "newsTabBarIconInactive")!)
+                image: UIImage(named: "newsTabBarIconInactive")!,
+                selectedImage: UIImage(named: "newsTabBarIcon")!)
 
             title = NSLocalizedString("NewsFeed_tabBarTitle", comment: "")
     }

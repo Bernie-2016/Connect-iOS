@@ -33,8 +33,8 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
         super.init(nibName: nil, bundle: nil)
 
             self.tabBarItemStylist.applyThemeToBarBarItem(self.tabBarItem,
-                image: UIImage(named: "issuesTabBarIcon")!,
-                selectedImage: UIImage(named: "issuesTabBarIconInactive")!)
+                image: UIImage(named: "issuesTabBarIconInactive")!,
+                selectedImage: UIImage(named: "issuesTabBarIcon")!)
 
         title = NSLocalizedString("Issues_tabBarTitle", comment: "")
     }
