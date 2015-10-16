@@ -57,11 +57,11 @@ class IssueController: UIViewController {
 
         bodyTextView.text = self.issue.body
         titleButton.setTitle(self.issue.title, forState: .Normal)
-        titleButton.addTarget(self, action: "didTapViewOriginal", forControlEvents: .TouchUpInside)
+        titleButton.addTarget(self, action: "didTapViewOriginal:", forControlEvents: .TouchUpInside)
 
         attributionLabel.text = self.urlAttributionPresenter.attributionTextForURL(issue.URL)
         viewOriginalButton.setTitle(NSLocalizedString("Issue_viewOriginal", comment: ""), forState: .Normal)
-        viewOriginalButton.addTarget(self, action: "didTapViewOriginal", forControlEvents: .TouchUpInside)
+        viewOriginalButton.addTarget(self, action: "didTapViewOriginal:", forControlEvents: .TouchUpInside)
 
         setupConstraintsAndLayout()
         applyThemeToViews()
@@ -106,8 +106,9 @@ class IssueController: UIViewController {
         presentViewController(activityVC, animated: true, completion: nil)
     }
 
-    func didTapViewOriginal() {
-        analyticsService.trackCustomEventWithName("Tapped 'View Original' on Issue", customAttributes: [AnalyticsServiceConstants.contentIDKey: issue.URL.absoluteString])
+    func didTapViewOriginal(sender: UIButton) {
+        let eventName = sender == self.titleButton ? "Tapped title on Issue" : "Tapped 'View Original' on Issue"
+        analyticsService.trackCustomEventWithName(eventName, customAttributes: [AnalyticsServiceConstants.contentIDKey: issue.URL.absoluteString])
         self.urlOpener.openURL(self.issue.URL)
     }
 

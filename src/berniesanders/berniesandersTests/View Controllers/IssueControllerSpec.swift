@@ -183,7 +183,7 @@ class IssueControllerSpec : QuickSpec {
                         }
 
                         it("logs that the user tapped view original") {
-                            expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'View Original' on Issue"))
+                            expect(self.analyticsService.lastCustomEventName).to(equal("Tapped title on Issue"))
                             let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.issue.URL.absoluteString]
                             expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                         }

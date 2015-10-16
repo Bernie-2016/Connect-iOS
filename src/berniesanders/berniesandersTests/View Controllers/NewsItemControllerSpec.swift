@@ -172,7 +172,7 @@ class NewsItemControllerSpec : QuickSpec {
                         }
 
                         it("logs that the user tapped view original") {
-                            expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'View Original' on News Item"))
+                            expect(self.analyticsService.lastCustomEventName).to(equal("Tapped title on News Item"))
                             let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.newsItem.URL.absoluteString]
                             expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                         }

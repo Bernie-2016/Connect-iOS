@@ -61,12 +61,12 @@ class NewsItemController: UIViewController {
 
         dateLabel.text = self.dateFormatter.stringFromDate(self.newsItem.date)
         titleButton.setTitle(self.newsItem.title, forState: .Normal)
-        titleButton.addTarget(self, action: "didTapViewOriginal", forControlEvents: .TouchUpInside)
+        titleButton.addTarget(self, action: "didTapViewOriginal:", forControlEvents: .TouchUpInside)
         bodyTextView.text = self.newsItem.body
 
         attributionLabel.text = self.urlAttributionPresenter.attributionTextForURL(newsItem.URL)
         viewOriginalButton.setTitle(NSLocalizedString("NewsItem_viewOriginal", comment: ""), forState: .Normal)
-        viewOriginalButton.addTarget(self, action: "didTapViewOriginal", forControlEvents: .TouchUpInside)
+        viewOriginalButton.addTarget(self, action: "didTapViewOriginal:", forControlEvents: .TouchUpInside)
 
         setupConstraintsAndLayout()
         applyThemeToViews()
@@ -113,8 +113,9 @@ class NewsItemController: UIViewController {
         presentViewController(activityVC, animated: true, completion: nil)
     }
 
-    func didTapViewOriginal() {
-        analyticsService.trackCustomEventWithName("Tapped 'View Original' on News Item", customAttributes: [AnalyticsServiceConstants.contentIDKey: newsItem.URL.absoluteString])
+    func didTapViewOriginal(sender: UIButton) {
+        let eventName = sender == self.titleButton ? "Tapped title on News Item" : "Tapped 'View Original' on News Item"
+        analyticsService.trackCustomEventWithName(eventName, customAttributes: [AnalyticsServiceConstants.contentIDKey: newsItem.URL.absoluteString])
         self.urlOpener.openURL(self.newsItem.URL)
     }
 
