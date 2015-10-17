@@ -30,6 +30,8 @@
 		65318D0B1BAA012B0029A15D /* SettingsControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65318D0A1BAA012B0029A15D /* SettingsControllerSpec.swift */; };
 		65318D0D1BAA530F0029A15D /* PrivacyPolicyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65318D0C1BAA530F0029A15D /* PrivacyPolicyController.swift */; };
 		65318D0F1BAA54BA0029A15D /* PrivacyPolicyControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65318D0E1BAA54BA0029A15D /* PrivacyPolicyControllerSpec.swift */; };
+		6534359D1BD1FCB2007A4391 /* DTFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6534359B1BD1FCB2007A4391 /* DTFoundation.framework */; settings = {ASSET_TAGS = (); }; };
+		6534359E1BD1FCB2007A4391 /* DTCoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6534359C1BD1FCB2007A4391 /* DTCoreText.framework */; settings = {ASSET_TAGS = (); }; };
 		653601021B99E4EB00FE3735 /* ConcreteIssueControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653601011B99E4EB00FE3735 /* ConcreteIssueControllerProvider.swift */; };
 		653601041B99E74300FE3735 /* IssueControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653601031B99E74300FE3735 /* IssueControllerSpec.swift */; };
 		653601061B99E9F700FE3735 /* ConcreteIssueControllerProviderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653601051B99E9F700FE3735 /* ConcreteIssueControllerProviderSpec.swift */; };
@@ -228,6 +230,8 @@
 		65318D0A1BAA012B0029A15D /* SettingsControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsControllerSpec.swift; sourceTree = "<group>"; };
 		65318D0C1BAA530F0029A15D /* PrivacyPolicyController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyController.swift; sourceTree = "<group>"; };
 		65318D0E1BAA54BA0029A15D /* PrivacyPolicyControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyControllerSpec.swift; sourceTree = "<group>"; };
+		6534359B1BD1FCB2007A4391 /* DTFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DTFoundation.framework; path = Carthage/Build/iOS/DTFoundation.framework; sourceTree = SOURCE_ROOT; };
+		6534359C1BD1FCB2007A4391 /* DTCoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DTCoreText.framework; path = Carthage/Build/iOS/DTCoreText.framework; sourceTree = SOURCE_ROOT; };
 		653601011B99E4EB00FE3735 /* ConcreteIssueControllerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteIssueControllerProvider.swift; sourceTree = "<group>"; };
 		653601031B99E74300FE3735 /* IssueControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueControllerSpec.swift; sourceTree = "<group>"; };
 		653601051B99E9F700FE3735 /* ConcreteIssueControllerProviderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteIssueControllerProviderSpec.swift; sourceTree = "<group>"; };
@@ -370,9 +374,11 @@
 			files = (
 				65A5C0FC1BA29F2200D46500 /* Crashlytics.framework in Frameworks */,
 				65A5C0FA1BA2978600D46500 /* Fabric.framework in Frameworks */,
+				6534359E1BD1FCB2007A4391 /* DTCoreText.framework in Frameworks */,
 				650763141B8AB79F00BA0659 /* KSDeferred.framework in Frameworks */,
 				65CA5E991B86E76D0001D870 /* PureLayout.framework in Frameworks */,
 				65AD23AF1B96413200C32A02 /* WebImage.framework in Frameworks */,
+				6534359D1BD1FCB2007A4391 /* DTFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -654,6 +660,8 @@
 		65A5C0F41BA27C5400D46500 /* Externals */ = {
 			isa = PBXGroup;
 			children = (
+				6534359B1BD1FCB2007A4391 /* DTFoundation.framework */,
+				6534359C1BD1FCB2007A4391 /* DTCoreText.framework */,
 				65A5C0FB1BA29F2200D46500 /* Crashlytics.framework */,
 				65A5C0F91BA2978600D46500 /* Fabric.framework */,
 			);
@@ -1042,6 +1050,8 @@
 				"$(PROJECT_DIR)/Carthage/Build/iOS/KSDeferred.framework",
 				"$(PROJECT_DIR)/Carthage/Build/iOS/PureLayout.framework",
 				"$(PROJECT_DIR)/Carthage/Build/iOS/WebImage.framework",
+				"$(PROJECT_DIR)/Carthage/Build/iOS/DTFoundation.framework",
+				"$(PROJECT_DIR)/Carthage/Build/iOS/DTCoreText.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (

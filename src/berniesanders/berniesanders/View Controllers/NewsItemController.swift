@@ -62,7 +62,15 @@ class NewsItemController: UIViewController {
         dateLabel.text = self.dateFormatter.stringFromDate(self.newsItem.date)
         titleButton.setTitle(self.newsItem.title, forState: .Normal)
         titleButton.addTarget(self, action: "didTapViewOriginal:", forControlEvents: .TouchUpInside)
-        bodyTextView.text = self.newsItem.body
+        
+        let builderOptions = [DTUseiOS6Attributes: true, DTDefaultLinkDecoration: false]
+        let stringBuilder = DTHTMLAttributedStringBuilder(
+            HTML: newsItem.body.dataUsingEncoding(NSUTF8StringEncoding),
+            options: builderOptions,
+            documentAttributes: nil
+        )
+                    
+        bodyTextView.attributedText = stringBuilder.generatedAttributedString()
 
         attributionLabel.text = self.urlAttributionPresenter.attributionTextForURL(newsItem.URL)
         viewOriginalButton.setTitle(NSLocalizedString("NewsItem_viewOriginal", comment: ""), forState: .Normal)
@@ -135,7 +143,7 @@ class NewsItemController: UIViewController {
         self.storyImageView.autoSetDimension(ALDimension.Height, toSize: screenBounds.height / 3, relation: NSLayoutRelation.LessThanOrEqual)
 
         NSLayoutConstraint.autoSetPriority(1000, forConstraints: { () -> Void in
-            self.dateLabel.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.storyImageView, withOffset: 8)
+            self.dateLabel.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.storyImageView, withOffset: 12)
         })
 
         NSLayoutConstraint.autoSetPriority(500, forConstraints: { () -> Void in
@@ -152,7 +160,7 @@ class NewsItemController: UIViewController {
         self.titleButton.contentHorizontalAlignment = .Left
         self.titleButton.autoPinEdgeToSuperviewMargin(.Leading)
         self.titleButton.autoPinEdgeToSuperviewMargin(.Trailing)
-        self.titleButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.dateLabel)
+        self.titleButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.dateLabel, withOffset: 12)
         self.titleButton.autoSetDimension(.Height, toSize: 20, relation: NSLayoutRelation.GreaterThanOrEqual)
 
         self.bodyTextView.scrollEnabled = false

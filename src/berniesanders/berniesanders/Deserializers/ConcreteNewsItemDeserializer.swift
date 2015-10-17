@@ -36,7 +36,7 @@ class ConcreteNewsItemDeserializer: NewsItemDeserializer {
 
             var title = sourceDictionary!["title"] as? String
 
-            var body = sourceDictionary!["body"] as? String
+            var body = sourceDictionary!["body_html"] as? String
             let dateString = sourceDictionary!["created_at"] as? String
             let urlString = sourceDictionary!["url"] as? String
 
@@ -45,7 +45,7 @@ class ConcreteNewsItemDeserializer: NewsItemDeserializer {
             }
 
             title = self.stringContentSanitizer.sanitizeString(title!)
-            body = self.stringContentSanitizer.sanitizeString(body!)
+//            body = self.stringContentSanitizer.sanitizeString(body!)
 
             let url = NSURL(string: urlString!)
             let date = dateFormatter.dateFromString(dateString!)

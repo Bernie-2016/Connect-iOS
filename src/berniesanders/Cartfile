@@ -1,4 +1,7 @@
 github "smileyborg/PureLayout"
 github "kseebaldt/deferred"
 github "rs/SDWebImage"
+github "Cocoanetics/DTFoundation"
+github "Cocoanetics/DTCoreText"
+
 
