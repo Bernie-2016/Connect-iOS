@@ -12,14 +12,11 @@ class ConcreteApplicationSettingsRepositorySpec: QuickSpec {
         describe("ConcreteApplicationSettingsRepository") {
             beforeEach {
                 self.userDefaults = NSUserDefaults()
-
-                self.subject = ConcreteApplicationSettingsRepository(userDefaults: self.userDefaults)
-            }
-
-            afterEach {
                 for key in self.userDefaults.dictionaryRepresentation().keys {
                     self.userDefaults.removeObjectForKey(key )
                 }
+
+                self.subject = ConcreteApplicationSettingsRepository(userDefaults: self.userDefaults)
             }
 
             describe("asking if the user has agreed to terms") {
