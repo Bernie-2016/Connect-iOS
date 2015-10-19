@@ -79,6 +79,10 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
+        if let selectedRowIndexPath = self.tableView.indexPathForSelectedRow {
+            self.tableView.deselectRowAtIndexPath(selectedRowIndexPath, animated: false)
+        }
+
         self.issueRepository.fetchIssues({ (receivedIssues) -> Void in
             self.errorLoadingIssues = false
             self.issues = receivedIssues

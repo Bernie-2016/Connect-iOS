@@ -240,7 +240,10 @@ class IssuesControllerSpec: QuickSpec {
                         self.issueRepository.lastCompletionBlock!(issues)
 
                         let tableView = self.subject.tableView
-                        tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
+                        let indexPath = NSIndexPath(forRow: 1, inSection: 0)
+                        tableView.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: UITableViewScrollPosition.Middle)
+                        tableView.delegate?.tableView!(tableView, didSelectRowAtIndexPath: indexPath)
+
                     }
 
                     it("tracks the content view with the analytics service") {
@@ -253,6 +256,14 @@ class IssuesControllerSpec: QuickSpec {
                     it("should push a correctly configured issue controller onto the nav stack") {
                         expect(self.issueControllerProvider.lastIssue).to(beIdenticalTo(expectedIssue))
                         expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.issueControllerProvider.controller))
+                    }
+
+                    describe("and the view is shown again") {
+                        it("deselects the selected table row") {
+                            self.subject.viewWillAppear(false)
+
+                            expect(self.subject.tableView.indexPathForSelectedRow).to(beNil())
+                        }
                     }
                 }
             }

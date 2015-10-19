@@ -387,7 +387,9 @@ class NewsFeedControllerSpecs: QuickSpec {
                 context("that is the headline news story") {
                     beforeEach {
                         let tableView = self.subject.tableView
-                        tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+                        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+                        tableView.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: UITableViewScrollPosition.Middle)
+                        tableView.delegate?.tableView!(tableView, didSelectRowAtIndexPath: indexPath)
                     }
 
                     it("tracks the content view with the analytics service") {
@@ -399,6 +401,14 @@ class NewsFeedControllerSpecs: QuickSpec {
                     it("should push a correctly configured news item view controller onto the nav stack") {
                         expect(self.newsItemControllerProvider.lastNewsItem).to(beIdenticalTo(expectedNewsItemA))
                         expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.newsItemControllerProvider.controller))
+                    }
+
+                    describe("and the view is shown again") {
+                        it("deselects the selected table row") {
+                            self.subject.viewWillAppear(false)
+
+                            expect(self.subject.tableView.indexPathForSelectedRow).to(beNil())
+                        }
                     }
                 }
 
