@@ -134,50 +134,13 @@ class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewData
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if self.errorLoadingNews {
-            let cell = tableView.dequeueReusableCellWithIdentifier("errorCell", forIndexPath: indexPath)
-            cell.textLabel!.text = NSLocalizedString("NewsFeed_errorText", comment: "")
-            cell.textLabel!.font = self.theme.newsFeedTitleFont()
-            cell.textLabel!.textColor = self.theme.newsFeedTitleColor()
-            return cell
+            return self.tableView(tableView, errorCellForRowAtIndexPath: indexPath)
         }
 
         if indexPath.section == 0 {
-            // swiftlint:disable force_cast
-            let cell = tableView.dequeueReusableCellWithIdentifier("headlineCell", forIndexPath: indexPath) as! NewsHeadlineTableViewCell
-            // swiftlint:enable force_cast
-
-            let newsItem = self.newsItems[indexPath.row]
-            cell.titleLabel.text = newsItem.title
-            cell.titleLabel.textColor = self.theme.newsfeedHeadlineTitleColor()
-            cell.titleLabel.backgroundColor = self.theme.newsFeedHeadlineTitleBackgroundColor()
-            cell.titleLabel.font = self.theme.newsFeedHeadlineTitleFont()
-
-            cell.headlineImageView.image = UIImage(named: "newsHeadlinePlaceholder")
-
-            if newsItem.imageURL != nil {
-                self.imageRepository.fetchImageWithURL(newsItem.imageURL!).then({ (image) -> AnyObject! in
-                    UIView.transitionWithView(cell.headlineImageView, duration: 0.2, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: { () -> Void in
-                        cell.headlineImageView.image = image as? UIImage
-                        }, completion: nil)
-                    return image
-                    }, error: nil)
-            }
-
-            return cell
+            return self.tableView(tableView, headlineCellForRowAtIndexPath: indexPath)
         } else {
-            // swiftlint:disable force_cast
-            let cell = tableView.dequeueReusableCellWithIdentifier("regularCell", forIndexPath: indexPath) as! TitleSubTitleTableViewCell
-            // swiftlint:enable force_cast
-            let newsItem = self.newsItems[indexPath.row + 1]
-            cell.titleLabel.text = newsItem.title
-            cell.titleLabel.font = self.theme.newsFeedTitleFont()
-            cell.titleLabel.textColor = self.theme.newsFeedTitleColor()
-
-            cell.dateLabel.text = self.dateFormatter.stringFromDate(newsItem.date)
-            cell.dateLabel.font = self.theme.newsFeedDateFont()
-            cell.dateLabel.textColor = self.theme.newsFeedDateColor()
-
-            return cell
+            return self.tableView(tableView, titleSubTitleTableViewCellForRowAtIndexPath: indexPath)
         }
     }
 
@@ -207,6 +170,57 @@ class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewData
     func didTapSettings() {
         self.analyticsService.trackCustomEventWithName("Tapped 'Settings' in News nav bar", customAttributes: nil)
         self.navigationController?.pushViewController(self.settingsController, animated: true)
+    }
+
+    // MARK: Private
+
+    func tableView(tableView: UITableView, errorCellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("errorCell", forIndexPath: indexPath)
+        cell.textLabel!.text = NSLocalizedString("NewsFeed_errorText", comment: "")
+        cell.textLabel!.font = self.theme.newsFeedTitleFont()
+        cell.textLabel!.textColor = self.theme.newsFeedTitleColor()
+        return cell
+    }
+
+    func tableView(tableView: UITableView, headlineCellForRowAtIndexPath indexPath: NSIndexPath) -> NewsHeadlineTableViewCell {
+        // swiftlint:disable force_cast
+        let cell = tableView.dequeueReusableCellWithIdentifier("headlineCell", forIndexPath: indexPath) as! NewsHeadlineTableViewCell
+        // swiftlint:enable force_cast
+
+        let newsItem = self.newsItems[indexPath.row]
+        cell.titleLabel.text = newsItem.title
+        cell.titleLabel.textColor = self.theme.newsfeedHeadlineTitleColor()
+        cell.titleLabel.backgroundColor = self.theme.newsFeedHeadlineTitleBackgroundColor()
+        cell.titleLabel.font = self.theme.newsFeedHeadlineTitleFont()
+
+        cell.headlineImageView.image = UIImage(named: "newsHeadlinePlaceholder")
+
+        if newsItem.imageURL != nil {
+            self.imageRepository.fetchImageWithURL(newsItem.imageURL!).then({ (image) -> AnyObject! in
+                UIView.transitionWithView(cell.headlineImageView, duration: 0.2, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: { () -> Void in
+                    cell.headlineImageView.image = image as? UIImage
+                    }, completion: nil)
+                return image
+                }, error: nil)
+        }
+
+        return cell
+    }
+
+    func tableView(tableView: UITableView, titleSubTitleTableViewCellForRowAtIndexPath indexPath: NSIndexPath) -> TitleSubTitleTableViewCell {
+        // swiftlint:disable force_cast
+        let cell = tableView.dequeueReusableCellWithIdentifier("regularCell", forIndexPath: indexPath) as! TitleSubTitleTableViewCell
+        // swiftlint:enable force_cast
+        let newsItem = self.newsItems[indexPath.row + 1]
+        cell.titleLabel.text = newsItem.title
+        cell.titleLabel.font = self.theme.newsFeedTitleFont()
+        cell.titleLabel.textColor = self.theme.newsFeedTitleColor()
+
+        cell.dateLabel.text = self.dateFormatter.stringFromDate(newsItem.date)
+        cell.dateLabel.font = self.theme.newsFeedDateFont()
+        cell.dateLabel.textColor = self.theme.newsFeedDateColor()
+
+        return cell
     }
 }
 // swiftlint:enable type_body_length
