@@ -2,65 +2,43 @@ import Foundation
 
 class ConcreteNewsItemDeserializer: NewsItemDeserializer {
     private let stringContentSanitizer: StringContentSanitizer
+    private let dateFormatter: NSDateFormatter
 
     init(stringContentSanitizer: StringContentSanitizer) {
         self.stringContentSanitizer = stringContentSanitizer
+        self.dateFormatter = NSDateFormatter()
+        self.dateFormatter.timeZone = NSTimeZone(name: "UTC")
+        self.dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"  // "2015-08-28T05:10:21"
     }
 
     func deserializeNewsItems(jsonDictionary: NSDictionary) -> Array<NewsItem> {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.timeZone = NSTimeZone(name: "UTC")
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"  // "2015-08-28T05:10:21"
-
         var newsItems = [NewsItem]()
 
-        let hitsDictionary = jsonDictionary["hits"] as? NSDictionary;
+        guard let hitsDictionary = jsonDictionary["hits"] as? NSDictionary else { return newsItems }
+        guard let newsItemDictionaries = hitsDictionary["hits"] as? Array<NSDictionary> else { return newsItems }
 
-        if hitsDictionary == nil {
-            return newsItems
-        }
+        for newsItemDictionary: NSDictionary in newsItemDictionaries {
+            guard let sourceDictionary = newsItemDictionary["_source"] as? NSDictionary else { continue }
 
-        let newsItemDictionaries = hitsDictionary!["hits"] as? Array<NSDictionary>;
+            guard var title = sourceDictionary["title"] as? String else { continue }
+            guard var body = sourceDictionary["body"] as? String else { continue }
+            guard let dateString = sourceDictionary["created_at"] as? String else { continue }
+            guard let urlString = sourceDictionary["url"] as? String else { continue }
 
-        if newsItemDictionaries == nil {
-            return newsItems
-        }
+            title = self.stringContentSanitizer.sanitizeString(title)
+            body = self.stringContentSanitizer.sanitizeString(body)
 
-        for newsItemDictionary: NSDictionary in newsItemDictionaries! {
-            let sourceDictionary = newsItemDictionary["_source"] as? NSDictionary;
+            guard let url = NSURL(string: urlString) else { continue }
+            guard let date = dateFormatter.dateFromString(dateString) else { continue }
 
-            if sourceDictionary == nil {
-                continue;
-            }
-
-            var title = sourceDictionary!["title"] as? String
-
-            var body = sourceDictionary!["body"] as? String
-            let dateString = sourceDictionary!["created_at"] as? String
-            let urlString = sourceDictionary!["url"] as? String
-
-            if title == nil || body == nil || dateString == nil || urlString == nil {
-                continue
-            }
-
-            title = self.stringContentSanitizer.sanitizeString(title!)
-            body = self.stringContentSanitizer.sanitizeString(body!)
-
-            let url = NSURL(string: urlString!)
-            let date = dateFormatter.dateFromString(dateString!)
-
-            if url == nil || date == nil {
-                continue
-            }
-
-            let imageURLString = sourceDictionary!["image_url"] as? String
+            let imageURLString = sourceDictionary["image_url"] as? String
             var imageURL: NSURL?
 
             if imageURLString != nil {
                 imageURL = NSURL(string: imageURLString!)
             }
 
-            let newsItem = NewsItem(title: title!, date: date!, body: body!, imageURL: imageURL, url: url!)
+            let newsItem = NewsItem(title: title, date: date, body: body, imageURL: imageURL, url: url)
             newsItems.append(newsItem);
         }
 
