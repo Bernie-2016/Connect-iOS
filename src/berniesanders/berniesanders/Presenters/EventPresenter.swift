@@ -16,7 +16,7 @@ class EventPresenter {
     }
 
     func presentAddressForEvent(event: Event) -> String {
-        if(event.streetAddress != nil) {
+        if event.streetAddress != nil {
             return String(format: NSLocalizedString("Events_eventStreetAddressLabel", comment: ""), event.streetAddress!, event.city, event.state, event.zip)
         } else {
             return self.presentCityAddressForEvent(event)
@@ -24,7 +24,7 @@ class EventPresenter {
     }
 
     func presentAttendeesForEvent(event: Event) -> String {
-        if(event.attendeeCapacity == 0) {
+        if event.attendeeCapacity == 0 {
             return String(format: NSLocalizedString("Events_eventAttendeeWithoutCapacityLimitLabel", comment: ""), event.attendeeCount)
 
         } else {

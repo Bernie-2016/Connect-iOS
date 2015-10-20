@@ -2,8 +2,8 @@ import Foundation
 import WebImage
 
 class ConcreteNewsItemControllerProvider: NewsItemControllerProvider {
-    private let dateFormatter : NSDateFormatter
-    private let imageRepository : ImageRepository
+    private let dateFormatter: NSDateFormatter
+    private let imageRepository: ImageRepository
     private let analyticsService: AnalyticsService
     private let urlOpener: URLOpener
     private let urlAttributionPresenter: URLAttributionPresenter

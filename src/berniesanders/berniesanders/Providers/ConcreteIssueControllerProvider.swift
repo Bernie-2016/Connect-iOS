@@ -5,7 +5,7 @@ class ConcreteIssueControllerProvider: IssueControllerProvider {
     private let analyticsService: AnalyticsService
     private let urlOpener: URLOpener
     private let urlAttributionPresenter: URLAttributionPresenter
-    private let theme : Theme
+    private let theme: Theme
 
     init(imageRepository: ImageRepository, analyticsService: AnalyticsService, urlOpener: URLOpener, urlAttributionPresenter: URLAttributionPresenter, theme: Theme) {
         self.imageRepository = imageRepository

@@ -20,8 +20,17 @@ class ConcreteNewsItemRepository: NewsItemRepository {
     func fetchNewsItems(completion: (Array<NewsItem>) -> Void, error: (NSError) -> Void) {
         let newsFeedJSONPromise = self.jsonClient.JSONPromiseWithURL(self.urlProvider.newsFeedURL(), method: "POST", bodyDictionary: self.HTTPBodyDictionary())
 
-        newsFeedJSONPromise.then({ (jsonDictionary) -> AnyObject! in
-            let parsedNewsItems = self.newsItemDeserializer.deserializeNewsItems(jsonDictionary as! NSDictionary)
+        newsFeedJSONPromise.then({ (deserializedObject) -> AnyObject! in
+            let jsonDictionary = deserializedObject as? NSDictionary
+            if jsonDictionary == nil {
+                let incorrectObjectTypeError = NSError(domain: "ConcreteNewsItemRepository", code: -1, userInfo: nil)
+                self.operationQueue.addOperationWithBlock({ () -> Void in
+                    error(incorrectObjectTypeError)
+                })
+                return incorrectObjectTypeError
+            }
+
+            let parsedNewsItems = self.newsItemDeserializer.deserializeNewsItems(jsonDictionary!)
 
             self.operationQueue.addOperationWithBlock({ () -> Void in
                 completion(parsedNewsItems as Array<NewsItem>)

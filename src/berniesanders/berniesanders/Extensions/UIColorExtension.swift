@@ -10,10 +10,10 @@ import UIKit
 
 extension UIColor {
     convenience init(rgba: String) {
-        var red:   CGFloat = 0.0
-        var green: CGFloat = 0.0
-        var blue:  CGFloat = 0.0
-        var alpha: CGFloat = 1.0
+        var red   = 0.0 as CGFloat
+        var green = 0.0 as CGFloat
+        var blue  = 0.0 as CGFloat
+        var alpha = 1.0 as CGFloat
 
         if rgba.hasPrefix("#") {
             let index   = rgba.startIndex.advancedBy(1)
@@ -21,7 +21,7 @@ extension UIColor {
             let scanner = NSScanner(string: hex)
             var hexValue: CUnsignedLongLong = 0
             if scanner.scanHexLongLong(&hexValue) {
-                switch (hex.characters.count) {
+                switch hex.characters.count {
                 case 3:
                     red   = CGFloat((hexValue & 0xF00) >> 8)       / 15.0
                     green = CGFloat((hexValue & 0x0F0) >> 4)       / 15.0
@@ -49,6 +49,6 @@ extension UIColor {
         } else {
             print("Invalid RGB string, missing '#' as prefix", terminator: "")
         }
-        self.init(red:red, green:green, blue:blue, alpha:alpha)
+        self.init(red: red, green: green, blue: blue, alpha: alpha)
     }
 }

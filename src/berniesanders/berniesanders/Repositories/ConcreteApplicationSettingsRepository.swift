@@ -21,7 +21,7 @@ class ConcreteApplicationSettingsRepository: ApplicationSettingsRepository {
         completion()
     }
 
-    func isAnalyticsEnabled(completion:(Bool) -> Void) {
+    func isAnalyticsEnabled(completion: (Bool) -> Void) {
         completion(self.userDefaults.boolForKey(kAnalyticsPermissionsKey))
     }
 
@@ -29,4 +29,3 @@ class ConcreteApplicationSettingsRepository: ApplicationSettingsRepository {
         self.userDefaults.setBool(permissionGranted, forKey: kAnalyticsPermissionsKey)
     }
 }
-

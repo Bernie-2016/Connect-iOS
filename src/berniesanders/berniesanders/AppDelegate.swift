@@ -7,11 +7,10 @@ import Crashlytics
 #endif
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    /// swift:disable type_body_length
     var window: UIWindow?
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions:
-        [NSObject: AnyObject]?) -> Bool {
-
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
             #if RELEASE
                 Fabric.with([Crashlytics.self()])
             #endif
@@ -176,5 +175,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
             return true
     }
+    /// swift:enable type_body_length
 }
-

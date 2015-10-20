@@ -24,13 +24,13 @@ class ConcreteIssueDeserializerSpec : QuickSpec {
             expect(issueA.title).to(equal("Income and Wealth Inequality SANITIZED!"))
             expect(issueA.body).to(equal("\nToday, we live in the richest country in the history of the world, but that reality means little because much of that wealth is controlled by a tiny handful of individuals. SANITIZED!"))
             expect(issueA.imageURL).to(beNil())
-            expect(issueA.URL).to(equal(NSURL(string: "https://berniesanders.com/issues/income-and-wealth-inequality/")!))
+            expect(issueA.url).to(equal(NSURL(string: "https://berniesanders.com/issues/income-and-wealth-inequality/")!))
 
             let issueB = issues[1]
             expect(issueB.title).to(equal("Getting Big Money Out of Politics SANITIZED!"))
             expect(issueB.body).to(equal("\nFreedom of speech does not mean the freedom to buy the United States government. SANITIZED!"))
             expect(issueB.imageURL).to(beNil())
-            expect(issueB.URL).to(equal(NSURL(string: "https://berniesanders.com/issues/money-in-politics/")))
+            expect(issueB.url).to(equal(NSURL(string: "https://berniesanders.com/issues/money-in-politics/")))
         }
 
 

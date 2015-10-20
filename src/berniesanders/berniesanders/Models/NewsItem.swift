@@ -5,13 +5,13 @@ class NewsItem {
     let date: NSDate
     let body: String
     let imageURL: NSURL?
-    let URL: NSURL
+    let url: NSURL
 
-    init(title: String, date: NSDate, body: String, imageURL: NSURL?, URL: NSURL) {
+    init(title: String, date: NSDate, body: String, imageURL: NSURL?, url: NSURL) {
         self.title = title
         self.date = date
         self.body = body
         self.imageURL = imageURL
-        self.URL = URL
+        self.url = url
     }
 }

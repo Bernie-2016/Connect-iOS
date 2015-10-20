@@ -45,7 +45,7 @@ class NewsItemControllerSpec : QuickSpec {
 
             context("with a standard news item") {
                 beforeEach {
-                    self.newsItem = NewsItem(title: "some title", date: self.newsItemDate, body: "some body text", imageURL: self.newsItemImageURL, URL:self.newsItemURL)
+                    self.newsItem = NewsItem(title: "some title", date: self.newsItemDate, body: "some body text", imageURL: self.newsItemImageURL, url:self.newsItemURL)
 
                     self.subject = NewsItemController(
                         newsItem: self.newsItem,
@@ -62,7 +62,7 @@ class NewsItemControllerSpec : QuickSpec {
                     self.subject.didMoveToParentViewController(nil)
 
                     expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Back' on News Item"))
-                    let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.newsItem.URL.absoluteString]
+                    let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.newsItem.url.absoluteString]
                     expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                 }
 
@@ -100,7 +100,7 @@ class NewsItemControllerSpec : QuickSpec {
 
                         it("logs that the user tapped share") {
                             expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Share' on News Item"))
-                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.newsItem.URL.absoluteString]
+                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.newsItem.url.absoluteString]
                             expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                         }
 
@@ -122,7 +122,7 @@ class NewsItemControllerSpec : QuickSpec {
                                 activityViewControler.completionWithItemsHandler!(nil, false, nil, nil)
 
                                 expect(self.analyticsService.lastCustomEventName).to(equal("Cancelled share of News Item"))
-                                let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.newsItem.URL.absoluteString]
+                                let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.newsItem.url.absoluteString]
                                 expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                             }
                         }
@@ -168,12 +168,12 @@ class NewsItemControllerSpec : QuickSpec {
                         }
 
                         it("opens the original issue in safari") {
-                            expect(self.urlOpener.lastOpenedURL).to(beIdenticalTo(self.newsItem.URL))
+                            expect(self.urlOpener.lastOpenedURL).to(beIdenticalTo(self.newsItem.url))
                         }
 
                         it("logs that the user tapped view original") {
                             expect(self.analyticsService.lastCustomEventName).to(equal("Tapped title on News Item"))
-                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.newsItem.URL.absoluteString]
+                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.newsItem.url.absoluteString]
                             expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                         }
                     }
@@ -187,7 +187,7 @@ class NewsItemControllerSpec : QuickSpec {
                     }
 
                     it("uses the presenter to get attribution text for the issue") {
-                        expect(self.urlAttributionPresenter.lastPresentedURL).to(beIdenticalTo(self.newsItem.URL))
+                        expect(self.urlAttributionPresenter.lastPresentedURL).to(beIdenticalTo(self.newsItem.url))
                         expect(self.subject.attributionLabel.text).to(equal(self.urlAttributionPresenter.returnedText))
                     }
 
@@ -201,12 +201,12 @@ class NewsItemControllerSpec : QuickSpec {
                         }
 
                         it("opens the original issue in safari") {
-                            expect(self.urlOpener.lastOpenedURL).to(beIdenticalTo(self.newsItem.URL))
+                            expect(self.urlOpener.lastOpenedURL).to(beIdenticalTo(self.newsItem.url))
                         }
 
                         it("logs that the user tapped view original") {
                             expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'View Original' on News Item"))
-                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.newsItem.URL.absoluteString]
+                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.newsItem.url.absoluteString]
                             expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                         }
                     }
@@ -257,7 +257,7 @@ class NewsItemControllerSpec : QuickSpec {
             context("with a news item that lacks an image") {
                 beforeEach {
                     let newsItemDate = NSDate(timeIntervalSince1970: 1441081523)
-                    let newsItem = NewsItem(title: "some title", date: newsItemDate, body: "some body text", imageURL: nil, URL:self.newsItemURL)
+                    let newsItem = NewsItem(title: "some title", date: newsItemDate, body: "some body text", imageURL: nil, url:self.newsItemURL)
 
                     self.subject = NewsItemController(
                         newsItem: newsItem,

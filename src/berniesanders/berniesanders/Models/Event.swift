@@ -13,9 +13,9 @@ class Event {
     let zip: String
     let location: CLLocation
     let description: String
-    let URL: NSURL
+    let url: NSURL
 
-    init(name: String, startDate: NSDate, timeZone: NSTimeZone, attendeeCapacity: Int, attendeeCount: Int, streetAddress: String?, city: String, state: String, zip: String, location: CLLocation, description: String, URL: NSURL) {
+    init(name: String, startDate: NSDate, timeZone: NSTimeZone, attendeeCapacity: Int, attendeeCount: Int, streetAddress: String?, city: String, state: String, zip: String, location: CLLocation, description: String, url: NSURL) {
         self.name = name
         self.startDate = startDate
         self.timeZone = timeZone
@@ -27,6 +27,6 @@ class Event {
         self.zip = zip
         self.location = location
         self.description = description
-        self.URL = URL
+        self.url = url
     }
 }

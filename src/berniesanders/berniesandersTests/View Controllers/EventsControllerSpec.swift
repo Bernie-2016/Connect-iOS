@@ -479,7 +479,7 @@ class EventsControllerSpec : QuickSpec {
                                         it("tracks the content view with the analytics service") {
                                             expect(self.analyticsService.lastContentViewName).to(equal(eventB.name))
                                             expect(self.analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.Event))
-                                            expect(self.analyticsService.lastContentViewID).to(equal(eventB.URL.absoluteString))
+                                            expect(self.analyticsService.lastContentViewID).to(equal(eventB.url.absoluteString))
                                         }
                                     }
                                 }

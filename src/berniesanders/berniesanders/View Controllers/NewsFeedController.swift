@@ -1,6 +1,6 @@
 import UIKit
 
-
+// swiftlint:disable type_body_length
 class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     private let newsItemRepository: NewsItemRepository
     private let imageRepository: ImageRepository
@@ -120,11 +120,11 @@ class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if(self.errorLoadingNews) {
+        if self.errorLoadingNews {
             return 1
         }
 
-        if(self.newsItems.count == 0) {
+        if self.newsItems.count == 0 {
             return 0
         }
 
@@ -133,7 +133,7 @@ class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewData
 
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if(self.errorLoadingNews) {
+        if self.errorLoadingNews {
             let cell = tableView.dequeueReusableCellWithIdentifier("errorCell", forIndexPath: indexPath)
             cell.textLabel!.text = NSLocalizedString("NewsFeed_errorText", comment: "")
             cell.textLabel!.font = self.theme.newsFeedTitleFont()
@@ -141,8 +141,11 @@ class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewData
             return cell
         }
 
-        if(indexPath.section == 0) {
+        if indexPath.section == 0 {
+            // swiftlint:disable force_cast
             let cell = tableView.dequeueReusableCellWithIdentifier("headlineCell", forIndexPath: indexPath) as! NewsHeadlineTableViewCell
+            // swiftlint:enable force_cast
+
             let newsItem = self.newsItems[indexPath.row]
             cell.titleLabel.text = newsItem.title
             cell.titleLabel.textColor = self.theme.newsfeedHeadlineTitleColor()
@@ -151,7 +154,7 @@ class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewData
 
             cell.headlineImageView.image = UIImage(named: "newsHeadlinePlaceholder")
 
-            if(newsItem.imageURL != nil) {
+            if newsItem.imageURL != nil {
                 self.imageRepository.fetchImageWithURL(newsItem.imageURL!).then({ (image) -> AnyObject! in
                     UIView.transitionWithView(cell.headlineImageView, duration: 0.2, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: { () -> Void in
                         cell.headlineImageView.image = image as? UIImage
@@ -162,7 +165,9 @@ class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewData
 
             return cell
         } else {
+            // swiftlint:disable force_cast
             let cell = tableView.dequeueReusableCellWithIdentifier("regularCell", forIndexPath: indexPath) as! TitleSubTitleTableViewCell
+            // swiftlint:enable force_cast
             let newsItem = self.newsItems[indexPath.row + 1]
             cell.titleLabel.text = newsItem.title
             cell.titleLabel.font = self.theme.newsFeedTitleFont()
@@ -183,14 +188,14 @@ class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var newsItem : NewsItem!
-        if(indexPath.section == 0) {
+        var newsItem: NewsItem!
+        if indexPath.section == 0 {
             newsItem = self.newsItems[0]
         } else {
             newsItem = self.newsItems[indexPath.row + 1]
         }
 
-        self.analyticsService.trackContentViewWithName(newsItem.title, type: .NewsItem, id: newsItem.URL.absoluteString)
+        self.analyticsService.trackContentViewWithName(newsItem.title, type: .NewsItem, id: newsItem.url.absoluteString)
 
         let controller = self.newsItemControllerProvider.provideInstanceWithNewsItem(newsItem)
 
@@ -204,3 +209,4 @@ class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewData
         self.navigationController?.pushViewController(self.settingsController, animated: true)
     }
 }
+// swiftlint:enable type_body_length

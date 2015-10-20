@@ -24,7 +24,7 @@ class ConcreteEventRepository: EventRepository {
 
     func fetchEventsWithZipCode(zipCode: String, radiusMiles: Float, completion: (Array<Event>) -> Void, error: (NSError) -> Void) {
         self.geocoder.geocodeAddressString(zipCode, completionHandler: { (placemarks, geocodingError) -> Void in
-            if(geocodingError != nil) {
+            if geocodingError != nil {
                 error(geocodingError!)
                 return
             }
@@ -42,8 +42,18 @@ class ConcreteEventRepository: EventRepository {
 
             let eventsPromise = self.jsonClient.JSONPromiseWithURL(url, method: "POST", bodyDictionary: HTTPBodyDictionary)
 
-            eventsPromise.then({ (jsonDictionary) -> AnyObject! in
-                let parsedEvents = self.eventDeserializer.deserializeEvents(jsonDictionary as! NSDictionary)
+            eventsPromise.then({ (deserializedObject) -> AnyObject! in
+                let jsonDictionary = deserializedObject as? NSDictionary
+                if jsonDictionary == nil {
+                    let incorrectObjectTypeError = NSError(domain: "ConcreteEventRepository", code: -1, userInfo: nil)
+
+                    self.operationQueue.addOperationWithBlock({ () -> Void in
+                        error(incorrectObjectTypeError)
+                    })
+                    return incorrectObjectTypeError
+                }
+
+                let parsedEvents = self.eventDeserializer.deserializeEvents(jsonDictionary!)
 
                 self.operationQueue.addOperationWithBlock({ () -> Void in
                     completion(parsedEvents)
@@ -62,7 +72,7 @@ class ConcreteEventRepository: EventRepository {
     // MARK: Private
 
     func HTTPBodyDictionaryWithLatitude(latitude: CLLocationDegrees, longitude: CLLocationDegrees, radiusMiles: Float) -> NSDictionary {
-        let filterConditions : Array = [
+        let filterConditions: Array = [
             [
                 "geo_distance": [
                     "distance": "\(radiusMiles)mi",

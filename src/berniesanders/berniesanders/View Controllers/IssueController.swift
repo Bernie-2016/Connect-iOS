@@ -59,14 +59,14 @@ class IssueController: UIViewController {
         titleButton.setTitle(self.issue.title, forState: .Normal)
         titleButton.addTarget(self, action: "didTapViewOriginal:", forControlEvents: .TouchUpInside)
 
-        attributionLabel.text = self.urlAttributionPresenter.attributionTextForURL(issue.URL)
+        attributionLabel.text = self.urlAttributionPresenter.attributionTextForURL(issue.url)
         viewOriginalButton.setTitle(NSLocalizedString("Issue_viewOriginal", comment: ""), forState: .Normal)
         viewOriginalButton.addTarget(self, action: "didTapViewOriginal:", forControlEvents: .TouchUpInside)
 
         setupConstraintsAndLayout()
         applyThemeToViews()
 
-        if(issue.imageURL != nil) {
+        if issue.imageURL != nil {
             imageRepository.fetchImageWithURL(self.issue.imageURL!).then({ (image) -> AnyObject! in
                 self.issueImageView.image = image as? UIImage
                 return image
@@ -80,25 +80,25 @@ class IssueController: UIViewController {
     }
 
     override func didMoveToParentViewController(parent: UIViewController?) {
-        analyticsService.trackCustomEventWithName("Tapped 'Back' on Issue", customAttributes: [AnalyticsServiceConstants.contentIDKey: issue.URL.absoluteString])
+        analyticsService.trackCustomEventWithName("Tapped 'Back' on Issue", customAttributes: [AnalyticsServiceConstants.contentIDKey: issue.url.absoluteString])
     }
 
 
     // MARK: Actions
 
     func share() {
-        analyticsService.trackCustomEventWithName("Tapped 'Share' on Issue", customAttributes: [AnalyticsServiceConstants.contentIDKey: issue.URL.absoluteString])
+        analyticsService.trackCustomEventWithName("Tapped 'Share' on Issue", customAttributes: [AnalyticsServiceConstants.contentIDKey: issue.url.absoluteString])
 
-        let activityVC = UIActivityViewController(activityItems: [issue.URL], applicationActivities: nil)
+        let activityVC = UIActivityViewController(activityItems: [issue.url], applicationActivities: nil)
 
         activityVC.completionWithItemsHandler = { activity, success, items, error in
-            if(error != nil) {
+            if error != nil {
                 self.analyticsService.trackError(error!, context: "Failed to share Issue")
             } else {
-                if(success == true) {
-                    self.analyticsService.trackShareWithActivityType(activity!, contentName: self.issue.title, contentType: .Issue, id: self.issue.URL.absoluteString)
+                if success == true {
+                    self.analyticsService.trackShareWithActivityType(activity!, contentName: self.issue.title, contentType: .Issue, id: self.issue.url.absoluteString)
                 } else {
-                    self.analyticsService.trackCustomEventWithName("Cancelled share of Issue", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.issue.URL.absoluteString])
+                    self.analyticsService.trackCustomEventWithName("Cancelled share of Issue", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.issue.url.absoluteString])
                 }
             }
         }
@@ -108,8 +108,8 @@ class IssueController: UIViewController {
 
     func didTapViewOriginal(sender: UIButton) {
         let eventName = sender == self.titleButton ? "Tapped title on Issue" : "Tapped 'View Original' on Issue"
-        analyticsService.trackCustomEventWithName(eventName, customAttributes: [AnalyticsServiceConstants.contentIDKey: issue.URL.absoluteString])
-        self.urlOpener.openURL(self.issue.URL)
+        analyticsService.trackCustomEventWithName(eventName, customAttributes: [AnalyticsServiceConstants.contentIDKey: issue.url.absoluteString])
+        self.urlOpener.openURL(self.issue.url)
     }
 
     // MARK: Private

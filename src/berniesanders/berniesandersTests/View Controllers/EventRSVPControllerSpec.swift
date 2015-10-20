@@ -41,7 +41,7 @@ class EventRSVPControllerSpec : QuickSpec {
                     self.subject.didMoveToParentViewController(nil)
 
                     expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Back' on Event RSVP"))
-                    let expectedAttributes = [AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString]
+                    let expectedAttributes = [AnalyticsServiceConstants.contentIDKey: self.event.url.absoluteString]
                     expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                 }
 

@@ -11,7 +11,7 @@ class NewsItemRepositoryFakeURLProvider: FakeURLProvider {
 
 class FakeNewsItemDeserializer: NewsItemDeserializer {
     var lastReceivedJSONDictionary: NSDictionary!
-    let returnedNewsItems = [NewsItem(title: "fake news", date: NSDate(), body: "fake body", imageURL: NSURL(), URL: NSURL())]
+    let returnedNewsItems = [NewsItem(title: "fake news", date: NSDate(), body: "fake body", imageURL: NSURL(), url: NSURL())]
 
     func deserializeNewsItems(jsonDictionary: NSDictionary) -> Array<NewsItem> {
         self.lastReceivedJSONDictionary = jsonDictionary
@@ -85,6 +85,19 @@ class ConcreteNewsItemRepositorySpec : QuickSpec {
                     self.operationQueue.lastReceivedBlock()
                     expect(self.receivedNewsItems.count).to(equal(1))
                     expect(self.receivedNewsItems.first!.title).to(equal("fake news"))
+                }
+            }
+
+            context("when he request to the JSON client succeeds but does not resolve with a JSON dictioanry") {
+                beforeEach {
+                    let deferred: KSDeferred = self.jsonClient.deferredsByURL[self.urlProvider.newsFeedURL()]!
+
+                    deferred.resolveWithValue([1,2,3])
+                }
+
+                it("calls the completion handler with an error") {
+                    self.operationQueue.lastReceivedBlock()
+                    expect(self.receivedError).notTo(beNil())
                 }
             }
 

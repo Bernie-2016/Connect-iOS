@@ -89,6 +89,19 @@ class ConcreteIssueRepositorySpec : QuickSpec {
                 }
             }
 
+            context("when he request to the JSON client succeeds but does not resolve with a JSON dictioanry") {
+                beforeEach {
+                    let deferred: KSDeferred = self.jsonClient.deferredsByURL[self.urlProvider.issuesFeedURL()]!
+
+                    deferred.resolveWithValue([1,2,3])
+                }
+
+                it("calls the completion handler with an error") {
+                    self.operationQueue.lastReceivedBlock()
+                    expect(self.receivedError).notTo(beNil())
+                }
+            }
+
             context("when the request to the JSON client fails") {
                 it("forwards the error to the caller on the operation queue") {
                     let deferred: KSDeferred = self.jsonClient.deferredsByURL[self.urlProvider.issuesFeedURL()]!

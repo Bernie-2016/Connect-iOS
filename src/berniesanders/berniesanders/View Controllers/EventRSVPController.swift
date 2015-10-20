@@ -33,7 +33,7 @@ class EventRSVPController: UIViewController, UIWebViewDelegate {
         webView.delegate = self
         loadingIndicatorView.stopAnimating()
 
-        let anchoredURL = NSURL(string: "#rsvp_container", relativeToURL: self.event.URL)
+        let anchoredURL = NSURL(string: "#rsvp_container", relativeToURL: self.event.url)
         let urlRequest = NSURLRequest(URL: anchoredURL!)
         webView.loadRequest(urlRequest)
 
@@ -47,7 +47,7 @@ class EventRSVPController: UIViewController, UIWebViewDelegate {
     }
 
     override func didMoveToParentViewController(parent: UIViewController?) {
-        let d = [AnalyticsServiceConstants.contentIDKey: self.event.URL.absoluteString]
+        let d = [AnalyticsServiceConstants.contentIDKey: self.event.url.absoluteString]
         self.analyticsService.trackCustomEventWithName("Tapped 'Back' on Event RSVP", customAttributes: d)
     }
 

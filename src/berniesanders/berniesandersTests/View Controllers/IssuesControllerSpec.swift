@@ -142,8 +142,8 @@ class IssuesControllerSpec: QuickSpec {
 
                 describe("when the issue repository returns some issues") {
                     beforeEach {
-                        let issueA = Issue(title: "Big Money in Little DC", body: "body", imageURL: NSURL(string: "http://a.com")!, URL: NSURL(string: "http://b.com")!)
-                        let issueB = Issue(title: "Long Live The NHS", body: "body", imageURL: NSURL(string: "http://c.com")!, URL: NSURL(string: "http://d.com")!)
+                        let issueA = Issue(title: "Big Money in Little DC", body: "body", imageURL: NSURL(string: "http://a.com")!, url: NSURL(string: "http://b.com")!)
+                        let issueB = Issue(title: "Long Live The NHS", body: "body", imageURL: NSURL(string: "http://c.com")!, url: NSURL(string: "http://d.com")!)
 
                         self.issueRepository.lastCompletionBlock!([issueA, issueB])
                     }
@@ -207,8 +207,8 @@ class IssuesControllerSpec: QuickSpec {
 
                         describe("when the issues repository returns some issues") {
                             beforeEach {
-                                let issueA = Issue(title: "Big Money in Little DC", body: "body", imageURL: NSURL(string: "http://a.com")!, URL: NSURL(string: "http://b.com")!)
-                                let issueB = Issue(title: "Long Live The NHS", body: "body", imageURL: NSURL(string: "http://c.com")!, URL: NSURL(string: "http://d.com")!)
+                                let issueA = Issue(title: "Big Money in Little DC", body: "body", imageURL: NSURL(string: "http://a.com")!, url: NSURL(string: "http://b.com")!)
+                                let issueB = Issue(title: "Long Live The NHS", body: "body", imageURL: NSURL(string: "http://c.com")!, url: NSURL(string: "http://d.com")!)
 
                                 self.issueRepository.lastCompletionBlock!([issueA, issueB])
                             }
@@ -249,7 +249,7 @@ class IssuesControllerSpec: QuickSpec {
                     it("tracks the content view with the analytics service") {
                         expect(self.analyticsService.lastContentViewName).to(equal(expectedIssue.title))
                         expect(self.analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.Issue))
-                        expect(self.analyticsService.lastContentViewID).to(equal(expectedIssue.URL.absoluteString))
+                        expect(self.analyticsService.lastContentViewID).to(equal(expectedIssue.url.absoluteString))
                     }
 
 

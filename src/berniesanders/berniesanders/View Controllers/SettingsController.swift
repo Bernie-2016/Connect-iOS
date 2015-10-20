@@ -49,17 +49,15 @@ class SettingsController: UITableViewController {
 
     // MARK: <UITableViewDataSource>
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.tappableControllers.count + 1
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.row == self.tappableControllers.count {
+            // swiftlint:disable force_cast
             let cell = tableView.dequeueReusableCellWithIdentifier("donateCell") as! DonateTableViewCell
+            // swiftlint:enable force_cast
             cell.setupViews(self.theme)
             return cell
         } else {

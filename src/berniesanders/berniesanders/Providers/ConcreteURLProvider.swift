@@ -25,8 +25,8 @@ class ConcreteURLProvider: URLProvider {
     }
 
     func mapsURLForEvent(event: Event) -> NSURL! {
-        let urlString : String!
-        if(event.streetAddress != nil) {
+        let urlString: String!
+        if event.streetAddress != nil {
             urlString = String(format: "https://maps.apple.com/?address=%@,%@,%@,%@", event.streetAddress!, event.city, event.state, event.zip)
         } else {
             urlString = String(format: "https://maps.apple.com/?address=%@,%@,%@", event.city, event.state, event.zip)
@@ -50,8 +50,9 @@ class ConcreteURLProvider: URLProvider {
         let urlComponents = NSURLComponents(string: "https://docs.google.com/forms/d/1YtW1qhtXIb7rdiksI94XjsN6lJ8vkIGqH7LU0xLU_5Q/viewform")!
         let platformQueryItem = NSURLQueryItem(name: "entry.506", value: "iOS")
 
-        let marketingVersion = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
-        let internalBuildNumber  = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleVersion") as! String
+        let marketingVersion = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as? String ?? "unknown version"
+        let internalBuildNumber  = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleVersion") as? String  ?? "unknown build"
+
         let versionString = "\(marketingVersion) (\(internalBuildNumber))"
         let versionQueryItem = NSURLQueryItem(name: "entry.937851719", value: versionString)
 

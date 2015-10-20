@@ -13,7 +13,7 @@ class ConcreteImageRepository: ImageRepository {
         let deferred = KSDeferred()
 
         self.webImageManager.downloadImageWithURL(url, options: SDWebImageOptions(), progress: nil) { (image, error, cacheType, finished, imageURL) -> Void in
-            if(error != nil) {
+            if error != nil {
                 deferred.rejectWithError(error)
             } else {
                 deferred.resolveWithValue(image)

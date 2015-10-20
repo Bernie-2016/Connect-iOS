@@ -64,14 +64,14 @@ class NewsItemController: UIViewController {
         titleButton.addTarget(self, action: "didTapViewOriginal:", forControlEvents: .TouchUpInside)
         bodyTextView.text = self.newsItem.body
 
-        attributionLabel.text = self.urlAttributionPresenter.attributionTextForURL(newsItem.URL)
+        attributionLabel.text = self.urlAttributionPresenter.attributionTextForURL(newsItem.url)
         viewOriginalButton.setTitle(NSLocalizedString("NewsItem_viewOriginal", comment: ""), forState: .Normal)
         viewOriginalButton.addTarget(self, action: "didTapViewOriginal:", forControlEvents: .TouchUpInside)
 
         setupConstraintsAndLayout()
         applyThemeToViews()
 
-        if(self.newsItem.imageURL != nil) {
+        if self.newsItem.imageURL != nil {
             self.imageRepository.fetchImageWithURL(self.newsItem.imageURL!).then({ (image) -> AnyObject! in
                 self.storyImageView.image = image as? UIImage
                 return image
@@ -89,23 +89,23 @@ class NewsItemController: UIViewController {
     }
 
     override func didMoveToParentViewController(parent: UIViewController?) {
-        self.analyticsService.trackCustomEventWithName("Tapped 'Back' on News Item", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.newsItem.URL.absoluteString])
+        self.analyticsService.trackCustomEventWithName("Tapped 'Back' on News Item", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.newsItem.url.absoluteString])
     }
 
     // MARK: Actions
 
     func share() {
-        self.analyticsService.trackCustomEventWithName("Tapped 'Share' on News Item", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.newsItem.URL.absoluteString])
-        let activityVC = UIActivityViewController(activityItems: [newsItem.URL], applicationActivities: nil)
+        self.analyticsService.trackCustomEventWithName("Tapped 'Share' on News Item", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.newsItem.url.absoluteString])
+        let activityVC = UIActivityViewController(activityItems: [newsItem.url], applicationActivities: nil)
 
         activityVC.completionWithItemsHandler = { activity, success, items, error in
-            if(error != nil) {
+            if error != nil {
                 self.analyticsService.trackError(error!, context: "Failed to share News Item")
             } else {
-                if(success == true) {
-                    self.analyticsService.trackShareWithActivityType(activity!, contentName: self.newsItem.title, contentType: .NewsItem, id: self.newsItem.URL.absoluteString)
+                if success == true {
+                    self.analyticsService.trackShareWithActivityType(activity!, contentName: self.newsItem.title, contentType: .NewsItem, id: self.newsItem.url.absoluteString)
                 } else {
-                    self.analyticsService.trackCustomEventWithName("Cancelled share of News Item", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.newsItem.URL.absoluteString])
+                    self.analyticsService.trackCustomEventWithName("Cancelled share of News Item", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.newsItem.url.absoluteString])
                 }
             }
         }
@@ -115,8 +115,8 @@ class NewsItemController: UIViewController {
 
     func didTapViewOriginal(sender: UIButton) {
         let eventName = sender == self.titleButton ? "Tapped title on News Item" : "Tapped 'View Original' on News Item"
-        analyticsService.trackCustomEventWithName(eventName, customAttributes: [AnalyticsServiceConstants.contentIDKey: newsItem.URL.absoluteString])
-        self.urlOpener.openURL(self.newsItem.URL)
+        analyticsService.trackCustomEventWithName(eventName, customAttributes: [AnalyticsServiceConstants.contentIDKey: newsItem.url.absoluteString])
+        self.urlOpener.openURL(self.newsItem.url)
     }
 
     // MARK: Private

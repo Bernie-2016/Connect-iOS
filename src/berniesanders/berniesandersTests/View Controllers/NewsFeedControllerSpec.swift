@@ -50,7 +50,7 @@ class FakeNewsItemRepository : berniesanders.NewsItemRepository {
 }
 
 class FakeNewsItemControllerProvider : berniesanders.NewsItemControllerProvider {
-    let controller = NewsItemController(newsItem: NewsItem(title: "a", date: NSDate(), body: "a body", imageURL: NSURL(), URL: NSURL()),
+    let controller = NewsItemController(newsItem: NewsItem(title: "a", date: NSDate(), body: "a body", imageURL: NSURL(), url: NSURL()),
         imageRepository: FakeImageRepository(),
         dateFormatter: NSDateFormatter(),
         analyticsService: FakeAnalyticsService(),
@@ -175,8 +175,8 @@ class NewsFeedControllerSpecs: QuickSpec {
                 describe("when the news repository returns some news items", {
                     let newsItemADate = NSDate(timeIntervalSince1970: 0)
                     let newsItemBDate = NSDate(timeIntervalSince1970: 86401)
-                    let newsItemA = NewsItem(title: "Bernie to release new album", date: newsItemADate, body: "yeahhh", imageURL: NSURL(string: "http://bs.com")!, URL: NSURL())
-                    let newsItemB = NewsItem(title: "Bernie up in the polls!", date: newsItemBDate, body: "body text", imageURL: NSURL(), URL: NSURL())
+                    let newsItemA = NewsItem(title: "Bernie to release new album", date: newsItemADate, body: "yeahhh", imageURL: NSURL(string: "http://bs.com")!, url: NSURL())
+                    let newsItemB = NewsItem(title: "Bernie up in the polls!", date: newsItemBDate, body: "body text", imageURL: NSURL(), url: NSURL())
 
                     let newsItems = [newsItemA, newsItemB]
 
@@ -261,7 +261,7 @@ class NewsFeedControllerSpecs: QuickSpec {
 
                         context("when the first news item does not have an image URL") {
                             beforeEach {
-                                let newsItemWithoutImage =  NewsItem(title: "no pics", date: newsItemADate, body: "nope", imageURL: nil, URL: NSURL())
+                                let newsItemWithoutImage =  NewsItem(title: "no pics", date: newsItemADate, body: "nope", imageURL: nil, url: NSURL())
 
                                 self.newsItemRepository.lastCompletionBlock!([newsItemWithoutImage])
 
@@ -341,8 +341,8 @@ class NewsFeedControllerSpecs: QuickSpec {
                         describe("when the news repository returns some news items") {
                             let newsItemADate = NSDate(timeIntervalSince1970: 0)
                             let newsItemBDate = NSDate(timeIntervalSince1970: 86401)
-                            let newsItemA = NewsItem(title: "Bernie to release new album", date: newsItemADate, body: "yeahhh", imageURL: NSURL(string: "http://bs.com")!, URL: NSURL())
-                            let newsItemB = NewsItem(title: "Bernie up in the polls!", date: newsItemBDate, body: "body text", imageURL: NSURL(), URL: NSURL())
+                            let newsItemA = NewsItem(title: "Bernie to release new album", date: newsItemADate, body: "yeahhh", imageURL: NSURL(string: "http://bs.com")!, url: NSURL())
+                            let newsItemB = NewsItem(title: "Bernie up in the polls!", date: newsItemBDate, body: "body text", imageURL: NSURL(), url: NSURL())
 
                             let newsItems = [newsItemA, newsItemB]
 
@@ -370,8 +370,8 @@ class NewsFeedControllerSpecs: QuickSpec {
             }
 
             describe("Tapping on a news item") {
-                let expectedNewsItemA = NewsItem(title: "A", date: NSDate(), body: "A Body", imageURL: NSURL(), URL: NSURL(string: "http://example.com/a")!)
-                let expectedNewsItemB = NewsItem(title: "B", date: NSDate(), body: "B Body", imageURL: NSURL(), URL: NSURL(string: "http://example.com/b")!)
+                let expectedNewsItemA = NewsItem(title: "A", date: NSDate(), body: "A Body", imageURL: NSURL(), url: NSURL(string: "http://example.com/a")!)
+                let expectedNewsItemB = NewsItem(title: "B", date: NSDate(), body: "B Body", imageURL: NSURL(), url: NSURL(string: "http://example.com/b")!)
                 beforeEach {
                     self.subject.viewWillAppear(false)
 
@@ -395,7 +395,7 @@ class NewsFeedControllerSpecs: QuickSpec {
                     it("tracks the content view with the analytics service") {
                         expect(self.analyticsService.lastContentViewName).to(equal(expectedNewsItemA.title))
                         expect(self.analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.NewsItem))
-                        expect(self.analyticsService.lastContentViewID).to(equal(expectedNewsItemA.URL.absoluteString))
+                        expect(self.analyticsService.lastContentViewID).to(equal(expectedNewsItemA.url.absoluteString))
                     }
 
                     it("should push a correctly configured news item view controller onto the nav stack") {
@@ -426,7 +426,7 @@ class NewsFeedControllerSpecs: QuickSpec {
                     it("tracks the content view with the analytics service") {
                         expect(self.analyticsService.lastContentViewName).to(equal(expectedNewsItemB.title))
                         expect(self.analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.NewsItem))
-                        expect(self.analyticsService.lastContentViewID).to(equal(expectedNewsItemB.URL.absoluteString))
+                        expect(self.analyticsService.lastContentViewID).to(equal(expectedNewsItemB.url.absoluteString))
                     }
                 }
             }

@@ -2,6 +2,7 @@ import UIKit
 import PureLayout
 import QuartzCore
 
+// swiftlint:disable type_body_length
 class EventsController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
     let eventRepository: EventRepository
     let eventPresenter: EventPresenter
@@ -63,7 +64,7 @@ class EventsController: UIViewController, UITableViewDataSource, UITableViewDele
 
         edgesForExtendedLayout = .None
         resultsTableView.dataSource = self
-        resultsTableView.delegate = self // TODO: TEST ME!
+        resultsTableView.delegate = self
         resultsTableView.registerClass(EventListTableViewCell.self, forCellReuseIdentifier: "eventCell")
 
         instructionsLabel.text = NSLocalizedString("Events_instructions", comment: "")
@@ -134,22 +135,17 @@ class EventsController: UIViewController, UITableViewDataSource, UITableViewDele
         zipCodeTextField.inputAccessoryView = inputAccessoryView
     }
 
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return UIStatusBarStyle.Default
-    }
-
     // MARK: <UITableViewDataSource>
-
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return events.count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        // swiftlint:disable force_cast
         let cell = tableView.dequeueReusableCellWithIdentifier("eventCell") as! EventListTableViewCell
+        // swiftlint:enable force_cast
+
         let event = events[indexPath.row]
 
         cell.addressLabel.textColor = self.theme.eventsListColor()
@@ -171,7 +167,7 @@ class EventsController: UIViewController, UITableViewDataSource, UITableViewDele
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let event = self.events[indexPath.row]
         let controller = self.eventControllerProvider.provideInstanceWithEvent(event)
-        self.analyticsService.trackContentViewWithName(event.name, type: .Event, id: event.URL.absoluteString)
+        self.analyticsService.trackContentViewWithName(event.name, type: .Event, id: event.url.absoluteString)
         self.navigationController?.pushViewController(controller, animated: true)
     }
 
@@ -188,7 +184,7 @@ class EventsController: UIViewController, UITableViewDataSource, UITableViewDele
         self.navigationController?.pushViewController(self.settingsController, animated: true)
     }
 
-    func didTapSearch(sender : UIButton!) {
+    func didTapSearch(sender: UIButton!) {
         let enteredZipCode = self.zipCodeTextField.text!
         self.analyticsService.trackSearchWithQuery(enteredZipCode, context: .Events)
 
@@ -209,7 +205,7 @@ class EventsController: UIViewController, UITableViewDataSource, UITableViewDele
                 self.resultsTableView.hidden = !matchingEventsFound
                 self.loadingActivityIndicatorView.stopAnimating()
 
-                self.resultsTableView.reloadData()  // TODO: test me
+                self.resultsTableView.reloadData()
             }) { (error: NSError) -> Void in
                 self.analyticsService.trackError(error, context: "Events")
                 self.noResultsLabel.hidden = false
@@ -222,3 +218,4 @@ class EventsController: UIViewController, UITableViewDataSource, UITableViewDele
         self.zipCodeTextField.resignFirstResponder()
     }
 }
+// swiftlint:enable type_body_length

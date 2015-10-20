@@ -20,9 +20,18 @@ class ConcreteIssueRepository: IssueRepository {
     func fetchIssues(completion: (Array<Issue>) -> Void, error: (NSError) -> Void) {
         let issuesJSONPromise = self.jsonClient.JSONPromiseWithURL(self.urlProvider.issuesFeedURL(), method: "POST", bodyDictionary: self.HTTPBodyDictionary())
 
+        issuesJSONPromise.then({ (deserializedObject) -> AnyObject! in
+            let jsonDictionary = deserializedObject as? NSDictionary
+            if jsonDictionary == nil {
+                let incorrectObjectTypeError = NSError(domain: "ConcreteIssueRepository", code: -1, userInfo: nil)
 
-        issuesJSONPromise.then({ (jsonDictionary) -> AnyObject! in
-            let parsedIssues = self.issueDeserializer.deserializeIssues(jsonDictionary as! NSDictionary)
+                self.operationQueue.addOperationWithBlock({ () -> Void in
+                    error(incorrectObjectTypeError)
+                })
+                return incorrectObjectTypeError
+            }
+
+            let parsedIssues = self.issueDeserializer.deserializeIssues(jsonDictionary!)
 
             self.operationQueue.addOperationWithBlock({ () -> Void in
                 completion(parsedIssues)

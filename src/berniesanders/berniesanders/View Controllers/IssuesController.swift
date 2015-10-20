@@ -100,16 +100,12 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
 
     // MARK: UITableViewDataSource
 
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.errorLoadingIssues ? 1 : self.issues.count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if(self.errorLoadingIssues) {
+        if self.errorLoadingIssues {
             let cell = tableView.dequeueReusableCellWithIdentifier("errorCell", forIndexPath: indexPath)
             cell.textLabel!.text = NSLocalizedString("Issues_errorText", comment: "")
             cell.textLabel!.font = self.theme.issuesFeedTitleFont()
@@ -117,7 +113,10 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
             return cell
 
         } else {
+            // swiftlint:disable force_cast
             let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! IssueTableViewCell
+            // swiftlint:enable force_cast
+
             let issue = self.issues[indexPath.row]
             cell.titleLabel.text = issue.title
             cell.titleLabel.font = self.theme.issuesFeedTitleFont()
@@ -136,7 +135,7 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let issue = self.issues[indexPath.row]
 
-        self.analyticsService.trackContentViewWithName(issue.title, type: .Issue, id: issue.URL.absoluteString)
+        self.analyticsService.trackContentViewWithName(issue.title, type: .Issue, id: issue.url.absoluteString)
 
         let controller = self.issueControllerProvider.provideInstanceWithIssue(issue)
         self.navigationController!.pushViewController(controller, animated: true)

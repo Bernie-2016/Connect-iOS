@@ -127,7 +127,7 @@ class ConcreteJSONClientSpec : QuickSpec {
                                 self.urlSession.lastCompletionHandler!(expectedData, response!, nil)
 
                                 expect(promise.rejected).to(beTrue())
-                                expect(promise.error!.domain).to(equal(ConcreteJSONClient.Error.BadResponse))
+                                expect(promise.error!.domain).to(equal(ConcreteJSONClient.Error.badResponse))
                             }
                         }
                     }

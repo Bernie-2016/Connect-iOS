@@ -3,7 +3,7 @@ import KSDeferred
 
 class ConcreteJSONClient: JSONClient {
     struct Error {
-        static let BadResponse = "BadResponse"
+        static let badResponse = "badResponse"
     }
 
     private let urlSession: NSURLSession
@@ -17,9 +17,9 @@ class ConcreteJSONClient: JSONClient {
     func JSONPromiseWithURL(url: NSURL, method: String, bodyDictionary: NSDictionary?) -> KSPromise {
         let deferred = KSDeferred()
 
-        var jsonSerializationError : NSError?
-        let httpBody : NSData?
-        if(bodyDictionary !=  nil) {
+        var jsonSerializationError: NSError?
+        let httpBody: NSData?
+        if bodyDictionary !=  nil {
             do {
                 httpBody = try self.jsonSerializationProvider.dataWithJSONObject(bodyDictionary!, options: NSJSONWritingOptions())
             } catch let error as NSError {
@@ -30,7 +30,7 @@ class ConcreteJSONClient: JSONClient {
             httpBody = nil
         }
 
-        if(jsonSerializationError != nil) {
+        if jsonSerializationError != nil {
             deferred.rejectWithError(jsonSerializationError)
             return deferred.promise
         }
@@ -40,19 +40,24 @@ class ConcreteJSONClient: JSONClient {
         request.HTTPBody = httpBody
 
         let task = self.urlSession.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
-            if(error != nil) {
+            if error != nil {
                 deferred.rejectWithError(error)
                 return
             }
 
-            let httpResponse = response as! NSHTTPURLResponse
-            if(httpResponse.statusCode != 200) {
-                let httpError = NSError(domain: ConcreteJSONClient.Error.BadResponse, code: httpResponse.statusCode, userInfo: nil)
+            guard let httpResponse = response as? NSHTTPURLResponse else {
+                let httpResponseUnwrappingError = NSError(domain: ConcreteJSONClient.Error.badResponse, code: -1, userInfo: nil)
+                deferred.rejectWithError(httpResponseUnwrappingError)
+                return
+            }
+
+            if httpResponse.statusCode != 200 {
+                let httpError = NSError(domain: ConcreteJSONClient.Error.badResponse, code: httpResponse.statusCode, userInfo: nil)
                 deferred.rejectWithError(httpError)
                 return
             }
 
-            var jsonDeserializationError : NSError?
+            var jsonDeserializationError: NSError?
             var jsonBody: AnyObject?
             do {
                 jsonBody = try self.jsonSerializationProvider.jsonObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments)

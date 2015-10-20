@@ -92,12 +92,12 @@ class IssueControllerSpec : QuickSpec {
                             let activityItems = activityViewControler.activityItems()
 
                             expect(activityItems.count).to(equal(1))
-                            expect(activityItems.first as? NSURL).to(beIdenticalTo(self.issue.URL))
+                            expect(activityItems.first as? NSURL).to(beIdenticalTo(self.issue.url))
                         }
 
                         it("logs that the user tapped share") {
                             expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Share' on Issue"))
-                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.issue.URL.absoluteString]
+                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.issue.url.absoluteString]
                             expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                         }
 
@@ -109,7 +109,7 @@ class IssueControllerSpec : QuickSpec {
                                 expect(self.analyticsService.lastShareActivityType).to(equal("Some activity"))
                                 expect(self.analyticsService.lastShareContentName).to(equal(self.issue.title))
                                 expect(self.analyticsService.lastShareContentType).to(equal(AnalyticsServiceContentType.Issue))
-                                expect(self.analyticsService.lastShareID).to(equal(self.issue.URL.absoluteString))
+                                expect(self.analyticsService.lastShareID).to(equal(self.issue.url.absoluteString))
                             }
                         }
 
@@ -119,7 +119,7 @@ class IssueControllerSpec : QuickSpec {
                                 activityViewControler.completionWithItemsHandler!(nil, false, nil, nil)
 
                                 expect(self.analyticsService.lastCustomEventName).to(equal("Cancelled share of Issue"))
-                                let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.issue.URL.absoluteString]
+                                let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.issue.url.absoluteString]
                                 expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                             }
                         }
@@ -179,12 +179,12 @@ class IssueControllerSpec : QuickSpec {
                         }
 
                         it("opens the original issue in safari") {
-                            expect(self.urlOpener.lastOpenedURL).to(beIdenticalTo(self.issue.URL))
+                            expect(self.urlOpener.lastOpenedURL).to(beIdenticalTo(self.issue.url))
                         }
 
                         it("logs that the user tapped view original") {
                             expect(self.analyticsService.lastCustomEventName).to(equal("Tapped title on Issue"))
-                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.issue.URL.absoluteString]
+                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.issue.url.absoluteString]
                             expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                         }
                     }
@@ -194,7 +194,7 @@ class IssueControllerSpec : QuickSpec {
                     }
 
                     it("uses the presenter to get attribution text for the issue") {
-                        expect(self.urlAttributionPresenter.lastPresentedURL).to(beIdenticalTo(self.issue.URL))
+                        expect(self.urlAttributionPresenter.lastPresentedURL).to(beIdenticalTo(self.issue.url))
                         expect(self.subject.attributionLabel.text).to(equal(self.urlAttributionPresenter.returnedText))
                     }
 
@@ -208,12 +208,12 @@ class IssueControllerSpec : QuickSpec {
                         }
 
                         it("opens the original issue in safari") {
-                            expect(self.urlOpener.lastOpenedURL).to(beIdenticalTo(self.issue.URL))
+                            expect(self.urlOpener.lastOpenedURL).to(beIdenticalTo(self.issue.url))
                         }
 
                         it("logs that the user tapped view original") {
                             expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'View Original' on Issue"))
-                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.issue.URL.absoluteString]
+                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.issue.url.absoluteString]
                             expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                         }
                     }
@@ -249,7 +249,7 @@ class IssueControllerSpec : QuickSpec {
 
                 context("with an issue that lacks an image") {
                     beforeEach {
-                        let issue = Issue(title: "Some issue", body: "body", imageURL: nil, URL: NSURL(string: "http://b.com")!)
+                        let issue = Issue(title: "Some issue", body: "body", imageURL: nil, url: NSURL(string: "http://b.com")!)
 
                         self.subject = IssueController(
                             issue: issue,
