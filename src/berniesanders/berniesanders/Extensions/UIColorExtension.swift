@@ -10,10 +10,7 @@ import UIKit
 
 extension UIColor {
     convenience init(rgba: String) {
-        var red   = 0.0 as CGFloat
-        var green = 0.0 as CGFloat
-        var blue  = 0.0 as CGFloat
-        var alpha = 1.0 as CGFloat
+        var red = 0.0 as CGFloat, green = 0.0 as CGFloat, blue = 0.0 as CGFloat, alpha = 1.0 as CGFloat
 
         if rgba.hasPrefix("#") {
             let index   = rgba.startIndex.advancedBy(1)
