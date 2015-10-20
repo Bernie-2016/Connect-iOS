@@ -34,7 +34,6 @@ class ConcreteEventRepository: EventRepository {
 
             let url = self.urlProvider.eventsURL()
 
-
             let HTTPBodyDictionary = self.HTTPBodyDictionaryWithLatitude(
                 location.coordinate.latitude,
                 longitude: location.coordinate.longitude,
@@ -43,27 +42,19 @@ class ConcreteEventRepository: EventRepository {
             let eventsPromise = self.jsonClient.JSONPromiseWithURL(url, method: "POST", bodyDictionary: HTTPBodyDictionary)
 
             eventsPromise.then({ (deserializedObject) -> AnyObject! in
-                let jsonDictionary = deserializedObject as? NSDictionary
-                if jsonDictionary == nil {
+                guard let jsonDictionary = deserializedObject as? NSDictionary else {
                     let incorrectObjectTypeError = NSError(domain: "ConcreteEventRepository", code: -1, userInfo: nil)
 
-                    self.operationQueue.addOperationWithBlock({ () -> Void in
-                        error(incorrectObjectTypeError)
-                    })
+                    self.operationQueue.addOperationWithBlock({ () -> Void in error(incorrectObjectTypeError) })
                     return incorrectObjectTypeError
                 }
 
-                let parsedEvents = self.eventDeserializer.deserializeEvents(jsonDictionary!)
-
-                self.operationQueue.addOperationWithBlock({ () -> Void in
-                    completion(parsedEvents)
-                })
-
+                let parsedEvents = self.eventDeserializer.deserializeEvents(jsonDictionary)
+                self.operationQueue.addOperationWithBlock({ () -> Void in completion(parsedEvents) })
                 return parsedEvents
+
                 }, error: { (receivedError) -> AnyObject! in
-                    self.operationQueue.addOperationWithBlock({ () -> Void in
-                        error(receivedError!)
-                    })
+                    self.operationQueue.addOperationWithBlock({ () -> Void in error(receivedError!) })
                     return receivedError
             })
         })
@@ -72,7 +63,36 @@ class ConcreteEventRepository: EventRepository {
     // MARK: Private
 
     func HTTPBodyDictionaryWithLatitude(latitude: CLLocationDegrees, longitude: CLLocationDegrees, radiusMiles: Float) -> NSDictionary {
-        let filterConditions: Array = [
+        return [
+            "from": 0, "size": 30,
+            "query": [
+                "filtered": [
+                    "query": [
+                        "match_all": []
+                    ],
+                    "filter": [
+                        "bool": [
+                            "must": self.filterConditions(latitude, longitude: longitude, radiusMiles: radiusMiles)
+                        ]
+                    ]
+                ]
+            ],
+            "sort": [
+                "_geo_distance": [
+                    "location": [
+                        "lat":  latitude,
+                        "lon": longitude
+                    ],
+                    "order":         "asc",
+                    "unit":          "km",
+                    "distance_type": "plane"
+                ]
+            ]
+        ]
+    }
+
+    func filterConditions(latitude: CLLocationDegrees, longitude: CLLocationDegrees, radiusMiles: Float) -> Array<AnyObject> {
+        return [
             [
                 "geo_distance": [
                     "distance": "\(radiusMiles)mi",
@@ -88,34 +108,6 @@ class ConcreteEventRepository: EventRepository {
                         "lte": "now+6M/d",
                         "gte": "now"
                     ]
-                ]
-            ]
-        ]
-
-
-        return [
-            "from": 0, "size": 30,
-            "query": [
-                "filtered": [
-                    "query": [
-                        "match_all": []
-                    ],
-                    "filter": [
-                        "bool": [
-                            "must": filterConditions
-                        ]
-                    ]
-                ]
-            ],
-            "sort": [
-                "_geo_distance": [
-                    "location": [
-                        "lat":  latitude,
-                        "lon": longitude
-                    ],
-                    "order":         "asc",
-                    "unit":          "km",
-                    "distance_type": "plane"
                 ]
             ]
         ]
