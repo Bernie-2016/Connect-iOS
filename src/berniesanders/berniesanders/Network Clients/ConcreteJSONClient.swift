@@ -17,28 +17,28 @@ class ConcreteJSONClient: JSONClient {
     func JSONPromiseWithURL(url: NSURL, method: String, bodyDictionary: NSDictionary?) -> KSPromise {
         let deferred = KSDeferred()
 
-        var jsonSerializationError: NSError?
-        let httpBody: NSData?
+        var httpBody: NSData?
         if bodyDictionary !=  nil {
             do {
                 httpBody = try self.jsonSerializationProvider.dataWithJSONObject(bodyDictionary!, options: NSJSONWritingOptions())
             } catch let error as NSError {
-                jsonSerializationError = error
-                httpBody = nil
+                deferred.rejectWithError(error)
+                return deferred.promise
             }
-        } else {
-            httpBody = nil
-        }
-
-        if jsonSerializationError != nil {
-            deferred.rejectWithError(jsonSerializationError)
-            return deferred.promise
         }
 
         let request = NSMutableURLRequest(URL: url)
         request.HTTPMethod = method
         request.HTTPBody = httpBody
 
+        self.makeRequest(request, withDeferred: deferred)
+
+        return deferred.promise
+    }
+
+    // MARK: Private
+
+    func makeRequest(request: NSURLRequest, withDeferred deferred: KSDeferred) {
         let task = self.urlSession.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
             if error != nil {
                 deferred.rejectWithError(error)
@@ -57,25 +57,17 @@ class ConcreteJSONClient: JSONClient {
                 return
             }
 
-            var jsonDeserializationError: NSError?
             var jsonBody: AnyObject?
             do {
                 jsonBody = try self.jsonSerializationProvider.jsonObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments)
             } catch let error as NSError {
-                jsonDeserializationError = error
-                jsonBody = nil
-            } catch {
-                fatalError()
+                deferred.rejectWithError(error)
+                return
             }
-            if jsonDeserializationError != nil {
-                deferred.rejectWithError(jsonDeserializationError)
-            } else {
-                deferred.resolveWithValue(jsonBody)
-            }
+
+            deferred.resolveWithValue(jsonBody)
         })
 
         task.resume()
-
-        return deferred.promise
     }
 }
