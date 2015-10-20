@@ -50,7 +50,13 @@ When you have finished making your changes and testing them, go to your forked r
 * Please ensure all tests pass before making a pull request.  Your contribution shouldn't break the app for other users
 * Please ensure all trailing whitespace characters are removed from your changes.
 
-You may find the rake task `am_i_done_yet` helpful with regards to this. It can be run by issueing the following command:
+You may find the rake task `am_i_done_yet` helpful with regards to this. Please note that this requires the installation of `swiftlint`:
+
+```
+$ brew install swiftlint
+```
+
+The rake task itself can be run by issuing the following command:
 
 ```
 $ rake am_i_done_yet

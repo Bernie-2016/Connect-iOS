@@ -1,7 +1,7 @@
 include Helpers
 
-desc "Tidies up common cleanliness problems with the codebase"
-task :tidy => ['tidy:project_file', 'tidy:specs', 'tidy:whitespace']
+desc "Reports and attempts to tidy up common cleanliness problems with the codebase"
+task :tidy => ['tidy:project_file', 'tidy:specs', 'tidy:whitespace', 'tidy:lint']
 
 namespace :tidy do
   desc "Unfocusses any focussed specs"
@@ -42,6 +42,14 @@ namespace :tidy do
     puts "Removing trailing whitespace..."
     system("find #{PRODUCTION_DIR} #{TESTS_DIR} -name \"*.swift\" -exec sed -i '' -e's/[ ]*$//' \"{}\" \\;")
     puts "Done!"
+  end
+
+  desc "Runs swiftlint"
+  task :lint do
+    puts "Linting..."
+    if !system("swiftlint")
+      bail()
+    end
   end
 end
 
