@@ -10,49 +10,28 @@ class ConcreteIssueDeserializer: IssueDeserializer {
     func deserializeIssues(jsonDictionary: NSDictionary) -> Array<Issue> {
         var issues = [Issue]()
 
-        let hitsDictionary = jsonDictionary["hits"] as? NSDictionary;
+        guard let hitsDictionary = jsonDictionary["hits"] as? NSDictionary else { return issues }
+        guard let issueDictionaries = hitsDictionary["hits"] as? Array<NSDictionary> else { return issues }
 
-        if hitsDictionary == nil {
-            return issues
-        }
+        for issueDictionary: NSDictionary in issueDictionaries {
+            guard let sourceDictionary = issueDictionary["_source"] as? NSDictionary else { continue }
+            guard var title = sourceDictionary["title"] as? String else { continue }
+            guard var body = sourceDictionary["body"] as? String else { continue }
+            guard let urlString = sourceDictionary["url"] as? String else { continue }
 
-        let issueDictionaries = hitsDictionary!["hits"] as? Array<NSDictionary>;
+            title = self.stringContentSanitizer.sanitizeString(title)
+            body = self.stringContentSanitizer.sanitizeString(body)
 
-        if issueDictionaries == nil {
-            return issues
-        }
+            guard let url = NSURL(string: urlString) else { continue }
 
-        for issueDictionary: NSDictionary in issueDictionaries! {
-            let sourceDictionary = issueDictionary["_source"] as? NSDictionary;
-
-            if sourceDictionary == nil {
-                continue
-            }
-
-            var title = sourceDictionary!["title"] as? String
-            var body = sourceDictionary!["body"] as? String
-            let urlString = sourceDictionary!["url"] as? String
-
-            if title == nil || body == nil || urlString == nil {
-                continue
-            }
-
-            title = self.stringContentSanitizer.sanitizeString(title!)
-            body = self.stringContentSanitizer.sanitizeString(body!)
-
-            let url = NSURL(string: urlString!)
-            if url == nil {
-                continue;
-            }
-
-            let imageURLString = sourceDictionary!["image_url"] as? String
+            let imageURLString = sourceDictionary["image_url"] as? String
             var imageURL: NSURL?
 
             if imageURLString != nil {
                 imageURL = NSURL(string: imageURLString!)
             }
 
-            let issue = Issue(title: title!, body: body!, imageURL: imageURL, url: url!)
+            let issue = Issue(title: title, body: body, imageURL: imageURL, url: url)
             issues.append(issue);
         }
 
