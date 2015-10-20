@@ -46,14 +46,7 @@ class IssueController: UIViewController {
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "share")
 
-        view.addSubview(scrollView)
-        scrollView.addSubview(containerView)
-        containerView.addSubview(titleButton)
-        containerView.addSubview(issueImageView)
-        containerView.addSubview(bodyTextView)
-        containerView.addSubview(attributionLabel)
-        containerView.addSubview(viewOriginalButton)
-
+        self.addSubviews()
 
         bodyTextView.text = self.issue.body
         titleButton.setTitle(self.issue.title, forState: .Normal)
@@ -114,6 +107,7 @@ class IssueController: UIViewController {
 
     // MARK: Private
 
+    // swiftlint:disable function_body_length
     private func setupConstraintsAndLayout() {
         let screenBounds = UIScreen.mainScreen().bounds
 
@@ -164,6 +158,7 @@ class IssueController: UIViewController {
         self.viewOriginalButton.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.attributionLabel, withOffset: 16)
         self.viewOriginalButton.autoPinEdgesToSuperviewMarginsExcludingEdge(.Top)
     }
+    // swiftlint:enable function_body_length
 
     private func applyThemeToViews() {
         self.view.backgroundColor = self.theme.defaultBackgroundColor()
@@ -176,5 +171,15 @@ class IssueController: UIViewController {
         self.viewOriginalButton.backgroundColor = self.theme.defaultButtonBackgroundColor()
         self.viewOriginalButton.setTitleColor(self.theme.defaultButtonTextColor(), forState: .Normal)
         self.viewOriginalButton.titleLabel!.font = self.theme.defaultButtonFont()
+    }
+
+    private func addSubviews() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(containerView)
+        containerView.addSubview(titleButton)
+        containerView.addSubview(issueImageView)
+        containerView.addSubview(bodyTextView)
+        containerView.addSubview(attributionLabel)
+        containerView.addSubview(viewOriginalButton)
     }
 }
