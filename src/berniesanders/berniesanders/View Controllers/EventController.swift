@@ -72,7 +72,6 @@ class EventController: UIViewController {
 
         navigationItem.backBarButtonItem = backBarButtonItem
 
-
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "share")
         navigationItem.title = NSLocalizedString("Event_navigationTitle", comment: "")
 
@@ -82,36 +81,9 @@ class EventController: UIViewController {
         rsvpButton.setTitle(NSLocalizedString("Event_rsvpButtonTitle", comment: ""), forState: .Normal)
         rsvpButton.addTarget(self, action: "didTapRSVP", forControlEvents: .TouchUpInside)
 
+        setupImagesAndLabels()
         applyTheme()
-
-        nameLabel.text = event.name
-        dateIconImageView.image = UIImage(named: "eventCalendar")
-        dateIconImageView.contentMode = .ScaleAspectFit
-        dateLabel.text = eventPresenter.presentDateForEvent(event)
-        addressIconImageView.image = UIImage(named: "eventPin")
-        addressIconImageView.contentMode = .ScaleAspectFit
-        addressLabel.text = eventPresenter.presentAddressForEvent(event)
-        attendeesIconImageView.image = UIImage(named: "eventPhone")
-        attendeesIconImageView.contentMode = .ScaleAspectFit
-        attendeesLabel.text = eventPresenter.presentAttendeesForEvent(event)
-        descriptionHeadingLabel.text = NSLocalizedString("Event_descriptionHeading", comment: "")
-        descriptionLabel.text = event.description
-
-        view.addSubview(scrollView)
-        scrollView.addSubview(containerView)
-        containerView.addSubview(rsvpButton)
-        containerView.addSubview(directionsButton)
-        containerView.addSubview(mapView)
-        containerView.addSubview(nameLabel)
-        containerView.addSubview(dateIconImageView)
-        containerView.addSubview(dateLabel)
-        containerView.addSubview(attendeesIconImageView)
-        containerView.addSubview(attendeesLabel)
-        containerView.addSubview(addressIconImageView)
-        containerView.addSubview(addressLabel)
-        containerView.addSubview(descriptionHeadingLabel)
-        containerView.addSubview(descriptionLabel)
-
+        addSubviews()
         setupConstraints()
     }
 
@@ -175,6 +147,39 @@ class EventController: UIViewController {
         descriptionLabel.font = theme.eventDescriptionFont()
     }
 
+    func setupImagesAndLabels() {
+        nameLabel.text = event.name
+        dateIconImageView.image = UIImage(named: "eventCalendar")
+        dateIconImageView.contentMode = .ScaleAspectFit
+        dateLabel.text = eventPresenter.presentDateForEvent(event)
+        addressIconImageView.image = UIImage(named: "eventPin")
+        addressIconImageView.contentMode = .ScaleAspectFit
+        addressLabel.text = eventPresenter.presentAddressForEvent(event)
+        attendeesIconImageView.image = UIImage(named: "eventPhone")
+        attendeesIconImageView.contentMode = .ScaleAspectFit
+        attendeesLabel.text = eventPresenter.presentAttendeesForEvent(event)
+        descriptionHeadingLabel.text = NSLocalizedString("Event_descriptionHeading", comment: "")
+        descriptionLabel.text = event.description
+    }
+
+    func addSubviews() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(containerView)
+        containerView.addSubview(rsvpButton)
+        containerView.addSubview(directionsButton)
+        containerView.addSubview(mapView)
+        containerView.addSubview(nameLabel)
+        containerView.addSubview(dateIconImageView)
+        containerView.addSubview(dateLabel)
+        containerView.addSubview(attendeesIconImageView)
+        containerView.addSubview(attendeesLabel)
+        containerView.addSubview(addressIconImageView)
+        containerView.addSubview(addressLabel)
+        containerView.addSubview(descriptionHeadingLabel)
+        containerView.addSubview(descriptionLabel)
+    }
+
+    // swiftlint:disable function_body_length
     func setupConstraints() {
         let screenBounds = UIScreen.mainScreen().bounds
 
@@ -236,5 +241,6 @@ class EventController: UIViewController {
         descriptionLabel.autoPinEdgeToSuperviewMargin(.Right)
         descriptionLabel.autoPinEdgeToSuperviewMargin(.Bottom)
     }
+    // swiftlint:enable function_body_length
 }
 // swiftlint:enable type_body_length
