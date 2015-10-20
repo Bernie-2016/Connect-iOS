@@ -1,5 +1,4 @@
 disabled_rules: # rule identifiers to exclude from running
   - line_length
-  - function_body_length
 included: # paths to include during linting. `--path` is ignored if present. takes precendence over `excluded`.
   - src/berniesanders/berniesanders
