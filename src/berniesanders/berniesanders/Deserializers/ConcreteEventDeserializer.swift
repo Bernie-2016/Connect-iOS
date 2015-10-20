@@ -2,90 +2,64 @@ import Foundation
 import CoreLocation
 
 class ConcreteEventDeserializer: EventDeserializer {
-    init() {}
-
-    func deserializeEvents(jsonDictionary: NSDictionary) -> Array<Event> {
-        let dateFormatter = NSDateFormatter()
+    private let dateFormatter: NSDateFormatter
+    init() {
+        self.dateFormatter = NSDateFormatter()
         dateFormatter.timeZone = NSTimeZone(name: "UTC")
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"  // "2015-08-28T05:10:21"
+    }
 
+    func deserializeEvents(jsonDictionary: NSDictionary) -> Array<Event> {
         var events = [Event]()
 
-        let hitsDictionary = jsonDictionary["hits"] as? NSDictionary;
-
-        if hitsDictionary == nil {
+        guard let eventsDictionaries = self.deserializeEventsDictionaries(jsonDictionary) else {
             return events
         }
 
-        let eventsDictionaries = hitsDictionary!["hits"] as? Array<NSDictionary>;
+        for eventDictionary: NSDictionary in eventsDictionaries {
+            guard var sourceDictionary = eventDictionary["_source"] as? [String:AnyObject] else { continue }
+            guard var venueDictionary = sourceDictionary["venue"] as? [String:AnyObject] else { continue }
+            guard let locationDictionary = venueDictionary["location"] as? [String:CLLocationDegrees] else { continue }
 
-        if eventsDictionaries == nil {
-            return events
-        }
+            guard let name = sourceDictionary["name"] as? String else { continue }
+            guard let timeZoneString = sourceDictionary["timezone"] as? String else { continue }
+            guard let startDateString = sourceDictionary["start_time"] as? String else { continue }
+            guard let attendeeCapacity = sourceDictionary["capacity"] as? Int else { continue }
+            guard let attendeeCount = sourceDictionary["attendee_count"] as? Int else { continue }
 
-        for eventDictionary: NSDictionary in eventsDictionaries! {
-            var sourceDictionary = eventDictionary["_source"] as? [String:AnyObject];
+            let streetAddress = venueDictionary["address1"] as? String
+            guard let city = venueDictionary["city"] as? String else { continue }
+            guard let state = venueDictionary["state"] as? String else { continue }
+            guard let zip = venueDictionary["zip"] as? String else { continue }
+            guard let description = sourceDictionary["description"] as? String else { continue }
+            guard let URLString = sourceDictionary["url"] as? String else { continue }
+            guard let location = self.deserializeLocation(locationDictionary) else { continue }
+            guard let URL = NSURL(string: URLString) else { continue }
+            guard let timeZone = NSTimeZone(abbreviation: timeZoneString) else { continue }
 
-            if sourceDictionary == nil {
-                continue;
-            }
+            self.dateFormatter.timeZone = timeZone
+            guard let startDate = self.dateFormatter.dateFromString(startDateString) else { continue }
 
-            var venueDictionary = sourceDictionary!["venue"] as? [String:AnyObject];
-
-            if venueDictionary == nil {
-                continue;
-            }
-
-            var locationDictionary = venueDictionary!["location"] as? [String:CLLocationDegrees]
-
-            if locationDictionary == nil {
-                continue;
-            }
-
-            let name = sourceDictionary!["name"] as? String
-            let timeZoneString = sourceDictionary!["timezone"] as? String
-            let startDateString = sourceDictionary!["start_time"] as? String
-            let attendeeCapacity = sourceDictionary!["capacity"] as? Int
-            let attendeeCount = sourceDictionary!["attendee_count"] as? Int
-
-            let streetAddress = venueDictionary!["address1"] as? String
-            let city = venueDictionary!["city"] as? String
-            let state = venueDictionary!["state"] as? String
-            let zip = venueDictionary!["zip"] as? String
-            let latitude = locationDictionary!["lat"]
-            let longitude = locationDictionary!["lon"]
-            let description = sourceDictionary!["description"] as? String
-            let URLString = sourceDictionary!["url"] as? String
-
-            if name == nil || timeZoneString == nil || startDateString == nil
-                || attendeeCapacity == nil || attendeeCount == nil
-                || city == nil || state == nil || zip == nil || latitude == nil || longitude == nil
-                || description == nil || URLString == nil {
-                continue;
-            }
-
-            let URL = NSURL(string: URLString!)
-            let timeZone = NSTimeZone(abbreviation: timeZoneString!)
-
-            if URL == nil || timeZone == nil {
-                continue;
-            }
-
-            dateFormatter.timeZone = timeZone
-            let startDate = dateFormatter.dateFromString(startDateString!)
-
-            if startDate == nil {
-                continue;
-            }
-
-            let location = CLLocation(latitude: latitude!, longitude: longitude!)
-            let event = Event(name: name!, startDate: startDate!, timeZone: timeZone!, attendeeCapacity: attendeeCapacity!, attendeeCount: attendeeCount!,
-                streetAddress: streetAddress, city: city!, state: state!, zip: zip!, location: location,
-                description: description!, url: URL!)
+            let event = Event(name: name, startDate: startDate, timeZone: timeZone, attendeeCapacity: attendeeCapacity, attendeeCount: attendeeCount,
+                streetAddress: streetAddress, city: city, state: state, zip: zip, location: location,
+                description: description, url: URL)
 
             events.append(event)
         }
 
         return events
+    }
+
+    // MARK: Private
+
+    func deserializeEventsDictionaries(jsonDictionary: NSDictionary) -> Array<NSDictionary>? {
+        guard let hitsDictionary = jsonDictionary["hits"] as? NSDictionary else { return nil }
+        return hitsDictionary["hits"] as? Array<NSDictionary>
+    }
+
+    func deserializeLocation(locationDictionary: [String:CLLocationDegrees]) -> CLLocation? {
+        guard let latitude = locationDictionary["lat"] else { return nil }
+        guard let longitude = locationDictionary["lon"] else { return nil }
+        return CLLocation(latitude: latitude, longitude: longitude)
     }
 }
