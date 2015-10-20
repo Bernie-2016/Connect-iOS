@@ -121,6 +121,7 @@ class NewsItemController: UIViewController {
 
     // MARK: Private
 
+    // swiftlint:disable function_body_length
     private func setupConstraintsAndLayout() {
         let screenBounds = UIScreen.mainScreen().bounds
 
@@ -173,6 +174,7 @@ class NewsItemController: UIViewController {
         self.viewOriginalButton.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.attributionLabel, withOffset: 16)
         self.viewOriginalButton.autoPinEdgesToSuperviewMarginsExcludingEdge(.Top)
     }
+    // swiftlint:enable function_body_length
 
     private func applyThemeToViews() {
         self.dateLabel.font = self.theme.newsItemDateFont()
