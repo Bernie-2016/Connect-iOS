@@ -71,68 +71,9 @@ class EventsController: UIViewController, UITableViewDataSource, UITableViewDele
 
         setNeedsStatusBarAppearanceUpdate()
 
-        view.addSubview(zipCodeTextField)
-        view.addSubview(instructionsLabel)
-        view.addSubview(resultsTableView)
-        view.addSubview(noResultsLabel)
-        view.addSubview(loadingActivityIndicatorView)
-
-        zipCodeTextField.delegate = self
-        zipCodeTextField.autoPinEdgeToSuperviewEdge(.Top, withInset: 24)
-        zipCodeTextField.autoPinEdgeToSuperviewEdge(.Left, withInset: 8)
-        zipCodeTextField.autoPinEdgeToSuperviewEdge(.Right, withInset: 8)
-        zipCodeTextField.autoSetDimension(.Height, toSize: 45)
-
-        zipCodeTextField.placeholder = NSLocalizedString("Events_zipCodeTextBoxPlaceholder",  comment: "")
-        zipCodeTextField.keyboardType = .NumberPad
-        zipCodeTextField.textColor = self.theme.eventsZipCodeTextColor()
-        zipCodeTextField.font = self.theme.eventsZipCodeFont()
-        zipCodeTextField.backgroundColor = self.theme.eventsZipCodeBackgroundColor()
-        zipCodeTextField.layer.borderColor = self.theme.eventsZipCodeBorderColor().CGColor
-        zipCodeTextField.layer.borderWidth = self.theme.eventsZipCodeBorderWidth()
-        zipCodeTextField.layer.cornerRadius = self.theme.eventsZipCodeCornerRadius()
-        zipCodeTextField.layer.sublayerTransform = self.theme.eventsZipCodeTextOffset()
-
-        instructionsLabel.font = theme.eventsInstructionsFont()
-        instructionsLabel.textColor = theme.eventsInstructionsTextColor()
-        instructionsLabel.textAlignment = .Center
-        instructionsLabel.numberOfLines = 0
-        instructionsLabel.autoAlignAxisToSuperviewAxis(.Vertical)
-        instructionsLabel.autoAlignAxisToSuperviewAxis(.Horizontal)
-        instructionsLabel.autoSetDimension(.Width, toSize: 220)
-
-        resultsTableView.autoPinEdge(.Top, toEdge: .Bottom, ofView: zipCodeTextField, withOffset: 8)
-        resultsTableView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Top)
-
-        noResultsLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: zipCodeTextField, withOffset: 16)
-        noResultsLabel.autoPinEdgeToSuperviewEdge(.Left)
-        noResultsLabel.autoPinEdgeToSuperviewEdge(.Right)
-        noResultsLabel.textAlignment = .Center
-        noResultsLabel.text = NSLocalizedString("Events_noEventsFound", comment: "")
-        noResultsLabel.textColor = self.theme.eventsNoResultsTextColor()
-        noResultsLabel.font = self.theme.eventsNoResultsFont()
-        noResultsLabel.lineBreakMode = NSLineBreakMode.ByTruncatingTail;
-
-        loadingActivityIndicatorView.autoPinEdge(.Top, toEdge: .Bottom, ofView: zipCodeTextField, withOffset: 16)
-        loadingActivityIndicatorView.autoAlignAxisToSuperviewAxis(.Vertical)
-        loadingActivityIndicatorView.color = self.theme.defaultSpinnerColor()
-
-        resultsTableView.hidden = true
-        noResultsLabel.hidden = true
-        loadingActivityIndicatorView.hidesWhenStopped = true
-        loadingActivityIndicatorView.stopAnimating()
-
-        let inputAccessoryView = UIToolbar(frame: CGRectMake(0, 0, 320, 50))
-        inputAccessoryView.barTintColor = self.theme.eventsInputAccessoryBackgroundColor()
-
-        let spacer = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
-        let searchButton = UIBarButtonItem(title: NSLocalizedString("Events_eventSearchButtonTitle", comment: ""), style: .Done, target: self, action: "didTapSearch:")
-        let cancelButton = UIBarButtonItem(title: NSLocalizedString("Events_eventCancelButtonTitle", comment: ""), style: .Done, target: self, action: "didTapCancel:")
-
-        let inputAccessoryItems = [spacer, searchButton, cancelButton]
-        inputAccessoryView.items = inputAccessoryItems
-
-        zipCodeTextField.inputAccessoryView = inputAccessoryView
+        self.setupSubviews()
+        self.applyTheme()
+        self.setupConstraints()
     }
 
     // MARK: <UITableViewDataSource>
@@ -216,6 +157,82 @@ class EventsController: UIViewController, UITableViewDataSource, UITableViewDele
     func didTapCancel(sender: UIButton!) {
         self.analyticsService.trackCustomEventWithName("Cancelled ZIP Code search on Events", customAttributes: nil)
         self.zipCodeTextField.resignFirstResponder()
+    }
+
+    // MARK: Private
+
+    func setupSubviews() {
+        view.addSubview(zipCodeTextField)
+        view.addSubview(instructionsLabel)
+        view.addSubview(resultsTableView)
+        view.addSubview(noResultsLabel)
+        view.addSubview(loadingActivityIndicatorView)
+
+        zipCodeTextField.delegate = self
+        zipCodeTextField.placeholder = NSLocalizedString("Events_zipCodeTextBoxPlaceholder",  comment: "")
+        zipCodeTextField.keyboardType = .NumberPad
+
+        instructionsLabel.textAlignment = .Center
+        instructionsLabel.numberOfLines = 0
+        noResultsLabel.textAlignment = .Center
+        noResultsLabel.text = NSLocalizedString("Events_noEventsFound", comment: "")
+        noResultsLabel.lineBreakMode = NSLineBreakMode.ByTruncatingTail;
+
+        resultsTableView.hidden = true
+        noResultsLabel.hidden = true
+        loadingActivityIndicatorView.hidesWhenStopped = true
+        loadingActivityIndicatorView.stopAnimating()
+
+        let inputAccessoryView = UIToolbar(frame: CGRectMake(0, 0, 320, 50))
+        inputAccessoryView.barTintColor = self.theme.eventsInputAccessoryBackgroundColor()
+
+        let spacer = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
+        let searchButton = UIBarButtonItem(title: NSLocalizedString("Events_eventSearchButtonTitle", comment: ""), style: .Done, target: self, action: "didTapSearch:")
+        let cancelButton = UIBarButtonItem(title: NSLocalizedString("Events_eventCancelButtonTitle", comment: ""), style: .Done, target: self, action: "didTapCancel:")
+
+        let inputAccessoryItems = [spacer, searchButton, cancelButton]
+        inputAccessoryView.items = inputAccessoryItems
+
+        zipCodeTextField.inputAccessoryView = inputAccessoryView
+    }
+
+    func applyTheme() {
+        zipCodeTextField.textColor = self.theme.eventsZipCodeTextColor()
+        zipCodeTextField.font = self.theme.eventsZipCodeFont()
+        zipCodeTextField.backgroundColor = self.theme.eventsZipCodeBackgroundColor()
+        zipCodeTextField.layer.borderColor = self.theme.eventsZipCodeBorderColor().CGColor
+        zipCodeTextField.layer.borderWidth = self.theme.eventsZipCodeBorderWidth()
+        zipCodeTextField.layer.cornerRadius = self.theme.eventsZipCodeCornerRadius()
+        zipCodeTextField.layer.sublayerTransform = self.theme.eventsZipCodeTextOffset()
+
+        instructionsLabel.font = theme.eventsInstructionsFont()
+        instructionsLabel.textColor = theme.eventsInstructionsTextColor()
+
+        noResultsLabel.textColor = self.theme.eventsNoResultsTextColor()
+        noResultsLabel.font = self.theme.eventsNoResultsFont()
+
+        loadingActivityIndicatorView.color = self.theme.defaultSpinnerColor()
+    }
+
+    func setupConstraints() {
+        zipCodeTextField.autoPinEdgeToSuperviewEdge(.Top, withInset: 24)
+        zipCodeTextField.autoPinEdgeToSuperviewEdge(.Left, withInset: 8)
+        zipCodeTextField.autoPinEdgeToSuperviewEdge(.Right, withInset: 8)
+        zipCodeTextField.autoSetDimension(.Height, toSize: 45)
+
+        instructionsLabel.autoAlignAxisToSuperviewAxis(.Vertical)
+        instructionsLabel.autoAlignAxisToSuperviewAxis(.Horizontal)
+        instructionsLabel.autoSetDimension(.Width, toSize: 220)
+
+        resultsTableView.autoPinEdge(.Top, toEdge: .Bottom, ofView: zipCodeTextField, withOffset: 8)
+        resultsTableView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Top)
+
+        noResultsLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: zipCodeTextField, withOffset: 16)
+        noResultsLabel.autoPinEdgeToSuperviewEdge(.Left)
+        noResultsLabel.autoPinEdgeToSuperviewEdge(.Right)
+
+        loadingActivityIndicatorView.autoPinEdge(.Top, toEdge: .Bottom, ofView: zipCodeTextField, withOffset: 16)
+        loadingActivityIndicatorView.autoAlignAxisToSuperviewAxis(.Vertical)
     }
 }
 // swiftlint:enable type_body_length
