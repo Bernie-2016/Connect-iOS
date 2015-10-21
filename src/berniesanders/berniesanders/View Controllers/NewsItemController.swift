@@ -133,7 +133,8 @@ class NewsItemController: UIViewController {
 
         self.storyImageView.contentMode = .ScaleAspectFill
         self.storyImageView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: ALEdge.Bottom)
-        self.storyImageView.autoSetDimension(ALDimension.Height, toSize: screenBounds.height / 3, relation: NSLayoutRelation.LessThanOrEqual)
+        self.storyImageView.autoSetDimension(ALDimension.Height, toSize: screenBounds.height / 3)
+        self.storyImageView.clipsToBounds = true
 
         NSLayoutConstraint.autoSetPriority(1000, forConstraints: { () -> Void in
             self.dateLabel.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.storyImageView, withOffset: 8)
@@ -154,7 +155,8 @@ class NewsItemController: UIViewController {
         self.titleButton.autoPinEdgeToSuperviewMargin(.Leading)
         self.titleButton.autoPinEdgeToSuperviewMargin(.Trailing)
         self.titleButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.dateLabel)
-        self.titleButton.autoSetDimension(.Height, toSize: 20, relation: NSLayoutRelation.GreaterThanOrEqual)
+        self.titleButton.layoutIfNeeded()
+        self.titleButton.autoSetDimension(.Height, toSize: titleLabel.frame.height)
 
         self.bodyTextView.scrollEnabled = false
         self.bodyTextView.textContainerInset = UIEdgeInsetsZero
