@@ -38,9 +38,9 @@ class ConcreteEventRepository: EventRepository {
                 location.coordinate.latitude,
                 longitude: location.coordinate.longitude,
                 radiusMiles: radiusMiles)
-            
+
             let eventsPromise = self.jsonClient.JSONPromiseWithURL(url, method: "POST", bodyDictionary: HTTPBodyDictionary)
-            
+
             eventsPromise.then({ (deserializedObject) -> AnyObject! in
                 guard let jsonDictionary = deserializedObject as? NSDictionary else {
                     let incorrectObjectTypeError = NSError(domain: "ConcreteEventRepository", code: -1, userInfo: nil)
@@ -65,12 +65,12 @@ class ConcreteEventRepository: EventRepository {
     func HTTPBodyDictionaryWithLatitude(latitude: CLLocationDegrees, longitude: CLLocationDegrees, radiusMiles: Float) -> NSDictionary {
         return [
             "sort": [
-                
+
                 [
                 "event_date" : [
                     "order" : "asc"
                 ]],
-                
+
                 ["_geo_distance": [
                     "location": [
                         "lat":  latitude,

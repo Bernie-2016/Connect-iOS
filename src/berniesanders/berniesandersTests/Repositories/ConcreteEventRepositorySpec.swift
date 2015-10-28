@@ -80,6 +80,14 @@ class ConcreteEventRepositorySpec : QuickSpec {
                         expect(self.jsonClient.deferredsByURL.keys.first).to(equal(NSURL(string: "https://example.com/berneseeventsss/")))
                         let expectedFilterConditions = [
                             [
+                                "range": [
+                                    "event_date": [
+                                        "lte": "now+6M/d",
+                                        "gte": "now"
+                                    ]
+                                ]
+                            ],
+                            [
                                 "geo_distance": [
                                     "distance": "50.1mi",
                                     "location": [
@@ -87,26 +95,25 @@ class ConcreteEventRepositorySpec : QuickSpec {
                                         "lon": 23.45
                                     ]
                                 ]
-                            ],
-                            [
-                                "range": [
-                                    "start_time": [
-                                        "lte": "now+6M/d",
-                                        "gte": "now"
-                                    ]
-                                ]
                             ]
                         ]
 
                         let expectedSortCriteria = [
-                            "_geo_distance": [
-                                "location": [
-                                    "lat":  12.34,
-                                    "lon": 23.45
-                                ],
-                                "order":         "asc",
-                                "unit":          "km",
-                                "distance_type": "plane"
+                            [
+                                "event_date" : [
+                                    "order" : "asc"
+                                ]
+                            ],
+                            [
+                                "_geo_distance": [
+                                    "location": [
+                                        "lat":  12.34,
+                                        "lon": 23.45
+                                    ],
+                                    "order":         "asc",
+                                    "unit":          "mi",
+                                    "distance_type": "plane"
+                                ]
                             ]
                         ]
 
