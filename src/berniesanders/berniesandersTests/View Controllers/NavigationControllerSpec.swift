@@ -35,6 +35,10 @@ class NavigationControllerSpec : QuickSpec {
                 self.subject.view.layoutIfNeeded()
             }
 
+            it("sets the navigation bar to be opaque") {
+                expect(self.subject.navigationBar.translucent).to(beFalse())
+            }
+
             it("styles the navigation bar with the theme") {
                 let attributes = self.subject.navigationBar.titleTextAttributes!
                 let textColor = attributes[NSForegroundColorAttributeName] as! UIColor

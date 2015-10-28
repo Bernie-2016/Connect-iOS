@@ -464,6 +464,15 @@ class EventsControllerSpec : QuickSpec {
                                             expect(self.analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.Event))
                                             expect(self.analyticsService.lastContentViewID).to(equal(eventB.url.absoluteString))
                                         }
+
+                                        describe("and the view is shown again") {
+                                            it("deselects the selected table row") {
+                                                self.subject.resultsTableView.selectRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: false, scrollPosition: .Middle)
+                                                self.subject.viewWillAppear(false)
+
+                                                expect(self.subject.resultsTableView.indexPathForSelectedRow).to(beNil())
+                                            }
+                                        }
                                     }
                                 }
 

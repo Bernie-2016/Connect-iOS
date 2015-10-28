@@ -71,6 +71,14 @@ class EventsController: UIViewController, UITableViewDataSource, UITableViewDele
         self.setupConstraints()
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if let selectedRowIndexPath = self.resultsTableView.indexPathForSelectedRow {
+            self.resultsTableView.deselectRowAtIndexPath(selectedRowIndexPath, animated: false)
+        }
+    }
+
     // MARK: <UITableViewDataSource>
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

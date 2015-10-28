@@ -16,6 +16,7 @@ class NavigationController: UINavigationController {
         super.viewDidLoad()
         self.view.backgroundColor = self.theme.defaultBackgroundColor()
         self.setNeedsStatusBarAppearanceUpdate()
+        self.navigationBar.translucent = false
         self.navigationBar.barTintColor = self.theme.navigationBarBackgroundColor()
         self.navigationBar.titleTextAttributes = [
             NSForegroundColorAttributeName: self.theme.navigationBarTextColor(),
