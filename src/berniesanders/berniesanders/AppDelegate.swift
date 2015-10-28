@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
             let mainQueue = NSOperationQueue.mainQueue()
+            let mainScreen = UIScreen.mainScreen()
             let sharedURLSession = NSURLSession.sharedSession()
             let applicationSettingsRepository = ConcreteApplicationSettingsRepository(
                 userDefaults: NSUserDefaults.standardUserDefaults())
@@ -150,6 +151,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
             let tabBarController = TabBarController(viewControllers: tabBarViewControllers, analyticsService: analyticsService, theme: defaultTheme)
             tabBarController.selectedIndex = 1
+            let rawSelectedTabBarBackground = UIImage(named: "selectedTabBarBackground")!
+            let croppedSelectedTabBarBackgroundImageRef = CGImageCreateWithImageInRect(rawSelectedTabBarBackground.CGImage, CGRect(x: 0, y: 0, width: mainScreen.bounds.width / CGFloat(tabBarViewControllers.count), height: 49))
+            let croppedSelectedTabBarBackground = UIImage(CGImage:croppedSelectedTabBarBackgroundImageRef!)
+            UITabBar.appearance().selectionIndicatorImage = croppedSelectedTabBarBackground
+
 
             let welcomeController = WelcomeController(
                 applicationSettingsRepository: applicationSettingsRepository,
@@ -168,7 +174,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             welcomeController.onboardingRouter = onboardingRouter
 
             onboardingRouter.initialViewController { (controller) -> Void in
-                self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+                self.window = UIWindow(frame: mainScreen.bounds)
                 self.window!.rootViewController = controller
                 self.window!.backgroundColor = defaultTheme.defaultBackgroundColor()
                 self.window!.makeKeyAndVisible()
