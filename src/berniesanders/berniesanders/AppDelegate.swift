@@ -143,11 +143,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             eventsNavigationController.pushViewController(eventsController, animated: false)
 
             let tabBarViewControllers = [
+                eventsNavigationController,
                 newsNavigationController,
-                issuesNavigationController,
-                eventsNavigationController
+                issuesNavigationController
             ]
+
             let tabBarController = TabBarController(viewControllers: tabBarViewControllers, analyticsService: analyticsService, theme: defaultTheme)
+            tabBarController.selectedIndex = 1
 
             let welcomeController = WelcomeController(
                 applicationSettingsRepository: applicationSettingsRepository,
