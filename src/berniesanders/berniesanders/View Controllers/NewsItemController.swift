@@ -68,8 +68,8 @@ class NewsItemController: UIViewController {
         viewOriginalButton.setTitle(NSLocalizedString("NewsItem_viewOriginal", comment: ""), forState: .Normal)
         viewOriginalButton.addTarget(self, action: "didTapViewOriginal:", forControlEvents: .TouchUpInside)
 
-        setupConstraintsAndLayout()
         applyThemeToViews()
+        setupConstraintsAndLayout()
 
         if self.newsItem.imageURL != nil {
             self.imageRepository.fetchImageWithURL(self.newsItem.imageURL!).then({ (image) -> AnyObject! in
@@ -135,38 +135,39 @@ class NewsItemController: UIViewController {
         self.storyImageView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: ALEdge.Bottom)
         self.storyImageView.autoSetDimension(ALDimension.Height, toSize: screenBounds.height / 3)
         self.storyImageView.clipsToBounds = true
-
-        NSLayoutConstraint.autoSetPriority(1000, forConstraints: { () -> Void in
-            self.dateLabel.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.storyImageView, withOffset: 8)
-        })
-
-        NSLayoutConstraint.autoSetPriority(500, forConstraints: { () -> Void in
-            self.dateLabel.autoPinEdgeToSuperviewEdge(ALEdge.Top, withInset: 8)
-        })
-
-        self.dateLabel.autoPinEdgeToSuperviewMargin(ALEdge.Leading)
-        self.dateLabel.autoPinEdgeToSuperviewMargin(ALEdge.Trailing)
-        self.dateLabel.autoSetDimension(ALDimension.Height, toSize: 20)
-
+        
         let titleLabel = self.titleButton.titleLabel!
+        
         titleLabel.numberOfLines = 3
         titleLabel.preferredMaxLayoutWidth = screenBounds.width - 8
+        NSLayoutConstraint.autoSetPriority(1000, forConstraints: { () -> Void in
+            self.titleButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.storyImageView, withOffset: 26)
+        })
+        
+        NSLayoutConstraint.autoSetPriority(500, forConstraints: { () -> Void in
+            self.titleButton.autoPinEdgeToSuperviewEdge(.Top, withInset: 26)
+        })
+
         self.titleButton.contentHorizontalAlignment = .Left
         self.titleButton.autoPinEdgeToSuperviewMargin(.Leading)
         self.titleButton.autoPinEdgeToSuperviewMargin(.Trailing)
-        self.titleButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.dateLabel)
         self.titleButton.layoutIfNeeded()
         self.titleButton.autoSetDimension(.Height, toSize: titleLabel.frame.height)
-
+        
+        self.dateLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.titleButton)
+        self.dateLabel.autoPinEdgeToSuperviewMargin(ALEdge.Leading)
+        self.dateLabel.autoPinEdgeToSuperviewMargin(ALEdge.Trailing)
+        self.dateLabel.autoSetDimension(ALDimension.Height, toSize: 20)
+        
         self.bodyTextView.scrollEnabled = false
         self.bodyTextView.textContainerInset = UIEdgeInsetsZero
         self.bodyTextView.textContainer.lineFragmentPadding = 0;
         self.bodyTextView.editable = false
 
-        self.bodyTextView.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.titleButton, withOffset: 16)
+        self.bodyTextView.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.dateLabel, withOffset: 16)
         self.bodyTextView.autoPinEdgeToSuperviewMargin(.Left)
         self.bodyTextView.autoPinEdgeToSuperviewMargin(.Right)
-
+        
         self.attributionLabel.numberOfLines = 0
         self.attributionLabel.textAlignment = .Center
         self.attributionLabel.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.bodyTextView, withOffset: 16)

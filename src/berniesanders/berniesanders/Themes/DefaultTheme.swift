@@ -50,10 +50,14 @@ class DefaultTheme: Theme {
 
     // MARK: News Item detail screen
 
-    func newsItemDateFont() -> UIFont { return UIFont.boldSystemFontOfSize(12) }
-    func newsItemDateColor() -> UIColor { return self.carnationColor() }
-    func newsItemTitleFont() -> UIFont { return defaultHeaderFont() }
-    func newsItemTitleColor() -> UIColor { return cornflowerBlueColor() }
+    func newsItemDateFont() -> UIFont { if #available(iOS 8.2, *) {
+        return UIFont.systemFontOfSize(12, weight: UIFontWeightLight)
+    } else {
+        return UIFont.systemFontOfSize(12)
+    } }
+    func newsItemDateColor() -> UIColor { return self.scorpionColor() }
+    func newsItemTitleFont() -> UIFont { return UIFont(name: "Georgia-Bold", size: 26)! }
+    func newsItemTitleColor() -> UIColor { return UIColor.blackColor() }
     func newsItemBodyFont() -> UIFont { return defaultBodyTextFont() }
     func newsItemBodyColor() -> UIColor { return UIColor.blackColor() }
     func newsFeedHeadlineTitleFont() -> UIFont { return UIFont.boldSystemFontOfSize(16) }
@@ -145,6 +149,7 @@ class DefaultTheme: Theme {
     func altoColor() -> UIColor { return UIColor(rgba: "#dcdcdc") }
     func silverChaliceColor() -> UIColor { return UIColor(rgba: "#a5a5a5") }
     func chathamsBlueColor() -> UIColor { return UIColor(rgba: "#194d7b") }
+    func scorpionColor() -> UIColor { return UIColor(rgba: "#606060") }
 
     // MARK: font definitions
 
