@@ -120,7 +120,6 @@ class EventsControllerSpec : QuickSpec {
     var window : UIWindow!
     var eventRepository : FakeEventRepository!
     var eventPresenter : FakeEventPresenter!
-    let settingsController = TestUtils.settingsController()
     var eventControllerProvider : FakeEventControllerProvider!
     var analyticsService: FakeAnalyticsService!
     var tabBarItemStylist: FakeTabBarItemStylist!
@@ -140,7 +139,6 @@ class EventsControllerSpec : QuickSpec {
                 self.subject = EventsController(
                     eventRepository: self.eventRepository,
                     eventPresenter: self.eventPresenter,
-                    settingsController: self.settingsController,
                     eventControllerProvider: self.eventControllerProvider,
                     analyticsService: self.analyticsService,
                     tabBarItemStylist: self.tabBarItemStylist,
@@ -170,21 +168,6 @@ class EventsControllerSpec : QuickSpec {
 
             it("should set the back bar button item title correctly") {
                 expect(self.subject.navigationItem.backBarButtonItem?.title).to(equal("Back"))
-            }
-
-            describe("tapping on the settings button") {
-                beforeEach {
-                    self.subject.navigationItem.rightBarButtonItem!.tap()
-                }
-
-                it("should push the settings controller onto the nav stack") {
-                    expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.settingsController))
-                }
-
-                it("tracks a custom event via the analytics service") {
-                    expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Settings' in Events nav bar"))
-                    expect(self.analyticsService.lastCustomEventAttributes).to(beNil())
-                }
             }
 
             it("uses the tab bar item stylist to style its tab bar item") {

@@ -46,7 +46,6 @@ class IssuesControllerSpec: QuickSpec {
     var issueRepository: FakeIssueRepository! = FakeIssueRepository()
     var issueControllerProvider = FakeIssueControllerProvider()
     var navigationController: UINavigationController!
-    let settingsController = TestUtils.settingsController()
     var analyticsService: FakeAnalyticsService!
     var tabBarItemStylist: FakeTabBarItemStylist!
 
@@ -60,7 +59,6 @@ class IssuesControllerSpec: QuickSpec {
                 self.subject = IssuesController(
                     issueRepository: self.issueRepository,
                     issueControllerProvider: self.issueControllerProvider,
-                    settingsController: self.settingsController,
                     analyticsService: self.analyticsService,
                     tabBarItemStylist: self.tabBarItemStylist,
                     theme: IssuesFakeTheme()
@@ -107,21 +105,6 @@ class IssuesControllerSpec: QuickSpec {
 
             it("styles the spinner from the theme") {
                 expect(self.subject.loadingIndicatorView.color).to(equal(UIColor.greenColor()))
-            }
-
-            describe("tapping on the settings button") {
-                beforeEach {
-                    self.subject.navigationItem.rightBarButtonItem!.tap()
-                }
-
-                it("should push the settings controller onto the nav stack") {
-                    expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.settingsController))
-                }
-
-                it("tracks a custom event via the analytics service") {
-                    expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Settings' in Issues nav bar"))
-                    expect(self.analyticsService.lastCustomEventAttributes).to(beNil())
-                }
             }
 
             describe("when the controller appears") {

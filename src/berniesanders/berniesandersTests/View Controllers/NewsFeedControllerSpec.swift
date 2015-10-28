@@ -70,7 +70,6 @@ class NewsFeedControllerSpecs: QuickSpec {
     let newsItemRepository: FakeNewsItemRepository! =  FakeNewsItemRepository()
     var imageRepository : FakeImageRepository!
     let newsItemControllerProvider = FakeNewsItemControllerProvider()
-    let settingsController = TestUtils.settingsController()
     var analyticsService: FakeAnalyticsService!
     var tabBarItemStylist: FakeTabBarItemStylist!
     let theme: Theme! = NewsFakeTheme()
@@ -93,7 +92,6 @@ class NewsFeedControllerSpecs: QuickSpec {
                     imageRepository: self.imageRepository,
                     dateFormatter: dateFormatter,
                     newsItemControllerProvider: self.newsItemControllerProvider,
-                    settingsController: self.settingsController,
                     analyticsService: self.analyticsService,
                     tabBarItemStylist: self.tabBarItemStylist,
                     theme: theme
@@ -141,21 +139,6 @@ class NewsFeedControllerSpecs: QuickSpec {
 
             it("sets the spinner up to hide when stopped") {
                 expect(self.subject.loadingIndicatorView.hidesWhenStopped).to(equal(true))
-            }
-
-            describe("tapping on the settings button") {
-                beforeEach {
-                    self.subject.navigationItem.rightBarButtonItem!.tap()
-                }
-
-                it("should push the settings controller onto the nav stack") {
-                    expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.settingsController))
-                }
-
-                it("tracks a custom event via the analytics service") {
-                    expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Settings' in News nav bar"))
-                    expect(self.analyticsService.lastCustomEventAttributes).to(beNil())
-                }
             }
 
             describe("when the controller appears") {

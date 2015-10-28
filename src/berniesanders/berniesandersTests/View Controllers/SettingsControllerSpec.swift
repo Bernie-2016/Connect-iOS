@@ -52,6 +52,7 @@ class SettingsControllerSpec : QuickSpec {
     var urlOpener: FakeURLOpener!
     let urlProvider = SettingsFakeURLProvider()
     var analyticsService: FakeAnalyticsService!
+    var tabBarItemStylist: FakeTabBarItemStylist!
     let theme = SettingsFakeTheme()
 
     let regularController = FakeSettingsController(title: "Regular Controller")
@@ -64,6 +65,7 @@ class SettingsControllerSpec : QuickSpec {
             beforeEach {
                 self.urlOpener = FakeURLOpener()
                 self.analyticsService = FakeAnalyticsService()
+                self.tabBarItemStylist = FakeTabBarItemStylist()
 
                 self.subject = SettingsController(tappableControllers: [
                         self.regularController
@@ -71,18 +73,19 @@ class SettingsControllerSpec : QuickSpec {
                     urlOpener: self.urlOpener,
                     urlProvider: self.urlProvider,
                     analyticsService: self.analyticsService,
+                    tabBarItemStylist: self.tabBarItemStylist,
                     theme: self.theme)
 
                 self.navigationController = UINavigationController()
                 self.navigationController.pushViewController(self.subject, animated: false)
             }
 
-            it("should hide the tab bar when pushed") {
-                expect(self.subject.hidesBottomBarWhenPushed).to(beTrue())
-            }
-
             it("has the correct navigation item title") {
                 expect(self.subject.navigationItem.title).to(equal("More"))
+            }
+
+            it("has the correct tab bar title") {
+                expect(self.subject.title).to(equal("More"))
             }
 
             it("should set the back bar button item title correctly") {
@@ -99,6 +102,13 @@ class SettingsControllerSpec : QuickSpec {
             describe("when the view loads") {
                 beforeEach {
                     self.subject.view.layoutSubviews()
+                }
+
+                it("uses the tab bar item stylist to style its tab bar item") {
+                    expect(self.tabBarItemStylist.lastReceivedTabBarItem).to(beIdenticalTo(self.subject.tabBarItem))
+
+                    expect(self.tabBarItemStylist.lastReceivedTabBarImage).to(equal(UIImage(named: "moreTabBarIconInactive")))
+                    expect(self.tabBarItemStylist.lastReceivedTabBarSelectedImage).to(equal(UIImage(named: "moreTabBarIcon")))
                 }
 
                 it("styles the views according to the theme") {

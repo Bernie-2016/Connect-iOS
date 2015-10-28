@@ -59,6 +59,7 @@
 // Settings
 
 "Settings_navigationTitle" = "More";
+"Settings_tabBarTitle" = "More";
 "Settings_backButtonTitle" = "Back";
 
 // Settings | Donate

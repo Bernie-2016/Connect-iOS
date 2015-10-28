@@ -58,7 +58,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 urlOpener: urlOpener,
                 urlProvider: urlProvider,
                 analyticsService: analyticsService,
+                tabBarItemStylist: tabBarItemStylist,
                 theme: defaultTheme)
+        let settingsNavigationController = NavigationController(theme: defaultTheme)
+        settingsNavigationController.pushViewController(settingsController, animated: false)
+
 
             let newsItemDeserializer = ConcreteNewsItemDeserializer(stringContentSanitizer: stringContentSanitizer)
             let newsItemRepository = ConcreteNewsItemRepository(
@@ -81,7 +85,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 imageRepository: imageRepository,
                 dateFormatter: longDateFormatter,
                 newsItemControllerProvider: newsItemControllerProvider,
-                settingsController: settingsController,
                 analyticsService: analyticsService,
                 tabBarItemStylist: tabBarItemStylist,
                 theme: defaultTheme
@@ -107,7 +110,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let issuesTableController = IssuesController(
                 issueRepository: issueRepository,
                 issueControllerProvider: issueControllerProvider,
-                settingsController: settingsController,
                 analyticsService: analyticsService,
                 tabBarItemStylist: tabBarItemStylist,
                 theme: defaultTheme
@@ -134,7 +136,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let eventsController = EventsController(
                 eventRepository: eventRepository,
                 eventPresenter: eventPresenter,
-                settingsController: settingsController,
                 eventControllerProvider: eventControllerProvider,
                 analyticsService: analyticsService,
                 tabBarItemStylist: tabBarItemStylist,
@@ -146,7 +147,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let tabBarViewControllers = [
                 eventsNavigationController,
                 newsNavigationController,
-                issuesNavigationController
+                issuesNavigationController,
+                settingsNavigationController
             ]
 
             let tabBarController = TabBarController(viewControllers: tabBarViewControllers, analyticsService: analyticsService, theme: defaultTheme)

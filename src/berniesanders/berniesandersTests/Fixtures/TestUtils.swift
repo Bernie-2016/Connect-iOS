@@ -34,7 +34,7 @@ class TestUtils {
     // MARK: Controllers
 
     class func settingsController() -> SettingsController {
-        return SettingsController(tappableControllers: [self.privacyPolicyController()], urlOpener: FakeURLOpener(), urlProvider: FakeURLProvider(), analyticsService: FakeAnalyticsService(), theme: FakeTheme())
+        return SettingsController(tappableControllers: [self.privacyPolicyController()], urlOpener: FakeURLOpener(), urlProvider: FakeURLProvider(), analyticsService: FakeAnalyticsService(), tabBarItemStylist: FakeTabBarItemStylist(), theme: FakeTheme())
     }
 
     class func termsAndConditionsController() -> TermsAndConditionsController {

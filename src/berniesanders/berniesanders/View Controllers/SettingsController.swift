@@ -7,18 +7,19 @@ class SettingsController: UITableViewController {
     private let urlOpener: URLOpener
     private let urlProvider: URLProvider
     private let analyticsService: AnalyticsService
+    private let tabBarItemStylist: TabBarItemStylist
     private let theme: Theme
 
-    init(tappableControllers: [UIViewController], urlOpener: URLOpener, urlProvider: URLProvider, analyticsService: AnalyticsService, theme: Theme) {
+    init(tappableControllers: [UIViewController], urlOpener: URLOpener, urlProvider: URLProvider, analyticsService: AnalyticsService, tabBarItemStylist: TabBarItemStylist, theme: Theme) {
         self.tappableControllers = tappableControllers
         self.urlOpener = urlOpener
         self.urlProvider = urlProvider
         self.analyticsService = analyticsService
+        self.tabBarItemStylist = tabBarItemStylist
         self.theme = theme
 
         super.init(nibName: nil, bundle: nil)
 
-        hidesBottomBarWhenPushed = true
         navigationItem.title = NSLocalizedString("Settings_navigationTitle", comment: "")
 
         let backBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Settings_backButtonTitle", comment: ""),
@@ -26,6 +27,12 @@ class SettingsController: UITableViewController {
             target: nil, action: nil)
 
         navigationItem.backBarButtonItem = backBarButtonItem
+
+        self.tabBarItemStylist.applyThemeToBarBarItem(self.tabBarItem,
+            image: UIImage(named: "moreTabBarIconInactive")!,
+            selectedImage: UIImage(named: "moreTabBarIcon")!)
+
+        title = NSLocalizedString("Settings_tabBarTitle", comment: "")
     }
 
     required init(coder aDecoder: NSCoder) {

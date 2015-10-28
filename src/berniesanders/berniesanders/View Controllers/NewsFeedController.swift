@@ -6,7 +6,6 @@ class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewData
     private let imageRepository: ImageRepository
     private let dateFormatter: NSDateFormatter
     private let newsItemControllerProvider: NewsItemControllerProvider
-    private let settingsController: SettingsController
     private let analyticsService: AnalyticsService
     private let tabBarItemStylist: TabBarItemStylist
     private let theme: Theme
@@ -23,7 +22,6 @@ class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewData
         imageRepository: ImageRepository,
         dateFormatter: NSDateFormatter,
         newsItemControllerProvider: NewsItemControllerProvider,
-        settingsController: SettingsController,
         analyticsService: AnalyticsService,
         tabBarItemStylist: TabBarItemStylist,
         theme: Theme
@@ -32,7 +30,6 @@ class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewData
             self.imageRepository = imageRepository
             self.dateFormatter = dateFormatter
             self.newsItemControllerProvider = newsItemControllerProvider
-            self.settingsController = settingsController
             self.analyticsService = analyticsService
             self.tabBarItemStylist = tabBarItemStylist
             self.theme = theme
@@ -57,9 +54,6 @@ class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewData
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let settingsIcon = UIImage(named: "settingsIcon")
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: settingsIcon, style: .Plain, target: self, action: "didTapSettings")
 
         navigationItem.title = NSLocalizedString("NewsFeed_navigationTitle", comment: "")
 
@@ -163,13 +157,6 @@ class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewData
         let controller = self.newsItemControllerProvider.provideInstanceWithNewsItem(newsItem)
 
         self.navigationController?.pushViewController(controller, animated: true)
-    }
-
-    // MARK: Actions
-
-    func didTapSettings() {
-        self.analyticsService.trackCustomEventWithName("Tapped 'Settings' in News nav bar", customAttributes: nil)
-        self.navigationController?.pushViewController(self.settingsController, animated: true)
     }
 
     // MARK: Private

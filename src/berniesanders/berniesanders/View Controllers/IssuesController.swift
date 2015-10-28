@@ -3,7 +3,6 @@ import UIKit
 class IssuesController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     private let issueRepository: IssueRepository
     private let issueControllerProvider: IssueControllerProvider
-    private let settingsController: SettingsController
     private let analyticsService: AnalyticsService
     private let tabBarItemStylist: TabBarItemStylist
     private let theme: Theme
@@ -17,13 +16,11 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
 
     init(issueRepository: IssueRepository,
         issueControllerProvider: IssueControllerProvider,
-        settingsController: SettingsController,
         analyticsService: AnalyticsService!,
         tabBarItemStylist: TabBarItemStylist,
         theme: Theme) {
         self.issueRepository = issueRepository
         self.issueControllerProvider = issueControllerProvider
-        self.settingsController = settingsController
         self.analyticsService = analyticsService
         self.tabBarItemStylist = tabBarItemStylist
         self.theme = theme
@@ -47,9 +44,6 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let settingsIcon = UIImage(named: "settingsIcon")
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: settingsIcon, style: .Plain, target: self, action: "didTapSettings")
 
         navigationItem.title = NSLocalizedString("Issues_navigationTitle", comment: "")
 
@@ -139,12 +133,5 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
 
         let controller = self.issueControllerProvider.provideInstanceWithIssue(issue)
         self.navigationController!.pushViewController(controller, animated: true)
-    }
-
-    // MARK: Actions
-
-    func didTapSettings() {
-        self.analyticsService.trackCustomEventWithName("Tapped 'Settings' in Issues nav bar", customAttributes: nil)
-        self.navigationController?.pushViewController(self.settingsController, animated: true)
     }
 }
