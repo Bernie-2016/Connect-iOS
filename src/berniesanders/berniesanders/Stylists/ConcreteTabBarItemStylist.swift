@@ -8,7 +8,6 @@ class ConcreteTabBarItemStylist: TabBarItemStylist {
     }
 
     func applyThemeToBarBarItem(tabBarItem: UITabBarItem, image: UIImage, selectedImage: UIImage) {
-        tabBarItem.titlePositionAdjustment = UIOffsetMake(0, -4)
         tabBarItem.image = image.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
         tabBarItem.selectedImage = selectedImage.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
 

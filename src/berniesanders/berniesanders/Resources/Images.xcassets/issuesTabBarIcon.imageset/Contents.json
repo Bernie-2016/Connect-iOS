@@ -2,17 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "issuesTabBarIcon.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "issuesTabBarIcon@2x.png"
+      "filename" : "issuesTabBarIcon@2x.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "issuesTabBarIcon@3x.png"
+      "filename" : "issuesTabBarIcon@3x.png",
+      "scale" : "3x"
     }
   ],
   "info" : {
