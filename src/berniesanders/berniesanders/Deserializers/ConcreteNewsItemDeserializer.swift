@@ -7,7 +7,6 @@ class ConcreteNewsItemDeserializer: NewsItemDeserializer {
     init(stringContentSanitizer: StringContentSanitizer) {
         self.stringContentSanitizer = stringContentSanitizer
         self.dateFormatter = NSDateFormatter()
-        self.dateFormatter.timeZone = NSTimeZone(name: "UTC")
         self.dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"  // "2015-08-28T05:10:21"
     }
 
