@@ -163,10 +163,10 @@ class NewsFeedControllerSpecs: QuickSpec {
 
                     let newsItems = [newsItemA, newsItemB]
 
-                    it("has 2 sections") {
+                    it("has 1 section") {
                         self.newsItemRepository.lastCompletionBlock!(newsItems)
 
-                        expect(self.subject.tableView.numberOfSections).to(equal(2))
+                        expect(self.subject.tableView.numberOfSections).to(equal(1))
                     }
 
                     it("shows the table view, and stops the loading spinner") {
@@ -176,110 +176,25 @@ class NewsFeedControllerSpecs: QuickSpec {
                         expect(self.subject.loadingIndicatorView.isAnimating()).to(equal(false))
                     }
 
-                    describe("the top news story") {
-                        var cell : NewsHeadlineTableViewCell!
-
-                        it("shows the first news item as a headline news cell") {
-                            self.newsItemRepository.lastCompletionBlock!(newsItems)
-
-                            expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(1))
-
-                            cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NewsHeadlineTableViewCell
-                            expect(cell.titleLabel.text).to(equal("Bernie to release new album"))
-                        }
-
-                        it("styles the cell") {
-                            self.newsItemRepository.lastCompletionBlock!(newsItems)
-                            cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NewsHeadlineTableViewCell
-
-                            expect(cell.titleLabel.textColor).to(equal(UIColor.yellowColor()))
-                            expect(cell.titleLabel.font).to(equal(UIFont.systemFontOfSize(666)))
-                            expect(cell.titleLabel.backgroundColor).to(equal(UIColor.orangeColor()))
-                        }
-
-                        context("when the first news item has an image URL") {
-
-                            beforeEach() {
-                                self.newsItemRepository.lastCompletionBlock!(newsItems)
-
-                                cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NewsHeadlineTableViewCell
-                            }
-
-                            it("sets a placeholder image") {
-                                let placeholderImage = UIImage(named: "newsHeadlinePlaceholder")!
-                                let expectedImageData = UIImagePNGRepresentation(placeholderImage)
-                                let headlineImageData = UIImagePNGRepresentation(cell.headlineImageView.image!)
-
-                                expect(headlineImageData).to(equal(expectedImageData))
-                            }
-
-                            it("makes a request for the image") {
-                                expect(self.imageRepository.imageRequested).to(beTrue())
-                                expect(self.imageRepository.lastReceivedURL).to(beIdenticalTo(newsItemA.imageURL))
-                            }
-
-                            context("when the image loads successfully") {
-                                it("shows the loaded image in the image view") {
-                                    let storyImage = TestUtils.testImageNamed("bernie", type: "jpg")
-
-                                    self.imageRepository.lastRequestDeferred.resolveWithValue(storyImage)
-
-                                    let expectedImageData = UIImagePNGRepresentation(storyImage)
-                                    let storyImageData = UIImagePNGRepresentation(cell.headlineImageView.image!)
-
-                                    expect(storyImageData).to(equal(expectedImageData))
-                                }
-                            }
-
-                            context("when the image cannot be loaded") {
-                                it("still shows the placeholder image") {
-                                    let placeholderImage = UIImage(named: "newsHeadlinePlaceholder")!
-                                    let expectedImageData = UIImagePNGRepresentation(placeholderImage)
-                                    let headlineImageData = UIImagePNGRepresentation(cell.headlineImageView.image!)
-
-                                    expect(headlineImageData).to(equal(expectedImageData))
-                                }
-                            }
-                        }
-
-                        context("when the first news item does not have an image URL") {
-                            beforeEach {
-                                let newsItemWithoutImage =  NewsItem(title: "no pics", date: newsItemADate, body: "nope", imageURL: nil, url: NSURL())
-
-                                self.newsItemRepository.lastCompletionBlock!([newsItemWithoutImage])
-
-                                cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NewsHeadlineTableViewCell
-                            }
-
-                            it("sets a default image") {
-                                let defaultImage = UIImage(named: "newsHeadlinePlaceholder")!
-                                let expectedImageData = UIImagePNGRepresentation(defaultImage)
-                                let headlineImageData = UIImagePNGRepresentation(cell.headlineImageView.image!)
-
-                                expect(headlineImageData).to(equal(expectedImageData))
-                            }
-
-                            it("does not make a request for an image") {
-                                expect(self.imageRepository.imageRequested).to(beFalse())
-                            }
-                        }
-                    }
-
-                    describe("the rest of the news stories") {
+                    describe("the content of the news feed") {
                         beforeEach {
                             self.newsItemRepository.lastCompletionBlock!(newsItems)
                         }
 
-                        it("shows the items in the table with upcased text") {
-                            expect(self.subject.tableView.numberOfRowsInSection(1)).to(equal(1))
+                        it("shows the news items in the table") {
+                            expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(2))
 
-                            let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! TitleSubTitleTableViewCell
-                            expect(cell.titleLabel.text).to(equal("Bernie up in the polls!"))
-                            expect(cell.dateLabel.text).to(equal("1/2/70"))
+                            let cellA = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! TitleSubTitleTableViewCell
+                            expect(cellA.titleLabel.text).to(equal("Bernie to release new album"))
+                            expect(cellA.dateLabel.text).to(equal("1/1/70"))
+
+                            let cellB = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! TitleSubTitleTableViewCell
+                            expect(cellB.titleLabel.text).to(equal("Bernie up in the polls!"))
+                            expect(cellB.dateLabel.text).to(equal("1/2/70"))
                         }
 
                         it("styles the items in the table") {
-                            let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! TitleSubTitleTableViewCell
+                            let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! TitleSubTitleTableViewCell
 
                             expect(cell.titleLabel.textColor).to(equal(UIColor.magentaColor()))
                             expect(cell.titleLabel.font).to(equal(UIFont.boldSystemFontOfSize(20)))
@@ -329,24 +244,27 @@ class NewsFeedControllerSpecs: QuickSpec {
 
                             let newsItems = [newsItemA, newsItemB]
 
-                            it("has 2 sections") {
+                            it("has 1 section") {
                                 self.newsItemRepository.lastCompletionBlock!(newsItems)
 
-                                expect(self.subject.tableView.numberOfSections).to(equal(2))
+                                expect(self.subject.tableView.numberOfSections).to(equal(1))
                             }
 
-                            describe("the top news story") {
-                                var cell : NewsHeadlineTableViewCell!
 
-                                it("shows the first news item as a headline news cell") {
-                                    self.newsItemRepository.lastCompletionBlock!(newsItems)
+                            it("shows the news items in the table") {
+                                self.newsItemRepository.lastCompletionBlock!(newsItems)
 
-                                    expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(1))
+                                expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(2))
 
-                                    cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NewsHeadlineTableViewCell
-                                    expect(cell.titleLabel.text).to(equal("Bernie to release new album"))
-                                }
+                                let cellA = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! TitleSubTitleTableViewCell
+                                expect(cellA.titleLabel.text).to(equal("Bernie to release new album"))
+                                expect(cellA.dateLabel.text).to(equal("1/1/70"))
+
+                                let cellB = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! TitleSubTitleTableViewCell
+                                expect(cellB.titleLabel.text).to(equal("Bernie up in the polls!"))
+                                expect(cellB.dateLabel.text).to(equal("1/2/70"))
                             }
+
                         }
                     }
                 }
@@ -361,56 +279,25 @@ class NewsFeedControllerSpecs: QuickSpec {
                     let newsItems = [expectedNewsItemA, expectedNewsItemB]
 
                     self.newsItemRepository.lastCompletionBlock!(newsItems)
+
+                    let tableView = self.subject.tableView
+                    tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 1))
                 }
 
                 afterEach {
                     self.navigationController.popViewControllerAnimated(false)
                 }
 
-                context("that is the headline news story") {
-                    beforeEach {
-                        let tableView = self.subject.tableView
-                        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-                        tableView.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: UITableViewScrollPosition.Middle)
-                        tableView.delegate?.tableView!(tableView, didSelectRowAtIndexPath: indexPath)
-                    }
 
-                    it("tracks the content view with the analytics service") {
-                        expect(self.analyticsService.lastContentViewName).to(equal(expectedNewsItemA.title))
-                        expect(self.analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.NewsItem))
-                        expect(self.analyticsService.lastContentViewID).to(equal(expectedNewsItemA.url.absoluteString))
-                    }
-
-                    it("should push a correctly configured news item view controller onto the nav stack") {
-                        expect(self.newsItemControllerProvider.lastNewsItem).to(beIdenticalTo(expectedNewsItemA))
-                        expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.newsItemControllerProvider.controller))
-                    }
-
-                    describe("and the view is shown again") {
-                        it("deselects the selected table row") {
-                            self.subject.viewWillAppear(false)
-
-                            expect(self.subject.tableView.indexPathForSelectedRow).to(beNil())
-                        }
-                    }
+                it("should push a correctly configured news item view controller onto the nav stack") {
+                    expect(self.newsItemControllerProvider.lastNewsItem).to(beIdenticalTo(expectedNewsItemB))
+                    expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.newsItemControllerProvider.controller))
                 }
 
-                context("that is another news story") {
-                    beforeEach {
-                        let tableView = self.subject.tableView
-                        tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 1))
-                    }
-
-                    it("should push a correctly configured news item view controller onto the nav stack") {
-                        expect(self.newsItemControllerProvider.lastNewsItem).to(beIdenticalTo(expectedNewsItemB))
-                        expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.newsItemControllerProvider.controller))
-                    }
-
-                    it("tracks the content view with the analytics service") {
-                        expect(self.analyticsService.lastContentViewName).to(equal(expectedNewsItemB.title))
-                        expect(self.analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.NewsItem))
-                        expect(self.analyticsService.lastContentViewID).to(equal(expectedNewsItemB.url.absoluteString))
-                    }
+                it("tracks the content view with the analytics service") {
+                    expect(self.analyticsService.lastContentViewName).to(equal(expectedNewsItemB.title))
+                    expect(self.analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.NewsItem))
+                    expect(self.analyticsService.lastContentViewID).to(equal(expectedNewsItemB.url.absoluteString))
                 }
             }
         }

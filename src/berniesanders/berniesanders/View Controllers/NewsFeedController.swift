@@ -72,7 +72,6 @@ class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.separatorInset = UIEdgeInsetsZero
         tableView.hidden = true
         tableView.registerClass(TitleSubTitleTableViewCell.self, forCellReuseIdentifier: "regularCell")
-        tableView.registerClass(NewsHeadlineTableViewCell.self, forCellReuseIdentifier: "headlineCell")
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "errorCell")
         tableView.dataSource = self
         tableView.delegate = self
@@ -110,7 +109,7 @@ class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewData
     // MARK: UITableViewDataSource
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return !self.errorLoadingNews && self.newsItems.count > 0 ? 2 : 1
+        return 1
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -122,17 +121,13 @@ class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewData
             return 0
         }
 
-        return section == 0 ? 1 : self.newsItems.count - 1
+        return self.newsItems.count
     }
 
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if self.errorLoadingNews {
             return self.tableView(tableView, errorCellForRowAtIndexPath: indexPath)
-        }
-
-        if indexPath.section == 0 {
-            return self.tableView(tableView, headlineCellForRowAtIndexPath: indexPath)
         } else {
             return self.tableView(tableView, titleSubTitleTableViewCellForRowAtIndexPath: indexPath)
         }
@@ -141,16 +136,11 @@ class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewData
     // MARK: UITableViewDelegate
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return !self.errorLoadingNews && indexPath.section == 0 ? 180.0 : 90.0
+        return 90.0
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var newsItem: NewsItem!
-        if indexPath.section == 0 {
-            newsItem = self.newsItems[0]
-        } else {
-            newsItem = self.newsItems[indexPath.row + 1]
-        }
+        let newsItem = self.newsItems[indexPath.row]
 
         self.analyticsService.trackContentViewWithName(newsItem.title, type: .NewsItem, id: newsItem.url.absoluteString)
 
@@ -169,36 +159,11 @@ class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewData
         return cell
     }
 
-    func tableView(tableView: UITableView, headlineCellForRowAtIndexPath indexPath: NSIndexPath) -> NewsHeadlineTableViewCell {
-        // swiftlint:disable force_cast
-        let cell = tableView.dequeueReusableCellWithIdentifier("headlineCell", forIndexPath: indexPath) as! NewsHeadlineTableViewCell
-        // swiftlint:enable force_cast
-
-        let newsItem = self.newsItems[indexPath.row]
-        cell.titleLabel.text = newsItem.title
-        cell.titleLabel.textColor = self.theme.newsfeedHeadlineTitleColor()
-        cell.titleLabel.backgroundColor = self.theme.newsFeedHeadlineTitleBackgroundColor()
-        cell.titleLabel.font = self.theme.newsFeedHeadlineTitleFont()
-
-        cell.headlineImageView.image = UIImage(named: "newsHeadlinePlaceholder")
-
-        if newsItem.imageURL != nil {
-            self.imageRepository.fetchImageWithURL(newsItem.imageURL!).then({ (image) -> AnyObject! in
-                UIView.transitionWithView(cell.headlineImageView, duration: 0.2, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: { () -> Void in
-                    cell.headlineImageView.image = image as? UIImage
-                    }, completion: nil)
-                return image
-                }, error: nil)
-        }
-
-        return cell
-    }
-
     func tableView(tableView: UITableView, titleSubTitleTableViewCellForRowAtIndexPath indexPath: NSIndexPath) -> TitleSubTitleTableViewCell {
         // swiftlint:disable force_cast
         let cell = tableView.dequeueReusableCellWithIdentifier("regularCell", forIndexPath: indexPath) as! TitleSubTitleTableViewCell
         // swiftlint:enable force_cast
-        let newsItem = self.newsItems[indexPath.row + 1]
+        let newsItem = self.newsItems[indexPath.row]
         cell.titleLabel.text = newsItem.title
         cell.titleLabel.font = self.theme.newsFeedTitleFont()
         cell.titleLabel.textColor = self.theme.newsFeedTitleColor()
