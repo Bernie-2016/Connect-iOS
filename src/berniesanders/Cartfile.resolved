@@ -1,5 +1,5 @@
-github "Quick/Nimble" "v2.0.0"
+github "Quick/Nimble" "v3.0.0"
 github "smileyborg/PureLayout" "v3.0.1"
-github "Quick/Quick" "v0.6.0"
+github "Quick/Quick" "v0.8.0"
 github "rs/SDWebImage" "3.7.3"
 github "kseebaldt/deferred" "0.3.0"
