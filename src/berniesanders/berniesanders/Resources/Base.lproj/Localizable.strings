@@ -109,4 +109,7 @@
 "Welcome_viewPrivacyPolicyTitle" = "Privacy Policy";
 "Welcome_agreeToTermsNoticeText" = "By tapping continue, you confirm that you have read our Terms and Conditions and Privacy Policy. This app is not affiliated with or authorized by Bernie 2016.";
 
+// Time intervals
+
+"TimeInterval_today" = "Today";
 

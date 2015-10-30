@@ -4,7 +4,7 @@ import PureLayout
 class NewsItemController: UIViewController {
     let newsItem: NewsItem
     let imageRepository: ImageRepository
-    let dateFormatter: NSDateFormatter
+    let humanTimeIntervalFormatter: HumanTimeIntervalFormatter
     let analyticsService: AnalyticsService
     let urlOpener: URLOpener
     let urlAttributionPresenter: URLAttributionPresenter
@@ -22,7 +22,7 @@ class NewsItemController: UIViewController {
     init(
         newsItem: NewsItem,
         imageRepository: ImageRepository,
-        dateFormatter: NSDateFormatter,
+        humanTimeIntervalFormatter: HumanTimeIntervalFormatter,
         analyticsService: AnalyticsService,
         urlOpener: URLOpener,
         urlAttributionPresenter: URLAttributionPresenter,
@@ -30,7 +30,7 @@ class NewsItemController: UIViewController {
 
         self.newsItem = newsItem
         self.imageRepository = imageRepository
-        self.dateFormatter = dateFormatter
+        self.humanTimeIntervalFormatter = humanTimeIntervalFormatter
         self.analyticsService = analyticsService
         self.urlOpener = urlOpener
         self.urlAttributionPresenter = urlAttributionPresenter
@@ -59,7 +59,7 @@ class NewsItemController: UIViewController {
         containerView.addSubview(self.attributionLabel)
         containerView.addSubview(self.viewOriginalButton)
 
-        dateLabel.text = self.dateFormatter.stringFromDate(self.newsItem.date)
+        dateLabel.text = self.humanTimeIntervalFormatter.humanDaysSinceDate(self.newsItem.date)
         titleButton.setTitle(self.newsItem.title, forState: .Normal)
         titleButton.addTarget(self, action: "didTapViewOriginal:", forControlEvents: .TouchUpInside)
         bodyTextView.text = self.newsItem.body
@@ -135,15 +135,15 @@ class NewsItemController: UIViewController {
         self.storyImageView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Bottom)
         self.storyImageView.autoSetDimension(.Height, toSize: screenBounds.height / 3)
         self.storyImageView.clipsToBounds = true
-        
+
         let titleLabel = self.titleButton.titleLabel!
-        
+
         titleLabel.numberOfLines = 3
         titleLabel.preferredMaxLayoutWidth = screenBounds.width - 8
         NSLayoutConstraint.autoSetPriority(1000, forConstraints: { () -> Void in
             self.titleButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.storyImageView, withOffset: 25)
         })
-        
+
         NSLayoutConstraint.autoSetPriority(500, forConstraints: { () -> Void in
             self.titleButton.autoPinEdgeToSuperviewEdge(.Top, withInset: 25)
         })
@@ -153,12 +153,12 @@ class NewsItemController: UIViewController {
         self.titleButton.autoPinEdgeToSuperviewMargin(.Trailing)
         self.titleButton.layoutIfNeeded()
         self.titleButton.autoSetDimension(.Height, toSize: titleLabel.frame.height)
-        
+
         self.dateLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.titleButton, withOffset: 5)
         self.dateLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
         self.dateLabel.autoPinEdgeToSuperviewMargin(.Trailing)
         self.dateLabel.autoSetDimension(.Height, toSize: 20)
-        
+
         self.bodyTextView.scrollEnabled = false
         self.bodyTextView.textContainerInset = UIEdgeInsetsZero
         self.bodyTextView.textContainer.lineFragmentPadding = 0;
@@ -167,7 +167,7 @@ class NewsItemController: UIViewController {
         self.bodyTextView.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.dateLabel, withOffset: 14)
         self.bodyTextView.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
         self.bodyTextView.autoPinEdgeToSuperviewMargin(.Right)
-        
+
         self.attributionLabel.numberOfLines = 0
         self.attributionLabel.textAlignment = .Center
         self.attributionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.bodyTextView, withOffset: 16)

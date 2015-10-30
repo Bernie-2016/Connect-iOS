@@ -3,6 +3,8 @@ import Quick
 import Nimble
 @testable import berniesanders
 
+
+
 class NewsItemFakeTheme : FakeTheme {
     override func newsItemDateFont() -> UIFont { return UIFont.boldSystemFontOfSize(20) }
     override func newsItemDateColor() -> UIColor { return UIColor.magentaColor() }
@@ -24,9 +26,9 @@ class NewsItemControllerSpec : QuickSpec {
     let newsItemImageURL = NSURL(string: "http://a.com")!
     let newsItemURL = NSURL(string: "http//b.com")!
     let newsItemDate = NSDate(timeIntervalSince1970: 1441081523)
-    var newsItem : NewsItem!
-    var imageRepository : FakeImageRepository!
-    let dateFormatter = NSDateFormatter()
+    var newsItem: NewsItem!
+    var imageRepository: FakeImageRepository!
+    var humanTimeIntervalFormatter: FakeHumanTimeIntervalFormatter!
     var analyticsService: FakeAnalyticsService!
     var urlOpener: FakeURLOpener!
     var urlAttributionPresenter: FakeURLAttributionPresenter!
@@ -36,8 +38,7 @@ class NewsItemControllerSpec : QuickSpec {
         describe("NewsItemController") {
             beforeEach {
                 self.imageRepository = FakeImageRepository()
-                self.dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
-                self.dateFormatter.timeZone = NSTimeZone(name: "UTC")
+                self.humanTimeIntervalFormatter = FakeHumanTimeIntervalFormatter()
                 self.analyticsService = FakeAnalyticsService()
                 self.urlOpener = FakeURLOpener()
                 self.urlAttributionPresenter = FakeURLAttributionPresenter()
@@ -50,7 +51,7 @@ class NewsItemControllerSpec : QuickSpec {
                     self.subject = NewsItemController(
                         newsItem: self.newsItem,
                         imageRepository: self.imageRepository,
-                        dateFormatter: self.dateFormatter,
+                        humanTimeIntervalFormatter: self.humanTimeIntervalFormatter,
                         analyticsService: self.analyticsService,
                         urlOpener: self.urlOpener,
                         urlAttributionPresenter: self.urlAttributionPresenter,
@@ -182,8 +183,9 @@ class NewsItemControllerSpec : QuickSpec {
                         expect(self.subject.bodyTextView.text).to(equal("some body text"))
                     }
 
-                    it("displays the date") {
-                        expect(self.subject.dateLabel.text).to(equal("9/1/15"))
+                    it("displays the date using the human date formatter") {
+                        expect(self.humanTimeIntervalFormatter.lastFormattedDate).to(beIdenticalTo(self.newsItemDate))
+                        expect(self.subject.dateLabel.text).to(equal("human date"))
                     }
 
                     it("uses the presenter to get attribution text for the issue") {
@@ -262,7 +264,7 @@ class NewsItemControllerSpec : QuickSpec {
                     self.subject = NewsItemController(
                         newsItem: newsItem,
                         imageRepository: self.imageRepository,
-                        dateFormatter: self.dateFormatter,
+                        humanTimeIntervalFormatter: self.humanTimeIntervalFormatter,
                         analyticsService: self.analyticsService,
                         urlOpener: self.urlOpener,
                         urlAttributionPresenter: self.urlAttributionPresenter,

@@ -52,7 +52,7 @@ class FakeNewsItemRepository : berniesanders.NewsItemRepository {
 class FakeNewsItemControllerProvider : berniesanders.NewsItemControllerProvider {
     let controller = NewsItemController(newsItem: NewsItem(title: "a", date: NSDate(), body: "a body", imageURL: NSURL(), url: NSURL()),
         imageRepository: FakeImageRepository(),
-        dateFormatter: NSDateFormatter(),
+        humanTimeIntervalFormatter: FakeHumanTimeIntervalFormatter(),
         analyticsService: FakeAnalyticsService(),
         urlOpener: FakeURLOpener(),
         urlAttributionPresenter: FakeURLAttributionPresenter(),

@@ -2,15 +2,15 @@ import Foundation
 import WebImage
 
 class ConcreteNewsItemControllerProvider: NewsItemControllerProvider {
-    private let dateFormatter: NSDateFormatter
+    private let humanTimeIntervalFormatter: HumanTimeIntervalFormatter
     private let imageRepository: ImageRepository
     private let analyticsService: AnalyticsService
     private let urlOpener: URLOpener
     private let urlAttributionPresenter: URLAttributionPresenter
     private let theme: Theme
 
-    init(dateFormatter: NSDateFormatter, imageRepository: ImageRepository, analyticsService: AnalyticsService, urlOpener: URLOpener, urlAttributionPresenter: URLAttributionPresenter, theme: Theme) {
-        self.dateFormatter = dateFormatter
+    init(humanTimeIntervalFormatter: HumanTimeIntervalFormatter, imageRepository: ImageRepository, analyticsService: AnalyticsService, urlOpener: URLOpener, urlAttributionPresenter: URLAttributionPresenter, theme: Theme) {
+        self.humanTimeIntervalFormatter = humanTimeIntervalFormatter
         self.imageRepository = imageRepository
         self.analyticsService = analyticsService
         self.urlOpener = urlOpener
@@ -22,7 +22,7 @@ class ConcreteNewsItemControllerProvider: NewsItemControllerProvider {
         return NewsItemController(
             newsItem: newsItem,
             imageRepository: self.imageRepository,
-            dateFormatter: self.dateFormatter,
+            humanTimeIntervalFormatter: self.humanTimeIntervalFormatter,
             analyticsService: self.analyticsService,
             urlOpener: self.urlOpener,
             urlAttributionPresenter: self.urlAttributionPresenter,

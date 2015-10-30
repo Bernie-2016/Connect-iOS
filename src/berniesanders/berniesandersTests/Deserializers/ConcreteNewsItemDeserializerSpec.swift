@@ -15,8 +15,8 @@ class ConcreteNewsItemDeserializerSpec : QuickSpec {
             it("deserializes the news items correctly with the sanitizer") {
                 let dateFormatter = NSDateFormatter()
                 dateFormatter.dateFormat = "dd-MM-yyyy"
-                
-                
+
+
                 let data = TestUtils.dataFromFixtureFileNamed("news_feed", type: "json")
 
                 let jsonDictionary = (try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions())) as! NSDictionary

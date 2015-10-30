@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 NSFontAttributeName: defaultTheme.navigationBarFont(), NSForegroundColorAttributeName: defaultTheme.navigationBarTextColor()], forState: UIControlState.Normal)
 
 
+            let dateProvider = ConcreteDateProvider()
             let mainQueue = NSOperationQueue.mainQueue()
             let mainScreen = UIScreen.mainScreen()
             let sharedURLSession = NSURLSession.sharedSession()
@@ -72,13 +73,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 newsItemDeserializer: newsItemDeserializer,
                 operationQueue: mainQueue
             )
+
+        let humanTimeIntervalFormatter = ConcreteHumanTimeIntervalFormatter(dateProvider: dateProvider)
             let longDateFormatter = NSDateFormatter()
             longDateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
             let fullDateWithTimeFormatter = NSDateFormatter()
             fullDateWithTimeFormatter.dateFormat = "EEEE MMMM d, y h:mm a z"
 
             let newsItemControllerProvider = ConcreteNewsItemControllerProvider(
-                dateFormatter: longDateFormatter, imageRepository: imageRepository, analyticsService: analyticsService, urlOpener: urlOpener, urlAttributionPresenter: urlAttributionPresenter, theme: defaultTheme
+                humanTimeIntervalFormatter: humanTimeIntervalFormatter, imageRepository: imageRepository, analyticsService: analyticsService, urlOpener: urlOpener, urlAttributionPresenter: urlAttributionPresenter, theme: defaultTheme
             )
 
             let newsFeedController = NewsFeedController(
