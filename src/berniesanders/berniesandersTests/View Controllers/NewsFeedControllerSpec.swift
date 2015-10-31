@@ -32,6 +32,10 @@ class NewsFakeTheme : FakeTheme {
         return UIColor.brownColor()
     }
 
+    override func newsFeedBreakingDateColor() -> UIColor {
+        return UIColor.whiteColor()
+    }
+
     override func newsFeedHeadlineTitleFont() -> UIFont {
         return UIFont.systemFontOfSize(666)
     }
@@ -219,8 +223,31 @@ class NewsFeedControllerSpecs: QuickSpec {
                             expect(cell.titleLabel.font).to(equal(UIFont.boldSystemFontOfSize(20)))
                             expect(cell.excerptLabel.textColor).to(equal(UIColor.redColor()))
                             expect(cell.excerptLabel.font).to(equal(UIFont.boldSystemFontOfSize(21)))
-                            expect(cell.dateLabel.textColor).to(equal(UIColor.brownColor()))
                             expect(cell.dateLabel.font).to(equal(UIFont.italicSystemFontOfSize(13)))
+                        }
+
+                        context("when the news item is from today") {
+                            beforeEach {
+                                self.timeIntervalFormatter.returnsDaysSinceDate = 0
+                            }
+
+                            it("uses the breaking styling for the date label") {
+                                let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NewsItemTableViewCell
+
+                                expect(cell.dateLabel.textColor).to(equal(UIColor.whiteColor()))
+                            }
+                        }
+
+                        context("when the news item is from the past") {
+                            beforeEach {
+                                self.timeIntervalFormatter.returnsDaysSinceDate = 1
+                            }
+
+                            it("uses the standard styling for the date label") {
+                                let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NewsItemTableViewCell
+
+                                expect(cell.dateLabel.textColor).to(equal(UIColor.brownColor()))
+                            }
                         }
                     }
                 })

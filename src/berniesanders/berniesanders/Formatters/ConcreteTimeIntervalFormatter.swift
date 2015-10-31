@@ -28,9 +28,7 @@ class ConcreteTimeIntervalFormatter: TimeIntervalFormatter {
 
     }
 
-    // MARK: Private
-
-    private func numberOfDaysSinceDate(date: NSDate) -> Int {
+    func numberOfDaysSinceDate(date: NSDate) -> Int {
         return NSCalendar.currentCalendar().components(.Day, fromDate: date, toDate: self.dateProvider.now(), options: []).day
     }
 }

@@ -106,5 +106,24 @@ class ConcreteTimeIntervalFormatterSpec: QuickSpec {
                 }
             }
         }
+
+        describe("the number of days passed since a given date until the current date") {
+            it("returns the correct number of days") {
+                let now = NSDate(timeIntervalSince1970: 60 * 60 * 24 * 3)
+                self.dateProvider.currentDate = now
+
+                var relativeDate = NSDate(timeIntervalSince1970: 60 * 60 * 24 * 3)
+                expect(self.subject.numberOfDaysSinceDate(relativeDate)).to(equal(0))
+
+                relativeDate = NSDate(timeIntervalSince1970: 60 * 60 * 24 * 2)
+                expect(self.subject.numberOfDaysSinceDate(relativeDate)).to(equal(1))
+
+                relativeDate = NSDate(timeIntervalSince1970: 60 * 60 * 24)
+                expect(self.subject.numberOfDaysSinceDate(relativeDate)).to(equal(2))
+
+                relativeDate = NSDate(timeIntervalSince1970: 0)
+                expect(self.subject.numberOfDaysSinceDate(relativeDate)).to(equal(3))
+            }
+        }
     }
 }

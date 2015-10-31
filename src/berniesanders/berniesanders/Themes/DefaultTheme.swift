@@ -37,6 +37,7 @@ class DefaultTheme: Theme {
     func newsFeedExcerptFont() -> UIFont { return UIFont(name: "Georgia", size: 14)! }
     func newsFeedExcerptColor() -> UIColor {  return self.mineShaftColor() }
     func newsFeedDateColor() -> UIColor { return self.mineShaftColor() }
+    func newsFeedBreakingDateColor() -> UIColor { return self.thunderbirdColor() }
     func newsFeedDateFont() -> UIFont { return UIFont.systemFontOfSize(12) }
 
     // MARK!: issues
@@ -151,6 +152,7 @@ class DefaultTheme: Theme {
     func scorpionColor() -> UIColor { return UIColor(rgba: "#606060") }
     func tundoraColor() -> UIColor { return UIColor(rgba: "#414141") }
     func mineShaftColor() -> UIColor { return UIColor(rgba: "#333333") }
+    func thunderbirdColor() -> UIColor { return UIColor(rgba: "#C01E0E") }
 
     // MARK: font definitions
 

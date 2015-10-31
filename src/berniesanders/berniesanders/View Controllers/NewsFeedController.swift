@@ -148,16 +148,22 @@ extension NewsFeedController: UITableViewDataSource {
         // swiftlint:enable force_cast
         let newsItem = self.newsItems[indexPath.row]
         cell.titleLabel.text = newsItem.title
+        cell.excerptLabel.text = newsItem.excerpt
+        cell.dateLabel.text = self.timeIntervalFormatter.abbreviatedHumanDaysSinceDate(newsItem.date)
+
         cell.titleLabel.font = self.theme.newsFeedTitleFont()
         cell.titleLabel.textColor = self.theme.newsFeedTitleColor()
 
-        cell.excerptLabel.text = newsItem.excerpt
         cell.excerptLabel.font = self.theme.newsFeedExcerptFont()
         cell.excerptLabel.textColor = self.theme.newsFeedExcerptColor()
 
-        cell.dateLabel.text = self.timeIntervalFormatter.abbreviatedHumanDaysSinceDate(newsItem.date)
         cell.dateLabel.font = self.theme.newsFeedDateFont()
-        cell.dateLabel.textColor = self.theme.newsFeedDateColor()
+
+        if self.timeIntervalFormatter.numberOfDaysSinceDate(newsItem.date) == 0 {
+            cell.dateLabel.textColor =  self.theme.newsFeedBreakingDateColor()
+        } else {
+            cell.dateLabel.textColor =  self.theme.newsFeedDateColor()
+        }
 
         return cell
     }
