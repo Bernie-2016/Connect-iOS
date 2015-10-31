@@ -74,7 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 operationQueue: mainQueue
             )
 
-        let humanTimeIntervalFormatter = ConcreteHumanTimeIntervalFormatter(dateProvider: dateProvider)
+            let humanTimeIntervalFormatter = ConcreteHumanTimeIntervalFormatter(dateProvider: dateProvider)
             let longDateFormatter = NSDateFormatter()
             longDateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
             let fullDateWithTimeFormatter = NSDateFormatter()
@@ -87,7 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let newsFeedController = NewsFeedController(
                 newsItemRepository: newsItemRepository,
                 imageRepository: imageRepository,
-                dateFormatter: longDateFormatter,
+                humanTimeIntervalFormatter: humanTimeIntervalFormatter,
                 newsItemControllerProvider: newsItemControllerProvider,
                 analyticsService: analyticsService,
                 tabBarItemStylist: tabBarItemStylist,

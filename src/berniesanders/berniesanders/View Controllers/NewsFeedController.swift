@@ -4,7 +4,7 @@ import UIKit
 class NewsFeedController: UIViewController {
     private let newsItemRepository: NewsItemRepository
     private let imageRepository: ImageRepository
-    private let dateFormatter: NSDateFormatter
+    private let humanTimeIntervalFormatter: HumanTimeIntervalFormatter
     private let newsItemControllerProvider: NewsItemControllerProvider
     private let analyticsService: AnalyticsService
     private let tabBarItemStylist: TabBarItemStylist
@@ -20,7 +20,7 @@ class NewsFeedController: UIViewController {
     init(
         newsItemRepository: NewsItemRepository,
         imageRepository: ImageRepository,
-        dateFormatter: NSDateFormatter,
+        humanTimeIntervalFormatter: HumanTimeIntervalFormatter,
         newsItemControllerProvider: NewsItemControllerProvider,
         analyticsService: AnalyticsService,
         tabBarItemStylist: TabBarItemStylist,
@@ -28,7 +28,7 @@ class NewsFeedController: UIViewController {
         ) {
             self.newsItemRepository = newsItemRepository
             self.imageRepository = imageRepository
-            self.dateFormatter = dateFormatter
+            self.humanTimeIntervalFormatter = humanTimeIntervalFormatter
             self.newsItemControllerProvider = newsItemControllerProvider
             self.analyticsService = analyticsService
             self.tabBarItemStylist = tabBarItemStylist
@@ -67,6 +67,7 @@ class NewsFeedController: UIViewController {
         view.addSubview(tableView)
         view.addSubview(loadingIndicatorView)
 
+        tableView.separatorStyle = .None
         tableView.contentInset = UIEdgeInsetsZero
         tableView.layoutMargins = UIEdgeInsetsZero
         tableView.separatorInset = UIEdgeInsetsZero
@@ -75,6 +76,7 @@ class NewsFeedController: UIViewController {
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "errorCell")
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.backgroundColor = self.theme.newsFeedBackgroundColor()
         tableView.autoPinEdgesToSuperviewEdges()
 
         loadingIndicatorView.startAnimating()
@@ -152,7 +154,11 @@ extension NewsFeedController: UITableViewDataSource {
         cell.titleLabel.font = self.theme.newsFeedTitleFont()
         cell.titleLabel.textColor = self.theme.newsFeedTitleColor()
 
-        cell.dateLabel.text = self.dateFormatter.stringFromDate(newsItem.date)
+        cell.excerptLabel.text = newsItem.excerpt
+        cell.excerptLabel.font = self.theme.newsFeedExcerptFont()
+        cell.excerptLabel.textColor = self.theme.newsFeedExcerptColor()
+
+        cell.dateLabel.text = self.humanTimeIntervalFormatter.abbreviatedHumanDaysSinceDate(newsItem.date)
         cell.dateLabel.font = self.theme.newsFeedDateFont()
         cell.dateLabel.textColor = self.theme.newsFeedDateColor()
 
@@ -164,7 +170,7 @@ extension NewsFeedController: UITableViewDataSource {
 
 extension NewsFeedController: UITableViewDelegate {
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 90.0
+        return 165.0
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

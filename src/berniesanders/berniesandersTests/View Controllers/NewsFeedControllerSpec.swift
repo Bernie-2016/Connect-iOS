@@ -5,12 +5,24 @@ import UIKit
 @testable import berniesanders
 
 class NewsFakeTheme : FakeTheme {
+    override func newsFeedBackgroundColor() -> UIColor {
+        return UIColor.blueColor()
+    }
+
     override func newsFeedTitleFont() -> UIFont {
         return UIFont.boldSystemFontOfSize(20)
     }
 
     override func newsFeedTitleColor() -> UIColor {
         return UIColor.magentaColor()
+    }
+
+    override func newsFeedExcerptFont() -> UIFont {
+        return UIFont.boldSystemFontOfSize(21)
+    }
+
+    override func newsFeedExcerptColor() -> UIColor {
+        return UIColor.redColor()
     }
 
     override func newsFeedDateFont() -> UIFont {
@@ -68,7 +80,8 @@ class FakeNewsItemControllerProvider : berniesanders.NewsItemControllerProvider 
 class NewsFeedControllerSpecs: QuickSpec {
     var subject: NewsFeedController!
     let newsItemRepository: FakeNewsItemRepository! =  FakeNewsItemRepository()
-    var imageRepository : FakeImageRepository!
+    var imageRepository: FakeImageRepository!
+    var humanTimeIntervalFormatter: FakeHumanTimeIntervalFormatter!
     let newsItemControllerProvider = FakeNewsItemControllerProvider()
     var analyticsService: FakeAnalyticsService!
     var tabBarItemStylist: FakeTabBarItemStylist!
@@ -80,17 +93,15 @@ class NewsFeedControllerSpecs: QuickSpec {
         describe("NewsFeedController") {
             beforeEach {
                 self.imageRepository = FakeImageRepository()
+                self.humanTimeIntervalFormatter = FakeHumanTimeIntervalFormatter()
                 self.analyticsService = FakeAnalyticsService()
                 self.tabBarItemStylist = FakeTabBarItemStylist()
                 let theme = NewsFakeTheme()
-                let dateFormatter = NSDateFormatter()
-                dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
-                dateFormatter.timeZone = NSTimeZone(name: "UTC")
 
                 self.subject = NewsFeedController(
                     newsItemRepository: self.newsItemRepository,
                     imageRepository: self.imageRepository,
-                    dateFormatter: dateFormatter,
+                    humanTimeIntervalFormatter: self.humanTimeIntervalFormatter,
                     newsItemControllerProvider: self.newsItemControllerProvider,
                     analyticsService: self.analyticsService,
                     tabBarItemStylist: self.tabBarItemStylist,
@@ -133,8 +144,12 @@ class NewsFeedControllerSpecs: QuickSpec {
                 expect(subViews.contains(self.subject.loadingIndicatorView)).to(beTrue())
             }
 
-            it("styles the spinner from the theme") {
+            it("styles the spinner with the theme") {
                 expect(self.subject.loadingIndicatorView.color).to(equal(UIColor.greenColor()))
+            }
+
+            it("styles the table with the theme") {
+                expect(self.subject.tableView.backgroundColor).to(equal(UIColor.blueColor()))
             }
 
             it("sets the spinner up to hide when stopped") {
@@ -158,8 +173,8 @@ class NewsFeedControllerSpecs: QuickSpec {
                 describe("when the news repository returns some news items", {
                     let newsItemADate = NSDate(timeIntervalSince1970: 0)
                     let newsItemBDate = NSDate(timeIntervalSince1970: 86401)
-                    let newsItemA = NewsItem(title: "Bernie to release new album", date: newsItemADate, body: "yeahhh", excerpt: "excerpt", imageURL: NSURL(string: "http://bs.com")!, url: NSURL())
-                    let newsItemB = NewsItem(title: "Bernie up in the polls!", date: newsItemBDate, body: "body text", excerpt: "excerpt", imageURL: NSURL(), url: NSURL())
+                    let newsItemA = NewsItem(title: "Bernie to release new album", date: newsItemADate, body: "yeahhh", excerpt: "excerpt A", imageURL: NSURL(string: "http://bs.com")!, url: NSURL())
+                    let newsItemB = NewsItem(title: "Bernie up in the polls!", date: newsItemBDate, body: "body text", excerpt: "excerpt B", imageURL: NSURL(), url: NSURL())
 
                     let newsItems = [newsItemA, newsItemB]
 
@@ -181,16 +196,20 @@ class NewsFeedControllerSpecs: QuickSpec {
                             self.newsItemRepository.lastCompletionBlock!(newsItems)
                         }
 
-                        it("shows the news items in the table") {
+                        it("shows the news items in the table, using the time interval formatter") {
                             expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(2))
 
                             let cellA = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NewsItemTableViewCell
                             expect(cellA.titleLabel.text).to(equal("Bernie to release new album"))
-                            expect(cellA.dateLabel.text).to(equal("1/1/70"))
+                            expect(cellA.excerptLabel.text).to(equal("excerpt A"))
+                            expect(cellA.dateLabel.text).to(equal("abbreviated 1970-01-01 00:00:00 +0000"))
 
                             let cellB = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! NewsItemTableViewCell
                             expect(cellB.titleLabel.text).to(equal("Bernie up in the polls!"))
-                            expect(cellB.dateLabel.text).to(equal("1/2/70"))
+                            expect(cellB.excerptLabel.text).to(equal("excerpt B"))
+                            expect(cellB.dateLabel.text).to(equal("abbreviated 1970-01-02 00:00:01 +0000"))
+
+                            expect(self.humanTimeIntervalFormatter.lastAbbreviatedDates).to(equal([newsItemADate, newsItemBDate]))
                         }
 
                         it("styles the items in the table") {
@@ -198,6 +217,8 @@ class NewsFeedControllerSpecs: QuickSpec {
 
                             expect(cell.titleLabel.textColor).to(equal(UIColor.magentaColor()))
                             expect(cell.titleLabel.font).to(equal(UIFont.boldSystemFontOfSize(20)))
+                            expect(cell.excerptLabel.textColor).to(equal(UIColor.redColor()))
+                            expect(cell.excerptLabel.font).to(equal(UIFont.boldSystemFontOfSize(21)))
                             expect(cell.dateLabel.textColor).to(equal(UIColor.brownColor()))
                             expect(cell.dateLabel.font).to(equal(UIFont.italicSystemFontOfSize(13)))
                         }
@@ -258,13 +279,13 @@ class NewsFeedControllerSpecs: QuickSpec {
 
                                 let cellA = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NewsItemTableViewCell
                                 expect(cellA.titleLabel.text).to(equal("Bernie to release new album"))
-                                expect(cellA.dateLabel.text).to(equal("1/1/70"))
+                                expect(cellA.dateLabel.text).to(equal("abbreviated 1970-01-01 00:00:00 +0000"))
+
 
                                 let cellB = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! NewsItemTableViewCell
                                 expect(cellB.titleLabel.text).to(equal("Bernie up in the polls!"))
-                                expect(cellB.dateLabel.text).to(equal("1/2/70"))
+                                expect(cellB.dateLabel.text).to(equal("abbreviated 1970-01-02 00:00:01 +0000"))
                             }
-
                         }
                     }
                 }

@@ -31,13 +31,15 @@ class DefaultTheme: Theme {
 
     // MARK: News Feed
 
-    func newsFeedTitleColor() -> UIColor { return self.cornflowerBlueColor() }
-    func newsFeedTitleFont() -> UIFont { return UIFont.systemFontOfSize(14) }
+    func newsFeedBackgroundColor() -> UIColor { return self.mercuryColor() }
+    func newsFeedTitleColor() -> UIColor { return self.tundoraColor() }
+    func newsFeedTitleFont() -> UIFont { return UIFont(name: "Georgia-Bold", size: 20)! }
+    func newsFeedExcerptFont() -> UIFont { return UIFont(name: "Georgia", size: 14)! }
+    func newsFeedExcerptColor() -> UIColor {  return self.mineShaftColor() }
+    func newsFeedDateColor() -> UIColor { return self.mineShaftColor() }
+    func newsFeedDateFont() -> UIFont { return UIFont.systemFontOfSize(12) }
 
-    func newsFeedDateColor() -> UIColor { return self.carnationColor() }
-    func newsFeedDateFont() -> UIFont { return UIFont.boldSystemFontOfSize(12) }
-
-    // MARK: issues
+    // MARK!: issues
 
     func issuesFeedTitleFont() -> UIFont { return UIFont.systemFontOfSize(14) }
     func issuesFeedTitleColor() -> UIColor { return self.cornflowerBlueColor() }
@@ -142,10 +144,13 @@ class DefaultTheme: Theme {
     func silverColor() -> UIColor { return UIColor(rgba: "#c9c9c9") }
     func codGrayColor() -> UIColor { return UIColor(rgba: "#1b1b1b") }
     func galleryColor() -> UIColor { return UIColor(rgba: "#ececec") }
+    func mercuryColor() -> UIColor { return UIColor(rgba: "#e8e8e8") }
     func altoColor() -> UIColor { return UIColor(rgba: "#dcdcdc") }
     func silverChaliceColor() -> UIColor { return UIColor(rgba: "#a5a5a5") }
     func chathamsBlueColor() -> UIColor { return UIColor(rgba: "#194d7b") }
     func scorpionColor() -> UIColor { return UIColor(rgba: "#606060") }
+    func tundoraColor() -> UIColor { return UIColor(rgba: "#414141") }
+    func mineShaftColor() -> UIColor { return UIColor(rgba: "#333333") }
 
     // MARK: font definitions
 

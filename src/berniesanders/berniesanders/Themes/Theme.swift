@@ -29,8 +29,11 @@ protocol Theme {
 
     // MARK: News Feed
 
+    func newsFeedBackgroundColor() -> UIColor
     func newsFeedTitleFont() -> UIFont
     func newsFeedTitleColor() -> UIColor
+    func newsFeedExcerptFont() -> UIFont
+    func newsFeedExcerptColor() -> UIColor
     func newsFeedDateFont() -> UIFont
     func newsFeedDateColor() -> UIColor
     func newsFeedHeadlineTitleFont() -> UIFont

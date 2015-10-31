@@ -8,12 +8,29 @@ class ConcreteHumanTimeIntervalFormatter: HumanTimeIntervalFormatter {
     }
 
     func humanDaysSinceDate(date: NSDate) -> String {
-        let numberOfDays = NSCalendar.currentCalendar().components(.Day, fromDate: date, toDate: self.dateProvider.now(), options: []).day
+        let numberOfDays = self.numberOfDaysSinceDate(date)
 
         if numberOfDays == 0 {
             return NSLocalizedString("TimeInterval_today", comment: "")
         } else {
             return NSString.localizedStringWithFormat(NSLocalizedString("TimeInterval_daysAgo %d", comment: ""),  numberOfDays) as String
         }
+    }
+
+    func abbreviatedHumanDaysSinceDate(date: NSDate) -> String {
+        let numberOfDays = self.numberOfDaysSinceDate(date)
+
+        if numberOfDays == 0 {
+            return NSLocalizedString("TimeInterval_now", comment: "")
+        } else {
+            return NSString.localizedStringWithFormat(NSLocalizedString("TimeInterval_abbreviatedDaysAgo %d", comment: ""),  numberOfDays) as String
+        }
+
+    }
+
+    // MARK: Private
+
+    private func numberOfDaysSinceDate(date: NSDate) -> Int {
+        return NSCalendar.currentCalendar().components(.Day, fromDate: date, toDate: self.dateProvider.now(), options: []).day
     }
 }

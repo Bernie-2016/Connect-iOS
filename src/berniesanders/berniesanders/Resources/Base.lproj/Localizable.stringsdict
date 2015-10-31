@@ -16,5 +16,19 @@
                 <string>%.d days ago</string>
             </dict>
         </dict>
+        <key>TimeInterval_abbreviatedDaysAgo %d</key>
+        <dict>
+            <key>NSStringLocalizedFormatKey</key>
+            <string>%#@days@</string>
+            <key>days</key>
+            <dict>
+                <key>NSStringFormatSpecTypeKey</key>
+                <string>NSStringPluralRuleType</string>
+                <key>NSStringFormatValueTypeKey</key>
+                <string>d</string>
+                <key>other</key>
+                <string>%.dd</string>
+            </dict>
+        </dict>
     </dict>
 </plist>
