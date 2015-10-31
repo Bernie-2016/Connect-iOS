@@ -1,6 +1,5 @@
 import UIKit
 
-// swiftlint:disable type_body_length
 class NewsFeedController: UIViewController {
     private let newsItemRepository: NewsItemRepository
     private let imageRepository: ImageRepository
@@ -17,15 +16,13 @@ class NewsFeedController: UIViewController {
 
     private var newsItems: Array<NewsItem>!
 
-    init(
-        newsItemRepository: NewsItemRepository,
-        imageRepository: ImageRepository,
-        humanTimeIntervalFormatter: HumanTimeIntervalFormatter,
-        newsItemControllerProvider: NewsItemControllerProvider,
-        analyticsService: AnalyticsService,
-        tabBarItemStylist: TabBarItemStylist,
-        theme: Theme
-        ) {
+    init(newsItemRepository: NewsItemRepository,
+         imageRepository: ImageRepository,
+         humanTimeIntervalFormatter: HumanTimeIntervalFormatter,
+         newsItemControllerProvider: NewsItemControllerProvider,
+         analyticsService: AnalyticsService,
+         tabBarItemStylist: TabBarItemStylist,
+         theme: Theme ) {
             self.newsItemRepository = newsItemRepository
             self.imageRepository = imageRepository
             self.humanTimeIntervalFormatter = humanTimeIntervalFormatter
@@ -183,5 +180,3 @@ extension NewsFeedController: UITableViewDelegate {
         self.navigationController?.pushViewController(controller, animated: true)
     }
 }
-
-// swiftlint:enable type_body_length
