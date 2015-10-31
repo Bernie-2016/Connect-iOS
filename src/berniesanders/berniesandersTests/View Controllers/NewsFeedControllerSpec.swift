@@ -184,17 +184,17 @@ class NewsFeedControllerSpecs: QuickSpec {
                         it("shows the news items in the table") {
                             expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(2))
 
-                            let cellA = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! TitleSubTitleTableViewCell
+                            let cellA = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NewsItemTableViewCell
                             expect(cellA.titleLabel.text).to(equal("Bernie to release new album"))
                             expect(cellA.dateLabel.text).to(equal("1/1/70"))
 
-                            let cellB = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! TitleSubTitleTableViewCell
+                            let cellB = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! NewsItemTableViewCell
                             expect(cellB.titleLabel.text).to(equal("Bernie up in the polls!"))
                             expect(cellB.dateLabel.text).to(equal("1/2/70"))
                         }
 
                         it("styles the items in the table") {
-                            let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! TitleSubTitleTableViewCell
+                            let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NewsItemTableViewCell
 
                             expect(cell.titleLabel.textColor).to(equal(UIColor.magentaColor()))
                             expect(cell.titleLabel.font).to(equal(UIFont.boldSystemFontOfSize(20)))
@@ -256,11 +256,11 @@ class NewsFeedControllerSpecs: QuickSpec {
 
                                 expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(2))
 
-                                let cellA = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! TitleSubTitleTableViewCell
+                                let cellA = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NewsItemTableViewCell
                                 expect(cellA.titleLabel.text).to(equal("Bernie to release new album"))
                                 expect(cellA.dateLabel.text).to(equal("1/1/70"))
 
-                                let cellB = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! TitleSubTitleTableViewCell
+                                let cellB = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! NewsItemTableViewCell
                                 expect(cellB.titleLabel.text).to(equal("Bernie up in the polls!"))
                                 expect(cellB.dateLabel.text).to(equal("1/2/70"))
                             }

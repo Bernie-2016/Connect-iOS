@@ -71,7 +71,7 @@ class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.layoutMargins = UIEdgeInsetsZero
         tableView.separatorInset = UIEdgeInsetsZero
         tableView.hidden = true
-        tableView.registerClass(TitleSubTitleTableViewCell.self, forCellReuseIdentifier: "regularCell")
+        tableView.registerClass(NewsItemTableViewCell.self, forCellReuseIdentifier: "regularCell")
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "errorCell")
         tableView.dataSource = self
         tableView.delegate = self
@@ -129,7 +129,7 @@ class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewData
         if self.errorLoadingNews {
             return self.tableView(tableView, errorCellForRowAtIndexPath: indexPath)
         } else {
-            return self.tableView(tableView, titleSubTitleTableViewCellForRowAtIndexPath: indexPath)
+            return self.tableView(tableView, newsItemTableViewCellForRowAtIndexPath: indexPath)
         }
     }
 
@@ -159,9 +159,9 @@ class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewData
         return cell
     }
 
-    func tableView(tableView: UITableView, titleSubTitleTableViewCellForRowAtIndexPath indexPath: NSIndexPath) -> TitleSubTitleTableViewCell {
+    func tableView(tableView: UITableView, newsItemTableViewCellForRowAtIndexPath indexPath: NSIndexPath) -> NewsItemTableViewCell {
         // swiftlint:disable force_cast
-        let cell = tableView.dequeueReusableCellWithIdentifier("regularCell", forIndexPath: indexPath) as! TitleSubTitleTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("regularCell", forIndexPath: indexPath) as! NewsItemTableViewCell
         // swiftlint:enable force_cast
         let newsItem = self.newsItems[indexPath.row]
         cell.titleLabel.text = newsItem.title

@@ -130,7 +130,7 @@
 		65CA5E8C1B86CB6B0001D870 /* ConcreteNewsItemRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CA5E8B1B86CB6B0001D870 /* ConcreteNewsItemRepository.swift */; };
 		65CA5E911B86E3D00001D870 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CA5E901B86E3D00001D870 /* Theme.swift */; };
 		65CA5E931B86E4A00001D870 /* DefaultTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CA5E921B86E4A00001D870 /* DefaultTheme.swift */; };
-		65CA5E971B86E5950001D870 /* TitleSubTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CA5E961B86E5950001D870 /* TitleSubTitleTableViewCell.swift */; };
+		65CA5E971B86E5950001D870 /* NewsItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CA5E961B86E5950001D870 /* NewsItemTableViewCell.swift */; };
 		65CA5E991B86E76D0001D870 /* PureLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65CA5E981B86E76D0001D870 /* PureLayout.framework */; };
 		65D0ECE11BBAD7780063B1D0 /* EventRSVPControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D0ECE01BBAD7780063B1D0 /* EventRSVPControllerProvider.swift */; };
 		65D0ECE31BBAD7A20063B1D0 /* EventRSVPController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D0ECE21BBAD7A20063B1D0 /* EventRSVPController.swift */; };
@@ -334,7 +334,7 @@
 		65CA5E8B1B86CB6B0001D870 /* ConcreteNewsItemRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteNewsItemRepository.swift; sourceTree = "<group>"; };
 		65CA5E901B86E3D00001D870 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		65CA5E921B86E4A00001D870 /* DefaultTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultTheme.swift; sourceTree = "<group>"; };
-		65CA5E961B86E5950001D870 /* TitleSubTitleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleSubTitleTableViewCell.swift; sourceTree = "<group>"; };
+		65CA5E961B86E5950001D870 /* NewsItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsItemTableViewCell.swift; sourceTree = "<group>"; };
 		65CA5E981B86E76D0001D870 /* PureLayout.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PureLayout.framework; path = Carthage/Build/iOS/PureLayout.framework; sourceTree = "<group>"; };
 		65D0ECE01BBAD7780063B1D0 /* EventRSVPControllerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventRSVPControllerProvider.swift; sourceTree = "<group>"; };
 		65D0ECE21BBAD7A20063B1D0 /* EventRSVPController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventRSVPController.swift; sourceTree = "<group>"; };
@@ -718,7 +718,7 @@
 				DF90BBCA1BC5090200F9FA53 /* DonateTableViewCell.swift */,
 				654773FC1BB1EEBC00B87670 /* EventListTableViewCell.swift */,
 				6587FF5D1B8A818A00AC65F1 /* IssueTableViewCell.swift */,
-				65CA5E961B86E5950001D870 /* TitleSubTitleTableViewCell.swift */,
+				65CA5E961B86E5950001D870 /* NewsItemTableViewCell.swift */,
 			);
 			path = "Table View Cells";
 			sourceTree = "<group>";
@@ -1159,6 +1159,7 @@
 				653885201B94E63400DCA808 /* NewsItemControllerProvider.swift in Sources */,
 				65EDD62B1B8BC83900F545B8 /* NewsItemDeserializer.swift in Sources */,
 				65EC4CF81B866B9200DD4C83 /* NewsItemRepository.swift in Sources */,
+				65CA5E971B86E5950001D870 /* NewsItemTableViewCell.swift in Sources */,
 				6538851E1B90F8DA00DCA808 /* NSJSONSerializationProvider.swift in Sources */,
 				655906EC1BC459DE00D7B0BA /* OnboardingRouter.swift in Sources */,
 				65318D0D1BAA530F0029A15D /* PrivacyPolicyController.swift in Sources */,
@@ -1169,7 +1170,6 @@
 				654A4DD51BCD861C00FC523F /* TabBarItemStylist.swift in Sources */,
 				6518CBAF1BC1C6B2000C238C /* TermsAndConditionsController.swift in Sources */,
 				65CA5E911B86E3D00001D870 /* Theme.swift in Sources */,
-				65CA5E971B86E5950001D870 /* TitleSubTitleTableViewCell.swift in Sources */,
 				65F5F64E1B87B8300049353C /* UIColorExtension.swift in Sources */,
 				65205F301BC098B2005A55F2 /* URLAttributionPresenter.swift in Sources */,
 				6505C9551BBA00B9008DD278 /* URLOpener.swift in Sources */,
