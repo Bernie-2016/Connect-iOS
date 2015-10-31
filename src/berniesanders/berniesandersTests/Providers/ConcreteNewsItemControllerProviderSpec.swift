@@ -5,7 +5,7 @@ import Nimble
 
 class ConcreteNewsItemControllerProviderSpec : QuickSpec {
     var subject : ConcreteNewsItemControllerProvider!
-    let humanTimeIntervalFormatter = FakeHumanTimeIntervalFormatter()
+    let timeIntervalFormatter = FakeTimeIntervalFormatter()
     let imageRepository = FakeImageRepository()
     let analyticsService = FakeAnalyticsService()
     let urlOpener = FakeURLOpener()
@@ -17,7 +17,7 @@ class ConcreteNewsItemControllerProviderSpec : QuickSpec {
         describe("providing an instance with a news item") {
             beforeEach {
                 self.subject = ConcreteNewsItemControllerProvider(
-                    humanTimeIntervalFormatter: self.humanTimeIntervalFormatter,
+                    timeIntervalFormatter: self.timeIntervalFormatter,
                     imageRepository: self.imageRepository,
                     analyticsService: self.analyticsService,
                     urlOpener: self.urlOpener,
@@ -34,7 +34,7 @@ class ConcreteNewsItemControllerProviderSpec : QuickSpec {
                 expect(controller).to(beAnInstanceOf(NewsItemController.self))
                 expect(controller.newsItem).to(beIdenticalTo(newsItem))
                 expect(controller.imageRepository as? FakeImageRepository).to(beIdenticalTo(self.imageRepository))
-                expect(controller.humanTimeIntervalFormatter as? FakeHumanTimeIntervalFormatter).to(beIdenticalTo(self.humanTimeIntervalFormatter))
+                expect(controller.timeIntervalFormatter as? FakeTimeIntervalFormatter).to(beIdenticalTo(self.timeIntervalFormatter))
                 expect(controller.analyticsService as? FakeAnalyticsService).to(beIdenticalTo(self.analyticsService))
                 expect(controller.theme as? FakeTheme).to(beIdenticalTo(self.theme))
             }

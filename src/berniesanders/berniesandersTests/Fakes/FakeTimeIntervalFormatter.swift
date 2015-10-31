@@ -1,7 +1,7 @@
 import Foundation
 @testable import berniesanders
 
-class FakeHumanTimeIntervalFormatter: HumanTimeIntervalFormatter {
+class FakeTimeIntervalFormatter: TimeIntervalFormatter {
     var lastFormattedDate: NSDate!
     var lastAbbreviatedDates: [NSDate] = []
 

@@ -3,7 +3,7 @@ import UIKit
 class NewsFeedController: UIViewController {
     private let newsItemRepository: NewsItemRepository
     private let imageRepository: ImageRepository
-    private let humanTimeIntervalFormatter: HumanTimeIntervalFormatter
+    private let timeIntervalFormatter: TimeIntervalFormatter
     private let newsItemControllerProvider: NewsItemControllerProvider
     private let analyticsService: AnalyticsService
     private let tabBarItemStylist: TabBarItemStylist
@@ -18,14 +18,14 @@ class NewsFeedController: UIViewController {
 
     init(newsItemRepository: NewsItemRepository,
          imageRepository: ImageRepository,
-         humanTimeIntervalFormatter: HumanTimeIntervalFormatter,
+         timeIntervalFormatter: TimeIntervalFormatter,
          newsItemControllerProvider: NewsItemControllerProvider,
          analyticsService: AnalyticsService,
          tabBarItemStylist: TabBarItemStylist,
          theme: Theme ) {
             self.newsItemRepository = newsItemRepository
             self.imageRepository = imageRepository
-            self.humanTimeIntervalFormatter = humanTimeIntervalFormatter
+            self.timeIntervalFormatter = timeIntervalFormatter
             self.newsItemControllerProvider = newsItemControllerProvider
             self.analyticsService = analyticsService
             self.tabBarItemStylist = tabBarItemStylist
@@ -155,7 +155,7 @@ extension NewsFeedController: UITableViewDataSource {
         cell.excerptLabel.font = self.theme.newsFeedExcerptFont()
         cell.excerptLabel.textColor = self.theme.newsFeedExcerptColor()
 
-        cell.dateLabel.text = self.humanTimeIntervalFormatter.abbreviatedHumanDaysSinceDate(newsItem.date)
+        cell.dateLabel.text = self.timeIntervalFormatter.abbreviatedHumanDaysSinceDate(newsItem.date)
         cell.dateLabel.font = self.theme.newsFeedDateFont()
         cell.dateLabel.textColor = self.theme.newsFeedDateColor()
 

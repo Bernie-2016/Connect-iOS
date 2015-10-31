@@ -10,16 +10,16 @@ class FakeDateProvider: DateProvider {
     }
 }
 
-class ConcreteHumanTimeIntervalFormatterSpec: QuickSpec {
-    var subject: HumanTimeIntervalFormatter!
+class ConcreteTimeIntervalFormatterSpec: QuickSpec {
+    var subject: TimeIntervalFormatter!
     var dateProvider: FakeDateProvider!
 
     override func spec() {
-        describe("HumanTimeIntervalFormatter") {
+        describe("TimeIntervalFormatter") {
             beforeEach {
                 self.dateProvider = FakeDateProvider()
 
-                self.subject = ConcreteHumanTimeIntervalFormatter(
+                self.subject = ConcreteTimeIntervalFormatter(
                     dateProvider: self.dateProvider
                 )
             }

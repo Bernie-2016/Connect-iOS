@@ -28,7 +28,7 @@ class NewsItemControllerSpec : QuickSpec {
     let newsItemDate = NSDate(timeIntervalSince1970: 1441081523)
     var newsItem: NewsItem!
     var imageRepository: FakeImageRepository!
-    var humanTimeIntervalFormatter: FakeHumanTimeIntervalFormatter!
+    var timeIntervalFormatter: FakeTimeIntervalFormatter!
     var analyticsService: FakeAnalyticsService!
     var urlOpener: FakeURLOpener!
     var urlAttributionPresenter: FakeURLAttributionPresenter!
@@ -38,7 +38,7 @@ class NewsItemControllerSpec : QuickSpec {
         describe("NewsItemController") {
             beforeEach {
                 self.imageRepository = FakeImageRepository()
-                self.humanTimeIntervalFormatter = FakeHumanTimeIntervalFormatter()
+                self.timeIntervalFormatter = FakeTimeIntervalFormatter()
                 self.analyticsService = FakeAnalyticsService()
                 self.urlOpener = FakeURLOpener()
                 self.urlAttributionPresenter = FakeURLAttributionPresenter()
@@ -51,7 +51,7 @@ class NewsItemControllerSpec : QuickSpec {
                     self.subject = NewsItemController(
                         newsItem: self.newsItem,
                         imageRepository: self.imageRepository,
-                        humanTimeIntervalFormatter: self.humanTimeIntervalFormatter,
+                        timeIntervalFormatter: self.timeIntervalFormatter,
                         analyticsService: self.analyticsService,
                         urlOpener: self.urlOpener,
                         urlAttributionPresenter: self.urlAttributionPresenter,
@@ -184,7 +184,7 @@ class NewsItemControllerSpec : QuickSpec {
                     }
 
                     it("displays the date using the human date formatter") {
-                        expect(self.humanTimeIntervalFormatter.lastFormattedDate).to(beIdenticalTo(self.newsItemDate))
+                        expect(self.timeIntervalFormatter.lastFormattedDate).to(beIdenticalTo(self.newsItemDate))
                         expect(self.subject.dateLabel.text).to(equal("human date"))
                     }
 
@@ -264,7 +264,7 @@ class NewsItemControllerSpec : QuickSpec {
                     self.subject = NewsItemController(
                         newsItem: newsItem,
                         imageRepository: self.imageRepository,
-                        humanTimeIntervalFormatter: self.humanTimeIntervalFormatter,
+                        timeIntervalFormatter: self.timeIntervalFormatter,
                         analyticsService: self.analyticsService,
                         urlOpener: self.urlOpener,
                         urlAttributionPresenter: self.urlAttributionPresenter,

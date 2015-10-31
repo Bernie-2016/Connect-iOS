@@ -4,7 +4,7 @@ import PureLayout
 class NewsItemController: UIViewController {
     let newsItem: NewsItem
     let imageRepository: ImageRepository
-    let humanTimeIntervalFormatter: HumanTimeIntervalFormatter
+    let timeIntervalFormatter: TimeIntervalFormatter
     let analyticsService: AnalyticsService
     let urlOpener: URLOpener
     let urlAttributionPresenter: URLAttributionPresenter
@@ -22,7 +22,7 @@ class NewsItemController: UIViewController {
     init(
         newsItem: NewsItem,
         imageRepository: ImageRepository,
-        humanTimeIntervalFormatter: HumanTimeIntervalFormatter,
+        timeIntervalFormatter: TimeIntervalFormatter,
         analyticsService: AnalyticsService,
         urlOpener: URLOpener,
         urlAttributionPresenter: URLAttributionPresenter,
@@ -30,7 +30,7 @@ class NewsItemController: UIViewController {
 
         self.newsItem = newsItem
         self.imageRepository = imageRepository
-        self.humanTimeIntervalFormatter = humanTimeIntervalFormatter
+        self.timeIntervalFormatter = timeIntervalFormatter
         self.analyticsService = analyticsService
         self.urlOpener = urlOpener
         self.urlAttributionPresenter = urlAttributionPresenter
@@ -59,7 +59,7 @@ class NewsItemController: UIViewController {
         containerView.addSubview(self.attributionLabel)
         containerView.addSubview(self.viewOriginalButton)
 
-        dateLabel.text = self.humanTimeIntervalFormatter.humanDaysSinceDate(self.newsItem.date)
+        dateLabel.text = self.timeIntervalFormatter.humanDaysSinceDate(self.newsItem.date)
         titleButton.setTitle(self.newsItem.title, forState: .Normal)
         titleButton.addTarget(self, action: "didTapViewOriginal:", forControlEvents: .TouchUpInside)
         bodyTextView.text = self.newsItem.body

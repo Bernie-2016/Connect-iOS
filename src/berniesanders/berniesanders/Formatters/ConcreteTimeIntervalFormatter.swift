@@ -1,6 +1,6 @@
 import Foundation
 
-class ConcreteHumanTimeIntervalFormatter: HumanTimeIntervalFormatter {
+class ConcreteTimeIntervalFormatter: TimeIntervalFormatter {
     let dateProvider: DateProvider
 
     init(dateProvider: DateProvider) {

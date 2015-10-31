@@ -1,4 +1,4 @@
-protocol HumanTimeIntervalFormatter {
+protocol TimeIntervalFormatter {
     func humanDaysSinceDate(date: NSDate) -> String
     func abbreviatedHumanDaysSinceDate(date: NSDate) -> String
 }

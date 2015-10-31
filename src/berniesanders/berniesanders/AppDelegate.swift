@@ -74,20 +74,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 operationQueue: mainQueue
             )
 
-            let humanTimeIntervalFormatter = ConcreteHumanTimeIntervalFormatter(dateProvider: dateProvider)
+            let timeIntervalFormatter = ConcreteTimeIntervalFormatter(dateProvider: dateProvider)
             let longDateFormatter = NSDateFormatter()
             longDateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
             let fullDateWithTimeFormatter = NSDateFormatter()
             fullDateWithTimeFormatter.dateFormat = "EEEE MMMM d, y h:mm a z"
 
             let newsItemControllerProvider = ConcreteNewsItemControllerProvider(
-                humanTimeIntervalFormatter: humanTimeIntervalFormatter, imageRepository: imageRepository, analyticsService: analyticsService, urlOpener: urlOpener, urlAttributionPresenter: urlAttributionPresenter, theme: defaultTheme
+                timeIntervalFormatter: timeIntervalFormatter, imageRepository: imageRepository, analyticsService: analyticsService, urlOpener: urlOpener, urlAttributionPresenter: urlAttributionPresenter, theme: defaultTheme
             )
 
             let newsFeedController = NewsFeedController(
                 newsItemRepository: newsItemRepository,
                 imageRepository: imageRepository,
-                humanTimeIntervalFormatter: humanTimeIntervalFormatter,
+                timeIntervalFormatter: timeIntervalFormatter,
                 newsItemControllerProvider: newsItemControllerProvider,
                 analyticsService: analyticsService,
                 tabBarItemStylist: tabBarItemStylist,

@@ -64,7 +64,7 @@ class FakeNewsItemRepository : berniesanders.NewsItemRepository {
 class FakeNewsItemControllerProvider : berniesanders.NewsItemControllerProvider {
     let controller = NewsItemController(newsItem: NewsItem(title: "a", date: NSDate(), body: "a body", excerpt: "excerpt", imageURL: NSURL(), url: NSURL()),
         imageRepository: FakeImageRepository(),
-        humanTimeIntervalFormatter: FakeHumanTimeIntervalFormatter(),
+        timeIntervalFormatter: FakeTimeIntervalFormatter(),
         analyticsService: FakeAnalyticsService(),
         urlOpener: FakeURLOpener(),
         urlAttributionPresenter: FakeURLAttributionPresenter(),
@@ -81,7 +81,7 @@ class NewsFeedControllerSpecs: QuickSpec {
     var subject: NewsFeedController!
     let newsItemRepository: FakeNewsItemRepository! =  FakeNewsItemRepository()
     var imageRepository: FakeImageRepository!
-    var humanTimeIntervalFormatter: FakeHumanTimeIntervalFormatter!
+    var timeIntervalFormatter: FakeTimeIntervalFormatter!
     let newsItemControllerProvider = FakeNewsItemControllerProvider()
     var analyticsService: FakeAnalyticsService!
     var tabBarItemStylist: FakeTabBarItemStylist!
@@ -93,7 +93,7 @@ class NewsFeedControllerSpecs: QuickSpec {
         describe("NewsFeedController") {
             beforeEach {
                 self.imageRepository = FakeImageRepository()
-                self.humanTimeIntervalFormatter = FakeHumanTimeIntervalFormatter()
+                self.timeIntervalFormatter = FakeTimeIntervalFormatter()
                 self.analyticsService = FakeAnalyticsService()
                 self.tabBarItemStylist = FakeTabBarItemStylist()
                 let theme = NewsFakeTheme()
@@ -101,7 +101,7 @@ class NewsFeedControllerSpecs: QuickSpec {
                 self.subject = NewsFeedController(
                     newsItemRepository: self.newsItemRepository,
                     imageRepository: self.imageRepository,
-                    humanTimeIntervalFormatter: self.humanTimeIntervalFormatter,
+                    timeIntervalFormatter: self.timeIntervalFormatter,
                     newsItemControllerProvider: self.newsItemControllerProvider,
                     analyticsService: self.analyticsService,
                     tabBarItemStylist: self.tabBarItemStylist,
@@ -209,7 +209,7 @@ class NewsFeedControllerSpecs: QuickSpec {
                             expect(cellB.excerptLabel.text).to(equal("excerpt B"))
                             expect(cellB.dateLabel.text).to(equal("abbreviated 1970-01-02 00:00:01 +0000"))
 
-                            expect(self.humanTimeIntervalFormatter.lastAbbreviatedDates).to(equal([newsItemADate, newsItemBDate]))
+                            expect(self.timeIntervalFormatter.lastAbbreviatedDates).to(equal([newsItemADate, newsItemBDate]))
                         }
 
                         it("styles the items in the table") {
