@@ -28,6 +28,7 @@ class ConcreteNewsItemDeserializerSpec : QuickSpec {
                 var expectedDate = dateFormatter.dateFromString("09-09-2015")
                 expect(newsItemA.date).to(equal(expectedDate))
                 expect(newsItemA.body).to(equal("Larry Cohen reports from Iowa:\n\nOn a hot Iowa Labor Day weekend, everyone was feeling the Bern! SANITIZED!"))
+                expect(newsItemA.excerpt).to(equal("Larry Cohen excerpt SANITIZED!"))
                 expect(newsItemA.imageURL).to(equal(NSURL(string: "https://berniesanders.com/wp-content/uploads/2015/09/iowa-600x250.jpg")))
                 expect(newsItemA.url).to(equal(NSURL(string: "https://berniesanders.com/on-the-road-for-bernie-in-iowa/")))
 
@@ -36,6 +37,7 @@ class ConcreteNewsItemDeserializerSpec : QuickSpec {
                 expectedDate = dateFormatter.dateFromString("07-09-2015")
                 expect(newsItemB.date).to(equal(expectedDate))
                 expect(newsItemB.body).to(equal("Labor Day is a time for honoring the working people of this country. SANITIZED!"))
+                expect(newsItemB.excerpt).to(equal("Labor Day excerpt SANITIZED!"))
                 expect(newsItemB.imageURL).to(equal(NSURL(string: "https://berniesanders.com/wp-content/uploads/2015/08/20150818-Bernie-NV-7838-600x250.jpg")))
                 expect(newsItemB.url).to(equal(NSURL(string: "https://berniesanders.com/labor-day-2015-stand-together-and-fight-back/")))
             }

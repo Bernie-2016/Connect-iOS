@@ -50,7 +50,7 @@ class FakeNewsItemRepository : berniesanders.NewsItemRepository {
 }
 
 class FakeNewsItemControllerProvider : berniesanders.NewsItemControllerProvider {
-    let controller = NewsItemController(newsItem: NewsItem(title: "a", date: NSDate(), body: "a body", imageURL: NSURL(), url: NSURL()),
+    let controller = NewsItemController(newsItem: NewsItem(title: "a", date: NSDate(), body: "a body", excerpt: "excerpt", imageURL: NSURL(), url: NSURL()),
         imageRepository: FakeImageRepository(),
         humanTimeIntervalFormatter: FakeHumanTimeIntervalFormatter(),
         analyticsService: FakeAnalyticsService(),
@@ -158,8 +158,8 @@ class NewsFeedControllerSpecs: QuickSpec {
                 describe("when the news repository returns some news items", {
                     let newsItemADate = NSDate(timeIntervalSince1970: 0)
                     let newsItemBDate = NSDate(timeIntervalSince1970: 86401)
-                    let newsItemA = NewsItem(title: "Bernie to release new album", date: newsItemADate, body: "yeahhh", imageURL: NSURL(string: "http://bs.com")!, url: NSURL())
-                    let newsItemB = NewsItem(title: "Bernie up in the polls!", date: newsItemBDate, body: "body text", imageURL: NSURL(), url: NSURL())
+                    let newsItemA = NewsItem(title: "Bernie to release new album", date: newsItemADate, body: "yeahhh", excerpt: "excerpt", imageURL: NSURL(string: "http://bs.com")!, url: NSURL())
+                    let newsItemB = NewsItem(title: "Bernie up in the polls!", date: newsItemBDate, body: "body text", excerpt: "excerpt", imageURL: NSURL(), url: NSURL())
 
                     let newsItems = [newsItemA, newsItemB]
 
@@ -239,8 +239,8 @@ class NewsFeedControllerSpecs: QuickSpec {
                         describe("when the news repository returns some news items") {
                             let newsItemADate = NSDate(timeIntervalSince1970: 0)
                             let newsItemBDate = NSDate(timeIntervalSince1970: 86401)
-                            let newsItemA = NewsItem(title: "Bernie to release new album", date: newsItemADate, body: "yeahhh", imageURL: NSURL(string: "http://bs.com")!, url: NSURL())
-                            let newsItemB = NewsItem(title: "Bernie up in the polls!", date: newsItemBDate, body: "body text", imageURL: NSURL(), url: NSURL())
+                            let newsItemA = NewsItem(title: "Bernie to release new album", date: newsItemADate, body: "yeahhh", excerpt: "excerpt", imageURL: NSURL(string: "http://bs.com")!, url: NSURL())
+                            let newsItemB = NewsItem(title: "Bernie up in the polls!", date: newsItemBDate, body: "body text", excerpt: "excerpt", imageURL: NSURL(), url: NSURL())
 
                             let newsItems = [newsItemA, newsItemB]
 
@@ -271,8 +271,8 @@ class NewsFeedControllerSpecs: QuickSpec {
             }
 
             describe("Tapping on a news item") {
-                let expectedNewsItemA = NewsItem(title: "A", date: NSDate(), body: "A Body", imageURL: NSURL(), url: NSURL(string: "http://example.com/a")!)
-                let expectedNewsItemB = NewsItem(title: "B", date: NSDate(), body: "B Body", imageURL: NSURL(), url: NSURL(string: "http://example.com/b")!)
+                let expectedNewsItemA = NewsItem(title: "A", date: NSDate(), body: "A Body", excerpt: "excerpt", imageURL: NSURL(), url: NSURL(string: "http://example.com/a")!)
+                let expectedNewsItemB = NewsItem(title: "B", date: NSDate(), body: "B Body", excerpt: "excerpt", imageURL: NSURL(), url: NSURL(string: "http://example.com/b")!)
                 beforeEach {
                     self.subject.viewWillAppear(false)
 

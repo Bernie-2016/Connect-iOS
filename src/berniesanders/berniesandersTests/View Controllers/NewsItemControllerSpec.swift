@@ -46,7 +46,7 @@ class NewsItemControllerSpec : QuickSpec {
 
             context("with a standard news item") {
                 beforeEach {
-                    self.newsItem = NewsItem(title: "some title", date: self.newsItemDate, body: "some body text", imageURL: self.newsItemImageURL, url:self.newsItemURL)
+                    self.newsItem = NewsItem(title: "some title", date: self.newsItemDate, body: "some body text", excerpt: "excerpt", imageURL: self.newsItemImageURL, url:self.newsItemURL)
 
                     self.subject = NewsItemController(
                         newsItem: self.newsItem,
@@ -259,7 +259,7 @@ class NewsItemControllerSpec : QuickSpec {
             context("with a news item that lacks an image") {
                 beforeEach {
                     let newsItemDate = NSDate(timeIntervalSince1970: 1441081523)
-                    let newsItem = NewsItem(title: "some title", date: newsItemDate, body: "some body text", imageURL: nil, url:self.newsItemURL)
+                    let newsItem = NewsItem(title: "some title", date: newsItemDate, body: "some body text", excerpt: "excerpt", imageURL: nil, url:self.newsItemURL)
 
                     self.subject = NewsItemController(
                         newsItem: newsItem,
