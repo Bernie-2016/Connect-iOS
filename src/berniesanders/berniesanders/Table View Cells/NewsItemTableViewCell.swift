@@ -34,7 +34,7 @@ class NewsItemTableViewCell: UITableViewCell {
         self.layoutMargins = UIEdgeInsetsZero
         self.preservesSuperviewLayoutMargins = false
 
-        titleLabel.numberOfLines = 2
+        titleLabel.numberOfLines = 3
 
         dateLabel.textAlignment = .Right
 
@@ -68,5 +68,6 @@ class NewsItemTableViewCell: UITableViewCell {
         excerptLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: titleLabel, withOffset: 5)
         excerptLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
         excerptLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 20)
+        excerptLabel.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 11)
     }
 }

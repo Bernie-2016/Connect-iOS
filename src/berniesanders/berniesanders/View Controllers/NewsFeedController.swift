@@ -169,8 +169,8 @@ extension NewsFeedController: UITableViewDataSource {
 // MARK: UITableViewDelegate
 
 extension NewsFeedController: UITableViewDelegate {
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 165.0
+    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 180.0
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
