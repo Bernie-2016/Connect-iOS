@@ -1,7 +1,7 @@
 import UIKit
 
 // swiftlint:disable type_body_length
-class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class NewsFeedController: UIViewController {
     private let newsItemRepository: NewsItemRepository
     private let imageRepository: ImageRepository
     private let dateFormatter: NSDateFormatter
@@ -105,9 +105,11 @@ class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewData
                 print(error.localizedDescription)
         })
     }
+}
 
-    // MARK: UITableViewDataSource
+// MARK: UITableViewDataSource
 
+extension NewsFeedController: UITableViewDataSource {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -133,24 +135,6 @@ class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
 
-    // MARK: UITableViewDelegate
-
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 90.0
-    }
-
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let newsItem = self.newsItems[indexPath.row]
-
-        self.analyticsService.trackContentViewWithName(newsItem.title, type: .NewsItem, id: newsItem.url.absoluteString)
-
-        let controller = self.newsItemControllerProvider.provideInstanceWithNewsItem(newsItem)
-
-        self.navigationController?.pushViewController(controller, animated: true)
-    }
-
-    // MARK: Private
-
     func tableView(tableView: UITableView, errorCellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("errorCell", forIndexPath: indexPath)
         cell.textLabel!.text = NSLocalizedString("NewsFeed_errorText", comment: "")
@@ -175,4 +159,23 @@ class NewsFeedController: UIViewController, UITableViewDelegate, UITableViewData
         return cell
     }
 }
+
+// MARK: UITableViewDelegate
+
+extension NewsFeedController: UITableViewDelegate {
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 90.0
+    }
+
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let newsItem = self.newsItems[indexPath.row]
+
+        self.analyticsService.trackContentViewWithName(newsItem.title, type: .NewsItem, id: newsItem.url.absoluteString)
+
+        let controller = self.newsItemControllerProvider.provideInstanceWithNewsItem(newsItem)
+
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+}
+
 // swiftlint:enable type_body_length
