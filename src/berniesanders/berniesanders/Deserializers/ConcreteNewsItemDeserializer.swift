@@ -4,6 +4,8 @@ class ConcreteNewsItemDeserializer: NewsItemDeserializer {
     private let stringContentSanitizer: StringContentSanitizer
     private let dateFormatter: NSDateFormatter
 
+    private let bannedBernieImageURLString = "https://s.bsd.net/bernie16/main/page/-/website/fb-share.png"
+
     init(stringContentSanitizer: StringContentSanitizer) {
         self.stringContentSanitizer = stringContentSanitizer
         self.dateFormatter = NSDateFormatter()
@@ -35,8 +37,10 @@ class ConcreteNewsItemDeserializer: NewsItemDeserializer {
             let imageURLString = sourceDictionary["image_url"] as? String
             var imageURL: NSURL?
 
-            if imageURLString != nil {
+            if imageURLString != nil && imageURLString != bannedBernieImageURLString {
                 imageURL = NSURL(string: imageURLString!)
+            } else {
+                print(imageURLString)
             }
 
             let newsItem = NewsItem(title: title, date: date, body: body, excerpt: excerpt, imageURL: imageURL, url: url)

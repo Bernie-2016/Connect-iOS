@@ -38,7 +38,7 @@ class ConcreteNewsItemDeserializerSpec : QuickSpec {
                 expect(newsItemB.date).to(equal(expectedDate))
                 expect(newsItemB.body).to(equal("Labor Day is a time for honoring the working people of this country. SANITIZED!"))
                 expect(newsItemB.excerpt).to(equal("Labor Day excerpt SANITIZED!"))
-                expect(newsItemB.imageURL).to(equal(NSURL(string: "https://berniesanders.com/wp-content/uploads/2015/08/20150818-Bernie-NV-7838-600x250.jpg")))
+                expect(newsItemB.imageURL).to(beNil())
                 expect(newsItemB.url).to(equal(NSURL(string: "https://berniesanders.com/labor-day-2015-stand-together-and-fight-back/")))
             }
 
