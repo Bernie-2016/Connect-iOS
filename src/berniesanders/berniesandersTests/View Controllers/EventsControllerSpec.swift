@@ -163,7 +163,7 @@ class EventsControllerSpec : QuickSpec {
             }
 
             it("has the correct navigation item title") {
-                expect(self.subject.navigationItem.title).to(equal("Events"))
+                expect(self.subject.navigationItem.title).to(equal("Events Near Me"))
             }
 
             it("should set the back bar button item title correctly") {

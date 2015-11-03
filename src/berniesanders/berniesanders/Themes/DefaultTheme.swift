@@ -85,8 +85,8 @@ class DefaultTheme: Theme {
     // MARK: Events
 
     func eventsListFont() -> UIFont { return UIFont.systemFontOfSize(14) }
-    func eventsListColor() -> UIColor { return self.cornflowerBlueColor() }
-    func eventsInputAccessoryBackgroundColor() -> UIColor { return self.cornflowerBlueColor() }
+    func eventsListColor() -> UIColor { return UIColor.blackColor() }
+    func eventsInputAccessoryBackgroundColor() -> UIColor { return self.codGrayColor() }
     func eventsZipCodeTextColor() -> UIColor { return UIColor.blackColor() }
     func eventsZipCodeBackgroundColor() -> UIColor { return UIColor.whiteColor() }
     func eventsZipCodeBorderColor() -> UIColor { return self.altoColor() }
@@ -95,7 +95,7 @@ class DefaultTheme: Theme {
     func eventsZipCodeBorderWidth() -> CGFloat { return self.defaultBorderWidth() }
     func eventsZipCodeTextOffset() -> CATransform3D { return CATransform3DMakeTranslation(4, 0, 0); }
     func eventsGoButtonCornerRadius() -> CGFloat { return self.defaultCornerRadius() }
-    func eventsNoResultsTextColor() -> UIColor { return self.cornflowerBlueColor() }
+    func eventsNoResultsTextColor() -> UIColor { return UIColor.blackColor() }
     func eventsNoResultsFont() -> UIFont { return UIFont.systemFontOfSize(15) }
 
     // MARK: Event screen

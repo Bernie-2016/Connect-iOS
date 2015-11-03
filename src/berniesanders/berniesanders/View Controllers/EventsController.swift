@@ -2,8 +2,7 @@ import UIKit
 import PureLayout
 import QuartzCore
 
-// swiftlint:disable type_body_length
-class EventsController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
+class EventsController: UIViewController {
     let eventRepository: EventRepository
     let eventPresenter: EventPresenter
     private let eventControllerProvider: EventControllerProvider
@@ -77,48 +76,6 @@ class EventsController: UIViewController, UITableViewDataSource, UITableViewDele
         if let selectedRowIndexPath = self.resultsTableView.indexPathForSelectedRow {
             self.resultsTableView.deselectRowAtIndexPath(selectedRowIndexPath, animated: false)
         }
-    }
-
-    // MARK: <UITableViewDataSource>
-
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return events.count
-    }
-
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        // swiftlint:disable force_cast
-        let cell = tableView.dequeueReusableCellWithIdentifier("eventCell") as! EventListTableViewCell
-        // swiftlint:enable force_cast
-
-        let event = events[indexPath.row]
-
-        cell.addressLabel.textColor = self.theme.eventsListColor()
-        cell.addressLabel.font = self.theme.eventsListFont()
-        cell.attendeesLabel.textColor = self.theme.eventsListColor()
-        cell.attendeesLabel.font = self.theme.eventsListFont()
-        cell.nameLabel.textColor = self.theme.eventsListColor()
-        cell.nameLabel.font = self.theme.eventsListFont()
-
-        return self.eventPresenter.presentEvent(event, cell: cell)
-    }
-
-    // MARK: <UITableViewDelegate>
-
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 90
-    }
-
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let event = self.events[indexPath.row]
-        let controller = self.eventControllerProvider.provideInstanceWithEvent(event)
-        self.analyticsService.trackContentViewWithName(event.name, type: .Event, id: event.url.absoluteString)
-        self.navigationController?.pushViewController(controller, animated: true)
-    }
-
-    // MARK: <UITextFieldDelegate>
-
-    func textFieldDidBeginEditing(textField: UITextField) {
-        self.analyticsService.trackCustomEventWithName("Tapped on ZIP Code text field on Events", customAttributes: nil)
     }
 
     // MARK: Actions
@@ -233,4 +190,48 @@ class EventsController: UIViewController, UITableViewDataSource, UITableViewDele
         loadingActivityIndicatorView.autoAlignAxisToSuperviewAxis(.Vertical)
     }
 }
-// swiftlint:enable type_body_length
+
+// MARK: <UITableViewDataSource>
+extension EventsController: UITableViewDataSource {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return events.count
+    }
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        // swiftlint:disable force_cast
+        let cell = tableView.dequeueReusableCellWithIdentifier("eventCell") as! EventListTableViewCell
+        // swiftlint:enable force_cast
+
+        let event = events[indexPath.row]
+
+        cell.addressLabel.textColor = self.theme.eventsListColor()
+        cell.addressLabel.font = self.theme.eventsListFont()
+        cell.attendeesLabel.textColor = self.theme.eventsListColor()
+        cell.attendeesLabel.font = self.theme.eventsListFont()
+        cell.nameLabel.textColor = self.theme.eventsListColor()
+        cell.nameLabel.font = self.theme.eventsListFont()
+
+        return self.eventPresenter.presentEvent(event, cell: cell)
+    }
+}
+
+// MARK: <UITableViewDelegate>
+extension EventsController: UITableViewDelegate {
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 90
+    }
+
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let event = self.events[indexPath.row]
+        let controller = self.eventControllerProvider.provideInstanceWithEvent(event)
+        self.analyticsService.trackContentViewWithName(event.name, type: .Event, id: event.url.absoluteString)
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+}
+
+// MARK: <UITextFieldDelegate>
+extension EventsController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(textField: UITextField) {
+        self.analyticsService.trackCustomEventWithName("Tapped on ZIP Code text field on Events", customAttributes: nil)
+    }
+}

@@ -33,7 +33,7 @@
 // Events
 
 "Events_tabBarTitle" = "Events";
-"Events_navigationTitle" = "Events";
+"Events_navigationTitle" = "Events Near Me";
 "Events_backButtonTitle" = "Back";
 "Events_eventAddressLabel" =  "%@, %@ - %@";
 "Events_eventStreetAddressLabel" =  "%@\n%@, %@ - %@";
