@@ -165,6 +165,20 @@ extension NewsFeedController: UITableViewDataSource {
             cell.dateLabel.textColor =  self.theme.newsFeedDateColor()
         }
 
+        cell.newsImageView.image = nil
+
+        if newsItem.imageURL == nil {
+            cell.newsImageVisible = false
+        } else {
+            cell.newsImageVisible = true
+            imageRepository.fetchImageWithURL(newsItem.imageURL!).then({ (image) -> AnyObject? in
+                cell.newsImageView.image = image as? UIImage
+                return image
+                }) { (error) -> AnyObject? in
+                    return error
+            }
+        }
+
         return cell
     }
 }

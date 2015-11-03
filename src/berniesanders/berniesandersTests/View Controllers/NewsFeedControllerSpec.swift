@@ -178,7 +178,7 @@ class NewsFeedControllerSpecs: QuickSpec {
                     let newsItemADate = NSDate(timeIntervalSince1970: 0)
                     let newsItemBDate = NSDate(timeIntervalSince1970: 86401)
                     let newsItemA = NewsItem(title: "Bernie to release new album", date: newsItemADate, body: "yeahhh", excerpt: "excerpt A", imageURL: NSURL(string: "http://bs.com")!, url: NSURL())
-                    let newsItemB = NewsItem(title: "Bernie up in the polls!", date: newsItemBDate, body: "body text", excerpt: "excerpt B", imageURL: NSURL(), url: NSURL())
+                    let newsItemB = NewsItem(title: "Bernie up in the polls!", date: newsItemBDate, body: "body text", excerpt: "excerpt B", imageURL: nil, url: NSURL())
 
                     let newsItems = [newsItemA, newsItemB]
 
@@ -214,6 +214,52 @@ class NewsFeedControllerSpecs: QuickSpec {
                             expect(cellB.dateLabel.text).to(equal("abbreviated 1970-01-02 00:00:01 +0000"))
 
                             expect(self.timeIntervalFormatter.lastAbbreviatedDates).to(equal([newsItemADate, newsItemBDate]))
+                        }
+
+                        it("initially nils out the image") {
+                            var cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))  as! NewsItemTableViewCell
+                            cell.newsImageView.image = TestUtils.testImageNamed("bernie", type: "jpg")
+                            cell = self.subject.tableView.dataSource?.tableView(self.subject.tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))  as! NewsItemTableViewCell
+                            expect(cell.newsImageView.image).to(beNil())
+                        }
+
+                        context("when the news item has an image URL") {
+                            it("asks the image repository to fetch the image") {
+                                self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
+
+                                expect(self.imageRepository.lastReceivedURL).to(beIdenticalTo(newsItemA.imageURL))
+                            }
+
+                            it("shows the image view") {
+                                var cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NewsItemTableViewCell
+                                cell.newsImageVisible = false
+                                cell = self.subject.tableView.dataSource?.tableView(self.subject.tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0)) as! NewsItemTableViewCell
+
+                                expect(cell.newsImageVisible).to(beTrue())
+                            }
+
+                            context("when the image is loaded succesfully") {
+                                it("sets the image") {
+                                    let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NewsItemTableViewCell
+
+                                    let bernieImage = TestUtils.testImageNamed("bernie", type: "jpg")
+                                    self.imageRepository.lastRequestDeferred.resolveWithValue(bernieImage)
+                                    expect(cell.newsImageView.image).to(beIdenticalTo(bernieImage))
+                                }
+                            }
+                        }
+
+                        context("when the news item does not have an image URL") {
+                            it("does not make a call to the image repository") {
+                                self.imageRepository.lastReceivedURL = nil
+                                self.subject.tableView.dataSource?.tableView(self.subject.tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
+                                expect(self.imageRepository.lastReceivedURL).to(beNil())
+                            }
+
+                            it("hides the image view") {
+                                let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! NewsItemTableViewCell
+                                expect(cell.newsImageVisible).to(beFalse())
+                            }
                         }
 
                         it("styles the items in the table") {
