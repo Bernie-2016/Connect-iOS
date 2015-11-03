@@ -16,7 +16,7 @@ class EventListTableViewCell: UITableViewCell {
         self.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
         self.preservesSuperviewLayoutMargins = false
 
-        nameLabel.numberOfLines = 3
+        nameLabel.numberOfLines = 2
 
         disclosureView.backgroundColor = UIColor.whiteColor()
         disclosureView.color = UIColor.blackColor()
