@@ -68,48 +68,11 @@ class EventPresenterSpec : QuickSpec {
 
                 beforeEach {
                     cell = EventListTableViewCell(style: .Default, reuseIdentifier: "fake-identifier")
+                    self.subject.presentEvent(event, cell: cell)
                 }
 
-                context("when the event has a non-zero attendee capacity") {
-
-                    beforeEach {
-                        self.subject.presentEvent(event, cell: cell)
-                    }
-
-                    it("sets up the name label correctly") {
-                        expect(cell.nameLabel.text).to(equal("some event"))
-                    }
-
-                    it("sets up the address label correctly") {
-                        expect(cell.addressLabel.text).to(equal("Bigtown, CA - 94104"))
-                    }
-
-                    it("sets up the rsvp label correctly") {
-                        expect(cell.attendeesLabel.text).to(equal("2 attending, 10 spots total"))
-                    }
-                }
-
-                context("when the event has a zero attendee capacity") {
-                    beforeEach {
-                        event = Event(name: "some event", startDate: NSDate(timeIntervalSince1970: 1433565000), timeZone: NSTimeZone(abbreviation: "PST")!,
-                            attendeeCapacity: 0, attendeeCount: 2,
-                            streetAddress: "100 Main Street", city: "Bigtown", state: "CA", zip: "94104", location: CLLocation(),
-                            description: "Words about the event", url: NSURL(string: "https://example.com")!, eventTypeName: "Big Time Bernie Fun")
-
-                        self.subject.presentEvent(event, cell: cell)
-                    }
-
-                    it("sets up the name label correctly") {
-                        expect(cell.nameLabel.text).to(equal("some event"))
-                    }
-
-                    it("sets up the address label correctly") {
-                        expect(cell.addressLabel.text).to(equal("Bigtown, CA - 94104"))
-                    }
-
-                    it("sets up the rsvp label correctly") {
-                        expect(cell.attendeesLabel.text).to(equal("2 attending"))
-                    }
+                it("sets up the name label correctly") {
+                    expect(cell.nameLabel.text).to(equal("some event"))
                 }
             }
 

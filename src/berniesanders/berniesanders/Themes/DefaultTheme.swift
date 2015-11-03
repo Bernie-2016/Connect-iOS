@@ -84,8 +84,8 @@ class DefaultTheme: Theme {
 
     // MARK: Events
 
-    func eventsListFont() -> UIFont { return UIFont.systemFontOfSize(14) }
-    func eventsListColor() -> UIColor { return UIColor.blackColor() }
+    func eventsListNameFont() -> UIFont { return UIFont.systemFontOfSize(14) }
+    func eventsListNameColor() -> UIColor { return UIColor.blackColor() }
     func eventsInputAccessoryBackgroundColor() -> UIColor { return self.codGrayColor() }
     func eventsZipCodeTextColor() -> UIColor { return UIColor.blackColor() }
     func eventsZipCodeBackgroundColor() -> UIColor { return UIColor.whiteColor() }

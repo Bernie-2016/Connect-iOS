@@ -204,12 +204,8 @@ extension EventsController: UITableViewDataSource {
 
         let event = events[indexPath.row]
 
-        cell.addressLabel.textColor = self.theme.eventsListColor()
-        cell.addressLabel.font = self.theme.eventsListFont()
-        cell.attendeesLabel.textColor = self.theme.eventsListColor()
-        cell.attendeesLabel.font = self.theme.eventsListFont()
-        cell.nameLabel.textColor = self.theme.eventsListColor()
-        cell.nameLabel.font = self.theme.eventsListFont()
+        cell.nameLabel.textColor = self.theme.eventsListNameColor()
+        cell.nameLabel.font = self.theme.eventsListNameFont()
 
         return self.eventPresenter.presentEvent(event, cell: cell)
     }
@@ -217,8 +213,8 @@ extension EventsController: UITableViewDataSource {
 
 // MARK: <UITableViewDelegate>
 extension EventsController: UITableViewDelegate {
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 90
+    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 75
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

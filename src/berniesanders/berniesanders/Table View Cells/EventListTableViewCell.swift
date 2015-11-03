@@ -2,8 +2,7 @@ import UIKit
 
 class EventListTableViewCell: UITableViewCell {
     let nameLabel = UILabel.newAutoLayoutView()
-    let addressLabel = UILabel.newAutoLayoutView()
-    let attendeesLabel = UILabel.newAutoLayoutView()
+    let disclosureView = DisclosureIndicatorView.newAutoLayoutView()
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -12,25 +11,30 @@ class EventListTableViewCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        self.accessoryType = .DisclosureIndicator
-        self.separatorInset = UIEdgeInsetsZero
-        self.layoutMargins = UIEdgeInsetsZero
+        self.accessoryType = .None
+        self.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
+        self.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
         self.preservesSuperviewLayoutMargins = false
 
+        nameLabel.numberOfLines = 3
+
+        disclosureView.backgroundColor = UIColor.whiteColor()
+        disclosureView.color = UIColor.blackColor()
+
         self.contentView.addSubview(nameLabel)
-        nameLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: 16)
-        nameLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 8)
-        nameLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 8)
-
-        self.contentView.addSubview(addressLabel)
-        addressLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: nameLabel, withOffset: 4)
-        addressLabel.autoPinEdge(.Left, toEdge: .Left, ofView: nameLabel, withOffset: 0)
-        addressLabel.autoPinEdge(.Right, toEdge: .Right, ofView: nameLabel, withOffset: 0)
-
-        self.contentView.addSubview(attendeesLabel)
-        attendeesLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: addressLabel, withOffset: 4)
-        attendeesLabel.autoPinEdge(.Left, toEdge: .Left, ofView: addressLabel, withOffset: 0)
-        attendeesLabel.autoPinEdge(.Right, toEdge: .Right, ofView: attendeesLabel, withOffset: 0)
+        self.contentView.addSubview(disclosureView)
+        setupConstraints()
     }
 
+    private func setupConstraints() {
+        nameLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: 16)
+        nameLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
+        nameLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 75)
+        nameLabel.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 16)
+
+        disclosureView.autoPinEdge(.Top, toEdge: .Top, ofView: nameLabel)
+        disclosureView.autoPinEdgeToSuperviewEdge(.Right)
+        disclosureView.autoSetDimension(.Height, toSize: 20)
+        disclosureView.autoSetDimension(.Width, toSize: 20)
+    }
 }

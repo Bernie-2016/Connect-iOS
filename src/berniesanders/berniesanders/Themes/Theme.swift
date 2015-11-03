@@ -70,8 +70,8 @@ protocol Theme {
 
     // MARK: Events screen
 
-    func eventsListFont() -> UIFont
-    func eventsListColor() -> UIColor
+    func eventsListNameFont() -> UIFont
+    func eventsListNameColor() -> UIColor
     func eventsInputAccessoryBackgroundColor() -> UIColor
     func eventsZipCodeTextColor() -> UIColor
     func eventsZipCodeBackgroundColor() -> UIColor

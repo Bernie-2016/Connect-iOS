@@ -9,8 +9,6 @@ class EventPresenter {
 
     func presentEvent(event: Event, cell: EventListTableViewCell) -> EventListTableViewCell {
         cell.nameLabel.text = event.name
-        cell.addressLabel.text = self.presentCityAddressForEvent(event)
-        cell.attendeesLabel.text = self.presentAttendeesForEvent(event)
 
         return cell
     }

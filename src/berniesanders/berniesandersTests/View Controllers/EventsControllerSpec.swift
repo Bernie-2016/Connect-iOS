@@ -17,11 +17,11 @@ class EventsFakeTheme : FakeTheme {
         return UIFont.systemFontOfSize(123)
     }
 
-    override func eventsListFont() -> UIFont {
+    override func eventsListNameFont() -> UIFont {
         return UIFont.italicSystemFontOfSize(333)
     }
 
-    override func eventsListColor() -> UIColor {
+    override func eventsListNameColor() -> UIColor {
         return UIColor.yellowColor()
     }
 
@@ -440,12 +440,8 @@ class EventsControllerSpec : QuickSpec {
                                         let cell = self.subject.resultsTableView.dataSource!.tableView(self.subject.resultsTableView, cellForRowAtIndexPath:NSIndexPath(forRow: 0, inSection: 0)) as! EventListTableViewCell
 
                                         expect(cell.nameLabel.font).to(equal(UIFont.italicSystemFontOfSize(333)))
-                                        expect(cell.addressLabel.font).to(equal(UIFont.italicSystemFontOfSize(333)))
-                                        expect(cell.attendeesLabel.font).to(equal(UIFont.italicSystemFontOfSize(333)))
 
                                         expect(cell.nameLabel.textColor).to(equal(UIColor.yellowColor()))
-                                        expect(cell.addressLabel.textColor).to(equal(UIColor.yellowColor()))
-                                        expect(cell.attendeesLabel.textColor).to(equal(UIColor.yellowColor()))
                                     }
 
                                     describe("tapping on an event") {
