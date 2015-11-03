@@ -171,8 +171,8 @@ class EventsController: UIViewController {
 
     func setupConstraints() {
         zipCodeTextField.autoPinEdgeToSuperviewEdge(.Top, withInset: 24)
-        zipCodeTextField.autoPinEdgeToSuperviewEdge(.Left, withInset: 8)
-        zipCodeTextField.autoPinEdgeToSuperviewEdge(.Right, withInset: 8)
+        zipCodeTextField.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
+        zipCodeTextField.autoPinEdgeToSuperviewEdge(.Right, withInset: 20)
         zipCodeTextField.autoSetDimension(.Height, toSize: 45)
 
         instructionsLabel.autoAlignAxisToSuperviewAxis(.Vertical)
@@ -186,7 +186,7 @@ class EventsController: UIViewController {
         noResultsLabel.autoPinEdgeToSuperviewEdge(.Left)
         noResultsLabel.autoPinEdgeToSuperviewEdge(.Right)
 
-        loadingActivityIndicatorView.autoPinEdge(.Top, toEdge: .Bottom, ofView: zipCodeTextField, withOffset: 16)
+        loadingActivityIndicatorView.autoAlignAxisToSuperviewAxis(.Horizontal)
         loadingActivityIndicatorView.autoAlignAxisToSuperviewAxis(.Vertical)
     }
 }
