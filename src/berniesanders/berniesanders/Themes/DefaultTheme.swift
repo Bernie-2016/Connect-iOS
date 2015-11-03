@@ -86,6 +86,8 @@ class DefaultTheme: Theme {
 
     func eventsListNameFont() -> UIFont { return UIFont.systemFontOfSize(14) }
     func eventsListNameColor() -> UIColor { return UIColor.blackColor() }
+    func eventsListDistanceFont() -> UIFont { return UIFont.systemFontOfSize(12) }
+    func eventsListDistanceColor() -> UIColor { return self.doveGreyColor() }
     func eventsInputAccessoryBackgroundColor() -> UIColor { return self.codGrayColor() }
     func eventsZipCodeTextColor() -> UIColor { return UIColor.blackColor() }
     func eventsZipCodeBackgroundColor() -> UIColor { return UIColor.whiteColor() }
@@ -153,6 +155,7 @@ class DefaultTheme: Theme {
     func tundoraColor() -> UIColor { return UIColor(rgba: "#414141") }
     func mineShaftColor() -> UIColor { return UIColor(rgba: "#333333") }
     func thunderbirdColor() -> UIColor { return UIColor(rgba: "#C01E0E") }
+    func doveGreyColor() -> UIColor { return UIColor(rgba: "#6d6d6d") }
 
     // MARK: font definitions
 

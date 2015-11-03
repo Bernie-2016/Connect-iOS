@@ -2,6 +2,7 @@ import UIKit
 
 class EventListTableViewCell: UITableViewCell {
     let nameLabel = UILabel.newAutoLayoutView()
+    let distanceLabel = UILabel.newAutoLayoutView()
     let disclosureView = DisclosureIndicatorView.newAutoLayoutView()
 
     required init?(coder aDecoder: NSCoder) {
@@ -18,11 +19,15 @@ class EventListTableViewCell: UITableViewCell {
 
         nameLabel.numberOfLines = 2
 
+        distanceLabel.textAlignment = .Right
+
         disclosureView.backgroundColor = UIColor.whiteColor()
         disclosureView.color = UIColor.blackColor()
 
         self.contentView.addSubview(nameLabel)
         self.contentView.addSubview(disclosureView)
+        self.contentView.addSubview(distanceLabel)
+
         setupConstraints()
     }
 
@@ -31,6 +36,10 @@ class EventListTableViewCell: UITableViewCell {
         nameLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
         nameLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 75)
         nameLabel.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 16)
+
+        distanceLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: 16)
+        distanceLabel.autoPinEdge(.Left, toEdge: .Right, ofView: nameLabel)
+        distanceLabel.autoPinEdge(.Right, toEdge: .Left, ofView: disclosureView, withOffset: -5)
 
         disclosureView.autoPinEdge(.Top, toEdge: .Top, ofView: nameLabel)
         disclosureView.autoPinEdgeToSuperviewEdge(.Right)

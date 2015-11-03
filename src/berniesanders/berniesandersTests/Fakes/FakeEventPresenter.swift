@@ -1,8 +1,11 @@
 import Foundation
+import CoreLocation
+
 @testable import berniesanders
 
 class FakeEventPresenter : EventPresenter {
     var lastReceivedEvent: Event?
+    var lastSearchCentroid: CLLocation?
     var lastReceivedCell: EventListTableViewCell?
     var lastEventWithPresentedAddress : Event!
     var lastEventWithPresentedAttendees : Event!
@@ -18,8 +21,9 @@ class FakeEventPresenter : EventPresenter {
         return "LOTS OF PEOPLE!"
     }
 
-    override func presentEvent(event: Event, cell: EventListTableViewCell) -> EventListTableViewCell {
+    override func presentEvent(event: Event, searchCentroid: CLLocation, cell: EventListTableViewCell) -> EventListTableViewCell {
         lastReceivedEvent = event
+        lastSearchCentroid = searchCentroid
         lastReceivedCell = cell
         return cell
     }

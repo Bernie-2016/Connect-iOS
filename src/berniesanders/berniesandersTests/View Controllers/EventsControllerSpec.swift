@@ -27,6 +27,14 @@ class EventsFakeTheme : FakeTheme {
         return UIColor.yellowColor()
     }
 
+    override func eventsListDistanceColor() -> UIColor {
+        return UIColor.lightGrayColor()
+    }
+
+    override func eventsListDistanceFont() -> UIFont {
+        return UIFont.italicSystemFontOfSize(444)
+    }
+
     override func eventsInputAccessoryBackgroundColor() -> UIColor {
         return UIColor.greenColor()
     }
@@ -357,8 +365,10 @@ class EventsControllerSpec : QuickSpec {
 
                         context("when the search completes succesfully") {
                             context("with no results") {
+                                let expectedSearchCentroid = CLLocation(latitude: 37.8271868, longitude: -122.4240794)
+
                                 beforeEach {
-                                    let eventSearchResults = EventSearchResult(searchCentroid: CLLocation(latitude: 0, longitude: 0), events: [])
+                                    let eventSearchResults = EventSearchResult(searchCentroid: expectedSearchCentroid, events: [])
                                     self.eventRepository.lastCompletionBlock!(eventSearchResults)
                                 }
 
@@ -402,6 +412,7 @@ class EventsControllerSpec : QuickSpec {
                             context("with some results") {
                                 let eventA = TestUtils.eventWithName("Bigtime Bernie BBQ")
                                 let eventB = TestUtils.eventWithName("Slammin' Sanders Salsa Serenade")
+                                let expectedSearchCentroid = CLLocation(latitude: 37.8271868, longitude: -122.4240794)
 
                                 beforeEach {
                                     let events : Array<Event> = [eventA, eventB]
@@ -431,11 +442,13 @@ class EventsControllerSpec : QuickSpec {
                                         let cellA = self.subject.resultsTableView.dataSource!.tableView(self.subject.resultsTableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0)) as! EventListTableViewCell
 
                                         expect(self.eventPresenter.lastReceivedEvent).to(beIdenticalTo(eventA))
+                                        expect(self.eventPresenter.lastSearchCentroid).to(beIdenticalTo(expectedSearchCentroid))
                                         expect(self.eventPresenter.lastReceivedCell).to(beIdenticalTo(cellA))
 
                                         let cellB = self.subject.resultsTableView.dataSource!.tableView(self.subject.resultsTableView, cellForRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0)) as! EventListTableViewCell
 
                                         expect(self.eventPresenter.lastReceivedEvent).to(beIdenticalTo(eventB))
+                                        expect(self.eventPresenter.lastSearchCentroid).to(beIdenticalTo(expectedSearchCentroid))
                                         expect(self.eventPresenter.lastReceivedCell).to(beIdenticalTo(cellB))
                                     }
 
@@ -443,8 +456,9 @@ class EventsControllerSpec : QuickSpec {
                                         let cell = self.subject.resultsTableView.dataSource!.tableView(self.subject.resultsTableView, cellForRowAtIndexPath:NSIndexPath(forRow: 0, inSection: 0)) as! EventListTableViewCell
 
                                         expect(cell.nameLabel.font).to(equal(UIFont.italicSystemFontOfSize(333)))
-
                                         expect(cell.nameLabel.textColor).to(equal(UIColor.yellowColor()))
+                                        expect(cell.distanceLabel.font).to(equal(UIFont.italicSystemFontOfSize(444)))
+                                        expect(cell.distanceLabel.textColor).to(equal(UIColor.lightGrayColor()))
                                     }
 
                                     describe("tapping on an event") {

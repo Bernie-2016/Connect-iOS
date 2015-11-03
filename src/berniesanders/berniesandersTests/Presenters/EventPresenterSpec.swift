@@ -8,15 +8,18 @@ class EventPresenterSpec : QuickSpec {
     var dateFormatter : FakeDateFormatter!
 
     override func spec() {
+
         describe("EventPresenter") {
             var event : Event!
 
             beforeEach {
                 self.dateFormatter = FakeDateFormatter()
 
+                let eventLocation = CLLocation(latitude: 37.7955745, longitude: -122.3955095)
+
                 event = Event(name: "some event", startDate: NSDate(timeIntervalSince1970: 1433565000), timeZone: NSTimeZone(abbreviation: "PST")!,
                     attendeeCapacity: 10, attendeeCount: 2,
-                    streetAddress: "100 Main Street", city: "Bigtown", state: "CA", zip: "94104", location: CLLocation(),
+                    streetAddress: "100 Main Street", city: "Bigtown", state: "CA", zip: "94104", location: eventLocation,
                     description: "Words about the event", url: NSURL(string: "https://example.com")!, eventTypeName: "Big Time Bernie Fun")
 
                 self.subject = EventPresenter(dateFormatter: self.dateFormatter)
@@ -68,11 +71,16 @@ class EventPresenterSpec : QuickSpec {
 
                 beforeEach {
                     cell = EventListTableViewCell(style: .Default, reuseIdentifier: "fake-identifier")
-                    self.subject.presentEvent(event, cell: cell)
+                    let searchCentroid = CLLocation(latitude: 37.8271868, longitude: -122.4240794)
+                    self.subject.presentEvent(event, searchCentroid: searchCentroid, cell: cell)
                 }
 
                 it("sets up the name label correctly") {
                     expect(cell.nameLabel.text).to(equal("some event"))
+                }
+
+                it("displays the distance label using the passed in search centroid") {
+                    expect(cell.distanceLabel.text).to(equal("2.7 mi"))
                 }
             }
 

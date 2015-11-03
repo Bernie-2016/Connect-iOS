@@ -1,4 +1,5 @@
 import UIKit
+import CoreLocation
 
 class EventPresenter {
     private let dateFormatter: NSDateFormatter
@@ -7,8 +8,13 @@ class EventPresenter {
         self.dateFormatter = dateFormatter
     }
 
-    func presentEvent(event: Event, cell: EventListTableViewCell) -> EventListTableViewCell {
+    func presentEvent(event: Event, searchCentroid: CLLocation, cell: EventListTableViewCell) -> EventListTableViewCell {
         cell.nameLabel.text = event.name
+
+        let distanceToEvent = searchCentroid.distanceFromLocation(event.location)
+        let lengthFormatter = NSLengthFormatter()
+        lengthFormatter.numberFormatter.maximumFractionDigits = 1
+        cell.distanceLabel.text = lengthFormatter.stringFromValue(distanceToEvent / 1609.34, unit: .Mile) // :(
 
         return cell
     }

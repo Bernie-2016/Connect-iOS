@@ -16,7 +16,7 @@ class EventsController: UIViewController {
     let instructionsLabel = UILabel.newAutoLayoutView()
     let loadingActivityIndicatorView = UIActivityIndicatorView.newAutoLayoutView()
 
-    var events: Array<Event>!
+    var eventSearchResult: EventSearchResult!
 
     init(eventRepository: EventRepository,
         eventPresenter: EventPresenter,
@@ -31,8 +31,6 @@ class EventsController: UIViewController {
         self.analyticsService = analyticsService
         self.tabBarItemStylist = tabBarItemStylist
         self.theme = theme
-
-        self.events = []
 
         super.init(nibName: nil, bundle: nil)
 
@@ -95,7 +93,7 @@ class EventsController: UIViewController {
         self.eventRepository.fetchEventsWithZipCode(enteredZipCode, radiusMiles: 50.0,
             completion: { (eventSearchResult: EventSearchResult) -> Void in
                 let matchingEventsFound = eventSearchResult.events.count > 0
-                self.events = eventSearchResult.events
+                self.eventSearchResult = eventSearchResult
 
                 self.noResultsLabel.hidden = matchingEventsFound
                 self.resultsTableView.hidden = !matchingEventsFound
@@ -194,7 +192,7 @@ class EventsController: UIViewController {
 // MARK: <UITableViewDataSource>
 extension EventsController: UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return events.count
+        return eventSearchResult != nil ? eventSearchResult.events.count : 0
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -202,12 +200,14 @@ extension EventsController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCellWithIdentifier("eventCell") as! EventListTableViewCell
         // swiftlint:enable force_cast
 
-        let event = events[indexPath.row]
+        let event = eventSearchResult.events[indexPath.row]
 
         cell.nameLabel.textColor = self.theme.eventsListNameColor()
         cell.nameLabel.font = self.theme.eventsListNameFont()
+        cell.distanceLabel.textColor = self.theme.eventsListDistanceColor()
+        cell.distanceLabel.font = self.theme.eventsListDistanceFont()
 
-        return self.eventPresenter.presentEvent(event, cell: cell)
+        return self.eventPresenter.presentEvent(event, searchCentroid: eventSearchResult.searchCentroid, cell: cell)
     }
 }
 
@@ -218,7 +218,7 @@ extension EventsController: UITableViewDelegate {
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let event = self.events[indexPath.row]
+        let event = eventSearchResult.events[indexPath.row]
         let controller = self.eventControllerProvider.provideInstanceWithEvent(event)
         self.analyticsService.trackContentViewWithName(event.name, type: .Event, id: event.url.absoluteString)
         self.navigationController?.pushViewController(controller, animated: true)
