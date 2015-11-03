@@ -28,7 +28,7 @@ class TestUtils {
         return Event(name: name, startDate: NSDate(timeIntervalSince1970: 1433565000), timeZone: NSTimeZone(abbreviation: "PST")!,
             attendeeCapacity: 10, attendeeCount: 2,
             streetAddress: "100 Main Street", city: "Beverley Hills", state: "CA", zip: "90210", location: CLLocation(),
-            description: "This isn't Beverly Hills! It's Knot's Landing!", url: NSURL(string: "https://example.com")!)
+            description: "This isn't Beverly Hills! It's Knot's Landing!", url: NSURL(string: "https://example.com")!, eventTypeName: "Big Time Bernie Fun")
     }
 
     // MARK: Controllers

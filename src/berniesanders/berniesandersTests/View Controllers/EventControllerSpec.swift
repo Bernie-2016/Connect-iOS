@@ -48,7 +48,7 @@ class EventControllerSpec: QuickSpec {
     let event = Event(name: "limited event", startDate: NSDate(timeIntervalSince1970: 1433565000), timeZone: NSTimeZone(abbreviation: "PST")!,
         attendeeCapacity: 10, attendeeCount: 2,
         streetAddress: "1 Post Street", city: "San Francisco", state: "CA", zip: "94117", location: CLLocation(latitude: 12.34, longitude: 23.45),
-        description: "Words about the event", url: NSURL(string: "https://example.com")!)
+        description: "Words about the event", url: NSURL(string: "https://example.com")!, eventTypeName: "Big Time Bernie Fun")
 
     override func spec() {
         describe("EventController") {

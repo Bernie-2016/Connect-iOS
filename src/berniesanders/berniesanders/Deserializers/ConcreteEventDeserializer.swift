@@ -26,6 +26,7 @@ class ConcreteEventDeserializer: EventDeserializer {
             guard let startDateString = sourceDictionary["start_time"] as? String else { continue }
             guard let attendeeCapacity = sourceDictionary["capacity"] as? Int else { continue }
             guard let attendeeCount = sourceDictionary["attendee_count"] as? Int else { continue }
+            let eventTypeName = sourceDictionary["event_type_name"] as? String
 
             let streetAddress = venueDictionary["address1"] as? String
             guard let city = venueDictionary["city"] as? String else { continue }
@@ -42,7 +43,7 @@ class ConcreteEventDeserializer: EventDeserializer {
 
             let event = Event(name: name, startDate: startDate, timeZone: timeZone, attendeeCapacity: attendeeCapacity, attendeeCount: attendeeCount,
                 streetAddress: streetAddress, city: city, state: state, zip: zip, location: location,
-                description: description, url: URL)
+                description: description, url: URL, eventTypeName: eventTypeName)
 
             events.append(event)
         }

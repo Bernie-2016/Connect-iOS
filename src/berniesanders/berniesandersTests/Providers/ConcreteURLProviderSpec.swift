@@ -19,7 +19,7 @@ class ConcreteURLProviderSpec : QuickSpec {
                 context("with an event with a street address") {
                     beforeEach {
                         let location = CLLocation(latitude: 0, longitude: 0)
-                        event = Event(name: "name", startDate: NSDate(), timeZone: NSTimeZone(abbreviation: "PST")!, attendeeCapacity: 2, attendeeCount: 2, streetAddress: "1 Big Avenue", city: "Petaluma", state: "CA", zip: "11111", location: location, description: "desc", url: NSURL(string: "https://example.com")!)
+                        event = Event(name: "name", startDate: NSDate(), timeZone: NSTimeZone(abbreviation: "PST")!, attendeeCapacity: 2, attendeeCount: 2, streetAddress: "1 Big Avenue", city: "Petaluma", state: "CA", zip: "11111", location: location, description: "desc", url: NSURL(string: "https://example.com")!, eventTypeName: "Big Time Bernie Fun")
                     }
 
                     it("builds the correct URL") {
@@ -30,7 +30,7 @@ class ConcreteURLProviderSpec : QuickSpec {
                 context("with an event that lacks a street address") {
                     beforeEach {
                         let location = CLLocation(latitude: 0, longitude: 0)
-                        event = Event(name: "name", startDate: NSDate(), timeZone: NSTimeZone(abbreviation: "PST")!, attendeeCapacity: 2, attendeeCount: 2, streetAddress: nil, city: "Santa Rosa", state: "WA", zip: "22222", location: location, description: "desc", url: NSURL(string: "https://example.com")!)
+                        event = Event(name: "name", startDate: NSDate(), timeZone: NSTimeZone(abbreviation: "PST")!, attendeeCapacity: 2, attendeeCount: 2, streetAddress: nil, city: "Santa Rosa", state: "WA", zip: "22222", location: location, description: "desc", url: NSURL(string: "https://example.com")!, eventTypeName: "Big Time Bernie Fun")
                     }
 
                     it("builds the correct URL") {
