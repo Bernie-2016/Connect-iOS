@@ -164,6 +164,7 @@
 		65F5F6591B8968440049353C /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F5F6581B8968440049353C /* NavigationController.swift */; };
 		65F5F65D1B896FFF0049353C /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F5F65C1B896FFF0049353C /* TabBarController.swift */; };
 		65F5F6611B8A3CB00049353C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65F5F6631B8A3CB00049353C /* Localizable.strings */; };
+		65F6C82A1BE861E700EA973C /* DisclosureIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F6C8291BE861E700EA973C /* DisclosureIndicatorView.swift */; settings = {ASSET_TAGS = (); }; };
 		8233FC0D1B7C28FB00A5E9ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8233FC0C1B7C28FB00A5E9ED /* AppDelegate.swift */; };
 		8233FC301B7C48A500A5E9ED /* NewsFeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8233FC2F1B7C48A500A5E9ED /* NewsFeedController.swift */; };
 		8233FC321B7C4A9600A5E9ED /* IssuesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8233FC311B7C4A9600A5E9ED /* IssuesController.swift */; };
@@ -364,6 +365,7 @@
 		65F5F6581B8968440049353C /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		65F5F65C1B896FFF0049353C /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		65F5F6621B8A3CB00049353C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		65F6C8291BE861E700EA973C /* DisclosureIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisclosureIndicatorView.swift; sourceTree = "<group>"; };
 		8233FC071B7C28FB00A5E9ED /* Bernie Sanders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bernie Sanders.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8233FC0B1B7C28FB00A5E9ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8233FC0C1B7C28FB00A5E9ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -832,6 +834,14 @@
 			path = Fakes;
 			sourceTree = "<group>";
 		};
+		65F6C8281BE861CF00EA973C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				65F6C8291BE861E700EA973C /* DisclosureIndicatorView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		8233FBFE1B7C28FB00A5E9ED = {
 			isa = PBXGroup;
 			children = (
@@ -872,6 +882,7 @@
 				65CA5E951B86E5710001D870 /* Table View Cells */,
 				65CA5E8F1B86E3490001D870 /* Themes */,
 				8233FC2E1B7C2DA400A5E9ED /* View Controllers */,
+				65F6C8281BE861CF00EA973C /* Views */,
 				8233FC0C1B7C28FB00A5E9ED /* AppDelegate.swift */,
 				65CA5E861B86CAAF0001D870 /* main.swift */,
 			);
@@ -1127,6 +1138,7 @@
 				650763241B8B768300BA0659 /* ConcreteURLProvider.swift in Sources */,
 				656ED1771BE3074D009FD91C /* DateProvider.swift in Sources */,
 				65CA5E931B86E4A00001D870 /* DefaultTheme.swift in Sources */,
+				65F6C82A1BE861E700EA973C /* DisclosureIndicatorView.swift in Sources */,
 				DF90BBCB1BC5090200F9FA53 /* DonateTableViewCell.swift in Sources */,
 				655AF0C61BB095E500F0448E /* Event.swift in Sources */,
 				654AD3551BB876C700A59966 /* EventController.swift in Sources */,

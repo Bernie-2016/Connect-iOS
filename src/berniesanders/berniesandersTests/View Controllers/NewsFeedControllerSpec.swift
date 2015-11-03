@@ -28,11 +28,11 @@ class NewsFakeTheme : FakeTheme {
     override func newsFeedDateFont() -> UIFont {
         return UIFont.italicSystemFontOfSize(13)    }
 
-    override func newsFeedDateColor() -> UIColor {
+    override func newsFeedDefaultDisclosureColor() -> UIColor {
         return UIColor.brownColor()
     }
 
-    override func newsFeedBreakingDateColor() -> UIColor {
+    override func newsFeedBreakingDisclosureColor() -> UIColor {
         return UIColor.whiteColor()
     }
 
@@ -282,6 +282,13 @@ class NewsFeedControllerSpecs: QuickSpec {
 
                                 expect(cell.dateLabel.textColor).to(equal(UIColor.whiteColor()))
                             }
+
+                            it("uses the breaking styling for the disclosure indicator") {
+                                let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NewsItemTableViewCell
+
+                                expect(cell.disclosureView.color).to(equal(UIColor.whiteColor()))
+                            }
+
                         }
 
                         context("when the news item is from the past") {
@@ -293,6 +300,12 @@ class NewsFeedControllerSpecs: QuickSpec {
                                 let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NewsItemTableViewCell
 
                                 expect(cell.dateLabel.textColor).to(equal(UIColor.brownColor()))
+                            }
+
+                            it("uses the standard styling for the disclosure indicator") {
+                                let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NewsItemTableViewCell
+
+                                expect(cell.disclosureView.color).to(equal(UIColor.brownColor()))
                             }
                         }
                     }

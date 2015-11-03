@@ -151,19 +151,7 @@ extension NewsFeedController: UITableViewDataSource {
         cell.excerptLabel.text = newsItem.excerpt
         cell.dateLabel.text = self.timeIntervalFormatter.abbreviatedHumanDaysSinceDate(newsItem.date)
 
-        cell.titleLabel.font = self.theme.newsFeedTitleFont()
-        cell.titleLabel.textColor = self.theme.newsFeedTitleColor()
-
-        cell.excerptLabel.font = self.theme.newsFeedExcerptFont()
-        cell.excerptLabel.textColor = self.theme.newsFeedExcerptColor()
-
-        cell.dateLabel.font = self.theme.newsFeedDateFont()
-
-        if self.timeIntervalFormatter.numberOfDaysSinceDate(newsItem.date) == 0 {
-            cell.dateLabel.textColor =  self.theme.newsFeedBreakingDateColor()
-        } else {
-            cell.dateLabel.textColor =  self.theme.newsFeedDateColor()
-        }
+        self.applyThemeToNewsCell(cell, newsItem: newsItem)
 
         cell.newsImageView.image = nil
 
@@ -180,6 +168,24 @@ extension NewsFeedController: UITableViewDataSource {
         }
 
         return cell
+    }
+
+    func applyThemeToNewsCell(cell: NewsItemTableViewCell, newsItem: NewsItem) {
+        cell.titleLabel.font = self.theme.newsFeedTitleFont()
+        cell.titleLabel.textColor = self.theme.newsFeedTitleColor()
+        cell.excerptLabel.font = self.theme.newsFeedExcerptFont()
+        cell.excerptLabel.textColor = self.theme.newsFeedExcerptColor()
+        cell.dateLabel.font = self.theme.newsFeedDateFont()
+
+        let disclosureColor: UIColor
+        if self.timeIntervalFormatter.numberOfDaysSinceDate(newsItem.date) == 0 {
+            disclosureColor = self.theme.newsFeedBreakingDisclosureColor()
+        } else {
+            disclosureColor =  self.theme.newsFeedDefaultDisclosureColor()
+        }
+
+        cell.dateLabel.textColor = disclosureColor
+        cell.disclosureView.color = disclosureColor
     }
 }
 

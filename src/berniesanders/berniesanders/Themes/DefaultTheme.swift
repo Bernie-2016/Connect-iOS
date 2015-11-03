@@ -36,8 +36,8 @@ class DefaultTheme: Theme {
     func newsFeedTitleFont() -> UIFont { return UIFont(name: "Georgia-Bold", size: 20)! }
     func newsFeedExcerptFont() -> UIFont { return UIFont(name: "Georgia", size: 14)! }
     func newsFeedExcerptColor() -> UIColor {  return self.mineShaftColor() }
-    func newsFeedDateColor() -> UIColor { return self.mineShaftColor() }
-    func newsFeedBreakingDateColor() -> UIColor { return self.thunderbirdColor() }
+    func newsFeedDefaultDisclosureColor() -> UIColor { return self.mineShaftColor() }
+    func newsFeedBreakingDisclosureColor() -> UIColor { return self.thunderbirdColor() }
     func newsFeedDateFont() -> UIFont { return UIFont.systemFontOfSize(12) }
 
     // MARK!: issues

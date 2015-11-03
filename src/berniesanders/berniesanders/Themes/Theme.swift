@@ -35,8 +35,8 @@ protocol Theme {
     func newsFeedExcerptFont() -> UIFont
     func newsFeedExcerptColor() -> UIColor
     func newsFeedDateFont() -> UIFont
-    func newsFeedDateColor() -> UIColor
-    func newsFeedBreakingDateColor() -> UIColor
+    func newsFeedDefaultDisclosureColor() -> UIColor
+    func newsFeedBreakingDisclosureColor() -> UIColor
     func newsFeedHeadlineTitleFont() -> UIFont
     func newsfeedHeadlineTitleColor() -> UIColor
     func newsFeedHeadlineTitleBackgroundColor() -> UIColor

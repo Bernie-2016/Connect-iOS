@@ -7,6 +7,7 @@ class NewsItemTableViewCell: UITableViewCell {
     let excerptLabel = UILabel.newAutoLayoutView()
     let dateLabel = UILabel.newAutoLayoutView()
     let newsImageView = UIImageView.newAutoLayoutView()
+    let disclosureView = DisclosureIndicatorView.newAutoLayoutView()
 
     private var excerptRightEdge: NSLayoutConstraint?
     private let defaultMargin: CGFloat
@@ -25,7 +26,7 @@ class NewsItemTableViewCell: UITableViewCell {
         }
     }
 
-    private let disclosureLabel = UILabel.newAutoLayoutView()
+
     private let containerView = UIView.newAutoLayoutView()
 
     required init?(coder aDecoder: NSCoder) {
@@ -44,7 +45,7 @@ class NewsItemTableViewCell: UITableViewCell {
         self.contentView.addSubview(containerView)
         containerView.addSubview(titleLabel)
         containerView.addSubview(dateLabel)
-        containerView.addSubview(disclosureLabel)
+        containerView.addSubview(disclosureView)
         containerView.addSubview(excerptLabel)
         containerView.addSubview(newsImageView)
 
@@ -60,9 +61,7 @@ class NewsItemTableViewCell: UITableViewCell {
         titleLabel.numberOfLines = 3
 
         dateLabel.textAlignment = .Right
-
-        disclosureLabel.text = "〉"
-        disclosureLabel.font = UIFont.systemFontOfSize(13)
+        disclosureView.backgroundColor = UIColor.whiteColor()
 
         excerptLabel.numberOfLines = 4
         excerptLabel.adjustsFontSizeToFitWidth = false
@@ -87,8 +86,10 @@ class NewsItemTableViewCell: UITableViewCell {
         dateLabel.autoPinEdge(.Left, toEdge: .Right, ofView: titleLabel, withOffset: 5)
         dateLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultMargin)
 
-        disclosureLabel.autoPinEdge(.Top, toEdge: .Top, ofView: dateLabel, withOffset: 0)
-        disclosureLabel.autoPinEdge(.Left, toEdge: .Right, ofView: dateLabel, withOffset: 5)
+        disclosureView.autoPinEdge(.Top, toEdge: .Top, ofView: dateLabel, withOffset: 1)
+        disclosureView.autoPinEdge(.Left, toEdge: .Right, ofView: dateLabel, withOffset: 5)
+        disclosureView.autoPinEdgeToSuperviewEdge(.Right)
+        disclosureView.autoSetDimension(.Height, toSize: 20)
 
         newsImageView.autoPinEdge(.Top, toEdge: .Bottom, ofView: titleLabel, withOffset: 5)
         newsImageView.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultMargin)
