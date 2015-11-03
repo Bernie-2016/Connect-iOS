@@ -101,6 +101,6 @@ class NewsItemTableViewCell: UITableViewCell {
         excerptLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: titleLabel, withOffset: 5)
         excerptLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultMargin)
         self.excerptRightEdge = excerptLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultMargin + 108 + defaultMargin)
-        excerptLabel.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 11)
+        excerptLabel.autoPinEdgeToSuperviewEdge(.Bottom, withInset: defaultMargin)
     }
 }
