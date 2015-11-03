@@ -39,8 +39,6 @@ class ConcreteNewsItemDeserializer: NewsItemDeserializer {
 
             if imageURLString != nil && imageURLString != bannedBernieImageURLString {
                 imageURL = NSURL(string: imageURLString!)
-            } else {
-                print(imageURLString)
             }
 
             let newsItem = NewsItem(title: title, date: date, body: body, excerpt: excerpt, imageURL: imageURL, url: url)
