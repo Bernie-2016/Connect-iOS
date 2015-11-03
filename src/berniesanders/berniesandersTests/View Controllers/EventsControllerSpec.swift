@@ -1,6 +1,8 @@
 import UIKit
 import Quick
 import Nimble
+import CoreLocation
+
 @testable import berniesanders
 import QuartzCore
 
@@ -85,10 +87,10 @@ class EventsFakeTheme : FakeTheme {
 class FakeEventRepository : EventRepository {
     var lastReceivedZipCode : NSString?
     var lastReceivedRadiusMiles : Float?
-    var lastCompletionBlock: ((Array<Event>) -> Void)?
+    var lastCompletionBlock: ((EventSearchResult) -> Void)?
     var lastErrorBlock: ((NSError) -> Void)?
 
-    func fetchEventsWithZipCode(zipCode: String, radiusMiles: Float, completion: (Array<Event>) -> Void, error: (NSError) -> Void) {
+    func fetchEventsWithZipCode(zipCode: String, radiusMiles: Float, completion: (EventSearchResult) -> Void, error: (NSError) -> Void) {
         self.lastReceivedZipCode = zipCode
         self.lastReceivedRadiusMiles = radiusMiles
         self.lastCompletionBlock = completion
@@ -356,8 +358,8 @@ class EventsControllerSpec : QuickSpec {
                         context("when the search completes succesfully") {
                             context("with no results") {
                                 beforeEach {
-                                    let events : Array<Event> = []
-                                    self.eventRepository.lastCompletionBlock!(events)
+                                    let eventSearchResults = EventSearchResult(searchCentroid: CLLocation(latitude: 0, longitude: 0), events: [])
+                                    self.eventRepository.lastCompletionBlock!(eventSearchResults)
                                 }
 
                                 it("should hide the spinner") {
@@ -403,7 +405,8 @@ class EventsControllerSpec : QuickSpec {
 
                                 beforeEach {
                                     let events : Array<Event> = [eventA, eventB]
-                                    self.eventRepository.lastCompletionBlock!(events)
+                                    let eventSearchResults = EventSearchResult(searchCentroid: CLLocation(latitude: 0, longitude: 0), events: events)
+                                    self.eventRepository.lastCompletionBlock!(eventSearchResults)
                                 }
 
 

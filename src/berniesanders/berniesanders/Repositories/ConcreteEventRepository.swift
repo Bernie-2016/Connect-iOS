@@ -22,7 +22,7 @@ class ConcreteEventRepository: EventRepository {
     }
 
 
-    func fetchEventsWithZipCode(zipCode: String, radiusMiles: Float, completion: (Array<Event>) -> Void, error: (NSError) -> Void) {
+    func fetchEventsWithZipCode(zipCode: String, radiusMiles: Float, completion: (EventSearchResult) -> Void, error: (NSError) -> Void) {
         self.geocoder.geocodeAddressString(zipCode, completionHandler: { (placemarks, geocodingError) -> Void in
             if geocodingError != nil {
                 error(geocodingError!)
@@ -50,7 +50,8 @@ class ConcreteEventRepository: EventRepository {
                 }
 
                 let parsedEvents = self.eventDeserializer.deserializeEvents(jsonDictionary)
-                self.operationQueue.addOperationWithBlock({ () -> Void in completion(parsedEvents) })
+                let eventSearchResult = EventSearchResult(searchCentroid: location, events: parsedEvents)
+                self.operationQueue.addOperationWithBlock({ () -> Void in completion(eventSearchResult) })
                 return parsedEvents
 
                 }, error: { (receivedError) -> AnyObject! in

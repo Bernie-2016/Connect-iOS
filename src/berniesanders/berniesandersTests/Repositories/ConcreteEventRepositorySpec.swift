@@ -39,7 +39,7 @@ class ConcreteEventRepositorySpec : QuickSpec {
     let eventDeserializer = FakeEventDeserializer()
     let operationQueue = FakeOperationQueue()
     let geocoder = FakeGeocoder()
-    var receivedEvents: Array<Event>!
+    var receivedEventSearchResult: EventSearchResult!
     var receivedError: NSError!
 
     override func spec() {
@@ -54,8 +54,8 @@ class ConcreteEventRepositorySpec : QuickSpec {
 
             describe(".fetchEventsWithZipCode") {
                 beforeEach {
-                    self.subject.fetchEventsWithZipCode("90210", radiusMiles: 50.1, completion: { (events) -> Void in
-                        self.receivedEvents = events
+                    self.subject.fetchEventsWithZipCode("90210", radiusMiles: 50.1, completion: { (eventSearchResult) -> Void in
+                        self.receivedEventSearchResult = eventSearchResult
                         }, error: { (error) -> Void in
                             self.receivedError = error
                     })
@@ -66,12 +66,16 @@ class ConcreteEventRepositorySpec : QuickSpec {
                 }
 
                 context("when geocoding succeeds") {
+                    var expectedLocation: CLLocation!
+
                     beforeEach {
                         let coordinate = CLLocationCoordinate2DMake(12.34, 23.45)
                         let placemark = MKPlacemark(coordinate: coordinate, addressDictionary: nil)
+                        expectedLocation = placemark.location
 
                         let otherCoordinate = CLLocationCoordinate2DMake(11.11, 11.11)
                         let otherPlacemark = MKPlacemark(coordinate: otherCoordinate, addressDictionary: nil)
+
                         self.geocoder.lastReceivedCompletionHandler([placemark, otherPlacemark], nil)
                     }
 
@@ -155,10 +159,12 @@ class ConcreteEventRepositorySpec : QuickSpec {
                             expect(self.eventDeserializer.lastReceivedJSONDictionary).to(beIdenticalTo(expectedJSONDictionary))
                         }
 
-                        it("calls the completion handler with the deserialized value objects on the operation queue") {
+                        it("calls the completion handler with an event search object containing the deserialized value objects on the operation queue") {
                             self.operationQueue.lastReceivedBlock()
-                            expect(self.receivedEvents.count).to(equal(1))
-                            expect(self.receivedEvents.first!).to(beIdenticalTo(expectedEvents.first!))
+
+                            expect(self.receivedEventSearchResult.searchCentroid).to(equal(expectedLocation))
+                            expect(self.receivedEventSearchResult.events.count).to(equal(1))
+                            expect(self.receivedEventSearchResult.events.first!).to(beIdenticalTo(expectedEvents.first!))
                         }
                     }
 

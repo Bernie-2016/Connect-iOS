@@ -93,9 +93,9 @@ class EventsController: UIViewController {
         loadingActivityIndicatorView.startAnimating()
 
         self.eventRepository.fetchEventsWithZipCode(enteredZipCode, radiusMiles: 50.0,
-            completion: { (events: Array<Event>) -> Void in
-                let matchingEventsFound = events.count > 0
-                self.events = events
+            completion: { (eventSearchResult: EventSearchResult) -> Void in
+                let matchingEventsFound = eventSearchResult.events.count > 0
+                self.events = eventSearchResult.events
 
                 self.noResultsLabel.hidden = matchingEventsFound
                 self.resultsTableView.hidden = !matchingEventsFound
