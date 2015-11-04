@@ -77,8 +77,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let timeIntervalFormatter = ConcreteTimeIntervalFormatter(dateProvider: dateProvider)
             let longDateFormatter = NSDateFormatter()
             longDateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
-            let fullDateWithTimeFormatter = NSDateFormatter()
-            fullDateWithTimeFormatter.dateFormat = "EEEE MMMM d, y h:mm a z"
+            let timeFormatter = NSDateFormatter()
+            timeFormatter.timeStyle = .ShortStyle
 
             let newsItemControllerProvider = ConcreteNewsItemControllerProvider(
                 timeIntervalFormatter: timeIntervalFormatter, imageRepository: imageRepository, analyticsService: analyticsService, urlOpener: urlOpener, urlAttributionPresenter: urlAttributionPresenter, theme: defaultTheme
@@ -128,7 +128,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 jsonClient: jsonClient,
                 eventDeserializer: eventDeserializer,
                 operationQueue: mainQueue)
-            let eventPresenter = EventPresenter(dateFormatter: fullDateWithTimeFormatter)
+            let eventPresenter = EventPresenter(dateFormatter: timeFormatter)
             let eventRSVPControllerProvider = ConcreteEventRSVPControllerProvider(analyticsService: analyticsService, theme: defaultTheme)
             let eventControllerProvider = ConcreteEventControllerProvider(
                 eventPresenter: eventPresenter,

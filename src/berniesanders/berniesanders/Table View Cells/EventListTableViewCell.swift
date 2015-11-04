@@ -3,6 +3,7 @@ import UIKit
 class EventListTableViewCell: UITableViewCell {
     let nameLabel = UILabel.newAutoLayoutView()
     let distanceLabel = UILabel.newAutoLayoutView()
+    let dateLabel = UILabel.newAutoLayoutView()
     let disclosureView = DisclosureIndicatorView.newAutoLayoutView()
 
     required init?(coder aDecoder: NSCoder) {
@@ -12,36 +13,42 @@ class EventListTableViewCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        self.accessoryType = .None
-        self.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
-        self.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
-        self.preservesSuperviewLayoutMargins = false
+        accessoryType = .None
+        separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
+        layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
+        preservesSuperviewLayoutMargins = false
 
         nameLabel.numberOfLines = 2
 
         distanceLabel.textAlignment = .Right
+        dateLabel.textAlignment = .Right
 
         disclosureView.backgroundColor = UIColor.whiteColor()
         disclosureView.color = UIColor.blackColor()
 
-        self.contentView.addSubview(nameLabel)
-        self.contentView.addSubview(disclosureView)
-        self.contentView.addSubview(distanceLabel)
+        contentView.addSubview(nameLabel)
+        contentView.addSubview(disclosureView)
+        contentView.addSubview(distanceLabel)
+        contentView.addSubview(dateLabel)
 
         setupConstraints()
     }
 
     private func setupConstraints() {
-        nameLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: 16)
+        nameLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: 15)
         nameLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
-        nameLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 75)
-        nameLabel.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 16)
+        nameLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 95)
+        nameLabel.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 15)
 
-        distanceLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: 16)
+        dateLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: 16)
+        dateLabel.autoPinEdge(.Left, toEdge: .Right, ofView: nameLabel)
+        dateLabel.autoPinEdge(.Right, toEdge: .Left, ofView: disclosureView, withOffset: -7)
+
+        distanceLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: dateLabel)
         distanceLabel.autoPinEdge(.Left, toEdge: .Right, ofView: nameLabel)
-        distanceLabel.autoPinEdge(.Right, toEdge: .Left, ofView: disclosureView, withOffset: -5)
+        distanceLabel.autoPinEdge(.Right, toEdge: .Left, ofView: disclosureView, withOffset: -7)
 
-        disclosureView.autoPinEdge(.Top, toEdge: .Top, ofView: nameLabel)
+        disclosureView.autoPinEdge(.Top, toEdge: .Top, ofView: nameLabel, withOffset: 8)
         disclosureView.autoPinEdgeToSuperviewEdge(.Right)
         disclosureView.autoSetDimension(.Height, toSize: 20)
         disclosureView.autoSetDimension(.Width, toSize: 20)

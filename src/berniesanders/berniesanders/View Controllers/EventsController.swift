@@ -206,6 +206,8 @@ extension EventsController: UITableViewDataSource {
         cell.nameLabel.font = self.theme.eventsListNameFont()
         cell.distanceLabel.textColor = self.theme.eventsListDistanceColor()
         cell.distanceLabel.font = self.theme.eventsListDistanceFont()
+        cell.dateLabel.textColor = self.theme.eventsListDateColor()
+        cell.dateLabel.font = self.theme.eventsListDateFont()
 
         return self.eventPresenter.presentEvent(event, searchCentroid: eventSearchResult.searchCentroid, cell: cell)
     }

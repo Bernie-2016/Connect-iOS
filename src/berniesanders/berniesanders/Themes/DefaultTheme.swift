@@ -84,10 +84,12 @@ class DefaultTheme: Theme {
 
     // MARK: Events
 
-    func eventsListNameFont() -> UIFont { return UIFont.systemFontOfSize(14) }
-    func eventsListNameColor() -> UIColor { return UIColor.blackColor() }
+    func eventsListNameFont() -> UIFont { return UIFont.systemFontOfSize(17) }
+    func eventsListNameColor() -> UIColor { return self.tundoraColor() }
     func eventsListDistanceFont() -> UIFont { return UIFont.systemFontOfSize(12) }
     func eventsListDistanceColor() -> UIColor { return self.doveGreyColor() }
+    func eventsListDateFont() -> UIFont { return UIFont.systemFontOfSize(12) }
+    func eventsListDateColor() -> UIColor { return self.doveGreyColor() }
     func eventsInputAccessoryBackgroundColor() -> UIColor { return self.codGrayColor() }
     func eventsZipCodeTextColor() -> UIColor { return UIColor.blackColor() }
     func eventsZipCodeBackgroundColor() -> UIColor { return UIColor.whiteColor() }

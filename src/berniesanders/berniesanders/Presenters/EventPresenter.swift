@@ -15,6 +15,7 @@ class EventPresenter {
         let lengthFormatter = NSLengthFormatter()
         lengthFormatter.numberFormatter.maximumFractionDigits = 1
         cell.distanceLabel.text = lengthFormatter.stringFromValue(distanceToEvent / 1609.34, unit: .Mile) // :(
+        cell.dateLabel.text = self.presentDateForEvent(event)
 
         return cell
     }

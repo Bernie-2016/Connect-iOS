@@ -35,6 +35,14 @@ class EventsFakeTheme : FakeTheme {
         return UIFont.italicSystemFontOfSize(444)
     }
 
+    override func eventsListDateColor() -> UIColor {
+        return UIColor.darkGrayColor()
+    }
+
+    override func eventsListDateFont() -> UIFont {
+        return UIFont.italicSystemFontOfSize(777)
+    }
+
     override func eventsInputAccessoryBackgroundColor() -> UIColor {
         return UIColor.greenColor()
     }
@@ -459,6 +467,8 @@ class EventsControllerSpec : QuickSpec {
                                         expect(cell.nameLabel.textColor).to(equal(UIColor.yellowColor()))
                                         expect(cell.distanceLabel.font).to(equal(UIFont.italicSystemFontOfSize(444)))
                                         expect(cell.distanceLabel.textColor).to(equal(UIColor.lightGrayColor()))
+                                        expect(cell.dateLabel.font).to(equal(UIFont.italicSystemFontOfSize(777)))
+                                        expect(cell.dateLabel.textColor).to(equal(UIColor.darkGrayColor()))
                                     }
 
                                     describe("tapping on an event") {
