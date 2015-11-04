@@ -40,7 +40,7 @@ class EventListTableViewCell: UITableViewCell {
         nameLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 95)
         nameLabel.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 15)
 
-        dateLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: 16)
+        dateLabel.autoPinEdge(.Top, toEdge: .Top, ofView: disclosureView, withOffset: -7)
         dateLabel.autoPinEdge(.Left, toEdge: .Right, ofView: nameLabel)
         dateLabel.autoPinEdge(.Right, toEdge: .Left, ofView: disclosureView, withOffset: -7)
 
@@ -48,9 +48,9 @@ class EventListTableViewCell: UITableViewCell {
         distanceLabel.autoPinEdge(.Left, toEdge: .Right, ofView: nameLabel)
         distanceLabel.autoPinEdge(.Right, toEdge: .Left, ofView: disclosureView, withOffset: -7)
 
-        disclosureView.autoPinEdge(.Top, toEdge: .Top, ofView: nameLabel, withOffset: 8)
+        disclosureView.autoAlignAxis(.Horizontal, toSameAxisOfView: nameLabel)
         disclosureView.autoPinEdgeToSuperviewEdge(.Right)
-        disclosureView.autoSetDimension(.Height, toSize: 20)
+        disclosureView.autoSetDimension(.Height, toSize: 14)
         disclosureView.autoSetDimension(.Width, toSize: 20)
     }
 }
