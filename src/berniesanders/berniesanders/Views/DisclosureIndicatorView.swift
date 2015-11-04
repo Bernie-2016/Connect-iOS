@@ -1,7 +1,11 @@
 import UIKit
 
 class DisclosureIndicatorView: UIView {
-    var color: UIColor?
+    var color: UIColor? {
+        didSet {
+            self.setNeedsDisplay()
+        }
+    }
 
     override func drawRect(rect: CGRect) {
         let bezier2Path = UIBezierPath()

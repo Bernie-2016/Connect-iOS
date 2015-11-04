@@ -22,7 +22,6 @@ class NewsItemTableViewCell: UITableViewCell {
             self.newsImageView.hidden = !newValue
             self.excerptRightEdge!.constant = newValue ? rightMarginWithImage : rightMarginWithoutImage
             self.layoutSubviews()
-
         }
     }
 
