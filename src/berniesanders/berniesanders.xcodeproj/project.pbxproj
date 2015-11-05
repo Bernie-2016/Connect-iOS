@@ -107,6 +107,8 @@
 		659F0E1E1B95EC780049FA12 /* ConcreteImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659F0E1D1B95EC780049FA12 /* ConcreteImageRepository.swift */; };
 		659F0E201B95F0180049FA12 /* FakeImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659F0E1F1B95F0180049FA12 /* FakeImageRepository.swift */; };
 		659F0E221B95F44E0049FA12 /* bernie.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 659F0E211B95F44E0049FA12 /* bernie.jpg */; };
+		65A26F401BEAFCCC001B3611 /* EventSectionHeaderPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A26F3F1BEAFCCC001B3611 /* EventSectionHeaderPresenter.swift */; settings = {ASSET_TAGS = (); }; };
+		65A26F421BEAFF29001B3611 /* EventSectionHeaderPresenterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A26F411BEAFF29001B3611 /* EventSectionHeaderPresenterSpec.swift */; settings = {ASSET_TAGS = (); }; };
 		65A337011BB88FFA0012877F /* FakeEventPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A337001BB88FFA0012877F /* FakeEventPresenter.swift */; };
 		65A5C0FA1BA2978600D46500 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A5C0F91BA2978600D46500 /* Fabric.framework */; };
 		65A5C0FC1BA29F2200D46500 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A5C0FB1BA29F2200D46500 /* Crashlytics.framework */; };
@@ -145,6 +147,7 @@
 		65DE8D931B955E15008C239F /* NewsItemControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DE8D921B955E15008C239F /* NewsItemControllerSpec.swift */; };
 		65E06CAB1BCB30DC00BDDA61 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8233FC151B7C28FB00A5E9ED /* Images.xcassets */; settings = {ASSET_TAGS = (); }; };
 		65E4A4FC1BC6DA050027501D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8233FC151B7C28FB00A5E9ED /* Images.xcassets */; };
+		65E715261BEA57E400432076 /* EventSearchResultsSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E715251BEA57E400432076 /* EventSearchResultsSpec.swift */; settings = {ASSET_TAGS = (); }; };
 		65EA2F291BB9B648001D8FD5 /* FakeDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EA2F281BB9B648001D8FD5 /* FakeDateFormatter.swift */; };
 		65EC4CEC1B842A0B00DD4C83 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */; };
 		65EC4CEE1B842A1900DD4C83 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65EC4CED1B842A1900DD4C83 /* Quick.framework */; };
@@ -314,6 +317,8 @@
 		659F0E1D1B95EC780049FA12 /* ConcreteImageRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConcreteImageRepository.swift; path = "../Network Clients/ConcreteImageRepository.swift"; sourceTree = "<group>"; };
 		659F0E1F1B95F0180049FA12 /* FakeImageRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeImageRepository.swift; sourceTree = "<group>"; };
 		659F0E211B95F44E0049FA12 /* bernie.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bernie.jpg; sourceTree = "<group>"; };
+		65A26F3F1BEAFCCC001B3611 /* EventSectionHeaderPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSectionHeaderPresenter.swift; sourceTree = "<group>"; };
+		65A26F411BEAFF29001B3611 /* EventSectionHeaderPresenterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSectionHeaderPresenterSpec.swift; sourceTree = "<group>"; };
 		65A337001BB88FFA0012877F /* FakeEventPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeEventPresenter.swift; sourceTree = "<group>"; };
 		65A5C0F91BA2978600D46500 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		65A5C0FB1BA29F2200D46500 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
@@ -349,6 +354,7 @@
 		65DE887B1BE3150D001AEDD8 /* TimeIntervalFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeIntervalFormatter.swift; sourceTree = "<group>"; };
 		65DE887D1BE31540001AEDD8 /* FakeTimeIntervalFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeTimeIntervalFormatter.swift; sourceTree = "<group>"; };
 		65DE8D921B955E15008C239F /* NewsItemControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsItemControllerSpec.swift; sourceTree = "<group>"; };
+		65E715251BEA57E400432076 /* EventSearchResultsSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSearchResultsSpec.swift; sourceTree = "<group>"; };
 		65EA2F281BB9B648001D8FD5 /* FakeDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeDateFormatter.swift; sourceTree = "<group>"; };
 		65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		65EC4CED1B842A1900DD4C83 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
@@ -579,6 +585,7 @@
 				65205F2E1BC09892005A55F2 /* Protocols */,
 				65205F331BC09A3D005A55F2 /* ConcreteURLAttributionPresenter.swift */,
 				654B55B41BB4882700492610 /* EventPresenter.swift */,
+				65A26F3F1BEAFCCC001B3611 /* EventSectionHeaderPresenter.swift */,
 			);
 			path = Presenters;
 			sourceTree = "<group>";
@@ -588,6 +595,7 @@
 			children = (
 				65ED413E1BC09C6A0092C07D /* ConcreteURLAttributionPresenterSpec.swift */,
 				654B55B61BB4888D00492610 /* EventPresenterSpec.swift */,
+				65A26F411BEAFF29001B3611 /* EventSectionHeaderPresenterSpec.swift */,
 			);
 			path = Presenters;
 			sourceTree = "<group>";
@@ -734,6 +742,14 @@
 				65DE887B1BE3150D001AEDD8 /* TimeIntervalFormatter.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		65E715241BEA57C800432076 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				65E715251BEA57E400432076 /* EventSearchResultsSpec.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		65EC4CF21B842A3D00DD4C83 /* Carthage */ = {
@@ -909,6 +925,7 @@
 				65F5F6551B89678E0049353C /* Fakes */,
 				650763301B8B809600BA0659 /* Fixtures */,
 				656ED17A1BE307BC009FD91C /* Formatters */,
+				65E715241BEA57C800432076 /* Models */,
 				652860A11B8B8B3500899FAF /* Network Clients */,
 				654B55B31BB4880000492610 /* Presenters */,
 				653885231B94E86D00DCA808 /* Providers */,
@@ -1154,6 +1171,7 @@
 				65D0ECE11BBAD7780063B1D0 /* EventRSVPControllerProvider.swift in Sources */,
 				65F112F01B9FFF1C00BA585C /* EventsController.swift in Sources */,
 				6525024E1BE954C500AF481E /* EventSearchResult.swift in Sources */,
+				65A26F401BEAFCCC001B3611 /* EventSectionHeaderPresenter.swift in Sources */,
 				654FDBB51BC17D2D00A082CF /* FeedbackController.swift in Sources */,
 				655A3DB31BBCCC8700E08051 /* FLOSSController.swift in Sources */,
 				6518CBBB1BC370A6000C238C /* GTMNSString+HTML.m in Sources */,
@@ -1222,6 +1240,8 @@
 				654B55B71BB4888D00492610 /* EventPresenterSpec.swift in Sources */,
 				65D0ECE91BBB8C360063B1D0 /* EventRSVPControllerSpec.swift in Sources */,
 				65F112EE1B9FFE8700BA585C /* EventsControllerSpec.swift in Sources */,
+				65E715261BEA57E400432076 /* EventSearchResultsSpec.swift in Sources */,
+				65A26F421BEAFF29001B3611 /* EventSectionHeaderPresenterSpec.swift in Sources */,
 				6559D70F1BBDC37000CBC7EE /* FakeAnalyticsService.swift in Sources */,
 				655906F41BC4607100D7B0BA /* FakeApplicationSettingsRepository.swift in Sources */,
 				65EA2F291BB9B648001D8FD5 /* FakeDateFormatter.swift in Sources */,

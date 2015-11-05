@@ -6,6 +6,6 @@ class FakeDateFormatter : NSDateFormatter {
 
     override func stringFromDate(date: NSDate) -> String {
         self.lastReceivedDate = date
-        return "THIS IS THE DATE!"
+        return "This is the date!"
     }
 }

@@ -133,6 +133,34 @@ class FakeEventControllerProvider : berniesanders.EventControllerProvider {
     }
 }
 
+class FakeEventSearchResult: EventSearchResult {
+    var uniqueDays: [NSDate] = []
+    var eventsForAGivenDay: [Event] = []
+
+    override func uniqueDaysInLocalTimeZone() -> [NSDate] {
+        return self.uniqueDays
+    }
+
+    override func eventsWithDayIndex(dayIndex: Int) -> [Event] {
+        return self.eventsForAGivenDay
+    }
+}
+
+class FakeEventSectionHeaderPresenter: EventSectionHeaderPresenter {
+    var lastPresentedDate: NSDate!
+
+    init() {
+        super.init(currentWeekDateFormatter: FakeDateFormatter(),
+            nonCurrentWeekDateFormatter: FakeDateFormatter(),
+            dateProvider: FakeDateProvider())
+    }
+
+    override func headerForDate(date: NSDate) -> String {
+        self.lastPresentedDate = date
+        return "Section header"
+    }
+}
+
 class EventsControllerSpec : QuickSpec {
     var subject : EventsController!
     var window : UIWindow!
@@ -142,6 +170,7 @@ class EventsControllerSpec : QuickSpec {
     var analyticsService: FakeAnalyticsService!
     var tabBarItemStylist: FakeTabBarItemStylist!
     var navigationController: UINavigationController!
+    var eventSectionHeaderPresenter: FakeEventSectionHeaderPresenter!
 
     override func spec() {
         describe("EventsController") {
@@ -151,6 +180,7 @@ class EventsControllerSpec : QuickSpec {
                 self.eventControllerProvider = FakeEventControllerProvider()
                 self.tabBarItemStylist = FakeTabBarItemStylist()
                 self.analyticsService = FakeAnalyticsService()
+                self.eventSectionHeaderPresenter = FakeEventSectionHeaderPresenter()
 
                 self.window = UIWindow()
 
@@ -158,6 +188,7 @@ class EventsControllerSpec : QuickSpec {
                     eventRepository: self.eventRepository,
                     eventPresenter: self.eventPresenter,
                     eventControllerProvider: self.eventControllerProvider,
+                    eventSectionHeaderPresenter: self.eventSectionHeaderPresenter,
                     analyticsService: self.analyticsService,
                     tabBarItemStylist: self.tabBarItemStylist,
                     theme: EventsFakeTheme()
@@ -261,81 +292,127 @@ class EventsControllerSpec : QuickSpec {
                 expect(cancelButton.title).to(equal("Cancel"))
             }
 
-                context("when entering a valid zip code") {
+            context("when entering a valid zip code") {
+                beforeEach {
+                    self.subject.zipCodeTextField.becomeFirstResponder()
+
+                    expect(self.subject.zipCodeTextField.isFirstResponder()).to(beTrue())
+
+                    self.subject.zipCodeTextField.text = "90210"
+                }
+
+                xit("should log an event via the analytics service") {
+                    // TODO: test is failing on Travis, so marking as pending for now.
+                    expect(self.analyticsService.lastCustomEventName).to(equal("Tapped on ZIP Code text field on Events"))
+                    expect(self.analyticsService.lastCustomEventAttributes).to(beNil())
+                }
+
+                describe("aborting a search") {
                     beforeEach {
-                        self.subject.zipCodeTextField.becomeFirstResponder()
+                        let inputToolbar = self.subject.zipCodeTextField.inputAccessoryView as! UIToolbar
+                        let cancelButton = inputToolbar.items![2]
+                        cancelButton.tap()
+                    }
 
-                        expect(self.subject.zipCodeTextField.isFirstResponder()).to(beTrue())
-
-                        self.subject.zipCodeTextField.text = "90210"
+                    it("should resign first responder") {
+                        expect(self.subject.zipCodeTextField.isFirstResponder()).to(beFalse())
                     }
 
                     xit("should log an event via the analytics service") {
                         // TODO: test is failing on Travis, so marking as pending for now.
-                        expect(self.analyticsService.lastCustomEventName).to(equal("Tapped on ZIP Code text field on Events"))
+                        expect(self.analyticsService.lastCustomEventName).to(equal("Cancelled ZIP Code search on Events"))
                         expect(self.analyticsService.lastCustomEventAttributes).to(beNil())
                     }
+                }
 
-                    describe("aborting a search") {
-                        beforeEach {
-                            let inputToolbar = self.subject.zipCodeTextField.inputAccessoryView as! UIToolbar
-                            let cancelButton = inputToolbar.items![2]
-                            cancelButton.tap()
-                        }
-
-                        it("should resign first responder") {
-                            expect(self.subject.zipCodeTextField.isFirstResponder()).to(beFalse())
-                        }
-
-                        xit("should log an event via the analytics service") {
-                            // TODO: test is failing on Travis, so marking as pending for now.
-                            expect(self.analyticsService.lastCustomEventName).to(equal("Cancelled ZIP Code search on Events"))
-                            expect(self.analyticsService.lastCustomEventAttributes).to(beNil())
-                        }
+                describe("and then tapping search") {
+                    beforeEach {
+                        let inputToolbar = self.subject.zipCodeTextField.inputAccessoryView as! UIToolbar
+                        let doneButton = inputToolbar.items![1]
+                        doneButton.tap()
                     }
 
-                    describe("and then tapping search") {
+                    it("should resign first responder") {
+                        expect(self.subject.zipCodeTextField.isFirstResponder()).to(beFalse())
+                    }
+
+                    it("should show the spinner") {
+                        expect(self.subject.loadingActivityIndicatorView.isAnimating()).to(beTrue())
+                    }
+
+                    it("should hide the instructions") {
+                        expect(self.subject.instructionsLabel.hidden).to(beTrue())
+                    }
+
+                    it("should ask the events repository for events within 50 miles") {
+                        expect(self.eventRepository.lastReceivedZipCode).to(equal("90210"))
+                        expect(self.eventRepository.lastReceivedRadiusMiles).to(equal(50.0))
+                    }
+
+                    it("should log an event via the analytics service") {
+                        expect(self.analyticsService.lastSearchQuery).to(equal("90210"))
+                        expect(self.analyticsService.lastSearchContext).to(equal(AnalyticsSearchContext.Events))
+                    }
+
+                    context("when the search results in an error") {
+                        let expectedError = NSError(domain: "someerror", code: 0, userInfo: nil)
                         beforeEach {
-                            let inputToolbar = self.subject.zipCodeTextField.inputAccessoryView as! UIToolbar
-                            let doneButton = inputToolbar.items![1]
-                            doneButton.tap()
+                            self.eventRepository.lastErrorBlock!(expectedError)
                         }
 
-                        it("should resign first responder") {
-                            expect(self.subject.zipCodeTextField.isFirstResponder()).to(beFalse())
-                        }
-
-                        it("should show the spinner") {
-                            expect(self.subject.loadingActivityIndicatorView.isAnimating()).to(beTrue())
-                        }
-
-                        it("should hide the instructions") {
-                            expect(self.subject.instructionsLabel.hidden).to(beTrue())
-                        }
-
-                        it("should ask the events repository for events within 50 miles") {
-                            expect(self.eventRepository.lastReceivedZipCode).to(equal("90210"))
-                            expect(self.eventRepository.lastReceivedRadiusMiles).to(equal(50.0))
+                        it("should hide the spinner") {
+                            expect(self.subject.loadingActivityIndicatorView.isAnimating()).to(beFalse())
                         }
 
                         it("should log an event via the analytics service") {
-                            expect(self.analyticsService.lastSearchQuery).to(equal("90210"))
-                            expect(self.analyticsService.lastSearchContext).to(equal(AnalyticsSearchContext.Events))
+                            expect(self.analyticsService.lastError).to(beIdenticalTo(expectedError))
+                            expect(self.analyticsService.lastErrorContext).to(equal("Events"))
                         }
 
-                        context("when the search results in an error") {
-                            let expectedError = NSError(domain: "someerror", code: 0, userInfo: nil)
+                        it("should display a no results message") {
+                            expect(self.subject.noResultsLabel.hidden).to(beFalse())
+                            expect(self.subject.noResultsLabel.text).to(equal("No events match your search"))
+                        }
+
+                        it("should leave the table view hidden") {
+                            expect(self.subject.resultsTableView.hidden).to(beTrue())
+                        }
+
+                        describe("making a subsequent search") {
                             beforeEach {
-                                self.eventRepository.lastErrorBlock!(expectedError)
+                                self.subject.zipCodeTextField.text = "11111"
+
+                                let inputToolbar = self.subject.zipCodeTextField.inputAccessoryView as! UIToolbar
+                                let doneButton = inputToolbar.items![1]
+                                doneButton.tap()
+                            }
+
+                            it("should hide the no results message") {
+                                expect(self.subject.noResultsLabel.hidden).to(beTrue())
+                            }
+
+                            it("should show the spinner") {
+                                expect(self.subject.loadingActivityIndicatorView.isAnimating()).to(beTrue())
+                            }
+
+                            it("should ask the events repository for events within 50 miles") {
+                                expect(self.eventRepository.lastReceivedZipCode).to(equal("11111"))
+                                expect(self.eventRepository.lastReceivedRadiusMiles).to(equal(50.0))
+                            }
+                        }
+                    }
+
+                    context("when the search completes succesfully") {
+                        context("with no results") {
+                            let expectedSearchCentroid = CLLocation(latitude: 37.8271868, longitude: -122.4240794)
+
+                            beforeEach {
+                                let eventSearchResult = EventSearchResult(searchCentroid: expectedSearchCentroid, events: [])
+                                self.eventRepository.lastCompletionBlock!(eventSearchResult)
                             }
 
                             it("should hide the spinner") {
                                 expect(self.subject.loadingActivityIndicatorView.isAnimating()).to(beFalse())
-                            }
-
-                            it("should log an event via the analytics service") {
-                                expect(self.analyticsService.lastError).to(beIdenticalTo(expectedError))
-                                expect(self.analyticsService.lastErrorContext).to(equal("Events"))
                             }
 
                             it("should display a no results message") {
@@ -360,7 +437,7 @@ class EventsControllerSpec : QuickSpec {
                                     expect(self.subject.noResultsLabel.hidden).to(beTrue())
                                 }
 
-                                it("should show the spinner") {
+                                it("should show the spinner by default") {
                                     expect(self.subject.loadingActivityIndicatorView.isAnimating()).to(beTrue())
                                 }
 
@@ -371,156 +448,139 @@ class EventsControllerSpec : QuickSpec {
                             }
                         }
 
-                        context("when the search completes succesfully") {
-                            context("with no results") {
-                                let expectedSearchCentroid = CLLocation(latitude: 37.8271868, longitude: -122.4240794)
+                        context("with some results") {
+                            let eventA = TestUtils.eventWithName("Bigtime Bernie BBQ")
+                            let eventB = TestUtils.eventWithName("Slammin' Sanders Salsa Serenade")
+                            let expectedSearchCentroid = CLLocation(latitude: 37.8271868, longitude: -122.4240794)
+                            let events : Array<Event> = [eventA, eventB]
+                            let eventSearchResult = FakeEventSearchResult(searchCentroid: expectedSearchCentroid, events: events)
 
-                                beforeEach {
-                                    let eventSearchResults = EventSearchResult(searchCentroid: expectedSearchCentroid, events: [])
-                                    self.eventRepository.lastCompletionBlock!(eventSearchResults)
+                            beforeEach {
+                                self.eventRepository.lastCompletionBlock!(eventSearchResult)
+                            }
+
+                            it("should hide the spinner") {
+                                expect(self.subject.loadingActivityIndicatorView.isAnimating()).to(beFalse())
+                            }
+
+                            it("should leave the no results message hidden") {
+                                expect(self.subject.noResultsLabel.hidden).to(beTrue())
+                            }
+
+                            it("should show the results table") {
+                                expect(self.subject.resultsTableView.hidden).to(beFalse())
+                            }
+
+
+                            describe("the results table") {
+                                it("has a section per unique day in the search results") {
+                                    eventSearchResult.uniqueDays = [NSDate(), NSDate()]
+                                    self.subject.resultsTableView.reloadData()
+                                    expect(self.subject.resultsTableView.numberOfSections).to(equal(2))
+                                    eventSearchResult.uniqueDays = [NSDate()]
+                                    self.subject.resultsTableView.reloadData()
+                                    expect(self.subject.resultsTableView.numberOfSections).to(equal(1))
                                 }
 
-                                it("should hide the spinner") {
-                                    expect(self.subject.loadingActivityIndicatorView.isAnimating()).to(beFalse())
+                                it("uses the events section header presenter for the header title") {
+                                    let dateForSection = NSDate()
+                                    eventSearchResult.uniqueDays = [NSDate(), dateForSection]
+                                    self.subject.resultsTableView.reloadData()
+
+                                    let header = self.subject.tableView(self.subject.resultsTableView, titleForHeaderInSection: 1)
+                                    expect(header).to(equal("Section header"))
+                                    expect(self.eventSectionHeaderPresenter.lastPresentedDate).to(beIdenticalTo(dateForSection))
                                 }
 
-                                it("should display a no results message") {
-                                    expect(self.subject.noResultsLabel.hidden).to(beFalse())
-                                    expect(self.subject.noResultsLabel.text).to(equal("No events match your search"))
+                                it("displays a cell per event in each day section") {
+                                    eventSearchResult.eventsForAGivenDay = events
+                                    self.subject.resultsTableView.reloadData()
+
+                                    expect(self.subject.resultsTableView.numberOfRowsInSection(0)).to(equal(2))
+
+                                    eventSearchResult.eventsForAGivenDay = [eventA]
+                                    self.subject.resultsTableView.reloadData()
+
+                                    expect(self.subject.resultsTableView.numberOfRowsInSection(0)).to(equal(1))
                                 }
 
-                                it("should leave the table view hidden") {
-                                    expect(self.subject.resultsTableView.hidden).to(beTrue())
+                                it("uses the presenter to set up the returned cells from the search results") {
+                                    eventSearchResult.eventsForAGivenDay = events
+                                    self.subject.resultsTableView.reloadData()
+
+                                    let cellA = self.subject.resultsTableView.dataSource!.tableView(self.subject.resultsTableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0)) as! EventListTableViewCell
+
+                                    expect(self.eventPresenter.lastReceivedEvent).to(beIdenticalTo(eventA))
+                                    expect(self.eventPresenter.lastSearchCentroid).to(beIdenticalTo(expectedSearchCentroid))
+                                    expect(self.eventPresenter.lastReceivedCell).to(beIdenticalTo(cellA))
+
+                                    let cellB = self.subject.resultsTableView.dataSource!.tableView(self.subject.resultsTableView, cellForRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0)) as! EventListTableViewCell
+
+                                    expect(self.eventPresenter.lastReceivedEvent).to(beIdenticalTo(eventB))
+                                    expect(self.eventPresenter.lastSearchCentroid).to(beIdenticalTo(expectedSearchCentroid))
+                                    expect(self.eventPresenter.lastReceivedCell).to(beIdenticalTo(cellB))
                                 }
 
-                                describe("making a subsequent search") {
+                                it("styles the cells from the theme") {
+                                    let cell = self.subject.resultsTableView.dataSource!.tableView(self.subject.resultsTableView, cellForRowAtIndexPath:NSIndexPath(forRow: 0, inSection: 0)) as! EventListTableViewCell
+
+                                    expect(cell.nameLabel.font).to(equal(UIFont.italicSystemFontOfSize(333)))
+                                    expect(cell.nameLabel.textColor).to(equal(UIColor.yellowColor()))
+                                    expect(cell.distanceLabel.font).to(equal(UIFont.italicSystemFontOfSize(444)))
+                                    expect(cell.distanceLabel.textColor).to(equal(UIColor.lightGrayColor()))
+                                    expect(cell.dateLabel.font).to(equal(UIFont.italicSystemFontOfSize(777)))
+                                    expect(cell.dateLabel.textColor).to(equal(UIColor.darkGrayColor()))
+                                }
+
+                                describe("tapping on an event") {
                                     beforeEach {
-                                        self.subject.zipCodeTextField.text = "11111"
-
-                                        let inputToolbar = self.subject.zipCodeTextField.inputAccessoryView as! UIToolbar
-                                        let doneButton = inputToolbar.items![1]
-                                        doneButton.tap()
+                                        let tableView = self.subject.resultsTableView
+                                        tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
                                     }
 
-                                    it("should hide the no results message") {
-                                        expect(self.subject.noResultsLabel.hidden).to(beTrue())
+                                    it("should push a correctly configured news item view controller onto the nav stack") {
+                                        expect(self.eventControllerProvider.lastEvent).to(beIdenticalTo(eventB))
+                                        expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.eventControllerProvider.controller))
                                     }
 
-                                    it("should show the spinner by default") {
-                                        expect(self.subject.loadingActivityIndicatorView.isAnimating()).to(beTrue())
+                                    it("tracks the content view with the analytics service") {
+                                        expect(self.analyticsService.lastContentViewName).to(equal(eventB.name))
+                                        expect(self.analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.Event))
+                                        expect(self.analyticsService.lastContentViewID).to(equal(eventB.url.absoluteString))
                                     }
 
-                                    it("should ask the events repository for events within 50 miles") {
-                                        expect(self.eventRepository.lastReceivedZipCode).to(equal("11111"))
-                                        expect(self.eventRepository.lastReceivedRadiusMiles).to(equal(50.0))
+                                    describe("and the view is shown again") {
+                                        it("deselects the selected table row") {
+                                            self.subject.resultsTableView.selectRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: false, scrollPosition: .Middle)
+                                            self.subject.viewWillAppear(false)
+
+                                            expect(self.subject.resultsTableView.indexPathForSelectedRow).to(beNil())
+                                        }
                                     }
                                 }
                             }
 
-                            context("with some results") {
-                                let eventA = TestUtils.eventWithName("Bigtime Bernie BBQ")
-                                let eventB = TestUtils.eventWithName("Slammin' Sanders Salsa Serenade")
-                                let expectedSearchCentroid = CLLocation(latitude: 37.8271868, longitude: -122.4240794)
-
+                            describe("making a subsequent search") {
                                 beforeEach {
-                                    let events : Array<Event> = [eventA, eventB]
-                                    let eventSearchResults = EventSearchResult(searchCentroid: CLLocation(latitude: 0, longitude: 0), events: events)
-                                    self.eventRepository.lastCompletionBlock!(eventSearchResults)
+                                    self.subject.zipCodeTextField.text = "11111"
+
+                                    let inputToolbar = self.subject.zipCodeTextField.inputAccessoryView as! UIToolbar
+                                    let doneButton = inputToolbar.items![1]
+                                    doneButton.tap()
+                                }
+
+                                it("should hide the results table view") {
+                                    expect(self.subject.resultsTableView.hidden).to(beTrue())
                                 }
 
 
-                                it("should hide the spinner") {
-                                    expect(self.subject.loadingActivityIndicatorView.isAnimating()).to(beFalse())
+                                it("should show the spinner") {
+                                    expect(self.subject.loadingActivityIndicatorView.isAnimating()).to(beTrue())
                                 }
 
-                                it("should leave the no results message hidden") {
-                                    expect(self.subject.noResultsLabel.hidden).to(beTrue())
-                                }
-
-                                it("should show the results table") {
-                                    expect(self.subject.resultsTableView.hidden).to(beFalse())
-                                }
-
-
-                                describe("the results table") {
-                                    it("uses the presenter to set up the returned cells from the search results") {
-                                        expect(self.subject.resultsTableView.numberOfSections).to(equal(1))
-                                        expect(self.subject.resultsTableView.numberOfRowsInSection(0)).to(equal(2))
-
-                                        let cellA = self.subject.resultsTableView.dataSource!.tableView(self.subject.resultsTableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0)) as! EventListTableViewCell
-
-                                        expect(self.eventPresenter.lastReceivedEvent).to(beIdenticalTo(eventA))
-                                        expect(self.eventPresenter.lastSearchCentroid).to(beIdenticalTo(expectedSearchCentroid))
-                                        expect(self.eventPresenter.lastReceivedCell).to(beIdenticalTo(cellA))
-
-                                        let cellB = self.subject.resultsTableView.dataSource!.tableView(self.subject.resultsTableView, cellForRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0)) as! EventListTableViewCell
-
-                                        expect(self.eventPresenter.lastReceivedEvent).to(beIdenticalTo(eventB))
-                                        expect(self.eventPresenter.lastSearchCentroid).to(beIdenticalTo(expectedSearchCentroid))
-                                        expect(self.eventPresenter.lastReceivedCell).to(beIdenticalTo(cellB))
-                                    }
-
-                                    it("styles the cells from the theme") {
-                                        let cell = self.subject.resultsTableView.dataSource!.tableView(self.subject.resultsTableView, cellForRowAtIndexPath:NSIndexPath(forRow: 0, inSection: 0)) as! EventListTableViewCell
-
-                                        expect(cell.nameLabel.font).to(equal(UIFont.italicSystemFontOfSize(333)))
-                                        expect(cell.nameLabel.textColor).to(equal(UIColor.yellowColor()))
-                                        expect(cell.distanceLabel.font).to(equal(UIFont.italicSystemFontOfSize(444)))
-                                        expect(cell.distanceLabel.textColor).to(equal(UIColor.lightGrayColor()))
-                                        expect(cell.dateLabel.font).to(equal(UIFont.italicSystemFontOfSize(777)))
-                                        expect(cell.dateLabel.textColor).to(equal(UIColor.darkGrayColor()))
-                                    }
-
-                                    describe("tapping on an event") {
-                                        beforeEach {
-                                            let tableView = self.subject.resultsTableView
-                                            tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
-                                        }
-
-                                        it("should push a correctly configured news item view controller onto the nav stack") {
-                                            expect(self.eventControllerProvider.lastEvent).to(beIdenticalTo(eventB))
-                                            expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.eventControllerProvider.controller))
-                                        }
-
-                                        it("tracks the content view with the analytics service") {
-                                            expect(self.analyticsService.lastContentViewName).to(equal(eventB.name))
-                                            expect(self.analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.Event))
-                                            expect(self.analyticsService.lastContentViewID).to(equal(eventB.url.absoluteString))
-                                        }
-
-                                        describe("and the view is shown again") {
-                                            it("deselects the selected table row") {
-                                                self.subject.resultsTableView.selectRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: false, scrollPosition: .Middle)
-                                                self.subject.viewWillAppear(false)
-
-                                                expect(self.subject.resultsTableView.indexPathForSelectedRow).to(beNil())
-                                            }
-                                        }
-                                    }
-                                }
-
-                                describe("making a subsequent search") {
-                                    beforeEach {
-                                        self.subject.zipCodeTextField.text = "11111"
-
-                                        let inputToolbar = self.subject.zipCodeTextField.inputAccessoryView as! UIToolbar
-                                        let doneButton = inputToolbar.items![1]
-                                        doneButton.tap()
-                                    }
-
-                                    it("should hide the results table view") {
-                                        expect(self.subject.resultsTableView.hidden).to(beTrue())
-                                    }
-
-
-                                    it("should show the spinner") {
-                                        expect(self.subject.loadingActivityIndicatorView.isAnimating()).to(beTrue())
-                                    }
-
-                                    it("should ask the events repository for events within 50 miles") {
-                                        expect(self.eventRepository.lastReceivedZipCode).to(equal("11111"))
-                                        expect(self.eventRepository.lastReceivedRadiusMiles).to(equal(50.0))
-                                    }
+                                it("should ask the events repository for events within 50 miles") {
+                                    expect(self.eventRepository.lastReceivedZipCode).to(equal("11111"))
+                                    expect(self.eventRepository.lastReceivedRadiusMiles).to(equal(50.0))
                                 }
                             }
                         }
@@ -529,4 +589,5 @@ class EventsControllerSpec : QuickSpec {
             }
         }
     }
+}
 

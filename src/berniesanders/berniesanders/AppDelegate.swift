@@ -76,9 +76,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
             let timeIntervalFormatter = ConcreteTimeIntervalFormatter(dateProvider: dateProvider)
             let longDateFormatter = NSDateFormatter()
-            longDateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
+            longDateFormatter.dateStyle = .LongStyle
             let timeFormatter = NSDateFormatter()
             timeFormatter.timeStyle = .ShortStyle
+            let dayDateFormatter = NSDateFormatter()
+            dayDateFormatter.dateFormat = "EEEE"
+            let shortDateFormatter = NSDateFormatter()
+            shortDateFormatter.dateStyle = .ShortStyle
+
 
             let newsItemControllerProvider = ConcreteNewsItemControllerProvider(
                 timeIntervalFormatter: timeIntervalFormatter, imageRepository: imageRepository, analyticsService: analyticsService, urlOpener: urlOpener, urlAttributionPresenter: urlAttributionPresenter, theme: defaultTheme
@@ -137,10 +142,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 urlOpener: urlOpener,
                 analyticsService: analyticsService,
                 theme: defaultTheme)
+
+            let eventSectionHeaderPresenter = EventSectionHeaderPresenter(
+                currentWeekDateFormatter: dayDateFormatter,
+                nonCurrentWeekDateFormatter: shortDateFormatter,
+                dateProvider: dateProvider)
+
             let eventsController = EventsController(
                 eventRepository: eventRepository,
                 eventPresenter: eventPresenter,
                 eventControllerProvider: eventControllerProvider,
+                eventSectionHeaderPresenter: eventSectionHeaderPresenter,
                 analyticsService: analyticsService,
                 tabBarItemStylist: tabBarItemStylist,
                 theme: defaultTheme

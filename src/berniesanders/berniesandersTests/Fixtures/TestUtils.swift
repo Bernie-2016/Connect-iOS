@@ -31,6 +31,13 @@ class TestUtils {
             description: "This isn't Beverly Hills! It's Knot's Landing!", url: NSURL(string: "https://example.com")!, eventTypeName: "Big Time Bernie Fun")
     }
 
+    class func eventWithStartDate(startDate: NSDate, timeZone: String) -> Event {
+        return Event(name: startDate.description, startDate: startDate, timeZone: NSTimeZone(abbreviation: timeZone)!,
+            attendeeCapacity: 10, attendeeCount: 2,
+            streetAddress: "100 Main Street", city: "Beverley Hills", state: "CA", zip: "90210", location: CLLocation(latitude: 37.8271868, longitude: -122.4240794),
+            description: "This isn't Beverly Hills! It's Knot's Landing!", url: NSURL(string: "https://example.com")!, eventTypeName: "Big Time Bernie Fun")
+    }
+
     // MARK: Controllers
 
     class func settingsController() -> SettingsController {

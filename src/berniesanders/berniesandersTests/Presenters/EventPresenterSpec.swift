@@ -84,7 +84,7 @@ class EventPresenterSpec : QuickSpec {
                 }
 
                 it("displays the date using the date formatter") {
-                    expect(cell.dateLabel.text).to(equal("THIS IS THE DATE!"))
+                    expect(cell.dateLabel.text).to(equal("This is the date!"))
                     expect(self.dateFormatter.timeZone).to(beIdenticalTo(event.timeZone))
                     expect(self.dateFormatter.lastReceivedDate).to(beIdenticalTo(event.startDate))
                 }
@@ -92,7 +92,7 @@ class EventPresenterSpec : QuickSpec {
 
             describe("formatting a start date") {
                 it("uses the configured date formatter") {
-                    expect(self.subject.presentDateForEvent(event)).to(equal("THIS IS THE DATE!"))
+                    expect(self.subject.presentDateForEvent(event)).to(equal("This is the date!"))
                     expect(self.dateFormatter.timeZone).to(beIdenticalTo(event.timeZone))
                     expect(self.dateFormatter.lastReceivedDate).to(beIdenticalTo(event.startDate))
                 }

@@ -44,6 +44,7 @@
 "Events_eventSearchButtonTitle" = "Search";
 "Events_eventCancelButtonTitle" = "Cancel";
 "Events_instructions" = "Enter your ZIP code above to find Bernie events near you!";
+"Events_todayHeader" = "TODAY";
 
 // Event
 

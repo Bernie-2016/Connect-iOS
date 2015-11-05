@@ -6,6 +6,7 @@ class EventsController: UIViewController {
     let eventRepository: EventRepository
     let eventPresenter: EventPresenter
     private let eventControllerProvider: EventControllerProvider
+    private let eventSectionHeaderPresenter: EventSectionHeaderPresenter
     private let analyticsService: AnalyticsService
     private let tabBarItemStylist: TabBarItemStylist
     let theme: Theme
@@ -21,6 +22,7 @@ class EventsController: UIViewController {
     init(eventRepository: EventRepository,
         eventPresenter: EventPresenter,
         eventControllerProvider: EventControllerProvider,
+        eventSectionHeaderPresenter: EventSectionHeaderPresenter,
         analyticsService: AnalyticsService,
         tabBarItemStylist: TabBarItemStylist,
         theme: Theme) {
@@ -28,6 +30,7 @@ class EventsController: UIViewController {
         self.eventRepository = eventRepository
         self.eventPresenter = eventPresenter
         self.eventControllerProvider = eventControllerProvider
+        self.eventSectionHeaderPresenter = eventSectionHeaderPresenter
         self.analyticsService = analyticsService
         self.tabBarItemStylist = tabBarItemStylist
         self.theme = theme
@@ -191,8 +194,12 @@ class EventsController: UIViewController {
 
 // MARK: <UITableViewDataSource>
 extension EventsController: UITableViewDataSource {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return eventSearchResult != nil ? eventSearchResult.uniqueDaysInLocalTimeZone().count : 1
+    }
+
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return eventSearchResult != nil ? eventSearchResult.events.count : 0
+        return eventSearchResult != nil ? eventSearchResult.eventsWithDayIndex(section).count : 0
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -200,7 +207,8 @@ extension EventsController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCellWithIdentifier("eventCell") as! EventListTableViewCell
         // swiftlint:enable force_cast
 
-        let event = eventSearchResult.events[indexPath.row]
+        let eventsForDay = eventSearchResult.eventsWithDayIndex(indexPath.section)
+        let event = eventsForDay[indexPath.row]
 
         cell.nameLabel.textColor = self.theme.eventsListNameColor()
         cell.nameLabel.font = self.theme.eventsListNameFont()
@@ -217,6 +225,15 @@ extension EventsController: UITableViewDataSource {
 extension EventsController: UITableViewDelegate {
     func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 75
+    }
+
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if eventSearchResult == nil {
+            return nil
+        }
+
+        let sectionDate = self.eventSearchResult.uniqueDaysInLocalTimeZone()[section]
+        return self.eventSectionHeaderPresenter.headerForDate(sectionDate)
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
