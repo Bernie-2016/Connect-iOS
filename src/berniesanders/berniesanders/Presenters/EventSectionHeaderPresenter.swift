@@ -1,10 +1,10 @@
 import Foundation
 
 class EventSectionHeaderPresenter {
-    let currentWeekDateFormatter: NSDateFormatter
-    let nonCurrentWeekDateFormatter: NSDateFormatter
-    let dateProvider: DateProvider
-    let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+    private let currentWeekDateFormatter: NSDateFormatter
+    private let nonCurrentWeekDateFormatter: NSDateFormatter
+    private let dateProvider: DateProvider
+    private let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
 
     init(currentWeekDateFormatter: NSDateFormatter,
         nonCurrentWeekDateFormatter: NSDateFormatter,

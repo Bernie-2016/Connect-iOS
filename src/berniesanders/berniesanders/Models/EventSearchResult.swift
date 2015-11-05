@@ -13,6 +13,7 @@ class EventSearchResult {
     func uniqueDaysInLocalTimeZone() -> [NSDate] {
         let currentCalendar = NSCalendar.currentCalendar()
         let eventTimeZoneCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+
         let uniqueDays = NSMutableSet()
 
         for event in events {

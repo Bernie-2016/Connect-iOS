@@ -1,7 +1,8 @@
 import Foundation
 
 class ConcreteTimeIntervalFormatter: TimeIntervalFormatter {
-    let dateProvider: DateProvider
+    private let dateProvider: DateProvider
+    private let currentCalendar = NSCalendar.currentCalendar()
 
     init(dateProvider: DateProvider) {
         self.dateProvider = dateProvider
@@ -29,6 +30,6 @@ class ConcreteTimeIntervalFormatter: TimeIntervalFormatter {
     }
 
     func numberOfDaysSinceDate(date: NSDate) -> Int {
-        return NSCalendar.currentCalendar().components(.Day, fromDate: date, toDate: self.dateProvider.now(), options: []).day
+        return self.currentCalendar.components(.Day, fromDate: date, toDate: self.dateProvider.now(), options: []).day
     }
 }
