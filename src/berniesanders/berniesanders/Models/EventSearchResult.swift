@@ -47,6 +47,24 @@ class EventSearchResult {
             }
         }
 
-        return eventsForDay
+        return eventsForDay.sort({ (eventA, eventB) -> Bool in
+            eventTimeZoneCalendar.timeZone = eventA.timeZone
+            let eventAComponents = eventTimeZoneCalendar.components(NSCalendarUnit([.Hour, .Minute]), fromDate: eventA.startDate)
+
+            eventTimeZoneCalendar.timeZone = eventB.timeZone
+            let eventBComponents = eventTimeZoneCalendar.components(NSCalendarUnit([.Hour, .Minute]), fromDate: eventB.startDate)
+
+            if eventAComponents.hour < eventBComponents.hour {
+                return true
+            } else if eventAComponents.hour == eventBComponents.hour {
+                if eventAComponents.minute < eventBComponents.minute {
+                    return true
+                } else if eventAComponents.minute == eventBComponents.minute {
+                    return true
+                }
+            }
+
+            return false
+        })
     }
 }
