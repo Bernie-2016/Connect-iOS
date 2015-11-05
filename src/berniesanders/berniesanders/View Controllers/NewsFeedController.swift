@@ -179,9 +179,9 @@ extension NewsFeedController: UITableViewDataSource {
 
         let disclosureColor: UIColor
         if self.timeIntervalFormatter.numberOfDaysSinceDate(newsItem.date) == 0 {
-            disclosureColor = self.theme.newsFeedBreakingDisclosureColor()
+            disclosureColor = self.theme.highlightDisclosureColor()
         } else {
-            disclosureColor =  self.theme.newsFeedDefaultDisclosureColor()
+            disclosureColor =  self.theme.defaultDisclosureColor()
         }
 
         cell.dateLabel.textColor = disclosureColor

@@ -213,7 +213,7 @@ extension EventsController: UITableViewDataSource {
         let eventsForDay = eventSearchResult.eventsWithDayIndex(indexPath.section)
         let event = eventsForDay[indexPath.row]
 
-        self.eventListTableViewCellStylist.styleCell(cell)
+        self.eventListTableViewCellStylist.styleCell(cell, event: event)
 
         return self.eventPresenter.presentEvent(event, searchCentroid: eventSearchResult.searchCentroid, cell: cell)
     }

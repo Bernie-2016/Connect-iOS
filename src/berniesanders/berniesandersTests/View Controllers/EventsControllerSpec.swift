@@ -139,9 +139,11 @@ private class FakeEventSectionHeaderPresenter: EventSectionHeaderPresenter {
 
 private class FakeEventListTableViewCellStylist: EventListTableViewCellStylist {
     var lastStyledCell: EventListTableViewCell!
+    var lastReceivedEvent: Event!
 
-    private func styleCell(cell: EventListTableViewCell) {
+    private func styleCell(cell: EventListTableViewCell, event: Event) {
         self.lastStyledCell = cell
+        self.lastReceivedEvent = event
     }
 }
 
@@ -512,6 +514,7 @@ class EventsControllerSpec : QuickSpec {
                                     let cell = self.subject.resultsTableView.dataSource!.tableView(self.subject.resultsTableView, cellForRowAtIndexPath:NSIndexPath(forRow: 0, inSection: 0)) as! EventListTableViewCell
 
                                     expect(self.eventListTableViewCellStylist.lastStyledCell).to(beIdenticalTo(cell))
+                                    expect(self.eventListTableViewCellStylist.lastReceivedEvent).to(beIdenticalTo(eventA))
                                 }
 
                                 describe("tapping on an event") {

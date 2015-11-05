@@ -9,6 +9,8 @@ class DefaultTheme: Theme {
     func defaultSpinnerColor() -> UIColor { return self.silverColor() }
     func attributionFont() -> UIFont { return UIFont.systemFontOfSize(12) }
     func attributionTextColor() -> UIColor { return self.silverColor() }
+    func defaultDisclosureColor() -> UIColor { return self.mineShaftColor() }
+    func highlightDisclosureColor() -> UIColor { return self.thunderbirdColor() }
 
     // MARK: Tab Bar
 
@@ -36,8 +38,6 @@ class DefaultTheme: Theme {
     func newsFeedTitleFont() -> UIFont { return UIFont(name: "Georgia-Bold", size: 20)! }
     func newsFeedExcerptFont() -> UIFont { return UIFont(name: "Georgia", size: 14)! }
     func newsFeedExcerptColor() -> UIColor {  return self.mineShaftColor() }
-    func newsFeedDefaultDisclosureColor() -> UIColor { return self.mineShaftColor() }
-    func newsFeedBreakingDisclosureColor() -> UIColor { return self.thunderbirdColor() }
     func newsFeedDateFont() -> UIFont { return UIFont.systemFontOfSize(12) }
 
     // MARK!: issues
@@ -88,8 +88,10 @@ class DefaultTheme: Theme {
     func eventsListNameColor() -> UIColor { return self.tundoraColor() }
     func eventsListDistanceFont() -> UIFont { return UIFont.systemFontOfSize(12) }
     func eventsListDistanceColor() -> UIColor { return self.doveGreyColor() }
+    func eventsListDistanceTodayColor() -> UIColor { return self.thunderbirdColor() }
     func eventsListDateFont() -> UIFont { return UIFont.systemFontOfSize(12) }
     func eventsListDateColor() -> UIColor { return self.doveGreyColor() }
+    func eventsListDateTodayColor() -> UIColor { return self.thunderbirdColor() }
     func eventsInputAccessoryBackgroundColor() -> UIColor { return self.codGrayColor() }
     func eventsZipCodeTextColor() -> UIColor { return UIColor.blackColor() }
     func eventsZipCodeBackgroundColor() -> UIColor { return UIColor.whiteColor() }

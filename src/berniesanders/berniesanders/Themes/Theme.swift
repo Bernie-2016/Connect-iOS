@@ -12,7 +12,8 @@ protocol Theme {
     func defaultButtonBackgroundColor() -> UIColor
     func defaultButtonTextColor() -> UIColor
     func defaultButtonFont() -> UIFont
-
+    func defaultDisclosureColor() -> UIColor
+    func highlightDisclosureColor() -> UIColor
 
     // MARK: Tab Bar
 
@@ -35,8 +36,6 @@ protocol Theme {
     func newsFeedExcerptFont() -> UIFont
     func newsFeedExcerptColor() -> UIColor
     func newsFeedDateFont() -> UIFont
-    func newsFeedDefaultDisclosureColor() -> UIColor
-    func newsFeedBreakingDisclosureColor() -> UIColor
     func newsFeedHeadlineTitleFont() -> UIFont
     func newsfeedHeadlineTitleColor() -> UIColor
     func newsFeedHeadlineTitleBackgroundColor() -> UIColor
@@ -74,8 +73,10 @@ protocol Theme {
     func eventsListNameColor() -> UIColor
     func eventsListDistanceFont() -> UIFont
     func eventsListDistanceColor() -> UIColor
+    func eventsListDistanceTodayColor() -> UIColor
     func eventsListDateFont() -> UIFont
     func eventsListDateColor() -> UIColor
+    func eventsListDateTodayColor() -> UIColor
     func eventsInputAccessoryBackgroundColor() -> UIColor
     func eventsZipCodeTextColor() -> UIColor
     func eventsZipCodeBackgroundColor() -> UIColor

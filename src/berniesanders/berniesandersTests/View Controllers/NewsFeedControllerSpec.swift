@@ -28,11 +28,11 @@ class NewsFakeTheme : FakeTheme {
     override func newsFeedDateFont() -> UIFont {
         return UIFont.italicSystemFontOfSize(13)    }
 
-    override func newsFeedDefaultDisclosureColor() -> UIColor {
+    override func defaultDisclosureColor() -> UIColor {
         return UIColor.brownColor()
     }
 
-    override func newsFeedBreakingDisclosureColor() -> UIColor {
+    override func highlightDisclosureColor() -> UIColor {
         return UIColor.whiteColor()
     }
 

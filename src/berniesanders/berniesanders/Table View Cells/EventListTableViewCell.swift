@@ -23,9 +23,6 @@ class EventListTableViewCell: UITableViewCell {
         distanceLabel.textAlignment = .Right
         dateLabel.textAlignment = .Right
 
-        disclosureView.backgroundColor = UIColor.whiteColor()
-        disclosureView.color = UIColor.blackColor()
-
         contentView.addSubview(nameLabel)
         contentView.addSubview(disclosureView)
         contentView.addSubview(distanceLabel)
