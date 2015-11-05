@@ -103,6 +103,9 @@
 		6592FA3C1B99E33300746EC3 /* IssueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6592FA3B1B99E33300746EC3 /* IssueController.swift */; };
 		659A12031B8BA5CF00BE08F4 /* FakeOperationQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659A12021B8BA5CF00BE08F4 /* FakeOperationQueue.swift */; };
 		659D06861B9FD79D0099DA3F /* UIKit+PivotalSpecHelperStubs-iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659D06831B9FD79D0099DA3F /* UIKit+PivotalSpecHelperStubs-iOS.framework */; };
+		659E711E1BEBA7CB000D804E /* EventListTableViewCellStylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659E711D1BEBA7CB000D804E /* EventListTableViewCellStylist.swift */; settings = {ASSET_TAGS = (); }; };
+		659E71201BEBA7FD000D804E /* ConcreteEventListTableViewCellStylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659E711F1BEBA7FD000D804E /* ConcreteEventListTableViewCellStylist.swift */; settings = {ASSET_TAGS = (); }; };
+		659E71221BEBA877000D804E /* ConcreteEventListTableViewCellStylistSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659E71211BEBA877000D804E /* ConcreteEventListTableViewCellStylistSpec.swift */; settings = {ASSET_TAGS = (); }; };
 		659F0E1C1B95EC0B0049FA12 /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659F0E1B1B95EC0B0049FA12 /* ImageRepository.swift */; };
 		659F0E1E1B95EC780049FA12 /* ConcreteImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659F0E1D1B95EC780049FA12 /* ConcreteImageRepository.swift */; };
 		659F0E201B95F0180049FA12 /* FakeImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659F0E1F1B95F0180049FA12 /* FakeImageRepository.swift */; };
@@ -313,6 +316,9 @@
 		659A12021B8BA5CF00BE08F4 /* FakeOperationQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeOperationQueue.swift; sourceTree = "<group>"; };
 		659D06831B9FD79D0099DA3F /* UIKit+PivotalSpecHelperStubs-iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "UIKit+PivotalSpecHelperStubs-iOS.framework"; sourceTree = "<group>"; };
 		659D06871B9FD7E00099DA3F /* berniesandersTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "berniesandersTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		659E711D1BEBA7CB000D804E /* EventListTableViewCellStylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventListTableViewCellStylist.swift; sourceTree = "<group>"; };
+		659E711F1BEBA7FD000D804E /* ConcreteEventListTableViewCellStylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteEventListTableViewCellStylist.swift; sourceTree = "<group>"; };
+		659E71211BEBA877000D804E /* ConcreteEventListTableViewCellStylistSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteEventListTableViewCellStylistSpec.swift; sourceTree = "<group>"; };
 		659F0E1B1B95EC0B0049FA12 /* ImageRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageRepository.swift; path = "../../Network Clients/Protocols/ImageRepository.swift"; sourceTree = "<group>"; };
 		659F0E1D1B95EC780049FA12 /* ConcreteImageRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConcreteImageRepository.swift; path = "../Network Clients/ConcreteImageRepository.swift"; sourceTree = "<group>"; };
 		659F0E1F1B95F0180049FA12 /* FakeImageRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeImageRepository.swift; sourceTree = "<group>"; };
@@ -558,6 +564,7 @@
 			isa = PBXGroup;
 			children = (
 				654A4DD31BCD860D00FC523F /* Protocols */,
+				659E711F1BEBA7FD000D804E /* ConcreteEventListTableViewCellStylist.swift */,
 				654A4DCE1BCD831100FC523F /* ConcreteTabBarItemStylist.swift */,
 			);
 			path = Stylists;
@@ -566,6 +573,7 @@
 		654A4DD01BCD84F400FC523F /* Stylists */ = {
 			isa = PBXGroup;
 			children = (
+				659E71211BEBA877000D804E /* ConcreteEventListTableViewCellStylistSpec.swift */,
 				654A4DD11BCD850000FC523F /* ConcreteTabBarItemStylistSpec.swift */,
 			);
 			name = Stylists;
@@ -574,6 +582,7 @@
 		654A4DD31BCD860D00FC523F /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				659E711D1BEBA7CB000D804E /* EventListTableViewCellStylist.swift */,
 				654A4DD41BCD861C00FC523F /* TabBarItemStylist.swift */,
 			);
 			path = Protocols;
@@ -1141,6 +1150,7 @@
 				656ED1791BE3076D009FD91C /* ConcreteDateProvider.swift in Sources */,
 				654AD3571BB8787000A59966 /* ConcreteEventControllerProvider.swift in Sources */,
 				654774051BB241D900B87670 /* ConcreteEventDeserializer.swift in Sources */,
+				659E71201BEBA7FD000D804E /* ConcreteEventListTableViewCellStylist.swift in Sources */,
 				655AF0C81BB0981800F0448E /* ConcreteEventRepository.swift in Sources */,
 				65D0ECE51BBAD93D0063B1D0 /* ConcreteEventRSVPControllerProvider.swift in Sources */,
 				659F0E1E1B95EC780049FA12 /* ConcreteImageRepository.swift in Sources */,
@@ -1165,6 +1175,7 @@
 				654AD3531BB876A200A59966 /* EventControllerProvider.swift in Sources */,
 				654774031BB2418400B87670 /* EventDeserializer.swift in Sources */,
 				654773FD1BB1EEBC00B87670 /* EventListTableViewCell.swift in Sources */,
+				659E711E1BEBA7CB000D804E /* EventListTableViewCellStylist.swift in Sources */,
 				654B55B51BB4882700492610 /* EventPresenter.swift in Sources */,
 				655AF0C41BB095BA00F0448E /* EventRepository.swift in Sources */,
 				65D0ECE31BBAD7A20063B1D0 /* EventRSVPController.swift in Sources */,
@@ -1221,6 +1232,7 @@
 				65B28E3F1BC5610F006B6A65 /* ConcreteApplicationSettingsRepositorySpec.swift in Sources */,
 				6581F7BD1BB87E7700B26B76 /* ConcreteEventControllerProviderSpec.swift in Sources */,
 				65384D111BB2EDBF0057F6FF /* ConcreteEventDeserializerSpec.swift in Sources */,
+				659E71221BEBA877000D804E /* ConcreteEventListTableViewCellStylistSpec.swift in Sources */,
 				654773FF1BB23FAE00B87670 /* ConcreteEventRepositorySpec.swift in Sources */,
 				65D0ECEB1BBB8DD20063B1D0 /* ConcreteEventRSVPControllerProviderSpec.swift in Sources */,
 				65AD23AD1B963E2700C32A02 /* ConcreteImageRepositorySpec.swift in Sources */,

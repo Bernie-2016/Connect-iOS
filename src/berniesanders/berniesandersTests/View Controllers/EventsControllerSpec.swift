@@ -19,30 +19,6 @@ class EventsFakeTheme : FakeTheme {
         return UIFont.systemFontOfSize(123)
     }
 
-    override func eventsListNameFont() -> UIFont {
-        return UIFont.italicSystemFontOfSize(333)
-    }
-
-    override func eventsListNameColor() -> UIColor {
-        return UIColor.yellowColor()
-    }
-
-    override func eventsListDistanceColor() -> UIColor {
-        return UIColor.lightGrayColor()
-    }
-
-    override func eventsListDistanceFont() -> UIFont {
-        return UIFont.italicSystemFontOfSize(444)
-    }
-
-    override func eventsListDateColor() -> UIColor {
-        return UIColor.darkGrayColor()
-    }
-
-    override func eventsListDateFont() -> UIFont {
-        return UIFont.italicSystemFontOfSize(777)
-    }
-
     override func eventsInputAccessoryBackgroundColor() -> UIColor {
         return UIColor.greenColor()
     }
@@ -100,7 +76,7 @@ class EventsFakeTheme : FakeTheme {
     }
 }
 
-class FakeEventRepository : EventRepository {
+private class FakeEventRepository : EventRepository {
     var lastReceivedZipCode : NSString?
     var lastReceivedRadiusMiles : Float?
     var lastCompletionBlock: ((EventSearchResult) -> Void)?
@@ -114,7 +90,7 @@ class FakeEventRepository : EventRepository {
     }
 }
 
-class FakeEventControllerProvider : berniesanders.EventControllerProvider {
+private class FakeEventControllerProvider : berniesanders.EventControllerProvider {
     let controller = EventController(
         event: TestUtils.eventWithName("some event"),
         eventPresenter: FakeEventPresenter(sameTimeZoneDateFormatter: FakeDateFormatter(), differentTimeZoneDateFormatter: FakeDateFormatter()),
@@ -133,7 +109,7 @@ class FakeEventControllerProvider : berniesanders.EventControllerProvider {
     }
 }
 
-class FakeEventSearchResult: EventSearchResult {
+private class FakeEventSearchResult: EventSearchResult {
     var uniqueDays: [NSDate] = []
     var eventsForAGivenDay: [Event] = []
 
@@ -146,7 +122,7 @@ class FakeEventSearchResult: EventSearchResult {
     }
 }
 
-class FakeEventSectionHeaderPresenter: EventSectionHeaderPresenter {
+private class FakeEventSectionHeaderPresenter: EventSectionHeaderPresenter {
     var lastPresentedDate: NSDate!
 
     init() {
@@ -161,16 +137,25 @@ class FakeEventSectionHeaderPresenter: EventSectionHeaderPresenter {
     }
 }
 
+private class FakeEventListTableViewCellStylist: EventListTableViewCellStylist {
+    var lastStyledCell: EventListTableViewCell!
+
+    private func styleCell(cell: EventListTableViewCell) {
+        self.lastStyledCell = cell
+    }
+}
+
 class EventsControllerSpec : QuickSpec {
-    var subject : EventsController!
-    var window : UIWindow!
-    var eventRepository : FakeEventRepository!
-    var eventPresenter : FakeEventPresenter!
-    var eventControllerProvider : FakeEventControllerProvider!
-    var analyticsService: FakeAnalyticsService!
-    var tabBarItemStylist: FakeTabBarItemStylist!
-    var navigationController: UINavigationController!
-    var eventSectionHeaderPresenter: FakeEventSectionHeaderPresenter!
+    private var subject : EventsController!
+    private var window : UIWindow!
+    private var eventRepository : FakeEventRepository!
+    private var eventPresenter : FakeEventPresenter!
+    private var eventControllerProvider : FakeEventControllerProvider!
+    private var analyticsService: FakeAnalyticsService!
+    private var tabBarItemStylist: FakeTabBarItemStylist!
+    private var navigationController: UINavigationController!
+    private var eventSectionHeaderPresenter: FakeEventSectionHeaderPresenter!
+    private var eventListTableViewCellStylist: FakeEventListTableViewCellStylist!
 
     override func spec() {
         describe("EventsController") {
@@ -178,9 +163,10 @@ class EventsControllerSpec : QuickSpec {
                 self.eventRepository = FakeEventRepository()
                 self.eventPresenter = FakeEventPresenter(sameTimeZoneDateFormatter: FakeDateFormatter(), differentTimeZoneDateFormatter: FakeDateFormatter())
                 self.eventControllerProvider = FakeEventControllerProvider()
-                self.tabBarItemStylist = FakeTabBarItemStylist()
-                self.analyticsService = FakeAnalyticsService()
                 self.eventSectionHeaderPresenter = FakeEventSectionHeaderPresenter()
+                self.analyticsService = FakeAnalyticsService()
+                self.tabBarItemStylist = FakeTabBarItemStylist()
+                self.eventListTableViewCellStylist = FakeEventListTableViewCellStylist()
 
                 self.window = UIWindow()
 
@@ -191,6 +177,7 @@ class EventsControllerSpec : QuickSpec {
                     eventSectionHeaderPresenter: self.eventSectionHeaderPresenter,
                     analyticsService: self.analyticsService,
                     tabBarItemStylist: self.tabBarItemStylist,
+                    eventListTableViewCellStylist: self.eventListTableViewCellStylist,
                     theme: EventsFakeTheme()
                 )
 
@@ -521,15 +508,10 @@ class EventsControllerSpec : QuickSpec {
                                     expect(self.eventPresenter.lastReceivedCell).to(beIdenticalTo(cellB))
                                 }
 
-                                it("styles the cells from the theme") {
+                                it("styles the cells with the stylist") {
                                     let cell = self.subject.resultsTableView.dataSource!.tableView(self.subject.resultsTableView, cellForRowAtIndexPath:NSIndexPath(forRow: 0, inSection: 0)) as! EventListTableViewCell
 
-                                    expect(cell.nameLabel.font).to(equal(UIFont.italicSystemFontOfSize(333)))
-                                    expect(cell.nameLabel.textColor).to(equal(UIColor.yellowColor()))
-                                    expect(cell.distanceLabel.font).to(equal(UIFont.italicSystemFontOfSize(444)))
-                                    expect(cell.distanceLabel.textColor).to(equal(UIColor.lightGrayColor()))
-                                    expect(cell.dateLabel.font).to(equal(UIFont.italicSystemFontOfSize(777)))
-                                    expect(cell.dateLabel.textColor).to(equal(UIColor.darkGrayColor()))
+                                    expect(self.eventListTableViewCellStylist.lastStyledCell).to(beIdenticalTo(cell))
                                 }
 
                                 describe("tapping on an event") {

@@ -6,6 +6,7 @@ import Fabric
 import Crashlytics
 #endif
 
+// swiftlint:disable type_body_length
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
@@ -152,6 +153,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 nonCurrentWeekDateFormatter: shortDateFormatter,
                 dateProvider: dateProvider)
 
+            let eventListTableViewCellStylist = ConcreteEventListTableViewCellStylist(theme: defaultTheme)
             let eventsController = EventsController(
                 eventRepository: eventRepository,
                 eventPresenter: eventPresenter,
@@ -159,6 +161,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 eventSectionHeaderPresenter: eventSectionHeaderPresenter,
                 analyticsService: analyticsService,
                 tabBarItemStylist: tabBarItemStylist,
+                eventListTableViewCellStylist: eventListTableViewCellStylist,
                 theme: defaultTheme
             )
             let eventsNavigationController = NavigationController(theme: defaultTheme)
@@ -207,3 +210,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     // swiftlint:enable function_body_length
 }
+// swiftlint:enable type_body_length

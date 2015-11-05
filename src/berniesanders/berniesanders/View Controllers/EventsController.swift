@@ -9,7 +9,8 @@ class EventsController: UIViewController {
     private let eventSectionHeaderPresenter: EventSectionHeaderPresenter
     private let analyticsService: AnalyticsService
     private let tabBarItemStylist: TabBarItemStylist
-    let theme: Theme
+    private let eventListTableViewCellStylist: EventListTableViewCellStylist
+    private let theme: Theme
 
     let zipCodeTextField = UITextField.newAutoLayoutView()
     let resultsTableView = UITableView.newAutoLayoutView()
@@ -25,6 +26,7 @@ class EventsController: UIViewController {
         eventSectionHeaderPresenter: EventSectionHeaderPresenter,
         analyticsService: AnalyticsService,
         tabBarItemStylist: TabBarItemStylist,
+        eventListTableViewCellStylist: EventListTableViewCellStylist,
         theme: Theme) {
 
         self.eventRepository = eventRepository
@@ -33,6 +35,7 @@ class EventsController: UIViewController {
         self.eventSectionHeaderPresenter = eventSectionHeaderPresenter
         self.analyticsService = analyticsService
         self.tabBarItemStylist = tabBarItemStylist
+        self.eventListTableViewCellStylist = eventListTableViewCellStylist
         self.theme = theme
 
         super.init(nibName: nil, bundle: nil)
@@ -210,12 +213,7 @@ extension EventsController: UITableViewDataSource {
         let eventsForDay = eventSearchResult.eventsWithDayIndex(indexPath.section)
         let event = eventsForDay[indexPath.row]
 
-        cell.nameLabel.textColor = self.theme.eventsListNameColor()
-        cell.nameLabel.font = self.theme.eventsListNameFont()
-        cell.distanceLabel.textColor = self.theme.eventsListDistanceColor()
-        cell.distanceLabel.font = self.theme.eventsListDistanceFont()
-        cell.dateLabel.textColor = self.theme.eventsListDateColor()
-        cell.dateLabel.font = self.theme.eventsListDateFont()
+        self.eventListTableViewCellStylist.styleCell(cell)
 
         return self.eventPresenter.presentEvent(event, searchCentroid: eventSearchResult.searchCentroid, cell: cell)
     }
