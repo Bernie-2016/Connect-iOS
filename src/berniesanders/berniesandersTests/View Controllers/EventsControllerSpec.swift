@@ -117,7 +117,7 @@ class FakeEventRepository : EventRepository {
 class FakeEventControllerProvider : berniesanders.EventControllerProvider {
     let controller = EventController(
         event: TestUtils.eventWithName("some event"),
-        eventPresenter: FakeEventPresenter(dateFormatter: FakeDateFormatter()),
+        eventPresenter: FakeEventPresenter(sameTimeZoneDateFormatter: FakeDateFormatter(), differentTimeZoneDateFormatter: FakeDateFormatter()),
         eventRSVPControllerProvider: FakeEventRSVPControllerProvider(),
         urlProvider: FakeURLProvider(),
         urlOpener: FakeURLOpener(),
@@ -176,7 +176,7 @@ class EventsControllerSpec : QuickSpec {
         describe("EventsController") {
             beforeEach {
                 self.eventRepository = FakeEventRepository()
-                self.eventPresenter = FakeEventPresenter(dateFormatter: FakeDateFormatter())
+                self.eventPresenter = FakeEventPresenter(sameTimeZoneDateFormatter: FakeDateFormatter(), differentTimeZoneDateFormatter: FakeDateFormatter())
                 self.eventControllerProvider = FakeEventControllerProvider()
                 self.tabBarItemStylist = FakeTabBarItemStylist()
                 self.analyticsService = FakeAnalyticsService()

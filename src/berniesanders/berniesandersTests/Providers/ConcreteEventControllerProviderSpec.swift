@@ -7,7 +7,7 @@ class ConcreteEventControllerProviderSpec : QuickSpec {
     var subject : ConcreteEventControllerProvider!
     let dateFormatter = NSDateFormatter()
     let theme = FakeTheme()
-    let eventPresenter = EventPresenter(dateFormatter: FakeDateFormatter())
+    let eventPresenter = EventPresenter(sameTimeZoneDateFormatter: FakeDateFormatter(), differentTimeZoneDateFormatter: FakeDateFormatter())
     let eventRSVPControllerProvider = FakeEventRSVPControllerProvider()
     let urlProvider = FakeURLProvider()
     let urlOpener = FakeURLOpener()

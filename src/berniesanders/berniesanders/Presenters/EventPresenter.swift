@@ -2,10 +2,14 @@ import UIKit
 import CoreLocation
 
 class EventPresenter {
-    private let dateFormatter: NSDateFormatter
+    private let sameTimeZoneDateFormatter: NSDateFormatter
+    private let differentTimeZoneDateFormatter: NSDateFormatter
 
-    init(dateFormatter: NSDateFormatter) {
-        self.dateFormatter = dateFormatter
+    init(sameTimeZoneDateFormatter: NSDateFormatter,
+        differentTimeZoneDateFormatter: NSDateFormatter
+        ) {
+            self.sameTimeZoneDateFormatter = sameTimeZoneDateFormatter
+            self.differentTimeZoneDateFormatter = differentTimeZoneDateFormatter
     }
 
     func presentEvent(event: Event, searchCentroid: CLLocation, cell: EventListTableViewCell) -> EventListTableViewCell {
@@ -38,13 +42,20 @@ class EventPresenter {
     }
 
     func presentDateForEvent(event: Event) -> String {
-        self.dateFormatter.timeZone = event.timeZone
-        return self.dateFormatter.stringFromDate(event.startDate)
+        let localTimeZone = NSTimeZone.localTimeZone()
+
+        if localTimeZone == event.timeZone {
+            self.sameTimeZoneDateFormatter.timeZone = event.timeZone
+            return self.sameTimeZoneDateFormatter.stringFromDate(event.startDate)
+        } else {
+            self.differentTimeZoneDateFormatter.timeZone = event.timeZone
+            return self.differentTimeZoneDateFormatter.stringFromDate(event.startDate)
+        }
     }
 
     // MARK: Private
 
     func presentCityAddressForEvent(event: Event) -> String {
-      return String(format: NSLocalizedString("Events_eventAddressLabel", comment: ""), event.city, event.state, event.zip)
+        return String(format: NSLocalizedString("Events_eventAddressLabel", comment: ""), event.city, event.state, event.zip)
     }
 }

@@ -37,7 +37,7 @@ class EventListTableViewCell: UITableViewCell {
     private func setupConstraints() {
         nameLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: 15)
         nameLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
-        nameLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 95)
+        nameLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 100)
         nameLabel.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 15)
 
         dateLabel.autoPinEdge(.Top, toEdge: .Top, ofView: disclosureView, withOffset: -7)

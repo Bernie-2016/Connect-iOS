@@ -5,15 +5,16 @@ import CoreLocation
 
 class EventPresenterSpec : QuickSpec {
     var subject : EventPresenter!
-    var dateFormatter : FakeDateFormatter!
+    var sameTimeZoneDateFormatter : FakeDateFormatter!
+    var differentTimeZoneDateFormatter : FakeDateFormatter!
 
     override func spec() {
-
         describe("EventPresenter") {
             var event : Event!
 
             beforeEach {
-                self.dateFormatter = FakeDateFormatter()
+                self.sameTimeZoneDateFormatter = FakeDateFormatter()
+                self.differentTimeZoneDateFormatter = FakeDateFormatter()
 
                 let eventLocation = CLLocation(latitude: 37.7955745, longitude: -122.3955095)
 
@@ -22,7 +23,10 @@ class EventPresenterSpec : QuickSpec {
                     streetAddress: "100 Main Street", city: "Bigtown", state: "CA", zip: "94104", location: eventLocation,
                     description: "Words about the event", url: NSURL(string: "https://example.com")!, eventTypeName: "Big Time Bernie Fun")
 
-                self.subject = EventPresenter(dateFormatter: self.dateFormatter)
+                self.subject = EventPresenter(
+                    sameTimeZoneDateFormatter: self.sameTimeZoneDateFormatter,
+                    differentTimeZoneDateFormatter: self.differentTimeZoneDateFormatter
+                )
             }
 
             describe("formatting an address") {
@@ -85,16 +89,36 @@ class EventPresenterSpec : QuickSpec {
 
                 it("displays the date using the date formatter") {
                     expect(cell.dateLabel.text).to(equal("This is the date!"))
-                    expect(self.dateFormatter.timeZone).to(beIdenticalTo(event.timeZone))
-                    expect(self.dateFormatter.lastReceivedDate).to(beIdenticalTo(event.startDate))
+                    expect(self.sameTimeZoneDateFormatter.timeZone).to(beIdenticalTo(event.timeZone))
+                    expect(self.sameTimeZoneDateFormatter.lastReceivedDate).to(beIdenticalTo(event.startDate))
                 }
             }
 
             describe("formatting a start date") {
-                it("uses the configured date formatter") {
-                    expect(self.subject.presentDateForEvent(event)).to(equal("This is the date!"))
-                    expect(self.dateFormatter.timeZone).to(beIdenticalTo(event.timeZone))
-                    expect(self.dateFormatter.lastReceivedDate).to(beIdenticalTo(event.startDate))
+                context("when the event is in the user's time zone") {
+                    it("uses the configured same-timezone date formatter") {
+                        event = Event(name: "some event", startDate: NSDate(timeIntervalSince1970: 1433565000), timeZone: NSTimeZone.localTimeZone(),
+                            attendeeCapacity: 10, attendeeCount: 2,
+                            streetAddress: nil, city: "Bigtown", state: "CA", zip: "94104", location: CLLocation(),
+                            description: "Words about the event", url: NSURL(string: "https://example.com")!, eventTypeName: "Big Time Bernie Fun")
+
+                        expect(self.subject.presentDateForEvent(event)).to(equal("This is the date!"))
+                        expect(self.sameTimeZoneDateFormatter.timeZone).to(equal(event.timeZone))
+                        expect(self.sameTimeZoneDateFormatter.lastReceivedDate).to(beIdenticalTo(event.startDate))
+                    }
+                }
+
+                context("when the event is in the user's time zone") {
+                    it("uses the configured different-timezone date formatter") {
+                        event = Event(name: "some event", startDate: NSDate(timeIntervalSince1970: 1433565000), timeZone: NSTimeZone(abbreviation: "UTC")!,
+                            attendeeCapacity: 10, attendeeCount: 2,
+                            streetAddress: nil, city: "Bigtown", state: "CA", zip: "94104", location: CLLocation(),
+                            description: "Words about the event", url: NSURL(string: "https://example.com")!, eventTypeName: "Big Time Bernie Fun")
+
+                        expect(self.subject.presentDateForEvent(event)).to(equal("This is the date!"))
+                        expect(self.differentTimeZoneDateFormatter.timeZone).to(beIdenticalTo(event.timeZone))
+                        expect(self.differentTimeZoneDateFormatter.lastReceivedDate).to(beIdenticalTo(event.startDate))
+                    }
                 }
             }
         }

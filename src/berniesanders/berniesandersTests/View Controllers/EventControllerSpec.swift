@@ -56,7 +56,7 @@ class EventControllerSpec: QuickSpec {
                 self.urlOpener = FakeURLOpener()
                 self.urlProvider = EventControllerFakeURLProvider()
 
-                self.eventPresenter = FakeEventPresenter(dateFormatter: FakeDateFormatter())
+                self.eventPresenter = FakeEventPresenter(sameTimeZoneDateFormatter: FakeDateFormatter(), differentTimeZoneDateFormatter: FakeDateFormatter())
                 self.eventRSVPControllerProvider = FakeEventRSVPControllerProvider()
                 self.analyticsService = FakeAnalyticsService()
 

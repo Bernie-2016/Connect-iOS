@@ -78,7 +78,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let longDateFormatter = NSDateFormatter()
             longDateFormatter.dateStyle = .LongStyle
             let timeFormatter = NSDateFormatter()
-            timeFormatter.timeStyle = .ShortStyle
+            timeFormatter.dateFormat = "hh:mma"
+            let timeWithTimeZoneFormatter = NSDateFormatter()
+            timeWithTimeZoneFormatter.dateFormat = "hh:mma v"
+
             let dayDateFormatter = NSDateFormatter()
             dayDateFormatter.dateFormat = "EEEE"
             let shortDateFormatter = NSDateFormatter()
@@ -133,7 +136,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 jsonClient: jsonClient,
                 eventDeserializer: eventDeserializer,
                 operationQueue: mainQueue)
-            let eventPresenter = EventPresenter(dateFormatter: timeFormatter)
+            let eventPresenter = EventPresenter(sameTimeZoneDateFormatter: timeFormatter,
+                differentTimeZoneDateFormatter: timeWithTimeZoneFormatter)
             let eventRSVPControllerProvider = ConcreteEventRSVPControllerProvider(analyticsService: analyticsService, theme: defaultTheme)
             let eventControllerProvider = ConcreteEventControllerProvider(
                 eventPresenter: eventPresenter,
