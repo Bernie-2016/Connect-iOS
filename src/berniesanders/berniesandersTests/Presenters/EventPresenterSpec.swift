@@ -18,7 +18,7 @@ class EventPresenterSpec : QuickSpec {
 
                 let eventLocation = CLLocation(latitude: 37.7955745, longitude: -122.3955095)
 
-                event = Event(name: "some event", startDate: NSDate(timeIntervalSince1970: 1433565000), timeZone: NSTimeZone(abbreviation: "PST")!,
+                event = Event(name: "some event", startDate: NSDate(timeIntervalSince1970: 1433565000), timeZone: NSTimeZone.localTimeZone(),
                     attendeeCapacity: 10, attendeeCount: 2,
                     streetAddress: "100 Main Street", city: "Bigtown", state: "CA", zip: "94104", location: eventLocation,
                     description: "Words about the event", url: NSURL(string: "https://example.com")!, eventTypeName: "Big Time Bernie Fun")
@@ -89,8 +89,8 @@ class EventPresenterSpec : QuickSpec {
 
                 it("displays the date using the date formatter") {
                     expect(cell.dateLabel.text).to(equal("This is the date!"))
-                    expect(self.sameTimeZoneDateFormatter.timeZone).to(beIdenticalTo(event.timeZone))
-                    expect(self.sameTimeZoneDateFormatter.lastReceivedDate).to(beIdenticalTo(event.startDate))
+                    expect(self.sameTimeZoneDateFormatter.timeZone).to(equal(event.timeZone))
+                    expect(self.sameTimeZoneDateFormatter.lastReceivedDate).to(equal(event.startDate))
                 }
             }
 
