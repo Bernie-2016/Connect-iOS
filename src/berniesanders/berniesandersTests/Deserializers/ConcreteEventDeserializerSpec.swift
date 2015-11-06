@@ -9,7 +9,7 @@ class ConcreteEventDeserializerSpec : QuickSpec {
 
     override func spec() {
         beforeEach {
-            self.subject = ConcreteEventDeserializer()
+            self.subject = ConcreteEventDeserializer(stringContentSanitizer: FakeStringContentSanitizer())
         }
 
         describe("ConcreteEventDeserializer") {
@@ -21,34 +21,34 @@ class ConcreteEventDeserializerSpec : QuickSpec {
 
                 expect(events.count).to(equal(2))
                 let eventA = events[0]
-                expect(eventA.name).to(equal("Deputy Voter Registrar Training Class - Travis County"))
+                expect(eventA.name).to(equal("Deputy Voter Registrar Training Class - Travis County SANITIZED!"))
                 expect(eventA.startDate).to(equal(NSDate(timeIntervalSince1970: 1446597000)))
                 expect(eventA.timeZone).to(equal(NSTimeZone(abbreviation: "CST")))
                 expect(eventA.attendeeCapacity).to(equal(10))
                 expect(eventA.attendeeCount).to(equal(2))
-                expect(eventA.streetAddress).to(equal("5501 Airport Blvd."))
-                expect(eventA.city).to(equal("Austin"))
-                expect(eventA.state).to(equal("TX"))
+                expect(eventA.streetAddress).to(equal("5501 Airport Blvd. SANITIZED!"))
+                expect(eventA.city).to(equal("Austin SANITIZED!"))
+                expect(eventA.state).to(equal("TX SANITIZED!"))
                 expect(eventA.zip).to(equal("78746"))
                 expect(eventA.location.coordinate.latitude).to(equal(30.31706))
                 expect(eventA.location.coordinate.longitude).to(equal(-97.713631))
-                expect(eventA.description).to(equal("Deputy Voter Registrar Training Class - Travis County\nCall (512) 854-9473 a year ahead to R.S.V.P."))
+                expect(eventA.description).to(equal("Deputy Voter Registrar Training Class - Travis County\nCall (512) 854-9473 a year ahead to R.S.V.P. SANITIZED!"))
                 expect(eventA.url).to(equal(NSURL(string: "https://go.berniesanders.com/page/event/detail/registeringvoters/4vfdg")))
-                expect(eventA.eventTypeName).to(equal("Bernie Party"))
+                expect(eventA.eventTypeName).to(equal("Bernie Party SANITIZED!"))
 
                 let eventB = events[1]
-                expect(eventB.name).to(equal("Deputy Dawg Training Class - Travis County"))
+                expect(eventB.name).to(equal("Deputy Dawg Training Class - Travis County SANITIZED!"))
                 expect(eventB.startDate).to(equal(NSDate(timeIntervalSince1970: 1465176600)))
                 expect(eventB.timeZone).to(equal(NSTimeZone(abbreviation: "PST")))
                 expect(eventB.attendeeCapacity).to(equal(11))
                 expect(eventB.attendeeCount).to(equal(1))
                 expect(eventB.streetAddress).to(beNil())
-                expect(eventB.city).to(equal("Dallas"))
-                expect(eventB.state).to(equal("TX"))
+                expect(eventB.city).to(equal("Dallas SANITIZED!"))
+                expect(eventB.state).to(equal("TX SANITIZED!"))
                 expect(eventB.zip).to(equal("78747"))
                 expect(eventB.location.coordinate.latitude).to(equal(31.31706))
                 expect(eventB.location.coordinate.longitude).to(equal(-98.713631))
-                expect(eventB.description).to(equal("Deputy Dawg Registrar Training Class - Travis County\nCall (512) 854-9473 a week ahead to R.S.V.P."))
+                expect(eventB.description).to(equal("Deputy Dawg Registrar Training Class - Travis County\nCall (512) 854-9473 a week ahead to R.S.V.P. SANITIZED!"))
                 expect(eventB.url).to(equal(NSURL(string: "https://go.berniesanders.com/page/event/detail/registeringvoters/4vfd4")))
                 expect(eventB.eventTypeName).to(beNil())
             }
@@ -61,7 +61,7 @@ class ConcreteEventDeserializerSpec : QuickSpec {
 
                     expect(events.count).to(equal(1))
                     let event = events[0]
-                    expect(event.name).to(equal("Deputy Dawg Training Class - Travis County"))
+                    expect(event.name).to(equal("Deputy Dawg Training Class - Travis County SANITIZED!"))
                 }
             }
 

@@ -457,6 +457,9 @@ class EventsControllerSpec : QuickSpec {
                             let eventSearchResult = FakeEventSearchResult(searchCentroid: expectedSearchCentroid, events: events)
 
                             beforeEach {
+                                eventSearchResult.uniqueDays = [NSDate()]
+                                eventSearchResult.eventsByDay = [events]
+
                                 self.eventRepository.lastCompletionBlock!(eventSearchResult)
                             }
 
@@ -472,12 +475,13 @@ class EventsControllerSpec : QuickSpec {
                                 expect(self.subject.resultsTableView.hidden).to(beFalse())
                             }
 
-
                             describe("the results table") {
                                 it("has a section per unique day in the search results") {
+                                    eventSearchResult.eventsByDay = [[eventA],[eventB]]
                                     eventSearchResult.uniqueDays = [NSDate(), NSDate()]
                                     self.subject.resultsTableView.reloadData()
                                     expect(self.subject.resultsTableView.numberOfSections).to(equal(2))
+                                    eventSearchResult.eventsByDay = [[eventA]]
                                     eventSearchResult.uniqueDays = [NSDate()]
                                     self.subject.resultsTableView.reloadData()
                                     expect(self.subject.resultsTableView.numberOfSections).to(equal(1))
@@ -486,6 +490,7 @@ class EventsControllerSpec : QuickSpec {
                                 it("uses the events section header presenter for the header title") {
                                     let dateForSection = NSDate()
                                     eventSearchResult.uniqueDays = [NSDate(), dateForSection]
+                                    eventSearchResult.eventsByDay = [[eventA], [eventB]]
                                     self.subject.resultsTableView.reloadData()
 
                                     let header = self.subject.tableView(self.subject.resultsTableView, titleForHeaderInSection: 1)
@@ -495,14 +500,12 @@ class EventsControllerSpec : QuickSpec {
 
                                 it("displays a cell per event in each day section") {
                                     eventSearchResult.eventsByDay = [events]
-                                    self.subject.resultsTableView.reloadData()
 
-                                    expect(self.subject.resultsTableView.numberOfRowsInSection(0)).to(equal(2))
+                                    expect(self.subject.resultsTableView.dataSource!.tableView(self.subject.resultsTableView, numberOfRowsInSection: 0)).to(equal(2))
 
                                     eventSearchResult.eventsByDay = [[eventA]]
-                                    self.subject.resultsTableView.reloadData()
 
-                                    expect(self.subject.resultsTableView.numberOfRowsInSection(0)).to(equal(1))
+                                    expect(self.subject.resultsTableView.dataSource!.tableView(self.subject.resultsTableView, numberOfRowsInSection: 0)).to(equal(1))
                                 }
 
                                 it("uses the presenter to set up the returned cells from the search results") {
@@ -541,13 +544,11 @@ class EventsControllerSpec : QuickSpec {
 
                                 describe("tapping on an event") {
                                     beforeEach {
-                                        var eventsByDay = [[Event]]()
-                                        eventsByDay.append([])
-                                        eventsByDay.append([eventB])
-                                        eventSearchResult.eventsByDay = eventsByDay
+                                        eventSearchResult.uniqueDays = [NSDate()]
+                                        eventSearchResult.eventsByDay = [[eventB]]
 
                                         let tableView = self.subject.resultsTableView
-                                        tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 1))
+                                        tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
                                     }
 
                                     it("should push a correctly configured news item view controller onto the nav stack") {
@@ -563,6 +564,8 @@ class EventsControllerSpec : QuickSpec {
 
                                     describe("and the view is shown again") {
                                         it("deselects the selected table row") {
+                                            self.subject.resultsTableView.reloadData()
+
                                             self.subject.resultsTableView.selectRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: false, scrollPosition: .Middle)
                                             self.subject.viewWillAppear(false)
 

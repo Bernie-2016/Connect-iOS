@@ -2,13 +2,17 @@ import Foundation
 import CoreLocation
 
 class ConcreteEventDeserializer: EventDeserializer {
+    private let stringContentSanitizer: StringContentSanitizer
     private let dateFormatter: NSDateFormatter
-    init() {
+
+    init(stringContentSanitizer: StringContentSanitizer) {
+        self.stringContentSanitizer = stringContentSanitizer
         self.dateFormatter = NSDateFormatter()
         dateFormatter.timeZone = NSTimeZone(name: "UTC")
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"  // "2015-08-28T05:10:21"
     }
 
+    // swiftlint:disable function_body_length
     func deserializeEvents(jsonDictionary: NSDictionary) -> Array<Event> {
         var events = [Event]()
 
@@ -21,18 +25,24 @@ class ConcreteEventDeserializer: EventDeserializer {
             guard var venueDictionary = sourceDictionary["venue"] as? [String:AnyObject] else { continue }
             guard let locationDictionary = venueDictionary["location"] as? [String:CLLocationDegrees] else { continue }
 
-            guard let name = sourceDictionary["name"] as? String else { continue }
+            guard var name = sourceDictionary["name"] as? String else { continue }
+            name = self.stringContentSanitizer.sanitizeString(name)
             guard let timeZoneString = sourceDictionary["timezone"] as? String else { continue }
             guard let startDateString = sourceDictionary["start_time"] as? String else { continue }
             guard let attendeeCapacity = sourceDictionary["capacity"] as? Int else { continue }
             guard let attendeeCount = sourceDictionary["attendee_count"] as? Int else { continue }
-            let eventTypeName = sourceDictionary["event_type_name"] as? String
+            var eventTypeName = sourceDictionary["event_type_name"] as? String
+            if eventTypeName != nil { eventTypeName = self.stringContentSanitizer.sanitizeString(eventTypeName!) }
 
-            let streetAddress = venueDictionary["address1"] as? String
-            guard let city = venueDictionary["city"] as? String else { continue }
-            guard let state = venueDictionary["state"] as? String else { continue }
+            var streetAddress = venueDictionary["address1"] as? String
+            if streetAddress != nil { streetAddress = self.stringContentSanitizer.sanitizeString(streetAddress!) }
+            guard var city = venueDictionary["city"] as? String else { continue }
+            city = self.stringContentSanitizer.sanitizeString(city)
+            guard var state = venueDictionary["state"] as? String else { continue }
+            state = self.stringContentSanitizer.sanitizeString(state)
             guard let zip = venueDictionary["zip"] as? String else { continue }
-            guard let description = sourceDictionary["description"] as? String else { continue }
+            guard var description = sourceDictionary["description"] as? String else { continue }
+            description = self.stringContentSanitizer.sanitizeString(description)
             guard let URLString = sourceDictionary["url"] as? String else { continue }
             guard let location = self.deserializeLocation(locationDictionary) else { continue }
             guard let URL = NSURL(string: URLString) else { continue }
@@ -50,6 +60,7 @@ class ConcreteEventDeserializer: EventDeserializer {
 
         return events
     }
+    // swiftlint:enable function_body_length
 
     // MARK: Private
 

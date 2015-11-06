@@ -130,7 +130,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let issuesNavigationController = NavigationController(theme: defaultTheme)
             issuesNavigationController.pushViewController(issuesTableController, animated: false)
 
-            let eventDeserializer = ConcreteEventDeserializer()
+            let eventDeserializer = ConcreteEventDeserializer(stringContentSanitizer: stringContentSanitizer)
             let eventRepository = ConcreteEventRepository(
                 geocoder: CLGeocoder(),
                 urlProvider: urlProvider,
