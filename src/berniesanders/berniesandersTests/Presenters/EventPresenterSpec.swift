@@ -108,9 +108,9 @@ class EventPresenterSpec : QuickSpec {
                     }
                 }
 
-                context("when the event is in the user's time zone") {
+                context("when the event is not in the user's time zone") {
                     it("uses the configured different-timezone date formatter") {
-                        event = Event(name: "some event", startDate: NSDate(timeIntervalSince1970: 1433565000), timeZone: NSTimeZone(abbreviation: "UTC")!,
+                        event = Event(name: "some event", startDate: NSDate(timeIntervalSince1970: 1433565000), timeZone: NSTimeZone(abbreviation: "JST")!,
                             attendeeCapacity: 10, attendeeCount: 2,
                             streetAddress: nil, city: "Bigtown", state: "CA", zip: "94104", location: CLLocation(),
                             description: "Words about the event", url: NSURL(string: "https://example.com")!, eventTypeName: "Big Time Bernie Fun")
