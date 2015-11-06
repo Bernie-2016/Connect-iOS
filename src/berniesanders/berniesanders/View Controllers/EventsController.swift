@@ -239,7 +239,8 @@ extension EventsController: UITableViewDelegate {
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let event = eventSearchResult.events[indexPath.row]
+        let eventsForDay = eventSearchResult.eventsWithDayIndex(indexPath.section)
+        let event = eventsForDay[indexPath.row]
         let controller = self.eventControllerProvider.provideInstanceWithEvent(event)
         self.analyticsService.trackContentViewWithName(event.name, type: .Event, id: event.url.absoluteString)
         self.navigationController?.pushViewController(controller, animated: true)

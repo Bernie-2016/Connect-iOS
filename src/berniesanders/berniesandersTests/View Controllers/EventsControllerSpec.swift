@@ -123,14 +123,14 @@ private class FakeEventControllerProvider : berniesanders.EventControllerProvide
 
 private class FakeEventSearchResult: EventSearchResult {
     var uniqueDays: [NSDate] = []
-    var eventsForAGivenDay: [Event] = []
+    var eventsByDay: [[Event]] = []
 
     override func uniqueDaysInLocalTimeZone() -> [NSDate] {
         return self.uniqueDays
     }
 
     override func eventsWithDayIndex(dayIndex: Int) -> [Event] {
-        return self.eventsForAGivenDay
+        return self.eventsByDay[dayIndex]
     }
 }
 
@@ -494,19 +494,19 @@ class EventsControllerSpec : QuickSpec {
                                 }
 
                                 it("displays a cell per event in each day section") {
-                                    eventSearchResult.eventsForAGivenDay = events
+                                    eventSearchResult.eventsByDay = [events]
                                     self.subject.resultsTableView.reloadData()
 
                                     expect(self.subject.resultsTableView.numberOfRowsInSection(0)).to(equal(2))
 
-                                    eventSearchResult.eventsForAGivenDay = [eventA]
+                                    eventSearchResult.eventsByDay = [[eventA]]
                                     self.subject.resultsTableView.reloadData()
 
                                     expect(self.subject.resultsTableView.numberOfRowsInSection(0)).to(equal(1))
                                 }
 
                                 it("uses the presenter to set up the returned cells from the search results") {
-                                    eventSearchResult.eventsForAGivenDay = events
+                                    eventSearchResult.eventsByDay = [events]
                                     self.subject.resultsTableView.reloadData()
 
                                     let cellA = self.subject.resultsTableView.dataSource!.tableView(self.subject.resultsTableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0)) as! EventListTableViewCell
@@ -541,8 +541,13 @@ class EventsControllerSpec : QuickSpec {
 
                                 describe("tapping on an event") {
                                     beforeEach {
+                                        var eventsByDay = [[Event]]()
+                                        eventsByDay.append([])
+                                        eventsByDay.append([eventB])
+                                        eventSearchResult.eventsByDay = eventsByDay
+
                                         let tableView = self.subject.resultsTableView
-                                        tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
+                                        tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 1))
                                     }
 
                                     it("should push a correctly configured news item view controller onto the nav stack") {
