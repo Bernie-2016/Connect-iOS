@@ -225,6 +225,10 @@ extension EventsController: UITableViewDelegate {
         return 75
     }
 
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 34
+    }
+
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if eventSearchResult == nil {
             return nil
@@ -239,6 +243,13 @@ extension EventsController: UITableViewDelegate {
         let controller = self.eventControllerProvider.provideInstanceWithEvent(event)
         self.analyticsService.trackContentViewWithName(event.name, type: .Event, id: event.url.absoluteString)
         self.navigationController?.pushViewController(controller, animated: true)
+    }
+
+    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        guard let headerView = view as? UITableViewHeaderFooterView else { return }
+        headerView.contentView.backgroundColor = self.theme.eventsListSectionHeaderBackgroundColor()
+        headerView.textLabel?.textColor = self.theme.eventsListSectionHeaderTextColor()
+        headerView.textLabel?.font = self.theme.eventsListSectionHeaderFont()
     }
 }
 

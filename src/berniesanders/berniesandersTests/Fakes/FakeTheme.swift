@@ -140,6 +140,9 @@ class FakeTheme : berniesanders.Theme {
     func eventsListDateFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
     func eventsListDateColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func eventsListDateTodayColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func eventsListSectionHeaderFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
+    func eventsListSectionHeaderTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func eventsListSectionHeaderBackgroundColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func eventsInputAccessoryBackgroundColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func eventsZipCodeTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func eventsZipCodeBackgroundColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }

@@ -92,6 +92,9 @@ class DefaultTheme: Theme {
     func eventsListDateFont() -> UIFont { return UIFont.systemFontOfSize(12) }
     func eventsListDateColor() -> UIColor { return self.doveGreyColor() }
     func eventsListDateTodayColor() -> UIColor { return self.thunderbirdColor() }
+    func eventsListSectionHeaderFont() -> UIFont { return UIFont.systemFontOfSize(14) }
+    func eventsListSectionHeaderTextColor() -> UIColor { return self.doveGreyColor() }
+    func eventsListSectionHeaderBackgroundColor() -> UIColor { return self.seaShellColor() }
     func eventsInputAccessoryBackgroundColor() -> UIColor { return self.codGrayColor() }
     func eventsZipCodeTextColor() -> UIColor { return UIColor.blackColor() }
     func eventsZipCodeBackgroundColor() -> UIColor { return UIColor.whiteColor() }
@@ -160,6 +163,7 @@ class DefaultTheme: Theme {
     func mineShaftColor() -> UIColor { return UIColor(rgba: "#333333") }
     func thunderbirdColor() -> UIColor { return UIColor(rgba: "#C01E0E") }
     func doveGreyColor() -> UIColor { return UIColor(rgba: "#6d6d6d") }
+    func seaShellColor() -> UIColor { return UIColor(rgba: "#f1f1f1") }
 
     // MARK: font definitions
 

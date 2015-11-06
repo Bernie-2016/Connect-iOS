@@ -74,6 +74,18 @@ class EventsFakeTheme : FakeTheme {
     override func eventsInstructionsTextColor() -> UIColor {
         return UIColor.whiteColor()
     }
+
+    override func eventsListSectionHeaderBackgroundColor() -> UIColor {
+        return UIColor.darkGrayColor()
+    }
+
+    override func eventsListSectionHeaderTextColor() -> UIColor {
+        return UIColor.lightGrayColor()
+    }
+
+    override func eventsListSectionHeaderFont() -> UIFont {
+        return UIFont.italicSystemFontOfSize(999)
+    }
 }
 
 private class FakeEventRepository : EventRepository {
@@ -515,6 +527,16 @@ class EventsControllerSpec : QuickSpec {
 
                                     expect(self.eventListTableViewCellStylist.lastStyledCell).to(beIdenticalTo(cell))
                                     expect(self.eventListTableViewCellStylist.lastReceivedEvent).to(beIdenticalTo(eventA))
+                                }
+
+                                it("styles the section headers with the theme") {
+                                    let sectionHeader = UITableViewHeaderFooterView()
+
+                                    self.subject.resultsTableView.delegate?.tableView!(self.subject.resultsTableView, willDisplayHeaderView: sectionHeader, forSection: 0)
+
+                                    expect(sectionHeader.contentView.backgroundColor).to(equal(UIColor.darkGrayColor()))
+                                    expect(sectionHeader.textLabel!.textColor).to(equal(UIColor.lightGrayColor()))
+                                    expect(sectionHeader.textLabel!.font).to(equal(UIFont.italicSystemFontOfSize(999)))
                                 }
 
                                 describe("tapping on an event") {

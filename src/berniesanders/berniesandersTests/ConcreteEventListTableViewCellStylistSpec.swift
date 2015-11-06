@@ -47,12 +47,14 @@ private class FakeEventCellTheme: FakeTheme {
 
 class ConcreteEventListTableViewCellStylistSpec: QuickSpec {
     var subject: ConcreteEventListTableViewCellStylist!
+    var dateProvider: FakeDateProvider!
     private let theme = FakeEventCellTheme()
 
     override func spec() {
         describe("ConcreteEventListTableViewCellStylistSpec") {
             beforeEach {
-                self.subject = ConcreteEventListTableViewCellStylist(theme: self.theme)
+                self.dateProvider = FakeDateProvider()
+                self.subject = ConcreteEventListTableViewCellStylist(dateProvider: self.dateProvider, theme: self.theme)
             }
 
             describe("styling cells") {
@@ -63,22 +65,25 @@ class ConcreteEventListTableViewCellStylistSpec: QuickSpec {
                         let eventA = TestUtils.eventWithStartDate(today, timeZone:
                             NSTimeZone.localTimeZone().abbreviation!)
 
-                        self.subject.styleCell(cell, event: eventA)
-
-                        expect(cell.nameLabel.font).to(equal(UIFont.italicSystemFontOfSize(333)))
-                        expect(cell.nameLabel.textColor).to(equal(UIColor.yellowColor()))
-                        expect(cell.distanceLabel.font).to(equal(UIFont.italicSystemFontOfSize(444)))
-                        expect(cell.distanceLabel.textColor).to(equal(UIColor.greenColor()))
-                        expect(cell.dateLabel.font).to(equal(UIFont.italicSystemFontOfSize(777)))
-                        expect(cell.dateLabel.textColor).to(equal(UIColor.redColor()))
-                        expect(cell.disclosureView.color).to(equal(UIColor.purpleColor()))
-
                         let calendar = NSCalendar.currentCalendar()
                         let todayComponents = calendar.components(NSCalendarUnit([.Year, .Month, .Day]), fromDate: today)
                         calendar.timeZone = NSTimeZone(abbreviation: "GMT")!
                         let nonLocalToday = calendar.dateFromComponents(todayComponents)!
 
                         let eventB = TestUtils.eventWithStartDate(nonLocalToday, timeZone: "GMT")
+
+                        self.dateProvider.currentDate = today
+
+                        self.subject.styleCell(cell, event: eventA)
+
+                        expect(cell.nameLabel.font).to(equal(UIFont.italicSystemFontOfSize(333)))
+                        expect(cell.nameLabel.textColor).to(equal(UIColor.yellowColor()))
+                        expect(cell.distanceLabel.font).to(equal(UIFont.italicSystemFontOfSize(444)))
+
+                        expect(cell.distanceLabel.textColor).to(equal(UIColor.greenColor()))
+                        expect(cell.dateLabel.font).to(equal(UIFont.italicSystemFontOfSize(777)))
+                        expect(cell.dateLabel.textColor).to(equal(UIColor.redColor()))
+                        expect(cell.disclosureView.color).to(equal(UIColor.purpleColor()))
 
                         self.subject.styleCell(cell, event: eventB)
 
@@ -90,6 +95,7 @@ class ConcreteEventListTableViewCellStylistSpec: QuickSpec {
 
                 context("when the event is not today") {
                     it("styles the cell with the theme") {
+                        self.dateProvider.currentDate = NSDate()
                         let event = TestUtils.eventWithStartDate(NSDate(timeIntervalSince1970: 0), timeZone:
                         "PST")
                         let cell = EventListTableViewCell()

@@ -77,6 +77,9 @@ protocol Theme {
     func eventsListDateFont() -> UIFont
     func eventsListDateColor() -> UIColor
     func eventsListDateTodayColor() -> UIColor
+    func eventsListSectionHeaderFont() -> UIFont
+    func eventsListSectionHeaderTextColor() -> UIColor
+    func eventsListSectionHeaderBackgroundColor() -> UIColor
     func eventsInputAccessoryBackgroundColor() -> UIColor
     func eventsZipCodeTextColor() -> UIColor
     func eventsZipCodeBackgroundColor() -> UIColor

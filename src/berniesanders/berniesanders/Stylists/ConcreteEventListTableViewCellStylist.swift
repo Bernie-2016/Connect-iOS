@@ -1,16 +1,26 @@
 import Foundation
 
 class ConcreteEventListTableViewCellStylist: EventListTableViewCellStylist {
+    private let dateProvider: DateProvider
     private let theme: Theme
     private let calendar = NSCalendar.currentCalendar()
 
-    init(theme: Theme) {
+    init(dateProvider: DateProvider, theme: Theme) {
+        self.dateProvider = dateProvider
         self.theme = theme
     }
 
     func styleCell(cell: EventListTableViewCell, event: Event) {
+        let today = self.dateProvider.now()
+        let todayComponents = self.calendar.components(NSCalendarUnit([.Year, .Month, .Day]), fromDate: today)
+        let normalizedToday = self.calendar.dateFromComponents(todayComponents)!
+
         self.calendar.timeZone = event.timeZone
-        let isToday = self.calendar.isDateInToday(event.startDate)
+        let eventDateComponents = self.calendar.components(NSCalendarUnit([.Year, .Month, .Day]), fromDate: event.startDate)
+        self.calendar.timeZone = NSTimeZone.localTimeZone()
+        let normalizedEventDate = self.calendar.dateFromComponents(eventDateComponents)!
+
+        let isToday = self.calendar.isDate(normalizedEventDate, inSameDayAsDate: normalizedToday)
 
         cell.dateLabel.textColor = isToday ? self.theme.eventsListDateTodayColor() : self.theme.eventsListDateColor()
         cell.distanceLabel.textColor = isToday ? self.theme.eventsListDistanceTodayColor() : self.theme.eventsListDistanceColor()

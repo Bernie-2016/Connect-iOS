@@ -153,7 +153,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 nonCurrentWeekDateFormatter: shortDateFormatter,
                 dateProvider: dateProvider)
 
-            let eventListTableViewCellStylist = ConcreteEventListTableViewCellStylist(theme: defaultTheme)
+            let eventListTableViewCellStylist = ConcreteEventListTableViewCellStylist(dateProvider: dateProvider, theme: defaultTheme)
             let eventsController = EventsController(
                 eventRepository: eventRepository,
                 eventPresenter: eventPresenter,
