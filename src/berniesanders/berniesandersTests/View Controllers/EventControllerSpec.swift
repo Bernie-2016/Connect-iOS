@@ -97,7 +97,7 @@ class EventControllerSpec: QuickSpec {
 
                 it("has a share button on the navigation item") {
                     let shareBarButtonItem = self.subject.navigationItem.rightBarButtonItem!
-                    expect(shareBarButtonItem.valueForKey("systemItem") as? Int).to(equal(UIBarButtonSystemItem.Action.rawValue))
+                    expect(shareBarButtonItem.title).to(equal("Share"))
                 }
 
                 it("should set the back bar button item title correctly") {

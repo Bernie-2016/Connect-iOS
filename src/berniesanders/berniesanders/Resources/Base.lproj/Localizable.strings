@@ -34,7 +34,7 @@
 
 "Events_tabBarTitle" = "Events";
 "Events_navigationTitle" = "Events Near Me";
-"Events_backButtonTitle" = "Back";
+"Events_backButtonTitle" = "Events";
 "Events_eventAddressLabel" =  "%@, %@ - %@";
 "Events_eventStreetAddressLabel" =  "%@\n%@, %@ - %@";
 "Events_eventAttendeeLabel" = "%d attending, %d spots total";
