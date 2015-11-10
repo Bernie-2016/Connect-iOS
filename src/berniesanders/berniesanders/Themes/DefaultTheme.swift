@@ -106,25 +106,27 @@ class DefaultTheme: Theme {
     func eventsGoButtonCornerRadius() -> CGFloat { return self.defaultCornerRadius() }
     func eventsNoResultsTextColor() -> UIColor { return UIColor.blackColor() }
     func eventsNoResultsFont() -> UIFont { return UIFont.systemFontOfSize(15) }
+    func eventBackgroundColor() -> UIColor { return self.mercuryColor() }
 
     // MARK: Event screen
 
-    func eventNameFont() -> UIFont { return self.defaultHeaderFont() }
-    func eventNameColor() -> UIColor { return self.cornflowerBlueColor() }
+    func eventNameFont() -> UIFont { return UIFont.systemFontOfSize(21) }
+    func eventNameColor() -> UIColor { return self.tundoraColor() }
     func eventStartDateFont() -> UIFont { return UIFont.systemFontOfSize(13) }
-    func eventStartDateColor() -> UIColor { return self.cornflowerBlueColor() }
+    func eventStartDateColor() -> UIColor { return self.thunderbirdColor() }
     func eventAttendeesFont() -> UIFont { return UIFont.systemFontOfSize(13) }
     func eventAttendeesColor() -> UIColor { return self.cornflowerBlueColor() }
     func eventAddressFont() -> UIFont { return UIFont.systemFontOfSize(13)}
-    func eventAddressColor() -> UIColor { return self.cornflowerBlueColor() }
+    func eventAddressColor() -> UIColor { return self.emperorColor() }
     func eventDescriptionHeadingFont() -> UIFont { return UIFont.systemFontOfSize(17) }
-    func eventDescriptionHeadingColor() -> UIColor { return self.cornflowerBlueColor() }
+    func eventDescriptionHeadingColor() -> UIColor { return self.tundoraColor() }
     func eventDescriptionFont() -> UIFont { return UIFont.systemFontOfSize(13) }
-    func eventDescriptionColor() -> UIColor { return self.cornflowerBlueColor() }
-    func eventDirectionsButtonBackgroundColor() -> UIColor { return self.cornflowerBlueColor() }
-    func eventButtonTextColor() -> UIColor { return UIColor.whiteColor() }
-    func eventDirectionsButtonFont() -> UIFont { return UIFont.systemFontOfSize(15) }
-    func eventRSVPButtonBackgroundColor() -> UIColor { return self.carnationColor() }
+    func eventDescriptionColor() -> UIColor { return self.emperorColor() }
+    func eventDirectionsButtonBackgroundColor() -> UIColor { return UIColor.whiteColor() }
+    func eventDirectionsButtonTextColor() -> UIColor { return self.tundoraColor() }
+    func eventRSVPButtonTextColor() -> UIColor { return UIColor.whiteColor() }
+    func eventDirectionsButtonFont() -> UIFont { return UIFont.systemFontOfSize(17) }
+    func eventRSVPButtonBackgroundColor() -> UIColor { return self.chathamsBlueColor() }
     func eventsInstructionsFont() -> UIFont { return defaultHeaderFont() }
     func eventsInstructionsTextColor() -> UIColor { return silverChaliceColor() }
 
@@ -164,6 +166,7 @@ class DefaultTheme: Theme {
     func thunderbirdColor() -> UIColor { return UIColor(rgba: "#C01E0E") }
     func doveGreyColor() -> UIColor { return UIColor(rgba: "#6d6d6d") }
     func seaShellColor() -> UIColor { return UIColor(rgba: "#f1f1f1") }
+    func emperorColor() -> UIColor { return UIColor(rgba: "#555555") }
 
     // MARK: font definitions
 

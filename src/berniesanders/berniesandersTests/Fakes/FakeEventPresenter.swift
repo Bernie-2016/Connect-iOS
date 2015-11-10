@@ -8,28 +8,34 @@ class FakeEventPresenter : EventPresenter {
     var lastSearchCentroid: CLLocation?
     var lastReceivedCell: EventListTableViewCell?
     var lastEventWithPresentedAddress : Event!
-    var lastEventWithPresentedAttendees : Event!
+    var lastEventWithPresentedRSVPText : Event!
     var lastEventWithPresentedDate : Event!
+    var lastEventWithPresentedDateTime : Event!
 
     override func presentAddressForEvent(event: Event) -> String {
         self.lastEventWithPresentedAddress = event
         return "SOME COOL ADDRESS!"
     }
 
-    override func presentAttendeesForEvent(event: Event) -> String {
-        self.lastEventWithPresentedAttendees = event
+    override func presentRSVPButtonTextForEvent(event: Event) -> String {
+        self.lastEventWithPresentedRSVPText = event
         return "LOTS OF PEOPLE!"
     }
 
-    override func presentEvent(event: Event, searchCentroid: CLLocation, cell: EventListTableViewCell) -> EventListTableViewCell {
+    override func presentEventListCell(event: Event, searchCentroid: CLLocation, cell: EventListTableViewCell) -> EventListTableViewCell {
         lastReceivedEvent = event
         lastSearchCentroid = searchCentroid
         lastReceivedCell = cell
         return cell
     }
 
-    override func presentDateForEvent(event: Event) -> String {
+    override func presentTimeForEvent(event: Event) -> String {
         lastEventWithPresentedDate = event
         return "PRESENTED DATE!"
+    }
+
+    override func presentDateTimeForEvent(event: Event) -> String {
+        lastEventWithPresentedDateTime = event
+        return "PRESENTED DATETIME!"
     }
 }

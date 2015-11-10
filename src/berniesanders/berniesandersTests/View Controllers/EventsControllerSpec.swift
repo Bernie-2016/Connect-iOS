@@ -105,7 +105,10 @@ private class FakeEventRepository : EventRepository {
 private class FakeEventControllerProvider : berniesanders.EventControllerProvider {
     let controller = EventController(
         event: TestUtils.eventWithName("some event"),
-        eventPresenter: FakeEventPresenter(sameTimeZoneDateFormatter: FakeDateFormatter(), differentTimeZoneDateFormatter: FakeDateFormatter()),
+        eventPresenter: FakeEventPresenter(                    sameTimeZoneDateFormatter: FakeDateFormatter(),
+            differentTimeZoneDateFormatter: FakeDateFormatter(),
+            sameTimeZoneFullDateFormatter: FakeDateFormatter(),
+            differentTimeZoneFullDateFormatter: FakeDateFormatter()),
         eventRSVPControllerProvider: FakeEventRSVPControllerProvider(),
         urlProvider: FakeURLProvider(),
         urlOpener: FakeURLOpener(),
@@ -175,7 +178,10 @@ class EventsControllerSpec : QuickSpec {
         describe("EventsController") {
             beforeEach {
                 self.eventRepository = FakeEventRepository()
-                self.eventPresenter = FakeEventPresenter(sameTimeZoneDateFormatter: FakeDateFormatter(), differentTimeZoneDateFormatter: FakeDateFormatter())
+                self.eventPresenter = FakeEventPresenter(                    sameTimeZoneDateFormatter: FakeDateFormatter(),
+                    differentTimeZoneDateFormatter: FakeDateFormatter(),
+                    sameTimeZoneFullDateFormatter: FakeDateFormatter(),
+                    differentTimeZoneFullDateFormatter: FakeDateFormatter())
                 self.eventControllerProvider = FakeEventControllerProvider()
                 self.eventSectionHeaderPresenter = FakeEventSectionHeaderPresenter()
                 self.analyticsService = FakeAnalyticsService()

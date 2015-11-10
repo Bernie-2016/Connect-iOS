@@ -36,9 +36,9 @@
 "Events_navigationTitle" = "Events Near Me";
 "Events_backButtonTitle" = "Events";
 "Events_eventAddressLabel" =  "%@, %@ - %@";
-"Events_eventStreetAddressLabel" =  "%@\n%@, %@ - %@";
-"Events_eventAttendeeLabel" = "%d attending, %d spots total";
-"Events_eventAttendeeWithoutCapacityLimitLabel" = "%d attending";
+"Events_eventStreetAddressLabel" =  "%@, %@, %@ %@";
+"Events_eventRSVPButtonText" = "RSVP NOW | %d attending, %d spots total";
+"Events_eventRSVPWithoutCapacityButtonText" = "RSVP NOW | %d attending";
 "Events_noEventsFound" = "No events match your search";
 "Events_zipCodeTextBoxPlaceholder" = "ZIP Code";
 "Events_eventSearchButtonTitle" = "Search";
@@ -50,7 +50,6 @@
 
 "Event_navigationTitle" = "Event Details";
 "Event_backButtonTitle" = "Back";
-"Event_rsvpButtonTitle" = "RSVP";
 "Event_directionsButtonTitle" = "Directions";
 "Event_descriptionHeading" = "Description";
 

@@ -215,7 +215,7 @@ extension EventsController: UITableViewDataSource {
 
         self.eventListTableViewCellStylist.styleCell(cell, event: event)
 
-        return self.eventPresenter.presentEvent(event, searchCentroid: eventSearchResult.searchCentroid, cell: cell)
+        return self.eventPresenter.presentEventListCell(event, searchCentroid: eventSearchResult.searchCentroid, cell: cell)
     }
 }
 

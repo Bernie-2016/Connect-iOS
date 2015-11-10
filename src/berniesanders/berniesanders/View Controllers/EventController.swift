@@ -16,13 +16,13 @@ class EventController: UIViewController {
     private let scrollView = UIScrollView.newAutoLayoutView()
     let mapView = MKMapView.newAutoLayoutView()
     let rsvpButton = UIButton.newAutoLayoutView()
-    let directionsButton = UIButton.newAutoLayoutView()
+    let directionsButton = DisclosureButton.newAutoLayoutView()
     let nameLabel = UILabel.newAutoLayoutView()
     let dateLabel = UILabel.newAutoLayoutView()
-    let attendeesLabel = UILabel.newAutoLayoutView()
-    let addressLabel = UILabel.newAutoLayoutView()
     let descriptionHeadingLabel = UILabel.newAutoLayoutView()
     let descriptionLabel = UILabel.newAutoLayoutView()
+    private let topSectionSpacer = UIView.newAutoLayoutView()
+    private let bottomSectionSpacer = UIView.newAutoLayoutView()
 
     init(
         event: Event,
@@ -72,10 +72,7 @@ class EventController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Global_share", comment: ""), style: .Plain, target: self, action: "share")
         navigationItem.title = NSLocalizedString("Event_navigationTitle", comment: "")
 
-        directionsButton.setTitle(NSLocalizedString("Event_directionsButtonTitle", comment: ""), forState: .Normal)
         directionsButton.addTarget(self, action: "didTapDirections", forControlEvents: .TouchUpInside)
-
-        rsvpButton.setTitle(NSLocalizedString("Event_rsvpButtonTitle", comment: ""), forState: .Normal)
         rsvpButton.addTarget(self, action: "didTapRSVP", forControlEvents: .TouchUpInside)
 
         setupLabels()
@@ -123,46 +120,53 @@ class EventController: UIViewController {
 
     func applyTheme() {
         view.backgroundColor = theme.defaultBackgroundColor()
-        rsvpButton.backgroundColor = theme.eventRSVPButtonBackgroundColor()
-        rsvpButton.setTitleColor(theme.eventButtonTextColor(), forState: .Normal)
-        rsvpButton.titleLabel!.font = theme.eventDirectionsButtonFont()
 
-        directionsButton.backgroundColor = theme.eventDirectionsButtonBackgroundColor()
-        directionsButton.setTitleColor(theme.eventButtonTextColor(), forState: .Normal)
-        directionsButton.titleLabel!.font = theme.eventDirectionsButtonFont()
-        nameLabel.textColor = theme.eventNameColor()
-        nameLabel.font = theme.eventNameFont()
         dateLabel.textColor = theme.eventStartDateColor()
         dateLabel.font = theme.eventStartDateFont()
-        attendeesLabel.textColor = theme.eventAttendeesColor()
-        attendeesLabel.font = theme.eventAttendeesFont()
-        addressLabel.textColor = theme.eventAddressColor()
-        addressLabel.font = theme.eventAddressFont()
+        nameLabel.textColor = theme.eventNameColor()
+        nameLabel.font = theme.eventNameFont()
+
+        topSectionSpacer.backgroundColor = theme.eventBackgroundColor()
+
+        directionsButton.backgroundColor = theme.eventDirectionsButtonBackgroundColor()
+        directionsButton.title.textColor = theme.eventDirectionsButtonTextColor()
+        directionsButton.title.font = theme.eventDirectionsButtonFont()
+        directionsButton.subTitle.textColor = theme.eventAddressColor()
+        directionsButton.subTitle.font = theme.eventAddressFont()
+        directionsButton.disclosureView.color = theme.defaultDisclosureColor()
+
+        bottomSectionSpacer.backgroundColor = theme.eventBackgroundColor()
+
         descriptionHeadingLabel.textColor = theme.eventDescriptionHeadingColor()
         descriptionHeadingLabel.font = theme.eventDescriptionHeadingFont()
         descriptionLabel.textColor = theme.eventDescriptionColor()
         descriptionLabel.font = theme.eventDescriptionFont()
+
+        rsvpButton.backgroundColor = theme.eventRSVPButtonBackgroundColor()
+        rsvpButton.setTitleColor(theme.eventRSVPButtonTextColor(), forState: .Normal)
+        rsvpButton.titleLabel!.font = theme.eventDirectionsButtonFont()
     }
 
     func setupLabels() {
         nameLabel.text = event.name
-        dateLabel.text = eventPresenter.presentDateForEvent(event)
-        addressLabel.text = eventPresenter.presentAddressForEvent(event)
-        attendeesLabel.text = eventPresenter.presentAttendeesForEvent(event)
+        dateLabel.text = eventPresenter.presentDateTimeForEvent(event)
+        directionsButton.title.text = NSLocalizedString("Event_directionsButtonTitle", comment: "")
+        directionsButton.subTitle.text = eventPresenter.presentAddressForEvent(event)
         descriptionHeadingLabel.text = NSLocalizedString("Event_descriptionHeading", comment: "")
         descriptionLabel.text = event.description
+        rsvpButton.setTitle(self.eventPresenter.presentRSVPButtonTextForEvent(event), forState: .Normal)
     }
 
     func addSubviews() {
         view.addSubview(scrollView)
+        view.addSubview(rsvpButton)
         scrollView.addSubview(containerView)
-        containerView.addSubview(rsvpButton)
-        containerView.addSubview(directionsButton)
         containerView.addSubview(mapView)
-        containerView.addSubview(nameLabel)
         containerView.addSubview(dateLabel)
-        containerView.addSubview(attendeesLabel)
-        containerView.addSubview(addressLabel)
+        containerView.addSubview(nameLabel)
+        containerView.addSubview(topSectionSpacer)
+        containerView.addSubview(directionsButton)
+        containerView.addSubview(bottomSectionSpacer)
         containerView.addSubview(descriptionHeadingLabel)
         containerView.addSubview(descriptionLabel)
     }
@@ -172,7 +176,11 @@ class EventController: UIViewController {
         let screenBounds = UIScreen.mainScreen().bounds
 
         scrollView.contentSize.width = self.view.bounds.width
-        scrollView.autoPinEdgesToSuperviewEdges()
+        scrollView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Bottom)
+        scrollView.autoPinEdge(.Bottom, toEdge: .Top, ofView: rsvpButton)
+
+        rsvpButton.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Top)
+        rsvpButton.autoSetDimension(.Height, toSize: 55)
 
         containerView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Trailing)
         containerView.autoSetDimension(.Width, toSize: screenBounds.width)
@@ -182,42 +190,39 @@ class EventController: UIViewController {
         mapView.autoPinEdgeToSuperviewEdge(.Right)
         mapView.autoSetDimension(.Height, toSize: self.view.bounds.height / 3)
 
-        rsvpButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: mapView)
-        rsvpButton.autoPinEdgeToSuperviewEdge(.Left)
-        rsvpButton.autoSetDimension(.Height, toSize: 55)
-        rsvpButton.autoSetDimension(.Width, toSize: screenBounds.width / 2)
-
-        directionsButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: mapView)
-        directionsButton.autoPinEdge(.Left, toEdge: .Right, ofView: rsvpButton)
-        directionsButton.autoPinEdgeToSuperviewEdge(.Right)
-        directionsButton.autoSetDimension(.Height, toSize: 55)
+        dateLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: mapView, withOffset: 15)
+        dateLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
+        dateLabel.autoPinEdgeToSuperviewEdge(.Right)
 
         nameLabel.numberOfLines = 0
-        nameLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: directionsButton, withOffset: 12)
-        nameLabel.autoPinEdgeToSuperviewMargin(.Left)
-        nameLabel.autoPinEdgeToSuperviewMargin(.Right)
+        nameLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: dateLabel, withOffset: 6)
+        nameLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
+        nameLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 20)
 
-        dateLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: nameLabel, withOffset: 20)
-        dateLabel.autoPinEdgeToSuperviewMargin(.Left)
-        dateLabel.autoPinEdgeToSuperviewMargin(.Right)
+        topSectionSpacer.autoPinEdge(.Top, toEdge: .Bottom, ofView: nameLabel, withOffset: 6)
+        topSectionSpacer.autoPinEdgeToSuperviewEdge(.Left)
+        topSectionSpacer.autoPinEdgeToSuperviewEdge(.Right)
+        topSectionSpacer.autoSetDimension(.Height, toSize: 11)
 
-        attendeesLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: dateLabel, withOffset: 16)
-        attendeesLabel.autoPinEdgeToSuperviewMargin(.Left)
-        attendeesLabel.autoPinEdgeToSuperviewMargin(.Right)
+        directionsButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: topSectionSpacer)
+        directionsButton.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
+        directionsButton.autoPinEdgeToSuperviewEdge(.Right)
+        directionsButton.autoSetDimension(.Height, toSize: 55)
+        directionsButton.subTitle.numberOfLines = 0
 
-        addressLabel.numberOfLines = 0
-        addressLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: attendeesLabel, withOffset: 12)
-        addressLabel.autoPinEdgeToSuperviewMargin(.Left)
-        addressLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 12)
+        bottomSectionSpacer.autoPinEdge(.Top, toEdge: .Bottom, ofView: directionsButton)
+        bottomSectionSpacer.autoPinEdgeToSuperviewEdge(.Left)
+        bottomSectionSpacer.autoPinEdgeToSuperviewEdge(.Right)
+        bottomSectionSpacer.autoSetDimension(.Height, toSize: 11)
 
-        descriptionHeadingLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: addressLabel, withOffset: 16)
-        descriptionHeadingLabel.autoPinEdgeToSuperviewMargin(.Left)
-        descriptionHeadingLabel.autoPinEdgeToSuperviewMargin(.Right)
+        descriptionHeadingLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: bottomSectionSpacer, withOffset: 11)
+        descriptionHeadingLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
+        descriptionHeadingLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 20)
 
         descriptionLabel.numberOfLines = 0
         descriptionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: descriptionHeadingLabel, withOffset: 8)
-        descriptionLabel.autoPinEdgeToSuperviewMargin(.Left)
-        descriptionLabel.autoPinEdgeToSuperviewMargin(.Right)
+        descriptionLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
+        descriptionLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 20)
         descriptionLabel.autoPinEdgeToSuperviewMargin(.Bottom)
     }
     // swiftlint:enable function_body_length

@@ -20,9 +20,12 @@ class EventFakeTheme : FakeTheme {
     override func eventDescriptionFont() -> UIFont { return UIFont.systemFontOfSize(666) }
     override func eventDescriptionColor() -> UIColor { return UIColor.magentaColor() }
     override func eventDirectionsButtonBackgroundColor() -> UIColor { return UIColor.lightGrayColor() }
-    override func eventButtonTextColor() -> UIColor { return UIColor.darkGrayColor() }
+    override func eventDirectionsButtonTextColor() -> UIColor { return UIColor.darkGrayColor() }
     override func eventDirectionsButtonFont() -> UIFont { return UIFont.italicSystemFontOfSize(777) }
     override func eventRSVPButtonBackgroundColor() -> UIColor { return UIColor.whiteColor() }
+    override func eventRSVPButtonTextColor() -> UIColor { return UIColor.blackColor() }
+    override func defaultDisclosureColor() -> UIColor { return UIColor.redColor() }
+    override func eventBackgroundColor() -> UIColor { return UIColor.darkTextColor() }
 }
 
 class EventControllerFakeURLProvider : FakeURLProvider {
@@ -56,7 +59,11 @@ class EventControllerSpec: QuickSpec {
                 self.urlOpener = FakeURLOpener()
                 self.urlProvider = EventControllerFakeURLProvider()
 
-                self.eventPresenter = FakeEventPresenter(sameTimeZoneDateFormatter: FakeDateFormatter(), differentTimeZoneDateFormatter: FakeDateFormatter())
+                self.eventPresenter = FakeEventPresenter(
+                    sameTimeZoneDateFormatter: FakeDateFormatter(),
+                    differentTimeZoneDateFormatter: FakeDateFormatter(),
+                    sameTimeZoneFullDateFormatter: FakeDateFormatter(),
+                    differentTimeZoneFullDateFormatter: FakeDateFormatter())
                 self.eventRSVPControllerProvider = FakeEventRSVPControllerProvider()
                 self.analyticsService = FakeAnalyticsService()
 
@@ -158,26 +165,26 @@ class EventControllerSpec: QuickSpec {
                     }
                 }
 
-                it("has a scroll view containing the UI elements") {
-                    expect(self.subject.view.subviews.count).to(equal(1))
+                it("has a scroll view containing all the UI elements aside from the RSVP button") {
+                    expect(self.subject.view.subviews.count).to(equal(2))
                     let scrollView = self.subject.view.subviews.first as! UIScrollView
-
                     expect(scrollView).to(beAnInstanceOf(UIScrollView.self))
                     expect(scrollView.subviews.count).to(equal(1))
 
+                    let rsvpButton = self.subject.view.subviews.last
+                    expect(rsvpButton).to(beIdenticalTo(self.subject.rsvpButton))
+
                     let containerView = scrollView.subviews.first!
 
-                    expect(containerView.subviews.count).to(equal(9))
+                    expect(containerView.subviews.count).to(equal(8))
 
                     let containerViewSubViews = containerView.subviews
 
                     expect(containerViewSubViews.contains(self.subject.mapView)).to(beTrue())
-                    expect(containerViewSubViews.contains(self.subject.rsvpButton)).to(beTrue())
+                    expect(containerViewSubViews.contains(self.subject.rsvpButton)).to(beFalse())
                     expect(containerViewSubViews.contains(self.subject.directionsButton)).to(beTrue())
                     expect(containerViewSubViews.contains(self.subject.nameLabel)).to(beTrue())
                     expect(containerViewSubViews.contains(self.subject.dateLabel)).to(beTrue())
-                    expect(containerViewSubViews.contains(self.subject.attendeesLabel)).to(beTrue())
-                    expect(containerViewSubViews.contains(self.subject.addressLabel)).to(beTrue())
                     expect(containerViewSubViews.contains(self.subject.descriptionHeadingLabel)).to(beTrue())
                     expect(containerViewSubViews.contains(self.subject.descriptionLabel)).to(beTrue())
                 }
@@ -203,19 +210,9 @@ class EventControllerSpec: QuickSpec {
                     expect(self.subject.nameLabel.text).to(equal("limited event"))
                 }
 
-                it("uses the presenter to display the address") {
-                    expect(self.eventPresenter.lastEventWithPresentedAddress).to(beIdenticalTo(self.event))
-                    expect(self.subject.addressLabel.text).to(equal("SOME COOL ADDRESS!"))
-                }
-
-                it("uses the presenter to display the attendees") {
-                    expect(self.eventPresenter.lastEventWithPresentedAttendees).to(beIdenticalTo(self.event))
-                    expect(self.subject.attendeesLabel.text).to(equal("LOTS OF PEOPLE!"))
-                }
-
                 it("uses the presenter to display the start date/time") {
-                    expect(self.eventPresenter.lastEventWithPresentedDate).to(beIdenticalTo(self.event))
-                    expect(self.subject.dateLabel.text).to(equal("PRESENTED DATE!"))
+                    expect(self.eventPresenter.lastEventWithPresentedDateTime).to(beIdenticalTo(self.event))
+                    expect(self.subject.dateLabel.text).to(equal("PRESENTED DATETIME!"))
                 }
 
                 it("displays the event description") {
@@ -230,8 +227,9 @@ class EventControllerSpec: QuickSpec {
                     expect(self.subject.descriptionLabel.text).to(equal("some description text we need to parse yet"))
                 }
 
-                it("has an RSVP button") {
-                    expect(self.subject.rsvpButton.titleForState(.Normal)).to(equal("RSVP"))
+                it("has an RSVP button with text from the presenter") {
+                    expect(self.eventPresenter.lastEventWithPresentedRSVPText).to(beIdenticalTo(self.event))
+                    expect(self.subject.rsvpButton.titleForState(.Normal)).to(equal("LOTS OF PEOPLE!"))
                 }
 
                 describe("tapping on the rsvp button") {
@@ -251,8 +249,10 @@ class EventControllerSpec: QuickSpec {
                     }
                 }
 
-                it("has a directions button") {
-                    expect(self.subject.directionsButton.titleForState(.Normal)).to(equal("Directions"))
+                it("has a directions button with the correct title and subtitle") {
+                    expect(self.subject.directionsButton.title.text).to(equal("Directions"))
+                    expect(self.eventPresenter.lastEventWithPresentedAddress).to(beIdenticalTo(self.event))
+                    expect(self.subject.directionsButton.subTitle.text).to(equal("SOME COOL ADDRESS!"))
                 }
 
                 describe("tapping on the directions button") {
@@ -273,32 +273,30 @@ class EventControllerSpec: QuickSpec {
                 }
 
                 it("styles the screen according to the theme") {
-                    expect(self.subject.rsvpButton.backgroundColor).to(equal(UIColor.whiteColor()))
-                    expect(self.subject.rsvpButton.titleColorForState(.Normal)).to(equal(UIColor.darkGrayColor()))
-                    expect(self.subject.rsvpButton.titleLabel!.font).to(equal(UIFont.italicSystemFontOfSize(777)))
-
-                    expect(self.subject.directionsButton.backgroundColor).to(equal(UIColor.lightGrayColor()))
-                    expect(self.subject.directionsButton.titleColorForState(.Normal)).to(equal(UIColor.darkGrayColor()))
-                    expect(self.subject.directionsButton.titleLabel!.font).to(equal(UIFont.italicSystemFontOfSize(777)))
-
                     expect(self.subject.view.backgroundColor).to(equal(UIColor.orangeColor()))
-                    expect(self.subject.nameLabel.font).to(equal(UIFont.systemFontOfSize(111)))
-                    expect(self.subject.nameLabel.textColor).to(equal(UIColor.purpleColor()))
 
                     expect(self.subject.dateLabel.font).to(equal(UIFont.systemFontOfSize(222)))
                     expect(self.subject.dateLabel.textColor).to(equal(UIColor.yellowColor()))
 
-                    expect(self.subject.attendeesLabel.font).to(equal(UIFont.systemFontOfSize(333)))
-                    expect(self.subject.attendeesLabel.textColor).to(equal(UIColor.greenColor()))
+                    expect(self.subject.nameLabel.font).to(equal(UIFont.systemFontOfSize(111)))
+                    expect(self.subject.nameLabel.textColor).to(equal(UIColor.purpleColor()))
 
-                    expect(self.subject.addressLabel.font).to(equal(UIFont.systemFontOfSize(444)))
-                    expect(self.subject.addressLabel.textColor).to(equal(UIColor.blueColor()))
+                    expect(self.subject.directionsButton.backgroundColor).to(equal(UIColor.lightGrayColor()))
+                    expect(self.subject.directionsButton.title.textColor).to(equal(UIColor.darkGrayColor()))
+                    expect(self.subject.directionsButton.title.font).to(equal(UIFont.italicSystemFontOfSize(777)))
+                    expect(self.subject.directionsButton.subTitle.font).to(equal(UIFont.systemFontOfSize(444)))
+                    expect(self.subject.directionsButton.subTitle.textColor).to(equal(UIColor.blueColor()))
+                    expect(self.subject.directionsButton.disclosureView.color).to(equal(UIColor.redColor()))
 
                     expect(self.subject.descriptionHeadingLabel.font).to(equal(UIFont.systemFontOfSize(555)))
                     expect(self.subject.descriptionHeadingLabel.textColor).to(equal(UIColor.brownColor()))
 
                     expect(self.subject.descriptionLabel.font).to(equal(UIFont.systemFontOfSize(666)))
                     expect(self.subject.descriptionLabel.textColor).to(equal(UIColor.magentaColor()))
+
+                    expect(self.subject.rsvpButton.backgroundColor).to(equal(UIColor.whiteColor()))
+                    expect(self.subject.rsvpButton.titleColorForState(.Normal)).to(equal(UIColor.blackColor()))
+                    expect(self.subject.rsvpButton.titleLabel!.font).to(equal(UIFont.italicSystemFontOfSize(777)))
                 }
             }
         }
