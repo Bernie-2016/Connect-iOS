@@ -26,6 +26,8 @@ class EventFakeTheme : FakeTheme {
     override func eventRSVPButtonTextColor() -> UIColor { return UIColor.blackColor() }
     override func defaultDisclosureColor() -> UIColor { return UIColor.redColor() }
     override func eventBackgroundColor() -> UIColor { return UIColor.darkTextColor() }
+    override func eventTypeColor() -> UIColor { return UIColor(rgba: "#aaaaaa") }
+    override func eventTypeFont() -> UIFont { return UIFont.systemFontOfSize(999) }
 }
 
 class EventControllerFakeURLProvider : FakeURLProvider {
@@ -176,17 +178,18 @@ class EventControllerSpec: QuickSpec {
 
                     let containerView = scrollView.subviews.first!
 
-                    expect(containerView.subviews.count).to(equal(8))
+                    expect(containerView.subviews.count).to(equal(9))
 
                     let containerViewSubViews = containerView.subviews
 
                     expect(containerViewSubViews.contains(self.subject.mapView)).to(beTrue())
-                    expect(containerViewSubViews.contains(self.subject.rsvpButton)).to(beFalse())
-                    expect(containerViewSubViews.contains(self.subject.directionsButton)).to(beTrue())
-                    expect(containerViewSubViews.contains(self.subject.nameLabel)).to(beTrue())
                     expect(containerViewSubViews.contains(self.subject.dateLabel)).to(beTrue())
+                    expect(containerViewSubViews.contains(self.subject.nameLabel)).to(beTrue())
+                    expect(containerViewSubViews.contains(self.subject.eventTypeLabel)).to(beTrue())
+                    expect(containerViewSubViews.contains(self.subject.directionsButton)).to(beTrue())
                     expect(containerViewSubViews.contains(self.subject.descriptionHeadingLabel)).to(beTrue())
                     expect(containerViewSubViews.contains(self.subject.descriptionLabel)).to(beTrue())
+                    expect(containerViewSubViews.contains(self.subject.rsvpButton)).to(beFalse())
                 }
 
                 xit("centers the map around the event") {
@@ -206,13 +209,17 @@ class EventControllerSpec: QuickSpec {
                     expect(pin.coordinate.longitude).to(equal(self.event.location.coordinate.longitude))
                 }
 
+                it("uses the presenter to display the start date/time") {
+                    expect(self.eventPresenter.lastEventWithPresentedDateTime).to(beIdenticalTo(self.event))
+                    expect(self.subject.dateLabel.text).to(equal("PRESENTED DATETIME!"))
+                }
+
                 it("displays the title") {
                     expect(self.subject.nameLabel.text).to(equal("limited event"))
                 }
 
-                it("uses the presenter to display the start date/time") {
-                    expect(self.eventPresenter.lastEventWithPresentedDateTime).to(beIdenticalTo(self.event))
-                    expect(self.subject.dateLabel.text).to(equal("PRESENTED DATETIME!"))
+                it("displays the event type") {
+                    expect(self.subject.eventTypeLabel.text).to(equal("Big Time Bernie Fun"))
                 }
 
                 it("displays the event description") {
@@ -221,10 +228,6 @@ class EventControllerSpec: QuickSpec {
 
                 it("has a heading for the description") {
                     expect(self.subject.descriptionHeadingLabel.text).to(equal("Description"))
-                }
-
-                xit("displays the event description") {
-                    expect(self.subject.descriptionLabel.text).to(equal("some description text we need to parse yet"))
                 }
 
                 it("has an RSVP button with text from the presenter") {
@@ -280,6 +283,9 @@ class EventControllerSpec: QuickSpec {
 
                     expect(self.subject.nameLabel.font).to(equal(UIFont.systemFontOfSize(111)))
                     expect(self.subject.nameLabel.textColor).to(equal(UIColor.purpleColor()))
+
+                    expect(self.subject.eventTypeLabel.font).to(equal(UIFont.systemFontOfSize(999)))
+                    expect(self.subject.eventTypeLabel.textColor).to(equal(UIColor(rgba: "#aaaaaa")))
 
                     expect(self.subject.directionsButton.backgroundColor).to(equal(UIColor.lightGrayColor()))
                     expect(self.subject.directionsButton.title.textColor).to(equal(UIColor.darkGrayColor()))

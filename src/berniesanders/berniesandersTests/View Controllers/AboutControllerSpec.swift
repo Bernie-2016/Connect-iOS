@@ -23,7 +23,6 @@ class AboutFakeURLProvider: FakeURLProvider {
     override func sandersForPresidentURL() -> NSURL! {
         return NSURL(string: "http://example.com/reddit/prez")!
     }
-
 }
 
 class AboutControllerSpec : QuickSpec {

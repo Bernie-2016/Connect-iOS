@@ -106,7 +106,6 @@ class DefaultTheme: Theme {
     func eventsGoButtonCornerRadius() -> CGFloat { return self.defaultCornerRadius() }
     func eventsNoResultsTextColor() -> UIColor { return UIColor.blackColor() }
     func eventsNoResultsFont() -> UIFont { return UIFont.systemFontOfSize(15) }
-    func eventBackgroundColor() -> UIColor { return self.mercuryColor() }
 
     // MARK: Event screen
 
@@ -129,6 +128,9 @@ class DefaultTheme: Theme {
     func eventRSVPButtonBackgroundColor() -> UIColor { return self.chathamsBlueColor() }
     func eventsInstructionsFont() -> UIFont { return defaultHeaderFont() }
     func eventsInstructionsTextColor() -> UIColor { return silverChaliceColor() }
+    func eventBackgroundColor() -> UIColor { return self.mercuryColor() }
+    func eventTypeFont() -> UIFont { return UIFont.systemFontOfSize(13) }
+    func eventTypeColor() -> UIColor { return self.emperorColor() }
 
     // MARK: About screen
 
