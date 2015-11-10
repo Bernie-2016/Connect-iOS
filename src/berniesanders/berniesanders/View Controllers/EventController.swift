@@ -18,11 +18,8 @@ class EventController: UIViewController {
     let rsvpButton = UIButton.newAutoLayoutView()
     let directionsButton = UIButton.newAutoLayoutView()
     let nameLabel = UILabel.newAutoLayoutView()
-    let dateIconImageView = UIImageView.newAutoLayoutView()
     let dateLabel = UILabel.newAutoLayoutView()
-    let attendeesIconImageView = UIImageView.newAutoLayoutView()
     let attendeesLabel = UILabel.newAutoLayoutView()
-    let addressIconImageView = UIImageView.newAutoLayoutView()
     let addressLabel = UILabel.newAutoLayoutView()
     let descriptionHeadingLabel = UILabel.newAutoLayoutView()
     let descriptionLabel = UILabel.newAutoLayoutView()
@@ -81,7 +78,7 @@ class EventController: UIViewController {
         rsvpButton.setTitle(NSLocalizedString("Event_rsvpButtonTitle", comment: ""), forState: .Normal)
         rsvpButton.addTarget(self, action: "didTapRSVP", forControlEvents: .TouchUpInside)
 
-        setupImagesAndLabels()
+        setupLabels()
         applyTheme()
         addSubviews()
         setupConstraints()
@@ -147,16 +144,10 @@ class EventController: UIViewController {
         descriptionLabel.font = theme.eventDescriptionFont()
     }
 
-    func setupImagesAndLabels() {
+    func setupLabels() {
         nameLabel.text = event.name
-        dateIconImageView.image = UIImage(named: "eventCalendar")
-        dateIconImageView.contentMode = .ScaleAspectFit
         dateLabel.text = eventPresenter.presentDateForEvent(event)
-        addressIconImageView.image = UIImage(named: "eventPin")
-        addressIconImageView.contentMode = .ScaleAspectFit
         addressLabel.text = eventPresenter.presentAddressForEvent(event)
-        attendeesIconImageView.image = UIImage(named: "eventPhone")
-        attendeesIconImageView.contentMode = .ScaleAspectFit
         attendeesLabel.text = eventPresenter.presentAttendeesForEvent(event)
         descriptionHeadingLabel.text = NSLocalizedString("Event_descriptionHeading", comment: "")
         descriptionLabel.text = event.description
@@ -169,11 +160,8 @@ class EventController: UIViewController {
         containerView.addSubview(directionsButton)
         containerView.addSubview(mapView)
         containerView.addSubview(nameLabel)
-        containerView.addSubview(dateIconImageView)
         containerView.addSubview(dateLabel)
-        containerView.addSubview(attendeesIconImageView)
         containerView.addSubview(attendeesLabel)
-        containerView.addSubview(addressIconImageView)
         containerView.addSubview(addressLabel)
         containerView.addSubview(descriptionHeadingLabel)
         containerView.addSubview(descriptionLabel)
@@ -209,26 +197,17 @@ class EventController: UIViewController {
         nameLabel.autoPinEdgeToSuperviewMargin(.Left)
         nameLabel.autoPinEdgeToSuperviewMargin(.Right)
 
-        dateIconImageView.autoPinEdgeToSuperviewMargin(.Left)
-        dateIconImageView.autoSetDimension(.Width, toSize: 20)
-        dateIconImageView.autoAlignAxis(.Horizontal, toSameAxisOfView: dateLabel)
         dateLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: nameLabel, withOffset: 20)
-        dateLabel.autoPinEdge(.Left, toEdge: .Right, ofView: dateIconImageView, withOffset: 12)
+        dateLabel.autoPinEdgeToSuperviewMargin(.Left)
         dateLabel.autoPinEdgeToSuperviewMargin(.Right)
 
-        attendeesIconImageView.autoPinEdgeToSuperviewMargin(.Left)
-        attendeesIconImageView.autoSetDimension(.Width, toSize: 20)
-        attendeesIconImageView.autoAlignAxis(.Horizontal, toSameAxisOfView: attendeesLabel)
         attendeesLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: dateLabel, withOffset: 16)
-        attendeesLabel.autoPinEdge(.Left, toEdge: .Right, ofView: attendeesIconImageView, withOffset: 12)
+        attendeesLabel.autoPinEdgeToSuperviewMargin(.Left)
         attendeesLabel.autoPinEdgeToSuperviewMargin(.Right)
 
-        addressIconImageView.autoPinEdgeToSuperviewMargin(.Left)
-        addressIconImageView.autoSetDimension(.Width, toSize: 20)
-        addressIconImageView.autoAlignAxis(.Horizontal, toSameAxisOfView: addressLabel)
         addressLabel.numberOfLines = 0
         addressLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: attendeesLabel, withOffset: 12)
-        addressLabel.autoPinEdge(.Left, toEdge: .Right, ofView: addressIconImageView, withOffset: 12)
+        addressLabel.autoPinEdgeToSuperviewMargin(.Left)
         addressLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 12)
 
         descriptionHeadingLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: addressLabel, withOffset: 16)

@@ -167,7 +167,7 @@ class EventControllerSpec: QuickSpec {
 
                     let containerView = scrollView.subviews.first!
 
-                    expect(containerView.subviews.count).to(equal(12))
+                    expect(containerView.subviews.count).to(equal(9))
 
                     let containerViewSubViews = containerView.subviews
 
@@ -175,11 +175,8 @@ class EventControllerSpec: QuickSpec {
                     expect(containerViewSubViews.contains(self.subject.rsvpButton)).to(beTrue())
                     expect(containerViewSubViews.contains(self.subject.directionsButton)).to(beTrue())
                     expect(containerViewSubViews.contains(self.subject.nameLabel)).to(beTrue())
-                    expect(containerViewSubViews.contains(self.subject.dateIconImageView)).to(beTrue())
                     expect(containerViewSubViews.contains(self.subject.dateLabel)).to(beTrue())
-                    expect(containerViewSubViews.contains(self.subject.attendeesIconImageView)).to(beTrue())
                     expect(containerViewSubViews.contains(self.subject.attendeesLabel)).to(beTrue())
-                    expect(containerViewSubViews.contains(self.subject.addressIconImageView)).to(beTrue())
                     expect(containerViewSubViews.contains(self.subject.addressLabel)).to(beTrue())
                     expect(containerViewSubViews.contains(self.subject.descriptionHeadingLabel)).to(beTrue())
                     expect(containerViewSubViews.contains(self.subject.descriptionLabel)).to(beTrue())
