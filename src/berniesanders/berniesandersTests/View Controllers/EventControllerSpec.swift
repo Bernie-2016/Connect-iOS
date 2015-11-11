@@ -24,6 +24,7 @@ class EventFakeTheme : FakeTheme {
     override func eventDirectionsButtonFont() -> UIFont { return UIFont.italicSystemFontOfSize(777) }
     override func eventRSVPButtonBackgroundColor() -> UIColor { return UIColor.whiteColor() }
     override func eventRSVPButtonTextColor() -> UIColor { return UIColor.blackColor() }
+    override func eventRSVPButtonFont() -> UIFont { return UIFont.systemFontOfSize(888) }
     override func defaultDisclosureColor() -> UIColor { return UIColor.redColor() }
     override func eventBackgroundColor() -> UIColor { return UIColor.darkTextColor() }
     override func eventTypeColor() -> UIColor { return UIColor(rgba: "#aaaaaa") }
@@ -253,7 +254,7 @@ class EventControllerSpec: QuickSpec {
                 }
 
                 it("has a directions button with the correct title and subtitle") {
-                    expect(self.subject.directionsButton.title.text).to(equal("Directions"))
+                    expect(self.subject.directionsButton.title.text).to(equal("Get Directions"))
                     expect(self.eventPresenter.lastEventWithPresentedAddress).to(beIdenticalTo(self.event))
                     expect(self.subject.directionsButton.subTitle.text).to(equal("SOME COOL ADDRESS!"))
                 }
@@ -302,7 +303,7 @@ class EventControllerSpec: QuickSpec {
 
                     expect(self.subject.rsvpButton.backgroundColor).to(equal(UIColor.whiteColor()))
                     expect(self.subject.rsvpButton.titleColorForState(.Normal)).to(equal(UIColor.blackColor()))
-                    expect(self.subject.rsvpButton.titleLabel!.font).to(equal(UIFont.italicSystemFontOfSize(777)))
+                    expect(self.subject.rsvpButton.titleLabel!.font).to(equal(UIFont.italicSystemFontOfSize(888)))
                 }
             }
         }

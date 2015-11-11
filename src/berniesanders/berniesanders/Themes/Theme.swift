@@ -98,6 +98,7 @@ protocol Theme {
     func eventDirectionsButtonBackgroundColor() -> UIColor
     func eventRSVPButtonBackgroundColor() -> UIColor
     func eventRSVPButtonTextColor() -> UIColor
+    func eventRSVPButtonFont() -> UIFont
     func eventDirectionsButtonTextColor() -> UIColor
     func eventDirectionsButtonFont() -> UIFont
     func eventNameFont() -> UIFont

@@ -25,6 +25,7 @@ class EventController: UIViewController {
 
     private let topSectionSpacer = UIView.newAutoLayoutView()
     private let bottomSectionSpacer = UIView.newAutoLayoutView()
+    private let bottomRubberBandingArea = UIView.newAutoLayoutView()
 
     init(
         event: Event,
@@ -121,7 +122,8 @@ class EventController: UIViewController {
     // MARK: Private
 
     func applyTheme() {
-        view.backgroundColor = theme.defaultBackgroundColor()
+        view.backgroundColor = theme.eventBackgroundColor()
+        containerView.backgroundColor = UIColor.whiteColor()
 
         dateLabel.textColor = theme.eventStartDateColor()
         dateLabel.font = theme.eventStartDateFont()
@@ -146,9 +148,11 @@ class EventController: UIViewController {
         descriptionLabel.textColor = theme.eventDescriptionColor()
         descriptionLabel.font = theme.eventDescriptionFont()
 
+        bottomRubberBandingArea.backgroundColor = theme.eventBackgroundColor()
+
         rsvpButton.backgroundColor = theme.eventRSVPButtonBackgroundColor()
         rsvpButton.setTitleColor(theme.eventRSVPButtonTextColor(), forState: .Normal)
-        rsvpButton.titleLabel!.font = theme.eventDirectionsButtonFont()
+        rsvpButton.titleLabel!.font = theme.eventRSVPButtonFont()
         rsvpButton.titleLabel!.numberOfLines = 1
         rsvpButton.titleLabel!.adjustsFontSizeToFitWidth = true
         rsvpButton.titleLabel!.lineBreakMode = .ByClipping
@@ -178,6 +182,7 @@ class EventController: UIViewController {
         containerView.addSubview(bottomSectionSpacer)
         containerView.addSubview(descriptionHeadingLabel)
         containerView.addSubview(descriptionLabel)
+        containerView.addSubview(bottomRubberBandingArea)
     }
 
     // swiftlint:disable function_body_length
@@ -185,8 +190,7 @@ class EventController: UIViewController {
         let screenBounds = UIScreen.mainScreen().bounds
 
         scrollView.contentSize.width = self.view.bounds.width
-        scrollView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Bottom)
-        scrollView.autoPinEdge(.Bottom, toEdge: .Top, ofView: rsvpButton)
+        scrollView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero)
 
         rsvpButton.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Top)
         rsvpButton.autoSetDimension(.Height, toSize: 55)
@@ -213,7 +217,7 @@ class EventController: UIViewController {
         eventTypeLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
         eventTypeLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 20)
 
-        topSectionSpacer.autoPinEdge(.Top, toEdge: .Bottom, ofView: eventTypeLabel, withOffset: 6)
+        topSectionSpacer.autoPinEdge(.Top, toEdge: .Bottom, ofView: eventTypeLabel, withOffset: 15)
         topSectionSpacer.autoPinEdgeToSuperviewEdge(.Left)
         topSectionSpacer.autoPinEdgeToSuperviewEdge(.Right)
         topSectionSpacer.autoSetDimension(.Height, toSize: 11)
@@ -224,20 +228,23 @@ class EventController: UIViewController {
         directionsButton.autoSetDimension(.Height, toSize: 55)
         directionsButton.subTitle.numberOfLines = 0
 
-        bottomSectionSpacer.autoPinEdge(.Top, toEdge: .Bottom, ofView: directionsButton)
+        bottomSectionSpacer.autoPinEdge(.Top, toEdge: .Bottom, ofView: directionsButton, withOffset: 15)
         bottomSectionSpacer.autoPinEdgeToSuperviewEdge(.Left)
         bottomSectionSpacer.autoPinEdgeToSuperviewEdge(.Right)
         bottomSectionSpacer.autoSetDimension(.Height, toSize: 11)
 
-        descriptionHeadingLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: bottomSectionSpacer, withOffset: 11)
+        descriptionHeadingLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: bottomSectionSpacer, withOffset: 15)
         descriptionHeadingLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
         descriptionHeadingLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 20)
 
         descriptionLabel.numberOfLines = 0
-        descriptionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: descriptionHeadingLabel, withOffset: 8)
+        descriptionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: descriptionHeadingLabel, withOffset: 6)
         descriptionLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
         descriptionLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 20)
-        descriptionLabel.autoPinEdgeToSuperviewMargin(.Bottom)
+
+        bottomRubberBandingArea.autoPinEdge(.Top, toEdge: .Bottom, ofView: descriptionLabel, withOffset: 15)
+        bottomRubberBandingArea.autoSetDimension(.Height, toSize: 55)
+        bottomRubberBandingArea.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Top)
     }
     // swiftlint:enable function_body_length
 }

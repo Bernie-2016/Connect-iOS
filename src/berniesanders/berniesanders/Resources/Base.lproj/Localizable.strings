@@ -50,7 +50,7 @@
 
 "Event_navigationTitle" = "Event Details";
 "Event_backButtonTitle" = "Back";
-"Event_directionsButtonTitle" = "Directions";
+"Event_directionsButtonTitle" = "Get Directions";
 "Event_descriptionHeading" = "Description";
 
 // Event RSVP

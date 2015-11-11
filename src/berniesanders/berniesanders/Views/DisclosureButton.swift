@@ -39,9 +39,9 @@ class DisclosureButton: UIButton {
         disclosureView.autoPinEdgeToSuperviewEdge(.Right)
         disclosureView.autoSetDimension(.Height, toSize: 20)
 
-        subTitle.autoPinEdge(.Top, toEdge: .Bottom, ofView: title)
+        subTitle.autoPinEdge(.Top, toEdge: .Bottom, ofView: title, withOffset: 6)
         subTitle.autoPinEdgeToSuperviewEdge(.Left)
         subTitle.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultMargin)
-        subTitle.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 5)
+        subTitle.autoPinEdgeToSuperviewEdge(.Bottom)
     }
 }

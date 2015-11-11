@@ -106,6 +106,8 @@ class DefaultTheme: Theme {
     func eventsGoButtonCornerRadius() -> CGFloat { return self.defaultCornerRadius() }
     func eventsNoResultsTextColor() -> UIColor { return UIColor.blackColor() }
     func eventsNoResultsFont() -> UIFont { return UIFont.systemFontOfSize(15) }
+    func eventsInstructionsFont() -> UIFont { return defaultHeaderFont() }
+    func eventsInstructionsTextColor() -> UIColor { return silverChaliceColor() }
 
     // MARK: Event screen
 
@@ -126,10 +128,13 @@ class DefaultTheme: Theme {
     func eventRSVPButtonTextColor() -> UIColor { return UIColor.whiteColor() }
     func eventDirectionsButtonFont() -> UIFont { return UIFont.systemFontOfSize(17) }
     func eventRSVPButtonBackgroundColor() -> UIColor { return self.chathamsBlueColor() }
-    func eventsInstructionsFont() -> UIFont { return defaultHeaderFont() }
-    func eventsInstructionsTextColor() -> UIColor { return silverChaliceColor() }
+    func eventRSVPButtonFont() -> UIFont { if #available(iOS 8.2, *) {
+        return UIFont.systemFontOfSize(17, weight: UIFontWeightSemibold)
+    } else {
+        return UIFont.systemFontOfSize(17)
+    } }
     func eventBackgroundColor() -> UIColor { return self.mercuryColor() }
-    func eventTypeFont() -> UIFont { return UIFont.systemFontOfSize(13) }
+    func eventTypeFont() -> UIFont { return UIFont.boldSystemFontOfSize(15) }
     func eventTypeColor() -> UIColor { return self.emperorColor() }
 
     // MARK: About screen
