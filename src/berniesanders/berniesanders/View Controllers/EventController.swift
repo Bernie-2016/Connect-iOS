@@ -149,6 +149,9 @@ class EventController: UIViewController {
         rsvpButton.backgroundColor = theme.eventRSVPButtonBackgroundColor()
         rsvpButton.setTitleColor(theme.eventRSVPButtonTextColor(), forState: .Normal)
         rsvpButton.titleLabel!.font = theme.eventDirectionsButtonFont()
+        rsvpButton.titleLabel!.numberOfLines = 1
+        rsvpButton.titleLabel!.adjustsFontSizeToFitWidth = true
+        rsvpButton.titleLabel!.lineBreakMode = .ByClipping
     }
 
     func setupLabels() {
