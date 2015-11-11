@@ -75,7 +75,7 @@ class IssueControllerSpec : QuickSpec {
 
                     it("has a share button on the navigation item") {
                         let shareBarButtonItem = self.subject.navigationItem.rightBarButtonItem!
-                        expect(shareBarButtonItem.valueForKey("systemItem") as? Int).to(equal(UIBarButtonSystemItem.Action.rawValue))
+                        expect(shareBarButtonItem.title).to(equal("Share"))
                     }
 
                     it("sets up the body text view not to be editable") {

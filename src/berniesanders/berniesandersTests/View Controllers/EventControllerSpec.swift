@@ -179,7 +179,7 @@ class EventControllerSpec: QuickSpec {
 
                     let containerView = scrollView.subviews.first!
 
-                    expect(containerView.subviews.count).to(equal(9))
+                    expect(containerView.subviews.count).to(equal(10))
 
                     let containerViewSubViews = containerView.subviews
 
@@ -277,8 +277,6 @@ class EventControllerSpec: QuickSpec {
                 }
 
                 it("styles the screen according to the theme") {
-                    expect(self.subject.view.backgroundColor).to(equal(UIColor.orangeColor()))
-
                     expect(self.subject.dateLabel.font).to(equal(UIFont.systemFontOfSize(222)))
                     expect(self.subject.dateLabel.textColor).to(equal(UIColor.yellowColor()))
 
@@ -303,7 +301,7 @@ class EventControllerSpec: QuickSpec {
 
                     expect(self.subject.rsvpButton.backgroundColor).to(equal(UIColor.whiteColor()))
                     expect(self.subject.rsvpButton.titleColorForState(.Normal)).to(equal(UIColor.blackColor()))
-                    expect(self.subject.rsvpButton.titleLabel!.font).to(equal(UIFont.italicSystemFontOfSize(888)))
+                    expect(self.subject.rsvpButton.titleLabel!.font).to(equal(UIFont.systemFontOfSize(888)))
                 }
             }
         }

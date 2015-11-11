@@ -44,7 +44,7 @@ class IssueController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "share")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Global_share", comment: ""), style: .Plain, target: self, action: "share")
 
         self.addSubviews()
 
@@ -132,12 +132,14 @@ class IssueController: UIViewController {
         })
 
         let titleLabel = self.titleButton.titleLabel!
-        titleLabel.numberOfLines = 3
+        titleLabel.numberOfLines = 0
         titleLabel.preferredMaxLayoutWidth = screenBounds.width - 8
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.titleButton.autoPinEdgeToSuperviewMargin(.Leading)
-        self.titleButton.autoPinEdgeToSuperviewMargin(.Trailing)
-        self.titleButton.autoSetDimension(ALDimension.Height, toSize: 20, relation: NSLayoutRelation.GreaterThanOrEqual)
+        titleLabel.lineBreakMode = .ByWordWrapping
+        self.titleButton.contentHorizontalAlignment = .Left
+        self.titleButton.autoPinEdgeToSuperviewMargin(.Left)
+        self.titleButton.autoPinEdgeToSuperviewMargin(.Right)
+        self.titleButton.autoSetDimension(.Height, toSize: 20, relation: NSLayoutRelation.GreaterThanOrEqual)
 
         self.bodyTextView.scrollEnabled = false
         self.bodyTextView.translatesAutoresizingMaskIntoConstraints = false

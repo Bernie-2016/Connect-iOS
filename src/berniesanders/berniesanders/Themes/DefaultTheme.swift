@@ -40,11 +40,6 @@ class DefaultTheme: Theme {
     func newsFeedExcerptColor() -> UIColor {  return self.mineShaftColor() }
     func newsFeedDateFont() -> UIFont { return UIFont.systemFontOfSize(12) }
 
-    // MARK!: issues
-
-    func issuesFeedTitleFont() -> UIFont { return UIFont.systemFontOfSize(14) }
-    func issuesFeedTitleColor() -> UIColor { return self.cornflowerBlueColor() }
-
     // MARK: Feed header
 
     func feedHeaderBackgroundColor() -> UIColor { return self.carnationColor() }
@@ -63,15 +58,27 @@ class DefaultTheme: Theme {
     func newsfeedHeadlineTitleColor() -> UIColor { return UIColor.whiteColor() }
     func newsFeedHeadlineTitleBackgroundColor() -> UIColor { return UIColor(red: 0, green: 0, blue: 0, alpha: 0.4) }
 
+    // MARK: issues
+
+    func issuesFeedTitleFont() -> UIFont { return UIFont.systemFontOfSize(17) }
+    func issuesFeedTitleColor() -> UIColor { return self.tundoraColor() }
+
     // MARK: Issue detail screen
 
-    func issueTitleFont() -> UIFont { return defaultHeaderFont() }
-    func issueTitleColor() -> UIColor { return cornflowerBlueColor() }
-    func issueBodyFont() -> UIFont { return defaultBodyTextFont() }
-    func issueBodyColor() -> UIColor { return UIColor.blackColor() }
-    func defaultButtonBackgroundColor() -> UIColor { return cornflowerBlueColor() }
+    func issueTitleFont() -> UIFont { return UIFont.systemFontOfSize(21) }
+    func issueTitleColor() -> UIColor { return mineShaftColor() }
+    func issueBodyFont() -> UIFont { return UIFont.systemFontOfSize(17) }
+    func issueBodyColor() -> UIColor { return self.tundoraColor() }
+
+    // MARK: buttons
+    func defaultButtonBackgroundColor() -> UIColor { return self.chathamsBlueColor() }
     func defaultButtonTextColor() -> UIColor { return UIColor.whiteColor() }
-    func defaultButtonFont() -> UIFont { return UIFont.boldSystemFontOfSize(12) }
+    func defaultButtonFont() -> UIFont { if #available(iOS 8.2, *) {
+        return UIFont.systemFontOfSize(17, weight: UIFontWeightSemibold)
+    } else {
+        return UIFont.systemFontOfSize(17)
+        } }
+
 
     // MARK: Settings
 
@@ -169,7 +176,7 @@ class DefaultTheme: Theme {
     func chathamsBlueColor() -> UIColor { return UIColor(rgba: "#194d7b") }
     func scorpionColor() -> UIColor { return UIColor(rgba: "#606060") }
     func tundoraColor() -> UIColor { return UIColor(rgba: "#414141") }
-    func mineShaftColor() -> UIColor { return UIColor(rgba: "#333333") }
+    func mineShaftColor() -> UIColor { return UIColor(rgba: "#212121") }
     func thunderbirdColor() -> UIColor { return UIColor(rgba: "#C01E0E") }
     func doveGreyColor() -> UIColor { return UIColor(rgba: "#6d6d6d") }
     func seaShellColor() -> UIColor { return UIColor(rgba: "#f1f1f1") }
