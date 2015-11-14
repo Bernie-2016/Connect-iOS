@@ -10,7 +10,7 @@ class AnalyticsFakeTheme: FakeTheme {
     override func defaultBackgroundColor() -> UIColor {
         return UIColor.redColor()
     }
-    
+
     override func settingsSwitchColor() -> UIColor {
         return UIColor.purpleColor()
     }
