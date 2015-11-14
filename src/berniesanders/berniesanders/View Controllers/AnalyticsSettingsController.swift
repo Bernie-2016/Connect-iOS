@@ -98,5 +98,7 @@ class AnalyticsSettingsController: UIViewController {
         view.backgroundColor = theme.defaultBackgroundColor()
         analyticsExplanationLabel.font = theme.settingsAnalyticsFont()
         analyticsStateLabel.font = theme.settingsAnalyticsFont()
+        analyticsSwitch.tintColor = theme.settingsSwitchColor()
+        analyticsSwitch.onTintColor = theme.settingsSwitchColor()
     }
 }

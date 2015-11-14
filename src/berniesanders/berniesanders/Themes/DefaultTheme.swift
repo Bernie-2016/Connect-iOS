@@ -40,12 +40,6 @@ class DefaultTheme: Theme {
     func newsFeedExcerptColor() -> UIColor {  return self.mineShaftColor() }
     func newsFeedDateFont() -> UIFont { return UIFont.systemFontOfSize(12) }
 
-    // MARK: Feed header
-
-    func feedHeaderBackgroundColor() -> UIColor { return self.carnationColor() }
-    func feedHeaderTextColor() -> UIColor { return UIColor.whiteColor() }
-    func feedHeaderFont() -> UIFont { return UIFont.boldSystemFontOfSize(10) }
-
     // MARK: News Item detail screen
 
     func newsItemDateFont() -> UIFont { return UIFont.systemFontOfSize(13) }
@@ -83,11 +77,12 @@ class DefaultTheme: Theme {
     // MARK: Settings
 
     func settingsTitleFont() -> UIFont { return UIFont.systemFontOfSize(15) }
-    func settingsTitleColor() -> UIColor { return self.cornflowerBlueColor() }
-    func settingsDonateButtonColor() -> UIColor { return self.carnationColor() }
+    func settingsTitleColor() -> UIColor { return tundoraColor() }
+    func settingsDonateButtonColor() -> UIColor { return defaultButtonBackgroundColor() }
     func settingsDonateButtonTextColor() -> UIColor { return UIColor.whiteColor() }
     func settingsDonateButtonFont() -> UIFont { return UIFont.systemFontOfSize(20) }
     func settingsAnalyticsFont() -> UIFont { return defaultBodyTextFont() }
+    func settingsSwitchColor() -> UIColor { return chathamsBlueColor() }
 
     // MARK: Events
 
@@ -122,8 +117,6 @@ class DefaultTheme: Theme {
     func eventNameColor() -> UIColor { return self.tundoraColor() }
     func eventStartDateFont() -> UIFont { return UIFont.systemFontOfSize(13) }
     func eventStartDateColor() -> UIColor { return self.thunderbirdColor() }
-    func eventAttendeesFont() -> UIFont { return UIFont.systemFontOfSize(13) }
-    func eventAttendeesColor() -> UIColor { return self.cornflowerBlueColor() }
     func eventAddressFont() -> UIFont { return UIFont.systemFontOfSize(13)}
     func eventAddressColor() -> UIColor { return self.emperorColor() }
     func eventDescriptionHeadingFont() -> UIFont { return UIFont.systemFontOfSize(17) }
@@ -146,7 +139,7 @@ class DefaultTheme: Theme {
 
     // MARK: About screen
 
-    func aboutButtonBackgroundColor() -> UIColor { return cornflowerBlueColor() }
+    func aboutButtonBackgroundColor() -> UIColor { return defaultButtonBackgroundColor() }
     func aboutButtonTextColor() -> UIColor { return UIColor.whiteColor() }
     func aboutButtonFont() -> UIFont { return UIFont.systemFontOfSize(15) }
     func aboutBodyTextFont() -> UIFont { return defaultBodyTextFont() }
@@ -171,8 +164,6 @@ class DefaultTheme: Theme {
 
     // MARK: color definitions
 
-    func cornflowerBlueColor() -> UIColor { return UIColor(rgba: "#147FD7") }
-    func carnationColor() -> UIColor { return UIColor(rgba: "#fc625c") }
     func silverColor() -> UIColor { return UIColor(rgba: "#c9c9c9") }
     func codGrayColor() -> UIColor { return UIColor(rgba: "#1b1b1b") }
     func galleryColor() -> UIColor { return UIColor(rgba: "#ececec") }

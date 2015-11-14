@@ -45,12 +45,6 @@ protocol Theme {
     func issuesFeedTitleFont() -> UIFont
     func issuesFeedTitleColor() -> UIColor
 
-    // MARK: feed header
-
-    func feedHeaderBackgroundColor() -> UIColor
-    func feedHeaderTextColor() -> UIColor
-    func feedHeaderFont() -> UIFont
-
     // MARK: News Item detail screen
 
     func newsItemDateFont() -> UIFont
@@ -105,8 +99,6 @@ protocol Theme {
     func eventNameColor() -> UIColor
     func eventStartDateFont() -> UIFont
     func eventStartDateColor() -> UIColor
-    func eventAttendeesFont() -> UIFont
-    func eventAttendeesColor() -> UIColor
     func eventAddressFont() -> UIFont
     func eventAddressColor() -> UIColor
     func eventDescriptionHeadingFont() -> UIFont
@@ -125,6 +117,7 @@ protocol Theme {
     func settingsDonateButtonColor() -> UIColor
     func settingsDonateButtonTextColor() -> UIColor
     func settingsAnalyticsFont() -> UIFont
+    func settingsSwitchColor() -> UIColor
 
     // MARK: About
 

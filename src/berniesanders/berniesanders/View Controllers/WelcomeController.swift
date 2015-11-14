@@ -108,9 +108,6 @@ class WelcomeController: UIViewController {
     }
 
     private func setupConstraints() {
-//        let screenBounds = UIScreen.mainScreen().bounds
-
-
         billionairesImageView.autoAlignAxisToSuperviewAxis(.Horizontal)
         billionairesImageView.autoAlignAxisToSuperviewAxis(.Vertical)
 

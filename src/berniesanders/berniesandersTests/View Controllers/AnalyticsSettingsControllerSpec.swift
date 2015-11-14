@@ -10,6 +10,10 @@ class AnalyticsFakeTheme: FakeTheme {
     override func defaultBackgroundColor() -> UIColor {
         return UIColor.redColor()
     }
+    
+    override func settingsSwitchColor() -> UIColor {
+        return UIColor.purpleColor()
+    }
 }
 
 class AnalyticsSettingsControllerSpec: QuickSpec {
@@ -77,6 +81,8 @@ class AnalyticsSettingsControllerSpec: QuickSpec {
                     expect(self.subject.view.backgroundColor).to(equal(UIColor.redColor()))
                     expect(self.subject.analyticsExplanationLabel.font).to(equal(UIFont.systemFontOfSize(111)))
                     expect(self.subject.analyticsStateLabel.font).to(equal(UIFont.systemFontOfSize(111)))
+                    expect(self.subject.analyticsSwitch.onTintColor).to(equal(UIColor.purpleColor()))
+                    expect(self.subject.analyticsSwitch.tintColor).to(equal(UIColor.purpleColor()))
                 }
 
                 context("when analytics are enabled") {
