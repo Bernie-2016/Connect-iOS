@@ -9,12 +9,13 @@ class WelcomeController: UIViewController {
 
     var onboardingRouter: OnboardingRouter!
 
-    private let scrollView = UIScrollView.newAutoLayoutView()
-    private let containerView = UIView.newAutoLayoutView()
-    let bannerImageView = UIImageView.newAutoLayoutView()
-    let welcomeTextLabel = UILabel.newAutoLayoutView()
+    let billionairesImageView = UIImageView.newAutoLayoutView()
+    let takeThePowerBackLabel = UILabel.newAutoLayoutView()
+
+    // TODO: remove below
     let viewTermsButton = UIButton.newAutoLayoutView()
     let viewPrivacyPolicyButton = UIButton.newAutoLayoutView()
+
     let agreeToTermsNoticeLabel = UILabel.newAutoLayoutView()
     let agreeToTermsButton = UIButton.newAutoLayoutView()
 
@@ -45,33 +46,24 @@ class WelcomeController: UIViewController {
 
         self.applicationSettingsRepository.updateAnalyticsPermission(true)
 
-        bannerImageView.contentMode = .Left
-        bannerImageView.image = UIImage(named: "welcomeBanner")
+        billionairesImageView.contentMode = .Left
+        billionairesImageView.image = UIImage(named: "billionaires")
 
-        welcomeTextLabel.numberOfLines = 0
-        welcomeTextLabel.text = NSLocalizedString("Welcome_welcomeText", comment: "")
-
-        viewTermsButton.setTitle(NSLocalizedString("Welcome_viewTermsTitle", comment: ""), forState: .Normal)
-        viewTermsButton.addTarget(self, action: "didTapViewTerms", forControlEvents: .TouchUpInside)
-
-        viewPrivacyPolicyButton.setTitle(NSLocalizedString("Welcome_viewPrivacyPolicyTitle", comment: ""), forState: .Normal)
-        viewPrivacyPolicyButton.addTarget(self, action: "didTapViewPrivacyPolicy", forControlEvents: .TouchUpInside)
+        takeThePowerBackLabel.numberOfLines = 0
+        takeThePowerBackLabel.text = NSLocalizedString("Welcome_takeThePowerBack", comment: "")
+        takeThePowerBackLabel.textAlignment = .Center
 
         agreeToTermsNoticeLabel.numberOfLines = 0
         agreeToTermsNoticeLabel.text = NSLocalizedString("Welcome_agreeToTermsNoticeText", comment: "")
+        agreeToTermsNoticeLabel.textAlignment = .Center
 
         agreeToTermsButton.setTitle(NSLocalizedString("Welcome_agreeToTermsButtonTitle", comment: ""), forState: .Normal)
         agreeToTermsButton.addTarget(self, action: "didTapAgreeToTerms", forControlEvents: .TouchUpInside)
 
-        view.addSubview(scrollView)
-        scrollView.addSubview(containerView)
-
-        containerView.addSubview(bannerImageView)
-        containerView.addSubview(welcomeTextLabel)
-        containerView.addSubview(viewTermsButton)
-        containerView.addSubview(viewPrivacyPolicyButton)
-        containerView.addSubview(agreeToTermsNoticeLabel)
-        containerView.addSubview(agreeToTermsButton)
+        self.view.addSubview(billionairesImageView)
+        self.view.addSubview(takeThePowerBackLabel)
+        self.view.addSubview(agreeToTermsNoticeLabel)
+        self.view.addSubview(agreeToTermsButton)
 
         applyTheme()
         setupConstraints()
@@ -103,18 +95,12 @@ class WelcomeController: UIViewController {
     // MARK: Private
 
     private func applyTheme() {
-        view.backgroundColor = self.theme.defaultBackgroundColor()
-        welcomeTextLabel.font = self.theme.welcomeLabelFont()
-
-        viewTermsButton.backgroundColor = self.theme.viewPolicyBackgroundColor()
-        viewTermsButton.titleLabel!.font = self.theme.defaultButtonFont()
-        viewTermsButton.setTitleColor(self.theme.defaultButtonTextColor(), forState: .Normal)
-
-        viewPrivacyPolicyButton.backgroundColor = self.theme.viewPolicyBackgroundColor()
-        viewPrivacyPolicyButton.titleLabel!.font = self.theme.defaultButtonFont()
-        viewPrivacyPolicyButton.setTitleColor(self.theme.defaultButtonTextColor(), forState: .Normal)
+        view.backgroundColor = self.theme.welcomeBackgroundColor()
+        takeThePowerBackLabel.font = self.theme.welcomeTakeThePowerBackFont()
+        takeThePowerBackLabel.textColor = self.theme.welcomeTextColor()
 
         agreeToTermsNoticeLabel.font = self.theme.agreeToTermsLabelFont()
+        agreeToTermsNoticeLabel.textColor = self.theme.welcomeTextColor()
 
         agreeToTermsButton.backgroundColor = self.theme.defaultButtonBackgroundColor()
         agreeToTermsButton.titleLabel!.font = self.theme.defaultButtonFont()
@@ -122,38 +108,23 @@ class WelcomeController: UIViewController {
     }
 
     private func setupConstraints() {
-        let screenBounds = UIScreen.mainScreen().bounds
+//        let screenBounds = UIScreen.mainScreen().bounds
 
-        scrollView.contentSize.width = self.view.bounds.width
-        scrollView.autoPinEdgeToSuperviewMargin(.Top)
-        scrollView.autoPinEdgeToSuperviewEdge(.Left)
-        scrollView.autoPinEdgeToSuperviewEdge(.Right)
-        scrollView.autoPinEdgeToSuperviewEdge(.Bottom)
 
-        containerView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Trailing)
-        containerView.autoSetDimension(.Width, toSize: screenBounds.width)
+        billionairesImageView.autoAlignAxisToSuperviewAxis(.Horizontal)
+        billionairesImageView.autoAlignAxisToSuperviewAxis(.Vertical)
 
-        bannerImageView.autoPinEdgeToSuperviewEdge(.Top, withInset: 16)
-        bannerImageView.autoPinEdgeToSuperviewMargin(.Left)
-        bannerImageView.autoPinEdgeToSuperviewEdge(.Right)
+        takeThePowerBackLabel.autoPinEdge(.Bottom, toEdge: .Top, ofView: billionairesImageView, withOffset: -25)
+        takeThePowerBackLabel.autoAlignAxisToSuperviewAxis(.Vertical)
+        takeThePowerBackLabel.autoSetDimension(.Width, toSize: 244)
 
-        welcomeTextLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: bannerImageView)
-        welcomeTextLabel.autoPinEdgeToSuperviewMargin(.Left)
-        welcomeTextLabel.autoPinEdgeToSuperviewMargin(.Right)
+        agreeToTermsButton.autoPinEdge(.Bottom, toEdge: .Top, ofView: agreeToTermsNoticeLabel, withOffset: -25)
+        agreeToTermsButton.autoAlignAxisToSuperviewAxis(.Vertical)
+        agreeToTermsButton.autoSetDimension(.Width, toSize: 335)
 
-        viewTermsButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: welcomeTextLabel, withOffset: 16)
-        viewTermsButton.autoPinEdgeToSuperviewMargin(.Left)
-        viewTermsButton.autoPinEdgeToSuperviewMargin(.Right)
-
-        viewPrivacyPolicyButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: viewTermsButton, withOffset: 16)
-        viewPrivacyPolicyButton.autoPinEdgeToSuperviewMargin(.Left)
-        viewPrivacyPolicyButton.autoPinEdgeToSuperviewMargin(.Right)
-
-        agreeToTermsNoticeLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: viewPrivacyPolicyButton, withOffset: 16)
         agreeToTermsNoticeLabel.autoPinEdgeToSuperviewMargin(.Left)
         agreeToTermsNoticeLabel.autoPinEdgeToSuperviewMargin(.Right)
+        agreeToTermsNoticeLabel.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 25)
 
-        agreeToTermsButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: agreeToTermsNoticeLabel, withOffset: 16)
-        agreeToTermsButton.autoPinEdgesToSuperviewMarginsExcludingEdge(.Top)
     }
 }

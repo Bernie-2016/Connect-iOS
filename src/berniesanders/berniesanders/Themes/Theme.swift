@@ -135,7 +135,9 @@ protocol Theme {
 
     // MARK: Welcome
 
-    func welcomeLabelFont() -> UIFont
+    func welcomeBackgroundColor() -> UIColor
+    func welcomeTakeThePowerBackFont() -> UIFont
+    func welcomeTextColor() -> UIColor
     func viewPolicyBackgroundColor() -> UIColor
     func agreeToTermsLabelFont() -> UIFont
 

@@ -5,12 +5,13 @@ import Nimble
 
 class WelcomeFakeTheme: FakeTheme {
     override func defaultBackgroundColor() -> UIColor { return UIColor.greenColor() }
-    override func defaultButtonBackgroundColor() -> UIColor { return UIColor.redColor() }
     override func defaultButtonFont() -> UIFont { return UIFont.italicSystemFontOfSize(222) }
     override func defaultButtonTextColor() -> UIColor { return UIColor.yellowColor() }
-    override func welcomeLabelFont() -> UIFont { return UIFont.italicSystemFontOfSize(111) }
+    override func welcomeTakeThePowerBackFont() -> UIFont { return UIFont.italicSystemFontOfSize(111) }
     override func viewPolicyBackgroundColor() -> UIColor { return UIColor.magentaColor() }
     override func agreeToTermsLabelFont() -> UIFont { return UIFont.italicSystemFontOfSize(333) }
+    override func welcomeBackgroundColor() -> UIColor { return UIColor.redColor() }
+    override func welcomeTextColor() -> UIColor { return UIColor.purpleColor() }
 }
 
 class FakeOnboardingRouter: OnboardingRouter {
@@ -69,24 +70,16 @@ class WelcomeControllerSpec: QuickSpec {
                 }
 
                 it("has a scroll view containing the UI elements") {
-                    expect(self.subject.view.subviews.count).to(equal(1))
-                    let scrollView = self.subject.view.subviews.first as! UIScrollView
+                    expect(self.subject.view.subviews.count).to(equal(6))
 
-                    expect(scrollView).to(beAnInstanceOf(UIScrollView.self))
-                    expect(scrollView.subviews.count).to(equal(1))
+                    let subviews = self.subject.view.subviews
 
-                    let containerView = scrollView.subviews.first!
-
-                    expect(containerView.subviews.count).to(equal(6))
-
-                    let containerViewSubViews = containerView.subviews
-
-                    expect(containerViewSubViews.contains(self.subject.bannerImageView)).to(beTrue())
-                    expect(containerViewSubViews.contains(self.subject.welcomeTextLabel)).to(beTrue())
-                    expect(containerViewSubViews.contains(self.subject.viewPrivacyPolicyButton)).to(beTrue())
-                    expect(containerViewSubViews.contains(self.subject.viewTermsButton)).to(beTrue())
-                    expect(containerViewSubViews.contains(self.subject.agreeToTermsNoticeLabel)).to(beTrue())
-                    expect(containerViewSubViews.contains(self.subject.agreeToTermsButton)).to(beTrue())
+                    expect(subviews.contains(self.subject.billionairesImageView)).to(beTrue())
+                    expect(subviews.contains(self.subject.takeThePowerBackLabel)).to(beTrue())
+                    expect(subviews.contains(self.subject.viewPrivacyPolicyButton)).to(beTrue())
+                    expect(subviews.contains(self.subject.viewTermsButton)).to(beTrue())
+                    expect(subviews.contains(self.subject.agreeToTermsNoticeLabel)).to(beTrue())
+                    expect(subviews.contains(self.subject.agreeToTermsButton)).to(beTrue())
                 }
 
                 it("enables analytics") {
@@ -94,11 +87,11 @@ class WelcomeControllerSpec: QuickSpec {
                 }
 
                 it("has the correct image in the banner image view") {
-                    expect(self.subject.bannerImageView.image).to(equal(UIImage(named: "welcomeBanner")))
+                    expect(self.subject.billionairesImageView.image).to(equal(UIImage(named: "billionaires")))
                 }
 
                 it("has a label with some welcome text") {
-                    expect(self.subject.welcomeTextLabel.text).to(contain("Bernie Sanders is the fastest"))
+                    expect(self.subject.takeThePowerBackLabel.text).to(contain("Bernie Sanders is the fastest"))
                 }
 
                 it("has a button for viewing the privacy policy") {
@@ -184,7 +177,8 @@ class WelcomeControllerSpec: QuickSpec {
                 it("styles the view components with the theme") {
                     expect(self.subject.view.backgroundColor).to(equal(UIColor.greenColor()))
 
-                    expect(self.subject.welcomeTextLabel.font).to(equal(UIFont.italicSystemFontOfSize(111)))
+                    expect(self.subject.takeThePowerBackLabel.font).to(equal(UIFont.italicSystemFontOfSize(111)))
+                    expect(self.subject.takeThePowerBackLabel.textColor).to(equal(UIColor.purpleColor()))
 
                     expect(self.subject.viewTermsButton.backgroundColor).to(equal(UIColor.magentaColor()))
                     expect(self.subject.viewTermsButton.titleLabel!.font).to(equal(UIFont.italicSystemFontOfSize(222)))
@@ -195,6 +189,7 @@ class WelcomeControllerSpec: QuickSpec {
                     expect(self.subject.viewPrivacyPolicyButton.titleColorForState(.Normal)).to(equal(UIColor.yellowColor()))
 
                     expect(self.subject.agreeToTermsNoticeLabel.font).to(equal(UIFont.italicSystemFontOfSize(333)))
+                    expect(self.subject.agreeToTermsNoticeLabel.textColor).to(equal(UIColor.purpleColor()))
 
                     expect(self.subject.agreeToTermsButton.backgroundColor).to(equal(UIColor.redColor()))
                     expect(self.subject.agreeToTermsButton.titleLabel!.font).to(equal(UIFont.italicSystemFontOfSize(222)))

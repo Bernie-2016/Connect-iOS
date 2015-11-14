@@ -154,9 +154,15 @@ class DefaultTheme: Theme {
 
     // MARK Welcome
 
-    func welcomeLabelFont() -> UIFont { return defaultBodyTextFont() }
+    func welcomeTakeThePowerBackFont() -> UIFont { if #available(iOS 8.2, *) {
+        return UIFont.systemFontOfSize(35, weight: UIFontWeightLight)
+    } else {
+        return UIFont.systemFontOfSize(35)
+    } }
     func viewPolicyBackgroundColor() -> UIColor { return silverColor() }
-    func agreeToTermsLabelFont() -> UIFont { return UIFont.systemFontOfSize(12) }
+    func agreeToTermsLabelFont() -> UIFont { return UIFont.systemFontOfSize(11) }
+    func welcomeBackgroundColor() -> UIColor { return codGrayColor() }
+    func welcomeTextColor() -> UIColor { return nobelColor() }
 
     // MARK: default dimensions
 
@@ -181,6 +187,7 @@ class DefaultTheme: Theme {
     func doveGreyColor() -> UIColor { return UIColor(rgba: "#6d6d6d") }
     func seaShellColor() -> UIColor { return UIColor(rgba: "#f1f1f1") }
     func emperorColor() -> UIColor { return UIColor(rgba: "#555555") }
+    func nobelColor() -> UIColor { return UIColor(rgba: "#b5b5b5") }
 
     // MARK: font definitions
 

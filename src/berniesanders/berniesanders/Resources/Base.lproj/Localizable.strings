@@ -104,11 +104,11 @@
 
 // Welcome
 
-"Welcome_welcomeText" = "Bernie Sanders is the fastest candidate in history to receive one million individual campaign contributions.\n\nThis unofficial app is made by a bunch of geeks to help you stay tuned and get involved. We hope you find it useful!";
-"Welcome_agreeToTermsButtonTitle" = "Continue to #feelthebern";
+"Welcome_takeThePowerBack" = "Let’s take our country back.";
+"Welcome_agreeToTermsButtonTitle" = "CONTINUE";
 "Welcome_viewTermsTitle" = "Terms and Conditions";
 "Welcome_viewPrivacyPolicyTitle" = "Privacy Policy";
-"Welcome_agreeToTermsNoticeText" = "By tapping continue, you confirm that you have read our Terms and Conditions and Privacy Policy. This app is not affiliated with or authorized by Bernie 2016.";
+"Welcome_agreeToTermsNoticeText" = "By tapping Continue, you are agreeing to the Terms and Conditions and Privacy Policy. This app is not affiliated with or authorized by Bernie 2016.";
 
 // Time intervals
 
