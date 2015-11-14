@@ -1,4 +1,4 @@
-This is the iOS application for Bernie Sanders
+This is Movement, a volunteer built application that is unofficial and is not associated with the official Bernie 2016 campaign in any way, shape or form.
 
 Copyright (C) 2015 /r/CodersForSanders
 
