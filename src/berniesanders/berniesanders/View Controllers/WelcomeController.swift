@@ -12,11 +12,7 @@ class WelcomeController: UIViewController {
     let billionairesImageView = UIImageView.newAutoLayoutView()
     let takeThePowerBackLabel = UILabel.newAutoLayoutView()
 
-    // TODO: remove below
-    let viewTermsButton = UIButton.newAutoLayoutView()
-    let viewPrivacyPolicyButton = UIButton.newAutoLayoutView()
-
-    let agreeToTermsNoticeLabel = UILabel.newAutoLayoutView()
+    let agreeToTermsNoticeTextView = UITextView.newAutoLayoutView()
     let agreeToTermsButton = UIButton.newAutoLayoutView()
 
     init(
@@ -53,16 +49,27 @@ class WelcomeController: UIViewController {
         takeThePowerBackLabel.text = NSLocalizedString("Welcome_takeThePowerBack", comment: "")
         takeThePowerBackLabel.textAlignment = .Center
 
-        agreeToTermsNoticeLabel.numberOfLines = 0
-        agreeToTermsNoticeLabel.text = NSLocalizedString("Welcome_agreeToTermsNoticeText", comment: "")
-        agreeToTermsNoticeLabel.textAlignment = .Center
+        agreeToTermsNoticeTextView.scrollEnabled = false
+        agreeToTermsNoticeTextView.textAlignment = .Center
+
+        let fullText = NSMutableAttributedString(string: NSLocalizedString("Welcome_agreeToTermsNoticeText", comment: ""))
+        let termsAndConditions = NSAttributedString(string: NSLocalizedString("Welcome_termsAndConditions", comment: ""), attributes: [NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue, "terms": true])
+
+        let privacyPolicy = NSAttributedString(string: NSLocalizedString("Welcome_privacyPolicy", comment: ""), attributes: [NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue, "privacy": true])
+
+        fullText.replaceCharactersInRange((fullText.string as NSString).rangeOfString("{0}"), withAttributedString: termsAndConditions)
+        fullText.replaceCharactersInRange((fullText.string as NSString).rangeOfString("{1}"), withAttributedString: privacyPolicy)
+        agreeToTermsNoticeTextView.attributedText = fullText
+
+        let tapTermsNoticeRecognizer = UITapGestureRecognizer(target: self, action: "didTapAgreeToTermsLabel:")
+        agreeToTermsNoticeTextView.addGestureRecognizer(tapTermsNoticeRecognizer)
 
         agreeToTermsButton.setTitle(NSLocalizedString("Welcome_agreeToTermsButtonTitle", comment: ""), forState: .Normal)
         agreeToTermsButton.addTarget(self, action: "didTapAgreeToTerms", forControlEvents: .TouchUpInside)
 
         self.view.addSubview(billionairesImageView)
         self.view.addSubview(takeThePowerBackLabel)
-        self.view.addSubview(agreeToTermsNoticeLabel)
+        self.view.addSubview(agreeToTermsNoticeTextView)
         self.view.addSubview(agreeToTermsButton)
 
         applyTheme()
@@ -74,6 +81,31 @@ class WelcomeController: UIViewController {
     }
 
     // MARK: Actions
+
+    func didTapAgreeToTermsLabel(recognizer: UIGestureRecognizer) {
+        guard let textView = recognizer.view as? UITextView else { return }
+        let layoutManager = textView.layoutManager
+        var location = recognizer.locationInView(textView)
+        location.x = location.x - textView.textContainerInset.left
+        location.y = location.y - textView.textContainerInset.top
+
+        let characterIndex = layoutManager.characterIndexForPoint(location, inTextContainer: textView.textContainer, fractionOfDistanceBetweenInsertionPoints: nil)
+
+        if characterIndex < textView.textStorage.length {
+            let termsValue = textView.textStorage.attribute("terms", atIndex: characterIndex, effectiveRange: nil)
+            let privacyPolicyValue = textView.textStorage.attribute("privacy", atIndex: characterIndex, effectiveRange: nil)
+
+            if termsValue != nil {
+                didTapViewTerms()
+                return
+            }
+
+            if privacyPolicyValue != nil {
+                didTapViewPrivacyPolicy()
+                return
+            }
+        }
+    }
 
     func didTapAgreeToTerms() {
         self.analyticsService.trackCustomEventWithName("User agreed to Terms and Conditions", customAttributes: nil)
@@ -99,8 +131,9 @@ class WelcomeController: UIViewController {
         takeThePowerBackLabel.font = self.theme.welcomeTakeThePowerBackFont()
         takeThePowerBackLabel.textColor = self.theme.welcomeTextColor()
 
-        agreeToTermsNoticeLabel.font = self.theme.agreeToTermsLabelFont()
-        agreeToTermsNoticeLabel.textColor = self.theme.welcomeTextColor()
+        agreeToTermsNoticeTextView.font = self.theme.agreeToTermsLabelFont()
+        agreeToTermsNoticeTextView.textColor = self.theme.welcomeTextColor()
+        agreeToTermsNoticeTextView.backgroundColor = self.theme.welcomeBackgroundColor()
 
         agreeToTermsButton.backgroundColor = self.theme.defaultButtonBackgroundColor()
         agreeToTermsButton.titleLabel!.font = self.theme.defaultButtonFont()
@@ -115,13 +148,13 @@ class WelcomeController: UIViewController {
         takeThePowerBackLabel.autoAlignAxisToSuperviewAxis(.Vertical)
         takeThePowerBackLabel.autoSetDimension(.Width, toSize: 244)
 
-        agreeToTermsButton.autoPinEdge(.Bottom, toEdge: .Top, ofView: agreeToTermsNoticeLabel, withOffset: -25)
+        agreeToTermsButton.autoPinEdge(.Bottom, toEdge: .Top, ofView: agreeToTermsNoticeTextView, withOffset: -25)
         agreeToTermsButton.autoAlignAxisToSuperviewAxis(.Vertical)
         agreeToTermsButton.autoSetDimension(.Width, toSize: 335)
 
-        agreeToTermsNoticeLabel.autoPinEdgeToSuperviewMargin(.Left)
-        agreeToTermsNoticeLabel.autoPinEdgeToSuperviewMargin(.Right)
-        agreeToTermsNoticeLabel.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 25)
+        agreeToTermsNoticeTextView.autoPinEdgeToSuperviewMargin(.Left)
+        agreeToTermsNoticeTextView.autoPinEdgeToSuperviewMargin(.Right)
+        agreeToTermsNoticeTextView.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 25)
 
     }
 }
