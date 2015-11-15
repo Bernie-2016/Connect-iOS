@@ -136,29 +136,30 @@ class IssueController: UIViewController {
         titleLabel.preferredMaxLayoutWidth = screenBounds.width - 8
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.lineBreakMode = .ByWordWrapping
-        self.titleButton.contentHorizontalAlignment = .Left
-        self.titleButton.autoPinEdgeToSuperviewMargin(.Left)
-        self.titleButton.autoPinEdgeToSuperviewMargin(.Right)
-        self.titleButton.autoSetDimension(.Height, toSize: 20, relation: NSLayoutRelation.GreaterThanOrEqual)
+        titleButton.contentHorizontalAlignment = .Left
+        titleButton.autoPinEdgeToSuperviewMargin(.Left)
+        titleButton.autoPinEdgeToSuperviewMargin(.Right)
+        titleButton.autoSetDimension(.Height, toSize: 20, relation: NSLayoutRelation.GreaterThanOrEqual)
 
-        self.bodyTextView.scrollEnabled = false
-        self.bodyTextView.translatesAutoresizingMaskIntoConstraints = false
-        self.bodyTextView.textContainerInset = UIEdgeInsetsZero
-        self.bodyTextView.textContainer.lineFragmentPadding = 0;
-        self.bodyTextView.editable = false
+        bodyTextView.scrollEnabled = false
+        bodyTextView.translatesAutoresizingMaskIntoConstraints = false
+        bodyTextView.textContainerInset = UIEdgeInsetsZero
+        bodyTextView.textContainer.lineFragmentPadding = 0;
+        bodyTextView.editable = false
 
-        self.bodyTextView.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.titleButton, withOffset: 16)
-        self.bodyTextView.autoPinEdgeToSuperviewMargin(.Left)
-        self.bodyTextView.autoPinEdgeToSuperviewMargin(.Right)
+        bodyTextView.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.titleButton, withOffset: 16)
+        bodyTextView.autoPinEdgeToSuperviewMargin(.Left)
+        bodyTextView.autoPinEdgeToSuperviewMargin(.Right)
 
-        self.attributionLabel.numberOfLines = 0
-        self.attributionLabel.textAlignment = .Center
-        self.attributionLabel.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.bodyTextView, withOffset: 16)
-        self.attributionLabel.autoPinEdgeToSuperviewMargin(.Left)
-        self.attributionLabel.autoPinEdgeToSuperviewMargin(.Right)
+        attributionLabel.numberOfLines = 0
+        attributionLabel.textAlignment = .Center
+        attributionLabel.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.bodyTextView, withOffset: 16)
+        attributionLabel.autoPinEdgeToSuperviewMargin(.Left)
+        attributionLabel.autoPinEdgeToSuperviewMargin(.Right)
 
-        self.viewOriginalButton.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.attributionLabel, withOffset: 16)
-        self.viewOriginalButton.autoPinEdgesToSuperviewMarginsExcludingEdge(.Top)
+        viewOriginalButton.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.attributionLabel, withOffset: 16)
+        viewOriginalButton.autoPinEdgesToSuperviewMarginsExcludingEdge(.Top)
+        viewOriginalButton.autoSetDimension(.Height, toSize: 54)
     }
     // swiftlint:enable function_body_length
 

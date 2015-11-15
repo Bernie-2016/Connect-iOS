@@ -193,7 +193,7 @@ class EventController: UIViewController {
         scrollView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero)
 
         rsvpButton.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Top)
-        rsvpButton.autoSetDimension(.Height, toSize: 55)
+        rsvpButton.autoSetDimension(.Height, toSize: 54)
 
         containerView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Trailing)
         containerView.autoSetDimension(.Width, toSize: screenBounds.width)
@@ -225,7 +225,7 @@ class EventController: UIViewController {
         directionsButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: topSectionSpacer)
         directionsButton.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
         directionsButton.autoPinEdgeToSuperviewEdge(.Right)
-        directionsButton.autoSetDimension(.Height, toSize: 55)
+        directionsButton.autoSetDimension(.Height, toSize: 54)
         directionsButton.subTitle.numberOfLines = 0
 
         bottomSectionSpacer.autoPinEdge(.Top, toEdge: .Bottom, ofView: directionsButton, withOffset: 15)
@@ -243,7 +243,7 @@ class EventController: UIViewController {
         descriptionLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 20)
 
         bottomRubberBandingArea.autoPinEdge(.Top, toEdge: .Bottom, ofView: descriptionLabel, withOffset: 15)
-        bottomRubberBandingArea.autoSetDimension(.Height, toSize: 55)
+        bottomRubberBandingArea.autoSetDimension(.Height, toSize: 54)
         bottomRubberBandingArea.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Top)
     }
     // swiftlint:enable function_body_length

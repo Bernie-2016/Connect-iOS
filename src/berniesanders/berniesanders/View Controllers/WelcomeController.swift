@@ -50,7 +50,7 @@ class WelcomeController: UIViewController {
         takeThePowerBackLabel.textAlignment = .Center
 
         agreeToTermsNoticeTextView.scrollEnabled = false
-        agreeToTermsNoticeTextView.textAlignment = .Center
+        agreeToTermsNoticeTextView.textAlignment = NSTextAlignment.Center
 
         let fullText = NSMutableAttributedString(string: NSLocalizedString("Welcome_agreeToTermsNoticeText", comment: ""))
         let termsAndConditions = NSAttributedString(string: NSLocalizedString("Welcome_termsAndConditions", comment: ""), attributes: [NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue, "terms": true])
@@ -150,7 +150,9 @@ class WelcomeController: UIViewController {
 
         agreeToTermsButton.autoPinEdge(.Bottom, toEdge: .Top, ofView: agreeToTermsNoticeTextView, withOffset: -25)
         agreeToTermsButton.autoAlignAxisToSuperviewAxis(.Vertical)
-        agreeToTermsButton.autoSetDimension(.Width, toSize: 335)
+        agreeToTermsButton.autoPinEdgeToSuperviewEdge(.Left, withInset: 25)
+        agreeToTermsButton.autoPinEdgeToSuperviewEdge(.Right, withInset: 25)
+        agreeToTermsButton.autoSetDimension(.Height, toSize: 54)
 
         agreeToTermsNoticeTextView.autoPinEdgeToSuperviewMargin(.Left)
         agreeToTermsNoticeTextView.autoPinEdgeToSuperviewMargin(.Right)

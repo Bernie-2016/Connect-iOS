@@ -148,34 +148,35 @@ class NewsItemController: UIViewController {
             self.titleButton.autoPinEdgeToSuperviewEdge(.Top, withInset: 25)
         })
 
-        self.titleButton.contentHorizontalAlignment = .Left
-        self.titleButton.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
-        self.titleButton.autoPinEdgeToSuperviewMargin(.Trailing)
-        self.titleButton.layoutIfNeeded()
-        self.titleButton.autoSetDimension(.Height, toSize: titleLabel.frame.height)
+        titleButton.contentHorizontalAlignment = .Left
+        titleButton.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
+        titleButton.autoPinEdgeToSuperviewMargin(.Trailing)
+        titleButton.layoutIfNeeded()
+        titleButton.autoSetDimension(.Height, toSize: titleLabel.frame.height)
 
-        self.dateLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.titleButton, withOffset: 5)
-        self.dateLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
-        self.dateLabel.autoPinEdgeToSuperviewMargin(.Trailing)
-        self.dateLabel.autoSetDimension(.Height, toSize: 20)
+        dateLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.titleButton, withOffset: 5)
+        dateLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
+        dateLabel.autoPinEdgeToSuperviewMargin(.Trailing)
+        dateLabel.autoSetDimension(.Height, toSize: 20)
 
-        self.bodyTextView.scrollEnabled = false
-        self.bodyTextView.textContainerInset = UIEdgeInsetsZero
-        self.bodyTextView.textContainer.lineFragmentPadding = 0;
-        self.bodyTextView.editable = false
+        bodyTextView.scrollEnabled = false
+        bodyTextView.textContainerInset = UIEdgeInsetsZero
+        bodyTextView.textContainer.lineFragmentPadding = 0;
+        bodyTextView.editable = false
 
-        self.bodyTextView.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.dateLabel, withOffset: 14)
-        self.bodyTextView.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
-        self.bodyTextView.autoPinEdgeToSuperviewMargin(.Right)
+        bodyTextView.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.dateLabel, withOffset: 14)
+        bodyTextView.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
+        bodyTextView.autoPinEdgeToSuperviewMargin(.Right)
 
-        self.attributionLabel.numberOfLines = 0
-        self.attributionLabel.textAlignment = .Center
-        self.attributionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.bodyTextView, withOffset: 16)
-        self.attributionLabel.autoPinEdgeToSuperviewMargin(.Left)
-        self.attributionLabel.autoPinEdgeToSuperviewMargin(.Right)
+        attributionLabel.numberOfLines = 0
+        attributionLabel.textAlignment = .Center
+        attributionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.bodyTextView, withOffset: 16)
+        attributionLabel.autoPinEdgeToSuperviewMargin(.Left)
+        attributionLabel.autoPinEdgeToSuperviewMargin(.Right)
 
-        self.viewOriginalButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.attributionLabel, withOffset: 16)
-        self.viewOriginalButton.autoPinEdgesToSuperviewMarginsExcludingEdge(.Top)
+        viewOriginalButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.attributionLabel, withOffset: 16)
+        viewOriginalButton.autoSetDimension(.Height, toSize: 54)
+        viewOriginalButton.autoPinEdgesToSuperviewMarginsExcludingEdge(.Top)
     }
     // swiftlint:enable function_body_length
 
