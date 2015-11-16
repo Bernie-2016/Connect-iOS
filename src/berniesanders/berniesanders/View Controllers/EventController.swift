@@ -85,7 +85,7 @@ class EventController: UIViewController {
     }
 
     override func didMoveToParentViewController(parent: UIViewController?) {
-        self.analyticsService.trackCustomEventWithName("Tapped 'Back' on Event", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.event.url.absoluteString])
+        self.analyticsService.trackBackButtonTapOnScreen("Event", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.event.url.absoluteString])
     }
 
     // MARK: Actions

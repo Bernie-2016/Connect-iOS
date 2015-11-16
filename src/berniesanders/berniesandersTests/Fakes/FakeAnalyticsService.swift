@@ -2,6 +2,14 @@ import Foundation
 @testable import berniesanders
 
 class FakeAnalyticsService: AnalyticsService {
+    var lastBackButtonTapScreen: String!
+    var lastBackButtonTapAttributes: [NSObject : AnyObject]?
+
+    func trackBackButtonTapOnScreen(screen: String, customAttributes: [NSObject : AnyObject]?) {
+        self.lastBackButtonTapScreen = screen
+        self.lastBackButtonTapAttributes = customAttributes
+    }
+
     var lastCustomEventName: String!
     var lastCustomEventAttributes: [NSObject : AnyObject]?
 

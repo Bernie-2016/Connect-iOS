@@ -37,8 +37,8 @@ class PrivacyPolicyControllerSpec : QuickSpec {
                 it("tracks taps on the back button with the analytics service") {
                     self.subject.didMoveToParentViewController(nil)
 
-                    expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Back' on Privacy Policy"))
-                    expect(self.analyticsService.lastCustomEventAttributes).to(beNil())
+                    expect(self.analyticsService.lastBackButtonTapScreen).to(equal("Privacy Policy"))
+                    expect(self.analyticsService.lastBackButtonTapAttributes).to(beNil())
                 }
 
                 it("should add the webview as a subview") {

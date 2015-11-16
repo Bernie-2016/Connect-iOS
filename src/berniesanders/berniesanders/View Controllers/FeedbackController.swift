@@ -33,7 +33,7 @@ class FeedbackController: UIViewController, UIWebViewDelegate {
     }
 
     override func didMoveToParentViewController(parent: UIViewController?) {
-        self.analyticsService.trackCustomEventWithName("Tapped 'Back' on Feedback", customAttributes: nil)
+        self.analyticsService.trackBackButtonTapOnScreen("Feedback", customAttributes: nil)
 
     }
 

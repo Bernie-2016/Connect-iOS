@@ -91,9 +91,9 @@ class EventControllerSpec: QuickSpec {
             it("tracks taps on the back button with the analytics service") {
                 self.subject.didMoveToParentViewController(nil)
 
-                expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Back' on Event"))
+                expect(self.analyticsService.lastBackButtonTapScreen).to(equal("Event"))
                 let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.event.url.absoluteString]
-                expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
+                expect(self.analyticsService.lastBackButtonTapAttributes! as? [String: String]).to(equal(expectedAttributes))
             }
 
             describe("when the view loads") {

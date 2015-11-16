@@ -73,7 +73,7 @@ class IssueController: UIViewController {
     }
 
     override func didMoveToParentViewController(parent: UIViewController?) {
-        analyticsService.trackCustomEventWithName("Tapped 'Back' on Issue", customAttributes: [AnalyticsServiceConstants.contentIDKey: issue.url.absoluteString])
+        self.analyticsService.trackBackButtonTapOnScreen("Issue", customAttributes: [AnalyticsServiceConstants.contentIDKey: issue.url.absoluteString])
     }
 
 

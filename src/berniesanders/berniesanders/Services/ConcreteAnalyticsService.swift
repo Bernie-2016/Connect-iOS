@@ -11,12 +11,25 @@ class ConcreteAnalyticsService: AnalyticsService {
             self.applicationSettingsRepository = applicationSettingsRepository
     }
 
+    func trackBackButtonTapOnScreen(screen: String, customAttributes: [NSObject : AnyObject]?) {
+        var attributes = ["fromScreen": screen]
+
+        if customAttributes != nil {
+            for (key, value) in customAttributes! {
+                guard let keyAsString = key as? String else { continue }
+                attributes[keyAsString] = value as? String
+            }
+        }
+
+        trackCustomEventWithName("Tapped Back", customAttributes: attributes)
+    }
+
     func trackCustomEventWithName(name: String, customAttributes: [NSObject : AnyObject]?) {
         self.applicationSettingsRepository.isAnalyticsEnabled { (analyticsEnabled) -> Void in
             if analyticsEnabled {
             #if RELEASE
-                Answers.logCustomEventWithName(name, customAttributes: nil)
-                Flurry.logEvent(name, withParameters: nil)
+                Answers.logCustomEventWithName(name, customAttributes: customAttributes)
+                Flurry.logEvent(name, withParameters: customAttributes)
             #endif
             }
         }

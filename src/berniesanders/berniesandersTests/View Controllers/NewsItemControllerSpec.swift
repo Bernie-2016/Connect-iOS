@@ -62,9 +62,9 @@ class NewsItemControllerSpec : QuickSpec {
                 it("tracks taps on the back button with the analytics service") {
                     self.subject.didMoveToParentViewController(nil)
 
-                    expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Back' on News Item"))
+                    expect(self.analyticsService.lastBackButtonTapScreen).to(equal("News Item"))
                     let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.newsItem.url.absoluteString]
-                    expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
+                    expect(self.analyticsService.lastBackButtonTapAttributes! as? [String: String]).to(equal(expectedAttributes))
                 }
 
                 it("should hide the tab bar when pushed") {

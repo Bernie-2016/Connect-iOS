@@ -65,7 +65,7 @@ class AboutController: UIViewController {
     }
 
     override func didMoveToParentViewController(parent: UIViewController?) {
-        self.analyticsService.trackCustomEventWithName("Tapped 'Back' on About", customAttributes: nil)
+        self.analyticsService.trackBackButtonTapOnScreen("About", customAttributes: nil)
     }
 
     // MARK: Actions

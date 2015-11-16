@@ -95,8 +95,8 @@ class SettingsControllerSpec : QuickSpec {
             it("tracks taps on the back button with the analytics service") {
                 self.subject.didMoveToParentViewController(nil)
 
-                expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Back' on Settings"))
-                expect(self.analyticsService.lastCustomEventAttributes).to(beNil())
+                expect(self.analyticsService.lastBackButtonTapScreen).to(equal("Settings"))
+                expect(self.analyticsService.lastBackButtonTapAttributes).to(beNil())
             }
 
             describe("when the view loads") {

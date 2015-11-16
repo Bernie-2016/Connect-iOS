@@ -89,7 +89,7 @@ class NewsItemController: UIViewController {
     }
 
     override func didMoveToParentViewController(parent: UIViewController?) {
-        self.analyticsService.trackCustomEventWithName("Tapped 'Back' on News Item", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.newsItem.url.absoluteString])
+        self.analyticsService.trackBackButtonTapOnScreen("News Item", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.newsItem.url.absoluteString])
     }
 
     // MARK: Actions

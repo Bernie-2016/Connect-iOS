@@ -48,7 +48,7 @@ class EventRSVPController: UIViewController, UIWebViewDelegate {
 
     override func didMoveToParentViewController(parent: UIViewController?) {
         let d = [AnalyticsServiceConstants.contentIDKey: self.event.url.absoluteString]
-        self.analyticsService.trackCustomEventWithName("Tapped 'Back' on Event RSVP", customAttributes: d)
+                self.analyticsService.trackBackButtonTapOnScreen("Event RSVP", customAttributes: d)
     }
 
     // MARK: UIWebViewDelegate
