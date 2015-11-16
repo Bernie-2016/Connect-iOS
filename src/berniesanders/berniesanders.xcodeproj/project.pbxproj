@@ -55,6 +55,7 @@
 		654774051BB241D900B87670 /* ConcreteEventDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654774041BB241D900B87670 /* ConcreteEventDeserializer.swift */; };
 		654948CC1BFA779500C1ECDB /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654948CA1BFA779500C1ECDB /* Bolts.framework */; };
 		654948CD1BFA779500C1ECDB /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654948CB1BFA779500C1ECDB /* Parse.framework */; };
+		654948D21BFA797E00C1ECDB /* libFlurry_7.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 654948D11BFA797E00C1ECDB /* libFlurry_7.3.0.a */; };
 		654A4DCF1BCD831100FC523F /* ConcreteTabBarItemStylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654A4DCE1BCD831100FC523F /* ConcreteTabBarItemStylist.swift */; };
 		654A4DD21BCD850000FC523F /* ConcreteTabBarItemStylistSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654A4DD11BCD850000FC523F /* ConcreteTabBarItemStylistSpec.swift */; };
 		654A4DD51BCD861C00FC523F /* TabBarItemStylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654A4DD41BCD861C00FC523F /* TabBarItemStylist.swift */; };
@@ -270,6 +271,9 @@
 		654774041BB241D900B87670 /* ConcreteEventDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteEventDeserializer.swift; sourceTree = "<group>"; };
 		654948CA1BFA779500C1ECDB /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		654948CB1BFA779500C1ECDB /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		654948CF1BFA797E00C1ECDB /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
+		654948D01BFA797E00C1ECDB /* FlurryWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryWatch.h; sourceTree = "<group>"; };
+		654948D11BFA797E00C1ECDB /* libFlurry_7.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_7.3.0.a; sourceTree = "<group>"; };
 		654A4DCE1BCD831100FC523F /* ConcreteTabBarItemStylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteTabBarItemStylist.swift; sourceTree = "<group>"; };
 		654A4DD11BCD850000FC523F /* ConcreteTabBarItemStylistSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteTabBarItemStylistSpec.swift; sourceTree = "<group>"; };
 		654A4DD41BCD861C00FC523F /* TabBarItemStylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarItemStylist.swift; sourceTree = "<group>"; };
@@ -402,11 +406,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				654948CC1BFA779500C1ECDB /* Bolts.framework in Frameworks */,
 				65A5C0FC1BA29F2200D46500 /* Crashlytics.framework in Frameworks */,
 				65A5C0FA1BA2978600D46500 /* Fabric.framework in Frameworks */,
 				650763141B8AB79F00BA0659 /* KSDeferred.framework in Frameworks */,
+				654948D21BFA797E00C1ECDB /* libFlurry_7.3.0.a in Frameworks */,
 				654948CD1BFA779500C1ECDB /* Parse.framework in Frameworks */,
-				654948CC1BFA779500C1ECDB /* Bolts.framework in Frameworks */,
 				65CA5E991B86E76D0001D870 /* PureLayout.framework in Frameworks */,
 				65AD23AF1B96413200C32A02 /* WebImage.framework in Frameworks */,
 			);
@@ -568,6 +573,16 @@
 			path = Providers;
 			sourceTree = "<group>";
 		};
+		654948CE1BFA797E00C1ECDB /* Flurry */ = {
+			isa = PBXGroup;
+			children = (
+				654948CF1BFA797E00C1ECDB /* Flurry.h */,
+				654948D01BFA797E00C1ECDB /* FlurryWatch.h */,
+				654948D11BFA797E00C1ECDB /* libFlurry_7.3.0.a */,
+			);
+			path = Flurry;
+			sourceTree = "<group>";
+		};
 		654A4DCD1BCD82F900FC523F /* Stylists */ = {
 			isa = PBXGroup;
 			children = (
@@ -715,10 +730,11 @@
 		65A5C0F41BA27C5400D46500 /* Externals */ = {
 			isa = PBXGroup;
 			children = (
+				654948CE1BFA797E00C1ECDB /* Flurry */,
 				654948CA1BFA779500C1ECDB /* Bolts.framework */,
-				654948CB1BFA779500C1ECDB /* Parse.framework */,
 				65A5C0FB1BA29F2200D46500 /* Crashlytics.framework */,
 				65A5C0F91BA2978600D46500 /* Fabric.framework */,
+				654948CB1BFA779500C1ECDB /* Parse.framework */,
 			);
 			path = Externals;
 			sourceTree = "<group>";
@@ -1431,9 +1447,14 @@
 				);
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_PEDANTIC = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/berniesanders/Externals/Flurry";
 				INFOPLIST_FILE = berniesanders/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/berniesanders/Externals/Flurry",
+				);
 				MACH_O_TYPE = mh_execute;
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = tech.berniesanders.bernie2016.ios;
@@ -1467,9 +1488,14 @@
 				);
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_PEDANTIC = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/berniesanders/Externals/Flurry";
 				INFOPLIST_FILE = berniesanders/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/berniesanders/Externals/Flurry",
+				);
 				MACH_O_TYPE = mh_execute;
 				OTHER_SWIFT_FLAGS = "-DRELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = tech.berniesanders.bernie2016.ios;
