@@ -16,6 +16,7 @@ class ConcreteAnalyticsService: AnalyticsService {
             if analyticsEnabled {
             #if RELEASE
                 Answers.logCustomEventWithName(name, customAttributes: nil)
+                Flurry.logEvent(name, withParameters: nil)
             #endif
             }
         }
@@ -26,6 +27,8 @@ class ConcreteAnalyticsService: AnalyticsService {
             if analyticsEnabled {
                 #if RELEASE
                     Answers.logContentViewWithName(name, contentType: type.description, contentId: id, customAttributes: nil)
+                    let flurryParams = [ "name": name, "type": type.description, "id": id]
+                    Flurry.logEvent("Content View", withParameters: flurryParams)
                 #endif
             }
         }
@@ -36,6 +39,7 @@ class ConcreteAnalyticsService: AnalyticsService {
             if analyticsEnabled {
                 #if RELEASE
                     Answers.logCustomEventWithName("\(context): \(error.description)", customAttributes: nil)
+                    Flurry.logError(context, message: error.description, error: error)
                 #endif
             }
         }
@@ -46,6 +50,8 @@ class ConcreteAnalyticsService: AnalyticsService {
             if analyticsEnabled {
                 #if RELEASE
                     Answers.logShareWithMethod(activityType, contentName: contentName, contentType: contentType.description, contentId: id, customAttributes: nil)
+                    let flurryParams = ["name": contentName, "type": contentType.description, "id": id]
+                    Flurry.logEvent("Content share", withParameters: flurryParams)
                 #endif
             }
         }
@@ -56,6 +62,8 @@ class ConcreteAnalyticsService: AnalyticsService {
             if analyticsEnabled {
                 #if RELEASE
                     Answers.logSearchWithQuery(query, customAttributes: [ "context": context.description ])
+                    let flurryParams = ["query": query, "context": context.description]
+                    Flurry.logEvent("Search", withParameters: flurryParams)
                 #endif
             }
         }
