@@ -53,14 +53,6 @@ class AboutControllerSpec : QuickSpec {
                     self.subject.view.layoutSubviews()
                 }
 
-                it("uses the news placeholder image") {
-                    let placeholderImage = UIImage(named: "newsHeadlinePlaceholder")
-                    let expectedImageData = UIImagePNGRepresentation(placeholderImage!)
-                    let headlineImageData = UIImagePNGRepresentation(self.subject.logoImageView.image!)
-
-                    expect(headlineImageData).to(equal(expectedImageData))
-                }
-
                 it("has a label explaining about the app") {
                     expect(self.subject.bodyTextLabel.text).to(contain("This app is built by a small group of volunteers"))
                 }
@@ -78,11 +70,10 @@ class AboutControllerSpec : QuickSpec {
 
                     let containerView = scrollView.subviews.first!
 
-                    expect(containerView.subviews.count).to(equal(6))
+                    expect(containerView.subviews.count).to(equal(5))
 
                     let containerViewSubViews = containerView.subviews
 
-                    expect(containerViewSubViews.contains(self.subject.logoImageView)).to(beTrue())
                     expect(containerViewSubViews.contains(self.subject.bodyTextLabel)).to(beTrue())
                     expect(containerViewSubViews.contains(self.subject.redditLabel)).to(beTrue())
                     expect(containerViewSubViews.contains(self.subject.codersButton)).to(beTrue())

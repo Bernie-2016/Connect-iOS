@@ -9,7 +9,6 @@ class AboutController: UIViewController {
     private let scrollView = UIScrollView.newAutoLayoutView()
     private let containerView = UIView.newAutoLayoutView()
 
-    let logoImageView = UIImageView.newAutoLayoutView()
     let bodyTextLabel = UILabel.newAutoLayoutView()
     let redditLabel = UILabel.newAutoLayoutView()
     let codersButton = UIButton.newAutoLayoutView()
@@ -45,15 +44,12 @@ class AboutController: UIViewController {
         self.view.addSubview(self.scrollView)
         self.scrollView.addSubview(self.containerView)
 
-        self.containerView.addSubview(self.logoImageView)
         self.containerView.addSubview(self.bodyTextLabel)
         self.containerView.addSubview(self.redditLabel)
         self.containerView.addSubview(self.codersButton)
         self.containerView.addSubview(self.designersButton)
         self.containerView.addSubview(self.sandersForPresidentButton)
 
-        self.logoImageView.image = UIImage(named: "newsHeadlinePlaceholder")
-        self.logoImageView.contentMode = .ScaleAspectFill
         self.bodyTextLabel.text = NSLocalizedString("About_bodyText", comment: "")
         self.redditLabel.text = NSLocalizedString("About_redditText", comment: "")
         self.codersButton.setTitle(NSLocalizedString("About_codersForSanders", comment: ""), forState: .Normal)
@@ -100,12 +96,8 @@ class AboutController: UIViewController {
         self.containerView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Trailing)
         self.containerView.autoSetDimension(.Width, toSize: screenBounds.width)
 
-        self.logoImageView.autoPinEdgeToSuperviewEdge(.Top, withInset: 16)
-        self.logoImageView.autoPinEdgeToSuperviewEdge(.Left)
-        self.logoImageView.autoPinEdgeToSuperviewEdge(.Right)
-
         self.bodyTextLabel.numberOfLines = 0
-        self.bodyTextLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: logoImageView)
+        self.bodyTextLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: 16)
         self.bodyTextLabel.autoPinEdgeToSuperviewMargin(.Left)
         self.bodyTextLabel.autoPinEdgeToSuperviewMargin(.Right)
 
