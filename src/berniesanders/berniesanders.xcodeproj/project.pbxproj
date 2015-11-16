@@ -53,6 +53,8 @@
 		654773FF1BB23FAE00B87670 /* ConcreteEventRepositorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654773FE1BB23FAE00B87670 /* ConcreteEventRepositorySpec.swift */; };
 		654774031BB2418400B87670 /* EventDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654774021BB2418400B87670 /* EventDeserializer.swift */; };
 		654774051BB241D900B87670 /* ConcreteEventDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654774041BB241D900B87670 /* ConcreteEventDeserializer.swift */; };
+		654948CC1BFA779500C1ECDB /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654948CA1BFA779500C1ECDB /* Bolts.framework */; };
+		654948CD1BFA779500C1ECDB /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654948CB1BFA779500C1ECDB /* Parse.framework */; };
 		654A4DCF1BCD831100FC523F /* ConcreteTabBarItemStylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654A4DCE1BCD831100FC523F /* ConcreteTabBarItemStylist.swift */; };
 		654A4DD21BCD850000FC523F /* ConcreteTabBarItemStylistSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654A4DD11BCD850000FC523F /* ConcreteTabBarItemStylistSpec.swift */; };
 		654A4DD51BCD861C00FC523F /* TabBarItemStylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654A4DD41BCD861C00FC523F /* TabBarItemStylist.swift */; };
@@ -266,6 +268,8 @@
 		654773FE1BB23FAE00B87670 /* ConcreteEventRepositorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteEventRepositorySpec.swift; sourceTree = "<group>"; };
 		654774021BB2418400B87670 /* EventDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDeserializer.swift; sourceTree = "<group>"; };
 		654774041BB241D900B87670 /* ConcreteEventDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteEventDeserializer.swift; sourceTree = "<group>"; };
+		654948CA1BFA779500C1ECDB /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		654948CB1BFA779500C1ECDB /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		654A4DCE1BCD831100FC523F /* ConcreteTabBarItemStylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteTabBarItemStylist.swift; sourceTree = "<group>"; };
 		654A4DD11BCD850000FC523F /* ConcreteTabBarItemStylistSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteTabBarItemStylistSpec.swift; sourceTree = "<group>"; };
 		654A4DD41BCD861C00FC523F /* TabBarItemStylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarItemStylist.swift; sourceTree = "<group>"; };
@@ -401,6 +405,8 @@
 				65A5C0FC1BA29F2200D46500 /* Crashlytics.framework in Frameworks */,
 				65A5C0FA1BA2978600D46500 /* Fabric.framework in Frameworks */,
 				650763141B8AB79F00BA0659 /* KSDeferred.framework in Frameworks */,
+				654948CD1BFA779500C1ECDB /* Parse.framework in Frameworks */,
+				654948CC1BFA779500C1ECDB /* Bolts.framework in Frameworks */,
 				65CA5E991B86E76D0001D870 /* PureLayout.framework in Frameworks */,
 				65AD23AF1B96413200C32A02 /* WebImage.framework in Frameworks */,
 			);
@@ -709,6 +715,8 @@
 		65A5C0F41BA27C5400D46500 /* Externals */ = {
 			isa = PBXGroup;
 			children = (
+				654948CA1BFA779500C1ECDB /* Bolts.framework */,
+				654948CB1BFA779500C1ECDB /* Parse.framework */,
 				65A5C0FB1BA29F2200D46500 /* Crashlytics.framework */,
 				65A5C0F91BA2978600D46500 /* Fabric.framework */,
 			);
