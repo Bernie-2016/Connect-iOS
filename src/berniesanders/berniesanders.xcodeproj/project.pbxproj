@@ -56,6 +56,9 @@
 		654948CC1BFA779500C1ECDB /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654948CA1BFA779500C1ECDB /* Bolts.framework */; };
 		654948CD1BFA779500C1ECDB /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654948CB1BFA779500C1ECDB /* Parse.framework */; };
 		654948D21BFA797E00C1ECDB /* libFlurry_7.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 654948D11BFA797E00C1ECDB /* libFlurry_7.3.0.a */; };
+		654948D41BFADBD500C1ECDB /* ApiKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 654948D31BFADBD500C1ECDB /* ApiKeys.plist */; };
+		654948D71BFADF9F00C1ECDB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654948D61BFADF9F00C1ECDB /* SystemConfiguration.framework */; };
+		654948DA1BFAF24000C1ECDB /* APIKeyProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654948D91BFAF24000C1ECDB /* APIKeyProvider.swift */; };
 		654A4DCF1BCD831100FC523F /* ConcreteTabBarItemStylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654A4DCE1BCD831100FC523F /* ConcreteTabBarItemStylist.swift */; };
 		654A4DD21BCD850000FC523F /* ConcreteTabBarItemStylistSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654A4DD11BCD850000FC523F /* ConcreteTabBarItemStylistSpec.swift */; };
 		654A4DD51BCD861C00FC523F /* TabBarItemStylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654A4DD41BCD861C00FC523F /* TabBarItemStylist.swift */; };
@@ -274,6 +277,9 @@
 		654948CF1BFA797E00C1ECDB /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		654948D01BFA797E00C1ECDB /* FlurryWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryWatch.h; sourceTree = "<group>"; };
 		654948D11BFA797E00C1ECDB /* libFlurry_7.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_7.3.0.a; sourceTree = "<group>"; };
+		654948D31BFADBD500C1ECDB /* ApiKeys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ApiKeys.plist; sourceTree = "<group>"; };
+		654948D61BFADF9F00C1ECDB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		654948D91BFAF24000C1ECDB /* APIKeyProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIKeyProvider.swift; sourceTree = "<group>"; };
 		654A4DCE1BCD831100FC523F /* ConcreteTabBarItemStylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteTabBarItemStylist.swift; sourceTree = "<group>"; };
 		654A4DD11BCD850000FC523F /* ConcreteTabBarItemStylistSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteTabBarItemStylistSpec.swift; sourceTree = "<group>"; };
 		654A4DD41BCD861C00FC523F /* TabBarItemStylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarItemStylist.swift; sourceTree = "<group>"; };
@@ -413,6 +419,7 @@
 				654948D21BFA797E00C1ECDB /* libFlurry_7.3.0.a in Frameworks */,
 				654948CD1BFA779500C1ECDB /* Parse.framework in Frameworks */,
 				65CA5E991B86E76D0001D870 /* PureLayout.framework in Frameworks */,
+				654948D71BFADF9F00C1ECDB /* SystemConfiguration.framework in Frameworks */,
 				65AD23AF1B96413200C32A02 /* WebImage.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -455,6 +462,7 @@
 			isa = PBXGroup;
 			children = (
 				6507631A1B8B71B900BA0659 /* Protocols */,
+				654948D91BFAF24000C1ECDB /* APIKeyProvider.swift */,
 				656ED1781BE3076D009FD91C /* ConcreteDateProvider.swift */,
 				654AD3561BB8787000A59966 /* ConcreteEventControllerProvider.swift */,
 				65D0ECE41BBAD93D0063B1D0 /* ConcreteEventRSVPControllerProvider.swift */,
@@ -904,6 +912,7 @@
 				8233FC211B7C28FB00A5E9ED /* berniesandersTests */,
 				65EC4CF21B842A3D00DD4C83 /* Carthage */,
 				8233FC081B7C28FB00A5E9ED /* Products */,
+				654948D61BFADF9F00C1ECDB /* SystemConfiguration.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -947,6 +956,7 @@
 		8233FC0A1B7C28FB00A5E9ED /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				654948D31BFADBD500C1ECDB /* ApiKeys.plist */,
 				65B165581B9789C00052EF8D /* Entitlements.plist */,
 				8233FC0B1B7C28FB00A5E9ED /* Info.plist */,
 			);
@@ -1017,10 +1027,12 @@
 			buildPhases = (
 				8233FC031B7C28FB00A5E9ED /* Sources */,
 				8233FC041B7C28FB00A5E9ED /* Frameworks */,
+				654948D51BFADC7800C1ECDB /* Set up API Keys */,
 				8233FC051B7C28FB00A5E9ED /* Resources */,
 				65B1654B1B9747070052EF8D /* Copy symbolication files */,
 				65B1654A1B9746940052EF8D /* Copy Carthage frameworks */,
 				65A5C0F21BA27C0200D46500 /* Set up Fabric */,
+				654948D81BFAF11D00C1ECDB /* Reset API Keys */,
 			);
 			buildRules = (
 			);
@@ -1100,6 +1112,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				654948D41BFADBD500C1ECDB /* ApiKeys.plist in Resources */,
 				654FDBBB1BC1862800A082CF /* cssInjection.js in Resources */,
 				65B165591B9789C00052EF8D /* Entitlements.plist in Resources */,
 				654FDBBD1BC1867F00A082CF /* feedbackGoogleFormOverrides.css in Resources */,
@@ -1129,6 +1142,34 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		654948D51BFADC7800C1ECDB /* Set up API Keys */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Set up API Keys";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -x -e\nFLURRY_KEY_FILE=\"/Users/mjs/workspace/BernieAppiOS/flurry_key\"\n\nif [ \"$CONFIGURATION\" = \"Release\" ] ; then\n  if [ -f $FLURRY_KEY_FILE ]; then\n    echo \"Setting up Flurry API Key\"\n    /usr/libexec/PlistBuddy -c \"set :FLURRY_API_KEY `cat $FLURRY_KEY_FILE`\" berniesanders/ApiKeys.plist\n    else\n    echo \"No Flurry API Key file found, skipping\"\n    fi\nfi";
+		};
+		654948D81BFAF11D00C1ECDB /* Reset API Keys */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Reset API Keys";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -x -e\necho \"Resetting Flurry API Key\"\n/usr/libexec/PlistBuddy -c \"set :FLURRY_API_KEY SET_BY_PLIST_BUDDY\" berniesanders/ApiKeys.plist\n";
+		};
 		65A5C0F21BA27C0200D46500 /* Set up Fabric */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1170,6 +1211,7 @@
 				65C658A21BC088FF001AD5CA /* AboutController.swift in Sources */,
 				6559D70D1BBDC32100CBC7EE /* AnalyticsService.swift in Sources */,
 				6568B9D41BC700D800BD149D /* AnalyticsSettingsController.swift in Sources */,
+				654948DA1BFAF24000C1ECDB /* APIKeyProvider.swift in Sources */,
 				8233FC0D1B7C28FB00A5E9ED /* AppDelegate.swift in Sources */,
 				6518CBB71BC30A3B000C238C /* ApplicationSettingsRepository.swift in Sources */,
 				6559D7111BBDC5F200CBC7EE /* ConcreteAnalyticsService.swift in Sources */,

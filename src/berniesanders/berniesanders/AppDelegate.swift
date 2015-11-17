@@ -34,7 +34,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
             let tabBarItemStylist = ConcreteTabBarItemStylist(theme: defaultTheme)
 
-            let analyticsService = ConcreteAnalyticsService(applicationSettingsRepository: applicationSettingsRepository)
+            let apiKeyProvider = APIKeyProvider()
+            let analyticsService = ConcreteAnalyticsService(
+                applicationSettingsRepository: applicationSettingsRepository,
+                apiKeyProvider: apiKeyProvider
+            )
             let stringContentSanitizer = ConcreteStringContentSanitizer()
 
             let urlProvider = ConcreteURLProvider()

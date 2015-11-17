@@ -7,8 +7,11 @@ import Foundation
 class ConcreteAnalyticsService: AnalyticsService {
     private let applicationSettingsRepository: ApplicationSettingsRepository
 
-    init(applicationSettingsRepository: ApplicationSettingsRepository) {
+    init(applicationSettingsRepository: ApplicationSettingsRepository, apiKeyProvider: APIKeyProvider) {
             self.applicationSettingsRepository = applicationSettingsRepository
+        #if RELEASE
+            Flurry.startSession(apiKeyProvider.flurryAPIKey())
+        #endif
     }
 
     func trackBackButtonTapOnScreen(screen: String, customAttributes: [NSObject : AnyObject]?) {
@@ -41,7 +44,6 @@ class ConcreteAnalyticsService: AnalyticsService {
         self.applicationSettingsRepository.isAnalyticsEnabled { (analyticsEnabled) -> Void in
             if analyticsEnabled {
             #if RELEASE
-                Answers.logCustomEventWithName(name, customAttributes: customAttributes)
                 Flurry.logEvent(name, withParameters: customAttributes)
             #endif
             }
@@ -52,7 +54,6 @@ class ConcreteAnalyticsService: AnalyticsService {
         self.applicationSettingsRepository.isAnalyticsEnabled { (analyticsEnabled) -> Void in
             if analyticsEnabled {
                 #if RELEASE
-                    Answers.logContentViewWithName(name, contentType: type.description, contentId: id, customAttributes: nil)
                     let flurryParams = [ "name": name, "type": type.description, "id": id]
                     Flurry.logEvent("Content View", withParameters: flurryParams)
                 #endif
@@ -64,7 +65,6 @@ class ConcreteAnalyticsService: AnalyticsService {
         self.applicationSettingsRepository.isAnalyticsEnabled { (analyticsEnabled) -> Void in
             if analyticsEnabled {
                 #if RELEASE
-                    Answers.logCustomEventWithName("\(context): \(error.description)", customAttributes: nil)
                     Flurry.logError(context, message: error.description, error: error)
                 #endif
             }
@@ -75,7 +75,6 @@ class ConcreteAnalyticsService: AnalyticsService {
         self.applicationSettingsRepository.isAnalyticsEnabled { (analyticsEnabled) -> Void in
             if analyticsEnabled {
                 #if RELEASE
-                    Answers.logShareWithMethod(activityType, contentName: contentName, contentType: contentType.description, contentId: id, customAttributes: nil)
                     let flurryParams = ["name": contentName, "type": contentType.description, "id": id]
                     Flurry.logEvent("Completed content share", withParameters: flurryParams)
                 #endif
@@ -87,7 +86,6 @@ class ConcreteAnalyticsService: AnalyticsService {
         self.applicationSettingsRepository.isAnalyticsEnabled { (analyticsEnabled) -> Void in
             if analyticsEnabled {
                 #if RELEASE
-                    Answers.logSearchWithQuery(query, customAttributes: [ "context": context.description ])
                     let flurryParams = ["query": query, "context": context.description]
                     Flurry.logEvent("Search", withParameters: flurryParams)
                 #endif
