@@ -28,6 +28,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     }
 
     func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
-        self.analyticsService.trackCustomEventWithName("Tapped \"\(viewController.tabBarItem.title!)\" on tab bar", customAttributes: nil)
+        let title = viewController.tabBarItem.title!
+        self.analyticsService.trackContentViewWithName(title, type: .TabBar, id: title)
     }
 }
