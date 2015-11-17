@@ -8,9 +8,9 @@ export SCRIPT_DIR=$(dirname "$0")
 
 main ()
 {
-    cd src/berniesanders 
+    cd src/Movement 
     carthage bootstrap --platform iphonesimulator --no-use-binaries
-    xcodebuild clean build test -project berniesanders.xcodeproj/ -scheme berniesanders -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+    xcodebuild clean build test -project Movement.xcodeproj/ -scheme Movement -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
 
     local status=$?
 
