@@ -165,7 +165,7 @@ class DefaultTheme: Theme {
     // MARK: color definitions
 
     func silverColor() -> UIColor { return UIColor(rgba: "#c9c9c9") }
-    func codGrayColor() -> UIColor { return UIColor(rgba: "#1b1b1b") }
+    func codGrayColor() -> UIColor { return UIColor(rgba: "#0F0F0F") }
     func galleryColor() -> UIColor { return UIColor(rgba: "#ececec") }
     func mercuryColor() -> UIColor { return UIColor(rgba: "#e8e8e8") }
     func altoColor() -> UIColor { return UIColor(rgba: "#dcdcdc") }
