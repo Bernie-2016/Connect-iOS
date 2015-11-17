@@ -128,8 +128,12 @@ class EventControllerSpec: QuickSpec {
                     }
 
                     it("logs that the user tapped share") {
-                        expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Share' on Event"))
-                        let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.event.url.absoluteString]
+                        expect(self.analyticsService.lastCustomEventName).to(equal("Began Share"))
+                        let expectedAttributes = [
+                            AnalyticsServiceConstants.contentIDKey: self.event.url.absoluteString,
+                            AnalyticsServiceConstants.contentNameKey: "limited event",
+                            AnalyticsServiceConstants.contentTypeKey: "Event"
+                        ]
                         expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                     }
 
@@ -150,8 +154,12 @@ class EventControllerSpec: QuickSpec {
                             let activityViewControler = self.subject.presentedViewController as! UIActivityViewController
                             activityViewControler.completionWithItemsHandler!(nil, false, nil, nil)
 
-                            expect(self.analyticsService.lastCustomEventName).to(equal("Cancelled share of Event"))
-                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.event.url.absoluteString]
+                            expect(self.analyticsService.lastCustomEventName).to(equal("Cancelled Share"))
+                            let expectedAttributes = [
+                                AnalyticsServiceConstants.contentIDKey: self.event.url.absoluteString,
+                                AnalyticsServiceConstants.contentNameKey: "limited event",
+                                AnalyticsServiceConstants.contentTypeKey: "Event"
+                            ]
                             expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                         }
                     }

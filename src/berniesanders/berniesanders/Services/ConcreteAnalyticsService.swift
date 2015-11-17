@@ -77,7 +77,7 @@ class ConcreteAnalyticsService: AnalyticsService {
                 #if RELEASE
                     Answers.logShareWithMethod(activityType, contentName: contentName, contentType: contentType.description, contentId: id, customAttributes: nil)
                     let flurryParams = ["name": contentName, "type": contentType.description, "id": id]
-                    Flurry.logEvent("Content share", withParameters: flurryParams)
+                    Flurry.logEvent("Completed content share", withParameters: flurryParams)
                 #endif
             }
         }

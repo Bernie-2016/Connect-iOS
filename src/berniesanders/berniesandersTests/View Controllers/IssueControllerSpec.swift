@@ -96,8 +96,12 @@ class IssueControllerSpec : QuickSpec {
                         }
 
                         it("logs that the user tapped share") {
-                            expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'Share' on Issue"))
-                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.issue.url.absoluteString]
+                            expect(self.analyticsService.lastCustomEventName).to(equal("Began Share"))
+                            let expectedAttributes = [
+                                AnalyticsServiceConstants.contentIDKey: self.issue.url.absoluteString,
+                                AnalyticsServiceConstants.contentNameKey: self.issue.title,
+                                AnalyticsServiceConstants.contentTypeKey: "Issue"
+                            ]
                             expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                         }
 
@@ -118,8 +122,12 @@ class IssueControllerSpec : QuickSpec {
                                 let activityViewControler = self.subject.presentedViewController as! UIActivityViewController
                                 activityViewControler.completionWithItemsHandler!(nil, false, nil, nil)
 
-                                expect(self.analyticsService.lastCustomEventName).to(equal("Cancelled share of Issue"))
-                                let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.issue.url.absoluteString]
+                                expect(self.analyticsService.lastCustomEventName).to(equal("Cancelled Share"))
+                                let expectedAttributes = [
+                                    AnalyticsServiceConstants.contentIDKey: self.issue.url.absoluteString,
+                                    AnalyticsServiceConstants.contentNameKey: self.issue.title,
+                                    AnalyticsServiceConstants.contentTypeKey: "Issue"
+                                ]
                                 expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                             }
                         }

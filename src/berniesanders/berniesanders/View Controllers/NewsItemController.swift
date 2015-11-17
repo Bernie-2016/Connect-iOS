@@ -95,7 +95,11 @@ class NewsItemController: UIViewController {
     // MARK: Actions
 
     func share() {
-        self.analyticsService.trackCustomEventWithName("Tapped 'Share' on News Item", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.newsItem.url.absoluteString])
+        self.analyticsService.trackCustomEventWithName("Began Share", customAttributes: [
+            AnalyticsServiceConstants.contentIDKey: self.newsItem.url.absoluteString,
+            AnalyticsServiceConstants.contentNameKey: self.newsItem.title,
+            AnalyticsServiceConstants.contentTypeKey: AnalyticsServiceContentType.NewsItem.description
+            ])
         let activityVC = UIActivityViewController(activityItems: [newsItem.url], applicationActivities: nil)
 
         activityVC.completionWithItemsHandler = { activity, success, items, error in
@@ -105,7 +109,10 @@ class NewsItemController: UIViewController {
                 if success == true {
                     self.analyticsService.trackShareWithActivityType(activity!, contentName: self.newsItem.title, contentType: .NewsItem, id: self.newsItem.url.absoluteString)
                 } else {
-                    self.analyticsService.trackCustomEventWithName("Cancelled share of News Item", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.newsItem.url.absoluteString])
+                    self.analyticsService.trackCustomEventWithName("Cancelled Share", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.newsItem.url.absoluteString,
+                        AnalyticsServiceConstants.contentNameKey: self.newsItem.title,
+                        AnalyticsServiceConstants.contentTypeKey: AnalyticsServiceContentType.NewsItem.description
+                        ])
                 }
             }
         }

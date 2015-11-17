@@ -80,7 +80,10 @@ class IssueController: UIViewController {
     // MARK: Actions
 
     func share() {
-        analyticsService.trackCustomEventWithName("Tapped 'Share' on Issue", customAttributes: [AnalyticsServiceConstants.contentIDKey: issue.url.absoluteString])
+        analyticsService.trackCustomEventWithName("Began Share", customAttributes: [AnalyticsServiceConstants.contentIDKey: issue.url.absoluteString,
+            AnalyticsServiceConstants.contentNameKey: self.issue.title,
+            AnalyticsServiceConstants.contentTypeKey: AnalyticsServiceContentType.Issue.description
+            ])
 
         let activityVC = UIActivityViewController(activityItems: [issue.url], applicationActivities: nil)
 
@@ -91,7 +94,10 @@ class IssueController: UIViewController {
                 if success == true {
                     self.analyticsService.trackShareWithActivityType(activity!, contentName: self.issue.title, contentType: .Issue, id: self.issue.url.absoluteString)
                 } else {
-                    self.analyticsService.trackCustomEventWithName("Cancelled share of Issue", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.issue.url.absoluteString])
+                    self.analyticsService.trackCustomEventWithName("Cancelled Share", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.issue.url.absoluteString,
+                        AnalyticsServiceConstants.contentNameKey: self.issue.title,
+                        AnalyticsServiceConstants.contentTypeKey: AnalyticsServiceContentType.Issue.description
+                        ])
                 }
             }
         }

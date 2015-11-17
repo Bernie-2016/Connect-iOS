@@ -11,7 +11,9 @@ protocol AnalyticsService {
 }
 
 struct AnalyticsServiceConstants {
-    static let contentIDKey = "contentID"
+    static let contentIDKey = "id"
+    static let contentNameKey = "name"
+    static let contentTypeKey = "type"
 }
 
 enum AnalyticsServiceContentType: String, CustomStringConvertible {
