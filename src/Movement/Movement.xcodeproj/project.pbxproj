@@ -3184,6 +3184,17 @@
 			path = Presenters;
 			sourceTree = "<group>";
 		};
+		654FA3DD1BFBD3FF00525331 /* Apple Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				65494C5D1BFB87B200C1ECDB /* AudioToolbox.framework */,
+				65494C591BFB879B00C1ECDB /* CoreAudio.framework */,
+				65494C5B1BFB87AA00C1ECDB /* libsqlite3.tbd */,
+				654948D61BFADF9F00C1ECDB /* SystemConfiguration.framework */,
+			);
+			name = "Apple Frameworks";
+			sourceTree = "<group>";
+		};
 		654FDBB81BC185F700A082CF /* JavaScript */ = {
 			isa = PBXGroup;
 			children = (
@@ -3452,15 +3463,12 @@
 		8233FBFE1B7C28FB00A5E9ED = {
 			isa = PBXGroup;
 			children = (
+				654FA3DD1BFBD3FF00525331 /* Apple Frameworks */,
 				65EC4CF21B842A3D00DD4C83 /* Carthage */,
 				654948ED1BFB873600C1ECDB /* Movement */,
 				8233FC091B7C28FB00A5E9ED /* Movement */,
 				8233FC211B7C28FB00A5E9ED /* MovementTests */,
 				8233FC081B7C28FB00A5E9ED /* Products */,
-				65494C5D1BFB87B200C1ECDB /* AudioToolbox.framework */,
-				65494C591BFB879B00C1ECDB /* CoreAudio.framework */,
-				65494C5B1BFB87AA00C1ECDB /* libsqlite3.tbd */,
-				654948D61BFADF9F00C1ECDB /* SystemConfiguration.framework */,
 			);
 			sourceTree = "<group>";
 		};
