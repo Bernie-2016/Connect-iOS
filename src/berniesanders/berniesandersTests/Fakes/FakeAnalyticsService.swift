@@ -10,6 +10,14 @@ class FakeAnalyticsService: AnalyticsService {
         self.lastBackButtonTapAttributes = customAttributes
     }
 
+    var lastTrackedPageViewName: String!
+    var lastTrackedPageViewAttributes: [NSObject: AnyObject]?
+
+    func trackPageViewWithName(name: String, customAttributes: [NSObject: AnyObject]?) {
+        self.lastTrackedPageViewName = name
+        self.lastTrackedPageViewAttributes = customAttributes
+    }
+
     var lastCustomEventName: String!
     var lastCustomEventAttributes: [NSObject : AnyObject]?
 

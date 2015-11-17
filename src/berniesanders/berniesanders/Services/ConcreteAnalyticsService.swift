@@ -24,6 +24,19 @@ class ConcreteAnalyticsService: AnalyticsService {
         trackCustomEventWithName("Tapped Back", customAttributes: attributes)
     }
 
+    func trackPageViewWithName(name: String, customAttributes: [NSObject: AnyObject]?) {
+        var attributes = ["pageName": name]
+
+        if customAttributes != nil {
+            for (key, value) in customAttributes! {
+                guard let keyAsString = key as? String else { continue }
+                attributes[keyAsString] = value as? String
+            }
+        }
+
+        trackCustomEventWithName("Page View", customAttributes: attributes)
+    }
+
     func trackCustomEventWithName(name: String, customAttributes: [NSObject : AnyObject]?) {
         self.applicationSettingsRepository.isAnalyticsEnabled { (analyticsEnabled) -> Void in
             if analyticsEnabled {

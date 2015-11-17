@@ -102,8 +102,9 @@ class AboutControllerSpec : QuickSpec {
                     }
 
                     it("logs that the user tapped the coders button") {
-                        expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'CodersForSanders' on About"))
-                        expect(self.analyticsService.lastCustomEventAttributes).to(beNil())
+                        expect(self.analyticsService.lastContentViewName).to(equal("CodersForSanders"))
+                        expect(self.analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.About))
+                        expect(self.analyticsService.lastContentViewID).to(equal("http://example.com/reddit/coders"))
                     }
                 }
 
@@ -122,8 +123,9 @@ class AboutControllerSpec : QuickSpec {
                     }
 
                     it("logs that the user tapped the designers button") {
-                        expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'DesignersForSanders' on About"))
-                        expect(self.analyticsService.lastCustomEventAttributes).to(beNil())
+                        expect(self.analyticsService.lastContentViewName).to(equal("DesignersForSanders"))
+                        expect(self.analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.About))
+                        expect(self.analyticsService.lastContentViewID).to(equal("http://example.com/reddit/designers"))
                     }
                 }
 
@@ -141,9 +143,10 @@ class AboutControllerSpec : QuickSpec {
                         expect(self.urlOpener.lastOpenedURL).to(equal(NSURL(string: "http://example.com/reddit/prez")))
                     }
 
-                    it("logs that the user tapped the designers button") {
-                        expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'SandersForPresident' on About"))
-                        expect(self.analyticsService.lastCustomEventAttributes).to(beNil())
+                    it("logs that the user tapped the sanders for president button") {
+                        expect(self.analyticsService.lastContentViewName).to(equal("SandersForPresident"))
+                        expect(self.analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.About))
+                        expect(self.analyticsService.lastContentViewID).to(equal("http://example.com/reddit/prez"))
                     }
                 }
 

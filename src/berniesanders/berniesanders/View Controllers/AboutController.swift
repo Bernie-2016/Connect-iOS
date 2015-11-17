@@ -71,17 +71,17 @@ class AboutController: UIViewController {
     // MARK: Actions
 
     func didTapCoders() {
-        self.analyticsService.trackCustomEventWithName("Tapped 'CodersForSanders' on About", customAttributes: nil)
+        self.analyticsService.trackContentViewWithName("CodersForSanders", type: .About, id: self.urlProvider.codersForSandersURL().absoluteString)
         self.urlOpener.openURL(self.urlProvider.codersForSandersURL())
     }
 
     func didTapDesigners() {
-        self.analyticsService.trackCustomEventWithName("Tapped 'DesignersForSanders' on About", customAttributes: nil)
+        self.analyticsService.trackContentViewWithName("DesignersForSanders", type: .About, id: self.urlProvider.designersForSandersURL().absoluteString)
         self.urlOpener.openURL(self.urlProvider.designersForSandersURL())
     }
 
     func didTapSandersForPresident() {
-        self.analyticsService.trackCustomEventWithName("Tapped 'SandersForPresident' on About", customAttributes: nil)
+        self.analyticsService.trackContentViewWithName("SandersForPresident", type: .About, id: self.urlProvider.sandersForPresidentURL().absoluteString)
         self.urlOpener.openURL(self.urlProvider.sandersForPresidentURL())
     }
 

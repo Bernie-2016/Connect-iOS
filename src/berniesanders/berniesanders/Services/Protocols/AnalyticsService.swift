@@ -2,6 +2,7 @@ import UIKit
 
 protocol AnalyticsService {
     func trackCustomEventWithName(name: String, customAttributes: [NSObject : AnyObject]?)
+    func trackPageViewWithName(name: String, customAttributes: [NSObject: AnyObject]?)
     func trackContentViewWithName(name: String, type: AnalyticsServiceContentType, id: String)
     func trackBackButtonTapOnScreen(screen: String, customAttributes: [NSObject : AnyObject]?)
     func trackError(error: NSError, context: String)
@@ -19,6 +20,7 @@ enum AnalyticsServiceContentType: String, CustomStringConvertible {
     case Settings = "Settings"
     case Event = "Event"
     case Onboarding = "Onboarding"
+    case About = "About"
 
     var description: String {
         return self.rawValue
