@@ -1,5 +1,6 @@
 import Foundation
 import WebImage
+import Parse
 
 #if RELEASE
     import Fabric
@@ -10,6 +11,7 @@ import WebImage
 
 class AppBootstrapper {
     var window: UIWindow?
+    var pushNotificationRegistrar: PushNotificationRegistrar!
 
     // swiftlint:disable function_body_length
     func bootstrap() -> Bool {
@@ -25,6 +27,7 @@ class AppBootstrapper {
         UIBarButtonItem.appearance().setTitleTextAttributes([
             NSFontAttributeName: defaultTheme.navigationBarFont(), NSForegroundColorAttributeName: defaultTheme.navigationBarTextColor()], forState: UIControlState.Normal)
 
+        let apiKeyProvider = APIKeyProvider()
 
         let dateProvider = ConcreteDateProvider()
         let mainQueue = NSOperationQueue.mainQueue()
@@ -35,7 +38,9 @@ class AppBootstrapper {
 
         let tabBarItemStylist = ConcreteTabBarItemStylist(theme: defaultTheme)
 
-        let apiKeyProvider = APIKeyProvider()
+        Parse.setApplicationId(apiKeyProvider.parseApplicationId(), clientKey: apiKeyProvider.parseClientKey())
+        self.pushNotificationRegistrar = ConcretePushNotificationRegistrar(installation: PFInstallation.currentInstallation())
+
         let analyticsService = ConcreteAnalyticsService(
             applicationSettingsRepository: applicationSettingsRepository,
             apiKeyProvider: apiKeyProvider

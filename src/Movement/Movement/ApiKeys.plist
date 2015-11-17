@@ -4,5 +4,9 @@
 <dict>
 	<key>FLURRY_API_KEY</key>
 	<string>SET_BY_PLIST_BUDDY</string>
+	<key>PARSE_APPLICATION_ID</key>
+	<string>SET_BY_PLIST_BUDDY</string>
+	<key>PARSE_CLIENT_KEY</key>
+	<string>SET_BY_PLIST_BUDDY</string>
 </dict>
 </plist>
