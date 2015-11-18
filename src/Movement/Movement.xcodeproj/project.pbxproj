@@ -316,6 +316,8 @@
 		654FDBBE1BC19F4100A082CF /* StringContentSanitizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringContentSanitizer.swift; sourceTree = "<group>"; };
 		654FDBC01BC19F4C00A082CF /* ConcreteStringContentSanitizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteStringContentSanitizer.swift; sourceTree = "<group>"; };
 		654FDBC21BC19F9D00A082CF /* ConcreteStringContentSanitizerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteStringContentSanitizerSpec.swift; sourceTree = "<group>"; };
+		655598041BFC2FFB00BCE1AB /* Movement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Movement.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		655598051BFC2FFB00BCE1AB /* MovementTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MovementTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		655906EB1BC459DE00D7B0BA /* OnboardingWorkflow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingWorkflow.swift; sourceTree = "<group>"; };
 		655906ED1BC45A3000D7B0BA /* WelcomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeController.swift; sourceTree = "<group>"; };
 		655906EF1BC45A8900D7B0BA /* OnboardingWorkflowSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingWorkflowSpec.swift; sourceTree = "<group>"; };
@@ -417,11 +419,9 @@
 		65F5F65C1B896FFF0049353C /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		65F5F6621B8A3CB00049353C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		65F6C8291BE861E700EA973C /* DisclosureIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisclosureIndicatorView.swift; sourceTree = "<group>"; };
-		8233FC071B7C28FB00A5E9ED /* Movement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Movement.app; path = "/Users/mjs/workspace/BernieAppiOS/src/Movement/build/Debug-iphoneos/Movement.app"; sourceTree = "<absolute>"; };
 		8233FC0B1B7C28FB00A5E9ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8233FC0C1B7C28FB00A5E9ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8233FC151B7C28FB00A5E9ED /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		8233FC1E1B7C28FB00A5E9ED /* MovementTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = MovementTests.xctest; path = "/Users/mjs/workspace/BernieAppiOS/src/Movement/build/Debug-iphoneos/MovementTests.xctest"; sourceTree = "<absolute>"; };
 		8233FC231B7C28FB00A5E9ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8233FC2F1B7C48A500A5E9ED /* NewsFeedController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFeedController.swift; sourceTree = "<group>"; };
 		8233FC311B7C4A9600A5E9ED /* IssuesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuesController.swift; sourceTree = "<group>"; };
@@ -720,6 +720,14 @@
 			path = CSS;
 			sourceTree = "<group>";
 		};
+		655598061BFC301C00BCE1AB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		655906E91BC459AB00D7B0BA /* Workflows */ = {
 			isa = PBXGroup;
 			children = (
@@ -977,6 +985,8 @@
 				65EC4CF21B842A3D00DD4C83 /* Carthage */,
 				8233FC091B7C28FB00A5E9ED /* Movement */,
 				8233FC211B7C28FB00A5E9ED /* MovementTests */,
+				655598041BFC2FFB00BCE1AB /* Movement.app */,
+				655598051BFC2FFB00BCE1AB /* MovementTests.xctest */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1031,6 +1041,7 @@
 				65E715241BEA57C800432076 /* Models */,
 				652860A11B8B8B3500899FAF /* Network Clients */,
 				654B55B31BB4880000492610 /* Presenters */,
+				655598061BFC301C00BCE1AB /* Products */,
 				653885231B94E86D00DCA808 /* Providers */,
 				650763161B8B6FF800BA0659 /* Repositories */,
 				654A4DD01BCD84F400FC523F /* Stylists */,
@@ -1098,7 +1109,7 @@
 			);
 			name = Movement;
 			productName = berniesanders;
-			productReference = 8233FC071B7C28FB00A5E9ED /* Movement.app */;
+			productReference = 655598041BFC2FFB00BCE1AB /* Movement.app */;
 			productType = "com.apple.product-type.application";
 		};
 		8233FC1D1B7C28FB00A5E9ED /* MovementTests */ = {
@@ -1117,7 +1128,7 @@
 			);
 			name = MovementTests;
 			productName = berniesandersTests;
-			productReference = 8233FC1E1B7C28FB00A5E9ED /* MovementTests.xctest */;
+			productReference = 655598051BFC2FFB00BCE1AB /* MovementTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
