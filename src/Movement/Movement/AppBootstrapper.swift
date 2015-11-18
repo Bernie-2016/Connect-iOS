@@ -208,14 +208,14 @@ class AppBootstrapper {
         let welcomeNavigationController = NavigationController(theme: defaultTheme)
         welcomeNavigationController.pushViewController(welcomeController, animated: false)
 
-        let onboardingRouter = OnboardingRouter(
+        let onboardingWorkflow = OnboardingWorkflow(
             applicationSettingsRepository: applicationSettingsRepository,
             onboardingController: welcomeNavigationController,
             postOnboardingController: tabBarController)
 
-        welcomeController.onboardingRouter = onboardingRouter
+        welcomeController.onboardingWorkflow = onboardingWorkflow
 
-        onboardingRouter.initialViewController { (controller) -> Void in
+        onboardingWorkflow.initialViewController { (controller) -> Void in
             self.window = UIWindow(frame: mainScreen.bounds)
             self.window!.rootViewController = controller
             self.window!.backgroundColor = defaultTheme.defaultBackgroundColor()

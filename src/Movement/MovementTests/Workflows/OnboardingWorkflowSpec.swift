@@ -4,18 +4,18 @@ import Nimble
 @testable import Movement
 
 
-class OnboardingRouterSpec: QuickSpec {
-    var subject: OnboardingRouter!
+class OnboardingWorkflowSpec: QuickSpec {
+    var subject: OnboardingWorkflow!
     var applicationSettingsRepository: FakeApplicationSettingsRepository!
     let onboardingController = UIViewController()
     let postOnboardingController = UIViewController()
 
     override func spec() {
-        describe("OnboardingRouter") {
+        describe("OnboardingWorkflow") {
             beforeEach {
                 self.applicationSettingsRepository = FakeApplicationSettingsRepository()
 
-                self.subject = OnboardingRouter(
+                self.subject = OnboardingWorkflow(
                     applicationSettingsRepository: self.applicationSettingsRepository,
                     onboardingController: self.onboardingController,
                     postOnboardingController: self.postOnboardingController)

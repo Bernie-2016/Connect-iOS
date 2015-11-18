@@ -15,7 +15,7 @@ class WelcomeFakeTheme: FakeTheme {
     override func welcomeTextColor() -> UIColor { return UIColor.purpleColor() }
 }
 
-class FakeOnboardingRouter: OnboardingRouter {
+class FakeOnboardingWorkflow: OnboardingWorkflow {
     var hasFinishedOnboarding = false
     var lastControllerToFinishOnboarding: UIViewController!
 
@@ -35,7 +35,7 @@ class FakeOnboardingRouter: OnboardingRouter {
 
 class WelcomeControllerSpec: QuickSpec {
     var subject: WelcomeController!
-    var onboardingRouter: FakeOnboardingRouter!
+    var onboardingWorkflow: FakeOnboardingWorkflow!
     var applicationSettingsRepository: FakeApplicationSettingsRepository!
     let termsAndConditionsController = TestUtils.termsAndConditionsController()
     let privacyPolicyController = TestUtils.privacyPolicyController()
@@ -49,7 +49,7 @@ class WelcomeControllerSpec: QuickSpec {
             beforeEach {
                 self.applicationSettingsRepository = FakeApplicationSettingsRepository()
                 self.analyticsService = FakeAnalyticsService()
-                self.onboardingRouter = FakeOnboardingRouter()
+                self.onboardingWorkflow = FakeOnboardingWorkflow()
 
                 self.subject = WelcomeController(
                     applicationSettingsRepository: self.applicationSettingsRepository,
@@ -59,7 +59,7 @@ class WelcomeControllerSpec: QuickSpec {
                     theme: self.theme
                 )
 
-                self.subject.onboardingRouter = self.onboardingRouter
+                self.subject.onboardingWorkflow = self.onboardingWorkflow
 
                 self.navigationController = UINavigationController()
                 self.navigationController.pushViewController(self.subject, animated: false)
@@ -149,8 +149,8 @@ class WelcomeControllerSpec: QuickSpec {
 
                     context("when the terms agreement repository confirms that the user agreed to terms") {
                         it("tells the onboarding router that the user finished onboarding") {
-                            expect(self.onboardingRouter.hasFinishedOnboarding).to(beTrue())
-                            expect(self.onboardingRouter.lastControllerToFinishOnboarding).to(beIdenticalTo(self.subject))
+                            expect(self.onboardingWorkflow.hasFinishedOnboarding).to(beTrue())
+                            expect(self.onboardingWorkflow.lastControllerToFinishOnboarding).to(beIdenticalTo(self.subject))
                         }
                     }
                 }

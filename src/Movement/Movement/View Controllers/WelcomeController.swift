@@ -7,7 +7,7 @@ class WelcomeController: UIViewController {
     private let applicationSettingsRepository: ApplicationSettingsRepository
     private let theme: Theme
 
-    var onboardingRouter: OnboardingRouter!
+    var onboardingWorkflow: OnboardingWorkflow!
 
     let billionairesImageView = UIImageView.newAutoLayoutView()
     let takeThePowerBackLabel = UILabel.newAutoLayoutView()
@@ -110,7 +110,7 @@ class WelcomeController: UIViewController {
     func didTapAgreeToTerms() {
         self.analyticsService.trackCustomEventWithName("User agreed to Terms and Conditions", customAttributes: nil)
         self.applicationSettingsRepository.userAgreedToTerms { () -> Void in
-            self.onboardingRouter.controllerDidFinishOnboarding(self)
+            self.onboardingWorkflow.controllerDidFinishOnboarding(self)
         }
     }
 

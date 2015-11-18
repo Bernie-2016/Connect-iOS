@@ -1,6 +1,6 @@
 import UIKit
 
-class OnboardingRouter {
+class OnboardingWorkflow {
     private let applicationSettingsRepository: ApplicationSettingsRepository
     private let onboardingController: UIViewController
     private let postOnboardingController: UIViewController
