@@ -1,0 +1,22 @@
+import Foundation
+@testable import Movement
+
+class FakeApplication: ApplicationUserNotificationHandler {
+    var callCount = 0
+
+    var lastRegisteredUserNotificationSettings: UIUserNotificationSettings!
+    var registerUserNotificationSettingsCallIndex: Int!
+
+    func registerUserNotificationSettings(notificationSettings: UIUserNotificationSettings) {
+        self.lastRegisteredUserNotificationSettings = notificationSettings
+        self.callCount++
+        self.registerUserNotificationSettingsCallIndex = self.callCount
+    }
+
+    var registerForRemoteNotificationsCallIndex: Int!
+    func registerForRemoteNotifications() {
+        self.callCount++
+        self.registerForRemoteNotificationsCallIndex = self.callCount
+    }
+
+}

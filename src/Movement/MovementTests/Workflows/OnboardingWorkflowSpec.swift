@@ -3,22 +3,46 @@ import Quick
 import Nimble
 @testable import Movement
 
+class FakePushNotificationRegistrar: PushNotificationRegistrar {
+    var lastAppUsedForRegistration: ApplicationUserNotificationHandler!
+
+    func registerForRemoteNotificationsWithApplication(application: ApplicationUserNotificationHandler) {
+        self.lastAppUsedForRegistration = application
+    }
+
+    func application(application: ApplicationUserNotificationHandler, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+
+    }
+
+    func application(application: ApplicationUserNotificationHandler, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+
+    }
+}
+
+
 
 class OnboardingWorkflowSpec: QuickSpec {
     var subject: OnboardingWorkflow!
     var applicationSettingsRepository: FakeApplicationSettingsRepository!
-    let onboardingController = UIViewController()
-    let postOnboardingController = UIViewController()
+    var pushNotificationRegistrar: FakePushNotificationRegistrar!
+    var onboardingController: UIViewController!
+    var postOnboardingController: UIViewController!
+    let application = FakeApplication()
 
     override func spec() {
         describe("OnboardingWorkflow") {
             beforeEach {
+                self.onboardingController = UIViewController()
+                self.postOnboardingController = UIViewController()
                 self.applicationSettingsRepository = FakeApplicationSettingsRepository()
+                self.pushNotificationRegistrar = FakePushNotificationRegistrar()
 
                 self.subject = OnboardingWorkflow(
                     applicationSettingsRepository: self.applicationSettingsRepository,
                     onboardingController: self.onboardingController,
-                    postOnboardingController: self.postOnboardingController)
+                    postOnboardingController: self.postOnboardingController,
+                    pushNotificationRegistrar: self.pushNotificationRegistrar,
+                    application: self.application)
             }
 
             describe("getting the initial view controller in the workflow") {
@@ -59,6 +83,14 @@ class OnboardingWorkflowSpec: QuickSpec {
                     self.subject.controllerDidFinishOnboarding(self.onboardingController)
 
                     expect(self.onboardingController.presentedViewController).to(beIdenticalTo(self.postOnboardingController))
+                }
+
+                it("tells the push registrar to register for remote notifications") {
+                    self.subject.controllerDidFinishOnboarding(self.onboardingController)
+
+                    let lastRegisteredApplication: FakeApplication = self.pushNotificationRegistrar.lastAppUsedForRegistration as! FakeApplication
+
+                    expect(lastRegisteredApplication).to(beIdenticalTo(self.application))
                 }
             }
         }

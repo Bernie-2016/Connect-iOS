@@ -23,7 +23,9 @@ class FakeOnboardingWorkflow: OnboardingWorkflow {
         super.init(
             applicationSettingsRepository: FakeApplicationSettingsRepository(),
             onboardingController: UIViewController(),
-            postOnboardingController: UIViewController()
+            postOnboardingController: UIViewController(),
+            pushNotificationRegistrar: FakePushNotificationRegistrar(),
+            application: FakeApplication()
         )
     }
 

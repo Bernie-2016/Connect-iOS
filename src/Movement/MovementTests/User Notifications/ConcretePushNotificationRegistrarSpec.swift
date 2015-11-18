@@ -3,26 +3,6 @@ import Nimble
 import Parse
 @testable import Movement
 
-private class FakeApplication: ApplicationUserNotificationHandler {
-    var callCount = 0
-
-    var lastRegisteredUserNotificationSettings: UIUserNotificationSettings!
-    var registerUserNotificationSettingsCallIndex: Int!
-
-    func registerUserNotificationSettings(notificationSettings: UIUserNotificationSettings) {
-        self.lastRegisteredUserNotificationSettings = notificationSettings
-        self.callCount++
-        self.registerUserNotificationSettingsCallIndex = self.callCount
-    }
-
-    var registerForRemoteNotificationsCallIndex: Int!
-    func registerForRemoteNotifications() {
-        self.callCount++
-        self.registerForRemoteNotificationsCallIndex = self.callCount
-    }
-
-}
-
 private class FakePFInstallation: PFInstallation {
     var lastDeviceTokenData: NSData!
     override func setDeviceTokenFromData(deviceTokenData: NSData?) {

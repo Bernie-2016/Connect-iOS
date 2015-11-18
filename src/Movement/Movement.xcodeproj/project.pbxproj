@@ -156,6 +156,7 @@
 		65CA5E931B86E4A00001D870 /* DefaultTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CA5E921B86E4A00001D870 /* DefaultTheme.swift */; };
 		65CA5E971B86E5950001D870 /* NewsItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CA5E961B86E5950001D870 /* NewsItemTableViewCell.swift */; };
 		65CA5E991B86E76D0001D870 /* PureLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65CA5E981B86E76D0001D870 /* PureLayout.framework */; };
+		65CAC2C81BFC1F540064B9E2 /* FakeApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CAC2C71BFC1F540064B9E2 /* FakeApplication.swift */; };
 		65D0ECE11BBAD7780063B1D0 /* EventRSVPControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D0ECE01BBAD7780063B1D0 /* EventRSVPControllerProvider.swift */; };
 		65D0ECE31BBAD7A20063B1D0 /* EventRSVPController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D0ECE21BBAD7A20063B1D0 /* EventRSVPController.swift */; };
 		65D0ECE51BBAD93D0063B1D0 /* ConcreteEventRSVPControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D0ECE41BBAD93D0063B1D0 /* ConcreteEventRSVPControllerProvider.swift */; };
@@ -385,6 +386,7 @@
 		65CA5E921B86E4A00001D870 /* DefaultTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultTheme.swift; sourceTree = "<group>"; };
 		65CA5E961B86E5950001D870 /* NewsItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsItemTableViewCell.swift; sourceTree = "<group>"; };
 		65CA5E981B86E76D0001D870 /* PureLayout.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PureLayout.framework; path = Carthage/Build/iOS/PureLayout.framework; sourceTree = "<group>"; };
+		65CAC2C71BFC1F540064B9E2 /* FakeApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeApplication.swift; sourceTree = "<group>"; };
 		65D0ECE01BBAD7780063B1D0 /* EventRSVPControllerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventRSVPControllerProvider.swift; sourceTree = "<group>"; };
 		65D0ECE21BBAD7A20063B1D0 /* EventRSVPController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventRSVPController.swift; sourceTree = "<group>"; };
 		65D0ECE41BBAD93D0063B1D0 /* ConcreteEventRSVPControllerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteEventRSVPControllerProvider.swift; sourceTree = "<group>"; };
@@ -415,11 +417,11 @@
 		65F5F65C1B896FFF0049353C /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		65F5F6621B8A3CB00049353C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		65F6C8291BE861E700EA973C /* DisclosureIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisclosureIndicatorView.swift; sourceTree = "<group>"; };
-		8233FC071B7C28FB00A5E9ED /* Movement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Movement.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8233FC071B7C28FB00A5E9ED /* Movement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Movement.app; path = "/Users/mjs/workspace/BernieAppiOS/src/Movement/build/Debug-iphoneos/Movement.app"; sourceTree = "<absolute>"; };
 		8233FC0B1B7C28FB00A5E9ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8233FC0C1B7C28FB00A5E9ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8233FC151B7C28FB00A5E9ED /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		8233FC1E1B7C28FB00A5E9ED /* MovementTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MovementTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8233FC1E1B7C28FB00A5E9ED /* MovementTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = MovementTests.xctest; path = "/Users/mjs/workspace/BernieAppiOS/src/Movement/build/Debug-iphoneos/MovementTests.xctest"; sourceTree = "<absolute>"; };
 		8233FC231B7C28FB00A5E9ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8233FC2F1B7C48A500A5E9ED /* NewsFeedController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFeedController.swift; sourceTree = "<group>"; };
 		8233FC311B7C4A9600A5E9ED /* IssuesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuesController.swift; sourceTree = "<group>"; };
@@ -938,6 +940,7 @@
 			isa = PBXGroup;
 			children = (
 				6559D70E1BBDC37000CBC7EE /* FakeAnalyticsService.swift */,
+				65CAC2C71BFC1F540064B9E2 /* FakeApplication.swift */,
 				655906F31BC4607100D7B0BA /* FakeApplicationSettingsRepository.swift */,
 				65EA2F281BB9B648001D8FD5 /* FakeDateFormatter.swift */,
 				65A337001BB88FFA0012877F /* FakeEventPresenter.swift */,
@@ -974,17 +977,7 @@
 				65EC4CF21B842A3D00DD4C83 /* Carthage */,
 				8233FC091B7C28FB00A5E9ED /* Movement */,
 				8233FC211B7C28FB00A5E9ED /* MovementTests */,
-				8233FC081B7C28FB00A5E9ED /* Products */,
 			);
-			sourceTree = "<group>";
-		};
-		8233FC081B7C28FB00A5E9ED /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				8233FC071B7C28FB00A5E9ED /* Movement.app */,
-				8233FC1E1B7C28FB00A5E9ED /* MovementTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		8233FC091B7C28FB00A5E9ED /* Movement */ = {
@@ -1163,7 +1156,7 @@
 				ar,
 			);
 			mainGroup = 8233FBFE1B7C28FB00A5E9ED;
-			productRefGroup = 8233FC081B7C28FB00A5E9ED /* Products */;
+			productRefGroup = 8233FBFE1B7C28FB00A5E9ED;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -1396,6 +1389,7 @@
 				65E715261BEA57E400432076 /* EventSearchResultsSpec.swift in Sources */,
 				65A26F421BEAFF29001B3611 /* EventSectionHeaderPresenterSpec.swift in Sources */,
 				6559D70F1BBDC37000CBC7EE /* FakeAnalyticsService.swift in Sources */,
+				65CAC2C81BFC1F540064B9E2 /* FakeApplication.swift in Sources */,
 				655906F41BC4607100D7B0BA /* FakeApplicationSettingsRepository.swift in Sources */,
 				65EA2F291BB9B648001D8FD5 /* FakeDateFormatter.swift in Sources */,
 				65A337011BB88FFA0012877F /* FakeEventPresenter.swift in Sources */,

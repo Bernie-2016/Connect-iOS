@@ -14,7 +14,7 @@ class AppBootstrapper {
     var pushNotificationRegistrar: PushNotificationRegistrar!
 
     // swiftlint:disable function_body_length
-    func bootstrap() -> Bool {
+    func bootstrapWithApplication(application: UIApplication) -> Bool {
         #if RELEASE
             Fabric.with([Crashlytics.self()])
         #endif
@@ -211,7 +211,10 @@ class AppBootstrapper {
         let onboardingWorkflow = OnboardingWorkflow(
             applicationSettingsRepository: applicationSettingsRepository,
             onboardingController: welcomeNavigationController,
-            postOnboardingController: tabBarController)
+            postOnboardingController: tabBarController,
+            pushNotificationRegistrar: pushNotificationRegistrar,
+            application: application
+        )
 
         welcomeController.onboardingWorkflow = onboardingWorkflow
 

@@ -3,16 +3,15 @@ import UIKit
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var pushNotificationRegistrar: PushNotificationRegistrar!
+    let appBootstrapper = AppBootstrapper()
 
     func application(
         application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
-            let appBootstrapper = AppBootstrapper()
-
+            self.appBootstrapper.bootstrapWithApplication(application)
             self.pushNotificationRegistrar = appBootstrapper.pushNotificationRegistrar
-            self.pushNotificationRegistrar.registerForRemoteNotificationsWithApplication(application)
 
-            return appBootstrapper.bootstrap()
+            return true
     }
 
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
