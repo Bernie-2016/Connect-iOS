@@ -8,6 +8,8 @@ class AboutController: UIViewController {
 
     private let scrollView = UIScrollView.newAutoLayoutView()
     private let containerView = UIView.newAutoLayoutView()
+    private var containerViewWidthConstraint: NSLayoutConstraint!
+
 
     let bodyTextLabel = UILabel.newAutoLayoutView()
     let redditLabel = UILabel.newAutoLayoutView()
@@ -68,6 +70,14 @@ class AboutController: UIViewController {
         self.analyticsService.trackBackButtonTapOnScreen("About", customAttributes: nil)
     }
 
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
+
+        let screenBounds = UIScreen.mainScreen().bounds
+        self.containerViewWidthConstraint.constant = screenBounds.width
+    }
+
+
     // MARK: Actions
 
     func didTapCoders() {
@@ -94,7 +104,7 @@ class AboutController: UIViewController {
         self.scrollView.autoPinEdgesToSuperviewEdges()
 
         self.containerView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Trailing)
-        self.containerView.autoSetDimension(.Width, toSize: screenBounds.width)
+        self.containerViewWidthConstraint = self.containerView.autoSetDimension(.Width, toSize: screenBounds.width)
 
         self.bodyTextLabel.numberOfLines = 0
         self.bodyTextLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: 16)

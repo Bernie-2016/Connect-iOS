@@ -1,6 +1,7 @@
 import UIKit
 import PureLayout
 
+// swiftlint:disable type_body_length
 class NewsItemController: UIViewController {
     let newsItem: NewsItem
     let imageRepository: ImageRepository
@@ -11,6 +12,7 @@ class NewsItemController: UIViewController {
     let theme: Theme
 
     private let containerView = UIView.newAutoLayoutView()
+    private var containerViewWidthConstraint: NSLayoutConstraint!
     private let scrollView = UIScrollView.newAutoLayoutView()
     let dateLabel = UILabel.newAutoLayoutView()
     let titleButton = UIButton.newAutoLayoutView()
@@ -92,6 +94,13 @@ class NewsItemController: UIViewController {
         self.analyticsService.trackBackButtonTapOnScreen("News Item", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.newsItem.url.absoluteString])
     }
 
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
+
+        let screenBounds = UIScreen.mainScreen().bounds
+        self.containerViewWidthConstraint.constant = screenBounds.width
+    }
+
     // MARK: Actions
 
     func share() {
@@ -136,7 +145,7 @@ class NewsItemController: UIViewController {
         self.scrollView.autoPinEdgesToSuperviewEdges()
 
         self.containerView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Trailing)
-        self.containerView.autoSetDimension(.Width, toSize: screenBounds.width)
+        self.containerViewWidthConstraint = self.containerView.autoSetDimension(.Width, toSize: screenBounds.width)
 
         self.storyImageView.contentMode = .ScaleAspectFill
         self.storyImageView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Bottom)
@@ -145,7 +154,7 @@ class NewsItemController: UIViewController {
 
         let titleLabel = self.titleButton.titleLabel!
 
-        titleLabel.numberOfLines = 3
+        titleLabel.numberOfLines = 0
         titleLabel.preferredMaxLayoutWidth = screenBounds.width - 8
         NSLayoutConstraint.autoSetPriority(1000, forConstraints: { () -> Void in
             self.titleButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.storyImageView, withOffset: 25)
@@ -201,3 +210,4 @@ class NewsItemController: UIViewController {
         self.viewOriginalButton.titleLabel!.font = self.theme.defaultButtonFont()
     }
 }
+// swiftlint:enable type_body_length

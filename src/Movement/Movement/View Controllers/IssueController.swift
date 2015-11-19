@@ -10,6 +10,7 @@ class IssueController: UIViewController {
     let theme: Theme
 
     private let containerView = UIView()
+    private var containerViewWidthConstraint: NSLayoutConstraint!
     private let scrollView = UIScrollView()
     let titleButton = UIButton.newAutoLayoutView()
     let bodyTextView = UITextView.newAutoLayoutView()
@@ -76,6 +77,12 @@ class IssueController: UIViewController {
         self.analyticsService.trackBackButtonTapOnScreen("Issue", customAttributes: [AnalyticsServiceConstants.contentIDKey: issue.url.absoluteString])
     }
 
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
+
+        let screenBounds = UIScreen.mainScreen().bounds
+        self.containerViewWidthConstraint.constant = screenBounds.width
+    }
 
     // MARK: Actions
 
@@ -122,30 +129,30 @@ class IssueController: UIViewController {
         self.scrollView.autoPinEdgesToSuperviewEdges()
 
         self.containerView.translatesAutoresizingMaskIntoConstraints = false
-        self.containerView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: ALEdge.Trailing)
-        self.containerView.autoSetDimension(ALDimension.Width, toSize: screenBounds.width)
+        self.containerView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Trailing)
+        self.containerViewWidthConstraint = self.containerView.autoSetDimension(.Width, toSize: screenBounds.width)
 
         self.issueImageView.contentMode = .ScaleAspectFill
-        self.issueImageView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: ALEdge.Bottom)
-        self.issueImageView.autoSetDimension(ALDimension.Height, toSize: screenBounds.height / 3, relation: NSLayoutRelation.LessThanOrEqual)
+        self.issueImageView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Bottom)
+        self.issueImageView.autoSetDimension(.Height, toSize: screenBounds.height / 3, relation: NSLayoutRelation.LessThanOrEqual)
+        self.issueImageView.clipsToBounds = true
 
         NSLayoutConstraint.autoSetPriority(1000, forConstraints: { () -> Void in
-            self.titleButton.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.issueImageView, withOffset: 32)
+            self.titleButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.issueImageView, withOffset: 25)
         })
 
         NSLayoutConstraint.autoSetPriority(500, forConstraints: { () -> Void in
-            self.titleButton.autoPinEdgeToSuperviewEdge(ALEdge.Top, withInset: 8)
+            self.titleButton.autoPinEdgeToSuperviewEdge(.Top, withInset: 25)
         })
 
         let titleLabel = self.titleButton.titleLabel!
         titleLabel.numberOfLines = 0
         titleLabel.preferredMaxLayoutWidth = screenBounds.width - 8
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.lineBreakMode = .ByWordWrapping
         titleButton.contentHorizontalAlignment = .Left
         titleButton.autoPinEdgeToSuperviewMargin(.Left)
         titleButton.autoPinEdgeToSuperviewMargin(.Right)
-        titleButton.autoSetDimension(.Height, toSize: 20, relation: NSLayoutRelation.GreaterThanOrEqual)
+        titleButton.layoutIfNeeded()
+        titleButton.autoSetDimension(.Height, toSize: titleLabel.frame.height)
 
         bodyTextView.scrollEnabled = false
         bodyTextView.translatesAutoresizingMaskIntoConstraints = false

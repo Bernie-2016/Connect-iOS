@@ -13,6 +13,7 @@ class EventController: UIViewController {
     let theme: Theme
 
     private let containerView = UIView.newAutoLayoutView()
+    private var containerViewWidthConstraint: NSLayoutConstraint!
     private let scrollView = UIScrollView.newAutoLayoutView()
     let mapView = MKMapView.newAutoLayoutView()
     let dateLabel = UILabel.newAutoLayoutView()
@@ -86,6 +87,13 @@ class EventController: UIViewController {
 
     override func didMoveToParentViewController(parent: UIViewController?) {
         self.analyticsService.trackBackButtonTapOnScreen("Event", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.event.url.absoluteString])
+    }
+
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
+
+        let screenBounds = UIScreen.mainScreen().bounds
+        self.containerViewWidthConstraint.constant = screenBounds.width
     }
 
     // MARK: Actions
@@ -203,7 +211,7 @@ class EventController: UIViewController {
         rsvpButton.autoSetDimension(.Height, toSize: 54)
 
         containerView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Trailing)
-        containerView.autoSetDimension(.Width, toSize: screenBounds.width)
+        self.containerViewWidthConstraint = containerView.autoSetDimension(.Width, toSize: screenBounds.width)
 
         mapView.autoPinEdgeToSuperviewEdge(.Top)
         mapView.autoPinEdgeToSuperviewEdge(.Left)

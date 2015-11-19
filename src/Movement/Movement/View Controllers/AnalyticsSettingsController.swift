@@ -7,6 +7,8 @@ class AnalyticsSettingsController: UIViewController {
 
     private let scrollView = UIScrollView.newAutoLayoutView()
     private let containerView = UIView.newAutoLayoutView()
+    private var containerViewWidthConstraint: NSLayoutConstraint!
+
     private let spacerView = UIView.newAutoLayoutView()
     let analyticsExplanationLabel = UILabel.newAutoLayoutView()
     let analyticsSwitch = UISwitch.newAutoLayoutView()
@@ -60,6 +62,14 @@ class AnalyticsSettingsController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
+
+        let screenBounds = UIScreen.mainScreen().bounds
+        self.containerViewWidthConstraint.constant = screenBounds.width
+    }
+
+
     // MARK: Actions
 
     func didTapAnalyticsSwitch(sender: UISwitch) {
@@ -81,7 +91,7 @@ class AnalyticsSettingsController: UIViewController {
         scrollView.autoPinEdgeToSuperviewEdge(.Bottom)
 
         containerView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Trailing)
-        containerView.autoSetDimension(.Width, toSize: screenBounds.width)
+        self.containerViewWidthConstraint = containerView.autoSetDimension(.Width, toSize: screenBounds.width)
 
         analyticsExplanationLabel.autoPinEdgesToSuperviewMarginsExcludingEdge(.Bottom)
         analyticsSwitch.autoPinEdge(.Top, toEdge: .Bottom, ofView: analyticsExplanationLabel, withOffset: 16)
