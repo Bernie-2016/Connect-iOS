@@ -52,6 +52,7 @@ class ConcreteIssueRepositorySpec : QuickSpec {
                 let expectedHTTPBodyDictionary =
                 [
                     "from": 0, "size": 30,
+                    "_source": ["title", "body", "url", "image_url"],
                     "query": [
                         "query_string": [
                             "default_field": "article_type",

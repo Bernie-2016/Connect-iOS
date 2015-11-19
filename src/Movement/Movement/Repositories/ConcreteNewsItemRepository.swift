@@ -30,6 +30,7 @@ class ConcreteNewsItemRepository: NewsItemRepository {
                 return incorrectObjectTypeError
             }
 
+
             let parsedNewsItems = self.newsItemDeserializer.deserializeNewsItems(jsonDictionary!)
 
             self.operationQueue.addOperationWithBlock({ () -> Void in
@@ -51,6 +52,7 @@ class ConcreteNewsItemRepository: NewsItemRepository {
     func HTTPBodyDictionary() -> NSDictionary {
         return [
             "from": 0, "size": 30,
+            "_source": ["title", "body", "excerpt", "created_at", "url", "image_url"],
             "query": [
                 "query_string": [
                     "default_field": "article_type",
