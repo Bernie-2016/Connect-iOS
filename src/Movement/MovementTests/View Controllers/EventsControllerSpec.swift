@@ -208,6 +208,7 @@ class EventsControllerSpec : QuickSpec {
                 self.window.makeKeyAndVisible()
 
                 self.subject.view.layoutSubviews()
+                self.subject.viewDidAppear(false)
             }
 
             afterEach {
@@ -260,7 +261,7 @@ class EventsControllerSpec : QuickSpec {
                 expect(self.subject.instructionsLabel.text).to(equal("Enter your ZIP code above to find Bernie events near you!"))
             }
 
-            it("configures the keyboard to be a number pad") {
+            it("configures the zip code keyboard to be a number pad") {
                 expect(self.subject.zipCodeTextField.keyboardType).to(equal(UIKeyboardType.NumberPad))
             }
 
@@ -299,8 +300,46 @@ class EventsControllerSpec : QuickSpec {
                 expect(cancelButton.title).to(equal("Cancel"))
             }
 
-            context("when entering a valid zip code") {
+            it("sets the radius button's input view to be the radius picker") {
+                expect(self.subject.radiusButton.inputView).to(beIdenticalTo(self.subject.radiusPickerView))
+            }
+
+            it("sets the title of the radius button") {
+                expect(self.subject.radiusButton.titleForState(.Normal)).to(equal("Radius"))
+            }
+
+            it("selects the correct default radius in the picker") {
+                let picker = self.subject.radiusPickerView
+
+                let selectedRow = picker.selectedRowInComponent(0)
+                let title = picker.delegate!.pickerView!(picker, titleForRow: selectedRow, forComponent: 0)
+
+                expect(title).to(equal("10 Miles"))
+            }
+
+            context("when selecting a search radius") {
+                it("has the correct set of search radii") {
+                    expect(self.subject.radiusPickerView.dataSource?.numberOfComponentsInPickerView(self.subject.radiusPickerView)).to(equal(1))
+                    expect(self.subject.radiusPickerView.dataSource?.pickerView(self.subject.radiusPickerView, numberOfRowsInComponent: 0)).to(equal(6))
+
+                    expect(self.subject.radiusPickerView.delegate?.pickerView!(self.subject.radiusPickerView, titleForRow: 0, forComponent: 0)).to(equal("5 Miles"))
+                    expect(self.subject.radiusPickerView.delegate?.pickerView!(self.subject.radiusPickerView, titleForRow: 1, forComponent: 0)).to(equal("10 Miles"))
+                    expect(self.subject.radiusPickerView.delegate?.pickerView!(self.subject.radiusPickerView, titleForRow: 2, forComponent: 0)).to(equal("20 Miles"))
+                    expect(self.subject.radiusPickerView.delegate?.pickerView!(self.subject.radiusPickerView, titleForRow: 3, forComponent: 0)).to(equal("50 Miles"))
+                    expect(self.subject.radiusPickerView.delegate?.pickerView!(self.subject.radiusPickerView, titleForRow: 4, forComponent: 0)).to(equal("100 Miles"))
+                    expect(self.subject.radiusPickerView.delegate?.pickerView!(self.subject.radiusPickerView, titleForRow: 5, forComponent: 0)).to(equal("250 Miles"))
+                }
+
+                describe("when a search radius is chosen") {
+                    it("updates the text field") {
+
+                    }
+                }
+            }
+
+            context("when entering a zip code") {
                 beforeEach {
+                    self.subject.zipCodeTextField.tap()
                     self.subject.zipCodeTextField.becomeFirstResponder()
 
                     expect(self.subject.zipCodeTextField.isFirstResponder()).to(beTrue())
@@ -336,6 +375,7 @@ class EventsControllerSpec : QuickSpec {
                     beforeEach {
                         let inputToolbar = self.subject.zipCodeTextField.inputAccessoryView as! UIToolbar
                         let doneButton = inputToolbar.items![1]
+
                         doneButton.tap()
                     }
 
@@ -351,9 +391,9 @@ class EventsControllerSpec : QuickSpec {
                         expect(self.subject.instructionsLabel.hidden).to(beTrue())
                     }
 
-                    it("should ask the events repository for events within 50 miles") {
+                    it("should ask the events repository for events with the default search radius") {
                         expect(self.eventRepository.lastReceivedZipCode).to(equal("90210"))
-                        expect(self.eventRepository.lastReceivedRadiusMiles).to(equal(50.0))
+                        expect(self.eventRepository.lastReceivedRadiusMiles).to(equal(10.0))
                     }
 
                     it("should log an event via the analytics service") {
@@ -402,9 +442,9 @@ class EventsControllerSpec : QuickSpec {
                                 expect(self.subject.loadingActivityIndicatorView.isAnimating()).to(beTrue())
                             }
 
-                            it("should ask the events repository for events within 50 miles") {
+                            it("should ask the events repository for events within the configured search radius") {
                                 expect(self.eventRepository.lastReceivedZipCode).to(equal("11111"))
-                                expect(self.eventRepository.lastReceivedRadiusMiles).to(equal(50.0))
+                                expect(self.eventRepository.lastReceivedRadiusMiles).to(equal(10.0))
                             }
                         }
                     }
@@ -448,9 +488,9 @@ class EventsControllerSpec : QuickSpec {
                                     expect(self.subject.loadingActivityIndicatorView.isAnimating()).to(beTrue())
                                 }
 
-                                it("should ask the events repository for events within 50 miles") {
+                                it("should ask the events repository for events within the configured search radius") {
                                     expect(self.eventRepository.lastReceivedZipCode).to(equal("11111"))
-                                    expect(self.eventRepository.lastReceivedRadiusMiles).to(equal(50.0))
+                                    expect(self.eventRepository.lastReceivedRadiusMiles).to(equal(10.0))
                                 }
                             }
                         }
@@ -581,6 +621,76 @@ class EventsControllerSpec : QuickSpec {
                                 }
                             }
 
+                            describe("tapping on the radius button") {
+                                beforeEach {
+                                    self.subject.radiusButton.tap()
+                                }
+
+                                it("becomes first responder") {
+                                    expect(self.subject.radiusButton.isFirstResponder()).to(beTrue())
+                                }
+
+                                describe("and then tapping search after selecting a radius") {
+                                    beforeEach {
+                                        let inputToolbar = self.subject.radiusPickerView.inputAccessoryView as! UIToolbar
+                                        let doneButton = inputToolbar.items![1]
+
+                                        let picker = self.subject.radiusPickerView
+
+                                        picker.delegate!.pickerView!(picker, didSelectRow: 5, inComponent: 0)
+
+                                        doneButton.tap()
+                                    }
+
+                                    it("resigns first responder") {
+                                        expect(self.subject.radiusButton.isFirstResponder()).to(beFalse())
+                                    }
+
+                                    it("should ask the events repository for events with the updated radius") {
+                                        expect(self.eventRepository.lastReceivedZipCode).to(equal("90210"))
+                                        expect(self.eventRepository.lastReceivedRadiusMiles).to(equal(250.0))
+                                    }
+                                }
+
+                                describe("and then tapping cancel") {
+                                    beforeEach {
+                                        let inputToolbar = self.subject.radiusPickerView.inputAccessoryView as! UIToolbar
+                                        let cancelButton = inputToolbar.items![2]
+
+                                        let picker = self.subject.radiusPickerView
+                                        picker.selectRow(5, inComponent: 0, animated: false)
+                                        picker.delegate!.pickerView!(picker, didSelectRow: 5, inComponent: 0)
+
+                                        cancelButton.tap()
+                                    }
+
+                                    it("resigns first responder") {
+                                        expect(self.subject.radiusButton.isFirstResponder()).to(beFalse())
+                                    }
+
+                                    describe("making a subsequent search") {
+                                        beforeEach {
+                                            let inputToolbar = self.subject.zipCodeTextField.inputAccessoryView as! UIToolbar
+                                            let doneButton = inputToolbar.items![1]
+                                            doneButton.tap()
+                                        }
+
+                                        it("should ask the events repository for events with the unchanged, previously configured radius") {
+                                            expect(self.eventRepository.lastReceivedRadiusMiles).to(equal(10.0))
+                                        }
+
+                                        it("reverts the selected radius in the picker") {
+                                            let picker = self.subject.radiusPickerView
+
+                                            let selectedRow = picker.selectedRowInComponent(0)
+                                            let title = picker.delegate!.pickerView!(picker, titleForRow: selectedRow, forComponent: 0)
+
+                                            expect(title).to(equal("10 Miles"))
+                                        }
+                                    }
+                                }
+                            }
+
                             describe("making a subsequent search") {
                                 beforeEach {
                                     self.subject.zipCodeTextField.text = "11111"
@@ -599,9 +709,9 @@ class EventsControllerSpec : QuickSpec {
                                     expect(self.subject.loadingActivityIndicatorView.isAnimating()).to(beTrue())
                                 }
 
-                                it("should ask the events repository for events within 50 miles") {
+                                it("should ask the events repository for events within the configured radius") {
                                     expect(self.eventRepository.lastReceivedZipCode).to(equal("11111"))
-                                    expect(self.eventRepository.lastReceivedRadiusMiles).to(equal(50.0))
+                                    expect(self.eventRepository.lastReceivedRadiusMiles).to(equal(10.0))
                                 }
                             }
                         }
