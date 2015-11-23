@@ -272,15 +272,12 @@ class EventsControllerSpec : QuickSpec {
                 expect(self.subject.zipCodeTextField.layer.cornerRadius).to(equal(100.0))
                 expect(self.subject.zipCodeTextField.layer.borderWidth).to(equal(200.0))
 
+                expect(self.subject.zipCodeTextField.layer.sublayerTransform.m41).to(equal(4))
+                expect(self.subject.zipCodeTextField.layer.sublayerTransform.m42).to(equal(5))
+                expect(self.subject.zipCodeTextField.layer.sublayerTransform.m43).to(equal(6))
 
-                // TODO: Figure out how to test this.
-                //                expect(self.subject.zipCodeTextField.layer.sublayerTransform).to(equal(CATransform3DMakeTranslation(4, 5, 6)))
-
-
-                // TODO: why does this not compile?
-                //                var a = self.subject.zipCodeTextField.layer.borderColor
-                //                var b = UIColor.orangeColor().CGColor
-                //                expect(a).to(equal(b))
+                let borderColor = UIColor(CGColor: self.subject.zipCodeTextField.layer.borderColor!)
+                expect(borderColor).to(equal(UIColor.orangeColor()))
 
                 expect(self.subject.instructionsLabel.textColor).to(equal(UIColor.whiteColor()))
                 expect(self.subject.instructionsLabel.font).to(equal(UIFont.italicSystemFontOfSize(666)))
