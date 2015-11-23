@@ -2,7 +2,6 @@ import UIKit
 
 class ResponderButton: UIButton {
     var buttonInputView: UIView!
-    var buttonInputAccessoryView: UIView!
 
     override var inputView: UIView { get {
         if buttonInputView != nil {
@@ -13,18 +12,6 @@ class ResponderButton: UIButton {
         }
 
         }}
-
-    override var inputAccessoryView: UIView {
-        get {
-            if buttonInputAccessoryView != nil {
-                return buttonInputAccessoryView
-            }
-            else {
-                return super.inputAccessoryView!
-            }
-
-        }
-    }
 
     override func canBecomeFirstResponder() -> Bool {
         return true

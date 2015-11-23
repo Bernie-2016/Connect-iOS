@@ -14,19 +14,22 @@ class EventsController: UIViewController {
     private let eventListTableViewCellStylist: EventListTableViewCellStylist
     private let theme: Theme
 
+    let searchBar = UIView.newAutoLayoutView()
     let zipCodeTextField = UITextField.newAutoLayoutView()
-    let radiusButton = ResponderButton.newAutoLayoutView()
+    let cancelButton = UIButton.newAutoLayoutView()
+    let searchButton = UIButton.newAutoLayoutView()
+    let filterButton = ResponderButton.newAutoLayoutView()
     let radiusPickerView = UIPickerView()
     let resultsTableView = UITableView.newAutoLayoutView()
     let noResultsLabel = UILabel.newAutoLayoutView()
     let instructionsLabel = UILabel.newAutoLayoutView()
     let loadingActivityIndicatorView = UIActivityIndicatorView.newAutoLayoutView()
 
+
     private let radiusPickerViewOptions = [5, 10, 20, 50, 100, 250]
     private var selectedSearchRadiusIndex = 1
     private var previouslySelectedRow: Int!
     private var eventSearchResult: EventSearchResult!
-
 
     init(eventRepository: EventRepository,
         eventPresenter: EventPresenter,
@@ -61,6 +64,8 @@ class EventsController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.setNeedsStatusBarAppearanceUpdate()
+
         navigationItem.title = NSLocalizedString("Events_navigationTitle", comment: "")
         let backBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Events_backButtonTitle", comment: ""),
             style: UIBarButtonItemStyle.Plain,
@@ -69,19 +74,6 @@ class EventsController: UIViewController {
         navigationItem.backBarButtonItem = backBarButtonItem
         edgesForExtendedLayout = .None
 
-        radiusButton.addTarget(self, action: "didTapRadius", forControlEvents: .TouchUpInside)
-        radiusButton.buttonInputView = radiusPickerView
-
-        radiusPickerView.showsSelectionIndicator = true
-
-        resultsTableView.dataSource = self
-        resultsTableView.delegate = self
-        resultsTableView.registerClass(EventListTableViewCell.self, forCellReuseIdentifier: "eventCell")
-
-        instructionsLabel.text = NSLocalizedString("Events_instructions", comment: "")
-
-        setNeedsStatusBarAppearanceUpdate()
-
         self.setupSubviews()
         self.applyTheme()
         self.setupConstraints()
@@ -89,6 +81,8 @@ class EventsController: UIViewController {
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
 
         if let selectedRowIndexPath = self.resultsTableView.indexPathForSelectedRow {
             self.resultsTableView.deselectRowAtIndexPath(selectedRowIndexPath, animated: false)
@@ -101,19 +95,37 @@ class EventsController: UIViewController {
         radiusPickerView.reloadAllComponents()
     }
 
+    override func viewWillDisappear(animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+
+        super.viewWillDisappear(animated)
+    }
+
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
+    }
+
     // MARK: Actions
 
-    func didTapRadius() {
+    func didTapFilter() {
         self.previouslySelectedRow = self.radiusPickerView.selectedRowInComponent(0)
-        self.radiusButton.becomeFirstResponder()
+        self.zipCodeTextField.hidden = true
+        self.filterButton.hidden = true
+        self.searchButton.hidden = false
+        self.cancelButton.hidden = false
+        self.filterButton.becomeFirstResponder()
     }
 
     func didTapSearch(sender: UIButton!) {
         let enteredZipCode = self.zipCodeTextField.text!
         self.analyticsService.trackSearchWithQuery(enteredZipCode, context: .Events)
 
+        self.searchButton.hidden = true
+        self.cancelButton.hidden = true
+        self.zipCodeTextField.hidden = false
+
         zipCodeTextField.resignFirstResponder()
-        radiusButton.resignFirstResponder()
+        filterButton.resignFirstResponder()
 
         self.instructionsLabel.hidden = true
         self.resultsTableView.hidden = true
@@ -124,7 +136,7 @@ class EventsController: UIViewController {
         self.eventRepository.fetchEventsWithZipCode(enteredZipCode, radiusMiles: Float(self.radiusPickerViewOptions[self.selectedSearchRadiusIndex]),
             completion: { (eventSearchResult: EventSearchResult) -> Void in
                 let matchingEventsFound = eventSearchResult.events.count > 0
-                self.radiusButton.hidden = false
+                self.filterButton.hidden = false
                 self.eventSearchResult = eventSearchResult
 
                 self.noResultsLabel.hidden = matchingEventsFound
@@ -133,7 +145,8 @@ class EventsController: UIViewController {
 
                 self.resultsTableView.reloadData()
             }) { (error: NSError) -> Void in
-                self.radiusButton.hidden = false
+                self.filterButton.hidden = true
+
                 self.analyticsService.trackError(error, context: "Events")
                 self.noResultsLabel.hidden = false
                 self.loadingActivityIndicatorView.stopAnimating()
@@ -142,8 +155,13 @@ class EventsController: UIViewController {
 
     func didTapCancel(sender: UIButton!) {
         self.analyticsService.trackCustomEventWithName("Cancelled ZIP Code search on Events", customAttributes: nil)
+        self.searchButton.hidden = true
+        self.cancelButton.hidden = true
+        self.zipCodeTextField.hidden = false
+        self.filterButton.hidden = self.eventSearchResult == nil
+
         self.zipCodeTextField.resignFirstResponder()
-        self.radiusButton.resignFirstResponder()
+        self.filterButton.resignFirstResponder()
         self.radiusPickerView.selectRow(self.previouslySelectedRow, inComponent: 0, animated: false)
         self.selectedSearchRadiusIndex = self.previouslySelectedRow
     }
@@ -151,21 +169,24 @@ class EventsController: UIViewController {
     // MARK: Private
 
     func setupSubviews() {
-        view.addSubview(zipCodeTextField)
-        view.addSubview(radiusButton)
+        searchBar.addSubview(zipCodeTextField)
+        searchBar.addSubview(searchButton)
+        searchBar.addSubview(cancelButton)
+        searchBar.addSubview(filterButton)
+
+        view.addSubview(searchBar)
         view.addSubview(instructionsLabel)
         view.addSubview(resultsTableView)
         view.addSubview(noResultsLabel)
         view.addSubview(loadingActivityIndicatorView)
 
-        zipCodeTextField.delegate = self
-        zipCodeTextField.placeholder = NSLocalizedString("Events_zipCodeTextBoxPlaceholder",  comment: "")
-        zipCodeTextField.keyboardType = .NumberPad
+        setupSearchBar()
 
-        radiusButton.setTitle("Radius", forState: .Normal)
-        radiusButton.setTitleColor(self.theme.eventsZipCodeTextColor(), forState: .Normal)
-        radiusPickerView.delegate = self
-        radiusPickerView.dataSource = self
+        resultsTableView.dataSource = self
+        resultsTableView.delegate = self
+        resultsTableView.registerClass(EventListTableViewCell.self, forCellReuseIdentifier: "eventCell")
+
+        instructionsLabel.text = NSLocalizedString("Events_instructions", comment: "")
 
         instructionsLabel.textAlignment = .Center
         instructionsLabel.numberOfLines = 0
@@ -177,35 +198,55 @@ class EventsController: UIViewController {
         noResultsLabel.hidden = true
         loadingActivityIndicatorView.hidesWhenStopped = true
         loadingActivityIndicatorView.stopAnimating()
+    }
 
-        let inputAccessoryView = UIToolbar(frame: CGRectMake(0, 0, 320, 50))
-        inputAccessoryView.barTintColor = self.theme.eventsInputAccessoryBackgroundColor()
+    func setupSearchBar() {
+        zipCodeTextField.delegate = self
 
-        let spacer = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
-        let searchButton = UIBarButtonItem(title: NSLocalizedString("Events_eventSearchButtonTitle", comment: ""), style: .Done, target: self, action: "didTapSearch:")
-        let cancelButton = UIBarButtonItem(title: NSLocalizedString("Events_eventCancelButtonTitle", comment: ""), style: .Done, target: self, action: "didTapCancel:")
+        let magnifyingGlassIcon = UIImageView(frame: CGRectMake(0, 0, 22, 17))
+        let magnifyingGlassImage = UIImage(named: "searchMagnifyingGlass")!
+        magnifyingGlassIcon.image = magnifyingGlassImage
+        magnifyingGlassIcon.contentMode = .Left
+        zipCodeTextField.leftView = magnifyingGlassIcon
+        zipCodeTextField.leftViewMode = .UnlessEditing
+        zipCodeTextField.contentVerticalAlignment = .Center
 
-        let inputAccessoryItems = [spacer, searchButton, cancelButton]
-        inputAccessoryView.items = inputAccessoryItems
+        zipCodeTextField.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("Events_zipCodeTextBoxPlaceholder",  comment: ""),
+            attributes:[NSForegroundColorAttributeName: self.theme.eventsZipCodeTextColor()])
+        zipCodeTextField.keyboardType = .NumberPad
 
-        zipCodeTextField.inputAccessoryView = inputAccessoryView
-        radiusButton.buttonInputAccessoryView = inputAccessoryView
+        searchButton.setTitle(NSLocalizedString("Events_eventSearchButtonTitle", comment: ""), forState: .Normal)
+        searchButton.hidden = true
+        searchButton.addTarget(self, action: "didTapSearch:", forControlEvents: .TouchUpInside)
+        cancelButton.setTitle(NSLocalizedString("Events_eventCancelButtonTitle", comment: ""), forState: .Normal)
+        cancelButton.hidden = true
+        cancelButton.addTarget(self, action: "didTapCancel:", forControlEvents: .TouchUpInside)
+
+        filterButton.setImage(UIImage(named: "filterIcon"), forState: .Normal)
+        filterButton.setTitleColor(self.theme.eventsZipCodeTextColor(), forState: .Normal)
+        filterButton.hidden = true
+        filterButton.addTarget(self, action: "didTapFilter", forControlEvents: .TouchUpInside)
+        filterButton.buttonInputView = radiusPickerView
+
+        radiusPickerView.delegate = self
+        radiusPickerView.dataSource = self
+        radiusPickerView.showsSelectionIndicator = true
+
     }
 
     func applyTheme() {
+        searchBar.backgroundColor = self.theme.eventsSearchBarBackgroundColor()
+
         zipCodeTextField.textColor = self.theme.eventsZipCodeTextColor()
-        zipCodeTextField.font = self.theme.eventsZipCodeFont()
+        zipCodeTextField.font = self.theme.eventsSearchBarFont()
         zipCodeTextField.backgroundColor = self.theme.eventsZipCodeBackgroundColor()
         zipCodeTextField.layer.borderColor = self.theme.eventsZipCodeBorderColor().CGColor
         zipCodeTextField.layer.borderWidth = self.theme.eventsZipCodeBorderWidth()
         zipCodeTextField.layer.cornerRadius = self.theme.eventsZipCodeCornerRadius()
         zipCodeTextField.layer.sublayerTransform = self.theme.eventsZipCodeTextOffset()
 
-        radiusButton.backgroundColor = self.theme.eventsZipCodeBackgroundColor()
-        radiusButton.layer.borderColor = self.theme.eventsZipCodeBorderColor().CGColor
-        radiusButton.layer.borderWidth = self.theme.eventsZipCodeBorderWidth()
-        radiusButton.layer.cornerRadius = self.theme.eventsZipCodeCornerRadius()
-        radiusButton.layer.sublayerTransform = self.theme.eventsZipCodeTextOffset()
+        searchButton.titleLabel!.font = self.theme.eventsSearchBarFont()
+        cancelButton.titleLabel!.font = self.theme.eventsSearchBarFont()
 
         instructionsLabel.font = theme.eventsInstructionsFont()
         instructionsLabel.textColor = theme.eventsInstructionsTextColor()
@@ -217,15 +258,30 @@ class EventsController: UIViewController {
     }
 
     func setupConstraints() {
-        zipCodeTextField.autoPinEdgeToSuperviewEdge(.Top, withInset: 24)
-        zipCodeTextField.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
-        zipCodeTextField.autoPinEdgeToSuperviewEdge(.Right, withInset: 80)
-        zipCodeTextField.autoSetDimension(.Height, toSize: 45)
+        searchBar.autoPinEdgeToSuperviewEdge(.Top)
+        searchBar.autoPinEdgeToSuperviewEdge(.Left)
+        searchBar.autoPinEdgeToSuperviewEdge(.Right)
+        searchBar.autoSetDimension(.Height, toSize: 40 + 25)
 
-        radiusButton.autoPinEdge(.Left, toEdge: .Right, ofView: zipCodeTextField, withOffset: 8)
-        radiusButton.autoAlignAxis(.Horizontal, toSameAxisOfView: zipCodeTextField)
-        radiusButton.autoSetDimension(.Height, toSize: 45)
-        radiusButton.autoSetDimension(.Width, toSize: 60)
+        searchButton.autoPinEdge(.Right, toEdge: .Left, ofView: zipCodeTextField, withOffset: -15)
+        searchButton.autoAlignAxis(.Horizontal, toSameAxisOfView: zipCodeTextField)
+        searchButton.autoSetDimension(.Height, toSize: 25)
+        searchButton.autoSetDimension(.Width, toSize: 60)
+
+        cancelButton.autoPinEdge(.Left, toEdge: .Right, ofView: zipCodeTextField, withOffset: 15)
+        cancelButton.autoAlignAxis(.Horizontal, toSameAxisOfView: zipCodeTextField)
+        cancelButton.autoSetDimension(.Height, toSize: 25)
+        cancelButton.autoSetDimension(.Width, toSize: 60)
+
+        zipCodeTextField.autoAlignAxisToSuperviewAxis(.Vertical)
+        zipCodeTextField.autoPinEdgeToSuperviewEdge(.Top, withInset: 27)
+        zipCodeTextField.autoSetDimension(.Height, toSize: 25)
+        zipCodeTextField.autoSetDimension(.Width, toSize: 200)
+
+        filterButton.autoPinEdge(.Left, toEdge: .Right, ofView: zipCodeTextField, withOffset: 8)
+        filterButton.autoAlignAxis(.Horizontal, toSameAxisOfView: zipCodeTextField)
+        filterButton.autoSetDimension(.Height, toSize: 25)
+        filterButton.autoSetDimension(.Width, toSize: 70)
 
         instructionsLabel.autoAlignAxisToSuperviewAxis(.Vertical)
         instructionsLabel.autoAlignAxisToSuperviewAxis(.Horizontal)
@@ -308,7 +364,10 @@ extension EventsController: UITableViewDelegate {
 // MARK: <UITextFieldDelegate>
 extension EventsController: UITextFieldDelegate {
     func textFieldDidBeginEditing(textField: UITextField) {
-        self.analyticsService.trackCustomEventWithName("Tapped on ZIP Code text field on Events", customAttributes: nil)
+        searchButton.hidden = false
+        cancelButton.hidden = false
+        filterButton.hidden = true
+        analyticsService.trackCustomEventWithName("Tapped on ZIP Code text field on Events", customAttributes: nil)
     }
 }
 

@@ -130,11 +130,11 @@ class FakeTheme : Movement.Theme {
     func eventsListSectionHeaderFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
     func eventsListSectionHeaderTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func eventsListSectionHeaderBackgroundColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
-    func eventsInputAccessoryBackgroundColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func eventsSearchBarBackgroundColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func eventsZipCodeTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func eventsZipCodeBackgroundColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func eventsZipCodeBorderColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
-    func eventsZipCodeFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
+    func eventsSearchBarFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
     func eventsZipCodeCornerRadius() -> CGFloat { fatalError("FakeTheme used without being overridden in spec!") }
     func eventsZipCodeBorderWidth() -> CGFloat { fatalError("FakeTheme used without being overridden in spec!") }
     func eventsZipCodeTextOffset() -> CATransform3D { fatalError("FakeTheme used without being overridden in spec!") }

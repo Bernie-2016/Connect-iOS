@@ -6,7 +6,7 @@ import CoreLocation
 @testable import Movement
 import QuartzCore
 
-class EventsFakeTheme : FakeTheme {
+private class EventsFakeTheme : FakeTheme {
     override func tabBarActiveTextColor() -> UIColor {
         return UIColor.purpleColor()
     }
@@ -19,7 +19,7 @@ class EventsFakeTheme : FakeTheme {
         return UIFont.systemFontOfSize(123)
     }
 
-    override func eventsInputAccessoryBackgroundColor() -> UIColor {
+    override func eventsSearchBarBackgroundColor() -> UIColor {
         return UIColor.greenColor()
     }
 
@@ -35,7 +35,7 @@ class EventsFakeTheme : FakeTheme {
         return UIColor.orangeColor()
     }
 
-    override func eventsZipCodeFont() -> UIFont {
+    override func eventsSearchBarFont() -> UIFont {
         return UIFont.boldSystemFontOfSize(4444)
     }
 
@@ -237,7 +237,6 @@ class EventsControllerSpec : QuickSpec {
             it("should add its view components as subviews") {
                 let subViews = self.subject.view.subviews
 
-                expect(subViews.contains(self.subject.zipCodeTextField)).to(beTrue())
                 expect(subViews.contains(self.subject.instructionsLabel)).to(beTrue())
                 expect(subViews.contains(self.subject.noResultsLabel)).to(beTrue())
                 expect(subViews.contains(self.subject.resultsTableView)).to(beTrue())
@@ -256,6 +255,18 @@ class EventsControllerSpec : QuickSpec {
                 expect(self.subject.loadingActivityIndicatorView.isAnimating()).to(beFalse())
             }
 
+            it("should hide the search button by default") {
+                expect(self.subject.searchButton.hidden).to(beTrue())
+            }
+
+            it("should hide the cancel button by default") {
+                expect(self.subject.cancelButton.hidden).to(beTrue())
+            }
+
+            it("should hide the filter button by default") {
+                expect(self.subject.filterButton.hidden).to(beTrue())
+            }
+
             it("should show the instructions by default") {
                 expect(self.subject.instructionsLabel.hidden).to(beFalse())
                 expect(self.subject.instructionsLabel.text).to(equal("Enter your ZIP code above to find Bernie events near you!"))
@@ -266,6 +277,7 @@ class EventsControllerSpec : QuickSpec {
             }
 
             it("styles the page components with the theme") {
+                expect(self.subject.searchBar.backgroundColor).to(equal(UIColor.greenColor()))
                 expect(self.subject.zipCodeTextField.backgroundColor).to(equal(UIColor.brownColor()))
                 expect(self.subject.zipCodeTextField.font).to(equal(UIFont.boldSystemFontOfSize(4444)))
                 expect(self.subject.zipCodeTextField.textColor).to(equal(UIColor.redColor()))
@@ -275,6 +287,9 @@ class EventsControllerSpec : QuickSpec {
                 expect(self.subject.zipCodeTextField.layer.sublayerTransform.m41).to(equal(4))
                 expect(self.subject.zipCodeTextField.layer.sublayerTransform.m42).to(equal(5))
                 expect(self.subject.zipCodeTextField.layer.sublayerTransform.m43).to(equal(6))
+
+                expect(self.subject.searchButton.titleLabel!.font).to(equal(UIFont.boldSystemFontOfSize(4444)))
+                expect(self.subject.cancelButton.titleLabel!.font).to(equal(UIFont.boldSystemFontOfSize(4444)))
 
                 let borderColor = UIColor(CGColor: self.subject.zipCodeTextField.layer.borderColor!)
                 expect(borderColor).to(equal(UIColor.orangeColor()))
@@ -288,21 +303,22 @@ class EventsControllerSpec : QuickSpec {
                 expect(self.subject.loadingActivityIndicatorView.color).to(equal(UIColor.blackColor()))
             }
 
-            it("has an input accessory view for the zip code entry field") {
-                let inputToolbar = self.subject.zipCodeTextField.inputAccessoryView as! UIToolbar
-                let doneButton = inputToolbar.items![1]
-                let cancelButton = inputToolbar.items![2]
+            it("has the correct text for the search button for the zip code entry field") {
+                expect(self.subject.searchButton.titleForState(.Normal)).to(equal("Search"))
+            }
 
-                expect(doneButton.title).to(equal("Search"))
-                expect(cancelButton.title).to(equal("Cancel"))
+            it("has the correct text for the cancel button") {
+                expect(self.subject.cancelButton.titleForState(.Normal)).to(equal("Cancel"))
             }
 
             it("sets the radius button's input view to be the radius picker") {
-                expect(self.subject.radiusButton.inputView).to(beIdenticalTo(self.subject.radiusPickerView))
+                expect(self.subject.filterButton.inputView).to(beIdenticalTo(self.subject.radiusPickerView))
             }
 
-            it("sets the title of the radius button") {
-                expect(self.subject.radiusButton.titleForState(.Normal)).to(equal("Radius"))
+            it("sets the image of the filter button") {
+                let image = self.subject.filterButton.imageForState(.Normal)!
+                let expectedImage = UIImage(named: "filterIcon")!
+                expect(image).to(equal(expectedImage))
             }
 
             it("selects the correct default radius in the picker") {
@@ -326,12 +342,6 @@ class EventsControllerSpec : QuickSpec {
                     expect(self.subject.radiusPickerView.delegate?.pickerView!(self.subject.radiusPickerView, titleForRow: 4, forComponent: 0)).to(equal("100 Miles"))
                     expect(self.subject.radiusPickerView.delegate?.pickerView!(self.subject.radiusPickerView, titleForRow: 5, forComponent: 0)).to(equal("250 Miles"))
                 }
-
-                describe("when a search radius is chosen") {
-                    it("updates the text field") {
-
-                    }
-                }
             }
 
             context("when entering a zip code") {
@@ -344,6 +354,14 @@ class EventsControllerSpec : QuickSpec {
                     self.subject.zipCodeTextField.text = "90210"
                 }
 
+                it("should show the search button") {
+                    expect(self.subject.searchButton.hidden).to(beFalse())
+                }
+
+                it("should show the cancel button") {
+                    expect(self.subject.cancelButton.hidden).to(beFalse())
+                }
+
                 xit("should log an event via the analytics service") {
                     // TODO: test is failing on Travis, so marking as pending for now.
                     expect(self.analyticsService.lastCustomEventName).to(equal("Tapped on ZIP Code text field on Events"))
@@ -352,9 +370,7 @@ class EventsControllerSpec : QuickSpec {
 
                 describe("aborting a search") {
                     beforeEach {
-                        let inputToolbar = self.subject.zipCodeTextField.inputAccessoryView as! UIToolbar
-                        let cancelButton = inputToolbar.items![2]
-                        cancelButton.tap()
+                        self.subject.cancelButton.tap()
                     }
 
                     it("should resign first responder") {
@@ -366,14 +382,19 @@ class EventsControllerSpec : QuickSpec {
                         expect(self.analyticsService.lastCustomEventName).to(equal("Cancelled ZIP Code search on Events"))
                         expect(self.analyticsService.lastCustomEventAttributes).to(beNil())
                     }
+
+                    it("should hide the search button") {
+                        expect(self.subject.searchButton.hidden).to(beTrue())
+                    }
+
+                    it("should hide the cancel button") {
+                        expect(self.subject.cancelButton.hidden).to(beTrue())
+                    }
                 }
 
                 describe("and then tapping search") {
                     beforeEach {
-                        let inputToolbar = self.subject.zipCodeTextField.inputAccessoryView as! UIToolbar
-                        let doneButton = inputToolbar.items![1]
-
-                        doneButton.tap()
+                        self.subject.searchButton.tap()
                     }
 
                     it("should resign first responder") {
@@ -396,6 +417,14 @@ class EventsControllerSpec : QuickSpec {
                     it("should log an event via the analytics service") {
                         expect(self.analyticsService.lastSearchQuery).to(equal("90210"))
                         expect(self.analyticsService.lastSearchContext).to(equal(AnalyticsSearchContext.Events))
+                    }
+
+                    it("should hide the search button") {
+                        expect(self.subject.searchButton.hidden).to(beTrue())
+                    }
+
+                    it("should hide the cancel button") {
+                        expect(self.subject.cancelButton.hidden).to(beTrue())
                     }
 
                     context("when the search results in an error") {
@@ -424,11 +453,12 @@ class EventsControllerSpec : QuickSpec {
 
                         describe("making a subsequent search") {
                             beforeEach {
+                                self.subject.zipCodeTextField.tap()
+                                self.subject.zipCodeTextField.becomeFirstResponder()
+
                                 self.subject.zipCodeTextField.text = "11111"
 
-                                let inputToolbar = self.subject.zipCodeTextField.inputAccessoryView as! UIToolbar
-                                let doneButton = inputToolbar.items![1]
-                                doneButton.tap()
+                                self.subject.searchButton.tap()
                             }
 
                             it("should hide the no results message") {
@@ -459,6 +489,10 @@ class EventsControllerSpec : QuickSpec {
                                 expect(self.subject.loadingActivityIndicatorView.isAnimating()).to(beFalse())
                             }
 
+                            it("should show the filter button") {
+                                expect(self.subject.filterButton.hidden).to(beFalse())
+                            }
+
                             it("should display a no results message") {
                                 expect(self.subject.noResultsLabel.hidden).to(beFalse())
                                 expect(self.subject.noResultsLabel.text).to(equal("No events match your search"))
@@ -470,24 +504,41 @@ class EventsControllerSpec : QuickSpec {
 
                             describe("making a subsequent search") {
                                 beforeEach {
+                                    self.subject.zipCodeTextField.tap()
+                                    self.subject.zipCodeTextField.becomeFirstResponder()
+
                                     self.subject.zipCodeTextField.text = "11111"
-
-                                    let inputToolbar = self.subject.zipCodeTextField.inputAccessoryView as! UIToolbar
-                                    let doneButton = inputToolbar.items![1]
-                                    doneButton.tap()
                                 }
 
-                                it("should hide the no results message") {
-                                    expect(self.subject.noResultsLabel.hidden).to(beTrue())
+                                it("should hide the filter button") {
+                                    expect(self.subject.filterButton.hidden).to(beTrue())
                                 }
 
-                                it("should show the spinner by default") {
-                                    expect(self.subject.loadingActivityIndicatorView.isAnimating()).to(beTrue())
+                                it("should show the search button") {
+                                    expect(self.subject.searchButton.hidden).to(beFalse())
                                 }
 
-                                it("should ask the events repository for events within the configured search radius") {
-                                    expect(self.eventRepository.lastReceivedZipCode).to(equal("11111"))
-                                    expect(self.eventRepository.lastReceivedRadiusMiles).to(equal(10.0))
+                                it("should show the cancel button") {
+                                    expect(self.subject.cancelButton.hidden).to(beFalse())
+                                }
+
+                                describe("and then tapping done") {
+                                    beforeEach {
+                                        self.subject.searchButton.tap()
+                                    }
+
+                                    it("should hide the no results message") {
+                                        expect(self.subject.noResultsLabel.hidden).to(beTrue())
+                                    }
+
+                                    it("should show the spinner by default") {
+                                        expect(self.subject.loadingActivityIndicatorView.isAnimating()).to(beTrue())
+                                    }
+
+                                    it("should ask the events repository for events within the configured search radius") {
+                                        expect(self.eventRepository.lastReceivedZipCode).to(equal("11111"))
+                                        expect(self.eventRepository.lastReceivedRadiusMiles).to(equal(10.0))
+                                    }
                                 }
                             }
                         }
@@ -508,6 +559,10 @@ class EventsControllerSpec : QuickSpec {
 
                             it("should hide the spinner") {
                                 expect(self.subject.loadingActivityIndicatorView.isAnimating()).to(beFalse())
+                            }
+
+                            it("should show the filter button") {
+                                expect(self.subject.filterButton.hidden).to(beFalse())
                             }
 
                             it("should leave the no results message hidden") {
@@ -618,29 +673,45 @@ class EventsControllerSpec : QuickSpec {
                                 }
                             }
 
-                            describe("tapping on the radius button") {
+                            describe("tapping on the filter button") {
                                 beforeEach {
-                                    self.subject.radiusButton.tap()
+                                    self.subject.filterButton.tap()
                                 }
 
                                 it("becomes first responder") {
-                                    expect(self.subject.radiusButton.isFirstResponder()).to(beTrue())
+                                    expect(self.subject.filterButton.isFirstResponder()).to(beTrue())
+                                }
+
+                                it("should hide the filter button") {
+                                    expect(self.subject.filterButton.hidden).to(beTrue())
+                                }
+
+                                it("should show the search button") {
+                                    expect(self.subject.searchButton.hidden).to(beFalse())
+                                }
+
+                                it("should show the cancel button") {
+                                    expect(self.subject.cancelButton.hidden).to(beFalse())
+                                }
+
+                                it("should hide the zip code text field") {
+                                    expect(self.subject.zipCodeTextField.hidden).to(beTrue())
                                 }
 
                                 describe("and then tapping search after selecting a radius") {
                                     beforeEach {
-                                        let inputToolbar = self.subject.radiusPickerView.inputAccessoryView as! UIToolbar
-                                        let doneButton = inputToolbar.items![1]
-
                                         let picker = self.subject.radiusPickerView
-
                                         picker.delegate!.pickerView!(picker, didSelectRow: 5, inComponent: 0)
 
-                                        doneButton.tap()
+                                        self.subject.searchButton.tap()
                                     }
 
                                     it("resigns first responder") {
-                                        expect(self.subject.radiusButton.isFirstResponder()).to(beFalse())
+                                        expect(self.subject.filterButton.isFirstResponder()).to(beFalse())
+                                    }
+
+                                    it("should show the zip code text field") {
+                                        expect(self.subject.zipCodeTextField.hidden).to(beFalse())
                                     }
 
                                     it("should ask the events repository for events with the updated radius") {
@@ -651,25 +722,32 @@ class EventsControllerSpec : QuickSpec {
 
                                 describe("and then tapping cancel") {
                                     beforeEach {
-                                        let inputToolbar = self.subject.radiusPickerView.inputAccessoryView as! UIToolbar
-                                        let cancelButton = inputToolbar.items![2]
-
                                         let picker = self.subject.radiusPickerView
                                         picker.selectRow(5, inComponent: 0, animated: false)
                                         picker.delegate!.pickerView!(picker, didSelectRow: 5, inComponent: 0)
 
-                                        cancelButton.tap()
+                                        self.subject.cancelButton.tap()
                                     }
 
                                     it("resigns first responder") {
-                                        expect(self.subject.radiusButton.isFirstResponder()).to(beFalse())
+                                        expect(self.subject.filterButton.isFirstResponder()).to(beFalse())
+                                    }
+
+
+                                    it("should show the zip code text field") {
+                                        expect(self.subject.zipCodeTextField.hidden).to(beFalse())
+                                    }
+
+                                    it("should show the filter button") {
+                                        expect(self.subject.filterButton.hidden).to(beFalse())
                                     }
 
                                     describe("making a subsequent search") {
                                         beforeEach {
-                                            let inputToolbar = self.subject.zipCodeTextField.inputAccessoryView as! UIToolbar
-                                            let doneButton = inputToolbar.items![1]
-                                            doneButton.tap()
+                                            self.subject.zipCodeTextField.tap()
+                                            self.subject.zipCodeTextField.becomeFirstResponder()
+
+                                            self.subject.searchButton.tap()
                                         }
 
                                         it("should ask the events repository for events with the unchanged, previously configured radius") {
@@ -690,17 +768,17 @@ class EventsControllerSpec : QuickSpec {
 
                             describe("making a subsequent search") {
                                 beforeEach {
+                                    self.subject.zipCodeTextField.tap()
+                                    self.subject.zipCodeTextField.becomeFirstResponder()
+
                                     self.subject.zipCodeTextField.text = "11111"
 
-                                    let inputToolbar = self.subject.zipCodeTextField.inputAccessoryView as! UIToolbar
-                                    let doneButton = inputToolbar.items![1]
-                                    doneButton.tap()
+                                    self.subject.searchButton.tap()
                                 }
 
                                 it("should hide the results table view") {
                                     expect(self.subject.resultsTableView.hidden).to(beTrue())
                                 }
-
 
                                 it("should show the spinner") {
                                     expect(self.subject.loadingActivityIndicatorView.isAnimating()).to(beTrue())

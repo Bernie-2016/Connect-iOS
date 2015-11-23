@@ -97,11 +97,15 @@ class DefaultTheme: Theme {
     func eventsListSectionHeaderFont() -> UIFont { return UIFont.systemFontOfSize(14) }
     func eventsListSectionHeaderTextColor() -> UIColor { return self.doveGreyColor() }
     func eventsListSectionHeaderBackgroundColor() -> UIColor { return self.seaShellColor() }
-    func eventsInputAccessoryBackgroundColor() -> UIColor { return self.codGrayColor() }
-    func eventsZipCodeTextColor() -> UIColor { return UIColor.blackColor() }
-    func eventsZipCodeBackgroundColor() -> UIColor { return UIColor.whiteColor() }
-    func eventsZipCodeBorderColor() -> UIColor { return self.altoColor() }
-    func eventsZipCodeFont() -> UIFont { return UIFont.systemFontOfSize(17) }
+    func eventsSearchBarBackgroundColor() -> UIColor { return self.codGrayColor() }
+    func eventsZipCodeTextColor() -> UIColor { return self.silverChaliceColor() }
+    func eventsZipCodeBackgroundColor() -> UIColor { return self.mineShaftColor() }
+    func eventsZipCodeBorderColor() -> UIColor { return self.mineShaftColor() }
+    func eventsSearchBarFont() -> UIFont { if #available(iOS 8.2, *) {
+        return UIFont.systemFontOfSize(16, weight: UIFontWeightMedium)
+    } else {
+        return UIFont.systemFontOfSize(16)
+    } }
     func eventsZipCodeCornerRadius() -> CGFloat { return self.defaultCornerRadius() }
     func eventsZipCodeBorderWidth() -> CGFloat { return self.defaultBorderWidth() }
     func eventsZipCodeTextOffset() -> CATransform3D { return CATransform3DMakeTranslation(4, 0, 0); }

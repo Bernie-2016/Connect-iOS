@@ -74,11 +74,11 @@ protocol Theme {
     func eventsListSectionHeaderFont() -> UIFont
     func eventsListSectionHeaderTextColor() -> UIColor
     func eventsListSectionHeaderBackgroundColor() -> UIColor
-    func eventsInputAccessoryBackgroundColor() -> UIColor
+    func eventsSearchBarBackgroundColor() -> UIColor
     func eventsZipCodeTextColor() -> UIColor
     func eventsZipCodeBackgroundColor() -> UIColor
     func eventsZipCodeBorderColor() -> UIColor
-    func eventsZipCodeFont() -> UIFont
+    func eventsSearchBarFont() -> UIFont
     func eventsZipCodeCornerRadius() -> CGFloat
     func eventsZipCodeBorderWidth() -> CGFloat
     func eventsZipCodeTextOffset() -> CATransform3D
