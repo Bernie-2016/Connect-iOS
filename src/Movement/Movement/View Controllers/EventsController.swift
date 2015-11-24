@@ -2,6 +2,7 @@ import UIKit
 import PureLayout
 import QuartzCore
 
+// swiftlint:disable file_length
 // swiftlint:disable type_body_length
 
 class EventsController: UIViewController {
@@ -30,6 +31,9 @@ class EventsController: UIViewController {
     private var selectedSearchRadiusIndex = 1
     private var previouslySelectedRow: Int!
     private var eventSearchResult: EventSearchResult!
+    private var searchButtonZipCodeConstraint: NSLayoutConstraint!
+    private var cancelButtonZipCodeConstraint: NSLayoutConstraint!
+    private var filterButtonZipCodeConstraint: NSLayoutConstraint!
 
     init(eventRepository: EventRepository,
         eventPresenter: EventPresenter,
@@ -40,21 +44,21 @@ class EventsController: UIViewController {
         eventListTableViewCellStylist: EventListTableViewCellStylist,
         theme: Theme) {
 
-        self.eventRepository = eventRepository
-        self.eventPresenter = eventPresenter
-        self.eventControllerProvider = eventControllerProvider
-        self.eventSectionHeaderPresenter = eventSectionHeaderPresenter
-        self.analyticsService = analyticsService
-        self.tabBarItemStylist = tabBarItemStylist
-        self.eventListTableViewCellStylist = eventListTableViewCellStylist
-        self.theme = theme
+            self.eventRepository = eventRepository
+            self.eventPresenter = eventPresenter
+            self.eventControllerProvider = eventControllerProvider
+            self.eventSectionHeaderPresenter = eventSectionHeaderPresenter
+            self.analyticsService = analyticsService
+            self.tabBarItemStylist = tabBarItemStylist
+            self.eventListTableViewCellStylist = eventListTableViewCellStylist
+            self.theme = theme
 
-        super.init(nibName: nil, bundle: nil)
+            super.init(nibName: nil, bundle: nil)
 
-        self.tabBarItemStylist.applyThemeToBarBarItem(self.tabBarItem,
-            image: UIImage(named: "eventsTabBarIconInactive")!,
-            selectedImage: UIImage(named: "eventsTabBarIcon")!)
-        self.title = NSLocalizedString("Events_tabBarTitle", comment: "")
+            self.tabBarItemStylist.applyThemeToBarBarItem(self.tabBarItem,
+                image: UIImage(named: "eventsTabBarIconInactive")!,
+                selectedImage: UIImage(named: "eventsTabBarIcon")!)
+            self.title = NSLocalizedString("Events_tabBarTitle", comment: "")
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -124,6 +128,15 @@ class EventsController: UIViewController {
         self.cancelButton.hidden = true
         self.zipCodeTextField.hidden = false
 
+        self.view.layoutIfNeeded()
+
+        self.searchButtonZipCodeConstraint.active = false
+        self.cancelButtonZipCodeConstraint.active = false
+
+        UIView.animateWithDuration(0.2, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+        })
+
         zipCodeTextField.resignFirstResponder()
         filterButton.resignFirstResponder()
 
@@ -131,12 +144,50 @@ class EventsController: UIViewController {
         self.resultsTableView.hidden = true
         self.noResultsLabel.hidden = true
 
+        self.performSearchWithZipCode(enteredZipCode)
+    }
+
+    func didTapCancel(sender: UIButton!) {
+        self.searchButton.hidden = true
+        self.cancelButton.hidden = true
+        self.zipCodeTextField.hidden = false
+
+        self.view.layoutIfNeeded()
+
+        self.searchButtonZipCodeConstraint.active = false
+        self.cancelButtonZipCodeConstraint.active = false
+        self.filterButtonZipCodeConstraint.active = self.eventSearchResult != nil
+
+        self.analyticsService.trackCustomEventWithName("Cancelled ZIP Code search on Events", customAttributes: nil)
+        UIView.animateWithDuration(0.2, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+            }) { (finished) -> Void in
+                self.filterButton.hidden = self.eventSearchResult == nil
+        }
+        self.zipCodeTextField.resignFirstResponder()
+        self.filterButton.resignFirstResponder()
+        self.radiusPickerView.selectRow(self.previouslySelectedRow, inComponent: 0, animated: false)
+        self.selectedSearchRadiusIndex = self.previouslySelectedRow
+    }
+
+    // MARK: Private
+
+    func performSearchWithZipCode(zipCode: String) {
         loadingActivityIndicatorView.startAnimating()
 
-        self.eventRepository.fetchEventsWithZipCode(enteredZipCode, radiusMiles: Float(self.radiusPickerViewOptions[self.selectedSearchRadiusIndex]),
+        self.eventRepository.fetchEventsWithZipCode(zipCode, radiusMiles: Float(self.radiusPickerViewOptions[self.selectedSearchRadiusIndex]),
             completion: { (eventSearchResult: EventSearchResult) -> Void in
                 let matchingEventsFound = eventSearchResult.events.count > 0
-                self.filterButton.hidden = false
+                self.view.layoutIfNeeded()
+
+                self.filterButtonZipCodeConstraint.active = true
+
+                UIView.animateWithDuration(0.2, animations: { () -> Void in
+                    self.view.layoutIfNeeded()
+                    }) { (finished) -> Void in
+                        self.filterButton.hidden = false
+                }
+
                 self.eventSearchResult = eventSearchResult
 
                 self.noResultsLabel.hidden = matchingEventsFound
@@ -145,28 +196,22 @@ class EventsController: UIViewController {
 
                 self.resultsTableView.reloadData()
             }) { (error: NSError) -> Void in
-                self.filterButton.hidden = true
+                self.view.layoutIfNeeded()
+
+                self.filterButtonZipCodeConstraint.active = false
+
+                UIView.animateWithDuration(0.2, animations: { () -> Void in
+                    self.view.layoutIfNeeded()
+                    }) { (finished) -> Void in
+                        self.filterButton.hidden = true
+                }
+
 
                 self.analyticsService.trackError(error, context: "Events")
                 self.noResultsLabel.hidden = false
                 self.loadingActivityIndicatorView.stopAnimating()
         }
     }
-
-    func didTapCancel(sender: UIButton!) {
-        self.analyticsService.trackCustomEventWithName("Cancelled ZIP Code search on Events", customAttributes: nil)
-        self.searchButton.hidden = true
-        self.cancelButton.hidden = true
-        self.zipCodeTextField.hidden = false
-        self.filterButton.hidden = self.eventSearchResult == nil
-
-        self.zipCodeTextField.resignFirstResponder()
-        self.filterButton.resignFirstResponder()
-        self.radiusPickerView.selectRow(self.previouslySelectedRow, inComponent: 0, animated: false)
-        self.selectedSearchRadiusIndex = self.previouslySelectedRow
-    }
-
-    // MARK: Private
 
     func setupSubviews() {
         searchBar.addSubview(zipCodeTextField)
@@ -208,7 +253,7 @@ class EventsController: UIViewController {
         magnifyingGlassIcon.image = magnifyingGlassImage
         magnifyingGlassIcon.contentMode = .Left
         zipCodeTextField.leftView = magnifyingGlassIcon
-        zipCodeTextField.leftViewMode = .UnlessEditing
+        zipCodeTextField.leftViewMode = .Always
         zipCodeTextField.contentVerticalAlignment = .Center
 
         zipCodeTextField.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("Events_zipCodeTextBoxPlaceholder",  comment: ""),
@@ -231,7 +276,6 @@ class EventsController: UIViewController {
         radiusPickerView.delegate = self
         radiusPickerView.dataSource = self
         radiusPickerView.showsSelectionIndicator = true
-
     }
 
     func applyTheme() {
@@ -258,44 +302,62 @@ class EventsController: UIViewController {
     }
 
     func setupConstraints() {
-        searchBar.autoPinEdgeToSuperviewEdge(.Top)
-        searchBar.autoPinEdgeToSuperviewEdge(.Left)
-        searchBar.autoPinEdgeToSuperviewEdge(.Right)
-        searchBar.autoSetDimension(.Height, toSize: 40 + 25)
-
-        searchButton.autoPinEdge(.Right, toEdge: .Left, ofView: zipCodeTextField, withOffset: -15)
-        searchButton.autoAlignAxis(.Horizontal, toSameAxisOfView: zipCodeTextField)
-        searchButton.autoSetDimension(.Height, toSize: 25)
-        searchButton.autoSetDimension(.Width, toSize: 60)
-
-        cancelButton.autoPinEdge(.Left, toEdge: .Right, ofView: zipCodeTextField, withOffset: 15)
-        cancelButton.autoAlignAxis(.Horizontal, toSameAxisOfView: zipCodeTextField)
-        cancelButton.autoSetDimension(.Height, toSize: 25)
-        cancelButton.autoSetDimension(.Width, toSize: 60)
-
-        zipCodeTextField.autoAlignAxisToSuperviewAxis(.Vertical)
-        zipCodeTextField.autoPinEdgeToSuperviewEdge(.Top, withInset: 27)
-        zipCodeTextField.autoSetDimension(.Height, toSize: 25)
-        zipCodeTextField.autoSetDimension(.Width, toSize: 200)
-
-        filterButton.autoPinEdge(.Left, toEdge: .Right, ofView: zipCodeTextField, withOffset: 8)
-        filterButton.autoAlignAxis(.Horizontal, toSameAxisOfView: zipCodeTextField)
-        filterButton.autoSetDimension(.Height, toSize: 25)
-        filterButton.autoSetDimension(.Width, toSize: 70)
+        self.setupSearchBarConstraints()
 
         instructionsLabel.autoAlignAxisToSuperviewAxis(.Vertical)
         instructionsLabel.autoAlignAxisToSuperviewAxis(.Horizontal)
         instructionsLabel.autoSetDimension(.Width, toSize: 220)
 
-        resultsTableView.autoPinEdge(.Top, toEdge: .Bottom, ofView: zipCodeTextField, withOffset: 8)
+        resultsTableView.autoPinEdge(.Top, toEdge: .Bottom, ofView: searchBar)
         resultsTableView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Top)
 
-        noResultsLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: zipCodeTextField, withOffset: 16)
+        noResultsLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: searchBar, withOffset: 16)
         noResultsLabel.autoPinEdgeToSuperviewEdge(.Left)
         noResultsLabel.autoPinEdgeToSuperviewEdge(.Right)
 
         loadingActivityIndicatorView.autoAlignAxisToSuperviewAxis(.Horizontal)
         loadingActivityIndicatorView.autoAlignAxisToSuperviewAxis(.Vertical)
+    }
+
+    func setupSearchBarConstraints() {
+        searchBar.autoPinEdgeToSuperviewEdge(.Top)
+        searchBar.autoPinEdgeToSuperviewEdge(.Left)
+        searchBar.autoPinEdgeToSuperviewEdge(.Right)
+        searchBar.autoSetDimension(.Height, toSize: 40 + 24)
+
+        NSLayoutConstraint.autoSetPriority(900, forConstraints: { () -> Void in
+            self.searchButtonZipCodeConstraint = self.searchButton.autoPinEdge(.Left, toEdge: .Right, ofView: self.zipCodeTextField, withOffset: 15)
+        })
+        self.searchButtonZipCodeConstraint.active = false
+
+        searchButton.autoPinEdgeToSuperviewEdge(.Right, withInset: 15)
+        searchButton.autoAlignAxis(.Horizontal, toSameAxisOfView: zipCodeTextField)
+        searchButton.autoSetDimension(.Width, toSize: 60)
+
+        NSLayoutConstraint.autoSetPriority(900, forConstraints: { () -> Void in
+            self.cancelButtonZipCodeConstraint = self.cancelButton.autoPinEdge(.Right, toEdge: .Left, ofView: self.zipCodeTextField, withOffset: -15)
+        })
+        self.cancelButtonZipCodeConstraint.active = false
+        cancelButton.autoPinEdgeToSuperviewEdge(.Left, withInset: 15)
+        cancelButton.autoAlignAxis(.Horizontal, toSameAxisOfView: zipCodeTextField)
+        cancelButton.autoSetDimension(.Width, toSize: 60)
+
+        NSLayoutConstraint.autoSetPriority(800, forConstraints: { () -> Void in
+            self.zipCodeTextField.autoPinEdgeToSuperviewEdge(.Left, withInset: 15)
+            self.zipCodeTextField.autoPinEdgeToSuperviewEdge(.Right, withInset: 15)
+        })
+
+        zipCodeTextField.autoPinEdgeToSuperviewEdge(.Top, withInset: 27)
+        zipCodeTextField.autoSetDimension(.Height, toSize: 25)
+
+        NSLayoutConstraint.autoSetPriority(850, forConstraints: { () -> Void in
+            self.filterButtonZipCodeConstraint = self.filterButton.autoPinEdge(.Left, toEdge: .Right, ofView: self.zipCodeTextField, withOffset: 15)
+        })
+
+        self.filterButton.autoPinEdgeToSuperviewEdge(.Right, withInset: 15)
+        self.filterButtonZipCodeConstraint.active = false
+        filterButton.autoAlignAxis(.Horizontal, toSameAxisOfView: zipCodeTextField)
+        filterButton.autoSetDimension(.Width, toSize: 24)
     }
 }
 
@@ -364,9 +426,20 @@ extension EventsController: UITableViewDelegate {
 // MARK: <UITextFieldDelegate>
 extension EventsController: UITextFieldDelegate {
     func textFieldDidBeginEditing(textField: UITextField) {
-        searchButton.hidden = false
-        cancelButton.hidden = false
-        filterButton.hidden = true
+        self.view.layoutIfNeeded()
+
+        self.searchButtonZipCodeConstraint.active = true
+        self.cancelButtonZipCodeConstraint.active = true
+
+        UIView.animateWithDuration(0.2, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+            }) { (finished) -> Void in
+                self.searchButton.hidden = false
+                self.cancelButton.hidden = false
+                self.filterButton.hidden = true
+
+        }
+
         analyticsService.trackCustomEventWithName("Tapped on ZIP Code text field on Events", customAttributes: nil)
     }
 }
@@ -395,3 +468,4 @@ extension EventsController: UIPickerViewDelegate {
         self.selectedSearchRadiusIndex = row
     }
 }
+// swiftlint:enable file_length
