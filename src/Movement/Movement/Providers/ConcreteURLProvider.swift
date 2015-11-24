@@ -62,4 +62,8 @@ class ConcreteURLProvider: URLProvider {
     func donateFormURL() -> NSURL! {
         return NSURL(string: "https://secure.actblue.com/contribute/page/lets-go-bernie?refcode=berniesanders_iosApp")!
     }
+
+    func createEventURL() -> NSURL! {
+        return NSURL(string: "https://go.berniesanders.com/page/event/create#eventcreate")
+    }
 }

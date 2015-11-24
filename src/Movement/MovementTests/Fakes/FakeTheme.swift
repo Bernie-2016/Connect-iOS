@@ -139,8 +139,9 @@ class FakeTheme : Movement.Theme {
     func eventsZipCodeBorderWidth() -> CGFloat { fatalError("FakeTheme used without being overridden in spec!") }
     func eventsZipCodeTextOffset() -> CATransform3D { fatalError("FakeTheme used without being overridden in spec!") }
     func eventsGoButtonCornerRadius() -> CGFloat { fatalError("FakeTheme used without being overridden in spec!") }
-    func eventsNoResultsTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func eventsInformationTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func eventsNoResultsFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
+    func eventsCreateEventCTAFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
     func defaultSpinnerColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func eventNameFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
     func eventNameColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
@@ -164,7 +165,7 @@ class FakeTheme : Movement.Theme {
     func eventTypeFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
     func eventTypeColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func eventsInstructionsFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
-    func eventsInstructionsTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func eventsSubInstructionsFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
     func aboutButtonBackgroundColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func aboutButtonTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func aboutButtonFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }

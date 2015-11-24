@@ -110,10 +110,11 @@ class DefaultTheme: Theme {
     func eventsZipCodeBorderWidth() -> CGFloat { return self.defaultBorderWidth() }
     func eventsZipCodeTextOffset() -> CATransform3D { return CATransform3DMakeTranslation(4, 0, 0); }
     func eventsGoButtonCornerRadius() -> CGFloat { return self.defaultCornerRadius() }
-    func eventsNoResultsTextColor() -> UIColor { return UIColor.blackColor() }
-    func eventsNoResultsFont() -> UIFont { return UIFont.systemFontOfSize(15) }
-    func eventsInstructionsFont() -> UIFont { return defaultHeaderFont() }
-    func eventsInstructionsTextColor() -> UIColor { return silverChaliceColor() }
+    func eventsInformationTextColor() -> UIColor { return self.silverChaliceColor() }
+    func eventsNoResultsFont() -> UIFont { return UIFont.systemFontOfSize(21) }
+    func eventsCreateEventCTAFont() -> UIFont { return UIFont.systemFontOfSize(13) }
+    func eventsInstructionsFont() -> UIFont { return UIFont.systemFontOfSize(21)  }
+    func eventsSubInstructionsFont() -> UIFont { return UIFont.systemFontOfSize(13)  }
 
     // MARK: Event screen
 

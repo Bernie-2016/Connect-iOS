@@ -176,6 +176,8 @@ class AppBootstrapper {
             eventPresenter: eventPresenter,
             eventControllerProvider: eventControllerProvider,
             eventSectionHeaderPresenter: eventSectionHeaderPresenter,
+            urlProvider: urlProvider,
+            urlOpener: urlOpener,
             analyticsService: analyticsService,
             tabBarItemStylist: tabBarItemStylist,
             eventListTableViewCellStylist: eventListTableViewCellStylist,

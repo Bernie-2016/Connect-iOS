@@ -82,10 +82,11 @@ protocol Theme {
     func eventsZipCodeCornerRadius() -> CGFloat
     func eventsZipCodeBorderWidth() -> CGFloat
     func eventsZipCodeTextOffset() -> CATransform3D
-    func eventsNoResultsTextColor() -> UIColor
+    func eventsInformationTextColor() -> UIColor
     func eventsNoResultsFont() -> UIFont
+    func eventsCreateEventCTAFont() -> UIFont
     func eventsInstructionsFont() -> UIFont
-    func eventsInstructionsTextColor() -> UIColor
+    func eventsSubInstructionsFont() -> UIFont
 
     // MARK: Event screen
 

@@ -6,6 +6,10 @@ import CoreLocation
 @testable import Movement
 import QuartzCore
 
+private class EventsFakeURLProvider: FakeURLProvider {
+
+}
+
 private class EventsFakeTheme : FakeTheme {
     override func tabBarActiveTextColor() -> UIColor {
         return UIColor.purpleColor()
@@ -59,7 +63,11 @@ private class EventsFakeTheme : FakeTheme {
         return UIFont.italicSystemFontOfSize(888)
     }
 
-    override func eventsNoResultsTextColor() -> UIColor {
+    override func eventsCreateEventCTAFont() -> UIFont {
+        return UIFont.italicSystemFontOfSize(777)
+    }
+
+    override func eventsInformationTextColor() -> UIColor {
         return UIColor.blueColor()
     }
 
@@ -71,8 +79,8 @@ private class EventsFakeTheme : FakeTheme {
         return UIFont.italicSystemFontOfSize(666)
     }
 
-    override func eventsInstructionsTextColor() -> UIColor {
-        return UIColor.whiteColor()
+    private override func eventsSubInstructionsFont() -> UIFont {
+        return UIFont.italicSystemFontOfSize(555)
     }
 
     override func eventsListSectionHeaderBackgroundColor() -> UIColor {
@@ -168,6 +176,8 @@ class EventsControllerSpec : QuickSpec {
     private var eventRepository : FakeEventRepository!
     private var eventPresenter : FakeEventPresenter!
     private var eventControllerProvider : FakeEventControllerProvider!
+    private var urlOpener: FakeURLOpener!
+    private var urlProvider: FakeURLProvider!
     private var analyticsService: FakeAnalyticsService!
     private var tabBarItemStylist: FakeTabBarItemStylist!
     private var navigationController: UINavigationController!
@@ -184,6 +194,8 @@ class EventsControllerSpec : QuickSpec {
                     differentTimeZoneFullDateFormatter: FakeDateFormatter())
                 self.eventControllerProvider = FakeEventControllerProvider()
                 self.eventSectionHeaderPresenter = FakeEventSectionHeaderPresenter()
+                self.urlOpener = FakeURLOpener()
+                self.urlProvider = EventsFakeURLProvider()
                 self.analyticsService = FakeAnalyticsService()
                 self.tabBarItemStylist = FakeTabBarItemStylist()
                 self.eventListTableViewCellStylist = FakeEventListTableViewCellStylist()
@@ -195,6 +207,8 @@ class EventsControllerSpec : QuickSpec {
                     eventPresenter: self.eventPresenter,
                     eventControllerProvider: self.eventControllerProvider,
                     eventSectionHeaderPresenter: self.eventSectionHeaderPresenter,
+                    urlProvider: self.urlProvider,
+                    urlOpener: self.urlOpener,
                     analyticsService: self.analyticsService,
                     tabBarItemStylist: self.tabBarItemStylist,
                     eventListTableViewCellStylist: self.eventListTableViewCellStylist,
@@ -237,8 +251,13 @@ class EventsControllerSpec : QuickSpec {
             it("should add its view components as subviews") {
                 let subViews = self.subject.view.subviews
 
+                expect(subViews.count).to(equal(7))
+
+                expect(subViews.contains(self.subject.searchBar)).to(beTrue())
                 expect(subViews.contains(self.subject.instructionsLabel)).to(beTrue())
+                expect(subViews.contains(self.subject.subInstructionsLabel)).to(beTrue())
                 expect(subViews.contains(self.subject.noResultsLabel)).to(beTrue())
+                expect(subViews.contains(self.subject.createEventCTATextView)).to(beTrue())
                 expect(subViews.contains(self.subject.resultsTableView)).to(beTrue())
                 expect(subViews.contains(self.subject.loadingActivityIndicatorView)).to(beTrue())
             }
@@ -249,6 +268,10 @@ class EventsControllerSpec : QuickSpec {
 
             it("should hide the no results label by default") {
                 expect(self.subject.noResultsLabel.hidden).to(beTrue())
+            }
+
+            it("should hide the call to action to create an event by default") {
+                expect(self.subject.createEventCTATextView.hidden).to(beTrue())
             }
 
             it("should hide the spinner by default") {
@@ -269,7 +292,10 @@ class EventsControllerSpec : QuickSpec {
 
             it("should show the instructions by default") {
                 expect(self.subject.instructionsLabel.hidden).to(beFalse())
-                expect(self.subject.instructionsLabel.text).to(equal("Enter your ZIP code above to find Bernie events near you!"))
+                expect(self.subject.instructionsLabel.text).to(equal("Search Local Events"))
+
+                expect(self.subject.subInstructionsLabel.hidden).to(beFalse())
+                expect(self.subject.subInstructionsLabel.text).to(equal("Event listings are gathered from the Bernie 2016 campaign website."))
             }
 
             it("configures the zip code keyboard to be a number pad") {
@@ -294,11 +320,18 @@ class EventsControllerSpec : QuickSpec {
                 let borderColor = UIColor(CGColor: self.subject.zipCodeTextField.layer.borderColor!)
                 expect(borderColor).to(equal(UIColor.orangeColor()))
 
-                expect(self.subject.instructionsLabel.textColor).to(equal(UIColor.whiteColor()))
+                expect(self.subject.instructionsLabel.textColor).to(equal(UIColor.blueColor()))
                 expect(self.subject.instructionsLabel.font).to(equal(UIFont.italicSystemFontOfSize(666)))
+
+                expect(self.subject.subInstructionsLabel.textColor).to(equal(UIColor.blueColor()))
+                expect(self.subject.subInstructionsLabel.font).to(equal(UIFont.italicSystemFontOfSize(555)))
 
                 expect(self.subject.noResultsLabel.font).to(equal(UIFont.italicSystemFontOfSize(888)))
                 expect(self.subject.noResultsLabel.textColor).to(equal(UIColor.blueColor()))
+
+                expect(self.subject.createEventCTATextView.font).to(equal(UIFont.italicSystemFontOfSize(777)))
+                expect(self.subject.createEventCTATextView.textColor).to(equal(UIColor.blueColor()))
+
 
                 expect(self.subject.loadingActivityIndicatorView.color).to(equal(UIColor.blackColor()))
             }
@@ -327,7 +360,7 @@ class EventsControllerSpec : QuickSpec {
                 let selectedRow = picker.selectedRowInComponent(0)
                 let title = picker.delegate!.pickerView!(picker, titleForRow: selectedRow, forComponent: 0)
 
-                expect(title).to(equal("10 Miles"))
+                expect(title).to(equal("< 10 Miles"))
             }
 
             context("when selecting a search radius") {
@@ -335,12 +368,12 @@ class EventsControllerSpec : QuickSpec {
                     expect(self.subject.radiusPickerView.dataSource?.numberOfComponentsInPickerView(self.subject.radiusPickerView)).to(equal(1))
                     expect(self.subject.radiusPickerView.dataSource?.pickerView(self.subject.radiusPickerView, numberOfRowsInComponent: 0)).to(equal(6))
 
-                    expect(self.subject.radiusPickerView.delegate?.pickerView!(self.subject.radiusPickerView, titleForRow: 0, forComponent: 0)).to(equal("5 Miles"))
-                    expect(self.subject.radiusPickerView.delegate?.pickerView!(self.subject.radiusPickerView, titleForRow: 1, forComponent: 0)).to(equal("10 Miles"))
-                    expect(self.subject.radiusPickerView.delegate?.pickerView!(self.subject.radiusPickerView, titleForRow: 2, forComponent: 0)).to(equal("20 Miles"))
-                    expect(self.subject.radiusPickerView.delegate?.pickerView!(self.subject.radiusPickerView, titleForRow: 3, forComponent: 0)).to(equal("50 Miles"))
-                    expect(self.subject.radiusPickerView.delegate?.pickerView!(self.subject.radiusPickerView, titleForRow: 4, forComponent: 0)).to(equal("100 Miles"))
-                    expect(self.subject.radiusPickerView.delegate?.pickerView!(self.subject.radiusPickerView, titleForRow: 5, forComponent: 0)).to(equal("250 Miles"))
+                    expect(self.subject.radiusPickerView.delegate?.pickerView!(self.subject.radiusPickerView, titleForRow: 0, forComponent: 0)).to(equal("< 5 Miles"))
+                    expect(self.subject.radiusPickerView.delegate?.pickerView!(self.subject.radiusPickerView, titleForRow: 1, forComponent: 0)).to(equal("< 10 Miles"))
+                    expect(self.subject.radiusPickerView.delegate?.pickerView!(self.subject.radiusPickerView, titleForRow: 2, forComponent: 0)).to(equal("< 20 Miles"))
+                    expect(self.subject.radiusPickerView.delegate?.pickerView!(self.subject.radiusPickerView, titleForRow: 3, forComponent: 0)).to(equal("< 50 Miles"))
+                    expect(self.subject.radiusPickerView.delegate?.pickerView!(self.subject.radiusPickerView, titleForRow: 4, forComponent: 0)).to(equal("< 100 Miles"))
+                    expect(self.subject.radiusPickerView.delegate?.pickerView!(self.subject.radiusPickerView, titleForRow: 5, forComponent: 0)).to(equal("< 250 Miles"))
                 }
             }
 
@@ -407,6 +440,7 @@ class EventsControllerSpec : QuickSpec {
 
                     it("should hide the instructions") {
                         expect(self.subject.instructionsLabel.hidden).to(beTrue())
+                        expect(self.subject.subInstructionsLabel.hidden).to(beTrue())
                     }
 
                     it("should ask the events repository for events with the default search radius") {
@@ -444,7 +478,18 @@ class EventsControllerSpec : QuickSpec {
 
                         it("should display a no results message") {
                             expect(self.subject.noResultsLabel.hidden).to(beFalse())
-                            expect(self.subject.noResultsLabel.text).to(equal("No events match your search"))
+                            expect(self.subject.noResultsLabel.text).to(contain("We couldn't find any"))
+                        }
+
+                        it("should display a call to action to create an event") {
+                            expect(self.subject.createEventCTATextView.hidden).to(beFalse())
+                            expect(self.subject.createEventCTATextView.text).to(equal("Try another search or be the first to organize."))
+                        }
+
+                        xdescribe("tapping on the organize text") {
+                            it("should open the organize page in safari") {
+                                expect(self.urlOpener.lastOpenedURL).to(equal(NSURL(string: "https://example.com/events")))
+                            }
                         }
 
                         it("should leave the table view hidden") {
@@ -463,6 +508,9 @@ class EventsControllerSpec : QuickSpec {
 
                             it("should hide the no results message") {
                                 expect(self.subject.noResultsLabel.hidden).to(beTrue())
+                            }
+
+                            it("should hide the create event CTA") {                                expect(self.subject.createEventCTATextView.hidden).to(beTrue())
                             }
 
                             it("should show the spinner") {
@@ -495,7 +543,12 @@ class EventsControllerSpec : QuickSpec {
 
                             it("should display a no results message") {
                                 expect(self.subject.noResultsLabel.hidden).to(beFalse())
-                                expect(self.subject.noResultsLabel.text).to(equal("No events match your search"))
+                                expect(self.subject.noResultsLabel.text).to(contain("We couldn't find any"))
+                            }
+
+                            it("should display a call to action to create an event") {
+                                expect(self.subject.createEventCTATextView.hidden).to(beFalse())
+                                expect(self.subject.createEventCTATextView.text).to(equal("Try another search or be the first to organize."))
                             }
 
                             it("should leave the table view hidden") {
@@ -529,6 +582,10 @@ class EventsControllerSpec : QuickSpec {
 
                                     it("should hide the no results message") {
                                         expect(self.subject.noResultsLabel.hidden).to(beTrue())
+                                    }
+
+                                    it("should hide the call to action to create an event") {
+                                        expect(self.subject.createEventCTATextView.hidden).to(beTrue())
                                     }
 
                                     it("should show the spinner by default") {
@@ -760,7 +817,7 @@ class EventsControllerSpec : QuickSpec {
                                             let selectedRow = picker.selectedRowInComponent(0)
                                             let title = picker.delegate!.pickerView!(picker, titleForRow: selectedRow, forComponent: 0)
 
-                                            expect(title).to(equal("10 Miles"))
+                                            expect(title).to(equal("< 10 Miles"))
                                         }
                                     }
                                 }

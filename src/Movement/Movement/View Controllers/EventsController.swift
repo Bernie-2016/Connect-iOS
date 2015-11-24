@@ -1,6 +1,7 @@
 import UIKit
 import PureLayout
 import QuartzCore
+import CoreText
 
 // swiftlint:disable file_length
 // swiftlint:disable type_body_length
@@ -10,6 +11,8 @@ class EventsController: UIViewController {
     let eventPresenter: EventPresenter
     private let eventControllerProvider: EventControllerProvider
     private let eventSectionHeaderPresenter: EventSectionHeaderPresenter
+    private let urlProvider: URLProvider
+    private let urlOpener: URLOpener
     private let analyticsService: AnalyticsService
     private let tabBarItemStylist: TabBarItemStylist
     private let eventListTableViewCellStylist: EventListTableViewCellStylist
@@ -23,7 +26,9 @@ class EventsController: UIViewController {
     let radiusPickerView = UIPickerView()
     let resultsTableView = UITableView.newAutoLayoutView()
     let noResultsLabel = UILabel.newAutoLayoutView()
+    let createEventCTATextView = UITextView.newAutoLayoutView()
     let instructionsLabel = UILabel.newAutoLayoutView()
+    let subInstructionsLabel = UILabel.newAutoLayoutView()
     let loadingActivityIndicatorView = UIActivityIndicatorView.newAutoLayoutView()
 
 
@@ -39,6 +44,8 @@ class EventsController: UIViewController {
         eventPresenter: EventPresenter,
         eventControllerProvider: EventControllerProvider,
         eventSectionHeaderPresenter: EventSectionHeaderPresenter,
+        urlProvider: URLProvider,
+        urlOpener: URLOpener,
         analyticsService: AnalyticsService,
         tabBarItemStylist: TabBarItemStylist,
         eventListTableViewCellStylist: EventListTableViewCellStylist,
@@ -48,6 +55,8 @@ class EventsController: UIViewController {
             self.eventPresenter = eventPresenter
             self.eventControllerProvider = eventControllerProvider
             self.eventSectionHeaderPresenter = eventSectionHeaderPresenter
+            self.urlProvider = urlProvider
+            self.urlOpener = urlOpener
             self.analyticsService = analyticsService
             self.tabBarItemStylist = tabBarItemStylist
             self.eventListTableViewCellStylist = eventListTableViewCellStylist
@@ -141,8 +150,10 @@ class EventsController: UIViewController {
         filterButton.resignFirstResponder()
 
         self.instructionsLabel.hidden = true
+        self.subInstructionsLabel.hidden = true
         self.resultsTableView.hidden = true
         self.noResultsLabel.hidden = true
+        self.createEventCTATextView.hidden = true
 
         self.performSearchWithZipCode(enteredZipCode)
     }
@@ -170,6 +181,25 @@ class EventsController: UIViewController {
         self.selectedSearchRadiusIndex = self.previouslySelectedRow
     }
 
+    func didTapOrganize(recognizer: UIGestureRecognizer) {
+        guard let textView = recognizer.view as? UITextView else { return }
+        let layoutManager = textView.layoutManager
+        var location = recognizer.locationInView(textView)
+        location.x = location.x - textView.textContainerInset.left
+        location.y = location.y - textView.textContainerInset.top
+
+        let characterIndex = layoutManager.characterIndexForPoint(location, inTextContainer: textView.textContainer, fractionOfDistanceBetweenInsertionPoints: nil)
+
+        if characterIndex < textView.textStorage.length {
+            let organizeValue = textView.textStorage.attribute("organize", atIndex: characterIndex, effectiveRange: nil)
+
+            if organizeValue != nil {
+                self.urlOpener.openURL(self.urlProvider.createEventURL())
+                return
+            }
+        }
+    }
+
     // MARK: Private
 
     func performSearchWithZipCode(zipCode: String) {
@@ -191,6 +221,7 @@ class EventsController: UIViewController {
                 self.eventSearchResult = eventSearchResult
 
                 self.noResultsLabel.hidden = matchingEventsFound
+                self.createEventCTATextView.hidden = matchingEventsFound
                 self.resultsTableView.hidden = !matchingEventsFound
                 self.loadingActivityIndicatorView.stopAnimating()
 
@@ -206,9 +237,9 @@ class EventsController: UIViewController {
                         self.filterButton.hidden = true
                 }
 
-
                 self.analyticsService.trackError(error, context: "Events")
                 self.noResultsLabel.hidden = false
+                self.createEventCTATextView.hidden = false
                 self.loadingActivityIndicatorView.stopAnimating()
         }
     }
@@ -221,28 +252,14 @@ class EventsController: UIViewController {
 
         view.addSubview(searchBar)
         view.addSubview(instructionsLabel)
+        view.addSubview(subInstructionsLabel)
         view.addSubview(resultsTableView)
         view.addSubview(noResultsLabel)
+        view.addSubview(createEventCTATextView)
         view.addSubview(loadingActivityIndicatorView)
 
         setupSearchBar()
-
-        resultsTableView.dataSource = self
-        resultsTableView.delegate = self
-        resultsTableView.registerClass(EventListTableViewCell.self, forCellReuseIdentifier: "eventCell")
-
-        instructionsLabel.text = NSLocalizedString("Events_instructions", comment: "")
-
-        instructionsLabel.textAlignment = .Center
-        instructionsLabel.numberOfLines = 0
-        noResultsLabel.textAlignment = .Center
-        noResultsLabel.text = NSLocalizedString("Events_noEventsFound", comment: "")
-        noResultsLabel.lineBreakMode = NSLineBreakMode.ByTruncatingTail;
-
-        resultsTableView.hidden = true
-        noResultsLabel.hidden = true
-        loadingActivityIndicatorView.hidesWhenStopped = true
-        loadingActivityIndicatorView.stopAnimating()
+        setupResults()
     }
 
     func setupSearchBar() {
@@ -278,6 +295,59 @@ class EventsController: UIViewController {
         radiusPickerView.showsSelectionIndicator = true
     }
 
+    func setupResults() {
+        resultsTableView.dataSource = self
+        resultsTableView.delegate = self
+        resultsTableView.hidden = true
+        resultsTableView.registerClass(EventListTableViewCell.self, forCellReuseIdentifier: "eventCell")
+
+        instructionsLabel.text = NSLocalizedString("Events_instructions", comment: "")
+        instructionsLabel.textAlignment = .Center
+        instructionsLabel.numberOfLines = 0
+
+        subInstructionsLabel.text = NSLocalizedString("Events_subInstructions", comment: "")
+        subInstructionsLabel.textAlignment = .Center
+        subInstructionsLabel.numberOfLines = 0
+
+        noResultsLabel.numberOfLines = 0
+        noResultsLabel.textAlignment = .Center
+        noResultsLabel.text = NSLocalizedString("Events_noEventsFound", comment: "")
+        noResultsLabel.lineBreakMode = NSLineBreakMode.ByTruncatingTail;
+        noResultsLabel.hidden = true
+
+        setupCreateEventCTATextView()
+
+        loadingActivityIndicatorView.hidesWhenStopped = true
+        loadingActivityIndicatorView.stopAnimating()
+    }
+
+    func setupCreateEventCTATextView() {
+        createEventCTATextView.hidden = true
+        createEventCTATextView.scrollEnabled = false
+        createEventCTATextView.selectable = false
+        createEventCTATextView.textAlignment = .Center
+
+        var fullTextAttributes = [String:AnyObject]()
+        let paragraphStyle: NSMutableParagraphStyle? = NSParagraphStyle.defaultParagraphStyle().mutableCopy() as? NSMutableParagraphStyle
+
+        if paragraphStyle != nil {
+            paragraphStyle!.alignment = .Center
+            fullTextAttributes[NSParagraphStyleAttributeName] = paragraphStyle!
+        }
+
+
+        let fullText = NSMutableAttributedString(string: NSLocalizedString("Events_createEventCTAText", comment:""),
+            attributes: fullTextAttributes)
+        let organize = NSAttributedString(string: NSLocalizedString("Events_organizeText", comment: ""), attributes: [NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue, "organize": true])
+
+        fullText.replaceCharactersInRange((fullText.string as NSString).rangeOfString("{0}"), withAttributedString: organize)
+
+        createEventCTATextView.attributedText = fullText
+
+        let tapOrganizeRecognizer = UITapGestureRecognizer(target: self, action: "didTapOrganize:")
+        createEventCTATextView.addGestureRecognizer(tapOrganizeRecognizer)
+    }
+
     func applyTheme() {
         searchBar.backgroundColor = self.theme.eventsSearchBarBackgroundColor()
 
@@ -293,10 +363,15 @@ class EventsController: UIViewController {
         cancelButton.titleLabel!.font = self.theme.eventsSearchBarFont()
 
         instructionsLabel.font = theme.eventsInstructionsFont()
-        instructionsLabel.textColor = theme.eventsInstructionsTextColor()
+        instructionsLabel.textColor = theme.eventsInformationTextColor()
+        subInstructionsLabel.font = theme.eventsSubInstructionsFont()
+        subInstructionsLabel.textColor = theme.eventsInformationTextColor()
 
-        noResultsLabel.textColor = self.theme.eventsNoResultsTextColor()
+        noResultsLabel.textColor = self.theme.eventsInformationTextColor()
         noResultsLabel.font = self.theme.eventsNoResultsFont()
+
+        createEventCTATextView.font = self.theme.eventsCreateEventCTAFont()
+        createEventCTATextView.textColor = self.theme.eventsInformationTextColor()
 
         loadingActivityIndicatorView.color = self.theme.defaultSpinnerColor()
     }
@@ -308,12 +383,20 @@ class EventsController: UIViewController {
         instructionsLabel.autoAlignAxisToSuperviewAxis(.Horizontal)
         instructionsLabel.autoSetDimension(.Width, toSize: 220)
 
+        subInstructionsLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: instructionsLabel, withOffset: 15)
+        subInstructionsLabel.autoPinEdge(.Left, toEdge: .Left, ofView: instructionsLabel, withOffset: 25)
+        subInstructionsLabel.autoPinEdge(.Right, toEdge: .Right, ofView: instructionsLabel, withOffset: -25)
+
         resultsTableView.autoPinEdge(.Top, toEdge: .Bottom, ofView: searchBar)
         resultsTableView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Top)
 
-        noResultsLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: searchBar, withOffset: 16)
-        noResultsLabel.autoPinEdgeToSuperviewEdge(.Left)
-        noResultsLabel.autoPinEdgeToSuperviewEdge(.Right)
+        noResultsLabel.autoAlignAxisToSuperviewAxis(.Vertical)
+        noResultsLabel.autoAlignAxisToSuperviewAxis(.Horizontal)
+        noResultsLabel.autoSetDimension(.Width, toSize: 220)
+
+        createEventCTATextView.autoPinEdge(.Top, toEdge: .Bottom, ofView: noResultsLabel, withOffset: 15)
+        createEventCTATextView.autoPinEdge(.Left, toEdge: .Left, ofView: noResultsLabel, withOffset: 25)
+        createEventCTATextView.autoPinEdge(.Right, toEdge: .Right, ofView: noResultsLabel, withOffset: -25)
 
         loadingActivityIndicatorView.autoAlignAxisToSuperviewAxis(.Horizontal)
         loadingActivityIndicatorView.autoAlignAxisToSuperviewAxis(.Vertical)

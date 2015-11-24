@@ -49,28 +49,15 @@ class WelcomeController: UIViewController {
         takeThePowerBackLabel.text = NSLocalizedString("Welcome_takeThePowerBack", comment: "")
         takeThePowerBackLabel.textAlignment = .Center
 
-        agreeToTermsNoticeTextView.scrollEnabled = false
-        agreeToTermsNoticeTextView.textAlignment = NSTextAlignment.Center
-
-        let fullText = NSMutableAttributedString(string: NSLocalizedString("Welcome_agreeToTermsNoticeText", comment: ""))
-        let termsAndConditions = NSAttributedString(string: NSLocalizedString("Welcome_termsAndConditions", comment: ""), attributes: [NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue, "terms": true])
-
-        let privacyPolicy = NSAttributedString(string: NSLocalizedString("Welcome_privacyPolicy", comment: ""), attributes: [NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue, "privacy": true])
-
-        fullText.replaceCharactersInRange((fullText.string as NSString).rangeOfString("{0}"), withAttributedString: termsAndConditions)
-        fullText.replaceCharactersInRange((fullText.string as NSString).rangeOfString("{1}"), withAttributedString: privacyPolicy)
-        agreeToTermsNoticeTextView.attributedText = fullText
-
-        let tapTermsNoticeRecognizer = UITapGestureRecognizer(target: self, action: "didTapAgreeToTermsLabel:")
-        agreeToTermsNoticeTextView.addGestureRecognizer(tapTermsNoticeRecognizer)
+        setupAgreeToTermsNoticeTextView()
 
         agreeToTermsButton.setTitle(NSLocalizedString("Welcome_agreeToTermsButtonTitle", comment: ""), forState: .Normal)
         agreeToTermsButton.addTarget(self, action: "didTapAgreeToTerms", forControlEvents: .TouchUpInside)
 
-        self.view.addSubview(billionairesImageView)
-        self.view.addSubview(takeThePowerBackLabel)
-        self.view.addSubview(agreeToTermsNoticeTextView)
-        self.view.addSubview(agreeToTermsButton)
+        view.addSubview(billionairesImageView)
+        view.addSubview(takeThePowerBackLabel)
+        view.addSubview(agreeToTermsNoticeTextView)
+        view.addSubview(agreeToTermsButton)
 
         applyTheme()
         setupConstraints()
@@ -125,6 +112,31 @@ class WelcomeController: UIViewController {
     }
 
     // MARK: Private
+
+    private func setupAgreeToTermsNoticeTextView() {
+        agreeToTermsNoticeTextView.scrollEnabled = false
+        agreeToTermsNoticeTextView.textAlignment = NSTextAlignment.Center
+
+        var fullTextAttributes = [String:AnyObject]()
+        let paragraphStyle: NSMutableParagraphStyle? = NSParagraphStyle.defaultParagraphStyle().mutableCopy() as? NSMutableParagraphStyle
+
+        if paragraphStyle != nil {
+            paragraphStyle!.alignment = .Center
+            fullTextAttributes[NSParagraphStyleAttributeName] = paragraphStyle!
+        }
+
+        let fullText = NSMutableAttributedString(string: NSLocalizedString("Welcome_agreeToTermsNoticeText", comment: ""), attributes: fullTextAttributes)
+        let termsAndConditions = NSAttributedString(string: NSLocalizedString("Welcome_termsAndConditions", comment: ""), attributes: [NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue, "terms": true])
+
+        let privacyPolicy = NSAttributedString(string: NSLocalizedString("Welcome_privacyPolicy", comment: ""), attributes: [NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue, "privacy": true])
+
+        fullText.replaceCharactersInRange((fullText.string as NSString).rangeOfString("{0}"), withAttributedString: termsAndConditions)
+        fullText.replaceCharactersInRange((fullText.string as NSString).rangeOfString("{1}"), withAttributedString: privacyPolicy)
+        agreeToTermsNoticeTextView.attributedText = fullText
+
+        let tapTermsNoticeRecognizer = UITapGestureRecognizer(target: self, action: "didTapAgreeToTermsLabel:")
+        agreeToTermsNoticeTextView.addGestureRecognizer(tapTermsNoticeRecognizer)
+    }
 
     private func applyTheme() {
         view.backgroundColor = self.theme.welcomeBackgroundColor()

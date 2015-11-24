@@ -46,4 +46,8 @@ class FakeURLProvider : Movement.URLProvider {
     func donateFormURL() -> NSURL! {
         fatalError("override me in spec!")
     }
+
+    func createEventURL() -> NSURL! {
+        fatalError("override me in spec!")
+    }
 }

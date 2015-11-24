@@ -13,4 +13,5 @@ protocol URLProvider {
     func sandersForPresidentURL() -> NSURL!
     func feedbackFormURL() -> NSURL!
     func donateFormURL() -> NSURL!
+    func createEventURL() -> NSURL!
 }
