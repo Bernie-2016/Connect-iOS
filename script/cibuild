@@ -10,7 +10,7 @@ main ()
 {
     cd src/Movement 
     carthage bootstrap --platform iphonesimulator --no-use-binaries
-    xctool clean build test -project Movement.xcodeproj/ -scheme Movement -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+    xcodebuild clean build test -project Movement.xcodeproj/ -scheme Movement -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO 2>/dev/null
 
     local status=$?
 
