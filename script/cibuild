@@ -9,7 +9,7 @@ export SCRIPT_DIR=$(dirname "$0")
 main ()
 {
     cd src/Movement 
-    carthage bootstrap --platform iphonesimulator --no-use-binaries 2>&1>/dev/null
+    carthage bootstrap --platform iphonesimulator --no-use-binaries
     xctool clean build test -project Movement.xcodeproj/ -scheme Movement -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO 2>&1> /dev/null
 
     local status=$?
