@@ -107,9 +107,8 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
             return cell
 
         } else {
-            // swiftlint:disable force_cast
-            let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! IssueTableViewCell
-            // swiftlint:enable force_cast
+            var cell: IssueTableViewCell! = tableView.dequeueReusableCellWithIdentifier("cell") as? IssueTableViewCell
+            if cell == nil { cell = IssueTableViewCell() }
 
             let issue = self.issues[indexPath.row]
             cell.titleLabel.text = issue.title

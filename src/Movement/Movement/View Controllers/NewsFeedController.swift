@@ -143,9 +143,9 @@ extension NewsFeedController: UITableViewDataSource {
     }
 
     func tableView(tableView: UITableView, newsItemTableViewCellForRowAtIndexPath indexPath: NSIndexPath) -> NewsItemTableViewCell {
-        // swiftlint:disable force_cast
-        let cell = tableView.dequeueReusableCellWithIdentifier("regularCell", forIndexPath: indexPath) as! NewsItemTableViewCell
-        // swiftlint:enable force_cast
+        var cell: NewsItemTableViewCell! = tableView.dequeueReusableCellWithIdentifier("regularCell") as? NewsItemTableViewCell
+        if cell == nil { cell = NewsItemTableViewCell() }
+
         let newsItem = self.newsItems[indexPath.row]
         cell.titleLabel.text = newsItem.title
         cell.excerptLabel.text = newsItem.excerpt

@@ -62,13 +62,14 @@ class SettingsController: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.row == self.tappableControllers.count {
-            // swiftlint:disable force_cast
-            let cell = tableView.dequeueReusableCellWithIdentifier("donateCell") as! DonateTableViewCell
-            // swiftlint:enable force_cast
+            var cell: DonateTableViewCell! = tableView.dequeueReusableCellWithIdentifier("donateCell") as? DonateTableViewCell
+            if cell == nil { cell = DonateTableViewCell() }
+
             cell.setupViews(self.theme)
             return cell
         } else {
-            let cell = tableView.dequeueReusableCellWithIdentifier("regularCell")!
+            var cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("regularCell")
+            if cell == nil { cell = UITableViewCell() }
 
             cell.textLabel!.text = self.tappableControllers[indexPath.row].title
             cell.textLabel!.textColor = self.theme.settingsTitleColor()

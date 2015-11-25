@@ -458,9 +458,8 @@ extension EventsController: UITableViewDataSource {
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        // swiftlint:disable force_cast
-        let cell = tableView.dequeueReusableCellWithIdentifier("eventCell") as! EventListTableViewCell
-        // swiftlint:enable force_cast
+        var cell: EventListTableViewCell! = tableView.dequeueReusableCellWithIdentifier("eventCell") as? EventListTableViewCell
+        if cell == nil { cell = EventListTableViewCell() }
 
         let eventsForDay = eventSearchResult.eventsWithDayIndex(indexPath.section)
         let event = eventsForDay[indexPath.row]
