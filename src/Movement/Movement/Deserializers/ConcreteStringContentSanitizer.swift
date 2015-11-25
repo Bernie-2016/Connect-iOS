@@ -1,5 +1,6 @@
 import UIKit
 
+// swiftlint:disable comma
 class ConcreteStringContentSanitizer: StringContentSanitizer {
     init() {}
 
@@ -37,13 +38,13 @@ class ConcreteStringContentSanitizer: StringContentSanitizer {
     }
 
     func removeIshere (string: String) -> String {
-        let sanitizedString = removeTextMatchingRegEx(string, regEx: "(\\([’*`*'*,*\"*\\w+\\s+]+ ishere\\.\\))")
-        return removeTextMatchingRegEx(sanitizedString, regEx: "[’*`*'*,*\"*\\w+\\s+]+ishere\\.")
+        let sanitizedString = removeTextMatchingRegEx(string, regEx:"(\\([’*`*'*,*\"*\\w+\\s+]+ ishere\\.\\))")
+        return removeTextMatchingRegEx(sanitizedString, regEx:"[’*`*'*,*\"*\\w+\\s+]+ishere\\.")
     }
 
     func removeResthere (string: String) -> String {
-        let sanitizedString = removeTextMatchingRegEx(string, regEx: "(’*`*'*,*\"*\\([\\w+\\s+]+ resthere\\.\\))")
-        return removeTextMatchingRegEx(sanitizedString, regEx: "[’*`*'*,*\"*\\w+\\s+]+resthere\\.")
+        let sanitizedString = removeTextMatchingRegEx(string, regEx:"(’*`*'*,*\"*\\([\\w+\\s+]+ resthere\\.\\))")
+        return removeTextMatchingRegEx(sanitizedString, regEx:"[’*`*'*,*\"*\\w+\\s+]+resthere\\.")
     }
 
     func removeArticlehere (string: String) -> String {
@@ -65,3 +66,4 @@ class ConcreteStringContentSanitizer: StringContentSanitizer {
         return removeTextMatchingRegEx(string, regEx: "\\[email protected\\].+\\*/\\.")
     }
 }
+// swiftlint:enable comma

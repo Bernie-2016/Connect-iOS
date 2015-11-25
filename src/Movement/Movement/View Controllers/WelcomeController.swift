@@ -102,12 +102,12 @@ class WelcomeController: UIViewController {
     }
 
     func didTapViewTerms() {
-        self.analyticsService.trackContentViewWithName("Terms and Conditions", type: .Onboarding, id: "Terms and Conditions")
+        self.analyticsService.trackContentViewWithName("Terms and Conditions", type: .Onboarding, identifier: "Terms and Conditions")
         self.navigationController!.pushViewController(self.termsAndConditionsController, animated: true)
     }
 
     func didTapViewPrivacyPolicy() {
-        self.analyticsService.trackContentViewWithName("Privacy Policy", type: .Onboarding, id: "Privacy Policy")
+        self.analyticsService.trackContentViewWithName("Privacy Policy", type: .Onboarding, identifier: "Privacy Policy")
         self.navigationController!.pushViewController(self.privacyPolicyController, animated: true)
     }
 

@@ -129,7 +129,7 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let issue = self.issues[indexPath.row]
 
-        self.analyticsService.trackContentViewWithName(issue.title, type: .Issue, id: issue.url.absoluteString)
+        self.analyticsService.trackContentViewWithName(issue.title, type: .Issue, identifier: issue.url.absoluteString)
 
         let controller = self.issueControllerProvider.provideInstanceWithIssue(issue)
         self.navigationController!.pushViewController(controller, animated: true)

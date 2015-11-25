@@ -199,7 +199,7 @@ extension NewsFeedController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let newsItem = self.newsItems[indexPath.row]
 
-        self.analyticsService.trackContentViewWithName(newsItem.title, type: .NewsItem, id: newsItem.url.absoluteString)
+        self.analyticsService.trackContentViewWithName(newsItem.title, type: .NewsItem, identifier: newsItem.url.absoluteString)
 
         let controller = self.newsItemControllerProvider.provideInstanceWithNewsItem(newsItem)
 

@@ -99,7 +99,7 @@ class IssueController: UIViewController {
                 self.analyticsService.trackError(error!, context: "Failed to share Issue")
             } else {
                 if success == true {
-                    self.analyticsService.trackShareWithActivityType(activity!, contentName: self.issue.title, contentType: .Issue, id: self.issue.url.absoluteString)
+                    self.analyticsService.trackShareWithActivityType(activity!, contentName: self.issue.title, contentType: .Issue, identifier: self.issue.url.absoluteString)
                 } else {
                     self.analyticsService.trackCustomEventWithName("Cancelled Share", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.issue.url.absoluteString,
                         AnalyticsServiceConstants.contentNameKey: self.issue.title,
@@ -157,7 +157,7 @@ class IssueController: UIViewController {
         bodyTextView.scrollEnabled = false
         bodyTextView.translatesAutoresizingMaskIntoConstraints = false
         bodyTextView.textContainerInset = UIEdgeInsetsZero
-        bodyTextView.textContainer.lineFragmentPadding = 0;
+        bodyTextView.textContainer.lineFragmentPadding = 0
         bodyTextView.editable = false
 
         bodyTextView.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.titleButton, withOffset: 16)

@@ -116,7 +116,7 @@ class NewsItemController: UIViewController {
                 self.analyticsService.trackError(error!, context: "Failed to share News Item")
             } else {
                 if success == true {
-                    self.analyticsService.trackShareWithActivityType(activity!, contentName: self.newsItem.title, contentType: .NewsItem, id: self.newsItem.url.absoluteString)
+                    self.analyticsService.trackShareWithActivityType(activity!, contentName: self.newsItem.title, contentType: .NewsItem, identifier: self.newsItem.url.absoluteString)
                 } else {
                     self.analyticsService.trackCustomEventWithName("Cancelled Share", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.newsItem.url.absoluteString,
                         AnalyticsServiceConstants.contentNameKey: self.newsItem.title,
@@ -177,7 +177,7 @@ class NewsItemController: UIViewController {
 
         bodyTextView.scrollEnabled = false
         bodyTextView.textContainerInset = UIEdgeInsetsZero
-        bodyTextView.textContainer.lineFragmentPadding = 0;
+        bodyTextView.textContainer.lineFragmentPadding = 0
         bodyTextView.editable = false
 
         bodyTextView.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.dateLabel, withOffset: 14)

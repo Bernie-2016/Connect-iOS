@@ -118,7 +118,7 @@ class EventController: UIViewController {
                 self.analyticsService.trackError(error!, context: "Failed to share Event")
             } else {
                 if success == true {
-                    self.analyticsService.trackShareWithActivityType(activity!, contentName: self.event.name, contentType: .Event, id: self.event.url.absoluteString)
+                    self.analyticsService.trackShareWithActivityType(activity!, contentName: self.event.name, contentType: .Event, identifier: self.event.url.absoluteString)
                 } else {
                     self.analyticsService.trackCustomEventWithName("Cancelled Share", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.event.url.absoluteString,
                         AnalyticsServiceConstants.contentNameKey: self.event.name,

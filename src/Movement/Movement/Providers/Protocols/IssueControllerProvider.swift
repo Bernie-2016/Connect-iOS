@@ -2,5 +2,5 @@ import Foundation
 
 
 protocol IssueControllerProvider {
-    func provideInstanceWithIssue(issue: Issue) -> IssueController;
+    func provideInstanceWithIssue(issue: Issue) -> IssueController
 }

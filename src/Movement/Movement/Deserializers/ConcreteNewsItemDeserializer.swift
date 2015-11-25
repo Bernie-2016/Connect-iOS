@@ -42,7 +42,7 @@ class ConcreteNewsItemDeserializer: NewsItemDeserializer {
             }
 
             let newsItem = NewsItem(title: title, date: date, body: body, excerpt: excerpt, imageURL: imageURL, url: url)
-            newsItems.append(newsItem);
+            newsItems.append(newsItem)
         }
 
         return newsItems

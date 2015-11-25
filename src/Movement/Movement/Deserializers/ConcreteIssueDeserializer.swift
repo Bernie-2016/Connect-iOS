@@ -32,7 +32,7 @@ class ConcreteIssueDeserializer: IssueDeserializer {
             }
 
             let issue = Issue(title: title, body: body, imageURL: imageURL, url: url)
-            issues.append(issue);
+            issues.append(issue)
         }
 
         return issues

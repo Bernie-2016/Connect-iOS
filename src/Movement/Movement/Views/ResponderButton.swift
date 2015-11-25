@@ -6,12 +6,11 @@ class ResponderButton: UIButton {
     override var inputView: UIView { get {
         if buttonInputView != nil {
             return buttonInputView
-        }
-        else {
+        } else {
             return super.inputView!
         }
-
-        }}
+        }
+    }
 
     override func canBecomeFirstResponder() -> Bool {
         return true

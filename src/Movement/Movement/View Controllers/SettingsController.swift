@@ -85,7 +85,7 @@ class SettingsController: UITableViewController {
             self.urlOpener.openURL(self.urlProvider.donateFormURL())
         } else {
             let controller = self.tappableControllers[indexPath.row]
-            self.analyticsService.trackContentViewWithName(controller.title!, type: .Settings, id: controller.title!)
+            self.analyticsService.trackContentViewWithName(controller.title!, type: .Settings, identifier: controller.title!)
             self.navigationController?.pushViewController(controller, animated: true)
         }
     }

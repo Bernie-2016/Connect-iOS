@@ -41,11 +41,11 @@ class FeedbackController: UIViewController, UIWebViewDelegate {
 
     func webViewDidFinishLoad(webView: UIWebView) {
         let overrideCssPath = NSBundle.mainBundle().pathForResource("feedbackGoogleFormOverrides", ofType: "css")!
-        let overrideCss = try! String(contentsOfFile: overrideCssPath, encoding: NSUTF8StringEncoding)
+        let overrideCss = try? String(contentsOfFile: overrideCssPath, encoding: NSUTF8StringEncoding)
         let injectionJSPath = NSBundle.mainBundle().pathForResource("cssInjection", ofType: "js")!
-        let injectionJS = try! String(contentsOfFile: injectionJSPath, encoding: NSUTF8StringEncoding)
+        let injectionJS = try? String(contentsOfFile: injectionJSPath, encoding: NSUTF8StringEncoding)
 
-        let cssInjection = injectionJS.stringByReplacingOccurrencesOfString("CSS_SENTINEL", withString:overrideCss)
+        let cssInjection = injectionJS!.stringByReplacingOccurrencesOfString("CSS_SENTINEL", withString:overrideCss!)
         print(webView.stringByEvaluatingJavaScriptFromString(cssInjection), terminator: "")
     }
 }

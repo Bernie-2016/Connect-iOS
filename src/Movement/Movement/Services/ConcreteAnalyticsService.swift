@@ -50,11 +50,11 @@ class ConcreteAnalyticsService: AnalyticsService {
         }
     }
 
-    func trackContentViewWithName(name: String, type: AnalyticsServiceContentType, id: String) {
+    func trackContentViewWithName(name: String, type: AnalyticsServiceContentType, identifier: String) {
         self.applicationSettingsRepository.isAnalyticsEnabled { (analyticsEnabled) -> Void in
             if analyticsEnabled {
                 #if RELEASE
-                    let flurryParams = [ "name": name, "type": type.description, "id": id]
+                    let flurryParams = [ "name": name, "type": type.description, "id": identifier]
                     Flurry.logEvent("Content View", withParameters: flurryParams)
                 #endif
             }
@@ -71,11 +71,11 @@ class ConcreteAnalyticsService: AnalyticsService {
         }
     }
 
-    func trackShareWithActivityType(activityType: String, contentName: String, contentType: AnalyticsServiceContentType, id: String) {
+    func trackShareWithActivityType(activityType: String, contentName: String, contentType: AnalyticsServiceContentType, identifier: String) {
         self.applicationSettingsRepository.isAnalyticsEnabled { (analyticsEnabled) -> Void in
             if analyticsEnabled {
                 #if RELEASE
-                    let flurryParams = ["name": contentName, "type": contentType.description, "id": id]
+                    let flurryParams = ["name": contentName, "type": contentType.description, "id": identifier]
                     Flurry.logEvent("Completed content share", withParameters: flurryParams)
                 #endif
             }

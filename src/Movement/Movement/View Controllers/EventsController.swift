@@ -312,7 +312,7 @@ class EventsController: UIViewController {
         noResultsLabel.numberOfLines = 0
         noResultsLabel.textAlignment = .Center
         noResultsLabel.text = NSLocalizedString("Events_noEventsFound", comment: "")
-        noResultsLabel.lineBreakMode = NSLineBreakMode.ByTruncatingTail;
+        noResultsLabel.lineBreakMode = NSLineBreakMode.ByTruncatingTail
         noResultsLabel.hidden = true
 
         setupCreateEventCTATextView()
@@ -494,7 +494,7 @@ extension EventsController: UITableViewDelegate {
         let eventsForDay = eventSearchResult.eventsWithDayIndex(indexPath.section)
         let event = eventsForDay[indexPath.row]
         let controller = self.eventControllerProvider.provideInstanceWithEvent(event)
-        self.analyticsService.trackContentViewWithName(event.name, type: .Event, id: event.url.absoluteString)
+        self.analyticsService.trackContentViewWithName(event.name, type: .Event, identifier: event.url.absoluteString)
         self.navigationController?.pushViewController(controller, animated: true)
     }
 

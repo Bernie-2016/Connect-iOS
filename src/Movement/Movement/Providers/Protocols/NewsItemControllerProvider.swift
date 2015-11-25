@@ -1,5 +1,5 @@
 import Foundation
 
 protocol NewsItemControllerProvider {
-    func provideInstanceWithNewsItem(newsItem: NewsItem) -> NewsItemController;
+    func provideInstanceWithNewsItem(newsItem: NewsItem) -> NewsItemController
 }

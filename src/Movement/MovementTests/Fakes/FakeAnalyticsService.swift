@@ -32,10 +32,10 @@ class FakeAnalyticsService: AnalyticsService {
     var lastContentViewType: AnalyticsServiceContentType!
     var lastContentViewID: String!
 
-    func trackContentViewWithName(name: String, type: AnalyticsServiceContentType, id: String) {
+    func trackContentViewWithName(name: String, type: AnalyticsServiceContentType, identifier: String) {
         lastContentViewName = name
         lastContentViewType = type
-        lastContentViewID = id
+        lastContentViewID = identifier
     }
 
     var lastError: NSError!
@@ -51,10 +51,11 @@ class FakeAnalyticsService: AnalyticsService {
     var lastShareContentType: AnalyticsServiceContentType!
     var lastShareID: String!
 
-    func trackShareWithActivityType(activityType: String, contentName: String, contentType: AnalyticsServiceContentType, id: String) {       lastShareActivityType = activityType
+    func trackShareWithActivityType(activityType: String, contentName: String, contentType: AnalyticsServiceContentType, identifier: String) {
+        lastShareActivityType = activityType
         lastShareContentName = contentName
         lastShareContentType = contentType
-        lastShareID = id
+        lastShareID = identifier
     }
 
     var lastSearchQuery: String!
