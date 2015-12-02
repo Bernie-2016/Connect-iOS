@@ -5,13 +5,13 @@ import Nimble
 
 
 
-class NewsItemFakeTheme : FakeTheme {
-    override func newsItemDateFont() -> UIFont { return UIFont.boldSystemFontOfSize(20) }
-    override func newsItemDateColor() -> UIColor { return UIColor.magentaColor() }
-    override func newsItemTitleFont() -> UIFont { return UIFont.italicSystemFontOfSize(13) }
-    override func newsItemTitleColor() -> UIColor { return UIColor.brownColor() }
-    override func newsItemBodyFont() -> UIFont { return UIFont.systemFontOfSize(3) }
-    override func newsItemBodyColor() -> UIColor { return UIColor.yellowColor() }
+class NewsArticleFakeTheme : FakeTheme {
+    override func newsArticleDateFont() -> UIFont { return UIFont.boldSystemFontOfSize(20) }
+    override func newsArticleDateColor() -> UIColor { return UIColor.magentaColor() }
+    override func newsArticleTitleFont() -> UIFont { return UIFont.italicSystemFontOfSize(13) }
+    override func newsArticleTitleColor() -> UIColor { return UIColor.brownColor() }
+    override func newsArticleBodyFont() -> UIFont { return UIFont.systemFontOfSize(3) }
+    override func newsArticleBodyColor() -> UIColor { return UIColor.yellowColor() }
     override func defaultBackgroundColor() -> UIColor { return UIColor.orangeColor() }
     override func attributionFont() -> UIFont { return UIFont.boldSystemFontOfSize(111) }
     override func attributionTextColor() -> UIColor { return UIColor.greenColor() }
@@ -21,21 +21,21 @@ class NewsItemFakeTheme : FakeTheme {
 
 }
 
-class NewsItemControllerSpec : QuickSpec {
-    var subject: NewsItemController!
-    let newsItemImageURL = NSURL(string: "http://a.com")!
-    let newsItemURL = NSURL(string: "http//b.com")!
-    let newsItemDate = NSDate(timeIntervalSince1970: 1441081523)
-    var newsItem: NewsItem!
+class NewsArticleControllerSpec : QuickSpec {
+    var subject: NewsArticleController!
+    let newsArticleImageURL = NSURL(string: "http://a.com")!
+    let newsArticleURL = NSURL(string: "http//b.com")!
+    let newsArticleDate = NSDate(timeIntervalSince1970: 1441081523)
+    var newsArticle: NewsArticle!
     var imageRepository: FakeImageRepository!
     var timeIntervalFormatter: FakeTimeIntervalFormatter!
     var analyticsService: FakeAnalyticsService!
     var urlOpener: FakeURLOpener!
     var urlAttributionPresenter: FakeURLAttributionPresenter!
-    let theme = NewsItemFakeTheme()
+    let theme = NewsArticleFakeTheme()
 
     override func spec() {
-        describe("NewsItemController") {
+        describe("NewsArticleController") {
             beforeEach {
                 self.imageRepository = FakeImageRepository()
                 self.timeIntervalFormatter = FakeTimeIntervalFormatter()
@@ -46,10 +46,10 @@ class NewsItemControllerSpec : QuickSpec {
 
             context("with a standard news item") {
                 beforeEach {
-                    self.newsItem = NewsItem(title: "some title", date: self.newsItemDate, body: "some body text", excerpt: "excerpt", imageURL: self.newsItemImageURL, url:self.newsItemURL)
+                    self.newsArticle = NewsArticle(title: "some title", date: self.newsArticleDate, body: "some body text", excerpt: "excerpt", imageURL: self.newsArticleImageURL, url:self.newsArticleURL)
 
-                    self.subject = NewsItemController(
-                        newsItem: self.newsItem,
+                    self.subject = NewsArticleController(
+                        newsArticle: self.newsArticle,
                         imageRepository: self.imageRepository,
                         timeIntervalFormatter: self.timeIntervalFormatter,
                         analyticsService: self.analyticsService,
@@ -63,7 +63,7 @@ class NewsItemControllerSpec : QuickSpec {
                     self.subject.didMoveToParentViewController(nil)
 
                     expect(self.analyticsService.lastBackButtonTapScreen).to(equal("News Item"))
-                    let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.newsItem.url.absoluteString]
+                    let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.newsArticle.url.absoluteString]
                     expect(self.analyticsService.lastBackButtonTapAttributes! as? [String: String]).to(equal(expectedAttributes))
                 }
 
@@ -96,15 +96,15 @@ class NewsItemControllerSpec : QuickSpec {
                             let activityItems = activityViewControler.activityItems()
 
                             expect(activityItems.count).to(equal(1))
-                            expect(activityItems.first as? NSURL).to(beIdenticalTo(self.newsItemURL))
+                            expect(activityItems.first as? NSURL).to(beIdenticalTo(self.newsArticleURL))
                         }
 
                         it("logs that the user tapped share") {
                             expect(self.analyticsService.lastCustomEventName).to(equal("Began Share"))
                             let expectedAttributes = [
-                                AnalyticsServiceConstants.contentIDKey: self.newsItem.url.absoluteString,
-                                AnalyticsServiceConstants.contentNameKey: self.newsItem.title,
-                                AnalyticsServiceConstants.contentTypeKey: "News Item"
+                                AnalyticsServiceConstants.contentIDKey: self.newsArticle.url.absoluteString,
+                                AnalyticsServiceConstants.contentNameKey: self.newsArticle.title,
+                                AnalyticsServiceConstants.contentTypeKey: "News Article"
 ]
                             expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                         }
@@ -115,9 +115,9 @@ class NewsItemControllerSpec : QuickSpec {
                                 activityViewControler.completionWithItemsHandler!("Some activity", true, nil, nil)
 
                                 expect(self.analyticsService.lastShareActivityType).to(equal("Some activity"))
-                                expect(self.analyticsService.lastShareContentName).to(equal(self.newsItem.title))
-                                expect(self.analyticsService.lastShareContentType).to(equal(AnalyticsServiceContentType.NewsItem))
-                                expect(self.analyticsService.lastShareID).to(equal(self.newsItemURL.absoluteString))
+                                expect(self.analyticsService.lastShareContentName).to(equal(self.newsArticle.title))
+                                expect(self.analyticsService.lastShareContentType).to(equal(AnalyticsServiceContentType.NewsArticle))
+                                expect(self.analyticsService.lastShareID).to(equal(self.newsArticleURL.absoluteString))
                             }
                         }
 
@@ -128,9 +128,9 @@ class NewsItemControllerSpec : QuickSpec {
 
                                 expect(self.analyticsService.lastCustomEventName).to(equal("Cancelled Share"))
                                 let expectedAttributes = [
-                                    AnalyticsServiceConstants.contentIDKey: self.newsItem.url.absoluteString,
-                                    AnalyticsServiceConstants.contentNameKey: self.newsItem.title,
-                                    AnalyticsServiceConstants.contentTypeKey: "News Item"
+                                    AnalyticsServiceConstants.contentIDKey: self.newsArticle.url.absoluteString,
+                                    AnalyticsServiceConstants.contentNameKey: self.newsArticle.title,
+                                    AnalyticsServiceConstants.contentTypeKey: "News Article"
                                 ]
                                 expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                             }
@@ -177,12 +177,12 @@ class NewsItemControllerSpec : QuickSpec {
                         }
 
                         it("opens the original issue in safari") {
-                            expect(self.urlOpener.lastOpenedURL).to(beIdenticalTo(self.newsItem.url))
+                            expect(self.urlOpener.lastOpenedURL).to(beIdenticalTo(self.newsArticle.url))
                         }
 
                         it("logs that the user tapped view original") {
                             expect(self.analyticsService.lastCustomEventName).to(equal("Tapped title on News Item"))
-                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.newsItem.url.absoluteString]
+                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.newsArticle.url.absoluteString]
                             expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                         }
                     }
@@ -192,12 +192,12 @@ class NewsItemControllerSpec : QuickSpec {
                     }
 
                     it("displays the date using the human date formatter") {
-                        expect(self.timeIntervalFormatter.lastFormattedDate).to(beIdenticalTo(self.newsItemDate))
+                        expect(self.timeIntervalFormatter.lastFormattedDate).to(beIdenticalTo(self.newsArticleDate))
                         expect(self.subject.dateLabel.text).to(equal("human date"))
                     }
 
                     it("uses the presenter to get attribution text for the issue") {
-                        expect(self.urlAttributionPresenter.lastPresentedURL).to(beIdenticalTo(self.newsItem.url))
+                        expect(self.urlAttributionPresenter.lastPresentedURL).to(beIdenticalTo(self.newsArticle.url))
                         expect(self.subject.attributionLabel.text).to(equal(self.urlAttributionPresenter.returnedText))
                     }
 
@@ -211,18 +211,18 @@ class NewsItemControllerSpec : QuickSpec {
                         }
 
                         it("opens the original issue in safari") {
-                            expect(self.urlOpener.lastOpenedURL).to(beIdenticalTo(self.newsItem.url))
+                            expect(self.urlOpener.lastOpenedURL).to(beIdenticalTo(self.newsArticle.url))
                         }
 
                         it("logs that the user tapped view original") {
                             expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'View Original' on News Item"))
-                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.newsItem.url.absoluteString]
+                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.newsArticle.url.absoluteString]
                             expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                         }
                     }
 
                     it("makes a request for the story's image") {
-                        expect(self.imageRepository.lastReceivedURL).to(beIdenticalTo(self.newsItemImageURL))
+                        expect(self.imageRepository.lastReceivedURL).to(beIdenticalTo(self.newsArticleImageURL))
                     }
 
                     it("styles the views according to the theme") {
@@ -266,11 +266,11 @@ class NewsItemControllerSpec : QuickSpec {
 
             context("with a news item that lacks an image") {
                 beforeEach {
-                    let newsItemDate = NSDate(timeIntervalSince1970: 1441081523)
-                    let newsItem = NewsItem(title: "some title", date: newsItemDate, body: "some body text", excerpt: "excerpt", imageURL: nil, url:self.newsItemURL)
+                    let newsArticleDate = NSDate(timeIntervalSince1970: 1441081523)
+                    let newsArticle = NewsArticle(title: "some title", date: newsArticleDate, body: "some body text", excerpt: "excerpt", imageURL: nil, url:self.newsArticleURL)
 
-                    self.subject = NewsItemController(
-                        newsItem: newsItem,
+                    self.subject = NewsArticleController(
+                        newsArticle: newsArticle,
                         imageRepository: self.imageRepository,
                         timeIntervalFormatter: self.timeIntervalFormatter,
                         analyticsService: self.analyticsService,

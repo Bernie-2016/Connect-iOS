@@ -1,7 +1,7 @@
 import Foundation
 import WebImage
 
-class ConcreteNewsItemControllerProvider: NewsItemControllerProvider {
+class ConcreteNewsArticleControllerProvider: NewsArticleControllerProvider {
     private let timeIntervalFormatter: TimeIntervalFormatter
     private let imageRepository: ImageRepository
     private let analyticsService: AnalyticsService
@@ -18,9 +18,9 @@ class ConcreteNewsItemControllerProvider: NewsItemControllerProvider {
         self.theme = theme
     }
 
-    func provideInstanceWithNewsItem(newsItem: NewsItem) -> NewsItemController {
-        return NewsItemController(
-            newsItem: newsItem,
+    func provideInstanceWithNewsArticle(newsArticle: NewsArticle) -> NewsArticleController {
+        return NewsArticleController(
+            newsArticle: newsArticle,
             imageRepository: self.imageRepository,
             timeIntervalFormatter: self.timeIntervalFormatter,
             analyticsService: self.analyticsService,

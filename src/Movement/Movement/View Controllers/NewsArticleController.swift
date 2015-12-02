@@ -2,8 +2,8 @@ import UIKit
 import PureLayout
 
 // swiftlint:disable type_body_length
-class NewsItemController: UIViewController {
-    let newsItem: NewsItem
+class NewsArticleController: UIViewController {
+    let newsArticle: NewsArticle
     let imageRepository: ImageRepository
     let timeIntervalFormatter: TimeIntervalFormatter
     let analyticsService: AnalyticsService
@@ -22,7 +22,7 @@ class NewsItemController: UIViewController {
     let viewOriginalButton = UIButton.newAutoLayoutView()
 
     init(
-        newsItem: NewsItem,
+        newsArticle: NewsArticle,
         imageRepository: ImageRepository,
         timeIntervalFormatter: TimeIntervalFormatter,
         analyticsService: AnalyticsService,
@@ -30,7 +30,7 @@ class NewsItemController: UIViewController {
         urlAttributionPresenter: URLAttributionPresenter,
         theme: Theme) {
 
-        self.newsItem = newsItem
+        self.newsArticle = newsArticle
         self.imageRepository = imageRepository
         self.timeIntervalFormatter = timeIntervalFormatter
         self.analyticsService = analyticsService
@@ -61,20 +61,20 @@ class NewsItemController: UIViewController {
         containerView.addSubview(self.attributionLabel)
         containerView.addSubview(self.viewOriginalButton)
 
-        dateLabel.text = self.timeIntervalFormatter.humanDaysSinceDate(self.newsItem.date)
-        titleButton.setTitle(self.newsItem.title, forState: .Normal)
+        dateLabel.text = self.timeIntervalFormatter.humanDaysSinceDate(self.newsArticle.date)
+        titleButton.setTitle(self.newsArticle.title, forState: .Normal)
         titleButton.addTarget(self, action: "didTapViewOriginal:", forControlEvents: .TouchUpInside)
-        bodyTextView.text = self.newsItem.body
+        bodyTextView.text = self.newsArticle.body
 
-        attributionLabel.text = self.urlAttributionPresenter.attributionTextForURL(newsItem.url)
-        viewOriginalButton.setTitle(NSLocalizedString("NewsItem_viewOriginal", comment: ""), forState: .Normal)
+        attributionLabel.text = self.urlAttributionPresenter.attributionTextForURL(newsArticle.url)
+        viewOriginalButton.setTitle(NSLocalizedString("NewsArticle_viewOriginal", comment: ""), forState: .Normal)
         viewOriginalButton.addTarget(self, action: "didTapViewOriginal:", forControlEvents: .TouchUpInside)
 
         applyThemeToViews()
         setupConstraintsAndLayout()
 
-        if self.newsItem.imageURL != nil {
-            self.imageRepository.fetchImageWithURL(self.newsItem.imageURL!).then({ (image) -> AnyObject! in
+        if self.newsArticle.imageURL != nil {
+            self.imageRepository.fetchImageWithURL(self.newsArticle.imageURL!).then({ (image) -> AnyObject! in
                 self.storyImageView.image = image as? UIImage
                 return image
                 }, error: { (error) -> AnyObject! in
@@ -91,7 +91,7 @@ class NewsItemController: UIViewController {
     }
 
     override func didMoveToParentViewController(parent: UIViewController?) {
-        self.analyticsService.trackBackButtonTapOnScreen("News Item", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.newsItem.url.absoluteString])
+        self.analyticsService.trackBackButtonTapOnScreen("News Item", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.newsArticle.url.absoluteString])
     }
 
     override func updateViewConstraints() {
@@ -105,22 +105,22 @@ class NewsItemController: UIViewController {
 
     func share() {
         self.analyticsService.trackCustomEventWithName("Began Share", customAttributes: [
-            AnalyticsServiceConstants.contentIDKey: self.newsItem.url.absoluteString,
-            AnalyticsServiceConstants.contentNameKey: self.newsItem.title,
-            AnalyticsServiceConstants.contentTypeKey: AnalyticsServiceContentType.NewsItem.description
+            AnalyticsServiceConstants.contentIDKey: self.newsArticle.url.absoluteString,
+            AnalyticsServiceConstants.contentNameKey: self.newsArticle.title,
+            AnalyticsServiceConstants.contentTypeKey: AnalyticsServiceContentType.NewsArticle.description
             ])
-        let activityVC = UIActivityViewController(activityItems: [newsItem.url], applicationActivities: nil)
+        let activityVC = UIActivityViewController(activityItems: [newsArticle.url], applicationActivities: nil)
 
         activityVC.completionWithItemsHandler = { activity, success, items, error in
             if error != nil {
                 self.analyticsService.trackError(error!, context: "Failed to share News Item")
             } else {
                 if success == true {
-                    self.analyticsService.trackShareWithActivityType(activity!, contentName: self.newsItem.title, contentType: .NewsItem, identifier: self.newsItem.url.absoluteString)
+                    self.analyticsService.trackShareWithActivityType(activity!, contentName: self.newsArticle.title, contentType: .NewsArticle, identifier: self.newsArticle.url.absoluteString)
                 } else {
-                    self.analyticsService.trackCustomEventWithName("Cancelled Share", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.newsItem.url.absoluteString,
-                        AnalyticsServiceConstants.contentNameKey: self.newsItem.title,
-                        AnalyticsServiceConstants.contentTypeKey: AnalyticsServiceContentType.NewsItem.description
+                    self.analyticsService.trackCustomEventWithName("Cancelled Share", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.newsArticle.url.absoluteString,
+                        AnalyticsServiceConstants.contentNameKey: self.newsArticle.title,
+                        AnalyticsServiceConstants.contentTypeKey: AnalyticsServiceContentType.NewsArticle.description
                         ])
                 }
             }
@@ -131,8 +131,8 @@ class NewsItemController: UIViewController {
 
     func didTapViewOriginal(sender: UIButton) {
         let eventName = sender == self.titleButton ? "Tapped title on News Item" : "Tapped 'View Original' on News Item"
-        analyticsService.trackCustomEventWithName(eventName, customAttributes: [AnalyticsServiceConstants.contentIDKey: newsItem.url.absoluteString])
-        self.urlOpener.openURL(self.newsItem.url)
+        analyticsService.trackCustomEventWithName(eventName, customAttributes: [AnalyticsServiceConstants.contentIDKey: newsArticle.url.absoluteString])
+        self.urlOpener.openURL(self.newsArticle.url)
     }
 
     // MARK: Private
@@ -197,12 +197,12 @@ class NewsItemController: UIViewController {
     // swiftlint:enable function_body_length
 
     private func applyThemeToViews() {
-        self.dateLabel.font = self.theme.newsItemDateFont()
-        self.dateLabel.textColor = self.theme.newsItemDateColor()
-        self.self.titleButton.titleLabel!.font = self.theme.newsItemTitleFont()
-        self.titleButton.setTitleColor(self.theme.newsItemTitleColor(), forState: .Normal)
-        self.bodyTextView.font = self.theme.newsItemBodyFont()
-        self.bodyTextView.textColor = self.theme.newsItemBodyColor()
+        self.dateLabel.font = self.theme.newsArticleDateFont()
+        self.dateLabel.textColor = self.theme.newsArticleDateColor()
+        self.self.titleButton.titleLabel!.font = self.theme.newsArticleTitleFont()
+        self.titleButton.setTitleColor(self.theme.newsArticleTitleColor(), forState: .Normal)
+        self.bodyTextView.font = self.theme.newsArticleBodyFont()
+        self.bodyTextView.textColor = self.theme.newsArticleBodyColor()
         self.attributionLabel.font = self.theme.attributionFont()
         self.attributionLabel.textColor = self.theme.attributionTextColor()
         self.viewOriginalButton.backgroundColor = self.theme.defaultButtonBackgroundColor()

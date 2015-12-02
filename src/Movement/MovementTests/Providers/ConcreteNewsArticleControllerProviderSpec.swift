@@ -3,8 +3,8 @@ import Quick
 import Nimble
 @testable import Movement
 
-class ConcreteNewsItemControllerProviderSpec : QuickSpec {
-    var subject : ConcreteNewsItemControllerProvider!
+class ConcreteNewsArticleControllerProviderSpec : QuickSpec {
+    var subject : ConcreteNewsArticleControllerProvider!
     let timeIntervalFormatter = FakeTimeIntervalFormatter()
     let imageRepository = FakeImageRepository()
     let analyticsService = FakeAnalyticsService()
@@ -16,7 +16,7 @@ class ConcreteNewsItemControllerProviderSpec : QuickSpec {
 
         describe("providing an instance with a news item") {
             beforeEach {
-                self.subject = ConcreteNewsItemControllerProvider(
+                self.subject = ConcreteNewsArticleControllerProvider(
                     timeIntervalFormatter: self.timeIntervalFormatter,
                     imageRepository: self.imageRepository,
                     analyticsService: self.analyticsService,
@@ -27,12 +27,12 @@ class ConcreteNewsItemControllerProviderSpec : QuickSpec {
             }
 
             it("should return a correctly configured instance") {
-                let newsItem = NewsItem(title: "a", date: NSDate(), body: "a body", excerpt: "excerpt", imageURL: NSURL(), url: NSURL())
+                let newsArticle = NewsArticle(title: "a", date: NSDate(), body: "a body", excerpt: "excerpt", imageURL: NSURL(), url: NSURL())
 
-                let controller = self.subject.provideInstanceWithNewsItem(newsItem)
+                let controller = self.subject.provideInstanceWithNewsArticle(newsArticle)
 
-                expect(controller).to(beAnInstanceOf(NewsItemController.self))
-                expect(controller.newsItem).to(beIdenticalTo(newsItem))
+                expect(controller).to(beAnInstanceOf(NewsArticleController.self))
+                expect(controller.newsArticle).to(beIdenticalTo(newsArticle))
                 expect(controller.imageRepository as? FakeImageRepository).to(beIdenticalTo(self.imageRepository))
                 expect(controller.timeIntervalFormatter as? FakeTimeIntervalFormatter).to(beIdenticalTo(self.timeIntervalFormatter))
                 expect(controller.analyticsService as? FakeAnalyticsService).to(beIdenticalTo(self.analyticsService))

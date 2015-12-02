@@ -3,43 +3,43 @@ import Quick
 import Nimble
 import KSDeferred
 
-class NewsItemRepositoryFakeURLProvider: FakeURLProvider {
+class NewsArticleRepositoryFakeURLProvider: FakeURLProvider {
     override func newsFeedURL() -> NSURL! {
         return NSURL(string: "https://example.com/bernese/")
     }
 }
 
-class FakeNewsItemDeserializer: NewsItemDeserializer {
+class FakeNewsArticleDeserializer: NewsArticleDeserializer {
     var lastReceivedJSONDictionary: NSDictionary!
-    let returnedNewsItems = [NewsItem(title: "fake news", date: NSDate(), body: "fake body", excerpt: "excerpt", imageURL: NSURL(), url: NSURL())]
+    let returnedNewsArticles = [NewsArticle(title: "fake news", date: NSDate(), body: "fake body", excerpt: "excerpt", imageURL: NSURL(), url: NSURL())]
 
-    func deserializeNewsItems(jsonDictionary: NSDictionary) -> Array<NewsItem> {
+    func deserializeNewsArticles(jsonDictionary: NSDictionary) -> Array<NewsArticle> {
         self.lastReceivedJSONDictionary = jsonDictionary
-        return self.returnedNewsItems
+        return self.returnedNewsArticles
     }
 }
 
-class ConcreteNewsItemRepositorySpec : QuickSpec {
-    var subject: ConcreteNewsItemRepository!
+class ConcreteNewsArticleRepositorySpec : QuickSpec {
+    var subject: ConcreteNewsArticleRepository!
     let jsonClient = FakeJSONClient()
-    let urlProvider = NewsItemRepositoryFakeURLProvider()
-    let newsItemDeserializer = FakeNewsItemDeserializer()
+    let urlProvider = NewsArticleRepositoryFakeURLProvider()
+    let newsArticleDeserializer = FakeNewsArticleDeserializer()
     let operationQueue = FakeOperationQueue()
-    var receivedNewsItems: Array<NewsItem>!
+    var receivedNewsArticles: Array<NewsArticle>!
     var receivedError: NSError!
 
     override func spec() {
-        self.subject = ConcreteNewsItemRepository(
+        self.subject = ConcreteNewsArticleRepository(
             urlProvider: self.urlProvider,
             jsonClient: self.jsonClient,
-            newsItemDeserializer: newsItemDeserializer,
+            newsArticleDeserializer: newsArticleDeserializer,
             operationQueue: self.operationQueue
         )
 
-        describe(".fetchNewsItems") {
+        describe(".fetchNewsArticles") {
             beforeEach {
-                self.subject.fetchNewsItems({ (newsItems) -> Void in
-                    self.receivedNewsItems = newsItems
+                self.subject.fetchNewsArticles({ (newsArticles) -> Void in
+                    self.receivedNewsArticles = newsArticles
                     }, error: { (error) -> Void in
                         self.receivedError = error
                 })
@@ -70,7 +70,7 @@ class ConcreteNewsItemRepositorySpec : QuickSpec {
 
             context("when the request to the JSON client succeeds") {
                 let expectedJSONDictionary = NSDictionary();
-                _ = self.newsItemDeserializer.returnedNewsItems
+                _ = self.newsArticleDeserializer.returnedNewsArticles
 
                 beforeEach {
                     let deferred: KSDeferred = self.jsonClient.deferredsByURL[self.urlProvider.newsFeedURL()]!
@@ -79,13 +79,13 @@ class ConcreteNewsItemRepositorySpec : QuickSpec {
                 }
 
                 it("passes the json dictionary to the news item deserializer") {
-                    expect(self.newsItemDeserializer.lastReceivedJSONDictionary).to(beIdenticalTo(expectedJSONDictionary))
+                    expect(self.newsArticleDeserializer.lastReceivedJSONDictionary).to(beIdenticalTo(expectedJSONDictionary))
                 }
 
                 it("calls the completion handler with the deserialized value objects on the operation queue") {
                     self.operationQueue.lastReceivedBlock()
-                    expect(self.receivedNewsItems.count).to(equal(1))
-                    expect(self.receivedNewsItems.first!.title).to(equal("fake news"))
+                    expect(self.receivedNewsArticles.count).to(equal(1))
+                    expect(self.receivedNewsArticles.first!.title).to(equal("fake news"))
                 }
             }
 

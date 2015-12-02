@@ -47,12 +47,12 @@ protocol Theme {
 
     // MARK: News Item detail screen
 
-    func newsItemDateFont() -> UIFont
-    func newsItemDateColor() -> UIColor
-    func newsItemTitleFont() -> UIFont
-    func newsItemTitleColor() -> UIColor
-    func newsItemBodyFont() -> UIFont
-    func newsItemBodyColor() -> UIColor
+    func newsArticleDateFont() -> UIFont
+    func newsArticleDateColor() -> UIColor
+    func newsArticleTitleFont() -> UIFont
+    func newsArticleTitleColor() -> UIColor
+    func newsArticleBodyFont() -> UIFont
+    func newsArticleBodyColor() -> UIColor
 
     // MARK: Issue detail screen
 

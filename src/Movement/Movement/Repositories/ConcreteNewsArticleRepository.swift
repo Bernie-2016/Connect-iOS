@@ -1,29 +1,29 @@
 import Foundation
 
-class ConcreteNewsItemRepository: NewsItemRepository {
+class ConcreteNewsArticleRepository: NewsArticleRepository {
     private let urlProvider: URLProvider
     private let jsonClient: JSONClient
-    private let newsItemDeserializer: NewsItemDeserializer
+    private let newsArticleDeserializer: NewsArticleDeserializer
     private let operationQueue: NSOperationQueue
 
     init(
         urlProvider: URLProvider,
         jsonClient: JSONClient,
-        newsItemDeserializer: NewsItemDeserializer,
+        newsArticleDeserializer: NewsArticleDeserializer,
         operationQueue: NSOperationQueue) {
             self.urlProvider = urlProvider
             self.jsonClient = jsonClient
-            self.newsItemDeserializer = newsItemDeserializer
+            self.newsArticleDeserializer = newsArticleDeserializer
             self.operationQueue = operationQueue
     }
 
-    func fetchNewsItems(completion: (Array<NewsItem>) -> Void, error: (NSError) -> Void) {
+    func fetchNewsArticles(completion: (Array<NewsArticle>) -> Void, error: (NSError) -> Void) {
         let newsFeedJSONPromise = self.jsonClient.JSONPromiseWithURL(self.urlProvider.newsFeedURL(), method: "POST", bodyDictionary: self.HTTPBodyDictionary())
 
         newsFeedJSONPromise.then({ (deserializedObject) -> AnyObject! in
             let jsonDictionary = deserializedObject as? NSDictionary
             if jsonDictionary == nil {
-                let incorrectObjectTypeError = NSError(domain: "ConcreteNewsItemRepository", code: -1, userInfo: nil)
+                let incorrectObjectTypeError = NSError(domain: "ConcreteNewsArticleRepository", code: -1, userInfo: nil)
                 self.operationQueue.addOperationWithBlock({ () -> Void in
                     error(incorrectObjectTypeError)
                 })
@@ -31,13 +31,13 @@ class ConcreteNewsItemRepository: NewsItemRepository {
             }
 
 
-            let parsedNewsItems = self.newsItemDeserializer.deserializeNewsItems(jsonDictionary!)
+            let parsedNewsArticles = self.newsArticleDeserializer.deserializeNewsArticles(jsonDictionary!)
 
             self.operationQueue.addOperationWithBlock({ () -> Void in
-                completion(parsedNewsItems as Array<NewsItem>)
+                completion(parsedNewsArticles as Array<NewsArticle>)
             })
 
-            return parsedNewsItems
+            return parsedNewsArticles
             }, error: { (receivedError) -> AnyObject! in
                 self.operationQueue.addOperationWithBlock({ () -> Void in
                     error(receivedError!)

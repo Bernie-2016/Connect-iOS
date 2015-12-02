@@ -42,12 +42,12 @@ class DefaultTheme: Theme {
 
     // MARK: News Item detail screen
 
-    func newsItemDateFont() -> UIFont { return UIFont.systemFontOfSize(13) }
-    func newsItemDateColor() -> UIColor { return self.scorpionColor() }
-    func newsItemTitleFont() -> UIFont { return UIFont(name: "Georgia-Bold", size: 26)! }
-    func newsItemTitleColor() -> UIColor { return UIColor.blackColor() }
-    func newsItemBodyFont() -> UIFont { return UIFont(name: "Georgia", size: 18)! }
-    func newsItemBodyColor() -> UIColor { return UIColor.blackColor() }
+    func newsArticleDateFont() -> UIFont { return UIFont.systemFontOfSize(13) }
+    func newsArticleDateColor() -> UIColor { return self.scorpionColor() }
+    func newsArticleTitleFont() -> UIFont { return UIFont(name: "Georgia-Bold", size: 26)! }
+    func newsArticleTitleColor() -> UIColor { return UIColor.blackColor() }
+    func newsArticleBodyFont() -> UIFont { return UIFont(name: "Georgia", size: 18)! }
+    func newsArticleBodyColor() -> UIColor { return UIColor.blackColor() }
     func newsFeedHeadlineTitleFont() -> UIFont { return UIFont.boldSystemFontOfSize(16) }
     func newsfeedHeadlineTitleColor() -> UIColor { return UIColor.whiteColor() }
     func newsFeedHeadlineTitleBackgroundColor() -> UIColor { return UIColor(red: 0, green: 0, blue: 0, alpha: 0.4) }

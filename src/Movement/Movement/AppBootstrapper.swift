@@ -77,11 +77,11 @@ class AppBootstrapper {
         settingsNavigationController.pushViewController(settingsController, animated: false)
 
 
-        let newsItemDeserializer = ConcreteNewsItemDeserializer(stringContentSanitizer: stringContentSanitizer)
-        let newsItemRepository = ConcreteNewsItemRepository(
+        let newsArticleDeserializer = ConcreteNewsArticleDeserializer(stringContentSanitizer: stringContentSanitizer)
+        let newsArticleRepository = ConcreteNewsArticleRepository(
             urlProvider: urlProvider,
             jsonClient: jsonClient,
-            newsItemDeserializer: newsItemDeserializer,
+            newsArticleDeserializer: newsArticleDeserializer,
             operationQueue: mainQueue
         )
 
@@ -103,15 +103,15 @@ class AppBootstrapper {
         shortDateFormatter.dateStyle = .ShortStyle
 
 
-        let newsItemControllerProvider = ConcreteNewsItemControllerProvider(
+        let newsArticleControllerProvider = ConcreteNewsArticleControllerProvider(
             timeIntervalFormatter: timeIntervalFormatter, imageRepository: imageRepository, analyticsService: analyticsService, urlOpener: urlOpener, urlAttributionPresenter: urlAttributionPresenter, theme: defaultTheme
         )
 
         let newsFeedController = NewsFeedController(
-            newsItemRepository: newsItemRepository,
+            newsArticleRepository: newsArticleRepository,
             imageRepository: imageRepository,
             timeIntervalFormatter: timeIntervalFormatter,
-            newsItemControllerProvider: newsItemControllerProvider,
+            newsArticleControllerProvider: newsArticleControllerProvider,
             analyticsService: analyticsService,
             tabBarItemStylist: tabBarItemStylist,
             theme: defaultTheme

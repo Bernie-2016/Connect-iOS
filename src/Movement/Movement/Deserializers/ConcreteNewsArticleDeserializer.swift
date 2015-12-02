@@ -1,6 +1,6 @@
 import Foundation
 
-class ConcreteNewsItemDeserializer: NewsItemDeserializer {
+class ConcreteNewsArticleDeserializer: NewsArticleDeserializer {
     private let stringContentSanitizer: StringContentSanitizer
     private let dateFormatter: NSDateFormatter
 
@@ -12,14 +12,14 @@ class ConcreteNewsItemDeserializer: NewsItemDeserializer {
         self.dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"  // "2015-08-28T05:10:21"
     }
 
-    func deserializeNewsItems(jsonDictionary: NSDictionary) -> Array<NewsItem> {
-        var newsItems = [NewsItem]()
+    func deserializeNewsArticles(jsonDictionary: NSDictionary) -> Array<NewsArticle> {
+        var newsArticles = [NewsArticle]()
 
-        guard let hitsDictionary = jsonDictionary["hits"] as? NSDictionary else { return newsItems }
-        guard let newsItemDictionaries = hitsDictionary["hits"] as? Array<NSDictionary> else { return newsItems }
+        guard let hitsDictionary = jsonDictionary["hits"] as? NSDictionary else { return newsArticles }
+        guard let newsArticleDictionaries = hitsDictionary["hits"] as? Array<NSDictionary> else { return newsArticles }
 
-        for newsItemDictionary: NSDictionary in newsItemDictionaries {
-            guard let sourceDictionary = newsItemDictionary["_source"] as? NSDictionary else { continue }
+        for newsArticleDictionary: NSDictionary in newsArticleDictionaries {
+            guard let sourceDictionary = newsArticleDictionary["_source"] as? NSDictionary else { continue }
 
             guard var title = sourceDictionary["title"] as? String else { continue }
             guard var body = sourceDictionary["body"] as? String else { continue }
@@ -41,10 +41,10 @@ class ConcreteNewsItemDeserializer: NewsItemDeserializer {
                 imageURL = NSURL(string: imageURLString!)
             }
 
-            let newsItem = NewsItem(title: title, date: date, body: body, excerpt: excerpt, imageURL: imageURL, url: url)
-            newsItems.append(newsItem)
+            let newsArticle = NewsArticle(title: title, date: date, body: body, excerpt: excerpt, imageURL: imageURL, url: url)
+            newsArticles.append(newsArticle)
         }
 
-        return newsItems
+        return newsArticles
     }
 }

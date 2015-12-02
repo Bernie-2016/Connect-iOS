@@ -56,27 +56,27 @@ class FakeTheme : Movement.Theme {
         fatalError("FakeTheme used without being overridden in spec!")
     }
 
-    func newsItemDateFont() -> UIFont {
+    func newsArticleDateFont() -> UIFont {
         fatalError("FakeTheme used without being overridden in spec!")
     }
 
-    func newsItemDateColor() -> UIColor {
+    func newsArticleDateColor() -> UIColor {
         fatalError("FakeTheme used without being overridden in spec!")
     }
 
-    func newsItemTitleFont() -> UIFont {
+    func newsArticleTitleFont() -> UIFont {
         fatalError("FakeTheme used without being overridden in spec!")
     }
 
-    func newsItemTitleColor() -> UIColor {
+    func newsArticleTitleColor() -> UIColor {
         fatalError("FakeTheme used without being overridden in spec!")
     }
 
-    func newsItemBodyFont() -> UIFont {
+    func newsArticleBodyFont() -> UIFont {
         fatalError("FakeTheme used without being overridden in spec!")
     }
 
-    func newsItemBodyColor() -> UIColor {
+    func newsArticleBodyColor() -> UIColor {
         fatalError("FakeTheme used without being overridden in spec!")
     }
 

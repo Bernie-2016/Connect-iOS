@@ -1,10 +1,10 @@
 import UIKit
 
 class NewsFeedController: UIViewController {
-    private let newsItemRepository: NewsItemRepository
+    private let newsArticleRepository: NewsArticleRepository
     private let imageRepository: ImageRepository
     private let timeIntervalFormatter: TimeIntervalFormatter
-    private let newsItemControllerProvider: NewsItemControllerProvider
+    private let newsArticleControllerProvider: NewsArticleControllerProvider
     private let analyticsService: AnalyticsService
     private let tabBarItemStylist: TabBarItemStylist
     private let theme: Theme
@@ -14,24 +14,24 @@ class NewsFeedController: UIViewController {
     let tableView = UITableView.newAutoLayoutView()
     let loadingIndicatorView = UIActivityIndicatorView.newAutoLayoutView()
 
-    private var newsItems: Array<NewsItem>!
+    private var newsArticles: Array<NewsArticle>!
 
-    init(newsItemRepository: NewsItemRepository,
+    init(newsArticleRepository: NewsArticleRepository,
          imageRepository: ImageRepository,
          timeIntervalFormatter: TimeIntervalFormatter,
-         newsItemControllerProvider: NewsItemControllerProvider,
+         newsArticleControllerProvider: NewsArticleControllerProvider,
          analyticsService: AnalyticsService,
          tabBarItemStylist: TabBarItemStylist,
          theme: Theme ) {
-            self.newsItemRepository = newsItemRepository
+            self.newsArticleRepository = newsArticleRepository
             self.imageRepository = imageRepository
             self.timeIntervalFormatter = timeIntervalFormatter
-            self.newsItemControllerProvider = newsItemControllerProvider
+            self.newsArticleControllerProvider = newsArticleControllerProvider
             self.analyticsService = analyticsService
             self.tabBarItemStylist = tabBarItemStylist
             self.theme = theme
 
-            self.newsItems = []
+            self.newsArticles = []
 
             super.init(nibName: nil, bundle: nil)
 
@@ -69,7 +69,7 @@ class NewsFeedController: UIViewController {
         tableView.layoutMargins = UIEdgeInsetsZero
         tableView.separatorInset = UIEdgeInsetsZero
         tableView.hidden = true
-        tableView.registerClass(NewsItemTableViewCell.self, forCellReuseIdentifier: "regularCell")
+        tableView.registerClass(NewsArticleTableViewCell.self, forCellReuseIdentifier: "regularCell")
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "errorCell")
         tableView.dataSource = self
         tableView.delegate = self
@@ -90,11 +90,11 @@ class NewsFeedController: UIViewController {
             self.tableView.deselectRowAtIndexPath(selectedRowIndexPath, animated: false)
         }
 
-        self.newsItemRepository.fetchNewsItems({ (receivedNewsItems) -> Void in
+        self.newsArticleRepository.fetchNewsArticles({ (receivedNewsArticles) -> Void in
             self.errorLoadingNews = false
             self.tableView.hidden = false
             self.loadingIndicatorView.stopAnimating()
-            self.newsItems = receivedNewsItems
+            self.newsArticles = receivedNewsArticles
             self.tableView.reloadData()
             }, error: { (error) -> Void in
                 self.errorLoadingNews = true
@@ -118,11 +118,11 @@ extension NewsFeedController: UITableViewDataSource {
             return 1
         }
 
-        if self.newsItems.count == 0 {
+        if self.newsArticles.count == 0 {
             return 0
         }
 
-        return self.newsItems.count
+        return self.newsArticles.count
     }
 
 
@@ -130,7 +130,7 @@ extension NewsFeedController: UITableViewDataSource {
         if self.errorLoadingNews {
             return self.tableView(tableView, errorCellForRowAtIndexPath: indexPath)
         } else {
-            return self.tableView(tableView, newsItemTableViewCellForRowAtIndexPath: indexPath)
+            return self.tableView(tableView, newsArticleTableViewCellForRowAtIndexPath: indexPath)
         }
     }
 
@@ -142,24 +142,24 @@ extension NewsFeedController: UITableViewDataSource {
         return cell
     }
 
-    func tableView(tableView: UITableView, newsItemTableViewCellForRowAtIndexPath indexPath: NSIndexPath) -> NewsItemTableViewCell {
-        var cell: NewsItemTableViewCell! = tableView.dequeueReusableCellWithIdentifier("regularCell") as? NewsItemTableViewCell
-        if cell == nil { cell = NewsItemTableViewCell() }
+    func tableView(tableView: UITableView, newsArticleTableViewCellForRowAtIndexPath indexPath: NSIndexPath) -> NewsArticleTableViewCell {
+        var cell: NewsArticleTableViewCell! = tableView.dequeueReusableCellWithIdentifier("regularCell") as? NewsArticleTableViewCell
+        if cell == nil { cell = NewsArticleTableViewCell() }
 
-        let newsItem = self.newsItems[indexPath.row]
-        cell.titleLabel.text = newsItem.title
-        cell.excerptLabel.text = newsItem.excerpt
-        cell.dateLabel.text = self.timeIntervalFormatter.abbreviatedHumanDaysSinceDate(newsItem.date)
+        let newsArticle = self.newsArticles[indexPath.row]
+        cell.titleLabel.text = newsArticle.title
+        cell.excerptLabel.text = newsArticle.excerpt
+        cell.dateLabel.text = self.timeIntervalFormatter.abbreviatedHumanDaysSinceDate(newsArticle.date)
 
-        self.applyThemeToNewsCell(cell, newsItem: newsItem)
+        self.applyThemeToNewsCell(cell, newsArticle: newsArticle)
 
         cell.newsImageView.image = nil
 
-        if newsItem.imageURL == nil {
+        if newsArticle.imageURL == nil {
             cell.newsImageVisible = false
         } else {
             cell.newsImageVisible = true
-            imageRepository.fetchImageWithURL(newsItem.imageURL!).then({ (image) -> AnyObject? in
+            imageRepository.fetchImageWithURL(newsArticle.imageURL!).then({ (image) -> AnyObject? in
                 cell.newsImageView.image = image as? UIImage
                 return image
                 }) { (error) -> AnyObject? in
@@ -170,7 +170,7 @@ extension NewsFeedController: UITableViewDataSource {
         return cell
     }
 
-    func applyThemeToNewsCell(cell: NewsItemTableViewCell, newsItem: NewsItem) {
+    func applyThemeToNewsCell(cell: NewsArticleTableViewCell, newsArticle: NewsArticle) {
         cell.titleLabel.font = self.theme.newsFeedTitleFont()
         cell.titleLabel.textColor = self.theme.newsFeedTitleColor()
         cell.excerptLabel.font = self.theme.newsFeedExcerptFont()
@@ -178,7 +178,7 @@ extension NewsFeedController: UITableViewDataSource {
         cell.dateLabel.font = self.theme.newsFeedDateFont()
 
         let disclosureColor: UIColor
-        if self.timeIntervalFormatter.numberOfDaysSinceDate(newsItem.date) == 0 {
+        if self.timeIntervalFormatter.numberOfDaysSinceDate(newsArticle.date) == 0 {
             disclosureColor = self.theme.highlightDisclosureColor()
         } else {
             disclosureColor =  self.theme.defaultDisclosureColor()
@@ -197,11 +197,11 @@ extension NewsFeedController: UITableViewDelegate {
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let newsItem = self.newsItems[indexPath.row]
+        let newsArticle = self.newsArticles[indexPath.row]
 
-        self.analyticsService.trackContentViewWithName(newsItem.title, type: .NewsItem, identifier: newsItem.url.absoluteString)
+        self.analyticsService.trackContentViewWithName(newsArticle.title, type: .NewsArticle, identifier: newsArticle.url.absoluteString)
 
-        let controller = self.newsItemControllerProvider.provideInstanceWithNewsItem(newsItem)
+        let controller = self.newsArticleControllerProvider.provideInstanceWithNewsArticle(newsArticle)
 
         self.navigationController?.pushViewController(controller, animated: true)
     }

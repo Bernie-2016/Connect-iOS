@@ -17,7 +17,7 @@ struct AnalyticsServiceConstants {
 }
 
 enum AnalyticsServiceContentType: String, CustomStringConvertible {
-    case NewsItem = "News Item"
+    case NewsArticle = "News Article"
     case Issue = "Issue"
     case Settings = "Settings"
     case Event = "Event"
