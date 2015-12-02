@@ -12,7 +12,7 @@ class ConcreteNewsArticleDeserializer: NewsArticleDeserializer {
         self.dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"  // "2015-08-28T05:10:21"
     }
 
-    func deserializeNewsArticles(jsonDictionary: NSDictionary) -> Array<NewsArticle> {
+    func deserializeNewsArticles(jsonDictionary: NSDictionary) -> [NewsArticle] {
         var newsArticles = [NewsArticle]()
 
         guard let hitsDictionary = jsonDictionary["hits"] as? NSDictionary else { return newsArticles }

@@ -1,6 +1,6 @@
 import Foundation
 
-class NewsArticle {
+class NewsArticle: NewsFeedItem {
     let title: String
     let date: NSDate
     let body: String

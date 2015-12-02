@@ -17,7 +17,7 @@ class ConcreteNewsArticleRepository: NewsArticleRepository {
             self.operationQueue = operationQueue
     }
 
-    func fetchNewsArticles(completion: (Array<NewsArticle>) -> Void, error: (NSError) -> Void) {
+    func fetchNewsArticles(completion: ([NewsArticle]) -> Void, error: (NSError) -> Void) {
         let newsFeedJSONPromise = self.jsonClient.JSONPromiseWithURL(self.urlProvider.newsFeedURL(), method: "POST", bodyDictionary: self.HTTPBodyDictionary())
 
         newsFeedJSONPromise.then({ (deserializedObject) -> AnyObject! in
@@ -34,7 +34,7 @@ class ConcreteNewsArticleRepository: NewsArticleRepository {
             let parsedNewsArticles = self.newsArticleDeserializer.deserializeNewsArticles(jsonDictionary!)
 
             self.operationQueue.addOperationWithBlock({ () -> Void in
-                completion(parsedNewsArticles as Array<NewsArticle>)
+                completion(parsedNewsArticles as [NewsArticle])
             })
 
             return parsedNewsArticles

@@ -14,7 +14,7 @@ class NewsFeedController: UIViewController {
     let tableView = UITableView.newAutoLayoutView()
     let loadingIndicatorView = UIActivityIndicatorView.newAutoLayoutView()
 
-    private var newsArticles: Array<NewsArticle>!
+    private var newsFeedItems: [NewsFeedItem]
 
     init(newsArticleRepository: NewsArticleRepository,
          imageRepository: ImageRepository,
@@ -31,7 +31,7 @@ class NewsFeedController: UIViewController {
             self.tabBarItemStylist = tabBarItemStylist
             self.theme = theme
 
-            self.newsArticles = []
+            self.newsFeedItems = []
 
             super.init(nibName: nil, bundle: nil)
 
@@ -94,7 +94,7 @@ class NewsFeedController: UIViewController {
             self.errorLoadingNews = false
             self.tableView.hidden = false
             self.loadingIndicatorView.stopAnimating()
-            self.newsArticles = receivedNewsArticles
+            self.newsFeedItems = receivedNewsArticles.map({$0 as NewsFeedItem})
             self.tableView.reloadData()
             }, error: { (error) -> Void in
                 self.errorLoadingNews = true
@@ -118,11 +118,11 @@ extension NewsFeedController: UITableViewDataSource {
             return 1
         }
 
-        if self.newsArticles.count == 0 {
+        if self.newsFeedItems.count == 0 {
             return 0
         }
 
-        return self.newsArticles.count
+        return self.newsFeedItems.count
     }
 
 
@@ -146,7 +146,9 @@ extension NewsFeedController: UITableViewDataSource {
         var cell: NewsArticleTableViewCell! = tableView.dequeueReusableCellWithIdentifier("regularCell") as? NewsArticleTableViewCell
         if cell == nil { cell = NewsArticleTableViewCell() }
 
-        let newsArticle = self.newsArticles[indexPath.row]
+        let newsArticle: NewsArticle! = self.newsFeedItems[indexPath.row] as? NewsArticle
+        if newsArticle == nil { return cell }
+
         cell.titleLabel.text = newsArticle.title
         cell.excerptLabel.text = newsArticle.excerpt
         cell.dateLabel.text = self.timeIntervalFormatter.abbreviatedHumanDaysSinceDate(newsArticle.date)
@@ -197,7 +199,8 @@ extension NewsFeedController: UITableViewDelegate {
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let newsArticle = self.newsArticles[indexPath.row]
+        let newsArticle: NewsArticle! = self.newsFeedItems[indexPath.row] as? NewsArticle
+        if newsArticle == nil { return }
 
         self.analyticsService.trackContentViewWithName(newsArticle.title, type: .NewsArticle, identifier: newsArticle.url.absoluteString)
 
