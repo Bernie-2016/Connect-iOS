@@ -48,9 +48,6 @@ class DefaultTheme: Theme {
     func newsArticleTitleColor() -> UIColor { return UIColor.blackColor() }
     func newsArticleBodyFont() -> UIFont { return UIFont(name: "Georgia", size: 18)! }
     func newsArticleBodyColor() -> UIColor { return UIColor.blackColor() }
-    func newsFeedHeadlineTitleFont() -> UIFont { return UIFont.boldSystemFontOfSize(16) }
-    func newsfeedHeadlineTitleColor() -> UIColor { return UIColor.whiteColor() }
-    func newsFeedHeadlineTitleBackgroundColor() -> UIColor { return UIColor(red: 0, green: 0, blue: 0, alpha: 0.4) }
 
     // MARK: issues
 

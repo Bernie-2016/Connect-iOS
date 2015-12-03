@@ -107,11 +107,12 @@ class AppBootstrapper {
             timeIntervalFormatter: timeIntervalFormatter, imageRepository: imageRepository, analyticsService: analyticsService, urlOpener: urlOpener, urlAttributionPresenter: urlAttributionPresenter, theme: defaultTheme
         )
 
+        let newsFeedTableViewCellPresenter = ConcreteNewsFeedTableViewCellPresenter(timeIntervalFormatter: timeIntervalFormatter, imageRepository: imageRepository, theme: defaultTheme)
+
         let newsFeedController = NewsFeedController(
             newsArticleRepository: newsArticleRepository,
-            imageRepository: imageRepository,
-            timeIntervalFormatter: timeIntervalFormatter,
             newsArticleControllerProvider: newsArticleControllerProvider,
+            newsFeedTableViewCellPresenter: newsFeedTableViewCellPresenter,
             analyticsService: analyticsService,
             tabBarItemStylist: tabBarItemStylist,
             theme: defaultTheme

@@ -4,48 +4,9 @@ import UIKit
 
 @testable import Movement
 
-class NewsFakeTheme : FakeTheme {
+private class NewsFakeTheme : FakeTheme {
     override func newsFeedBackgroundColor() -> UIColor {
         return UIColor.blueColor()
-    }
-
-    override func newsFeedTitleFont() -> UIFont {
-        return UIFont.boldSystemFontOfSize(20)
-    }
-
-    override func newsFeedTitleColor() -> UIColor {
-        return UIColor.magentaColor()
-    }
-
-    override func newsFeedExcerptFont() -> UIFont {
-        return UIFont.boldSystemFontOfSize(21)
-    }
-
-    override func newsFeedExcerptColor() -> UIColor {
-        return UIColor.redColor()
-    }
-
-    override func newsFeedDateFont() -> UIFont {
-        return UIFont.italicSystemFontOfSize(13)    }
-
-    override func defaultDisclosureColor() -> UIColor {
-        return UIColor.brownColor()
-    }
-
-    override func highlightDisclosureColor() -> UIColor {
-        return UIColor.whiteColor()
-    }
-
-    override func newsFeedHeadlineTitleFont() -> UIFont {
-        return UIFont.systemFontOfSize(666)
-    }
-
-    override func newsfeedHeadlineTitleColor() -> UIColor {
-        return UIColor.yellowColor()
-    }
-
-    override func newsFeedHeadlineTitleBackgroundColor() -> UIColor {
-        return UIColor.orangeColor()
     }
 
     override func defaultSpinnerColor() -> UIColor {
@@ -53,7 +14,7 @@ class NewsFakeTheme : FakeTheme {
     }
 }
 
-class FakeNewsArticleRepository : Movement.NewsArticleRepository {
+private class FakeNewsArticleRepository : Movement.NewsArticleRepository {
     var lastCompletionBlock: ((Array<NewsArticle>) -> Void)?
     var lastErrorBlock: ((NSError) -> Void)?
     var fetchNewsCalled: Bool = false
@@ -62,6 +23,28 @@ class FakeNewsArticleRepository : Movement.NewsArticleRepository {
         self.fetchNewsCalled = true
         self.lastCompletionBlock = completion
         self.lastErrorBlock = error
+    }
+}
+
+private class FakeNewsFeedTableViewCellPresenter: NewsFeedTableViewCellPresenter {
+    let returnedErrorCell = UITableViewCell()
+    var lastReceivedErrorTableView: UITableView!
+
+    private func errorCellForTableView(tableView: UITableView) -> UITableViewCell {
+        self.lastReceivedErrorTableView = tableView
+        return self.returnedErrorCell
+    }
+
+    var returnedCells = [NewsArticleTableViewCell]()
+    var receivedTableViews = [UITableView]()
+    var receivedNewsFeedItems =  [NewsFeedItem]()
+
+    private func cellForTableView(tableView: UITableView, newsFeedItem: NewsFeedItem) -> UITableViewCell {
+        self.receivedTableViews.append(tableView)
+        self.receivedNewsFeedItems.append(newsFeedItem)
+        let returnedCell = NewsArticleTableViewCell()
+        self.returnedCells.append(returnedCell)
+        return returnedCell
     }
 }
 
@@ -83,10 +66,9 @@ class FakeNewsArticleControllerProvider : Movement.NewsArticleControllerProvider
 
 class NewsFeedControllerSpecs: QuickSpec {
     var subject: NewsFeedController!
-    let newsArticleRepository: FakeNewsArticleRepository! =  FakeNewsArticleRepository()
-    var imageRepository: FakeImageRepository!
-    var timeIntervalFormatter: FakeTimeIntervalFormatter!
+    private let newsArticleRepository: FakeNewsArticleRepository! =  FakeNewsArticleRepository()
     let newsArticleControllerProvider = FakeNewsArticleControllerProvider()
+    private var newsFeedTableViewCellPresenter: FakeNewsFeedTableViewCellPresenter!
     var analyticsService: FakeAnalyticsService!
     var tabBarItemStylist: FakeTabBarItemStylist!
     let theme: Theme! = NewsFakeTheme()
@@ -96,17 +78,16 @@ class NewsFeedControllerSpecs: QuickSpec {
     override func spec() {
         describe("NewsFeedController") {
             beforeEach {
-                self.imageRepository = FakeImageRepository()
-                self.timeIntervalFormatter = FakeTimeIntervalFormatter()
                 self.analyticsService = FakeAnalyticsService()
+                self.newsFeedTableViewCellPresenter = FakeNewsFeedTableViewCellPresenter()
+
                 self.tabBarItemStylist = FakeTabBarItemStylist()
                 let theme = NewsFakeTheme()
 
                 self.subject = NewsFeedController(
                     newsArticleRepository: self.newsArticleRepository,
-                    imageRepository: self.imageRepository,
-                    timeIntervalFormatter: self.timeIntervalFormatter,
                     newsArticleControllerProvider: self.newsArticleControllerProvider,
+                    newsFeedTableViewCellPresenter: self.newsFeedTableViewCellPresenter,
                     analyticsService: self.analyticsService,
                     tabBarItemStylist: self.tabBarItemStylist,
                     theme: theme
@@ -200,113 +181,18 @@ class NewsFeedControllerSpecs: QuickSpec {
                             self.newsArticleRepository.lastCompletionBlock!(newsArticles)
                         }
 
-                        it("shows the news items in the table, using the time interval formatter") {
+                        it("shows the news items in the table, using the presenter") {
                             expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(2))
 
                             let cellA = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NewsArticleTableViewCell
-                            expect(cellA.titleLabel.text).to(equal("Bernie to release new album"))
-                            expect(cellA.excerptLabel.text).to(equal("excerpt A"))
-                            expect(cellA.dateLabel.text).to(equal("abbreviated 1970-01-01 00:00:00 +0000"))
+                            expect(cellA).to(beIdenticalTo(self.newsFeedTableViewCellPresenter.returnedCells[0]))
+                            expect(self.newsFeedTableViewCellPresenter.receivedTableViews[0]).to(beIdenticalTo(self.subject.tableView))
+                            expect(self.newsFeedTableViewCellPresenter.receivedNewsFeedItems[0] as? NewsArticle).to(beIdenticalTo(newsArticleA))
 
                             let cellB = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! NewsArticleTableViewCell
-                            expect(cellB.titleLabel.text).to(equal("Bernie up in the polls!"))
-                            expect(cellB.excerptLabel.text).to(equal("excerpt B"))
-                            expect(cellB.dateLabel.text).to(equal("abbreviated 1970-01-02 00:00:01 +0000"))
-
-                            expect(self.timeIntervalFormatter.lastAbbreviatedDates).to(equal([newsArticleADate, newsArticleBDate]))
-                        }
-
-                        it("initially nils out the image") {
-                            var cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))  as! NewsArticleTableViewCell
-                            cell.newsImageView.image = TestUtils.testImageNamed("bernie", type: "jpg")
-                            cell = self.subject.tableView.dataSource?.tableView(self.subject.tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))  as! NewsArticleTableViewCell
-                            expect(cell.newsImageView.image).to(beNil())
-                        }
-
-                        context("when the news item has an image URL") {
-                            it("asks the image repository to fetch the image") {
-                                self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
-
-                                expect(self.imageRepository.lastReceivedURL).to(beIdenticalTo(newsArticleA.imageURL))
-                            }
-
-                            it("shows the image view") {
-                                var cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NewsArticleTableViewCell
-                                cell.newsImageVisible = false
-                                cell = self.subject.tableView.dataSource?.tableView(self.subject.tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0)) as! NewsArticleTableViewCell
-
-                                expect(cell.newsImageVisible).to(beTrue())
-                            }
-
-                            context("when the image is loaded succesfully") {
-                                it("sets the image") {
-                                    let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NewsArticleTableViewCell
-
-                                    let bernieImage = TestUtils.testImageNamed("bernie", type: "jpg")
-                                    self.imageRepository.lastRequestDeferred.resolveWithValue(bernieImage)
-                                    expect(cell.newsImageView.image).to(beIdenticalTo(bernieImage))
-                                }
-                            }
-                        }
-
-                        context("when the news item does not have an image URL") {
-                            it("does not make a call to the image repository") {
-                                self.imageRepository.lastReceivedURL = nil
-                                self.subject.tableView.dataSource?.tableView(self.subject.tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
-                                expect(self.imageRepository.lastReceivedURL).to(beNil())
-                            }
-
-                            it("hides the image view") {
-                                let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! NewsArticleTableViewCell
-                                expect(cell.newsImageVisible).to(beFalse())
-                            }
-                        }
-
-                        it("styles the items in the table") {
-                            let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NewsArticleTableViewCell
-
-                            expect(cell.titleLabel.textColor).to(equal(UIColor.magentaColor()))
-                            expect(cell.titleLabel.font).to(equal(UIFont.boldSystemFontOfSize(20)))
-                            expect(cell.excerptLabel.textColor).to(equal(UIColor.redColor()))
-                            expect(cell.excerptLabel.font).to(equal(UIFont.boldSystemFontOfSize(21)))
-                            expect(cell.dateLabel.font).to(equal(UIFont.italicSystemFontOfSize(13)))
-                        }
-
-                        context("when the news item is from today") {
-                            beforeEach {
-                                self.timeIntervalFormatter.returnsDaysSinceDate = 0
-                            }
-
-                            it("uses the breaking styling for the date label") {
-                                let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NewsArticleTableViewCell
-
-                                expect(cell.dateLabel.textColor).to(equal(UIColor.whiteColor()))
-                            }
-
-                            it("uses the breaking styling for the disclosure indicator") {
-                                let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NewsArticleTableViewCell
-
-                                expect(cell.disclosureView.color).to(equal(UIColor.whiteColor()))
-                            }
-
-                        }
-
-                        context("when the news item is from the past") {
-                            beforeEach {
-                                self.timeIntervalFormatter.returnsDaysSinceDate = 1
-                            }
-
-                            it("uses the standard styling for the date label") {
-                                let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NewsArticleTableViewCell
-
-                                expect(cell.dateLabel.textColor).to(equal(UIColor.brownColor()))
-                            }
-
-                            it("uses the standard styling for the disclosure indicator") {
-                                let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NewsArticleTableViewCell
-
-                                expect(cell.disclosureView.color).to(equal(UIColor.brownColor()))
-                            }
+                            expect(cellB).to(beIdenticalTo(self.newsFeedTableViewCellPresenter.returnedCells[1]))
+                            expect(self.newsFeedTableViewCellPresenter.receivedTableViews[1]).to(beIdenticalTo(self.subject.tableView))
+                            expect(self.newsFeedTableViewCellPresenter.receivedNewsFeedItems[1] as? NewsArticle).to(beIdenticalTo(newsArticleB))
                         }
                     }
                 })
@@ -323,19 +209,13 @@ class NewsFeedControllerSpecs: QuickSpec {
                         expect(self.analyticsService.lastErrorContext).to(equal("Failed to load news feed"))
                     }
 
-                    it("shows the an error in the table") {
+                    it("shows the an error in the table using the presenter") {
                         expect(self.subject.tableView.numberOfSections).to(equal(1))
                         expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(1))
 
                         let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))!
-                        expect(cell.textLabel!.text).to(equal("Oops! Sorry, we couldn't load any news."))
-                    }
-
-                    it("styles the items in the table") {
-                        let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))!
-
-                        expect(cell.textLabel!.textColor).to(equal(UIColor.magentaColor()))
-                        expect(cell.textLabel!.font).to(equal(UIFont.boldSystemFontOfSize(20)))
+                        expect(cell).to(beIdenticalTo(self.newsFeedTableViewCellPresenter.returnedErrorCell))
+                        expect(self.newsFeedTableViewCellPresenter.lastReceivedErrorTableView).to(beIdenticalTo(self.subject.tableView))
                     }
 
                     context("and then the user refreshes the news feed") {
@@ -364,13 +244,15 @@ class NewsFeedControllerSpecs: QuickSpec {
                                 expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(2))
 
                                 let cellA = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NewsArticleTableViewCell
-                                expect(cellA.titleLabel.text).to(equal("Bernie to release new album"))
-                                expect(cellA.dateLabel.text).to(equal("abbreviated 1970-01-01 00:00:00 +0000"))
+                                expect(cellA).to(beIdenticalTo(self.newsFeedTableViewCellPresenter.returnedCells[0]))
+                                expect(self.newsFeedTableViewCellPresenter.receivedTableViews[0]).to(beIdenticalTo(self.subject.tableView))
+                                expect(self.newsFeedTableViewCellPresenter.receivedNewsFeedItems[0] as? NewsArticle).to(beIdenticalTo(newsArticleA))
 
 
                                 let cellB = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! NewsArticleTableViewCell
-                                expect(cellB.titleLabel.text).to(equal("Bernie up in the polls!"))
-                                expect(cellB.dateLabel.text).to(equal("abbreviated 1970-01-02 00:00:01 +0000"))
+                                expect(cellB).to(beIdenticalTo(self.newsFeedTableViewCellPresenter.returnedCells[1]))
+                                expect(self.newsFeedTableViewCellPresenter.receivedTableViews[1]).to(beIdenticalTo(self.subject.tableView))
+                                expect(self.newsFeedTableViewCellPresenter.receivedNewsFeedItems[1] as? NewsArticle).to(beIdenticalTo(newsArticleB))
                             }
                         }
                     }
