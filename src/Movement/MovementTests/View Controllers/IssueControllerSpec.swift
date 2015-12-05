@@ -138,7 +138,7 @@ class IssueControllerSpec : QuickSpec {
                                 let activityViewControler = self.subject.presentedViewController as! UIActivityViewController
                                 activityViewControler.completionWithItemsHandler!("asdf", true, nil, expectedError)
 
-                                expect(self.analyticsService.lastError).to(beIdenticalTo(expectedError))
+                                expect(self.analyticsService.lastError as NSError).to(beIdenticalTo(expectedError))
                                 expect(self.analyticsService.lastErrorContext).to(equal("Failed to share Issue"))
                             }
                         }

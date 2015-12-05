@@ -472,7 +472,7 @@ class EventsControllerSpec : QuickSpec {
                         }
 
                         it("should log an event via the analytics service") {
-                            expect(self.analyticsService.lastError).to(beIdenticalTo(expectedError))
+                            expect(self.analyticsService.lastError as NSError).to(beIdenticalTo(expectedError))
                             expect(self.analyticsService.lastErrorContext).to(equal("Events"))
                         }
 

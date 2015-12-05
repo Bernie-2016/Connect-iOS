@@ -1,7 +1,7 @@
 import UIKit
 
 class NewsFeedController: UIViewController {
-    private let newsArticleRepository: NewsArticleRepository
+    private let newsFeedService: NewsFeedService
     private let newsFeedTableViewCellPresenter: NewsFeedTableViewCellPresenter
     private let newsArticleControllerProvider: NewsArticleControllerProvider
     private let analyticsService: AnalyticsService
@@ -15,13 +15,13 @@ class NewsFeedController: UIViewController {
 
     private var newsFeedItems: [NewsFeedItem]
 
-    init(newsArticleRepository: NewsArticleRepository,
-         newsArticleControllerProvider: NewsArticleControllerProvider,
-         newsFeedTableViewCellPresenter: NewsFeedTableViewCellPresenter,
-         analyticsService: AnalyticsService,
-         tabBarItemStylist: TabBarItemStylist,
-         theme: Theme ) {
-            self.newsArticleRepository = newsArticleRepository
+    init(newsFeedService: NewsFeedService,
+        newsArticleControllerProvider: NewsArticleControllerProvider,
+        newsFeedTableViewCellPresenter: NewsFeedTableViewCellPresenter,
+        analyticsService: AnalyticsService,
+        tabBarItemStylist: TabBarItemStylist,
+        theme: Theme ) {
+            self.newsFeedService = newsFeedService
             self.newsArticleControllerProvider = newsArticleControllerProvider
             self.newsFeedTableViewCellPresenter = newsFeedTableViewCellPresenter
             self.analyticsService = analyticsService
@@ -87,19 +87,17 @@ class NewsFeedController: UIViewController {
             self.tableView.deselectRowAtIndexPath(selectedRowIndexPath, animated: false)
         }
 
-        self.newsArticleRepository.fetchNewsArticles({ (receivedNewsArticles) -> Void in
+        self.newsFeedService.fetchNewsFeed({ (newsFeedItems) -> Void in
             self.errorLoadingNews = false
             self.tableView.hidden = false
             self.loadingIndicatorView.stopAnimating()
-            self.newsFeedItems = receivedNewsArticles.map({$0 as NewsFeedItem})
+            self.newsFeedItems = newsFeedItems
             self.tableView.reloadData()
-            }, error: { (error) -> Void in
+            }) { (error) -> Void in
                 self.errorLoadingNews = true
                 self.tableView.reloadData()
                 self.analyticsService.trackError(error, context: "Failed to load news feed")
-
-                print(error.localizedDescription)
-        })
+        }
     }
 }
 

@@ -164,7 +164,7 @@ class IssuesControllerSpec: QuickSpec {
                     }
 
                     it("logs that error to the analytics service") {
-                        expect(self.analyticsService.lastError).to(beIdenticalTo(expectedError))
+                        expect(self.analyticsService.lastError as NSError).to(beIdenticalTo(expectedError))
                         expect(self.analyticsService.lastErrorContext).to(equal("Failed to load issues"))
                     }
 

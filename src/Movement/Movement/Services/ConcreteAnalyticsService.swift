@@ -61,7 +61,7 @@ class ConcreteAnalyticsService: AnalyticsService {
         }
     }
 
-    func trackError(error: NSError, context: String) {
+    func trackError(error: ErrorType, context: String) {
         self.applicationSettingsRepository.isAnalyticsEnabled { (analyticsEnabled) -> Void in
             if analyticsEnabled {
                 #if RELEASE

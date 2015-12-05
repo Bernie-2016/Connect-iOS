@@ -1,3 +1,4 @@
+
 import Quick
 import Nimble
 import UIKit
@@ -22,20 +23,20 @@ private class NewsFakeTheme : FakeTheme {
     }
 }
 
-private class FakeNewsArticleRepository : Movement.NewsArticleRepository {
-    var lastCompletionBlock: ((Array<NewsArticle>) -> Void)?
+private class FakeNewsFeedService: NewsFeedService {
+    var lastCompletionBlock: (([NewsFeedItem]) -> Void)?
     var lastErrorBlock: ((NSError) -> Void)?
-    var fetchNewsCalled: Bool = false
+    var fetchNewsFeedCalled: Bool = false
 
-    func fetchNewsArticles(completion: (Array<NewsArticle>) -> Void, error: (NSError) -> Void) {
-        self.fetchNewsCalled = true
+    func fetchNewsFeed(completion: ([NewsFeedItem]) -> Void, error: (ErrorType) -> Void) {
+        self.fetchNewsFeedCalled = true
         self.lastCompletionBlock = completion
         self.lastErrorBlock = error
     }
 }
 
 class FakeNewsArticleControllerProvider : Movement.NewsArticleControllerProvider {
-    let controller = NewsArticleController(newsArticle: NewsArticle(title: "a", date: NSDate(), body: "a body", excerpt: "excerpt", imageURL: NSURL(), url: NSURL()),
+    let controller = NewsArticleController(newsArticle: TestUtils.newsArticle(),
         imageRepository: FakeImageRepository(),
         timeIntervalFormatter: FakeTimeIntervalFormatter(),
         analyticsService: FakeAnalyticsService(),
@@ -52,31 +53,31 @@ class FakeNewsArticleControllerProvider : Movement.NewsArticleControllerProvider
 
 class NewsFeedControllerSpecs: QuickSpec {
     var subject: NewsFeedController!
-    private let newsArticleRepository: FakeNewsArticleRepository! =  FakeNewsArticleRepository()
+    private var newsFeedService: FakeNewsFeedService!
     let newsArticleControllerProvider = FakeNewsArticleControllerProvider()
     private var newsFeedTableViewCellPresenter: FakeNewsFeedTableViewCellPresenter!
     var analyticsService: FakeAnalyticsService!
     var tabBarItemStylist: FakeTabBarItemStylist!
-    let theme: Theme! = NewsFakeTheme()
+    private let theme = NewsFakeTheme()
 
     var navigationController: UINavigationController!
 
     override func spec() {
         describe("NewsFeedController") {
             beforeEach {
-                self.analyticsService = FakeAnalyticsService()
+                self.newsFeedService = FakeNewsFeedService()
                 self.newsFeedTableViewCellPresenter = FakeNewsFeedTableViewCellPresenter()
 
                 self.tabBarItemStylist = FakeTabBarItemStylist()
-                let theme = NewsFakeTheme()
+                self.analyticsService = FakeAnalyticsService()
 
                 self.subject = NewsFeedController(
-                    newsArticleRepository: self.newsArticleRepository,
+                    newsFeedService: self.newsFeedService,
                     newsArticleControllerProvider: self.newsArticleControllerProvider,
                     newsFeedTableViewCellPresenter: self.newsFeedTableViewCellPresenter,
                     analyticsService: self.analyticsService,
                     tabBarItemStylist: self.tabBarItemStylist,
-                    theme: theme
+                    theme: self.theme
                 )
 
                 self.navigationController = UINavigationController()
@@ -138,25 +139,23 @@ class NewsFeedControllerSpecs: QuickSpec {
                 }
 
                 it("asks the news repository for some news") {
-                    expect(self.newsArticleRepository.fetchNewsCalled).to(beTrue())
+                    expect(self.newsFeedService.fetchNewsFeedCalled).to(beTrue())
                 }
 
                 describe("when the news repository returns some news items", {
-                    let newsArticleADate = NSDate(timeIntervalSince1970: 0)
-                    let newsArticleBDate = NSDate(timeIntervalSince1970: 86401)
-                    let newsArticleA = NewsArticle(title: "Bernie to release new album", date: newsArticleADate, body: "yeahhh", excerpt: "excerpt A", imageURL: NSURL(string: "http://bs.com")!, url: NSURL())
-                    let newsArticleB = NewsArticle(title: "Bernie up in the polls!", date: newsArticleBDate, body: "body text", excerpt: "excerpt B", imageURL: nil, url: NSURL())
+                    let newsArticleA = TestUtils.newsArticle()
+                    let newsArticleB = TestUtils.newsArticle()
 
-                    let newsArticles = [newsArticleA, newsArticleB]
+                    let newsArticles: [NewsFeedItem] = [newsArticleA, newsArticleB]
 
                     it("has 1 section") {
-                        self.newsArticleRepository.lastCompletionBlock!(newsArticles)
+                        self.newsFeedService.lastCompletionBlock!(newsArticles)
 
                         expect(self.subject.tableView.numberOfSections).to(equal(1))
                     }
 
                     it("shows the table view, and stops the loading spinner") {
-                        self.newsArticleRepository.lastCompletionBlock!(newsArticles)
+                        self.newsFeedService.lastCompletionBlock!(newsArticles)
 
                         expect(self.subject.tableView.hidden).to(equal(false));
                         expect(self.subject.loadingIndicatorView.isAnimating()).to(equal(false))
@@ -164,7 +163,7 @@ class NewsFeedControllerSpecs: QuickSpec {
 
                     describe("the content of the news feed") {
                         beforeEach {
-                            self.newsArticleRepository.lastCompletionBlock!(newsArticles)
+                            self.newsFeedService.lastCompletionBlock!(newsArticles)
                         }
 
                         it("shows the news items in the table, using the presenter") {
@@ -187,11 +186,11 @@ class NewsFeedControllerSpecs: QuickSpec {
                     let expectedError = NSError(domain: "some error", code: 666, userInfo: nil)
 
                     beforeEach {
-                        self.newsArticleRepository.lastErrorBlock!(expectedError)
+                        self.newsFeedService.lastErrorBlock!(expectedError)
                     }
 
                     it("logs that error to the analytics service") {
-                        expect(self.analyticsService.lastError).to(beIdenticalTo(expectedError))
+                        expect(self.analyticsService.lastError as NSError).to(beIdenticalTo(expectedError))
                         expect(self.analyticsService.lastErrorContext).to(equal("Failed to load news feed"))
                     }
 
@@ -217,22 +216,20 @@ class NewsFeedControllerSpecs: QuickSpec {
                         }
 
                         describe("when the news repository returns some news items") {
-                            let newsArticleADate = NSDate(timeIntervalSince1970: 0)
-                            let newsArticleBDate = NSDate(timeIntervalSince1970: 86401)
-                            let newsArticleA = NewsArticle(title: "Bernie to release new album", date: newsArticleADate, body: "yeahhh", excerpt: "excerpt", imageURL: NSURL(string: "http://bs.com")!, url: NSURL())
-                            let newsArticleB = NewsArticle(title: "Bernie up in the polls!", date: newsArticleBDate, body: "body text", excerpt: "excerpt", imageURL: NSURL(), url: NSURL())
+                            let newsArticleA = TestUtils.newsArticle()
+                            let newsArticleB = TestUtils.newsArticle()
 
-                            let newsArticles = [newsArticleA, newsArticleB]
+                            let newsArticles: [NewsFeedItem] = [newsArticleA, newsArticleB]
 
                             it("has 1 section") {
-                                self.newsArticleRepository.lastCompletionBlock!(newsArticles)
+                                self.newsFeedService.lastCompletionBlock!(newsArticles)
 
                                 expect(self.subject.tableView.numberOfSections).to(equal(1))
                             }
 
 
                             it("shows the news items in the table") {
-                                self.newsArticleRepository.lastCompletionBlock!(newsArticles)
+                                self.newsFeedService.lastCompletionBlock!(newsArticles)
 
                                 expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(2))
 
@@ -253,14 +250,15 @@ class NewsFeedControllerSpecs: QuickSpec {
             }
 
             describe("Tapping on a news item") {
-                let expectedNewsArticleA = NewsArticle(title: "A", date: NSDate(), body: "A Body", excerpt: "excerpt", imageURL: NSURL(), url: NSURL(string: "http://example.com/a")!)
+                let expectedNewsArticleA = TestUtils.newsArticle()
                 let expectedNewsArticleB = NewsArticle(title: "B", date: NSDate(), body: "B Body", excerpt: "excerpt", imageURL: NSURL(), url: NSURL(string: "http://example.com/b")!)
+
                 beforeEach {
                     self.subject.viewWillAppear(false)
 
-                    let newsArticles = [expectedNewsArticleA, expectedNewsArticleB]
+                    let newsArticles: [NewsFeedItem] = [expectedNewsArticleA, expectedNewsArticleB]
 
-                    self.newsArticleRepository.lastCompletionBlock!(newsArticles)
+                    self.newsFeedService.lastCompletionBlock!(newsArticles)
 
                     let tableView = self.subject.tableView
                     tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 1))
