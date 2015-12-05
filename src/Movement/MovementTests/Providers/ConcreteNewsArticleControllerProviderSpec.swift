@@ -3,8 +3,8 @@ import Quick
 import Nimble
 @testable import Movement
 
-class ConcreteNewsArticleControllerProviderSpec : QuickSpec {
-    var subject : ConcreteNewsArticleControllerProvider!
+class ConcreteNewsFeedItemControllerProviderSpec : QuickSpec {
+    var subject : ConcreteNewsFeedItemControllerProvider!
     let timeIntervalFormatter = FakeTimeIntervalFormatter()
     let imageRepository = FakeImageRepository()
     let analyticsService = FakeAnalyticsService()
@@ -16,7 +16,7 @@ class ConcreteNewsArticleControllerProviderSpec : QuickSpec {
 
         describe("providing an instance with a news item") {
             beforeEach {
-                self.subject = ConcreteNewsArticleControllerProvider(
+                self.subject = ConcreteNewsFeedItemControllerProvider(
                     timeIntervalFormatter: self.timeIntervalFormatter,
                     imageRepository: self.imageRepository,
                     analyticsService: self.analyticsService,
@@ -29,9 +29,8 @@ class ConcreteNewsArticleControllerProviderSpec : QuickSpec {
             it("should return a correctly configured instance") {
                 let newsArticle = NewsArticle(title: "a", date: NSDate(), body: "a body", excerpt: "excerpt", imageURL: NSURL(), url: NSURL())
 
-                let controller = self.subject.provideInstanceWithNewsArticle(newsArticle)
+                let controller = self.subject.provideInstanceWithNewsFeedItem(newsArticle) as! NewsArticleController
 
-                expect(controller).to(beAnInstanceOf(NewsArticleController.self))
                 expect(controller.newsArticle).to(beIdenticalTo(newsArticle))
                 expect(controller.imageRepository as? FakeImageRepository).to(beIdenticalTo(self.imageRepository))
                 expect(controller.timeIntervalFormatter as? FakeTimeIntervalFormatter).to(beIdenticalTo(self.timeIntervalFormatter))

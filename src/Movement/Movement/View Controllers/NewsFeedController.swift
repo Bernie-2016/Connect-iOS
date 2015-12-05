@@ -3,7 +3,7 @@ import UIKit
 class NewsFeedController: UIViewController {
     private let newsFeedService: NewsFeedService
     private let newsFeedTableViewCellPresenter: NewsFeedTableViewCellPresenter
-    private let newsArticleControllerProvider: NewsArticleControllerProvider
+    private let newsFeedItemControllerProvider: NewsFeedItemControllerProvider
     private let analyticsService: AnalyticsService
     private let tabBarItemStylist: TabBarItemStylist
     private let theme: Theme
@@ -16,13 +16,13 @@ class NewsFeedController: UIViewController {
     private var newsFeedItems: [NewsFeedItem]
 
     init(newsFeedService: NewsFeedService,
-        newsArticleControllerProvider: NewsArticleControllerProvider,
+        newsFeedItemControllerProvider: NewsFeedItemControllerProvider,
         newsFeedTableViewCellPresenter: NewsFeedTableViewCellPresenter,
         analyticsService: AnalyticsService,
         tabBarItemStylist: TabBarItemStylist,
         theme: Theme ) {
             self.newsFeedService = newsFeedService
-            self.newsArticleControllerProvider = newsArticleControllerProvider
+            self.newsFeedItemControllerProvider = newsFeedItemControllerProvider
             self.newsFeedTableViewCellPresenter = newsFeedTableViewCellPresenter
             self.analyticsService = analyticsService
             self.tabBarItemStylist = tabBarItemStylist
@@ -148,7 +148,7 @@ extension NewsFeedController: UITableViewDelegate {
 
         self.analyticsService.trackContentViewWithName(newsArticle.title, type: .NewsArticle, identifier: newsArticle.url.absoluteString)
 
-        let controller = self.newsArticleControllerProvider.provideInstanceWithNewsArticle(newsArticle)
+        let controller = self.newsFeedItemControllerProvider.provideInstanceWithNewsFeedItem(newsArticle)
 
         self.navigationController?.pushViewController(controller, animated: true)
     }

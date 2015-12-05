@@ -103,7 +103,7 @@ class AppBootstrapper {
         shortDateFormatter.dateStyle = .ShortStyle
 
 
-        let newsArticleControllerProvider = ConcreteNewsArticleControllerProvider(
+        let newsFeedItemControllerProvider = ConcreteNewsFeedItemControllerProvider(
             timeIntervalFormatter: timeIntervalFormatter, imageRepository: imageRepository, analyticsService: analyticsService, urlOpener: urlOpener, urlAttributionPresenter: urlAttributionPresenter, theme: defaultTheme
         )
 
@@ -113,7 +113,7 @@ class AppBootstrapper {
 
         let newsFeedController = NewsFeedController(
             newsFeedService: newsFeedService,
-            newsArticleControllerProvider: newsArticleControllerProvider,
+            newsFeedItemControllerProvider: newsFeedItemControllerProvider,
             newsFeedTableViewCellPresenter: newsFeedTableViewCellPresenter,
             analyticsService: analyticsService,
             tabBarItemStylist: tabBarItemStylist,

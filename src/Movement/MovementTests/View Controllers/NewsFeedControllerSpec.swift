@@ -35,7 +35,7 @@ private class FakeNewsFeedService: NewsFeedService {
     }
 }
 
-class FakeNewsArticleControllerProvider : Movement.NewsArticleControllerProvider {
+class FakeNewsFeedItemControllerProvider : Movement.NewsFeedItemControllerProvider {
     let controller = NewsArticleController(newsArticle: TestUtils.newsArticle(),
         imageRepository: FakeImageRepository(),
         timeIntervalFormatter: FakeTimeIntervalFormatter(),
@@ -43,10 +43,10 @@ class FakeNewsArticleControllerProvider : Movement.NewsArticleControllerProvider
         urlOpener: FakeURLOpener(),
         urlAttributionPresenter: FakeURLAttributionPresenter(),
         theme: FakeTheme())
-    var lastNewsArticle: NewsArticle?
+    var lastNewsFeedItem: NewsFeedItem?
 
-    func provideInstanceWithNewsArticle(newsArticle: NewsArticle) -> NewsArticleController {
-        self.lastNewsArticle = newsArticle;
+    func provideInstanceWithNewsFeedItem(newsFeedItem: NewsFeedItem) -> UIViewController {
+        self.lastNewsFeedItem = newsFeedItem;
         return self.controller
     }
 }
@@ -54,7 +54,7 @@ class FakeNewsArticleControllerProvider : Movement.NewsArticleControllerProvider
 class NewsFeedControllerSpecs: QuickSpec {
     var subject: NewsFeedController!
     private var newsFeedService: FakeNewsFeedService!
-    let newsArticleControllerProvider = FakeNewsArticleControllerProvider()
+    let newsFeedItemControllerProvider = FakeNewsFeedItemControllerProvider()
     private var newsFeedTableViewCellPresenter: FakeNewsFeedTableViewCellPresenter!
     var analyticsService: FakeAnalyticsService!
     var tabBarItemStylist: FakeTabBarItemStylist!
@@ -73,7 +73,7 @@ class NewsFeedControllerSpecs: QuickSpec {
 
                 self.subject = NewsFeedController(
                     newsFeedService: self.newsFeedService,
-                    newsArticleControllerProvider: self.newsArticleControllerProvider,
+                    newsFeedItemControllerProvider: self.newsFeedItemControllerProvider,
                     newsFeedTableViewCellPresenter: self.newsFeedTableViewCellPresenter,
                     analyticsService: self.analyticsService,
                     tabBarItemStylist: self.tabBarItemStylist,
@@ -270,8 +270,8 @@ class NewsFeedControllerSpecs: QuickSpec {
 
 
                 it("should push a correctly configured news item view controller onto the nav stack") {
-                    expect(self.newsArticleControllerProvider.lastNewsArticle).to(beIdenticalTo(expectedNewsArticleB))
-                    expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.newsArticleControllerProvider.controller))
+                    expect(self.newsFeedItemControllerProvider.lastNewsFeedItem as? NewsArticle).to(beIdenticalTo(expectedNewsArticleB))
+                    expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.newsFeedItemControllerProvider.controller))
                 }
 
                 it("tracks the content view with the analytics service") {

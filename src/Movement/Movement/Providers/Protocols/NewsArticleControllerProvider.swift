@@ -1,5 +1,5 @@
 import Foundation
 
-protocol NewsArticleControllerProvider {
-    func provideInstanceWithNewsArticle(newsArticle: NewsArticle) -> NewsArticleController
+protocol NewsFeedItemControllerProvider {
+    func provideInstanceWithNewsFeedItem(newsFeedItem: NewsFeedItem) -> UIViewController
 }
