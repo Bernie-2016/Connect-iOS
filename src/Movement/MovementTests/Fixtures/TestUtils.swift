@@ -24,6 +24,10 @@ class TestUtils {
         return Issue(title: "An issue title made by TestUtils", body: "An issue body made by TestUtils", imageURL: NSURL(string: "http://1wdojq181if3tdg01yomaof86.wpengine.netdna-cdn.com/wp-content/uploads/2015/05/Sanders.jpg")!, url: NSURL(string: "http://issue.com/issue/a")!)
     }
 
+    class func newsArticle() -> NewsArticle {
+        return NewsArticle(title: "Bernie to release new album", date: NSDate(timeIntervalSince1970: 0), body: "yeahhh", excerpt: "excerpt A", imageURL: NSURL(string: "http://bs.com")!, url: NSURL())
+    }
+
     class func eventWithName(name: String) -> Event {
         return Event(name: name, startDate: NSDate(timeIntervalSince1970: 1433565000), timeZone: NSTimeZone(abbreviation: "PST")!,
             attendeeCapacity: 10, attendeeCount: 2,
