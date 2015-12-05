@@ -108,7 +108,7 @@ class AppBootstrapper {
         )
 
         let newsFeedArticlePresenter = NewsFeedArticlePresenter(timeIntervalFormatter: timeIntervalFormatter, imageRepository: imageRepository, theme: defaultTheme)
-        let newsFeedTableViewCellPresenter = ConcreteNewsFeedTableViewCellPresenter(articlePresenter: newsFeedArticlePresenter, theme: defaultTheme)
+        let newsFeedTableViewCellPresenter = ConcreteNewsFeedTableViewCellPresenter(articlePresenter: newsFeedArticlePresenter)
 
         let newsFeedController = NewsFeedController(
             newsArticleRepository: newsArticleRepository,

@@ -5,6 +5,14 @@ import UIKit
 @testable import Movement
 
 private class NewsFakeTheme : FakeTheme {
+    override func newsFeedTitleFont() -> UIFont {
+        return UIFont.boldSystemFontOfSize(20)
+    }
+
+    override func newsFeedTitleColor() -> UIColor {
+        return UIColor.magentaColor()
+    }
+
     override func newsFeedBackgroundColor() -> UIColor {
         return UIColor.blueColor()
     }
@@ -187,13 +195,20 @@ class NewsFeedControllerSpecs: QuickSpec {
                         expect(self.analyticsService.lastErrorContext).to(equal("Failed to load news feed"))
                     }
 
-                    it("shows the an error in the table using the presenter") {
+                    it("shows the an error in the table") {
+                        let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))!
+
                         expect(self.subject.tableView.numberOfSections).to(equal(1))
                         expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(1))
 
+                        expect(cell.textLabel!.text).to(equal("Oops! Sorry, we couldn't load any news."))
+                    }
+
+                    it("styles the items in the table using the theme") {
                         let cell = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))!
-                        expect(cell).to(beIdenticalTo(self.newsFeedTableViewCellPresenter.returnedErrorCell))
-                        expect(self.newsFeedTableViewCellPresenter.lastReceivedErrorTableView).to(beIdenticalTo(self.subject.tableView))
+
+                        expect(cell.textLabel!.textColor).to(equal(UIColor.magentaColor()))
+                        expect(cell.textLabel!.font).to(equal(UIFont.boldSystemFontOfSize(20)))
                     }
 
                     context("and then the user refreshes the news feed") {

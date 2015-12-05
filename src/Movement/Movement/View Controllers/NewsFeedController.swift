@@ -125,7 +125,11 @@ extension NewsFeedController: UITableViewDataSource {
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if self.errorLoadingNews {
-            return self.newsFeedTableViewCellPresenter.errorCellForTableView(tableView)
+            let cell = tableView.dequeueReusableCellWithIdentifier("errorCell")!
+            cell.textLabel!.text = NSLocalizedString("NewsFeed_errorText", comment: "")
+            cell.textLabel!.font = self.theme.newsFeedTitleFont()
+            cell.textLabel!.textColor = self.theme.newsFeedTitleColor()
+            return cell
         }
 
         let newsFeedItem = self.newsFeedItems[indexPath.row]
