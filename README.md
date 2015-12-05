@@ -1,4 +1,4 @@
-# BernieApp
+# Movement
 
 [![Build Status](https://travis-ci.org/SandersForPresident/BernieAppiOS.png?branch=master)](https://travis-ci.org/SandersForPresident/BernieAppiOS)
 
