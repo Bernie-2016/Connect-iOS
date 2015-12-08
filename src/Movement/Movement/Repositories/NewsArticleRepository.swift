@@ -1,6 +1,6 @@
 import Foundation
-
+import KSDeferred
 
 protocol NewsArticleRepository {
-    func fetchNewsArticles(completion: ([NewsArticle]) -> Void, error: (NSError) -> Void)
+    func fetchNewsArticles() -> KSPromise
 }

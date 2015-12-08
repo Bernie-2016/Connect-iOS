@@ -37,12 +37,10 @@ class ConcreteNewsArticleRepositorySpec : QuickSpec {
         )
 
         describe(".fetchNewsArticles") {
+            var newsArticlesPromise: KSPromise!
+
             beforeEach {
-                self.subject.fetchNewsArticles({ (newsArticles) -> Void in
-                    self.receivedNewsArticles = newsArticles
-                    }, error: { (error) -> Void in
-                        self.receivedError = error
-                })
+                newsArticlesPromise = self.subject.fetchNewsArticles()
             }
 
             it("makes a single request to the JSON Client with the correct URL, method and parametrs") {
@@ -70,7 +68,6 @@ class ConcreteNewsArticleRepositorySpec : QuickSpec {
 
             context("when the request to the JSON client succeeds") {
                 let expectedJSONDictionary = NSDictionary();
-                _ = self.newsArticleDeserializer.returnedNewsArticles
 
                 beforeEach {
                     let deferred: KSDeferred = self.jsonClient.deferredsByURL[self.urlProvider.newsFeedURL()]!
@@ -84,8 +81,9 @@ class ConcreteNewsArticleRepositorySpec : QuickSpec {
 
                 it("calls the completion handler with the deserialized value objects on the operation queue") {
                     self.operationQueue.lastReceivedBlock()
-                    expect(self.receivedNewsArticles.count).to(equal(1))
-                    expect(self.receivedNewsArticles.first!.title).to(equal("fake news"))
+                    let receivedNewsArticles =  newsArticlesPromise.value as! Array<NewsArticle>
+                    expect(receivedNewsArticles.count).to(equal(1))
+                    expect(receivedNewsArticles.first!.title).to(equal("fake news"))
                 }
             }
 
@@ -98,7 +96,7 @@ class ConcreteNewsArticleRepositorySpec : QuickSpec {
 
                 it("calls the completion handler with an error") {
                     self.operationQueue.lastReceivedBlock()
-                    expect(self.receivedError).notTo(beNil())
+                    expect(newsArticlesPromise.error).notTo(beNil())
                 }
             }
 
@@ -109,7 +107,7 @@ class ConcreteNewsArticleRepositorySpec : QuickSpec {
                     deferred.rejectWithError(expectedError)
 
                     self.operationQueue.lastReceivedBlock()
-                    expect(self.receivedError).to(beIdenticalTo(expectedError))
+                    expect(newsArticlesPromise.error).to(beIdenticalTo(expectedError))
                 }
             }
         }

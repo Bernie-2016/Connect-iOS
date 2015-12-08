@@ -1,4 +1,5 @@
 import Foundation
+import KSDeferred
 
 class ConcreteNewsArticleRepository: NewsArticleRepository {
     private let urlProvider: URLProvider
@@ -17,7 +18,9 @@ class ConcreteNewsArticleRepository: NewsArticleRepository {
             self.operationQueue = operationQueue
     }
 
-    func fetchNewsArticles(completion: ([NewsArticle]) -> Void, error: (NSError) -> Void) {
+    func fetchNewsArticles() -> KSPromise {
+        let deferred = KSDeferred()
+
         let newsFeedJSONPromise = self.jsonClient.JSONPromiseWithURL(self.urlProvider.newsFeedURL(), method: "POST", bodyDictionary: self.HTTPBodyDictionary())
 
         newsFeedJSONPromise.then({ (deserializedObject) -> AnyObject! in
@@ -25,7 +28,7 @@ class ConcreteNewsArticleRepository: NewsArticleRepository {
             if jsonDictionary == nil {
                 let incorrectObjectTypeError = NSError(domain: "ConcreteNewsArticleRepository", code: -1, userInfo: nil)
                 self.operationQueue.addOperationWithBlock({ () -> Void in
-                    error(incorrectObjectTypeError)
+                    deferred.rejectWithError(incorrectObjectTypeError)
                 })
                 return incorrectObjectTypeError
             }
@@ -34,17 +37,18 @@ class ConcreteNewsArticleRepository: NewsArticleRepository {
             let parsedNewsArticles = self.newsArticleDeserializer.deserializeNewsArticles(jsonDictionary!)
 
             self.operationQueue.addOperationWithBlock({ () -> Void in
-                completion(parsedNewsArticles as [NewsArticle])
+                deferred.resolveWithValue(parsedNewsArticles as [NewsArticle])
             })
 
             return parsedNewsArticles
             }, error: { (receivedError) -> AnyObject! in
                 self.operationQueue.addOperationWithBlock({ () -> Void in
-                    error(receivedError!)
+                    deferred.rejectWithError(receivedError!)
                 })
                 return receivedError
         })
 
+        return deferred.promise
     }
 
     // MARK: Private

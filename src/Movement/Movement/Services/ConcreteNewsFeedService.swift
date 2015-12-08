@@ -1,4 +1,5 @@
 import Foundation
+import KSDeferred
 
 class ConcreteNewsFeedService: NewsFeedService {
     private let newsArticleRepository: NewsArticleRepository
@@ -8,10 +9,19 @@ class ConcreteNewsFeedService: NewsFeedService {
     }
 
     func fetchNewsFeed(completion: ([NewsFeedItem]) -> Void, error: (ErrorType) -> Void) {
-        self.newsArticleRepository.fetchNewsArticles({ (receivedNewsArticles) -> Void in
-            completion(receivedNewsArticles.map({$0 as NewsFeedItem}))
-            }, error: { (newsArticleError) -> Void in
-                error(newsArticleError)
-        })
+        let promise: KSPromise = self.newsArticleRepository.fetchNewsArticles()
+
+        promise.then({ (receivedNewsArticles) -> AnyObject? in
+            guard let newsArticles = receivedNewsArticles as? Array<NewsArticle> else {
+                let typeError = NSError(domain: "ConcreteNewsFeedService", code: 0, userInfo: nil)
+                error(typeError)
+                return receivedNewsArticles
+            }
+                completion(newsArticles.map({$0 as NewsFeedItem}))
+                return receivedNewsArticles
+            }) { (receivedError) -> AnyObject? in
+                error(receivedError as ErrorType!)
+                return receivedError
+        }
     }
 }
