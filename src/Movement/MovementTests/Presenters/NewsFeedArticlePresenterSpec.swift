@@ -50,13 +50,13 @@ class NewsFeedArticlePresenterSpec: QuickSpec {
                     theme: self.theme)
             }
 
-            describe("NewsFeedArticlePresenter") {
+            describe("presenting a news article") {
                 let newsArticleDate = NSDate(timeIntervalSince1970: 0)
                 let newsArticle = NewsArticle(title: "Bernie to release new album", date: newsArticleDate, body: "yeahhh", excerpt: "excerpt A", imageURL: NSURL(string: "http://bs.com")!, url: NSURL())
                 let tableView = UITableView()
 
                 beforeEach {
-                    tableView.registerClass(NewsArticleTableViewCell.self, forCellReuseIdentifier: "regularCell") // TODO: constantize this
+                    self.subject.setupTableView(tableView)
                 }
 
                 it("sets the title label using the provided news article") {

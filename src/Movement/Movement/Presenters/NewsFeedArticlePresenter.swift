@@ -11,13 +11,12 @@ class NewsFeedArticlePresenter: NewsFeedTableViewCellPresenter {
         self.theme = theme
     }
 
-    func errorCellForTableView(tableView: UITableView) -> UITableViewCell {
-        return UITableViewCell()
+    func setupTableView(tableView: UITableView) {
+        tableView.registerClass(NewsArticleTableViewCell.self, forCellReuseIdentifier: "regularCell")
     }
 
     func cellForTableView(tableView: UITableView, newsFeedItem: NewsFeedItem) -> UITableViewCell {
-        var cell: NewsArticleTableViewCell! = tableView.dequeueReusableCellWithIdentifier("regularCell") as? NewsArticleTableViewCell
-        if cell == nil { cell = NewsArticleTableViewCell() }
+        let cell: NewsArticleTableViewCell! = tableView.dequeueReusableCellWithIdentifier("regularCell") as? NewsArticleTableViewCell
 
         let newsArticle: NewsArticle! = newsFeedItem as? NewsArticle
         if newsArticle == nil { return cell }

@@ -73,6 +73,8 @@ class NewsFeedController: UIViewController {
         tableView.backgroundColor = self.theme.newsFeedBackgroundColor()
         tableView.autoPinEdgesToSuperviewEdges()
 
+        newsFeedTableViewCellPresenter.setupTableView(tableView)
+
         loadingIndicatorView.startAnimating()
         loadingIndicatorView.hidesWhenStopped = true
         loadingIndicatorView.autoAlignAxisToSuperviewAxis(.Vertical)

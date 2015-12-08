@@ -3,14 +3,6 @@ import UIKit
 @testable import Movement
 
 class FakeNewsFeedTableViewCellPresenter: NewsFeedTableViewCellPresenter {
-    let returnedErrorCell = UITableViewCell()
-    var lastReceivedErrorTableView: UITableView!
-
-    func errorCellForTableView(tableView: UITableView) -> UITableViewCell {
-        self.lastReceivedErrorTableView = tableView
-        return self.returnedErrorCell
-    }
-
     var returnedCells = [NewsArticleTableViewCell]()
     var receivedTableViews = [UITableView]()
     var receivedNewsFeedItems =  [NewsFeedItem]()
@@ -21,6 +13,11 @@ class FakeNewsFeedTableViewCellPresenter: NewsFeedTableViewCellPresenter {
         let returnedCell = NewsArticleTableViewCell()
         self.returnedCells.append(returnedCell)
         return returnedCell
+    }
+
+    var lastSetupTableView: UITableView!
+    func setupTableView(tableView: UITableView) {
+        self.lastSetupTableView = tableView
     }
 }
 

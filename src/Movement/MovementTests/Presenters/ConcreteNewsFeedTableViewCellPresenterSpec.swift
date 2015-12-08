@@ -21,6 +21,15 @@ class ConcreteNewsFeedTableViewCellPresenterSpec: QuickSpec {
                 self.subject = ConcreteNewsFeedTableViewCellPresenter(articlePresenter: self.articlePresenter)
             }
 
+            describe("setting up a table view") {
+                it("tells the article presenter to setup the table view") {
+                    let tableView = UITableView()
+                    self.subject.setupTableView(tableView)
+
+                    expect(self.articlePresenter.lastSetupTableView).to(beIdenticalTo(tableView))
+                }
+            }
+
             describe("presenting a news feed item") {
                 let tableView = UITableView()
 

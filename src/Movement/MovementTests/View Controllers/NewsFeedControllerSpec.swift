@@ -128,6 +128,10 @@ class NewsFeedControllerSpecs: QuickSpec {
                 expect(self.subject.loadingIndicatorView.hidesWhenStopped).to(equal(true))
             }
 
+            it("sets up the table view with the presenter") {
+                expect(self.newsFeedTableViewCellPresenter.lastSetupTableView).to(beIdenticalTo(self.subject.tableView))
+            }
+
             describe("when the controller appears") {
                 beforeEach {
                     self.subject.viewWillAppear(false)
