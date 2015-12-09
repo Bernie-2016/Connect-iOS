@@ -1,6 +1,6 @@
 import Foundation
-import KSDeferred
+import BrightFutures
 
 protocol NewsArticleRepository {
-    func fetchNewsArticles() -> KSPromise
+    func fetchNewsArticles() -> Future<Array<NewsArticle>, NSError>
 }

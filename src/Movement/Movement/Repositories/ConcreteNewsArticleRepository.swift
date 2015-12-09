@@ -1,5 +1,5 @@
 import Foundation
-import KSDeferred
+import BrightFutures
 
 class ConcreteNewsArticleRepository: NewsArticleRepository {
     private let urlProvider: URLProvider
@@ -18,8 +18,8 @@ class ConcreteNewsArticleRepository: NewsArticleRepository {
             self.operationQueue = operationQueue
     }
 
-    func fetchNewsArticles() -> KSPromise {
-        let deferred = KSDeferred()
+    func fetchNewsArticles() -> Future<Array<NewsArticle>, NSError> {
+        let promise = Promise<Array<NewsArticle>, NSError>()
 
         let newsFeedJSONPromise = self.jsonClient.JSONPromiseWithURL(self.urlProvider.newsFeedURL(), method: "POST", bodyDictionary: self.HTTPBodyDictionary())
 
@@ -28,7 +28,7 @@ class ConcreteNewsArticleRepository: NewsArticleRepository {
             if jsonDictionary == nil {
                 let incorrectObjectTypeError = NSError(domain: "ConcreteNewsArticleRepository", code: -1, userInfo: nil)
                 self.operationQueue.addOperationWithBlock({ () -> Void in
-                    deferred.rejectWithError(incorrectObjectTypeError)
+                    promise.failure(incorrectObjectTypeError)
                 })
                 return incorrectObjectTypeError
             }
@@ -37,18 +37,18 @@ class ConcreteNewsArticleRepository: NewsArticleRepository {
             let parsedNewsArticles = self.newsArticleDeserializer.deserializeNewsArticles(jsonDictionary!)
 
             self.operationQueue.addOperationWithBlock({ () -> Void in
-                deferred.resolveWithValue(parsedNewsArticles as [NewsArticle])
+                promise.success(parsedNewsArticles as [NewsArticle])
             })
 
             return parsedNewsArticles
             }, error: { (receivedError) -> AnyObject! in
                 self.operationQueue.addOperationWithBlock({ () -> Void in
-                    deferred.rejectWithError(receivedError!)
+                    promise.failure(receivedError!)
                 })
                 return receivedError
         })
 
-        return deferred.promise
+        return promise.future
     }
 
     // MARK: Private

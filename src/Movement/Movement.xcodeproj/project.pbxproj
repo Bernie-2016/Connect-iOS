@@ -1312,6 +1312,8 @@
 				"$(PROJECT_DIR)/Carthage/Build/iOS/KSDeferred.framework",
 				"$(PROJECT_DIR)/Carthage/Build/iOS/PureLayout.framework",
 				"$(PROJECT_DIR)/Carthage/Build/iOS/WebImage.framework",
+				"$(PROJECT_DIR)/Carthage/Build/iOS/BrightFutures.framework",
+				"$(PROJECT_DIR)/Carthage/Build/iOS/Result.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (

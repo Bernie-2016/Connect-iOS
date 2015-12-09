@@ -1,17 +1,17 @@
 import Quick
 import Nimble
-import KSDeferred
+import BrightFutures
 
 @testable import Movement
 
-private class FakeNewsArticleRepository : Movement.NewsArticleRepository {
+private class FakeNewsArticleRepository: NewsArticleRepository {
     var fetchNewsCalled: Bool = false
-    var lastDeferred: KSDeferred!
+    var lastPromise: Promise<Array<NewsArticle>, NSError>!
 
-    func fetchNewsArticles() -> KSPromise {
+    func fetchNewsArticles() -> Future<Array<NewsArticle>, NSError> {
         self.fetchNewsCalled = true
-        self.lastDeferred = KSDeferred()
-        return self.lastDeferred.promise
+        self.lastPromise = Promise<Array<NewsArticle>, NSError>()
+        return self.lastPromise.future
     }
 }
 
@@ -46,32 +46,25 @@ class ConcreteNewsFeedServiceSpec: QuickSpec {
                 describe("when the news article repo returns some objects") {
                     it("calls the completion handler with those objects") {
                         let newsArticle = TestUtils.newsArticle()
-                        self.newsArticleRepository.lastDeferred.resolveWithValue([newsArticle])
+                        self.newsArticleRepository.lastPromise.success([newsArticle])
 
+                        expect(receivedNewsFeedItems).toEventuallyNot(beNil())
                         expect(receivedNewsFeedItems.count).to(equal(1))
                         expect(receivedNewsFeedItems!.first! as? NewsArticle).to(beIdenticalTo(newsArticle))
 
                         receivedNewsFeedItems = []
 
-                        self.newsArticleRepository.lastDeferred.resolveWithValue([])
+                        self.newsArticleRepository.lastPromise.success([])
                         expect(receivedNewsFeedItems.count).to(equal(0))
-                    }
-                }
-
-                describe("when the news article repo returns some unexpected objects") {
-                    // TODO: figure out if we can use KSDeferred's generics support to catch this at compile time
-                    it("calls the error handler") {
-                        self.newsArticleRepository.lastDeferred.resolveWithValue([NSObject()])
-
-                        expect(receivedError).notTo(beNil())
                     }
                 }
 
                 describe("when the news article repo reports an error") {
                     it("calls the error handler") {
                         let error = NSError(domain: "what", code: 123, userInfo: nil)
-                        self.newsArticleRepository.lastDeferred.rejectWithError(error)
+                        self.newsArticleRepository.lastPromise.failure(error)
 
+                        expect(receivedError).toEventuallyNot(beNil())
                         expect(receivedError as NSError).to(beIdenticalTo(error))
                     }
                 }
