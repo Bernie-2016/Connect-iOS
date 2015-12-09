@@ -1,5 +1,7 @@
 import UIKit
 import PureLayout
+import BrightFutures
+import Result
 
 class IssueController: UIViewController {
     let issue: Issue
@@ -61,12 +63,10 @@ class IssueController: UIViewController {
         applyThemeToViews()
 
         if issue.imageURL != nil {
-            imageRepository.fetchImageWithURL(self.issue.imageURL!).then({ (image) -> AnyObject! in
-                self.issueImageView.image = image as? UIImage
-                return image
-                }, error: { (error) -> AnyObject! in
+            imageRepository.fetchImageWithURL(self.issue.imageURL!).onSuccess(ImmediateOnMainExecutionContext, callback: { (image) -> Void in
+                self.issueImageView.image = image
+            }).onFailure(ImmediateOnMainExecutionContext, callback: { (error) -> Void in
                     self.issueImageView.removeFromSuperview()
-                    return error
             })
         } else {
             issueImageView.removeFromSuperview()

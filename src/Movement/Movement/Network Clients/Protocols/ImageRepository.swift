@@ -1,6 +1,6 @@
 import Foundation
-import KSDeferred
+import BrightFutures
 
 protocol ImageRepository {
-    func fetchImageWithURL(url: NSURL) -> KSPromise
+    func fetchImageWithURL(url: NSURL) -> Future<UIImage, NSError>
 }

@@ -233,19 +233,18 @@ class IssueControllerSpec : QuickSpec {
                     context("when the request for the story's image succeeds") {
                         it("displays the image") {
                             let issueImage = TestUtils.testImageNamed("bernie", type: "jpg")
-
-                            self.imageRepository.lastRequestDeferred.resolveWithValue(issueImage)
-
                             let expectedImageData = UIImagePNGRepresentation(issueImage)
-                            let storyImageData = UIImagePNGRepresentation(self.subject.issueImageView.image!)
 
+                            self.imageRepository.lastRequestPromise.success(issueImage)
+                            let storyImageData = UIImagePNGRepresentation(self.subject.issueImageView.image!)
                             expect(storyImageData).to(equal(expectedImageData))
+
                         }
                     }
 
                     context("when the request for the story's image fails") {
                         it("removes the image view from the container") {
-                            self.imageRepository.lastRequestDeferred.rejectWithError(nil)
+                            self.imageRepository.lastRequestPromise.failure(NSError(domain: "", code: 0, userInfo: nil))
                             let scrollView = self.subject.view.subviews.first!
                             let containerView = scrollView.subviews.first!
                             let containerViewSubViews = containerView.subviews

@@ -102,7 +102,8 @@ class NewsFeedArticlePresenterSpec: QuickSpec {
                             let cell = self.subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
 
                             let bernieImage = TestUtils.testImageNamed("bernie", type: "jpg")
-                            self.imageRepository.lastRequestDeferred.resolveWithValue(bernieImage)
+                            self.imageRepository.lastRequestPromise.success(bernieImage)
+
                             expect(cell.newsImageView.image).to(beIdenticalTo(bernieImage))
                         }
                     }

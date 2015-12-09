@@ -1,9 +1,10 @@
-import Foundation
 import Quick
 import Nimble
-@testable import Movement
 import WebImage
-import KSDeferred
+import BrightFutures
+import Result
+
+@testable import Movement
 
 class FakeSDWebImageManager : SDWebImageManager {
     var lastReceivedURL : NSURL!
@@ -31,10 +32,10 @@ class ConcreteImageRepositorySpec : QuickSpec {
         }
 
         describe("fetching an image by URL") {
-            var imagePromise : KSPromise!
+            var imageFuture: Future<UIImage, NSError>!
 
             beforeEach {
-                imagePromise = self.subject.fetchImageWithURL(self.expectedURL)
+                imageFuture = self.subject.fetchImageWithURL(self.expectedURL)
             }
 
             it("should use the image manager to load the image") {
@@ -47,8 +48,8 @@ class ConcreteImageRepositorySpec : QuickSpec {
 
                     self.webImageManager.lastReceivedCompletionBlock(expectedImage, nil, SDImageCacheType.None, true, self.expectedURL)
 
-                    expect(imagePromise.fulfilled).to(beTrue())
-                    expect(imagePromise.value as? UIImage).to(beIdenticalTo(expectedImage))
+                    expect(imageFuture.isSuccess).to(beTrue())
+                    expect(imageFuture.value).to(beIdenticalTo(expectedImage))
                 }
             }
 
@@ -57,8 +58,8 @@ class ConcreteImageRepositorySpec : QuickSpec {
                     let expectedError = NSError(domain: "some domain", code: 666, userInfo: nil)
                     self.webImageManager.lastReceivedCompletionBlock(nil, expectedError, SDImageCacheType.None, true, self.expectedURL)
 
-                    expect(imagePromise.rejected).to(beTrue())
-                    expect(imagePromise.error).to(beIdenticalTo(expectedError))
+                    expect(imageFuture.isFailure).to(beTrue())
+                    expect(imageFuture.error).to(beIdenticalTo(expectedError))
                 }
             }
         }

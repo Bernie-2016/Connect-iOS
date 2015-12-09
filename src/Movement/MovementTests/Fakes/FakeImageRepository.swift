@@ -1,17 +1,18 @@
 import Foundation
-import KSDeferred
+import BrightFutures
+import Result
 @testable import Movement
 
 
 class FakeImageRepository : Movement.ImageRepository {
     var lastReceivedURL : NSURL?
-    var lastRequestDeferred : KSDeferred!
+    var lastRequestPromise : Promise<UIImage, NSError>!
     var imageRequested = false
 
-    func fetchImageWithURL(url: NSURL) -> KSPromise {
+    func fetchImageWithURL(url: NSURL) -> Future<UIImage, NSError> {
         self.lastReceivedURL = url
-        self.lastRequestDeferred = KSDeferred()
+        self.lastRequestPromise = Promise<UIImage, NSError>()
         self.imageRequested = true
-        return self.lastRequestDeferred.promise
+        return self.lastRequestPromise.future
     }
 }

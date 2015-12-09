@@ -1,5 +1,6 @@
 import Foundation
-import KSDeferred
+import BrightFutures
+import Result
 import WebImage
 
 class ConcreteImageRepository: ImageRepository {
@@ -9,17 +10,17 @@ class ConcreteImageRepository: ImageRepository {
         self.webImageManager = webImageManager
     }
 
-    func fetchImageWithURL(url: NSURL) -> KSPromise {
-        let deferred = KSDeferred()
+    func fetchImageWithURL(url: NSURL) -> Future<UIImage, NSError> {
+        let promise = Promise<UIImage, NSError>()
 
         self.webImageManager.downloadImageWithURL(url, options: SDWebImageOptions(), progress: nil) { (image, error, cacheType, finished, imageURL) -> Void in
             if error != nil {
-                deferred.rejectWithError(error)
+                promise.failure(error)
             } else {
-                deferred.resolveWithValue(image)
+                promise.success(image)
             }
         }
 
-        return deferred.promise
+        return promise.future
     }
 }

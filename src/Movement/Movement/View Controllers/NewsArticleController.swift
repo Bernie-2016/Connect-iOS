@@ -1,5 +1,7 @@
 import UIKit
 import PureLayout
+import BrightFutures
+import Result
 
 // swiftlint:disable type_body_length
 class NewsArticleController: UIViewController {
@@ -74,12 +76,10 @@ class NewsArticleController: UIViewController {
         setupConstraintsAndLayout()
 
         if self.newsArticle.imageURL != nil {
-            self.imageRepository.fetchImageWithURL(self.newsArticle.imageURL!).then({ (image) -> AnyObject! in
-                self.storyImageView.image = image as? UIImage
-                return image
-                }, error: { (error) -> AnyObject! in
-                    self.storyImageView.removeFromSuperview()
-                    return error
+            self.imageRepository.fetchImageWithURL(self.newsArticle.imageURL!).onSuccess(ImmediateOnMainExecutionContext, callback: { (image) -> Void in
+                self.storyImageView.image = image
+            }).onFailure(ImmediateOnMainExecutionContext, callback: { (error) -> Void in
+                self.storyImageView.removeFromSuperview()
             })
         } else {
             self.storyImageView.removeFromSuperview()

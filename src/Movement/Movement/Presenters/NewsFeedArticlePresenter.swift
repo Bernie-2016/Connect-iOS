@@ -1,4 +1,5 @@
 import Foundation
+import BrightFutures
 
 class NewsFeedArticlePresenter: NewsFeedTableViewCellPresenter {
     private let timeIntervalFormatter: TimeIntervalFormatter
@@ -33,12 +34,9 @@ class NewsFeedArticlePresenter: NewsFeedTableViewCellPresenter {
             cell.newsImageVisible = false
         } else {
             cell.newsImageVisible = true
-            imageRepository.fetchImageWithURL(newsArticle.imageURL!).then({ (image) -> AnyObject? in
-                cell.newsImageView.image = image as? UIImage
-                return image
-                }) { (error) -> AnyObject? in
-                    return error
-            }
+            imageRepository.fetchImageWithURL(newsArticle.imageURL!).onSuccess(ImmediateOnMainExecutionContext, callback: { (image) -> Void in
+                cell.newsImageView.image = image
+            })
         }
 
         return cell
