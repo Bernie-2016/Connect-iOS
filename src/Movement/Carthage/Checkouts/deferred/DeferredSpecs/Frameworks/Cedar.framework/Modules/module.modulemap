@@ -1,6 +1,0 @@
-framework module Cedar {
-  umbrella header "Cedar.h"
-
-  export *
-  module * { export * }
-}
