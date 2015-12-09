@@ -2,7 +2,7 @@ import Foundation
 import Quick
 import Nimble
 @testable import Movement
-import KSDeferred
+import BrightFutures
 
 class FakeNSJSONSerializationProvider : NSJSONSerializationProvider {
     var enableError : Bool = false
@@ -62,11 +62,11 @@ class ConcreteJSONClientSpec : QuickSpec {
                 let expectedURL = NSURL(string: "https://example.com/berrniieee")!
                 let expectedMethod = "POST"
                 let expectedBodyDictionary = ["some": "data"]
-                var promise : KSPromise!
+                var future : Future<AnyObject, NSError>!
 
                 context("when the given data can be serialized to JSON") {
                     beforeEach {
-                        promise = self.subject.JSONPromiseWithURL(expectedURL,
+                        future = self.subject.JSONPromiseWithURL(expectedURL,
                             method: expectedMethod,
                             bodyDictionary: expectedBodyDictionary)
                     }
@@ -102,9 +102,9 @@ class ConcreteJSONClientSpec : QuickSpec {
                                 it("resolves the promise with the JSON document") {
                                     self.urlSession.lastCompletionHandler!(expectedData, response!, nil)
 
-                                    expect(promise.fulfilled).to(beTrue())
+                                    expect(future.isSuccess).to(beTrue())
                                     let expectedValue = self.jsonSerializationProvider.returnedJSON
-                                    let value : NSDictionary! = (promise.value as! NSDictionary)
+                                    let value : NSDictionary! = (future.value as! NSDictionary)
                                     expect(value).to(beIdenticalTo(expectedValue))
                                 }
                             }
@@ -114,8 +114,8 @@ class ConcreteJSONClientSpec : QuickSpec {
                                     self.jsonSerializationProvider.enableError = true
                                     self.urlSession.lastCompletionHandler!(expectedData, response!, nil)
 
-                                    expect(promise.rejected).to(beTrue())
-                                    expect(promise.error).to(beIdenticalTo(self.jsonSerializationProvider.returnedError))
+                                    expect(future.isFailure).to(beTrue())
+                                    expect(future.error).to(beIdenticalTo(self.jsonSerializationProvider.returnedError))
                                 }
                             }
                         }
@@ -126,8 +126,8 @@ class ConcreteJSONClientSpec : QuickSpec {
                             it("rejects the promise with an error") {
                                 self.urlSession.lastCompletionHandler!(expectedData, response!, nil)
 
-                                expect(promise.rejected).to(beTrue())
-                                expect(promise.error!.domain).to(equal(ConcreteJSONClient.Error.badResponse))
+                                expect(future.isFailure).to(beTrue())
+                                expect(future.error!.domain).to(equal(ConcreteJSONClient.Error.badResponse))
                             }
                         }
                     }
@@ -137,8 +137,8 @@ class ConcreteJSONClientSpec : QuickSpec {
                             let expectedError = NSError(domain: "some domain", code: 0, userInfo: nil)
                             self.urlSession.lastCompletionHandler!(nil, nil, expectedError)
 
-                            expect(promise.rejected).to(beTrue())
-                            expect(promise.error).to(beIdenticalTo(expectedError))
+                            expect(future.isFailure).to(beTrue())
+                            expect(future.error).to(beIdenticalTo(expectedError))
                         }
                     }
                 }
@@ -147,14 +147,14 @@ class ConcreteJSONClientSpec : QuickSpec {
                     beforeEach {
                         self.jsonSerializationProvider.enableError = true
 
-                        promise = self.subject.JSONPromiseWithURL(expectedURL,
+                        future = self.subject.JSONPromiseWithURL(expectedURL,
                             method: expectedMethod,
                             bodyDictionary: expectedBodyDictionary)
                     }
 
                     it("rejects the promise with the serialization error") {
-                        expect(promise.rejected).to(beTrue())
-                        expect(promise.error).to(beIdenticalTo(self.jsonSerializationProvider.returnedError))
+                        expect(future.isFailure).to(beTrue())
+                        expect(future.error).to(beIdenticalTo(self.jsonSerializationProvider.returnedError))
                     }
 
                     it("does not attempt to make a request") {

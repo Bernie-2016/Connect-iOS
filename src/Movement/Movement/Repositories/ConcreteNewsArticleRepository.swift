@@ -21,32 +21,28 @@ class ConcreteNewsArticleRepository: NewsArticleRepository {
     func fetchNewsArticles() -> Future<Array<NewsArticle>, NSError> {
         let promise = Promise<Array<NewsArticle>, NSError>()
 
-        let newsFeedJSONPromise = self.jsonClient.JSONPromiseWithURL(self.urlProvider.newsFeedURL(), method: "POST", bodyDictionary: self.HTTPBodyDictionary())
+        let newsFeedJSONFuture = self.jsonClient.JSONPromiseWithURL(self.urlProvider.newsFeedURL(), method: "POST", bodyDictionary: self.HTTPBodyDictionary())
 
-        newsFeedJSONPromise.then({ (deserializedObject) -> AnyObject! in
-            let jsonDictionary = deserializedObject as? NSDictionary
-            if jsonDictionary == nil {
+        newsFeedJSONFuture.onSuccess { (deserializedObject) -> Void in
+            guard let jsonDictionary = deserializedObject as? NSDictionary else {
                 let incorrectObjectTypeError = NSError(domain: "ConcreteNewsArticleRepository", code: -1, userInfo: nil)
                 self.operationQueue.addOperationWithBlock({ () -> Void in
                     promise.failure(incorrectObjectTypeError)
                 })
-                return incorrectObjectTypeError
+                return
             }
 
-
-            let parsedNewsArticles = self.newsArticleDeserializer.deserializeNewsArticles(jsonDictionary!)
+            let parsedNewsArticles = self.newsArticleDeserializer.deserializeNewsArticles(jsonDictionary)
 
             self.operationQueue.addOperationWithBlock({ () -> Void in
                 promise.success(parsedNewsArticles as [NewsArticle])
             })
+        }.onFailure { (receivedError) -> Void in
+            self.operationQueue.addOperationWithBlock({ () -> Void in
+                promise.failure(receivedError)
+            })
+        }
 
-            return parsedNewsArticles
-            }, error: { (receivedError) -> AnyObject! in
-                self.operationQueue.addOperationWithBlock({ () -> Void in
-                    promise.failure(receivedError!)
-                })
-                return receivedError
-        })
 
         return promise.future
     }

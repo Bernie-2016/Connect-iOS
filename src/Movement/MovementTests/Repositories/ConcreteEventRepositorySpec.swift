@@ -1,7 +1,6 @@
 @testable import Movement
 import Quick
 import Nimble
-import KSDeferred
 import CoreLocation
 import MapKit
 
@@ -34,26 +33,37 @@ class FakeGeocoder : CLGeocoder {
 
 class ConcreteEventRepositorySpec : QuickSpec {
     var subject: ConcreteEventRepository!
-    let jsonClient = FakeJSONClient()
+    var geocoder: FakeGeocoder!
     let urlProvider = EventRepositoryFakeURLProvider()
-    let eventDeserializer = FakeEventDeserializer()
-    let operationQueue = FakeOperationQueue()
-    let geocoder = FakeGeocoder()
+    var jsonClient: FakeJSONClient!
+    var eventDeserializer: FakeEventDeserializer!
+    var operationQueue: FakeOperationQueue!
+
     var receivedEventSearchResult: EventSearchResult!
     var receivedError: NSError!
 
     override func spec() {
         describe("ConcreteEventRepository") {
-            self.subject = ConcreteEventRepository(
-                geocoder: self.geocoder,
-                urlProvider: self.urlProvider,
-                jsonClient: self.jsonClient,
-                eventDeserializer: self.eventDeserializer,
-                operationQueue: self.operationQueue
-            )
+            beforeEach {
+                self.geocoder = FakeGeocoder()
+                self.jsonClient = FakeJSONClient()
+                self.eventDeserializer = FakeEventDeserializer()
+                self.operationQueue = FakeOperationQueue()
+
+                self.subject = ConcreteEventRepository(
+                    geocoder: self.geocoder,
+                    urlProvider: self.urlProvider,
+                    jsonClient: self.jsonClient,
+                    eventDeserializer: self.eventDeserializer,
+                    operationQueue: self.operationQueue
+                )
+            }
 
             describe(".fetchEventsWithZipCode") {
                 beforeEach {
+                    self.receivedEventSearchResult = nil
+                    self.receivedError = nil
+
                     self.subject.fetchEventsWithZipCode("90210", radiusMiles: 50.1, completion: { (eventSearchResult) -> Void in
                         self.receivedEventSearchResult = eventSearchResult
                         }, error: { (error) -> Void in
@@ -80,8 +90,8 @@ class ConcreteEventRepositorySpec : QuickSpec {
                     }
 
                     it("makes a single request to the JSON Client with the correct URL, method and parametrs") {
-                        expect(self.jsonClient.deferredsByURL.count).to(equal(1))
-                        expect(self.jsonClient.deferredsByURL.keys.first).to(equal(NSURL(string: "https://example.com/berneseeventsss/")))
+                        expect(self.jsonClient.promisesByURL.count).to(equal(1))
+                        expect(self.jsonClient.promisesByURL.keys.first).to(equal(NSURL(string: "https://example.com/berneseeventsss/")))
                         let expectedFilterConditions = [
                             [
                                 "range": [
@@ -148,16 +158,17 @@ class ConcreteEventRepositorySpec : QuickSpec {
 
                     context("when the request to the JSON client succeeds") {
                         let expectedJSONDictionary = NSDictionary()
-                        let expectedEvents = self.eventDeserializer.returnedEvents
+                        var expectedEvents: Array<Event>!
 
                         beforeEach {
-                            let deferred: KSDeferred = self.jsonClient.deferredsByURL[self.urlProvider.returnedURL]!
+                            expectedEvents = self.eventDeserializer.returnedEvents
+                            let promise = self.jsonClient.promisesByURL[self.urlProvider.returnedURL]!
 
-                            deferred.resolveWithValue(expectedJSONDictionary)
+                            promise.success(expectedJSONDictionary)
+                            expect(self.operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
                         }
 
-                        it("passes the JSON document to the events deserializer") {
-                            expect(self.eventDeserializer.lastReceivedJSONDictionary).to(beIdenticalTo(expectedJSONDictionary))
+                        it("passes the JSON document to the events deserializer") {expect(self.eventDeserializer.lastReceivedJSONDictionary).to(beIdenticalTo(expectedJSONDictionary))
                         }
 
                         it("calls the completion handler with an event search object containing the deserialized value objects on the operation queue") {
@@ -171,25 +182,31 @@ class ConcreteEventRepositorySpec : QuickSpec {
 
                     context("when he request to the JSON client succeeds but does not resolve with a JSON dictioanry") {
                         beforeEach {
-                            let deferred: KSDeferred = self.jsonClient.deferredsByURL[self.urlProvider.returnedURL]!
+                            expect(self.receivedEventSearchResult).to(beNil())
 
-                            deferred.resolveWithValue([1,2,3])
+                            let promise = self.jsonClient.promisesByURL[self.urlProvider.returnedURL]!
+
+                            promise.success([1,2,3])
+                            expect(self.operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
                         }
 
                         it("calls the completion handler with an error") {
+                            expect(self.receivedEventSearchResult).to(beNil())
                             self.operationQueue.lastReceivedBlock()
-                            expect(self.receivedError).notTo(beNil())
+                            expect(self.receivedEventSearchResult).toEventually(beNil())
+                            expect(self.receivedError).toEventuallyNot(beNil())
                         }
                     }
 
                     context("when the request to the JSON client fails") {
                         it("forwards the error to the caller on the operation queue") {
-                            let deferred: KSDeferred = self.jsonClient.deferredsByURL[self.urlProvider.returnedURL]!
+                            let promise = self.jsonClient.promisesByURL[self.urlProvider.returnedURL]!
                             let expectedError = NSError(domain: "somedomain", code: 666, userInfo: nil)
-                            deferred.rejectWithError(expectedError)
+                            promise.failure(expectedError)
+                            expect(self.operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
 
                             self.operationQueue.lastReceivedBlock()
-                            expect(self.receivedError).to(beIdenticalTo(expectedError))
+                            expect(self.receivedError).to(equal(expectedError))
                         }
                     }
                 }

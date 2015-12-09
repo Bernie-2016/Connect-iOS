@@ -1,17 +1,18 @@
-@testable import Movement
-import Foundation
-import KSDeferred
+import BrightFutures
+import Result
 
-class FakeJSONClient: Movement.JSONClient {
-    private (set) var deferredsByURL = [NSURL: KSDeferred]()
+@testable import Movement
+
+class FakeJSONClient: JSONClient {
+    private (set) var promisesByURL = [NSURL: Promise<AnyObject, NSError>]()
     var lastMethod: String!
     var lastBodyDictionary: NSDictionary!
 
-    func JSONPromiseWithURL(url: NSURL, method: String, bodyDictionary: NSDictionary?) -> KSPromise {
-        let deferred =  KSDeferred.`defer`()
-        self.deferredsByURL[url] = deferred
+    func JSONPromiseWithURL(url: NSURL, method: String, bodyDictionary: NSDictionary?) -> Future<AnyObject, NSError> {
+        let promise =  Promise<AnyObject, NSError>()
+        self.promisesByURL[url] = promise
         self.lastMethod = method
         self.lastBodyDictionary = bodyDictionary
-        return deferred.promise
+        return promise.future
     }
 }

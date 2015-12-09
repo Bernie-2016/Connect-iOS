@@ -18,32 +18,28 @@ class ConcreteIssueRepository: IssueRepository {
     }
 
     func fetchIssues(completion: (Array<Issue>) -> Void, error: (NSError) -> Void) {
-        let issuesJSONPromise = self.jsonClient.JSONPromiseWithURL(self.urlProvider.issuesFeedURL(), method: "POST", bodyDictionary: self.HTTPBodyDictionary())
+        let issuesJSONFuture = self.jsonClient.JSONPromiseWithURL(self.urlProvider.issuesFeedURL(), method: "POST", bodyDictionary: self.HTTPBodyDictionary())
 
-        issuesJSONPromise.then({ (deserializedObject) -> AnyObject! in
-            let jsonDictionary = deserializedObject as? NSDictionary
-            if jsonDictionary == nil {
+        issuesJSONFuture.onSuccess { (deserializedObject) -> Void in
+            guard let jsonDictionary = deserializedObject as? NSDictionary else {
                 let incorrectObjectTypeError = NSError(domain: "ConcreteIssueRepository", code: -1, userInfo: nil)
 
                 self.operationQueue.addOperationWithBlock({ () -> Void in
                     error(incorrectObjectTypeError)
                 })
-                return incorrectObjectTypeError
+                return
             }
 
-            let parsedIssues = self.issueDeserializer.deserializeIssues(jsonDictionary!)
+            let parsedIssues = self.issueDeserializer.deserializeIssues(jsonDictionary)
 
             self.operationQueue.addOperationWithBlock({ () -> Void in
                 completion(parsedIssues)
             })
-
-            return parsedIssues
-        }, error: { (receivedError) -> AnyObject! in
+        }.onFailure { (receivedError) -> Void in
             self.operationQueue.addOperationWithBlock({ () -> Void in
-                error(receivedError!)
-                })
-            return receivedError
-        })
+                error(receivedError)
+            })
+        }
     }
 
     // MARK: Private

@@ -1,7 +1,6 @@
 @testable import Movement
 import Quick
 import Nimble
-import KSDeferred
 
 class IssueRepositoryFakeURLProvider: FakeURLProvider {
     override func issuesFeedURL() -> NSURL! {
@@ -46,8 +45,8 @@ class ConcreteIssueRepositorySpec : QuickSpec {
             }
 
             it("makes a single request to the JSON Client with the correct URL, method and parametrs") {
-                expect(self.jsonClient.deferredsByURL.count).to(equal(1))
-                expect(self.jsonClient.deferredsByURL.keys.first).to(equal(NSURL(string: "https://example.com/bernese/")))
+                expect(self.jsonClient.promisesByURL.count).to(equal(1))
+                expect(self.jsonClient.promisesByURL.keys.first).to(equal(NSURL(string: "https://example.com/bernese/")))
 
                 let expectedHTTPBodyDictionary =
                 [
@@ -74,9 +73,10 @@ class ConcreteIssueRepositorySpec : QuickSpec {
                 let expectedIssues = self.issueDeserializer.returnedIssues
 
                 beforeEach {
-                    let deferred: KSDeferred = self.jsonClient.deferredsByURL[self.urlProvider.issuesFeedURL()]!
+                    let promise = self.jsonClient.promisesByURL[self.urlProvider.issuesFeedURL()]!
 
-                    deferred.resolveWithValue(expectedJSONDictionary)
+                    promise.success(expectedJSONDictionary)
+                    expect(self.operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
                 }
 
                 it("passes the JSON document to the issue deserializer") {
@@ -92,9 +92,10 @@ class ConcreteIssueRepositorySpec : QuickSpec {
 
             context("when he request to the JSON client succeeds but does not resolve with a JSON dictioanry") {
                 beforeEach {
-                    let deferred: KSDeferred = self.jsonClient.deferredsByURL[self.urlProvider.issuesFeedURL()]!
+                    let promise = self.jsonClient.promisesByURL[self.urlProvider.issuesFeedURL()]!
 
-                    deferred.resolveWithValue([1,2,3])
+                    promise.success([1,2,3])
+                    expect(self.operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
                 }
 
                 it("calls the completion handler with an error") {
@@ -105,9 +106,10 @@ class ConcreteIssueRepositorySpec : QuickSpec {
 
             context("when the request to the JSON client fails") {
                 it("forwards the error to the caller on the operation queue") {
-                    let deferred: KSDeferred = self.jsonClient.deferredsByURL[self.urlProvider.issuesFeedURL()]!
+                    let promise = self.jsonClient.promisesByURL[self.urlProvider.issuesFeedURL()]!
                     let expectedError = NSError(domain: "somedomain", code: 666, userInfo: nil)
-                    deferred.rejectWithError(expectedError)
+                    promise.failure(expectedError)
+                    expect(self.operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
 
                     self.operationQueue.lastReceivedBlock()
                     expect(self.receivedError).to(beIdenticalTo(expectedError))

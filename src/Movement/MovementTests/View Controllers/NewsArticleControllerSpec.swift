@@ -243,7 +243,7 @@ class NewsArticleControllerSpec : QuickSpec {
                         it("displays the image") {
                             let storyImage = TestUtils.testImageNamed("bernie", type: "jpg")
                             let expectedImageData = UIImagePNGRepresentation(storyImage)
-                            
+
                             self.imageRepository.lastRequestPromise.success(storyImage)
 
                             let storyImageData = UIImagePNGRepresentation(self.subject.storyImageView.image!)

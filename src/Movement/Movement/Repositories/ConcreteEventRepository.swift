@@ -39,24 +39,21 @@ class ConcreteEventRepository: EventRepository {
                 longitude: location.coordinate.longitude,
                 radiusMiles: radiusMiles)
 
-            let eventsPromise = self.jsonClient.JSONPromiseWithURL(url, method: "POST", bodyDictionary: HTTPBodyDictionary)
+            let eventsFuture = self.jsonClient.JSONPromiseWithURL(url, method: "POST", bodyDictionary: HTTPBodyDictionary)
 
-            eventsPromise.then({ (deserializedObject) -> AnyObject! in
+            eventsFuture.onSuccess(callback: { (deserializedObject) -> Void in
                 guard let jsonDictionary = deserializedObject as? NSDictionary else {
                     let incorrectObjectTypeError = NSError(domain: "ConcreteEventRepository", code: -1, userInfo: nil)
 
                     self.operationQueue.addOperationWithBlock({ () -> Void in error(incorrectObjectTypeError) })
-                    return incorrectObjectTypeError
+                    return
                 }
 
                 let parsedEvents = self.eventDeserializer.deserializeEvents(jsonDictionary)
                 let eventSearchResult = EventSearchResult(searchCentroid: location, events: parsedEvents)
                 self.operationQueue.addOperationWithBlock({ () -> Void in completion(eventSearchResult) })
-                return parsedEvents
-
-                }, error: { (receivedError) -> AnyObject! in
-                    self.operationQueue.addOperationWithBlock({ () -> Void in error(receivedError!) })
-                    return receivedError
+            }).onFailure(callback: { (receivedError) -> Void in
+                self.operationQueue.addOperationWithBlock({ () -> Void in error(receivedError) })
             })
         })
     }

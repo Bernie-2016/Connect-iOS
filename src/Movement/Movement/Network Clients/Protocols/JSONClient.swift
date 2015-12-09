@@ -1,6 +1,6 @@
 import Foundation
-import KSDeferred
+import BrightFutures
 
 protocol JSONClient {
-    func JSONPromiseWithURL(url: NSURL, method: String, bodyDictionary: NSDictionary?) -> KSPromise
+    func JSONPromiseWithURL(url: NSURL, method: String, bodyDictionary: NSDictionary?) -> Future<AnyObject, NSError>
 }

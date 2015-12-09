@@ -1,4 +1,3 @@
 github "smileyborg/PureLayout"
-github "kseebaldt/deferred"
 github "rs/SDWebImage"
 github "Thomvis/BrightFutures"

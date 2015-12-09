@@ -10,7 +10,6 @@
 		65003A561BA7C5E900C66902 /* dodgy_issue_feed.json in Resources */ = {isa = PBXBuildFile; fileRef = 65003A551BA7C5E900C66902 /* dodgy_issue_feed.json */; };
 		6505C9531BB9FF3F008DD278 /* FakeURLOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6505C9521BB9FF3F008DD278 /* FakeURLOpener.swift */; };
 		6505C9551BBA00B9008DD278 /* URLOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6505C9541BBA00B9008DD278 /* URLOpener.swift */; };
-		650763141B8AB79F00BA0659 /* KSDeferred.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 650763131B8AB79F00BA0659 /* KSDeferred.framework */; };
 		650763181B8B705400BA0659 /* ConcreteIssueRepositorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650763171B8B705400BA0659 /* ConcreteIssueRepositorySpec.swift */; };
 		6507631C1B8B71D900BA0659 /* URLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6507631B1B8B71D900BA0659 /* URLProvider.swift */; };
 		6507631E1B8B720E00BA0659 /* FakeURLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6507631D1B8B720E00BA0659 /* FakeURLProvider.swift */; };
@@ -116,6 +115,8 @@
 		656ED1791BE3076D009FD91C /* ConcreteDateProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656ED1781BE3076D009FD91C /* ConcreteDateProvider.swift */; };
 		656ED17C1BE307D4009FD91C /* ConcreteTimeIntervalFormatterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656ED17B1BE307D4009FD91C /* ConcreteTimeIntervalFormatterSpec.swift */; };
 		656ED17F1BE3088B009FD91C /* ConcreteTimeIntervalFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656ED17E1BE3088B009FD91C /* ConcreteTimeIntervalFormatter.swift */; };
+		65712BA61C18A1B40036DE5D /* BrightFutures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65712BA41C18A1B40036DE5D /* BrightFutures.framework */; };
+		65712BA71C18A1B40036DE5D /* BrightFutures.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 65712BA51C18A1B40036DE5D /* BrightFutures.framework.dSYM */; };
 		6581F7BD1BB87E7700B26B76 /* ConcreteEventControllerProviderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6581F7BC1BB87E7700B26B76 /* ConcreteEventControllerProviderSpec.swift */; };
 		6581F7BF1BB87FF500B26B76 /* EventControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6581F7BE1BB87FF500B26B76 /* EventControllerSpec.swift */; };
 		658492461BE3BA5B007279E8 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 658492481BE3BA5B007279E8 /* Localizable.stringsdict */; };
@@ -147,7 +148,6 @@
 		65AD23AD1B963E2700C32A02 /* ConcreteImageRepositorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AD23AC1B963E2700C32A02 /* ConcreteImageRepositorySpec.swift */; };
 		65AD23AF1B96413200C32A02 /* WebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65AD23AE1B96413200C32A02 /* WebImage.framework */; };
 		65AD23B21B968D6800C32A02 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AD23B11B968D6800C32A02 /* TestUtils.swift */; };
-		65B165541B9747350052EF8D /* KSDeferred.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 65B1654C1B9747240052EF8D /* KSDeferred.framework.dSYM */; };
 		65B165561B9747350052EF8D /* PureLayout.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 65B1654E1B9747240052EF8D /* PureLayout.framework.dSYM */; };
 		65B165571B9747350052EF8D /* WebImage.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 65B1654F1B9747240052EF8D /* WebImage.framework.dSYM */; };
 		65B165591B9789C00052EF8D /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65B165581B9789C00052EF8D /* Entitlements.plist */; };
@@ -225,7 +225,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
-				65B165541B9747350052EF8D /* KSDeferred.framework.dSYM in Copy symbolication files */,
 				65B165561B9747350052EF8D /* PureLayout.framework.dSYM in Copy symbolication files */,
 				65B165571B9747350052EF8D /* WebImage.framework.dSYM in Copy symbolication files */,
 			);
@@ -249,7 +248,6 @@
 		65003A551BA7C5E900C66902 /* dodgy_issue_feed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dodgy_issue_feed.json; sourceTree = "<group>"; };
 		6505C9521BB9FF3F008DD278 /* FakeURLOpener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeURLOpener.swift; sourceTree = "<group>"; };
 		6505C9541BBA00B9008DD278 /* URLOpener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLOpener.swift; sourceTree = "<group>"; };
-		650763131B8AB79F00BA0659 /* KSDeferred.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KSDeferred.framework; path = Carthage/Build/iOS/KSDeferred.framework; sourceTree = "<group>"; };
 		650763171B8B705400BA0659 /* ConcreteIssueRepositorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteIssueRepositorySpec.swift; sourceTree = "<group>"; };
 		6507631B1B8B71D900BA0659 /* URLProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLProvider.swift; sourceTree = "<group>"; };
 		6507631D1B8B720E00BA0659 /* FakeURLProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeURLProvider.swift; sourceTree = "<group>"; };
@@ -359,6 +357,8 @@
 		656ED1781BE3076D009FD91C /* ConcreteDateProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteDateProvider.swift; sourceTree = "<group>"; };
 		656ED17B1BE307D4009FD91C /* ConcreteTimeIntervalFormatterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteTimeIntervalFormatterSpec.swift; sourceTree = "<group>"; };
 		656ED17E1BE3088B009FD91C /* ConcreteTimeIntervalFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteTimeIntervalFormatter.swift; sourceTree = "<group>"; };
+		65712BA41C18A1B40036DE5D /* BrightFutures.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BrightFutures.framework; path = Carthage/Build/iOS/BrightFutures.framework; sourceTree = "<group>"; };
+		65712BA51C18A1B40036DE5D /* BrightFutures.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = BrightFutures.framework.dSYM; path = Carthage/Build/iOS/BrightFutures.framework.dSYM; sourceTree = "<group>"; };
 		6581F7BC1BB87E7700B26B76 /* ConcreteEventControllerProviderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteEventControllerProviderSpec.swift; sourceTree = "<group>"; };
 		6581F7BE1BB87FF500B26B76 /* EventControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventControllerSpec.swift; sourceTree = "<group>"; };
 		658492471BE3BA5B007279E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = Base; path = Base.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -391,7 +391,6 @@
 		65AD23AC1B963E2700C32A02 /* ConcreteImageRepositorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteImageRepositorySpec.swift; sourceTree = "<group>"; };
 		65AD23AE1B96413200C32A02 /* WebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebImage.framework; path = Carthage/Build/iOS/WebImage.framework; sourceTree = "<group>"; };
 		65AD23B11B968D6800C32A02 /* TestUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
-		65B1654C1B9747240052EF8D /* KSDeferred.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = KSDeferred.framework.dSYM; path = Carthage/Build/iOS/KSDeferred.framework.dSYM; sourceTree = "<group>"; };
 		65B1654E1B9747240052EF8D /* PureLayout.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = PureLayout.framework.dSYM; path = Carthage/Build/iOS/PureLayout.framework.dSYM; sourceTree = "<group>"; };
 		65B1654F1B9747240052EF8D /* WebImage.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = WebImage.framework.dSYM; path = Carthage/Build/iOS/WebImage.framework.dSYM; sourceTree = "<group>"; };
 		65B165581B9789C00052EF8D /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
@@ -459,11 +458,11 @@
 				654948EB1BFB86BB00C1ECDB /* Bolts.framework in Frameworks */,
 				65A5C0FC1BA29F2200D46500 /* Crashlytics.framework in Frameworks */,
 				65A5C0FA1BA2978600D46500 /* Fabric.framework in Frameworks */,
-				650763141B8AB79F00BA0659 /* KSDeferred.framework in Frameworks */,
 				654948DB1BFAFAE300C1ECDB /* libFlurry_7.3.0.a in Frameworks */,
 				65494C601BFB8EC100C1ECDB /* libsqlite3.tbd in Frameworks */,
 				654948CD1BFA779500C1ECDB /* Parse.framework in Frameworks */,
 				65CA5E991B86E76D0001D870 /* PureLayout.framework in Frameworks */,
+				65712BA61C18A1B40036DE5D /* BrightFutures.framework in Frameworks */,
 				654948D71BFADF9F00C1ECDB /* SystemConfiguration.framework in Frameworks */,
 				65AD23AF1B96413200C32A02 /* WebImage.framework in Frameworks */,
 			);
@@ -916,8 +915,8 @@
 		65EC4CF21B842A3D00DD4C83 /* Carthage */ = {
 			isa = PBXGroup;
 			children = (
-				650763131B8AB79F00BA0659 /* KSDeferred.framework */,
-				65B1654C1B9747240052EF8D /* KSDeferred.framework.dSYM */,
+				65712BA41C18A1B40036DE5D /* BrightFutures.framework */,
+				65712BA51C18A1B40036DE5D /* BrightFutures.framework.dSYM */,
 				65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */,
 				65CA5E981B86E76D0001D870 /* PureLayout.framework */,
 				65B1654E1B9747240052EF8D /* PureLayout.framework.dSYM */,
@@ -1240,6 +1239,7 @@
 				65F5F6611B8A3CB00049353C /* Localizable.strings in Resources */,
 				658492461BE3BA5B007279E8 /* Localizable.stringsdict in Resources */,
 				6518CBAD1BC1C5A2000C238C /* terms_and_conditions.html in Resources */,
+				65712BA71C18A1B40036DE5D /* BrightFutures.framework.dSYM in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1309,7 +1309,6 @@
 			files = (
 			);
 			inputPaths = (
-				"$(PROJECT_DIR)/Carthage/Build/iOS/KSDeferred.framework",
 				"$(PROJECT_DIR)/Carthage/Build/iOS/PureLayout.framework",
 				"$(PROJECT_DIR)/Carthage/Build/iOS/WebImage.framework",
 				"$(PROJECT_DIR)/Carthage/Build/iOS/BrightFutures.framework",
