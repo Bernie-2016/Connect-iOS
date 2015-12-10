@@ -107,9 +107,17 @@ class AppBootstrapper {
             timeIntervalFormatter: timeIntervalFormatter, imageRepository: imageRepository, analyticsService: analyticsService, urlOpener: urlOpener, urlAttributionPresenter: urlAttributionPresenter, theme: defaultTheme
         )
 
-        let newsFeedService = ConcreteNewsFeedService(newsArticleRepository: newsArticleRepository)
+        let videoDeserializer = ConcreteVideoDeserializer()
+        let videoRepository = ConcreteVideoRepository(
+            urlProvider: urlProvider,
+            jsonClient: jsonClient,
+            videoDeserializer: videoDeserializer,
+            operationQueue: mainQueue)
+
+        let newsFeedService = ConcreteNewsFeedService(newsArticleRepository: newsArticleRepository, videoRepository: videoRepository)
         let newsFeedArticlePresenter = NewsFeedArticlePresenter(timeIntervalFormatter: timeIntervalFormatter, imageRepository: imageRepository, theme: defaultTheme)
-        let newsFeedTableViewCellPresenter = ConcreteNewsFeedTableViewCellPresenter(articlePresenter: newsFeedArticlePresenter)
+        let newsFeedVideoPresenter = NewsFeedVideoPresenter()
+        let newsFeedTableViewCellPresenter = ConcreteNewsFeedTableViewCellPresenter(articlePresenter: newsFeedArticlePresenter, videoPresenter: newsFeedVideoPresenter)
 
         let newsFeedController = NewsFeedController(
             newsFeedService: newsFeedService,

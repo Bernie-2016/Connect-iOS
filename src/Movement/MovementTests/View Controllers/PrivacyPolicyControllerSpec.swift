@@ -5,8 +5,8 @@ import Nimble
 
 
 class PrivacyPolicyFakeURLProvider : FakeURLProvider {
-    override func privacyPolicyURL() -> NSURL! {
-        return NSURL(string: "http://example.com/privates")
+    override func privacyPolicyURL() -> NSURL {
+        return NSURL(string: "http://example.com/privates")!
     }
 }
 

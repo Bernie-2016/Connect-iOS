@@ -6,8 +6,8 @@ import Nimble
 
 class FeedbackFakeURLProvider : FakeURLProvider {
 
-    override func feedbackFormURL() -> NSURL! {
-        return NSURL(string: "http://example.com/feeeedback")
+    override func feedbackFormURL() -> NSURL {
+        return NSURL(string: "http://example.com/feeeedback")!
     }
 }
 

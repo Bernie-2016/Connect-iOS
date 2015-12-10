@@ -4,13 +4,13 @@ import Nimble
 import BrightFutures
 import Result
 
-class NewsArticleRepositoryFakeURLProvider: FakeURLProvider {
-    override func newsFeedURL() -> NSURL! {
-        return NSURL(string: "https://example.com/bernese/")
+private class NewsArticleRepositoryFakeURLProvider: FakeURLProvider {
+    override func newsFeedURL() -> NSURL {
+        return NSURL(string: "https://example.com/bernese/")!
     }
 }
 
-class FakeNewsArticleDeserializer: NewsArticleDeserializer {
+private class FakeNewsArticleDeserializer: NewsArticleDeserializer {
     var lastReceivedJSONDictionary: NSDictionary!
     let returnedNewsArticles = [NewsArticle(title: "fake news", date: NSDate(), body: "fake body", excerpt: "excerpt", imageURL: NSURL(), url: NSURL())]
 
@@ -20,23 +20,29 @@ class FakeNewsArticleDeserializer: NewsArticleDeserializer {
     }
 }
 
-class ConcreteNewsArticleRepositorySpec : QuickSpec {
+class ConcreteNewsArticleRepositorySpec: QuickSpec {
     var subject: ConcreteNewsArticleRepository!
-    let jsonClient = FakeJSONClient()
-    let urlProvider = NewsArticleRepositoryFakeURLProvider()
-    let newsArticleDeserializer = FakeNewsArticleDeserializer()
-    let operationQueue = FakeOperationQueue()
+    var jsonClient: FakeJSONClient!
+    private let urlProvider = NewsArticleRepositoryFakeURLProvider()
+    private var newsArticleDeserializer: FakeNewsArticleDeserializer!
+    var operationQueue: FakeOperationQueue!
     var receivedNewsArticles: Array<NewsArticle>!
     var receivedError: NSError!
 
     override func spec() {
         describe("ConcreteNewsArticleRepository") {
-            self.subject = ConcreteNewsArticleRepository(
-                urlProvider: self.urlProvider,
-                jsonClient: self.jsonClient,
-                newsArticleDeserializer: self.newsArticleDeserializer,
-                operationQueue: self.operationQueue
-            )
+            beforeEach {
+                self.jsonClient = FakeJSONClient()
+                self.newsArticleDeserializer = FakeNewsArticleDeserializer()
+                self.operationQueue = FakeOperationQueue()
+
+                self.subject = ConcreteNewsArticleRepository(
+                    urlProvider: self.urlProvider,
+                    jsonClient: self.jsonClient,
+                    newsArticleDeserializer: self.newsArticleDeserializer,
+                    operationQueue: self.operationQueue
+                )
+            }
 
             describe(".fetchNewsArticles") {
                 var newsArticlesFuture: Future<Array<NewsArticle>, NSError>!
@@ -90,7 +96,7 @@ class ConcreteNewsArticleRepositorySpec : QuickSpec {
                     }
                 }
 
-                context("when he request to the JSON client succeeds but does not resolve with a JSON dictioanry") {
+                context("when the request to the JSON client succeeds but does not resolve with a JSON dictioanry") {
                     beforeEach {
                         let promise = self.jsonClient.promisesByURL[self.urlProvider.newsFeedURL()]!
 

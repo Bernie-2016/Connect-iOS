@@ -15,17 +15,33 @@ private class FakeNewsArticleRepository: NewsArticleRepository {
     }
 }
 
+private class FakeVideoRepository: VideoRepository {
+    var fetchVideosCalled: Bool = false
+    var lastPromise: Promise<Array<Video>, NSError>!
+
+    func fetchVideos() -> Future<Array<Video>, NSError> {
+        self.fetchVideosCalled = true
+        self.lastPromise = Promise<Array<Video>, NSError>()
+        return self.lastPromise.future
+    }
+}
+
 
 class ConcreteNewsFeedServiceSpec: QuickSpec {
     private var subject: ConcreteNewsFeedService!
     private var newsArticleRepository: FakeNewsArticleRepository!
+    private var videoRepository: FakeVideoRepository!
 
     override func spec() {
         describe("ConcreteNewsFeedService") {
             beforeEach {
                 self.newsArticleRepository = FakeNewsArticleRepository()
+                self.videoRepository = FakeVideoRepository()
 
-                self.subject = ConcreteNewsFeedService(newsArticleRepository: self.newsArticleRepository)
+                self.subject = ConcreteNewsFeedService(
+                    newsArticleRepository: self.newsArticleRepository,
+                    videoRepository: self.videoRepository
+                )
             }
             describe("fetching the news feed") {
                 var receivedNewsFeedItems: [NewsFeedItem]!
@@ -43,29 +59,112 @@ class ConcreteNewsFeedServiceSpec: QuickSpec {
                     expect(self.newsArticleRepository.fetchNewsCalled).to(beTrue())
                 }
 
-                describe("when the news article repo returns some objects") {
-                    it("calls the completion handler with those objects") {
-                        let newsArticle = TestUtils.newsArticle()
-                        self.newsArticleRepository.lastPromise.success([newsArticle])
+                it("asks the video repository to fetch some videos") {
+                    expect(self.videoRepository.fetchVideosCalled).to(beTrue())
+                }
+
+                describe("when both the news article repo and video repo returns some objects") {
+                    it("calls the completion handler with the news feed items, with the most recent video first and the rest of the news feed items sorted by date") {
+                        let newsArticleA = TestUtils.newsArticle(NSDate(timeIntervalSince1970: 5))
+                        let newsArticleB = TestUtils.newsArticle(NSDate(timeIntervalSince1970: 4))
+                        let newsArticleC = TestUtils.newsArticle(NSDate(timeIntervalSince1970: 2))
+
+                        let videoA  = TestUtils.video(NSDate(timeIntervalSince1970: 4))
+                        let videoB  = TestUtils.video(NSDate(timeIntervalSince1970: 3))
+
+                        self.newsArticleRepository.lastPromise.success([newsArticleC, newsArticleA, newsArticleB])
+                        self.videoRepository.lastPromise.success([videoB, videoA])
 
                         expect(receivedNewsFeedItems).toEventuallyNot(beNil())
-                        expect(receivedNewsFeedItems.count).to(equal(1))
-                        expect(receivedNewsFeedItems!.first! as? NewsArticle).to(beIdenticalTo(newsArticle))
-
-                        receivedNewsFeedItems = []
-
-                        self.newsArticleRepository.lastPromise.success([])
-                        expect(receivedNewsFeedItems.count).to(equal(0))
+                        expect(receivedNewsFeedItems.count).to(equal(5))
+                        expect(receivedNewsFeedItems![0] as? Video).to(beIdenticalTo(videoA))
+                        expect(receivedNewsFeedItems![1] as? NewsArticle).to(beIdenticalTo(newsArticleA))
+                        expect(receivedNewsFeedItems![2] as? NewsArticle).to(beIdenticalTo(newsArticleB))
+                        expect(receivedNewsFeedItems![3] as? Video).to(beIdenticalTo(videoB))
+                        expect(receivedNewsFeedItems![4] as? NewsArticle).to(beIdenticalTo(newsArticleC))
                     }
                 }
 
-                describe("when the news article repo reports an error") {
-                    it("calls the error handler") {
-                        let error = NSError(domain: "what", code: 123, userInfo: nil)
-                        self.newsArticleRepository.lastPromise.failure(error)
+                describe("when no videos are returned") {
+                    it("calls the completion handler with only the news articles, sorted by date") {
+                        let newsArticleA = TestUtils.newsArticle(NSDate(timeIntervalSince1970: 5))
+                        let newsArticleB = TestUtils.newsArticle(NSDate(timeIntervalSince1970: 4))
+                        let newsArticleC = TestUtils.newsArticle(NSDate(timeIntervalSince1970: 2))
 
-                        expect(receivedError).toEventuallyNot(beNil())
-                        expect(receivedError as NSError).to(beIdenticalTo(error))
+                        self.newsArticleRepository.lastPromise.success([newsArticleC, newsArticleA, newsArticleB])
+                        self.videoRepository.lastPromise.success([])
+
+                        expect(receivedNewsFeedItems).toEventuallyNot(beNil())
+                        expect(receivedNewsFeedItems.count).to(equal(3))
+                        expect(receivedNewsFeedItems![0] as? NewsArticle).to(beIdenticalTo(newsArticleA))
+                        expect(receivedNewsFeedItems![1] as? NewsArticle).to(beIdenticalTo(newsArticleB))
+                        expect(receivedNewsFeedItems![2] as? NewsArticle).to(beIdenticalTo(newsArticleC))
+                    }
+                }
+
+                describe("when no news items are returned") {
+                    it("calls the completion handler with only the videos, sorted by date") {
+                        let videoA  = TestUtils.video(NSDate(timeIntervalSince1970: 4))
+                        let videoB  = TestUtils.video(NSDate(timeIntervalSince1970: 3))
+
+                        self.newsArticleRepository.lastPromise.success([])
+                        self.videoRepository.lastPromise.success([videoB, videoA])
+
+                        expect(receivedNewsFeedItems).toEventuallyNot(beNil())
+                        expect(receivedNewsFeedItems.count).to(equal(2))
+                        expect(receivedNewsFeedItems![0] as? Video).to(beIdenticalTo(videoA))
+                        expect(receivedNewsFeedItems![1] as? Video).to(beIdenticalTo(videoB))
+                    }
+                }
+
+                describe("error handling") {
+                    describe("when just the news article repo reports an error") {
+                        it("calls the completion handler with the videos") {
+                            let error = NSError(domain: "what", code: 123, userInfo: nil)
+                            self.newsArticleRepository.lastPromise.failure(error)
+
+                            let videoA  = TestUtils.video(NSDate(timeIntervalSince1970: 4))
+                            let videoB  = TestUtils.video(NSDate(timeIntervalSince1970: 3))
+
+                            self.videoRepository.lastPromise.success([videoB, videoA])
+
+                            expect(receivedNewsFeedItems).toEventuallyNot(beNil())
+                            expect(receivedNewsFeedItems.count).to(equal(2))
+                            expect(receivedNewsFeedItems![0] as? Video).to(beIdenticalTo(videoA))
+                            expect(receivedNewsFeedItems![1] as? Video).to(beIdenticalTo(videoB))
+                        }
+                    }
+
+                    describe("when just the videos repo reports an error") {
+                        it("calls the completion handler with the news artiles") {
+                            let error = NSError(domain: "what", code: 123, userInfo: nil)
+                            self.videoRepository.lastPromise.failure(error)
+
+                            let newsArticleA = TestUtils.newsArticle(NSDate(timeIntervalSince1970: 5))
+                            let newsArticleB = TestUtils.newsArticle(NSDate(timeIntervalSince1970: 4))
+                            let newsArticleC = TestUtils.newsArticle(NSDate(timeIntervalSince1970: 2))
+
+                            self.newsArticleRepository.lastPromise.success([newsArticleC, newsArticleA, newsArticleB])
+
+                            expect(receivedNewsFeedItems).toEventuallyNot(beNil())
+                            expect(receivedNewsFeedItems.count).to(equal(3))
+                            expect(receivedNewsFeedItems![0] as? NewsArticle).to(beIdenticalTo(newsArticleA))
+                            expect(receivedNewsFeedItems![1] as? NewsArticle).to(beIdenticalTo(newsArticleB))
+                            expect(receivedNewsFeedItems![2] as? NewsArticle).to(beIdenticalTo(newsArticleC))
+                        }
+                    }
+
+                    describe("when both the news article repo and videos repo reports an error") {
+                        it("calls the error handler with a wrapped error") {
+                            let newsError = NSError(domain: "news error", code: 123, userInfo: nil)
+                            self.newsArticleRepository.lastPromise.failure(newsError)
+
+                            let videoError = NSError(domain: "video error", code: 123, userInfo: nil)
+                            self.videoRepository.lastPromise.failure(videoError)
+
+                            expect(receivedError).toEventuallyNot(beNil())
+                            expect((receivedError as NSError).userInfo["UnderlyingErrors"] as? Array).to(equal([newsError, videoError]))
+                        }
                     }
                 }
             }

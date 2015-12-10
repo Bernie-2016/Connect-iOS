@@ -4,7 +4,7 @@ import Nimble
 @testable import Movement
 
 class SettingsFakeURLProvider: FakeURLProvider {
-    override func donateFormURL() -> NSURL! {
+    override func donateFormURL() -> NSURL {
         return NSURL(string: "https://example.com/donate")!
     }
 }

@@ -34,7 +34,7 @@ class EventFakeTheme : FakeTheme {
 class EventControllerFakeURLProvider : FakeURLProvider {
     var lastReceivedEvent : Event!
 
-    override func mapsURLForEvent(event: Event) -> NSURL! {
+    override func mapsURLForEvent(event: Event) -> NSURL {
         self.lastReceivedEvent = event
         return NSURL(string: "http://example.com/mapz")!
     }

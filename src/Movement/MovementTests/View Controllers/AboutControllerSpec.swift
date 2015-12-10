@@ -12,15 +12,15 @@ class AboutFakeTheme : FakeTheme {
 }
 
 class AboutFakeURLProvider: FakeURLProvider {
-    override func codersForSandersURL() -> NSURL! {
+    override func codersForSandersURL() -> NSURL {
         return NSURL(string: "http://example.com/reddit/coders")!
     }
 
-    override func designersForSandersURL() -> NSURL! {
+    override func designersForSandersURL() -> NSURL {
         return NSURL(string: "http://example.com/reddit/designers")!
     }
 
-    override func sandersForPresidentURL() -> NSURL! {
+    override func sandersForPresidentURL() -> NSURL {
         return NSURL(string: "http://example.com/reddit/prez")!
     }
 }

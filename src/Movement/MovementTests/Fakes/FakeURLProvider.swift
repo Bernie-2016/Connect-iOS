@@ -1,53 +1,58 @@
 import Foundation
-@testable import Movement
 import CoreLocation
 
-class FakeURLProvider : Movement.URLProvider {
-    func issuesFeedURL() -> NSURL! {
+@testable import Movement
+
+class FakeURLProvider : URLProvider {
+    func issuesFeedURL() -> NSURL {
         fatalError("override me in spec!")
     }
 
-    func newsFeedURL() -> NSURL! {
+    func newsFeedURL() -> NSURL {
         fatalError("override me in spec!")
     }
 
-    func bernieCrowdURL() -> NSURL! {
+    func bernieCrowdURL() -> NSURL {
         fatalError("override me in spec!")
     }
 
-    func privacyPolicyURL() -> NSURL! {
+    func privacyPolicyURL() -> NSURL {
         fatalError("override me in spec!")
     }
 
-    func eventsURL() -> NSURL! {
+    func eventsURL() -> NSURL {
         fatalError("override me in spec!")
     }
 
-    func mapsURLForEvent(event: Event) -> NSURL! {
+    func mapsURLForEvent(event: Event) -> NSURL {
         fatalError("override me in spec!")
     }
 
-    func codersForSandersURL() -> NSURL! {
+    func codersForSandersURL() -> NSURL {
         fatalError("override me in spec!")
     }
 
-    func designersForSandersURL() -> NSURL! {
+    func designersForSandersURL() -> NSURL {
         fatalError("override me in spec!")
     }
 
-    func feedbackFormURL() -> NSURL! {
+    func feedbackFormURL() -> NSURL {
         fatalError("override me in spec!")
     }
 
-    func sandersForPresidentURL() -> NSURL! {
+    func sandersForPresidentURL() -> NSURL {
         fatalError("override me in spec!")
     }
 
-    func donateFormURL() -> NSURL! {
+    func donateFormURL() -> NSURL {
         fatalError("override me in spec!")
     }
 
-    func createEventURL() -> NSURL! {
+    func createEventURL() -> NSURL {
+        fatalError("override me in spec!")
+    }
+
+    func videoURL() -> NSURL {
         fatalError("override me in spec!")
     }
 }
