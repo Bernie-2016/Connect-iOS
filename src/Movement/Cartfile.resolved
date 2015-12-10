@@ -1,6 +1,7 @@
 github "Quick/Nimble" "v3.0.0"
 github "smileyborg/PureLayout" "v3.0.1"
 github "Quick/Quick" "v0.8.0"
-github "antitypical/Result" "1.0.0"
+github "antitypical/Result" "1.0.1"
 github "rs/SDWebImage" "3.7.3"
+github "0xced/XCDYouTubeKit" "2.4.1"
 github "Thomvis/BrightFutures" "v3.2.0"

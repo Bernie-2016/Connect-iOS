@@ -177,6 +177,8 @@
 		65CA5E971B86E5950001D870 /* NewsArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CA5E961B86E5950001D870 /* NewsArticleTableViewCell.swift */; };
 		65CA5E991B86E76D0001D870 /* PureLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65CA5E981B86E76D0001D870 /* PureLayout.framework */; };
 		65CAC2C81BFC1F540064B9E2 /* FakeApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CAC2C71BFC1F540064B9E2 /* FakeApplication.swift */; };
+		65D08DC31C19201A0082FBC4 /* XCDYouTubeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65D08DC11C19201A0082FBC4 /* XCDYouTubeKit.framework */; };
+		65D08DC41C19201A0082FBC4 /* XCDYouTubeKit.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 65D08DC21C19201A0082FBC4 /* XCDYouTubeKit.framework.dSYM */; };
 		65D0ECE11BBAD7780063B1D0 /* EventRSVPControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D0ECE01BBAD7780063B1D0 /* EventRSVPControllerProvider.swift */; };
 		65D0ECE31BBAD7A20063B1D0 /* EventRSVPController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D0ECE21BBAD7A20063B1D0 /* EventRSVPController.swift */; };
 		65D0ECE51BBAD93D0063B1D0 /* ConcreteEventRSVPControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D0ECE41BBAD93D0063B1D0 /* ConcreteEventRSVPControllerProvider.swift */; };
@@ -431,6 +433,8 @@
 		65CA5E961B86E5950001D870 /* NewsArticleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsArticleTableViewCell.swift; sourceTree = "<group>"; };
 		65CA5E981B86E76D0001D870 /* PureLayout.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PureLayout.framework; path = Carthage/Build/iOS/PureLayout.framework; sourceTree = "<group>"; };
 		65CAC2C71BFC1F540064B9E2 /* FakeApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeApplication.swift; sourceTree = "<group>"; };
+		65D08DC11C19201A0082FBC4 /* XCDYouTubeKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCDYouTubeKit.framework; path = Carthage/Build/iOS/XCDYouTubeKit.framework; sourceTree = "<group>"; };
+		65D08DC21C19201A0082FBC4 /* XCDYouTubeKit.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = XCDYouTubeKit.framework.dSYM; path = Carthage/Build/iOS/XCDYouTubeKit.framework.dSYM; sourceTree = "<group>"; };
 		65D0ECE01BBAD7780063B1D0 /* EventRSVPControllerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventRSVPControllerProvider.swift; sourceTree = "<group>"; };
 		65D0ECE21BBAD7A20063B1D0 /* EventRSVPController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventRSVPController.swift; sourceTree = "<group>"; };
 		65D0ECE41BBAD93D0063B1D0 /* ConcreteEventRSVPControllerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteEventRSVPControllerProvider.swift; sourceTree = "<group>"; };
@@ -489,6 +493,7 @@
 				65CA5E991B86E76D0001D870 /* PureLayout.framework in Frameworks */,
 				654948D71BFADF9F00C1ECDB /* SystemConfiguration.framework in Frameworks */,
 				65AD23AF1B96413200C32A02 /* WebImage.framework in Frameworks */,
+				65D08DC31C19201A0082FBC4 /* XCDYouTubeKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -958,6 +963,8 @@
 				65EC4CED1B842A1900DD4C83 /* Quick.framework */,
 				65AD23AE1B96413200C32A02 /* WebImage.framework */,
 				65B1654F1B9747240052EF8D /* WebImage.framework.dSYM */,
+				65D08DC11C19201A0082FBC4 /* XCDYouTubeKit.framework */,
+				65D08DC21C19201A0082FBC4 /* XCDYouTubeKit.framework.dSYM */,
 			);
 			name = Carthage;
 			sourceTree = "<group>";
@@ -1276,6 +1283,7 @@
 				65F5F6611B8A3CB00049353C /* Localizable.strings in Resources */,
 				658492461BE3BA5B007279E8 /* Localizable.stringsdict in Resources */,
 				6518CBAD1BC1C5A2000C238C /* terms_and_conditions.html in Resources */,
+				65D08DC41C19201A0082FBC4 /* XCDYouTubeKit.framework.dSYM in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1351,6 +1359,7 @@
 				"$(PROJECT_DIR)/Carthage/Build/iOS/WebImage.framework",
 				"$(PROJECT_DIR)/Carthage/Build/iOS/BrightFutures.framework",
 				"$(PROJECT_DIR)/Carthage/Build/iOS/Result.framework",
+				"$(PROJECT_DIR)/Carthage/Build/iOS/XCDYouTubeKit.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (
