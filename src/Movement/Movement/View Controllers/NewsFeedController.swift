@@ -99,7 +99,7 @@ class NewsFeedController: UIViewController {
             }) { (error) -> Void in
                 self.errorLoadingNews = true
                 self.tableView.reloadData()
-                self.analyticsService.trackError(error, context: "Failed to load news feed")
+                self.analyticsService.trackError(error as NSError, context: "Failed to load news feed")
         }
     }
 }
