@@ -7,6 +7,11 @@ class NewsArticle: NewsFeedItem {
     let excerpt: String
     let imageURL: NSURL?
     let url: NSURL
+    var identifier: String {
+        get {
+            return url.absoluteString
+        }
+    }
 
     init(title: String, date: NSDate, body: String, excerpt: String, imageURL: NSURL?, url: NSURL) {
         self.title = title

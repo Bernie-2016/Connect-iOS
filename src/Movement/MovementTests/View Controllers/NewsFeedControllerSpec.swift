@@ -254,13 +254,13 @@ class NewsFeedControllerSpecs: QuickSpec {
             }
 
             describe("Tapping on a news item") {
-                let expectedNewsArticleA = TestUtils.newsArticle()
-                let expectedNewsArticleB = NewsArticle(title: "B", date: NSDate(), body: "B Body", excerpt: "excerpt", imageURL: NSURL(), url: NSURL(string: "http://example.com/b")!)
+                let expectedNewsItemA = TestUtils.newsArticle()
+                let expectedNewsItemB = NewsArticle(title: "B", date: NSDate(), body: "B Body", excerpt: "excerpt", imageURL: NSURL(), url: NSURL(string: "http://example.com/b")!)
 
                 beforeEach {
                     self.subject.viewWillAppear(false)
 
-                    let newsArticles: [NewsFeedItem] = [expectedNewsArticleA, expectedNewsArticleB]
+                    let newsArticles: [NewsFeedItem] = [expectedNewsItemA, expectedNewsItemB]
 
                     self.newsFeedService.lastCompletionBlock!(newsArticles)
 
@@ -274,14 +274,14 @@ class NewsFeedControllerSpecs: QuickSpec {
 
 
                 it("should push a correctly configured news item view controller onto the nav stack") {
-                    expect(self.newsFeedItemControllerProvider.lastNewsFeedItem as? NewsArticle).to(beIdenticalTo(expectedNewsArticleB))
+                    expect(self.newsFeedItemControllerProvider.lastNewsFeedItem as? NewsArticle).to(beIdenticalTo(expectedNewsItemB))
                     expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.newsFeedItemControllerProvider.controller))
                 }
 
                 it("tracks the content view with the analytics service") {
-                    expect(self.analyticsService.lastContentViewName).to(equal(expectedNewsArticleB.title))
+                    expect(self.analyticsService.lastContentViewName).to(equal(expectedNewsItemB.title))
                     expect(self.analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.NewsArticle))
-                    expect(self.analyticsService.lastContentViewID).to(equal(expectedNewsArticleB.url.absoluteString))
+                    expect(self.analyticsService.lastContentViewID).to(equal(expectedNewsItemB.identifier))
                 }
             }
         }

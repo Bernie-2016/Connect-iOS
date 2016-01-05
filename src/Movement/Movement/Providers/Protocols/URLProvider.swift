@@ -15,4 +15,5 @@ protocol URLProvider {
     func donateFormURL() -> NSURL
     func createEventURL() -> NSURL
     func videoURL() -> NSURL
+    func youtubeVideoURL(identifier: String) -> NSURL
 }

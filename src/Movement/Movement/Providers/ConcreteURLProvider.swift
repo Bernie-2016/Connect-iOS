@@ -70,4 +70,8 @@ class ConcreteURLProvider: URLProvider {
     func videoURL() -> NSURL {
         return NSURL(string: "https://search.berniesanders.tech/videos_v1/_search")!
     }
+
+    func youtubeVideoURL(identifier: String) -> NSURL {
+        fatalError("test drive me!")
+    }
 }

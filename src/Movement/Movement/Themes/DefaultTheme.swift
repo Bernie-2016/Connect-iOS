@@ -40,7 +40,7 @@ class DefaultTheme: Theme {
     func newsFeedExcerptColor() -> UIColor {  return self.mineShaftColor() }
     func newsFeedDateFont() -> UIFont { return UIFont.systemFontOfSize(12) }
 
-    // MARK: News Item detail screen
+    // MARK: News Article screen
 
     func newsArticleDateFont() -> UIFont { return UIFont.systemFontOfSize(13) }
     func newsArticleDateColor() -> UIColor { return self.scorpionColor() }
@@ -48,6 +48,15 @@ class DefaultTheme: Theme {
     func newsArticleTitleColor() -> UIColor { return UIColor.blackColor() }
     func newsArticleBodyFont() -> UIFont { return UIFont(name: "Georgia", size: 18)! }
     func newsArticleBodyColor() -> UIColor { return UIColor.blackColor() }
+
+    // MARK: Video Screen
+
+    func videoDateFont() -> UIFont { return UIFont.systemFontOfSize(13) }
+    func videoDateColor() -> UIColor { return self.scorpionColor() }
+    func videoTitleFont() -> UIFont { return UIFont(name: "Georgia-Bold", size: 26)! }
+    func videoTitleColor() -> UIColor { return UIColor.blackColor() }
+    func videoDescriptionFont() -> UIFont { return UIFont(name: "Georgia", size: 18)! }
+    func videoDescriptionColor() -> UIColor { return UIColor.blackColor() }
 
     // MARK: issues
 

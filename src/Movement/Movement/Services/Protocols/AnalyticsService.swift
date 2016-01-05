@@ -24,6 +24,7 @@ enum AnalyticsServiceContentType: String, CustomStringConvertible {
     case Onboarding = "Onboarding"
     case About = "About"
     case TabBar = "Tab Bar"
+    case Video = "Video"
 
     var description: String {
         return self.rawValue

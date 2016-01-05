@@ -42,7 +42,7 @@ protocol Theme {
     func issuesFeedTitleFont() -> UIFont
     func issuesFeedTitleColor() -> UIColor
 
-    // MARK: News Item detail screen
+    // MARK: News Article detail screen
 
     func newsArticleDateFont() -> UIFont
     func newsArticleDateColor() -> UIColor
@@ -50,6 +50,15 @@ protocol Theme {
     func newsArticleTitleColor() -> UIColor
     func newsArticleBodyFont() -> UIFont
     func newsArticleBodyColor() -> UIColor
+
+    // MARK: Video Article screen
+
+    func videoDateFont() -> UIFont
+    func videoDateColor() -> UIColor
+    func videoTitleFont() -> UIFont
+    func videoTitleColor() -> UIColor
+    func videoDescriptionFont() -> UIFont
+    func videoDescriptionColor() -> UIColor
 
     // MARK: Issue detail screen
 

@@ -51,7 +51,7 @@ class ConcreteVideoRepositorySpec : QuickSpec {
 
                     let expectedHTTPBodyDictionary =
                     [
-                        "from": 0, "size": 10,
+                        "from": 0, "size": 5,
                         "_source": ["title", "videoId", "description", "created_at"],
                         "sort": [
                             "created_at": ["order": "desc"]

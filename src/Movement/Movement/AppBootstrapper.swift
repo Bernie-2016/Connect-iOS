@@ -104,7 +104,13 @@ class AppBootstrapper {
 
 
         let newsFeedItemControllerProvider = ConcreteNewsFeedItemControllerProvider(
-            timeIntervalFormatter: timeIntervalFormatter, imageRepository: imageRepository, analyticsService: analyticsService, urlOpener: urlOpener, urlAttributionPresenter: urlAttributionPresenter, theme: defaultTheme
+            timeIntervalFormatter: timeIntervalFormatter,
+            imageRepository: imageRepository,
+            analyticsService: analyticsService,
+            urlOpener: urlOpener,
+            urlAttributionPresenter: urlAttributionPresenter,
+            urlProvider: urlProvider,
+            theme: defaultTheme
         )
 
         let videoDeserializer = ConcreteVideoDeserializer()

@@ -7,6 +7,7 @@ private class DodgyNewsItem: NewsFeedItem {
     let title = "fake"
     let date = NSDate()
     let url = NSURL()
+    let identifier = "this is dodgy"
 }
 
 class ConcreteNewsFeedTableViewCellPresenterSpec: QuickSpec {
