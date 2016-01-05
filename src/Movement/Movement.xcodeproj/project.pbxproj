@@ -28,6 +28,8 @@
 		65205F321BC098DF005A55F2 /* FakeURLAttributionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65205F311BC098DF005A55F2 /* FakeURLAttributionPresenter.swift */; };
 		65205F341BC09A3D005A55F2 /* ConcreteURLAttributionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65205F331BC09A3D005A55F2 /* ConcreteURLAttributionPresenter.swift */; };
 		6525024E1BE954C500AF481E /* EventSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6525024D1BE954C500AF481E /* EventSearchResult.swift */; };
+		652B42CE1C3C678E002FD38F /* BrightFutures.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 65712BA51C18A1B40036DE5D /* BrightFutures.framework.dSYM */; };
+		652B42CF1C3C6792002FD38F /* XCDYouTubeKit.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 65D08DC21C19201A0082FBC4 /* XCDYouTubeKit.framework.dSYM */; };
 		65318D091BA9FC770029A15D /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65318D081BA9FC770029A15D /* SettingsController.swift */; };
 		65318D0B1BAA012B0029A15D /* SettingsControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65318D0A1BAA012B0029A15D /* SettingsControllerSpec.swift */; };
 		65318D0D1BAA530F0029A15D /* PrivacyPolicyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65318D0C1BAA530F0029A15D /* PrivacyPolicyController.swift */; };
@@ -124,7 +126,6 @@
 		656ED17C1BE307D4009FD91C /* ConcreteTimeIntervalFormatterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656ED17B1BE307D4009FD91C /* ConcreteTimeIntervalFormatterSpec.swift */; };
 		656ED17F1BE3088B009FD91C /* ConcreteTimeIntervalFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656ED17E1BE3088B009FD91C /* ConcreteTimeIntervalFormatter.swift */; };
 		65712BA61C18A1B40036DE5D /* BrightFutures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65712BA41C18A1B40036DE5D /* BrightFutures.framework */; };
-		65712BA71C18A1B40036DE5D /* BrightFutures.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 65712BA51C18A1B40036DE5D /* BrightFutures.framework.dSYM */; };
 		65712BA91C18A36A0036DE5D /* VideoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65712BA81C18A36A0036DE5D /* VideoRepository.swift */; };
 		65712BAB1C18A3960036DE5D /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65712BAA1C18A3960036DE5D /* Video.swift */; };
 		65712BAD1C18A8320036DE5D /* ConcreteVideoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65712BAC1C18A8320036DE5D /* ConcreteVideoRepository.swift */; };
@@ -180,7 +181,6 @@
 		65CA5E991B86E76D0001D870 /* PureLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65CA5E981B86E76D0001D870 /* PureLayout.framework */; };
 		65CAC2C81BFC1F540064B9E2 /* FakeApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CAC2C71BFC1F540064B9E2 /* FakeApplication.swift */; };
 		65D08DC31C19201A0082FBC4 /* XCDYouTubeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65D08DC11C19201A0082FBC4 /* XCDYouTubeKit.framework */; };
-		65D08DC41C19201A0082FBC4 /* XCDYouTubeKit.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 65D08DC21C19201A0082FBC4 /* XCDYouTubeKit.framework.dSYM */; };
 		65D0ECE11BBAD7780063B1D0 /* EventRSVPControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D0ECE01BBAD7780063B1D0 /* EventRSVPControllerProvider.swift */; };
 		65D0ECE31BBAD7A20063B1D0 /* EventRSVPController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D0ECE21BBAD7A20063B1D0 /* EventRSVPController.swift */; };
 		65D0ECE51BBAD93D0063B1D0 /* ConcreteEventRSVPControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D0ECE41BBAD93D0063B1D0 /* ConcreteEventRSVPControllerProvider.swift */; };
@@ -241,8 +241,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				652B42CE1C3C678E002FD38F /* BrightFutures.framework.dSYM in Copy symbolication files */,
 				65B165561B9747350052EF8D /* PureLayout.framework.dSYM in Copy symbolication files */,
 				65B165571B9747350052EF8D /* WebImage.framework.dSYM in Copy symbolication files */,
+				652B42CF1C3C6792002FD38F /* XCDYouTubeKit.framework.dSYM in Copy symbolication files */,
 			);
 			name = "Copy symbolication files";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1280,7 +1282,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				654948D41BFADBD500C1ECDB /* ApiKeys.plist in Resources */,
-				65712BA71C18A1B40036DE5D /* BrightFutures.framework.dSYM in Resources */,
 				654FDBBB1BC1862800A082CF /* cssInjection.js in Resources */,
 				65B165591B9789C00052EF8D /* Entitlements.plist in Resources */,
 				654FDBBD1BC1867F00A082CF /* feedbackGoogleFormOverrides.css in Resources */,
@@ -1289,7 +1290,6 @@
 				65F5F6611B8A3CB00049353C /* Localizable.strings in Resources */,
 				658492461BE3BA5B007279E8 /* Localizable.stringsdict in Resources */,
 				6518CBAD1BC1C5A2000C238C /* terms_and_conditions.html in Resources */,
-				65D08DC41C19201A0082FBC4 /* XCDYouTubeKit.framework.dSYM in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
