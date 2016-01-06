@@ -1,7 +1,7 @@
 include Helpers
 task :specs do
   specs_cmd = []
-  specs_cmd << "xcodebuild clean build test"
+  specs_cmd << "xctool clean build test"
   specs_cmd << "-project #{SRCROOT}/Movement.xcodeproj"
   specs_cmd << "-scheme Movement"
   specs_cmd << "-sdk iphonesimulator"
