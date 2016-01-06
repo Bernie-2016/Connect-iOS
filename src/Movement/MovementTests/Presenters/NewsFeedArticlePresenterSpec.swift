@@ -36,7 +36,7 @@ class NewsFeedArticlePresenterSpec: QuickSpec {
     var subject: NewsFeedArticlePresenter!
     var imageRepository: FakeImageRepository!
     var timeIntervalFormatter: FakeTimeIntervalFormatter!
-    let theme: Theme! = NewsFeedArticlePresenterFakeTheme()
+    private let theme = NewsFeedArticlePresenterFakeTheme()
 
     override func spec() {
         describe("NewsFeedArticlePresenter") {
@@ -124,7 +124,7 @@ class NewsFeedArticlePresenterSpec: QuickSpec {
                     }
                 }
 
-                it("styles the items in the table") {
+                it("styles the cell using the theme") {
                     let cell = self.subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
 
                     expect(cell.titleLabel.textColor).to(equal(UIColor.magentaColor()))

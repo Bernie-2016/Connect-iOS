@@ -5,12 +5,12 @@ import Nimble
 import CoreLocation
 
 class ConcreteURLProviderSpec : QuickSpec {
-    var subject : ConcreteURLProvider!
-
     override func spec() {
+        var subject : ConcreteURLProvider!
+
         describe("ConcreteURLProvider") {
             beforeEach {
-                self.subject = ConcreteURLProvider()
+                subject = ConcreteURLProvider()
             }
 
             describe("building a maps URL for an event") {
@@ -23,7 +23,7 @@ class ConcreteURLProviderSpec : QuickSpec {
                     }
 
                     it("builds the correct URL") {
-                        expect(self.subject.mapsURLForEvent(event)).to(equal(NSURL(string: "https://maps.apple.com/?address=1%20Big%20Avenue,Petaluma,CA,11111")))
+                        expect(subject.mapsURLForEvent(event)).to(equal(NSURL(string: "https://maps.apple.com/?address=1%20Big%20Avenue,Petaluma,CA,11111")))
                     }
                 }
 
@@ -34,7 +34,7 @@ class ConcreteURLProviderSpec : QuickSpec {
                     }
 
                     it("builds the correct URL") {
-                        expect(self.subject.mapsURLForEvent(event)).to(equal(NSURL(string: "https://maps.apple.com/?address=Santa%20Rosa,WA,22222")))
+                        expect(subject.mapsURLForEvent(event)).to(equal(NSURL(string: "https://maps.apple.com/?address=Santa%20Rosa,WA,22222")))
                     }
                 }
             }
@@ -42,7 +42,7 @@ class ConcreteURLProviderSpec : QuickSpec {
             describe("building the feedback form URL") {
                 var urlComponents: NSURLComponents!
                 beforeEach {
-                    let url = self.subject.feedbackFormURL()
+                    let url = subject.feedbackFormURL()
                     urlComponents = NSURLComponents(URL: url, resolvingAgainstBaseURL: false)
                 }
 
@@ -55,6 +55,18 @@ class ConcreteURLProviderSpec : QuickSpec {
 
                     expect(platformQueryItem.name).to(equal("entry.1652819874"))
                     expect(platformQueryItem.value).to(equal(expectedVersionString))
+                }
+            }
+
+            describe("building the YouTube thumbnail URL") {
+                it("returns the correct URL") {
+                    expect(subject.youtubeVideoURL("some-id")).to(equal(NSURL(string: "https://www.youtube.com/watch?v=some-id")))
+                }
+            }
+
+            describe("building the YouTube thumbnail URL") {
+                it("returns the correct URL") {
+                    expect(subject.youtubeThumbnailURL("some-id")).to(equal(NSURL(string: "https://img.youtube.com/vi/some-id/maxresdefault.jpg")))
                 }
             }
         }

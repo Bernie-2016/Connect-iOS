@@ -33,15 +33,15 @@ class NewsArticleTableViewCell: UITableViewCell {
     }
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        self.defaultMargin = 20
-        self.rightMarginWithoutImage = -self.defaultMargin
-        self.rightMarginWithImage = -(108 + self.defaultMargin + self.defaultMargin)
+        defaultMargin = 20
+        rightMarginWithoutImage = -defaultMargin
+        rightMarginWithImage = -(108 + defaultMargin + defaultMargin)
 
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         selectionStyle = .None
 
-        self.contentView.addSubview(containerView)
+        contentView.addSubview(containerView)
         containerView.addSubview(titleLabel)
         containerView.addSubview(dateLabel)
         containerView.addSubview(disclosureView)
@@ -52,10 +52,10 @@ class NewsArticleTableViewCell: UITableViewCell {
 
         containerView.backgroundColor = UIColor.whiteColor()
 
-        self.accessoryType = .None
-        self.separatorInset = UIEdgeInsetsZero
-        self.layoutMargins = UIEdgeInsetsZero
-        self.preservesSuperviewLayoutMargins = false
+        accessoryType = .None
+        separatorInset = UIEdgeInsetsZero
+        layoutMargins = UIEdgeInsetsZero
+        preservesSuperviewLayoutMargins = false
 
         titleLabel.numberOfLines = 3
 

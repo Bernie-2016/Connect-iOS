@@ -72,6 +72,20 @@ class ConcreteURLProvider: URLProvider {
     }
 
     func youtubeVideoURL(identifier: String) -> NSURL {
-        fatalError("test drive me!")
+        let urlComponents = NSURLComponents(string: "https://www.youtube.com/watch")!
+        let videoIdentifierQueryItem = NSURLQueryItem(name: "v", value: identifier)
+        urlComponents.queryItems = [videoIdentifierQueryItem]
+
+        return urlComponents.URL!
+    }
+
+    func youtubeThumbnailURL(identifier: String) -> NSURL {
+        let urlComponents = NSURLComponents(string: "https://img.youtube.com/")!
+
+        let basePath = ("/vi" as NSString).stringByAppendingPathComponent(identifier) as NSString
+        let fullPath = basePath.stringByAppendingPathComponent("maxresdefault.jpg")
+        urlComponents.path = fullPath
+
+        return urlComponents.URL!
     }
 }
