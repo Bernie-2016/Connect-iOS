@@ -43,6 +43,8 @@ class ConcreteNewsFeedItemControllerProvider: NewsFeedItemControllerProvider {
                 imageRepository: imageRepository,
                 timeIntervalFormatter: timeIntervalFormatter,
                 urlProvider: urlProvider,
+                urlOpener: urlOpener,
+                urlAttributionPresenter: urlAttributionPresenter,
                 analyticsService: analyticsService,
                 theme: theme)
         }

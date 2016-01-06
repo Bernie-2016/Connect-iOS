@@ -37,6 +37,8 @@ class ConcreteNewsFeedItemControllerProviderSpec : QuickSpec {
                     expect(controller.imageRepository as? FakeImageRepository).to(beIdenticalTo(imageRepository))
                     expect(controller.timeIntervalFormatter as? FakeTimeIntervalFormatter).to(beIdenticalTo(timeIntervalFormatter))
                     expect(controller.analyticsService as? FakeAnalyticsService).to(beIdenticalTo(analyticsService))
+                    expect(controller.urlOpener as? FakeURLOpener).to(beIdenticalTo(urlOpener))
+                    expect(controller.urlAttributionPresenter as? FakeURLAttributionPresenter).to(beIdenticalTo(urlAttributionPresenter))
                     expect(controller.theme as? FakeTheme).to(beIdenticalTo(theme))
                 }
             }
@@ -51,6 +53,8 @@ class ConcreteNewsFeedItemControllerProviderSpec : QuickSpec {
                     expect(controller.imageRepository as? FakeImageRepository).to(beIdenticalTo(imageRepository))
                     expect(controller.timeIntervalFormatter as? FakeTimeIntervalFormatter).to(beIdenticalTo(timeIntervalFormatter))
                     expect(controller.urlProvider as? FakeURLProvider).to(beIdenticalTo(urlProvider))
+                    expect(controller.urlOpener as? FakeURLOpener).to(beIdenticalTo(urlOpener))
+                    expect(controller.urlAttributionPresenter as? FakeURLAttributionPresenter).to(beIdenticalTo(urlAttributionPresenter))
                     expect(controller.analyticsService as? FakeAnalyticsService).to(beIdenticalTo(analyticsService))
                     expect(controller.theme as? FakeTheme).to(beIdenticalTo(theme))
                 }

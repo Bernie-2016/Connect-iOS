@@ -170,7 +170,7 @@ class IssueController: UIViewController {
         attributionLabel.autoPinEdgeToSuperviewMargin(.Left)
         attributionLabel.autoPinEdgeToSuperviewMargin(.Right)
 
-        viewOriginalButton.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.attributionLabel, withOffset: 16)
+        viewOriginalButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.attributionLabel, withOffset: 16)
         viewOriginalButton.autoPinEdgesToSuperviewMarginsExcludingEdge(.Top)
         viewOriginalButton.autoSetDimension(.Height, toSize: 54)
     }

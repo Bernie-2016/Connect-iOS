@@ -6,6 +6,8 @@ class VideoController: UIViewController {
     let imageRepository: ImageRepository
     let timeIntervalFormatter: TimeIntervalFormatter
     let urlProvider: URLProvider
+    let urlOpener: URLOpener
+    let urlAttributionPresenter: URLAttributionPresenter
     let analyticsService: AnalyticsService
     let theme: Theme
 
@@ -18,11 +20,15 @@ class VideoController: UIViewController {
     let titleLabel = UILabel()
     let dateLabel = UILabel()
     let descriptionTextView = UITextView()
+    let attributionLabel = UILabel()
+    let viewOriginalButton = UIButton()
 
     init(video: Video,
         imageRepository: ImageRepository,
         timeIntervalFormatter: TimeIntervalFormatter,
         urlProvider: URLProvider,
+        urlOpener: URLOpener,
+        urlAttributionPresenter: URLAttributionPresenter,
         analyticsService: AnalyticsService,
         theme: Theme) {
             self.video = video
@@ -30,6 +36,9 @@ class VideoController: UIViewController {
             self.timeIntervalFormatter = timeIntervalFormatter
             self.analyticsService = analyticsService
             self.urlProvider = urlProvider
+            self.urlOpener = urlOpener
+            self.urlAttributionPresenter = urlAttributionPresenter
+
             self.theme = theme
 
             super.init(nibName: nil, bundle: nil)
@@ -50,11 +59,16 @@ class VideoController: UIViewController {
         containerView.addSubview(titleLabel)
         containerView.addSubview(dateLabel)
         containerView.addSubview(descriptionTextView)
+        containerView.addSubview(attributionLabel)
+        containerView.addSubview(viewOriginalButton)
 
         titleLabel.text = video.title
         dateLabel.text = timeIntervalFormatter.humanDaysSinceDate(video.date)
-        print(video.description)
         descriptionTextView.text = video.description
+
+        attributionLabel.text = self.urlAttributionPresenter.attributionTextForURL(urlProvider.youtubeVideoURL(video.identifier))
+        viewOriginalButton.setTitle(NSLocalizedString("Video_viewOriginal", comment: ""), forState: .Normal)
+        viewOriginalButton.addTarget(self, action: "didTapViewOriginal:", forControlEvents: .TouchUpInside)
 
         videoController = XCDYouTubeVideoPlayerViewController(videoIdentifier: video.identifier)
         videoController.moviePlayer.prepareToPlay()
@@ -101,6 +115,13 @@ class VideoController: UIViewController {
         presentViewController(activityVC, animated: true, completion: nil)
     }
 
+    func didTapViewOriginal(sender: UIButton) {
+        let eventName = "Tapped 'View Original' on Video"
+        analyticsService.trackCustomEventWithName(eventName, customAttributes: [AnalyticsServiceConstants.contentIDKey: video.identifier])
+        self.urlOpener.openURL(urlProvider.youtubeVideoURL(video.identifier))
+    }
+
+
     // MARK: Private
 
     private func applyThemeToViews() {
@@ -111,6 +132,11 @@ class VideoController: UIViewController {
         titleLabel.font = theme.videoTitleFont()
         descriptionTextView.textColor = theme.videoDescriptionColor()
         descriptionTextView.font = theme.videoDescriptionFont()
+        attributionLabel.font = theme.attributionFont()
+        attributionLabel.textColor = theme.attributionTextColor()
+        viewOriginalButton.backgroundColor = theme.defaultButtonBackgroundColor()
+        viewOriginalButton.setTitleColor(theme.defaultButtonTextColor(), forState: .Normal)
+        viewOriginalButton.titleLabel!.font = theme.defaultButtonFont()
     }
 
     private func setupConstraints() {
@@ -127,6 +153,22 @@ class VideoController: UIViewController {
         videoView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Bottom)
         videoView.autoSetDimension(.Height, toSize: screenBounds.height / 3)
         videoView.clipsToBounds = true
+
+        setupTextContentConstraints()
+
+        attributionLabel.numberOfLines = 0
+        attributionLabel.textAlignment = .Center
+        attributionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: descriptionTextView, withOffset: 16)
+        attributionLabel.autoPinEdgeToSuperviewMargin(.Left)
+        attributionLabel.autoPinEdgeToSuperviewMargin(.Right)
+
+        viewOriginalButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: attributionLabel, withOffset: 16)
+        viewOriginalButton.autoPinEdgesToSuperviewMarginsExcludingEdge(.Top)
+        viewOriginalButton.autoSetDimension(.Height, toSize: 54)
+    }
+
+    private func setupTextContentConstraints() {
+        let screenBounds = UIScreen.mainScreen().bounds
 
         titleLabel.numberOfLines = 0
         titleLabel.preferredMaxLayoutWidth = screenBounds.width - 8
@@ -146,9 +188,8 @@ class VideoController: UIViewController {
         descriptionTextView.textContainer.lineFragmentPadding = 0
         descriptionTextView.editable = false
 
-        descriptionTextView.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.dateLabel, withOffset: 14)
+        descriptionTextView.autoPinEdge(.Top, toEdge: .Bottom, ofView: dateLabel, withOffset: 14)
         descriptionTextView.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
-        descriptionTextView.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 20)
         descriptionTextView.autoPinEdgeToSuperviewMargin(.Right)
     }
 }

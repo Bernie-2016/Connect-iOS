@@ -121,3 +121,7 @@
 
 "TimeInterval_today" = "Today";
 "TimeInterval_now" = "now";
+
+// Video
+
+"Video_viewOriginal" = "View on YouTube.com";
