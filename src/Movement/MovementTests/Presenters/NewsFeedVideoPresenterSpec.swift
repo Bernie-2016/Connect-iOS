@@ -40,6 +40,10 @@ private class NewsFeedVideoPresenterFakeTheme: FakeTheme {
     override func newsFeedExcerptColor() -> UIColor {
         return UIColor.redColor()
     }
+
+    override func newsFeedVideoOverlayBackgroundColor() -> UIColor {
+        return UIColor.orangeColor()
+    }
 }
 
 class NewsFeedVideoPresenterSpec: QuickSpec {
@@ -118,6 +122,7 @@ class NewsFeedVideoPresenterSpec: QuickSpec {
                     expect(cell.dateLabel.font).to(equal(UIFont.italicSystemFontOfSize(13)))
                     expect(cell.descriptionLabel.textColor).to(equal(UIColor.redColor()))
                     expect(cell.descriptionLabel.font).to(equal(UIFont.boldSystemFontOfSize(21)))
+                    expect(cell.overlayView.backgroundColor).to(equal(UIColor.orangeColor()))
                 }
 
                 context("when the news item is from today") {

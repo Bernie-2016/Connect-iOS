@@ -48,6 +48,7 @@ class NewsFeedVideoPresenter: NewsFeedTableViewCellPresenter {
         cell.dateLabel.font = self.theme.newsFeedDateFont()
         cell.descriptionLabel.textColor = theme.newsFeedExcerptColor()
         cell.descriptionLabel.font = theme.newsFeedExcerptFont()
+        cell.overlayView.backgroundColor = theme.newsFeedVideoOverlayBackgroundColor()
 
         let disclosureColor: UIColor
         if self.timeIntervalFormatter.numberOfDaysSinceDate(video.date) == 0 {

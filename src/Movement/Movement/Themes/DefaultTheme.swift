@@ -39,7 +39,7 @@ class DefaultTheme: Theme {
     func newsFeedExcerptFont() -> UIFont { return UIFont(name: "Georgia", size: 14)! }
     func newsFeedExcerptColor() -> UIColor {  return self.mineShaftColor() }
     func newsFeedDateFont() -> UIFont { return UIFont.systemFontOfSize(12) }
-
+    func newsFeedVideoOverlayBackgroundColor() -> UIColor { return UIColor(red: 0, green: 0, blue: 0, alpha: 0.7) }
     // MARK: News Article screen
 
     func newsArticleDateFont() -> UIFont { return UIFont.systemFontOfSize(13) }

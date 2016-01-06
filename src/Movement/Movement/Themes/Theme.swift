@@ -36,6 +36,7 @@ protocol Theme {
     func newsFeedExcerptFont() -> UIFont
     func newsFeedExcerptColor() -> UIColor
     func newsFeedDateFont() -> UIFont
+    func newsFeedVideoOverlayBackgroundColor() -> UIColor
 
     // MARK: Issues
 

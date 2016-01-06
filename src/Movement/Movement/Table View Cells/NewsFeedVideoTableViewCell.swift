@@ -6,6 +6,8 @@ class NewsFeedVideoTableViewCell: UITableViewCell {
     let descriptionLabel = UILabel.newAutoLayoutView()
     let thumbnailImageView = UIImageView.newAutoLayoutView()
     let disclosureView = DisclosureIndicatorView.newAutoLayoutView()
+    let overlayView = UIView.newAutoLayoutView()
+    let playIconImageView = UIImageView.newAutoLayoutView()
 
     private let containerView = UIView.newAutoLayoutView()
     private let defaultMargin: CGFloat = 20
@@ -25,6 +27,8 @@ class NewsFeedVideoTableViewCell: UITableViewCell {
         containerView.addSubview(disclosureView)
         containerView.addSubview(descriptionLabel)
         containerView.addSubview(thumbnailImageView)
+        containerView.addSubview(overlayView)
+        containerView.addSubview(playIconImageView)
         containerView.clipsToBounds = true
 
         backgroundColor = UIColor.clearColor()
@@ -38,6 +42,8 @@ class NewsFeedVideoTableViewCell: UITableViewCell {
 
         titleLabel.numberOfLines = 3
         descriptionLabel.numberOfLines = 3
+
+        playIconImageView.image = UIImage(named: "playIcon")
 
         thumbnailImageView.clipsToBounds = true
         thumbnailImageView.contentMode = .ScaleAspectFill
@@ -57,6 +63,16 @@ class NewsFeedVideoTableViewCell: UITableViewCell {
         thumbnailImageView.autoPinEdgeToSuperviewEdge(.Right)
         thumbnailImageView.autoPinEdgeToSuperviewEdge(.Left)
         thumbnailImageView.autoSetDimension(.Height, toSize: screenBounds.width / 1.7777)
+
+        overlayView.autoPinEdge(.Top, toEdge: .Top, ofView: thumbnailImageView)
+        overlayView.autoPinEdge(.Bottom, toEdge: .Bottom, ofView: thumbnailImageView)
+        overlayView.autoPinEdge(.Left, toEdge: .Left, ofView: thumbnailImageView)
+        overlayView.autoPinEdge(.Right, toEdge: .Right, ofView: thumbnailImageView)
+
+        playIconImageView.autoSetDimension(.Height, toSize: 75)
+        playIconImageView.autoSetDimension(.Width, toSize: 75)
+        playIconImageView.autoAlignAxis(.Horizontal, toSameAxisOfView: thumbnailImageView)
+        playIconImageView.autoAlignAxis(.Vertical, toSameAxisOfView: thumbnailImageView)
 
         titleLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: thumbnailImageView, withOffset: 5)
         titleLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultMargin)
