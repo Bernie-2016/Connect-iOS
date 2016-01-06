@@ -254,7 +254,8 @@ class EventsControllerSpec : QuickSpec {
                 expect(subViews.count).to(equal(7))
 
                 expect(subViews.contains(self.subject.searchBar)).to(beTrue())
-                expect(subViews.contains(self.subject.instructionsLabel)).to(beTrue())
+                expect(subViews.contains(self.subject.locateButton)).to(beTrue())
+                expect(subViews.contains(self.subject.locateIndicatorView)).to(beTrue())
                 expect(subViews.contains(self.subject.subInstructionsLabel)).to(beTrue())
                 expect(subViews.contains(self.subject.noResultsLabel)).to(beTrue())
                 expect(subViews.contains(self.subject.createEventCTATextView)).to(beTrue())
@@ -291,8 +292,8 @@ class EventsControllerSpec : QuickSpec {
             }
 
             it("should show the instructions by default") {
-                expect(self.subject.instructionsLabel.hidden).to(beFalse())
-                expect(self.subject.instructionsLabel.text).to(equal("Search Local Events"))
+                expect(self.subject.locateButton.hidden).to(beFalse())
+                expect(self.subject.locateButton.titleLabel!.text).to(equal("Find Events Near Me"))
 
                 expect(self.subject.subInstructionsLabel.hidden).to(beFalse())
                 expect(self.subject.subInstructionsLabel.text).to(equal("Event listings are gathered from the Bernie 2016 campaign website."))
@@ -320,8 +321,8 @@ class EventsControllerSpec : QuickSpec {
                 let borderColor = UIColor(CGColor: self.subject.zipCodeTextField.layer.borderColor!)
                 expect(borderColor).to(equal(UIColor.orangeColor()))
 
-                expect(self.subject.instructionsLabel.textColor).to(equal(UIColor.blueColor()))
-                expect(self.subject.instructionsLabel.font).to(equal(UIFont.italicSystemFontOfSize(666)))
+                expect(self.subject.locateButton.titleLabel!.textColor).to(equal(UIColor.blueColor()))
+                expect(self.subject.locateButton.titleLabel!.font).to(equal(UIFont.italicSystemFontOfSize(666)))
 
                 expect(self.subject.subInstructionsLabel.textColor).to(equal(UIColor.blueColor()))
                 expect(self.subject.subInstructionsLabel.font).to(equal(UIFont.italicSystemFontOfSize(555)))
@@ -439,7 +440,8 @@ class EventsControllerSpec : QuickSpec {
                     }
 
                     it("should hide the instructions") {
-                        expect(self.subject.instructionsLabel.hidden).to(beTrue())
+                        expect(self.subject.locateButton.hidden).to(beTrue())
+                        expect(self.subject.locateIndicatorView.hidden).to(beTrue())
                         expect(self.subject.subInstructionsLabel.hidden).to(beTrue())
                     }
 
