@@ -23,7 +23,7 @@ Via [Homebrew](http://brew.sh/):
 
 ## Install dependencies
 
-* `$ cd src/berniesanders && carthage bootstrap --platform ios`
+* `$ cd src/Movement && carthage bootstrap --platform ios`
 
 You should now be able to run tests in Xcode by lightly depressing the key combination "⌘+u"
 
