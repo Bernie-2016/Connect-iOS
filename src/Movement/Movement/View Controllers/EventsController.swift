@@ -265,7 +265,7 @@ class EventsController: UIViewController {
     func setupSearchBar() {
         zipCodeTextField.delegate = self
 
-        let magnifyingGlassIcon = UIImageView(frame: CGRectMake(0, 0, 22, 17))
+        let magnifyingGlassIcon =   UIImageView(frame: CGRect(x: 0, y: 0, width: 22, height: 17))
         let magnifyingGlassImage = UIImage(named: "searchMagnifyingGlass")!
         magnifyingGlassIcon.image = magnifyingGlassImage
         magnifyingGlassIcon.contentMode = .Left

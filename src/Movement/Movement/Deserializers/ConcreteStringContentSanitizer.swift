@@ -26,7 +26,10 @@ class ConcreteStringContentSanitizer: StringContentSanitizer {
 
     func removeTextMatchingRegEx(string: String, regEx: String) -> String {
         let regEx = try? NSRegularExpression(pattern: regEx, options: [])
+
+        // swiftlint:disable legacy_constructor
         return regEx!.stringByReplacingMatchesInString(string, options: [], range: NSMakeRange(0, string.characters.count), withTemplate: "")
+        // swiftlint:enable legacy_constructor
     }
 
     func removeReadTheRest(string: String) -> String {
