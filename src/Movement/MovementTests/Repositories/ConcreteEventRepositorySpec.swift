@@ -32,47 +32,47 @@ class FakeGeocoder : CLGeocoder {
 }
 
 class ConcreteEventRepositorySpec : QuickSpec {
-    var subject: ConcreteEventRepository!
-    var geocoder: FakeGeocoder!
-    let urlProvider = EventRepositoryFakeURLProvider()
-    var jsonClient: FakeJSONClient!
-    var eventDeserializer: FakeEventDeserializer!
-    var operationQueue: FakeOperationQueue!
-
-    var receivedEventSearchResult: EventSearchResult!
-    var receivedError: NSError!
-
     override func spec() {
         describe("ConcreteEventRepository") {
-            beforeEach {
-                self.geocoder = FakeGeocoder()
-                self.jsonClient = FakeJSONClient()
-                self.eventDeserializer = FakeEventDeserializer()
-                self.operationQueue = FakeOperationQueue()
+            var subject: ConcreteEventRepository!
+            var geocoder: FakeGeocoder!
+            let urlProvider = EventRepositoryFakeURLProvider()
+            var jsonClient: FakeJSONClient!
+            var eventDeserializer: FakeEventDeserializer!
+            var operationQueue: FakeOperationQueue!
 
-                self.subject = ConcreteEventRepository(
-                    geocoder: self.geocoder,
-                    urlProvider: self.urlProvider,
-                    jsonClient: self.jsonClient,
-                    eventDeserializer: self.eventDeserializer,
-                    operationQueue: self.operationQueue
+            var receivedEventSearchResult: EventSearchResult!
+            var receivedError: NSError!
+
+            beforeEach {
+                geocoder = FakeGeocoder()
+                jsonClient = FakeJSONClient()
+                eventDeserializer = FakeEventDeserializer()
+                operationQueue = FakeOperationQueue()
+
+                subject = ConcreteEventRepository(
+                    geocoder: geocoder,
+                    urlProvider: urlProvider,
+                    jsonClient: jsonClient,
+                    eventDeserializer: eventDeserializer,
+                    operationQueue: operationQueue
                 )
             }
 
             describe(".fetchEventsWithZipCode") {
                 beforeEach {
-                    self.receivedEventSearchResult = nil
-                    self.receivedError = nil
+                    receivedEventSearchResult = nil
+                    receivedError = nil
 
-                    self.subject.fetchEventsWithZipCode("90210", radiusMiles: 50.1, completion: { (eventSearchResult) -> Void in
-                        self.receivedEventSearchResult = eventSearchResult
+                    subject.fetchEventsWithZipCode("90210", radiusMiles: 50.1, completion: { (eventSearchResult) -> Void in
+                        receivedEventSearchResult = eventSearchResult
                         }, error: { (error) -> Void in
-                            self.receivedError = error
+                            receivedError = error
                     })
                 }
 
                 it("tries to geocode the zip code") {
-                    expect(self.geocoder.lastReceivedAddressString).to(equal("90210"))
+                    expect(geocoder.lastReceivedAddressString).to(equal("90210"))
                 }
 
                 context("when geocoding succeeds") {
@@ -86,12 +86,12 @@ class ConcreteEventRepositorySpec : QuickSpec {
                         let otherCoordinate = CLLocationCoordinate2DMake(11.11, 11.11)
                         let otherPlacemark = MKPlacemark(coordinate: otherCoordinate, addressDictionary: nil)
 
-                        self.geocoder.lastReceivedCompletionHandler([placemark, otherPlacemark], nil)
+                        geocoder.lastReceivedCompletionHandler([placemark, otherPlacemark], nil)
                     }
 
                     it("makes a single request to the JSON Client with the correct URL, method and parametrs") {
-                        expect(self.jsonClient.promisesByURL.count).to(equal(1))
-                        expect(self.jsonClient.promisesByURL.keys.first).to(equal(NSURL(string: "https://example.com/berneseeventsss/")))
+                        expect(jsonClient.promisesByURL.count).to(equal(1))
+                        expect(jsonClient.promisesByURL.keys.first).to(equal(NSURL(string: "https://example.com/berneseeventsss/")))
                         let expectedFilterConditions = [
                             [
                                 "range": [
@@ -152,8 +152,8 @@ class ConcreteEventRepositorySpec : QuickSpec {
                             "sort": expectedSortCriteria
                         ]
 
-                        expect(self.jsonClient.lastBodyDictionary).to(equal(expectedHTTPBodyDictionary))
-                        expect(self.jsonClient.lastMethod).to(equal("POST"))
+                        expect(jsonClient.lastBodyDictionary).to(equal(expectedHTTPBodyDictionary))
+                        expect(jsonClient.lastMethod).to(equal("POST"))
                     }
 
                     context("when the request to the JSON client succeeds") {
@@ -161,52 +161,53 @@ class ConcreteEventRepositorySpec : QuickSpec {
                         var expectedEvents: Array<Event>!
 
                         beforeEach {
-                            expectedEvents = self.eventDeserializer.returnedEvents
-                            let promise = self.jsonClient.promisesByURL[self.urlProvider.returnedURL]!
+                            expectedEvents = eventDeserializer.returnedEvents
+                            let promise = jsonClient.promisesByURL[urlProvider.returnedURL]!
 
                             promise.success(expectedJSONDictionary)
-                            expect(self.operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
+                            expect(operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
                         }
 
-                        it("passes the JSON document to the events deserializer") {expect(self.eventDeserializer.lastReceivedJSONDictionary).to(beIdenticalTo(expectedJSONDictionary))
+                        it("passes the JSON document to the events deserializer") {expect(eventDeserializer.lastReceivedJSONDictionary).to(beIdenticalTo(expectedJSONDictionary))
                         }
 
                         it("calls the completion handler with an event search object containing the deserialized value objects on the operation queue") {
-                            self.operationQueue.lastReceivedBlock()
+                            operationQueue.lastReceivedBlock()
 
-                            expect(self.receivedEventSearchResult.searchCentroid).to(equal(expectedLocation))
-                            expect(self.receivedEventSearchResult.events.count).to(equal(1))
-                            expect(self.receivedEventSearchResult.events.first!).to(beIdenticalTo(expectedEvents.first!))
+                            expect(receivedEventSearchResult.searchCentroid).to(equal(expectedLocation))
+                            expect(receivedEventSearchResult.events.count).to(equal(1))
+                            expect(receivedEventSearchResult.events.first!).to(beIdenticalTo(expectedEvents.first!))
                         }
                     }
 
                     context("when he request to the JSON client succeeds but does not resolve with a JSON dictioanry") {
                         beforeEach {
-                            expect(self.receivedEventSearchResult).to(beNil())
+                            expect(receivedEventSearchResult).to(beNil())
 
-                            let promise = self.jsonClient.promisesByURL[self.urlProvider.returnedURL]!
+                            let promise = jsonClient.promisesByURL[urlProvider.returnedURL]!
 
                             promise.success([1,2,3])
-                            expect(self.operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
+                            expect(operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
                         }
 
                         it("calls the completion handler with an error") {
-                            expect(self.receivedEventSearchResult).to(beNil())
-                            self.operationQueue.lastReceivedBlock()
-                            expect(self.receivedEventSearchResult).toEventually(beNil())
-                            expect(self.receivedError).toEventuallyNot(beNil())
+                            expect(receivedEventSearchResult).to(beNil())
+                            expect(operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
+                            operationQueue.lastReceivedBlock()
+                            expect(receivedEventSearchResult).toEventually(beNil())
+                            expect(receivedError).toEventuallyNot(beNil())
                         }
                     }
 
                     context("when the request to the JSON client fails") {
                         it("forwards the error to the caller on the operation queue") {
-                            let promise = self.jsonClient.promisesByURL[self.urlProvider.returnedURL]!
+                            let promise = jsonClient.promisesByURL[urlProvider.returnedURL]!
                             let expectedError = NSError(domain: "somedomain", code: 666, userInfo: nil)
                             promise.failure(expectedError)
-                            expect(self.operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
+                            expect(operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
 
-                            self.operationQueue.lastReceivedBlock()
-                            expect(self.receivedError).to(equal(expectedError))
+                            operationQueue.lastReceivedBlock()
+                            expect(receivedError).to(equal(expectedError))
                         }
                     }
                 }
@@ -215,11 +216,11 @@ class ConcreteEventRepositorySpec : QuickSpec {
                     let expectedError = NSError(domain: "some domain", code: 0, userInfo: nil)
 
                     beforeEach {
-                        self.geocoder.lastReceivedCompletionHandler(nil, expectedError)
+                        geocoder.lastReceivedCompletionHandler(nil, expectedError)
                     }
 
                     it("calls the error handler with the geocoding error") {
-                        expect(self.receivedError).to(beIdenticalTo(expectedError))
+                        expect(receivedError).to(beIdenticalTo(expectedError))
                     }
                 }
             }

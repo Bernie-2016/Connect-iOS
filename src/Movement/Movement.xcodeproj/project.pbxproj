@@ -87,7 +87,7 @@
 		654D2F631C137A21001AA09B /* FakeNewsFeedTableViewCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654D2F621C137A21001AA09B /* FakeNewsFeedTableViewCellPresenter.swift */; };
 		654D2F651C13867A001AA09B /* NewsFeedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654D2F641C13867A001AA09B /* NewsFeedService.swift */; };
 		654D2F671C138B60001AA09B /* ConcreteNewsFeedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654D2F661C138B60001AA09B /* ConcreteNewsFeedService.swift */; };
-		654D2F6A1C138CE2001AA09B /* ConcreteNewsFeedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654D2F691C138CE2001AA09B /* ConcreteNewsFeedService.swift */; };
+		654D2F6A1C138CE2001AA09B /* ConcreteNewsFeedServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654D2F691C138CE2001AA09B /* ConcreteNewsFeedServiceSpec.swift */; };
 		654E27B91C18D485005B6D2D /* ConcreteVideoRepositorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654E27B81C18D485005B6D2D /* ConcreteVideoRepositorySpec.swift */; };
 		654E27BB1C18D82A005B6D2D /* VideoDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654E27BA1C18D82A005B6D2D /* VideoDeserializer.swift */; };
 		654E27BD1C18D938005B6D2D /* ConcreteVideoDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654E27BC1C18D938005B6D2D /* ConcreteVideoDeserializer.swift */; };
@@ -343,7 +343,7 @@
 		654D2F621C137A21001AA09B /* FakeNewsFeedTableViewCellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeNewsFeedTableViewCellPresenter.swift; sourceTree = "<group>"; };
 		654D2F641C13867A001AA09B /* NewsFeedService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFeedService.swift; sourceTree = "<group>"; };
 		654D2F661C138B60001AA09B /* ConcreteNewsFeedService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteNewsFeedService.swift; sourceTree = "<group>"; };
-		654D2F691C138CE2001AA09B /* ConcreteNewsFeedService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteNewsFeedService.swift; sourceTree = "<group>"; };
+		654D2F691C138CE2001AA09B /* ConcreteNewsFeedServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteNewsFeedServiceSpec.swift; sourceTree = "<group>"; };
 		654E27B81C18D485005B6D2D /* ConcreteVideoRepositorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteVideoRepositorySpec.swift; sourceTree = "<group>"; };
 		654E27BA1C18D82A005B6D2D /* VideoDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoDeserializer.swift; sourceTree = "<group>"; };
 		654E27BC1C18D938005B6D2D /* ConcreteVideoDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteVideoDeserializer.swift; sourceTree = "<group>"; };
@@ -765,7 +765,7 @@
 		654D2F681C138CBF001AA09B /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				654D2F691C138CE2001AA09B /* ConcreteNewsFeedService.swift */,
+				654D2F691C138CE2001AA09B /* ConcreteNewsFeedServiceSpec.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1505,7 +1505,7 @@
 				653885251B94E89600DCA808 /* ConcreteNewsArticleControllerProviderSpec.swift in Sources */,
 				65EDD6311B8BCACB00F545B8 /* ConcreteNewsArticleDeserializerSpec.swift in Sources */,
 				65EDD6291B8BC73C00F545B8 /* ConcreteNewsArticleRepositorySpec.swift in Sources */,
-				654D2F6A1C138CE2001AA09B /* ConcreteNewsFeedService.swift in Sources */,
+				654D2F6A1C138CE2001AA09B /* ConcreteNewsFeedServiceSpec.swift in Sources */,
 				658E58EC1C10EBA000B12E20 /* ConcreteNewsFeedTableViewCellPresenterSpec.swift in Sources */,
 				654948E61BFB800A00C1ECDB /* ConcretePushNotificationRegistrarSpec.swift in Sources */,
 				654FDBC31BC19F9D00A082CF /* ConcreteStringContentSanitizerSpec.swift in Sources */,

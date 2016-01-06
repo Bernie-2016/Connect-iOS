@@ -28,19 +28,19 @@ private class FakeVideoRepository: VideoRepository {
 
 
 class ConcreteNewsFeedServiceSpec: QuickSpec {
-    private var subject: ConcreteNewsFeedService!
-    private var newsArticleRepository: FakeNewsArticleRepository!
-    private var videoRepository: FakeVideoRepository!
-
     override func spec() {
         describe("ConcreteNewsFeedService") {
-            beforeEach {
-                self.newsArticleRepository = FakeNewsArticleRepository()
-                self.videoRepository = FakeVideoRepository()
+            var subject: ConcreteNewsFeedService!
+            var newsArticleRepository: FakeNewsArticleRepository!
+            var videoRepository: FakeVideoRepository!
 
-                self.subject = ConcreteNewsFeedService(
-                    newsArticleRepository: self.newsArticleRepository,
-                    videoRepository: self.videoRepository
+            beforeEach {
+                newsArticleRepository = FakeNewsArticleRepository()
+                videoRepository = FakeVideoRepository()
+
+                subject = ConcreteNewsFeedService(
+                    newsArticleRepository: newsArticleRepository,
+                    videoRepository: videoRepository
                 )
             }
             describe("fetching the news feed") {
@@ -48,7 +48,7 @@ class ConcreteNewsFeedServiceSpec: QuickSpec {
                 var receivedError: ErrorType!
 
                 beforeEach {
-                    self.subject.fetchNewsFeed({ (newsFeedItems) -> Void in
+                    subject.fetchNewsFeed({ (newsFeedItems) -> Void in
                         receivedNewsFeedItems = newsFeedItems
                         }, error: { (error) -> Void in
                             receivedError = error
@@ -56,11 +56,11 @@ class ConcreteNewsFeedServiceSpec: QuickSpec {
                 }
 
                 it("asks the news article repository to fetch some news articles") {
-                    expect(self.newsArticleRepository.fetchNewsCalled).to(beTrue())
+                    expect(newsArticleRepository.fetchNewsCalled).to(beTrue())
                 }
 
                 it("asks the video repository to fetch some videos") {
-                    expect(self.videoRepository.fetchVideosCalled).to(beTrue())
+                    expect(videoRepository.fetchVideosCalled).to(beTrue())
                 }
 
                 describe("when both the news article repo and video repo returns some objects") {
@@ -72,8 +72,8 @@ class ConcreteNewsFeedServiceSpec: QuickSpec {
                         let videoA  = TestUtils.video(NSDate(timeIntervalSince1970: 4))
                         let videoB  = TestUtils.video(NSDate(timeIntervalSince1970: 3))
 
-                        self.newsArticleRepository.lastPromise.success([newsArticleC, newsArticleA, newsArticleB])
-                        self.videoRepository.lastPromise.success([videoB, videoA])
+                        newsArticleRepository.lastPromise.success([newsArticleC, newsArticleA, newsArticleB])
+                        videoRepository.lastPromise.success([videoB, videoA])
 
                         expect(receivedNewsFeedItems).toEventuallyNot(beNil())
                         expect(receivedNewsFeedItems.count).to(equal(5))
@@ -91,8 +91,8 @@ class ConcreteNewsFeedServiceSpec: QuickSpec {
                         let newsArticleB = TestUtils.newsArticle(NSDate(timeIntervalSince1970: 4))
                         let newsArticleC = TestUtils.newsArticle(NSDate(timeIntervalSince1970: 2))
 
-                        self.newsArticleRepository.lastPromise.success([newsArticleC, newsArticleA, newsArticleB])
-                        self.videoRepository.lastPromise.success([])
+                        newsArticleRepository.lastPromise.success([newsArticleC, newsArticleA, newsArticleB])
+                        videoRepository.lastPromise.success([])
 
                         expect(receivedNewsFeedItems).toEventuallyNot(beNil())
                         expect(receivedNewsFeedItems.count).to(equal(3))
@@ -107,8 +107,8 @@ class ConcreteNewsFeedServiceSpec: QuickSpec {
                         let videoA  = TestUtils.video(NSDate(timeIntervalSince1970: 4))
                         let videoB  = TestUtils.video(NSDate(timeIntervalSince1970: 3))
 
-                        self.newsArticleRepository.lastPromise.success([])
-                        self.videoRepository.lastPromise.success([videoB, videoA])
+                        newsArticleRepository.lastPromise.success([])
+                        videoRepository.lastPromise.success([videoB, videoA])
 
                         expect(receivedNewsFeedItems).toEventuallyNot(beNil())
                         expect(receivedNewsFeedItems.count).to(equal(2))
@@ -121,12 +121,12 @@ class ConcreteNewsFeedServiceSpec: QuickSpec {
                     describe("when just the news article repo reports an error") {
                         it("calls the completion handler with the videos") {
                             let error = NSError(domain: "what", code: 123, userInfo: nil)
-                            self.newsArticleRepository.lastPromise.failure(error)
+                            newsArticleRepository.lastPromise.failure(error)
 
                             let videoA  = TestUtils.video(NSDate(timeIntervalSince1970: 4))
                             let videoB  = TestUtils.video(NSDate(timeIntervalSince1970: 3))
 
-                            self.videoRepository.lastPromise.success([videoB, videoA])
+                            videoRepository.lastPromise.success([videoB, videoA])
 
                             expect(receivedNewsFeedItems).toEventuallyNot(beNil())
                             expect(receivedNewsFeedItems.count).to(equal(2))
@@ -138,13 +138,13 @@ class ConcreteNewsFeedServiceSpec: QuickSpec {
                     describe("when just the videos repo reports an error") {
                         it("calls the completion handler with the news artiles") {
                             let error = NSError(domain: "what", code: 123, userInfo: nil)
-                            self.videoRepository.lastPromise.failure(error)
+                            videoRepository.lastPromise.failure(error)
 
                             let newsArticleA = TestUtils.newsArticle(NSDate(timeIntervalSince1970: 5))
                             let newsArticleB = TestUtils.newsArticle(NSDate(timeIntervalSince1970: 4))
                             let newsArticleC = TestUtils.newsArticle(NSDate(timeIntervalSince1970: 2))
 
-                            self.newsArticleRepository.lastPromise.success([newsArticleC, newsArticleA, newsArticleB])
+                            newsArticleRepository.lastPromise.success([newsArticleC, newsArticleA, newsArticleB])
 
                             expect(receivedNewsFeedItems).toEventuallyNot(beNil())
                             expect(receivedNewsFeedItems.count).to(equal(3))
@@ -157,10 +157,10 @@ class ConcreteNewsFeedServiceSpec: QuickSpec {
                     describe("when both the news article repo and videos repo reports an error") {
                         it("calls the error handler with a wrapped error") {
                             let newsError = NSError(domain: "news error", code: 123, userInfo: nil)
-                            self.newsArticleRepository.lastPromise.failure(newsError)
+                            newsArticleRepository.lastPromise.failure(newsError)
 
                             let videoError = NSError(domain: "video error", code: 123, userInfo: nil)
-                            self.videoRepository.lastPromise.failure(videoError)
+                            videoRepository.lastPromise.failure(videoError)
 
                             expect(receivedError).toEventuallyNot(beNil())
                             expect((receivedError as NSError).userInfo["UnderlyingErrors"] as? Array).to(equal([newsError, videoError]))

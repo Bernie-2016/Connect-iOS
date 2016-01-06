@@ -21,26 +21,24 @@ private class FakeNewsArticleDeserializer: NewsArticleDeserializer {
 }
 
 class ConcreteNewsArticleRepositorySpec: QuickSpec {
-    var subject: ConcreteNewsArticleRepository!
-    var jsonClient: FakeJSONClient!
-    private let urlProvider = NewsArticleRepositoryFakeURLProvider()
-    private var newsArticleDeserializer: FakeNewsArticleDeserializer!
-    var operationQueue: FakeOperationQueue!
-    var receivedNewsArticles: Array<NewsArticle>!
-    var receivedError: NSError!
-
     override func spec() {
         describe("ConcreteNewsArticleRepository") {
-            beforeEach {
-                self.jsonClient = FakeJSONClient()
-                self.newsArticleDeserializer = FakeNewsArticleDeserializer()
-                self.operationQueue = FakeOperationQueue()
+            var subject: ConcreteNewsArticleRepository!
+            var jsonClient: FakeJSONClient!
+            let urlProvider = NewsArticleRepositoryFakeURLProvider()
+            var newsArticleDeserializer: FakeNewsArticleDeserializer!
+            var operationQueue: FakeOperationQueue!
 
-                self.subject = ConcreteNewsArticleRepository(
-                    urlProvider: self.urlProvider,
-                    jsonClient: self.jsonClient,
-                    newsArticleDeserializer: self.newsArticleDeserializer,
-                    operationQueue: self.operationQueue
+            beforeEach {
+                jsonClient = FakeJSONClient()
+                newsArticleDeserializer = FakeNewsArticleDeserializer()
+                operationQueue = FakeOperationQueue()
+
+                subject = ConcreteNewsArticleRepository(
+                    urlProvider: urlProvider,
+                    jsonClient: jsonClient,
+                    newsArticleDeserializer: newsArticleDeserializer,
+                    operationQueue: operationQueue
                 )
             }
 
@@ -48,12 +46,12 @@ class ConcreteNewsArticleRepositorySpec: QuickSpec {
                 var newsArticlesFuture: Future<Array<NewsArticle>, NSError>!
 
                 beforeEach {
-                    newsArticlesFuture = self.subject.fetchNewsArticles()
+                    newsArticlesFuture = subject.fetchNewsArticles()
                 }
 
                 it("makes a single request to the JSON Client with the correct URL, method and parametrs") {
-                    expect(self.jsonClient.promisesByURL.count).to(equal(1))
-                    expect(self.jsonClient.promisesByURL.keys.first).to(equal(NSURL(string: "https://example.com/bernese/")))
+                    expect(jsonClient.promisesByURL.count).to(equal(1))
+                    expect(jsonClient.promisesByURL.keys.first).to(equal(NSURL(string: "https://example.com/bernese/")))
 
                     let expectedHTTPBodyDictionary =
                     [
@@ -70,26 +68,27 @@ class ConcreteNewsArticleRepositorySpec: QuickSpec {
                         ]
                     ]
 
-                    expect(self.jsonClient.lastBodyDictionary).to(equal(expectedHTTPBodyDictionary))
-                    expect(self.jsonClient.lastMethod).to(equal("POST"))
+                    expect(jsonClient.lastBodyDictionary).to(equal(expectedHTTPBodyDictionary))
+                    expect(jsonClient.lastMethod).to(equal("POST"))
                 }
 
                 context("when the request to the JSON client succeeds") {
                     let expectedJSONDictionary = NSDictionary();
 
                     beforeEach {
-                        let promise = self.jsonClient.promisesByURL[self.urlProvider.newsFeedURL()]!
+                        let promise = jsonClient.promisesByURL[urlProvider.newsFeedURL()]!
 
                         promise.success(expectedJSONDictionary)
-                        expect(self.operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
+                        expect(operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
                     }
 
                     it("passes the json dictionary to the news item deserializer") {
-                        expect(self.newsArticleDeserializer.lastReceivedJSONDictionary).to(beIdenticalTo(expectedJSONDictionary))
+                        expect(newsArticleDeserializer.lastReceivedJSONDictionary).to(beIdenticalTo(expectedJSONDictionary))
                     }
 
                     it("calls the completion handler with the deserialized value objects on the operation queue") {
-                        self.operationQueue.lastReceivedBlock()
+                        expect(operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
+                        operationQueue.lastReceivedBlock()
                         let receivedNewsArticles =  newsArticlesFuture.value!
                         expect(receivedNewsArticles.count).to(equal(1))
                         expect(receivedNewsArticles.first!.title).to(equal("fake news"))
@@ -98,26 +97,26 @@ class ConcreteNewsArticleRepositorySpec: QuickSpec {
 
                 context("when the request to the JSON client succeeds but does not resolve with a JSON dictioanry") {
                     beforeEach {
-                        let promise = self.jsonClient.promisesByURL[self.urlProvider.newsFeedURL()]!
+                        let promise = jsonClient.promisesByURL[urlProvider.newsFeedURL()]!
 
                         promise.success([1,2,3])
-                        expect(self.operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
+                        expect(operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
                     }
 
                     it("calls the completion handler with an error") {
-                        self.operationQueue.lastReceivedBlock()
+                        operationQueue.lastReceivedBlock()
                         expect(newsArticlesFuture.error).notTo(beNil())
                     }
                 }
 
                 context("when the request to the JSON client fails") {
                     it("forwards the error to the caller on the operation queue") {
-                        let promise = self.jsonClient.promisesByURL[self.urlProvider.newsFeedURL()]!
+                        let promise = jsonClient.promisesByURL[urlProvider.newsFeedURL()]!
                         let expectedError = NSError(domain: "somedomain", code: 666, userInfo: nil)
                         promise.failure(expectedError)
-                        expect(self.operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
 
-                        self.operationQueue.lastReceivedBlock()
+                        expect(operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
+                        operationQueue.lastReceivedBlock()
                         expect(newsArticlesFuture.error).to(beIdenticalTo(expectedError))
                     }
                 }
