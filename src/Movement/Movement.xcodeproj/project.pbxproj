@@ -1331,7 +1331,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -x -e\nFLURRY_KEY_FILE=\"/Users/mjs/workspace/BernieAppiOS/flurry_key\"\nPARSE_KEY_FILE=\"/Users/mjs/workspace/BernieAppiOS/parse_key\"\n\nif [ \"$CONFIGURATION\" = \"Release\" ] ; then\n  if [ -f $FLURRY_KEY_FILE ]; then\n    echo \"Setting up Flurry API Key\"\n    /usr/libexec/PlistBuddy -c \"set :FLURRY_API_KEY `cat $FLURRY_KEY_FILE`\" Movement/ApiKeys.plist\n    else\n    echo \"No Flurry API Key file found, skipping\"\n    fi\nfi\n\n\nif [ -f $PARSE_KEY_FILE ]; then\necho \"Setting up Parse API Key\"\n    PARSE_APPLICATION_ID=`cat $PARSE_KEY_FILE | cut -f 1 -d :`\n    PARSE_CLIENT_KEY=`cat $PARSE_KEY_FILE | cut -f 2 -d :`\n    /usr/libexec/PlistBuddy -c \"set :PARSE_APPLICATION_ID $PARSE_APPLICATION_ID\" Movement/ApiKeys.plist\n    /usr/libexec/PlistBuddy -c \"set :PARSE_CLIENT_KEY $PARSE_CLIENT_KEY\" Movement/ApiKeys.plist\nelse\necho \"No Parse Key file found, skipping\"\nfi\n\n\n\n";
+			shellScript = "set -x -e\nFLURRY_KEY_FILE=\"/Users/mjs/workspace/BernieAppiOS/flurry_key_$CONFIGURATION\"\nPARSE_KEY_FILE=\"/Users/mjs/workspace/BernieAppiOS/parse_key_$CONFIGURATION\"\n\nif [ \"$CONFIGURATION\" = \"Release\" ] || [ \"$CONFIGURATION\" = \"Acceptance\" ]; then\n  if [ -f $FLURRY_KEY_FILE ]; then\n    echo \"Setting up Flurry API Key for $CONFIGURATION\"\n    /usr/libexec/PlistBuddy -c \"set :FLURRY_API_KEY `cat $FLURRY_KEY_FILE`\" Movement/ApiKeys.plist\n    else\n    echo \"No Flurry API Key file found, skipping\"\n    fi\nfi\n\n\nif [ -f $PARSE_KEY_FILE ]; then\necho \"Setting up Parse API Key\"\n    PARSE_APPLICATION_ID=`cat $PARSE_KEY_FILE | cut -f 1 -d :`\n    PARSE_CLIENT_KEY=`cat $PARSE_KEY_FILE | cut -f 2 -d :`\n    /usr/libexec/PlistBuddy -c \"set :PARSE_APPLICATION_ID $PARSE_APPLICATION_ID\" Movement/ApiKeys.plist\n    /usr/libexec/PlistBuddy -c \"set :PARSE_CLIENT_KEY $PARSE_CLIENT_KEY\" Movement/ApiKeys.plist\nelse\necho \"No Parse Key file found, skipping\"\nfi\n\n\n\n";
 		};
 		654948D81BFAF11D00C1ECDB /* Reset API Keys */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1599,6 +1599,116 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		65937D1C1C3EBA3B003A1EFA /* Acceptance */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Michael Stallard (5R2HB6N5EA)";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Acceptance;
+		};
+		65937D1D1C3EBA3B003A1EFA /* Acceptance */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Movement/Externals",
+				);
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_PEDANTIC = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Movement/Externals/Flurry";
+				INFOPLIST_FILE = Movement/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Movement/Externals/Flurry",
+				);
+				MACH_O_TYPE = mh_execute;
+				OTHER_SWIFT_FLAGS = "-DRELEASE";
+				PRODUCT_BUNDLE_IDENTIFIER = tech.berniesanders.bernie2016.ios;
+				PRODUCT_MODULE_NAME = Movement;
+				PRODUCT_NAME = Movement;
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Movement/Extensions/Movement-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
+				WARNING_CFLAGS = (
+					"-Weverything",
+					"-Wno-padded",
+				);
+				WARNING_LDFLAGS = "";
+			};
+			name = Acceptance;
+		};
+		65937D1E1C3EBA3B003A1EFA /* Acceptance */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/MovementTests/Externals",
+					"$(PROJECT_DIR)/Movement/Externals",
+				);
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_PEDANTIC = YES;
+				INFOPLIST_FILE = MovementTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+					"-all_load",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = tech.berniesanders.bernie2016.ios;
+				PRODUCT_NAME = MovementTests;
+				SWIFT_OBJC_BRIDGING_HEADER = "MovementTests/MovementTests-Bridging-Header.h";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Movement.app/Movement";
+				WARNING_CFLAGS = (
+					"-Weverything",
+					"-Wno-padded",
+				);
+			};
+			name = Acceptance;
+		};
 		8233FC261B7C28FB00A5E9ED /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1841,6 +1951,7 @@
 			buildConfigurations = (
 				8233FC261B7C28FB00A5E9ED /* Debug */,
 				8233FC271B7C28FB00A5E9ED /* Release */,
+				65937D1C1C3EBA3B003A1EFA /* Acceptance */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1850,6 +1961,7 @@
 			buildConfigurations = (
 				8233FC291B7C28FB00A5E9ED /* Debug */,
 				8233FC2A1B7C28FB00A5E9ED /* Release */,
+				65937D1D1C3EBA3B003A1EFA /* Acceptance */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1859,6 +1971,7 @@
 			buildConfigurations = (
 				8233FC2C1B7C28FB00A5E9ED /* Debug */,
 				8233FC2D1B7C28FB00A5E9ED /* Release */,
+				65937D1E1C3EBA3B003A1EFA /* Acceptance */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

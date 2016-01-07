@@ -31,5 +31,5 @@ src/Movement/Carthage/Build
 src/Movement/Carthage/Checkouts
 
 fabric_secret
-flurry_key
-parse_key
+flurry_key*
+parse_key*
