@@ -80,8 +80,12 @@ class VideoController: UIViewController {
     }
 
     override func viewWillDisappear(animated: Bool) {
-        if !videoController.moviePlayer.fullscreen {
-            videoController = nil
+        if !videoController.moviePlayer.fullscreen { videoController.moviePlayer.stop() }
+    }
+
+    override func didMoveToParentViewController(parent: UIViewController?) {
+        if parent == nil {
+            analyticsService.trackBackButtonTapOnScreen("Video", customAttributes: [AnalyticsServiceConstants.contentIDKey: video.identifier])
         }
     }
 
@@ -91,7 +95,6 @@ class VideoController: UIViewController {
         let screenBounds = UIScreen.mainScreen().bounds
         self.containerViewWidthConstraint.constant = screenBounds.width
     }
-
 
     // MARK: Actions
 
@@ -126,7 +129,6 @@ class VideoController: UIViewController {
         analyticsService.trackCustomEventWithName(eventName, customAttributes: [AnalyticsServiceConstants.contentIDKey: video.identifier])
         self.urlOpener.openURL(urlProvider.youtubeVideoURL(video.identifier))
     }
-
 
     // MARK: Private
 

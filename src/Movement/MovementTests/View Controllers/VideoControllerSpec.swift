@@ -176,6 +176,19 @@ class VideoControllerSpec: QuickSpec {
                         expect(activityItems.first as? NSURL).to(beIdenticalTo(urlProvider.lastReturnedURL))
                     }
 
+                    it("tracks taps on the back button with the analytics service") {
+                        subject.didMoveToParentViewController(UIViewController())
+
+                        expect(analyticsService.lastBackButtonTapScreen).to(beNil())
+
+                        subject.didMoveToParentViewController(nil)
+
+                        expect(analyticsService.lastBackButtonTapScreen).to(equal("Video"))
+                        let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: video.identifier]
+                        expect(analyticsService.lastBackButtonTapAttributes! as? [String: String]).to(equal(expectedAttributes))
+                    }
+
+
                     it("logs that the user tapped share") {
                         expect(analyticsService.lastCustomEventName).to(equal("Began Share"))
                         let expectedAttributes = [
