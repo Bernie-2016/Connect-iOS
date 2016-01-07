@@ -2,11 +2,12 @@ import UIKit
 import PureLayout
 import QuartzCore
 import CoreText
+import CoreLocation
 
 // swiftlint:disable file_length
 // swiftlint:disable type_body_length
 
-class EventsController: UIViewController {
+class EventsController: UIViewController, CLLocationManagerDelegate {
     let eventRepository: EventRepository
     let eventPresenter: EventPresenter
     private let eventControllerProvider: EventControllerProvider
@@ -22,15 +23,17 @@ class EventsController: UIViewController {
     let zipCodeTextField = UITextField.newAutoLayoutView()
     let cancelButton = UIButton.newAutoLayoutView()
     let searchButton = UIButton.newAutoLayoutView()
+    let locateButton = UIButton.newAutoLayoutView()
+    let locateIndicatorView = UIActivityIndicatorView.newAutoLayoutView()
     let filterButton = ResponderButton.newAutoLayoutView()
     let radiusPickerView = UIPickerView()
     let resultsTableView = UITableView.newAutoLayoutView()
     let noResultsLabel = UILabel.newAutoLayoutView()
     let createEventCTATextView = UITextView.newAutoLayoutView()
-    let instructionsLabel = UILabel.newAutoLayoutView()
     let subInstructionsLabel = UILabel.newAutoLayoutView()
     let loadingActivityIndicatorView = UIActivityIndicatorView.newAutoLayoutView()
 
+    private let locationManager = CLLocationManager()
 
     private let radiusPickerViewOptions = [5, 10, 20, 50, 100, 250]
     private var selectedSearchRadiusIndex = 1
@@ -149,8 +152,9 @@ class EventsController: UIViewController {
         zipCodeTextField.resignFirstResponder()
         filterButton.resignFirstResponder()
 
-        self.instructionsLabel.hidden = true
         self.subInstructionsLabel.hidden = true
+        self.locateButton.hidden = true
+        self.locateIndicatorView.hidden = true
         self.resultsTableView.hidden = true
         self.noResultsLabel.hidden = true
         self.createEventCTATextView.hidden = true
@@ -197,6 +201,15 @@ class EventsController: UIViewController {
                 self.urlOpener.openURL(self.urlProvider.createEventURL())
                 return
             }
+        }
+    }
+
+    func didTapLocate(sender: UIButton!) {
+        NSLog("Fetching location...")
+
+        self.locationManager.requestWhenInUseAuthorization()
+        if CLLocationManager.locationServicesEnabled() {
+            self.requestLocation()
         }
     }
 
@@ -251,7 +264,8 @@ class EventsController: UIViewController {
         searchBar.addSubview(filterButton)
 
         view.addSubview(searchBar)
-        view.addSubview(instructionsLabel)
+        view.addSubview(locateButton)
+        view.addSubview(locateIndicatorView)
         view.addSubview(subInstructionsLabel)
         view.addSubview(resultsTableView)
         view.addSubview(noResultsLabel)
@@ -301,9 +315,15 @@ class EventsController: UIViewController {
         resultsTableView.hidden = true
         resultsTableView.registerClass(EventListTableViewCell.self, forCellReuseIdentifier: "eventCell")
 
-        instructionsLabel.text = NSLocalizedString("Events_instructions", comment: "")
-        instructionsLabel.textAlignment = .Center
-        instructionsLabel.numberOfLines = 0
+        locateButton.setImage(UIImage(named: "LocateIcon"), forState: .Normal)
+        locateButton.titleEdgeInsets = UIEdgeInsets(top: 0.0, left: 8.0, bottom: 0.0, right: 0.0)
+        locateButton.imageEdgeInsets = UIEdgeInsets(top: 0.0, left: -8.0, bottom: 0.0, right: 0.0)
+        locateButton.setTitle(NSLocalizedString("Events_locate", comment: ""), forState: .Normal)
+        locateButton.setTitleColor(theme.defaultButtonTextColor(), forState: .Normal)
+        locateButton.backgroundColor = theme.defaultButtonBackgroundColor()
+        locateButton.layer.cornerRadius = 5
+        locateButton.clipsToBounds = true
+        locateButton.addTarget(self, action: "didTapLocate:", forControlEvents: .TouchUpInside)
 
         subInstructionsLabel.text = NSLocalizedString("Events_subInstructions", comment: "")
         subInstructionsLabel.textAlignment = .Center
@@ -362,10 +382,11 @@ class EventsController: UIViewController {
         searchButton.titleLabel!.font = self.theme.eventsSearchBarFont()
         cancelButton.titleLabel!.font = self.theme.eventsSearchBarFont()
 
-        instructionsLabel.font = theme.eventsInstructionsFont()
-        instructionsLabel.textColor = theme.eventsInformationTextColor()
         subInstructionsLabel.font = theme.eventsSubInstructionsFont()
         subInstructionsLabel.textColor = theme.eventsInformationTextColor()
+
+        locateButton.titleLabel!.font = self.theme.eventsSearchBarFont()
+        locateIndicatorView.color = self.theme.defaultSpinnerColor()
 
         noResultsLabel.textColor = self.theme.eventsInformationTextColor()
         noResultsLabel.font = self.theme.eventsNoResultsFont()
@@ -379,13 +400,19 @@ class EventsController: UIViewController {
     func setupConstraints() {
         self.setupSearchBarConstraints()
 
-        instructionsLabel.autoAlignAxisToSuperviewAxis(.Vertical)
-        instructionsLabel.autoAlignAxisToSuperviewAxis(.Horizontal)
-        instructionsLabel.autoSetDimension(.Width, toSize: 220)
+        locateButton.autoAlignAxisToSuperviewAxis(.Vertical)
+        locateButton.autoAlignAxisToSuperviewAxis(.Horizontal)
+        locateButton.autoSetDimension(.Height, toSize: 45)
+        locateButton.autoSetDimension(.Width, toSize: 200)
 
-        subInstructionsLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: instructionsLabel, withOffset: 15)
-        subInstructionsLabel.autoPinEdge(.Left, toEdge: .Left, ofView: instructionsLabel, withOffset: 25)
-        subInstructionsLabel.autoPinEdge(.Right, toEdge: .Right, ofView: instructionsLabel, withOffset: -25)
+        locateIndicatorView.autoAlignAxisToSuperviewAxis(.Horizontal)
+        locateIndicatorView.autoAlignAxisToSuperviewAxis(.Vertical)
+        locateIndicatorView.autoSetDimension(.Width, toSize: 50)
+        locateIndicatorView.autoSetDimension(.Height, toSize: 45)
+
+        subInstructionsLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: locateButton, withOffset: 15)
+        subInstructionsLabel.autoPinEdge(.Left, toEdge: .Left, ofView: locateButton, withOffset: 25)
+        subInstructionsLabel.autoPinEdge(.Right, toEdge: .Right, ofView: locateButton, withOffset: -25)
 
         resultsTableView.autoPinEdge(.Top, toEdge: .Bottom, ofView: searchBar)
         resultsTableView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Top)
@@ -442,10 +469,60 @@ class EventsController: UIViewController {
         filterButton.autoAlignAxis(.Horizontal, toSameAxisOfView: zipCodeTextField)
         filterButton.autoSetDimension(.Width, toSize: 24)
     }
+
+    // MARK: <CLLocationManagerDelegate>
+    func requestLocation() {
+        locateIndicatorView.startAnimating()
+        locateIndicatorView.hidesWhenStopped = true
+        locateButton.hidden = true
+
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+
+        if #available(iOS 9.0, *) {
+            locationManager.requestLocation()
+        } else {
+            locationManager.startUpdatingLocation()
+        }
+    }
+
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = manager.location {
+            CLGeocoder().reverseGeocodeLocation(location, completionHandler: {(placemarks, error) -> Void in
+                if error != nil {
+                    self.locateButton.hidden = false
+                    NSLog("Reverse geocoder failed with error" + error!.localizedDescription)
+                    return
+                }
+
+                if placemarks!.count > 0 {
+                    if let postalCode = placemarks![0].postalCode {
+                        self.zipCodeTextField.text = postalCode
+                        self.performSearchWithZipCode(postalCode)
+                    }
+                } else {
+                    self.locateButton.hidden = false
+                    NSLog("Problem with the data received from geocoder")
+                }
+            })
+
+            self.locateIndicatorView.hidden = true
+            manager.stopUpdatingLocation()
+        }
+    }
+
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        if status == CLAuthorizationStatus.AuthorizedWhenInUse {
+            self.requestLocation()
+        }
+    }
+
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        NSLog(error.localizedDescription)
+    }
 }
 
 // swiftlint:enable type_body_length
-
 
 // MARK: <UITableViewDataSource>
 extension EventsController: UITableViewDataSource {
@@ -550,4 +627,5 @@ extension EventsController: UIPickerViewDelegate {
         self.selectedSearchRadiusIndex = row
     }
 }
+
 // swiftlint:enable file_length
