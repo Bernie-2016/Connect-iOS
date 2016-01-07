@@ -56,7 +56,6 @@
 		654773FF1BB23FAE00B87670 /* ConcreteEventRepositorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654773FE1BB23FAE00B87670 /* ConcreteEventRepositorySpec.swift */; };
 		654774031BB2418400B87670 /* EventDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654774021BB2418400B87670 /* EventDeserializer.swift */; };
 		654774051BB241D900B87670 /* ConcreteEventDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654774041BB241D900B87670 /* ConcreteEventDeserializer.swift */; };
-		654948CD1BFA779500C1ECDB /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654948CB1BFA779500C1ECDB /* Parse.framework */; };
 		654948D41BFADBD500C1ECDB /* ApiKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 654948D31BFADBD500C1ECDB /* ApiKeys.plist */; };
 		654948D71BFADF9F00C1ECDB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654948D61BFADF9F00C1ECDB /* SystemConfiguration.framework */; };
 		654948DA1BFAF24000C1ECDB /* APIKeyProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654948D91BFAF24000C1ECDB /* APIKeyProvider.swift */; };
@@ -66,8 +65,6 @@
 		654948E61BFB800A00C1ECDB /* ConcretePushNotificationRegistrarSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654948E51BFB800A00C1ECDB /* ConcretePushNotificationRegistrarSpec.swift */; };
 		654948E81BFB807600C1ECDB /* ConcretePushNotificationRegistrar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654948E71BFB807600C1ECDB /* ConcretePushNotificationRegistrar.swift */; };
 		654948EA1BFB81E700C1ECDB /* ApplicationUserNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654948E91BFB81E700C1ECDB /* ApplicationUserNotificationHandler.swift */; };
-		654948EB1BFB86BB00C1ECDB /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654948CA1BFA779500C1ECDB /* Bolts.framework */; };
-		654948EC1BFB872000C1ECDB /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654948CA1BFA779500C1ECDB /* Bolts.framework */; };
 		65494C581BFB878B00C1ECDB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654948D61BFADF9F00C1ECDB /* SystemConfiguration.framework */; };
 		65494C5F1BFB8EBB00C1ECDB /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65494C5D1BFB87B200C1ECDB /* AudioToolbox.framework */; };
 		65494C601BFB8EC100C1ECDB /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 65494C5B1BFB87AA00C1ECDB /* libsqlite3.tbd */; };
@@ -82,6 +79,10 @@
 		654AD3571BB8787000A59966 /* ConcreteEventControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654AD3561BB8787000A59966 /* ConcreteEventControllerProvider.swift */; };
 		654B55B51BB4882700492610 /* EventPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654B55B41BB4882700492610 /* EventPresenter.swift */; };
 		654B55B71BB4888D00492610 /* EventPresenterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654B55B61BB4888D00492610 /* EventPresenterSpec.swift */; };
+		654D12921C3E0F28000A2982 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654D128E1C3E0F28000A2982 /* Bolts.framework */; };
+		654D12941C3E0F28000A2982 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654D12901C3E0F28000A2982 /* Parse.framework */; };
+		654D12961C3E0F4D000A2982 /* Bolts.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 654D128F1C3E0F28000A2982 /* Bolts.framework.dSYM */; };
+		654D12971C3E0F4F000A2982 /* Parse.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 654D12911C3E0F28000A2982 /* Parse.framework.dSYM */; };
 		654D2F5F1C136EC1001AA09B /* NewsFeedArticlePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654D2F5E1C136EC1001AA09B /* NewsFeedArticlePresenter.swift */; };
 		654D2F611C1375CC001AA09B /* NewsFeedArticlePresenterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654D2F601C1375CC001AA09B /* NewsFeedArticlePresenterSpec.swift */; };
 		654D2F631C137A21001AA09B /* FakeNewsFeedTableViewCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654D2F621C137A21001AA09B /* FakeNewsFeedTableViewCellPresenter.swift */; };
@@ -241,7 +242,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				654D12961C3E0F4D000A2982 /* Bolts.framework.dSYM in Copy symbolication files */,
 				652B42CE1C3C678E002FD38F /* BrightFutures.framework.dSYM in Copy symbolication files */,
+				654D12971C3E0F4F000A2982 /* Parse.framework.dSYM in Copy symbolication files */,
 				65B165561B9747350052EF8D /* PureLayout.framework.dSYM in Copy symbolication files */,
 				65B165571B9747350052EF8D /* WebImage.framework.dSYM in Copy symbolication files */,
 				652B42CF1C3C6792002FD38F /* XCDYouTubeKit.framework.dSYM in Copy symbolication files */,
@@ -313,8 +316,6 @@
 		654773FE1BB23FAE00B87670 /* ConcreteEventRepositorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteEventRepositorySpec.swift; sourceTree = "<group>"; };
 		654774021BB2418400B87670 /* EventDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDeserializer.swift; sourceTree = "<group>"; };
 		654774041BB241D900B87670 /* ConcreteEventDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteEventDeserializer.swift; sourceTree = "<group>"; };
-		654948CA1BFA779500C1ECDB /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
-		654948CB1BFA779500C1ECDB /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		654948CF1BFA797E00C1ECDB /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		654948D01BFA797E00C1ECDB /* FlurryWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryWatch.h; sourceTree = "<group>"; };
 		654948D11BFA797E00C1ECDB /* libFlurry_7.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_7.3.0.a; sourceTree = "<group>"; };
@@ -338,6 +339,10 @@
 		654AD3561BB8787000A59966 /* ConcreteEventControllerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteEventControllerProvider.swift; sourceTree = "<group>"; };
 		654B55B41BB4882700492610 /* EventPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventPresenter.swift; sourceTree = "<group>"; };
 		654B55B61BB4888D00492610 /* EventPresenterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventPresenterSpec.swift; sourceTree = "<group>"; };
+		654D128E1C3E0F28000A2982 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = Carthage/Build/iOS/Bolts.framework; sourceTree = "<group>"; };
+		654D128F1C3E0F28000A2982 /* Bolts.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Bolts.framework.dSYM; path = Carthage/Build/iOS/Bolts.framework.dSYM; sourceTree = "<group>"; };
+		654D12901C3E0F28000A2982 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = Carthage/Build/iOS/Parse.framework; sourceTree = "<group>"; };
+		654D12911C3E0F28000A2982 /* Parse.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Parse.framework.dSYM; path = Carthage/Build/iOS/Parse.framework.dSYM; sourceTree = "<group>"; };
 		654D2F5E1C136EC1001AA09B /* NewsFeedArticlePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFeedArticlePresenter.swift; sourceTree = "<group>"; };
 		654D2F601C1375CC001AA09B /* NewsFeedArticlePresenterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFeedArticlePresenterSpec.swift; sourceTree = "<group>"; };
 		654D2F621C137A21001AA09B /* FakeNewsFeedTableViewCellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeNewsFeedTableViewCellPresenter.swift; sourceTree = "<group>"; };
@@ -489,13 +494,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				65494C5F1BFB8EBB00C1ECDB /* AudioToolbox.framework in Frameworks */,
-				654948EB1BFB86BB00C1ECDB /* Bolts.framework in Frameworks */,
+				654D12921C3E0F28000A2982 /* Bolts.framework in Frameworks */,
 				65712BA61C18A1B40036DE5D /* BrightFutures.framework in Frameworks */,
 				65A5C0FC1BA29F2200D46500 /* Crashlytics.framework in Frameworks */,
 				65A5C0FA1BA2978600D46500 /* Fabric.framework in Frameworks */,
 				654948DB1BFAFAE300C1ECDB /* libFlurry_7.3.0.a in Frameworks */,
 				65494C601BFB8EC100C1ECDB /* libsqlite3.tbd in Frameworks */,
-				654948CD1BFA779500C1ECDB /* Parse.framework in Frameworks */,
+				654D12941C3E0F28000A2982 /* Parse.framework in Frameworks */,
 				65CA5E991B86E76D0001D870 /* PureLayout.framework in Frameworks */,
 				654948D71BFADF9F00C1ECDB /* SystemConfiguration.framework in Frameworks */,
 				65AD23AF1B96413200C32A02 /* WebImage.framework in Frameworks */,
@@ -508,7 +513,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				65494C611BFB8ED800C1ECDB /* AudioToolbox.framework in Frameworks */,
-				654948EC1BFB872000C1ECDB /* Bolts.framework in Frameworks */,
 				65494C621BFB8EDD00C1ECDB /* libsqlite3.tbd in Frameworks */,
 				65EC4CEC1B842A0B00DD4C83 /* Nimble.framework in Frameworks */,
 				65EC4CEE1B842A1900DD4C83 /* Quick.framework in Frameworks */,
@@ -900,10 +904,8 @@
 			isa = PBXGroup;
 			children = (
 				654948CE1BFA797E00C1ECDB /* Flurry */,
-				654948CA1BFA779500C1ECDB /* Bolts.framework */,
 				65A5C0FB1BA29F2200D46500 /* Crashlytics.framework */,
 				65A5C0F91BA2978600D46500 /* Fabric.framework */,
-				654948CB1BFA779500C1ECDB /* Parse.framework */,
 			);
 			path = Externals;
 			sourceTree = "<group>";
@@ -961,9 +963,13 @@
 		65EC4CF21B842A3D00DD4C83 /* Carthage */ = {
 			isa = PBXGroup;
 			children = (
+				654D128E1C3E0F28000A2982 /* Bolts.framework */,
+				654D128F1C3E0F28000A2982 /* Bolts.framework.dSYM */,
 				65712BA41C18A1B40036DE5D /* BrightFutures.framework */,
 				65712BA51C18A1B40036DE5D /* BrightFutures.framework.dSYM */,
 				65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */,
+				654D12901C3E0F28000A2982 /* Parse.framework */,
+				654D12911C3E0F28000A2982 /* Parse.framework.dSYM */,
 				65CA5E981B86E76D0001D870 /* PureLayout.framework */,
 				65B1654E1B9747240052EF8D /* PureLayout.framework.dSYM */,
 				65EC4CED1B842A1900DD4C83 /* Quick.framework */,
@@ -1366,6 +1372,8 @@
 				"$(PROJECT_DIR)/Carthage/Build/iOS/BrightFutures.framework",
 				"$(PROJECT_DIR)/Carthage/Build/iOS/Result.framework",
 				"$(PROJECT_DIR)/Carthage/Build/iOS/XCDYouTubeKit.framework",
+				"$(PROJECT_DIR)/Carthage/Build/iOS/Parse.framework",
+				"$(PROJECT_DIR)/Carthage/Build/iOS/Bolts.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (
