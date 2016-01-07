@@ -36,6 +36,8 @@ class TermsAndConditionsController: UIViewController {
     }
 
     override func didMoveToParentViewController(parent: UIViewController?) {
-        self.analyticsService.trackBackButtonTapOnScreen("Terms and Conditions", customAttributes:  nil)
+        if parent == nil {
+            self.analyticsService.trackBackButtonTapOnScreen("Terms and Conditions", customAttributes:  nil)
+        }
     }
 }

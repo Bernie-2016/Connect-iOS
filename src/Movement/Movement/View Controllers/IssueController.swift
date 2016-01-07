@@ -74,7 +74,9 @@ class IssueController: UIViewController {
     }
 
     override func didMoveToParentViewController(parent: UIViewController?) {
-        self.analyticsService.trackBackButtonTapOnScreen("Issue", customAttributes: [AnalyticsServiceConstants.contentIDKey: issue.url.absoluteString])
+        if parent == nil {
+            self.analyticsService.trackBackButtonTapOnScreen("Issue", customAttributes: [AnalyticsServiceConstants.contentIDKey: issue.url.absoluteString])
+        }
     }
 
     override func updateViewConstraints() {

@@ -67,7 +67,9 @@ class AboutController: UIViewController {
     }
 
     override func didMoveToParentViewController(parent: UIViewController?) {
-        self.analyticsService.trackBackButtonTapOnScreen("About", customAttributes: nil)
+        if parent === nil {
+            self.analyticsService.trackBackButtonTapOnScreen("About", customAttributes: nil)
+        }
     }
 
     override func updateViewConstraints() {

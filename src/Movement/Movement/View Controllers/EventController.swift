@@ -92,7 +92,9 @@ class EventController: UIViewController {
     }
 
     override func didMoveToParentViewController(parent: UIViewController?) {
-        self.analyticsService.trackBackButtonTapOnScreen("Event", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.event.url.absoluteString])
+        if parent == nil {
+            self.analyticsService.trackBackButtonTapOnScreen("Event", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.event.url.absoluteString])
+        }
     }
 
     override func updateViewConstraints() {

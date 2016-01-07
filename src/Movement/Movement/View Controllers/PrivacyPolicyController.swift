@@ -37,6 +37,8 @@ class PrivacyPolicyController: UIViewController {
     }
 
     override func didMoveToParentViewController(parent: UIViewController?) {
-        self.analyticsService.trackBackButtonTapOnScreen("Privacy Policy", customAttributes:  nil)
+        if parent == nil {
+            self.analyticsService.trackBackButtonTapOnScreen("Privacy Policy", customAttributes:  nil)
+        }
     }
 }

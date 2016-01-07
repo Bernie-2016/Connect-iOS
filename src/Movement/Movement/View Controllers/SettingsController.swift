@@ -51,7 +51,9 @@ class SettingsController: UITableViewController {
     }
 
     override func didMoveToParentViewController(parent: UIViewController?) {
-        self.analyticsService.trackBackButtonTapOnScreen("Settings", customAttributes:  nil)
+        if parent == nil {
+            self.analyticsService.trackBackButtonTapOnScreen("Settings", customAttributes:  nil)
+        }
     }
 
     // MARK: <UITableViewDataSource>

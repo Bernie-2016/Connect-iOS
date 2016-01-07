@@ -30,6 +30,10 @@ class TermsAndConditionsControllerSpec : QuickSpec {
                 }
 
                 it("tracks taps on the back button with the analytics service") {
+                    self.subject.didMoveToParentViewController(UIViewController())
+
+                    expect(self.analyticsService.lastBackButtonTapScreen).to(beNil())
+
                     self.subject.didMoveToParentViewController(nil)
 
                     expect(self.analyticsService.lastBackButtonTapScreen).to(equal("Terms and Conditions"))

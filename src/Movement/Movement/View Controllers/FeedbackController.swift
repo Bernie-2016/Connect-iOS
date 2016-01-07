@@ -33,8 +33,9 @@ class FeedbackController: UIViewController, UIWebViewDelegate {
     }
 
     override func didMoveToParentViewController(parent: UIViewController?) {
-        self.analyticsService.trackBackButtonTapOnScreen("Feedback", customAttributes: nil)
-
+        if parent == nil {
+            self.analyticsService.trackBackButtonTapOnScreen("Feedback", customAttributes: nil)
+        }
     }
 
     // MARK: UIWebViewDelegate

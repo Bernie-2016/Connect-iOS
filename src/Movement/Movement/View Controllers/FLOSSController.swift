@@ -32,6 +32,8 @@ class FLOSSController: UIViewController {
     }
 
     override func didMoveToParentViewController(parent: UIViewController?) {
-        self.analyticsService.trackBackButtonTapOnScreen("Open Source Software", customAttributes: nil)
+        if parent == nil {
+            self.analyticsService.trackBackButtonTapOnScreen("Open Source Software", customAttributes: nil)
+        }
     }
 }
