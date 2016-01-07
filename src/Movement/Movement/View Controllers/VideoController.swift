@@ -79,6 +79,13 @@ class VideoController: UIViewController {
         setupConstraints()
     }
 
+    override func viewWillDisappear(animated: Bool) {
+        if !videoController.moviePlayer.fullscreen {
+            videoController.moviePlayer.stop()
+            videoController = nil
+        }
+    }
+
     override func updateViewConstraints() {
         super.updateViewConstraints()
 
