@@ -1,5 +1,5 @@
 import UIKit
-
+import AVFoundation
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var pushNotificationRegistrar: PushNotificationRegistrar!
@@ -10,6 +10,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
             self.appBootstrapper.bootstrapWithApplication(application)
             self.pushNotificationRegistrar = appBootstrapper.pushNotificationRegistrar
+
+            let audioSession = AVAudioSession.sharedInstance()
+            do {
+                try audioSession.setCategory(AVAudioSessionCategoryPlayback)
+            } catch {
+                NSLog("Error setting audio category")
+            }
 
             return true
     }
