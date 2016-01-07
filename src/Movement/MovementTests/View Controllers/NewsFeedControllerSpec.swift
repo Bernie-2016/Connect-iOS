@@ -25,7 +25,7 @@ private class NewsFakeTheme : FakeTheme {
 
 private class FakeNewsFeedService: NewsFeedService {
     var lastCompletionBlock: (([NewsFeedItem]) -> Void)?
-    var lastErrorBlock: ((NSError) -> Void)?
+    var lastErrorBlock: ((ErrorType) -> Void)?
     var fetchNewsFeedCalled: Bool = false
 
     func fetchNewsFeed(completion: ([NewsFeedItem]) -> Void, error: (ErrorType) -> Void) {
