@@ -67,16 +67,8 @@ private class EventsFakeTheme : FakeTheme {
         return UIFont.italicSystemFontOfSize(777)
     }
 
-    override func eventsInformationTextColor() -> UIColor {
-        return UIColor.blueColor()
-    }
-
     override func defaultSpinnerColor() -> UIColor {
         return UIColor.blackColor()
-    }
-
-    override func eventsInstructionsFont() -> UIFont {
-        return UIFont.italicSystemFontOfSize(666)
     }
 
     private override func eventsSubInstructionsFont() -> UIFont {
@@ -93,6 +85,26 @@ private class EventsFakeTheme : FakeTheme {
 
     override func eventsListSectionHeaderFont() -> UIFont {
         return UIFont.italicSystemFontOfSize(999)
+    }
+
+
+    override func eventsInformationTextColor() -> UIColor {
+        return UIColor.blueColor()
+    }
+
+
+    // TODO: use the below in tests.
+
+    override func defaultButtonFont() -> UIFont {
+        return UIFont.italicSystemFontOfSize(666)
+    }
+
+    override func defaultButtonBackgroundColor() -> UIColor {
+        return UIColor.blueColor()
+    }
+
+    override func defaultButtonTextColor() -> UIColor {
+        return UIColor.blueColor()
     }
 }
 
@@ -251,7 +263,7 @@ class EventsControllerSpec : QuickSpec {
             it("should add its view components as subviews") {
                 let subViews = self.subject.view.subviews
 
-                expect(subViews.count).to(equal(7))
+                expect(subViews.count).to(equal(8))
 
                 expect(subViews.contains(self.subject.searchBar)).to(beTrue())
                 expect(subViews.contains(self.subject.locateButton)).to(beTrue())
@@ -261,6 +273,7 @@ class EventsControllerSpec : QuickSpec {
                 expect(subViews.contains(self.subject.createEventCTATextView)).to(beTrue())
                 expect(subViews.contains(self.subject.resultsTableView)).to(beTrue())
                 expect(subViews.contains(self.subject.loadingActivityIndicatorView)).to(beTrue())
+                expect(subViews.contains(self.subject.locateButton)).to(beTrue())
             }
 
             it("should hide the results table view by default") {
@@ -322,7 +335,7 @@ class EventsControllerSpec : QuickSpec {
                 expect(borderColor).to(equal(UIColor.orangeColor()))
 
                 expect(self.subject.locateButton.titleLabel!.textColor).to(equal(UIColor.blueColor()))
-                expect(self.subject.locateButton.titleLabel!.font).to(equal(UIFont.italicSystemFontOfSize(666)))
+                expect(self.subject.locateButton.titleLabel!.font).to(equal(UIFont.boldSystemFontOfSize(4444)))
 
                 expect(self.subject.subInstructionsLabel.textColor).to(equal(UIColor.blueColor()))
                 expect(self.subject.subInstructionsLabel.font).to(equal(UIFont.italicSystemFontOfSize(555)))
