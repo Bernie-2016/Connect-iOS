@@ -79,15 +79,17 @@ class ConcreteNewsArticleRepositorySpec: QuickSpec {
                         let promise = jsonClient.promisesByURL[urlProvider.newsFeedURL()]!
 
                         promise.success(expectedJSONDictionary)
-                        expect(operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
                     }
 
                     it("passes the json dictionary to the news item deserializer") {
+                        expect(operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
+
                         expect(newsArticleDeserializer.lastReceivedJSONDictionary).to(beIdenticalTo(expectedJSONDictionary))
                     }
 
                     it("calls the completion handler with the deserialized value objects on the operation queue") {
                         expect(operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
+
                         operationQueue.lastReceivedBlock()
                         let receivedNewsArticles =  newsArticlesFuture.value!
                         expect(receivedNewsArticles.count).to(equal(1))
