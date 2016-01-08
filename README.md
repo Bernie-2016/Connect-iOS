@@ -13,7 +13,7 @@ Slack channel (you can request access [here](https://docs.google.com/forms/d/1pm
 
 # Setting up build environment
 
-This app will compile with Xcode 7.0. It is bootstrapped using Carthage for project file purity reasons.
+This app will compile with Xcode 7.0. It is bootstrapped using Carthage.
 
 ## Install carthage
 
@@ -31,7 +31,7 @@ You should now be able to run tests in Xcode by lightly depressing the key combi
 
 ## Making changes
 
-In order to make changes, you need to get your development environment set up, make your changes on a fork of the BernieiOS repository and then issue a pull request.  Please follow the advice below to ensure that your contribution will be readily accepted.
+In order to make changes, you need to get your development environment set up, make your changes on a fork of the Movement repository and then issue a pull request.  Please follow the advice below to ensure that your contribution will be readily accepted.
 
 ### Make your changes
 
