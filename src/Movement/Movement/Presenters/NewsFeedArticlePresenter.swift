@@ -1,14 +1,14 @@
 import Foundation
-import BrightFutures
+import CBGPromise
 
 class NewsFeedArticlePresenter: NewsFeedTableViewCellPresenter {
     private let timeIntervalFormatter: TimeIntervalFormatter
-    private let imageRepository: ImageRepository
+    private let imageService: ImageService
     private let theme: Theme
 
-    init(timeIntervalFormatter: TimeIntervalFormatter, imageRepository: ImageRepository, theme: Theme) {
+    init(timeIntervalFormatter: TimeIntervalFormatter, imageService: ImageService, theme: Theme) {
         self.timeIntervalFormatter = timeIntervalFormatter
-        self.imageRepository = imageRepository
+        self.imageService = imageService
         self.theme = theme
     }
 
@@ -30,13 +30,15 @@ class NewsFeedArticlePresenter: NewsFeedTableViewCellPresenter {
 
         cell.newsImageView.image = nil
 
-        if newsArticle.imageURL == nil {
+        guard let imageURL = newsArticle.imageURL else {
             cell.newsImageVisible = false
-        } else {
-            cell.newsImageVisible = true
-            imageRepository.fetchImageWithURL(newsArticle.imageURL!).onSuccess(ImmediateOnMainExecutionContext, callback: { (image) -> Void in
-                cell.newsImageView.image = image
-            })
+            return cell
+        }
+
+        cell.newsImageVisible = true
+        let imageFuture = imageService.fetchImageWithURL(imageURL)
+        imageFuture.then { image in
+            cell.newsImageView.image = image
         }
 
         return cell

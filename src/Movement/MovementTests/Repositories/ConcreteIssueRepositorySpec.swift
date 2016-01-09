@@ -23,30 +23,27 @@ class ConcreteIssueRepositorySpec : QuickSpec {
     var jsonClient: FakeJSONClient!
     private let urlProvider = IssueRepositoryFakeURLProvider()
     private var issueDeserializer: FakeIssueDeserializer!
-    var operationQueue: FakeOperationQueue!
     var receivedIssues: Array<Issue>!
     var receivedError: NSError!
 
     override func spec() {
-        xdescribe("ConcreteIssueRepository") {
+        describe("ConcreteIssueRepository") {
             beforeEach() {
                 self.jsonClient = FakeJSONClient()
                 self.issueDeserializer = FakeIssueDeserializer()
-                self.operationQueue = FakeOperationQueue()
 
                 self.subject = ConcreteIssueRepository(
                     urlProvider: self.urlProvider,
                     jsonClient: self.jsonClient,
-                    issueDeserializer: self.issueDeserializer,
-                    operationQueue: self.operationQueue
+                    issueDeserializer: self.issueDeserializer
                 )
             }
 
             describe(".fetchIssues") {
                 beforeEach {
-                    self.subject.fetchIssues({ (issues) -> Void in
+                    self.subject.fetchIssues({ issues in
                         self.receivedIssues = issues
-                        }, error: { (error) -> Void in
+                        }, error: { error in
                             self.receivedError = error
                     })
                 }
@@ -83,16 +80,14 @@ class ConcreteIssueRepositorySpec : QuickSpec {
                         expectedIssues = self.issueDeserializer.returnedIssues
                         let promise = self.jsonClient.promisesByURL[self.urlProvider.issuesFeedURL()]!
 
-                        promise.success(expectedJSONDictionary)
-                        expect(self.operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
+                        promise.resolve(expectedJSONDictionary)
                     }
 
                     it("passes the JSON document to the issue deserializer") {
                         expect(self.issueDeserializer.lastReceivedJSONDictionary).to(beIdenticalTo(expectedJSONDictionary))
                     }
 
-                    it("calls the completion handler with the deserialized value objects on the operation queue") {
-                        self.operationQueue.lastReceivedBlock()
+                    it("calls the completion handler with the deserialized value objects") {
                         expect(self.receivedIssues.count).to(equal(1))
                         expect(self.receivedIssues.first!).to(beIdenticalTo(expectedIssues.first!))
                     }
@@ -102,24 +97,20 @@ class ConcreteIssueRepositorySpec : QuickSpec {
                     beforeEach {
                         let promise = self.jsonClient.promisesByURL[self.urlProvider.issuesFeedURL()]!
 
-                        promise.success([1,2,3])
-                        expect(self.operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
+                        promise.resolve([1,2,3])
                     }
 
                     it("calls the completion handler with an error") {
-                        self.operationQueue.lastReceivedBlock()
                         expect(self.receivedError).notTo(beNil())
                     }
                 }
 
                 context("when the request to the JSON client fails") {
-                    it("forwards the error to the caller on the operation queue") {
+                    it("forwards the error to the caller") {
                         let promise = self.jsonClient.promisesByURL[self.urlProvider.issuesFeedURL()]!
                         let expectedError = NSError(domain: "somedomain", code: 666, userInfo: nil)
-                        promise.failure(expectedError)
-                        expect(self.operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
+                        promise.reject(expectedError)
 
-                        self.operationQueue.lastReceivedBlock()
                         expect(self.receivedError).to(beIdenticalTo(expectedError))
                     }
                 }

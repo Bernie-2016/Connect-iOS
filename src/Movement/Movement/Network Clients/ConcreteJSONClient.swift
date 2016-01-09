@@ -1,5 +1,5 @@
 import Foundation
-import BrightFutures
+import CBGPromise
 import Result
 
 class ConcreteJSONClient: JSONClient {
@@ -23,7 +23,7 @@ class ConcreteJSONClient: JSONClient {
             do {
                 httpBody = try self.jsonSerializationProvider.dataWithJSONObject(bodyDictionary!, options: NSJSONWritingOptions())
             } catch let error as NSError {
-                promise.failure(error)
+                promise.reject(error)
                 return promise.future
             }
         }
@@ -42,19 +42,19 @@ class ConcreteJSONClient: JSONClient {
     func makeRequest(request: NSURLRequest, promise: Promise<AnyObject, NSError>) {
         let task = self.urlSession.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
             if error != nil {
-                promise.failure(error!)
+                promise.reject(error!)
                 return
             }
 
             guard let httpResponse = response as? NSHTTPURLResponse else {
                 let httpResponseUnwrappingError = NSError(domain: ConcreteJSONClient.Error.badResponse, code: -1, userInfo: nil)
-                promise.failure(httpResponseUnwrappingError)
+                promise.reject(httpResponseUnwrappingError)
                 return
             }
 
             if httpResponse.statusCode != 200 {
                 let httpError = NSError(domain: ConcreteJSONClient.Error.badResponse, code: httpResponse.statusCode, userInfo: nil)
-                promise.failure(httpError)
+                promise.reject(httpError)
                 return
             }
 
@@ -62,11 +62,11 @@ class ConcreteJSONClient: JSONClient {
             do {
                 jsonBody = try self.jsonSerializationProvider.jsonObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments)
             } catch let error as NSError {
-                promise.failure(error)
+                promise.reject(error)
                 return
             }
 
-            promise.success(jsonBody!)
+            promise.resolve(jsonBody!)
         })
 
         task.resume()

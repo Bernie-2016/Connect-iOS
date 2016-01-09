@@ -1,11 +1,11 @@
 import UIKit
 import PureLayout
-import BrightFutures
+import CBGPromise
 import Result
 
 class IssueController: UIViewController {
     let issue: Issue
-    let imageRepository: ImageRepository
+    let imageService: ImageService
     let analyticsService: AnalyticsService
     let urlOpener: URLOpener
     let urlAttributionPresenter: URLAttributionPresenter
@@ -21,13 +21,13 @@ class IssueController: UIViewController {
     let viewOriginalButton = UIButton.newAutoLayoutView()
 
     init(issue: Issue,
-        imageRepository: ImageRepository,
+        imageService: ImageService,
         analyticsService: AnalyticsService,
         urlOpener: URLOpener,
         urlAttributionPresenter: URLAttributionPresenter,
         theme: Theme) {
         self.issue = issue
-        self.imageRepository = imageRepository
+        self.imageService = imageService
         self.analyticsService = analyticsService
         self.urlOpener = urlOpener
         self.urlAttributionPresenter = urlAttributionPresenter
@@ -63,10 +63,14 @@ class IssueController: UIViewController {
         applyThemeToViews()
 
         if issue.imageURL != nil {
-            imageRepository.fetchImageWithURL(self.issue.imageURL!).onSuccess(ImmediateOnMainExecutionContext, callback: { (image) -> Void in
+            let imageFuture = imageService.fetchImageWithURL(self.issue.imageURL!)
+
+            imageFuture.then({ image in
                 self.issueImageView.image = image
-            }).onFailure(ImmediateOnMainExecutionContext, callback: { (error) -> Void in
-                    self.issueImageView.removeFromSuperview()
+            })
+
+            imageFuture.error({ error in
+                self.issueImageView.removeFromSuperview()
             })
         } else {
             issueImageView.removeFromSuperview()
@@ -75,7 +79,7 @@ class IssueController: UIViewController {
 
     override func didMoveToParentViewController(parent: UIViewController?) {
         if parent == nil {
-            self.analyticsService.trackBackButtonTapOnScreen("Issue", customAttributes: [AnalyticsServiceConstants.contentIDKey: issue.url.absoluteString])
+            analyticsService.trackBackButtonTapOnScreen("Issue", customAttributes: [AnalyticsServiceConstants.contentIDKey: issue.url.absoluteString])
         }
     }
 
@@ -83,7 +87,7 @@ class IssueController: UIViewController {
         super.updateViewConstraints()
 
         let screenBounds = UIScreen.mainScreen().bounds
-        self.containerViewWidthConstraint.constant = screenBounds.width
+        containerViewWidthConstraint.constant = screenBounds.width
     }
 
     // MARK: Actions
@@ -95,7 +99,6 @@ class IssueController: UIViewController {
             ])
 
         let activityVC = UIActivityViewController(activityItems: [issue.url], applicationActivities: nil)
-
         activityVC.completionWithItemsHandler = { activity, success, items, error in
             if error != nil {
                 self.analyticsService.trackError(error!, context: "Failed to share Issue")

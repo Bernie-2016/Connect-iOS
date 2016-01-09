@@ -1,12 +1,12 @@
 import UIKit
 import PureLayout
-import BrightFutures
+import CBGPromise
 import Result
 
 // swiftlint:disable type_body_length
 class NewsArticleController: UIViewController {
     let newsArticle: NewsArticle
-    let imageRepository: ImageRepository
+    let imageService: ImageService
     let timeIntervalFormatter: TimeIntervalFormatter
     let analyticsService: AnalyticsService
     let urlOpener: URLOpener
@@ -25,7 +25,7 @@ class NewsArticleController: UIViewController {
 
     init(
         newsArticle: NewsArticle,
-        imageRepository: ImageRepository,
+        imageService: ImageService,
         timeIntervalFormatter: TimeIntervalFormatter,
         analyticsService: AnalyticsService,
         urlOpener: URLOpener,
@@ -33,7 +33,7 @@ class NewsArticleController: UIViewController {
         theme: Theme) {
 
         self.newsArticle = newsArticle
-        self.imageRepository = imageRepository
+        self.imageService = imageService
         self.timeIntervalFormatter = timeIntervalFormatter
         self.analyticsService = analyticsService
         self.urlOpener = urlOpener
@@ -75,15 +75,14 @@ class NewsArticleController: UIViewController {
         applyThemeToViews()
         setupConstraintsAndLayout()
 
-        if self.newsArticle.imageURL != nil {
-            self.imageRepository.fetchImageWithURL(self.newsArticle.imageURL!).onSuccess(ImmediateOnMainExecutionContext, callback: { (image) -> Void in
-                self.storyImageView.image = image
-            }).onFailure(ImmediateOnMainExecutionContext, callback: { (error) -> Void in
-                self.storyImageView.removeFromSuperview()
-            })
-        } else {
+        guard let imageURL = newsArticle.imageURL else {
             self.storyImageView.removeFromSuperview()
+            return
         }
+
+        let imageFuture = imageService.fetchImageWithURL(imageURL)
+        imageFuture.then { image in self.storyImageView.image = image }
+        imageFuture.error { error in self.storyImageView.removeFromSuperview() }
     }
 
     required init?(coder aDecoder: NSCoder) {

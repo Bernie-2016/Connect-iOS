@@ -3,7 +3,7 @@ import WebImage
 
 class ConcreteNewsFeedItemControllerProvider: NewsFeedItemControllerProvider {
     private let timeIntervalFormatter: TimeIntervalFormatter
-    private let imageRepository: ImageRepository
+    private let imageService: ImageService
     private let analyticsService: AnalyticsService
     private let urlOpener: URLOpener
     private let urlAttributionPresenter: URLAttributionPresenter
@@ -11,14 +11,14 @@ class ConcreteNewsFeedItemControllerProvider: NewsFeedItemControllerProvider {
     private let theme: Theme
 
     init(timeIntervalFormatter: TimeIntervalFormatter,
-        imageRepository: ImageRepository,
+        imageService: ImageService,
         analyticsService: AnalyticsService,
         urlOpener: URLOpener,
         urlAttributionPresenter: URLAttributionPresenter,
         urlProvider: URLProvider,
         theme: Theme) {
         self.timeIntervalFormatter = timeIntervalFormatter
-        self.imageRepository = imageRepository
+        self.imageService = imageService
         self.analyticsService = analyticsService
         self.urlOpener = urlOpener
         self.urlProvider = urlProvider
@@ -31,7 +31,7 @@ class ConcreteNewsFeedItemControllerProvider: NewsFeedItemControllerProvider {
             let newsArticle: NewsArticle! = newsFeedItem as? NewsArticle
             return NewsArticleController(
                 newsArticle: newsArticle,
-                imageRepository: self.imageRepository,
+                imageService: self.imageService,
                 timeIntervalFormatter: self.timeIntervalFormatter,
                 analyticsService: self.analyticsService,
                 urlOpener: self.urlOpener,
@@ -40,7 +40,7 @@ class ConcreteNewsFeedItemControllerProvider: NewsFeedItemControllerProvider {
         } else if newsFeedItem is Video {
             let video: Video! = newsFeedItem as? Video
             return VideoController(video: video,
-                imageRepository: imageRepository,
+                imageService: imageService,
                 timeIntervalFormatter: timeIntervalFormatter,
                 urlProvider: urlProvider,
                 urlOpener: urlOpener,

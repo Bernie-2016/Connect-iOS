@@ -39,114 +39,114 @@ class IssueFakeTheme : FakeTheme {
 
 
 class IssueControllerSpec : QuickSpec {
-    var subject : IssueController!
-    var imageRepository : FakeImageRepository!
-    var analyticsService: FakeAnalyticsService!
-    var urlOpener: FakeURLOpener!
-    var urlAttributionPresenter: FakeURLAttributionPresenter!
-    let issue = TestUtils.issue()
-
     override func spec() {
         describe("IssueController") {
+            var subject : IssueController!
+            var imageService : FakeImageService!
+            var analyticsService: FakeAnalyticsService!
+            var urlOpener: FakeURLOpener!
+            var urlAttributionPresenter: FakeURLAttributionPresenter!
+            let issue = TestUtils.issue()
+
             context("with a standard issue") {
                 beforeEach {
-                    self.imageRepository = FakeImageRepository()
-                    self.analyticsService = FakeAnalyticsService()
-                    self.urlOpener = FakeURLOpener()
-                    self.urlAttributionPresenter = FakeURLAttributionPresenter()
+                    imageService = FakeImageService()
+                    analyticsService = FakeAnalyticsService()
+                    urlOpener = FakeURLOpener()
+                    urlAttributionPresenter = FakeURLAttributionPresenter()
 
-                    self.subject = IssueController(
-                        issue: self.issue,
-                        imageRepository: self.imageRepository,
-                        analyticsService: self.analyticsService,
-                        urlOpener: self.urlOpener,
-                        urlAttributionPresenter: self.urlAttributionPresenter,
+                    subject = IssueController(
+                        issue: issue,
+                        imageService: imageService,
+                        analyticsService: analyticsService,
+                        urlOpener: urlOpener,
+                        urlAttributionPresenter: urlAttributionPresenter,
                         theme: IssueFakeTheme())
                 }
 
                 it("should hide the tab bar when pushed") {
-                    expect(self.subject.hidesBottomBarWhenPushed).to(beTrue())
+                    expect(subject.hidesBottomBarWhenPushed).to(beTrue())
                 }
 
                 describe("when the view loads") {
                     beforeEach {
-                        self.subject.view.layoutIfNeeded()
+                        subject.view.layoutIfNeeded()
                     }
 
                     it("has a share button on the navigation item") {
-                        let shareBarButtonItem = self.subject.navigationItem.rightBarButtonItem!
+                        let shareBarButtonItem = subject.navigationItem.rightBarButtonItem!
                         expect(shareBarButtonItem.title).to(equal("Share"))
                     }
 
                     it("sets up the body text view not to be editable") {
-                        expect(self.subject.bodyTextView.editable).to(beFalse())
+                        expect(subject.bodyTextView.editable).to(beFalse())
                     }
 
                     describe("tapping on the share button") {
                         beforeEach {
-                            self.subject.navigationItem.rightBarButtonItem!.tap()
+                            subject.navigationItem.rightBarButtonItem!.tap()
                         }
 
                         it("should present an activity view controller for sharing the story URL") {
-                            let activityViewControler = self.subject.presentedViewController as! UIActivityViewController
+                            let activityViewControler = subject.presentedViewController as! UIActivityViewController
                             let activityItems = activityViewControler.activityItems()
 
                             expect(activityItems.count).to(equal(1))
-                            expect(activityItems.first as? NSURL).to(beIdenticalTo(self.issue.url))
+                            expect(activityItems.first as? NSURL).to(beIdenticalTo(issue.url))
                         }
 
                         it("logs that the user tapped share") {
-                            expect(self.analyticsService.lastCustomEventName).to(equal("Began Share"))
+                            expect(analyticsService.lastCustomEventName).to(equal("Began Share"))
                             let expectedAttributes = [
-                                AnalyticsServiceConstants.contentIDKey: self.issue.url.absoluteString,
-                                AnalyticsServiceConstants.contentNameKey: self.issue.title,
+                                AnalyticsServiceConstants.contentIDKey: issue.url.absoluteString,
+                                AnalyticsServiceConstants.contentNameKey: issue.title,
                                 AnalyticsServiceConstants.contentTypeKey: "Issue"
                             ]
-                            expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
+                            expect(analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                         }
 
                         context("and the user completes the share succesfully") {
                             it("tracks the share via the analytics service") {
-                                let activityViewControler = self.subject.presentedViewController as! UIActivityViewController
+                                let activityViewControler = subject.presentedViewController as! UIActivityViewController
                                 activityViewControler.completionWithItemsHandler!("Some activity", true, nil, nil)
 
-                                expect(self.analyticsService.lastShareActivityType).to(equal("Some activity"))
-                                expect(self.analyticsService.lastShareContentName).to(equal(self.issue.title))
-                                expect(self.analyticsService.lastShareContentType).to(equal(AnalyticsServiceContentType.Issue))
-                                expect(self.analyticsService.lastShareID).to(equal(self.issue.url.absoluteString))
+                                expect(analyticsService.lastShareActivityType).to(equal("Some activity"))
+                                expect(analyticsService.lastShareContentName).to(equal(issue.title))
+                                expect(analyticsService.lastShareContentType).to(equal(AnalyticsServiceContentType.Issue))
+                                expect(analyticsService.lastShareID).to(equal(issue.url.absoluteString))
                             }
                         }
 
                         context("and the user cancels the share") {
                             it("tracks the share cancellation via the analytics service") {
-                                let activityViewControler = self.subject.presentedViewController as! UIActivityViewController
+                                let activityViewControler = subject.presentedViewController as! UIActivityViewController
                                 activityViewControler.completionWithItemsHandler!(nil, false, nil, nil)
 
-                                expect(self.analyticsService.lastCustomEventName).to(equal("Cancelled Share"))
+                                expect(analyticsService.lastCustomEventName).to(equal("Cancelled Share"))
                                 let expectedAttributes = [
-                                    AnalyticsServiceConstants.contentIDKey: self.issue.url.absoluteString,
-                                    AnalyticsServiceConstants.contentNameKey: self.issue.title,
+                                    AnalyticsServiceConstants.contentIDKey: issue.url.absoluteString,
+                                    AnalyticsServiceConstants.contentNameKey: issue.title,
                                     AnalyticsServiceConstants.contentTypeKey: "Issue"
                                 ]
-                                expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
+                                expect(analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                             }
                         }
 
                         context("and there is an error when sharing") {
                             it("tracks the error via the analytics service") {
                                 let expectedError = NSError(domain: "a", code: 0, userInfo: nil)
-                                let activityViewControler = self.subject.presentedViewController as! UIActivityViewController
+                                let activityViewControler = subject.presentedViewController as! UIActivityViewController
                                 activityViewControler.completionWithItemsHandler!("asdf", true, nil, expectedError)
 
-                                expect(self.analyticsService.lastError as NSError).to(beIdenticalTo(expectedError))
-                                expect(self.analyticsService.lastErrorContext).to(equal("Failed to share Issue"))
+                                expect(analyticsService.lastError as NSError).to(beIdenticalTo(expectedError))
+                                expect(analyticsService.lastErrorContext).to(equal("Failed to share Issue"))
                             }
                         }
                     }
 
                     it("has a scroll view containing the UI elements") {
-                        expect(self.subject.view.subviews.count).to(equal(1))
-                        let scrollView = self.subject.view.subviews.first as! UIScrollView
+                        expect(subject.view.subviews.count).to(equal(1))
+                        let scrollView = subject.view.subviews.first as! UIScrollView
 
                         expect(scrollView).to(beAnInstanceOf(UIScrollView.self))
                         expect(scrollView.subviews.count).to(equal(1))
@@ -157,77 +157,77 @@ class IssueControllerSpec : QuickSpec {
 
                         let containerViewSubViews = containerView.subviews
 
-                        expect(containerViewSubViews.contains(self.subject.issueImageView)).to(beTrue())
-                        expect(containerViewSubViews.contains(self.subject.titleButton)).to(beTrue())
-                        expect(containerViewSubViews.contains(self.subject.bodyTextView)).to(beTrue())
-                        expect(containerViewSubViews.contains(self.subject.attributionLabel)).to(beTrue())
-                        expect(containerViewSubViews.contains(self.subject.viewOriginalButton)).to(beTrue())
+                        expect(containerViewSubViews.contains(subject.issueImageView)).to(beTrue())
+                        expect(containerViewSubViews.contains(subject.titleButton)).to(beTrue())
+                        expect(containerViewSubViews.contains(subject.bodyTextView)).to(beTrue())
+                        expect(containerViewSubViews.contains(subject.attributionLabel)).to(beTrue())
+                        expect(containerViewSubViews.contains(subject.viewOriginalButton)).to(beTrue())
                     }
 
                     it("styles the views according to the theme") {
-                        expect(self.subject.view.backgroundColor).to(equal(UIColor.orangeColor()))
-                        expect(self.subject.titleButton.titleLabel!.font).to(equal(UIFont.italicSystemFontOfSize(13)))
-                        expect(self.subject.titleButton.titleColorForState(.Normal)).to(equal(UIColor.brownColor()))
-                        expect(self.subject.bodyTextView.font).to(equal(UIFont.systemFontOfSize(3)))
-                        expect(self.subject.bodyTextView.textColor).to(equal(UIColor.yellowColor()))
-                        expect(self.subject.attributionLabel.font).to(equal(UIFont.systemFontOfSize(222)))
-                        expect(self.subject.attributionLabel.textColor).to(equal(UIColor.magentaColor()))
-                        expect(self.subject.viewOriginalButton.backgroundColor).to(equal(UIColor.greenColor()))
-                        expect(self.subject.viewOriginalButton.titleColorForState(.Normal)).to(equal(UIColor.redColor()))
-                        expect(self.subject.viewOriginalButton.titleLabel!.font).to(equal(UIFont.systemFontOfSize(333)))
+                        expect(subject.view.backgroundColor).to(equal(UIColor.orangeColor()))
+                        expect(subject.titleButton.titleLabel!.font).to(equal(UIFont.italicSystemFontOfSize(13)))
+                        expect(subject.titleButton.titleColorForState(.Normal)).to(equal(UIColor.brownColor()))
+                        expect(subject.bodyTextView.font).to(equal(UIFont.systemFontOfSize(3)))
+                        expect(subject.bodyTextView.textColor).to(equal(UIColor.yellowColor()))
+                        expect(subject.attributionLabel.font).to(equal(UIFont.systemFontOfSize(222)))
+                        expect(subject.attributionLabel.textColor).to(equal(UIColor.magentaColor()))
+                        expect(subject.viewOriginalButton.backgroundColor).to(equal(UIColor.greenColor()))
+                        expect(subject.viewOriginalButton.titleColorForState(.Normal)).to(equal(UIColor.redColor()))
+                        expect(subject.viewOriginalButton.titleLabel!.font).to(equal(UIFont.systemFontOfSize(333)))
                     }
 
                     it("displays the title from the issue as a button") {
-                        expect(self.subject.titleButton.titleForState(.Normal)).to(equal("An issue title made by TestUtils"))
+                        expect(subject.titleButton.titleForState(.Normal)).to(equal("An issue title made by TestUtils"))
                     }
 
                     describe("tapping on the title button") {
                         beforeEach {
-                            self.subject.titleButton.tap()
+                            subject.titleButton.tap()
                         }
 
                         it("opens the original issue in safari") {
-                            expect(self.urlOpener.lastOpenedURL).to(beIdenticalTo(self.issue.url))
+                            expect(urlOpener.lastOpenedURL).to(beIdenticalTo(issue.url))
                         }
 
                         it("logs that the user tapped view original") {
-                            expect(self.analyticsService.lastCustomEventName).to(equal("Tapped title on Issue"))
-                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.issue.url.absoluteString]
-                            expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
+                            expect(analyticsService.lastCustomEventName).to(equal("Tapped title on Issue"))
+                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: issue.url.absoluteString]
+                            expect(analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                         }
                     }
 
                     it("displays the issue body") {
-                        expect(self.subject.bodyTextView.text).to(equal("An issue body made by TestUtils"))
+                        expect(subject.bodyTextView.text).to(equal("An issue body made by TestUtils"))
                     }
 
                     it("uses the presenter to get attribution text for the issue") {
-                        expect(self.urlAttributionPresenter.lastPresentedURL).to(beIdenticalTo(self.issue.url))
-                        expect(self.subject.attributionLabel.text).to(equal(self.urlAttributionPresenter.returnedText))
+                        expect(urlAttributionPresenter.lastPresentedURL).to(beIdenticalTo(issue.url))
+                        expect(subject.attributionLabel.text).to(equal(urlAttributionPresenter.returnedText))
                     }
 
                     it("has a button to view the original issue") {
-                        expect(self.subject.viewOriginalButton.titleForState(.Normal)).to(equal("View Original"))
+                        expect(subject.viewOriginalButton.titleForState(.Normal)).to(equal("View Original"))
                     }
 
                     describe("tapping on the view original button") {
                         beforeEach {
-                            self.subject.viewOriginalButton.tap()
+                            subject.viewOriginalButton.tap()
                         }
 
                         it("opens the original issue in safari") {
-                            expect(self.urlOpener.lastOpenedURL).to(beIdenticalTo(self.issue.url))
+                            expect(urlOpener.lastOpenedURL).to(beIdenticalTo(issue.url))
                         }
 
                         it("logs that the user tapped view original") {
-                            expect(self.analyticsService.lastCustomEventName).to(equal("Tapped 'View Original' on Issue"))
-                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: self.issue.url.absoluteString]
-                            expect(self.analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
+                            expect(analyticsService.lastCustomEventName).to(equal("Tapped 'View Original' on Issue"))
+                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: issue.url.absoluteString]
+                            expect(analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                         }
                     }
 
                     it("makes a request for the story's image") {
-                        expect(self.imageRepository.lastReceivedURL).to(beIdenticalTo(self.issue.imageURL))
+                        expect(imageService.lastReceivedURL).to(beIdenticalTo(issue.imageURL))
                     }
 
                     context("when the request for the story's image succeeds") {
@@ -235,8 +235,8 @@ class IssueControllerSpec : QuickSpec {
                             let issueImage = TestUtils.testImageNamed("bernie", type: "jpg")
                             let expectedImageData = UIImagePNGRepresentation(issueImage)
 
-                            self.imageRepository.lastRequestPromise.success(issueImage)
-                            let storyImageData = UIImagePNGRepresentation(self.subject.issueImageView.image!)
+                            imageService.lastRequestPromise.resolve(issueImage)
+                            let storyImageData = UIImagePNGRepresentation(subject.issueImageView.image!)
                             expect(storyImageData).to(equal(expectedImageData))
 
                         }
@@ -244,12 +244,12 @@ class IssueControllerSpec : QuickSpec {
 
                     context("when the request for the story's image fails") {
                         it("removes the image view from the container") {
-                            self.imageRepository.lastRequestPromise.failure(NSError(domain: "", code: 0, userInfo: nil))
-                            let scrollView = self.subject.view.subviews.first!
+                            imageService.lastRequestPromise.reject(NSError(domain: "", code: 0, userInfo: nil))
+                            let scrollView = subject.view.subviews.first!
                             let containerView = scrollView.subviews.first!
                             let containerViewSubViews = containerView.subviews
 
-                            expect(containerViewSubViews.contains(self.subject.issueImageView)).to(beFalse())
+                            expect(containerViewSubViews.contains(subject.issueImageView)).to(beFalse())
                         }
                     }
                 }
@@ -258,28 +258,28 @@ class IssueControllerSpec : QuickSpec {
                     beforeEach {
                         let issue = Issue(title: "Some issue", body: "body", imageURL: nil, url: NSURL(string: "http://b.com")!)
 
-                        self.subject = IssueController(
+                        subject = IssueController(
                             issue: issue,
-                            imageRepository: self.imageRepository,
-                            analyticsService: self.analyticsService,
-                            urlOpener: self.urlOpener,
-                            urlAttributionPresenter: self.urlAttributionPresenter,
+                            imageService: imageService,
+                            analyticsService: analyticsService,
+                            urlOpener: urlOpener,
+                            urlAttributionPresenter: urlAttributionPresenter,
                             theme: IssueFakeTheme())
 
 
-                        self.subject.view.layoutIfNeeded()
+                        subject.view.layoutIfNeeded()
                     }
 
                     it("should not make a request for the story's image") {
-                        expect(self.imageRepository.imageRequested).to(beFalse())
+                        expect(imageService.imageRequested).to(beFalse())
                     }
 
                     it("removes the image view from the container") {
-                        let scrollView = self.subject.view.subviews.first as! UIScrollView
+                        let scrollView = subject.view.subviews.first as! UIScrollView
                         let containerView = scrollView.subviews.first!
                         let containerViewSubViews = containerView.subviews
 
-                        expect(containerViewSubViews.contains(self.subject.issueImageView)).to(beFalse())
+                        expect(containerViewSubViews.contains(subject.issueImageView)).to(beFalse())
                     }
                 }
             }

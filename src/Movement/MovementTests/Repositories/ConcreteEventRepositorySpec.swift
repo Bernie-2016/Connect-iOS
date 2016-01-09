@@ -39,7 +39,6 @@ class ConcreteEventRepositorySpec : QuickSpec {
             let urlProvider = EventRepositoryFakeURLProvider()
             var jsonClient: FakeJSONClient!
             var eventDeserializer: FakeEventDeserializer!
-            var operationQueue: FakeOperationQueue!
 
             var receivedEventSearchResult: EventSearchResult!
             var receivedError: NSError!
@@ -48,14 +47,12 @@ class ConcreteEventRepositorySpec : QuickSpec {
                 geocoder = FakeGeocoder()
                 jsonClient = FakeJSONClient()
                 eventDeserializer = FakeEventDeserializer()
-                operationQueue = FakeOperationQueue()
 
                 subject = ConcreteEventRepository(
                     geocoder: geocoder,
                     urlProvider: urlProvider,
                     jsonClient: jsonClient,
-                    eventDeserializer: eventDeserializer,
-                    operationQueue: operationQueue
+                    eventDeserializer: eventDeserializer
                 )
             }
 
@@ -164,16 +161,14 @@ class ConcreteEventRepositorySpec : QuickSpec {
                             expectedEvents = eventDeserializer.returnedEvents
                             let promise = jsonClient.promisesByURL[urlProvider.returnedURL]!
 
-                            promise.success(expectedJSONDictionary)
-                            expect(operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
+                            promise.resolve(expectedJSONDictionary)
                         }
 
-                        it("passes the JSON document to the events deserializer") {expect(eventDeserializer.lastReceivedJSONDictionary).to(beIdenticalTo(expectedJSONDictionary))
+                        it("passes the JSON document to the events deserializer") {
+                            expect(eventDeserializer.lastReceivedJSONDictionary).to(beIdenticalTo(expectedJSONDictionary))
                         }
 
                         it("calls the completion handler with an event search object containing the deserialized value objects on the operation queue") {
-                            operationQueue.lastReceivedBlock()
-
                             expect(receivedEventSearchResult.searchCentroid).to(equal(expectedLocation))
                             expect(receivedEventSearchResult.events.count).to(equal(1))
                             expect(receivedEventSearchResult.events.first!).to(beIdenticalTo(expectedEvents.first!))
@@ -186,16 +181,12 @@ class ConcreteEventRepositorySpec : QuickSpec {
 
                             let promise = jsonClient.promisesByURL[urlProvider.returnedURL]!
 
-                            promise.success([1,2,3])
-                            expect(operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
+                            promise.resolve([1,2,3])
                         }
 
                         it("calls the completion handler with an error") {
                             expect(receivedEventSearchResult).to(beNil())
-                            expect(operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
-                            operationQueue.lastReceivedBlock()
-                            expect(receivedEventSearchResult).toEventually(beNil())
-                            expect(receivedError).toEventuallyNot(beNil())
+                            expect(receivedError).toNot(beNil())
                         }
                     }
 
@@ -203,10 +194,8 @@ class ConcreteEventRepositorySpec : QuickSpec {
                         it("forwards the error to the caller on the operation queue") {
                             let promise = jsonClient.promisesByURL[urlProvider.returnedURL]!
                             let expectedError = NSError(domain: "somedomain", code: 666, userInfo: nil)
-                            promise.failure(expectedError)
-                            expect(operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
+                            promise.reject(expectedError)
 
-                            operationQueue.lastReceivedBlock()
                             expect(receivedError).to(equal(expectedError))
                         }
                     }

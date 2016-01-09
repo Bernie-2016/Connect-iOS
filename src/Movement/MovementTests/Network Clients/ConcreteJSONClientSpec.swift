@@ -1,8 +1,10 @@
 import Foundation
 import Quick
 import Nimble
+import CBGPromise
+
 @testable import Movement
-import BrightFutures
+
 
 class FakeNSJSONSerializationProvider : NSJSONSerializationProvider {
     var enableError : Bool = false
@@ -102,7 +104,6 @@ class ConcreteJSONClientSpec : QuickSpec {
                                 it("resolves the promise with the JSON document") {
                                     self.urlSession.lastCompletionHandler!(expectedData, response!, nil)
 
-                                    expect(future.isSuccess).to(beTrue())
                                     let expectedValue = self.jsonSerializationProvider.returnedJSON
                                     let value : NSDictionary! = (future.value as! NSDictionary)
                                     expect(value).to(beIdenticalTo(expectedValue))
@@ -114,7 +115,6 @@ class ConcreteJSONClientSpec : QuickSpec {
                                     self.jsonSerializationProvider.enableError = true
                                     self.urlSession.lastCompletionHandler!(expectedData, response!, nil)
 
-                                    expect(future.isFailure).to(beTrue())
                                     expect(future.error).to(beIdenticalTo(self.jsonSerializationProvider.returnedError))
                                 }
                             }
@@ -126,7 +126,6 @@ class ConcreteJSONClientSpec : QuickSpec {
                             it("rejects the promise with an error") {
                                 self.urlSession.lastCompletionHandler!(expectedData, response!, nil)
 
-                                expect(future.isFailure).to(beTrue())
                                 expect(future.error!.domain).to(equal(ConcreteJSONClient.Error.badResponse))
                             }
                         }
@@ -137,7 +136,6 @@ class ConcreteJSONClientSpec : QuickSpec {
                             let expectedError = NSError(domain: "some domain", code: 0, userInfo: nil)
                             self.urlSession.lastCompletionHandler!(nil, nil, expectedError)
 
-                            expect(future.isFailure).to(beTrue())
                             expect(future.error).to(beIdenticalTo(expectedError))
                         }
                     }
@@ -153,7 +151,6 @@ class ConcreteJSONClientSpec : QuickSpec {
                     }
 
                     it("rejects the promise with the serialization error") {
-                        expect(future.isFailure).to(beTrue())
                         expect(future.error).to(beIdenticalTo(self.jsonSerializationProvider.returnedError))
                     }
 

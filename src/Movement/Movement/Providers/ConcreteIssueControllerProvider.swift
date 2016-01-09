@@ -1,14 +1,18 @@
 import Foundation
 
 class ConcreteIssueControllerProvider: IssueControllerProvider {
-    private let imageRepository: ImageRepository
+    private let imageService: ImageService
     private let analyticsService: AnalyticsService
     private let urlOpener: URLOpener
     private let urlAttributionPresenter: URLAttributionPresenter
     private let theme: Theme
 
-    init(imageRepository: ImageRepository, analyticsService: AnalyticsService, urlOpener: URLOpener, urlAttributionPresenter: URLAttributionPresenter, theme: Theme) {
-        self.imageRepository = imageRepository
+    init(imageService: ImageService,
+         analyticsService: AnalyticsService,
+         urlOpener: URLOpener,
+         urlAttributionPresenter: URLAttributionPresenter,
+         theme: Theme) {
+        self.imageService = imageService
         self.analyticsService = analyticsService
         self.urlOpener = urlOpener
         self.urlAttributionPresenter = urlAttributionPresenter
@@ -16,6 +20,12 @@ class ConcreteIssueControllerProvider: IssueControllerProvider {
     }
 
     func provideInstanceWithIssue(issue: Issue) -> IssueController {
-        return IssueController(issue: issue, imageRepository: self.imageRepository, analyticsService: self.analyticsService, urlOpener: self.urlOpener, urlAttributionPresenter: self.urlAttributionPresenter, theme: self.theme)
+        return IssueController(issue: issue,
+                               imageService: imageService,
+                               analyticsService: analyticsService,
+                               urlOpener: urlOpener,
+                               urlAttributionPresenter:
+                               urlAttributionPresenter,
+                               theme: theme)
     }
 }

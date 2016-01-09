@@ -37,7 +37,7 @@ private class FakeNewsFeedService: NewsFeedService {
 
 class FakeNewsFeedItemControllerProvider : Movement.NewsFeedItemControllerProvider {
     let controller = NewsArticleController(newsArticle: TestUtils.newsArticle(),
-        imageRepository: FakeImageRepository(),
+        imageService: FakeImageService(),
         timeIntervalFormatter: FakeTimeIntervalFormatter(),
         analyticsService: FakeAnalyticsService(),
         urlOpener: FakeURLOpener(),

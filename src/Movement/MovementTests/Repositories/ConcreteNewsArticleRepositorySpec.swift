@@ -1,7 +1,7 @@
 @testable import Movement
 import Quick
 import Nimble
-import BrightFutures
+import CBGPromise
 import Result
 
 private class NewsArticleRepositoryFakeURLProvider: FakeURLProvider {
@@ -27,18 +27,15 @@ class ConcreteNewsArticleRepositorySpec: QuickSpec {
             var jsonClient: FakeJSONClient!
             let urlProvider = NewsArticleRepositoryFakeURLProvider()
             var newsArticleDeserializer: FakeNewsArticleDeserializer!
-            var operationQueue: FakeOperationQueue!
 
             beforeEach {
                 jsonClient = FakeJSONClient()
                 newsArticleDeserializer = FakeNewsArticleDeserializer()
-                operationQueue = FakeOperationQueue()
 
                 subject = ConcreteNewsArticleRepository(
                     urlProvider: urlProvider,
                     jsonClient: jsonClient,
-                    newsArticleDeserializer: newsArticleDeserializer,
-                    operationQueue: operationQueue
+                    newsArticleDeserializer: newsArticleDeserializer
                 )
             }
 
@@ -78,19 +75,14 @@ class ConcreteNewsArticleRepositorySpec: QuickSpec {
                     beforeEach {
                         let promise = jsonClient.promisesByURL[urlProvider.newsFeedURL()]!
 
-                        promise.success(expectedJSONDictionary)
+                        promise.resolve(expectedJSONDictionary)
                     }
 
                     it("passes the json dictionary to the news item deserializer") {
-                        expect(operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
-
                         expect(newsArticleDeserializer.lastReceivedJSONDictionary).to(beIdenticalTo(expectedJSONDictionary))
                     }
 
-                    it("calls the completion handler with the deserialized value objects on the operation queue") {
-                        expect(operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
-
-                        operationQueue.lastReceivedBlock()
+                    it("calls the completion handler with the deserialized value objects") {
                         let receivedNewsArticles =  newsArticlesFuture.value!
                         expect(receivedNewsArticles.count).to(equal(1))
                         expect(receivedNewsArticles.first!.title).to(equal("fake news"))
@@ -101,24 +93,20 @@ class ConcreteNewsArticleRepositorySpec: QuickSpec {
                     beforeEach {
                         let promise = jsonClient.promisesByURL[urlProvider.newsFeedURL()]!
 
-                        promise.success([1,2,3])
-                        expect(operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
+                        promise.resolve([1,2,3])
                     }
 
                     it("calls the completion handler with an error") {
-                        operationQueue.lastReceivedBlock()
                         expect(newsArticlesFuture.error).notTo(beNil())
                     }
                 }
 
                 context("when the request to the JSON client fails") {
-                    it("forwards the error to the caller on the operation queue") {
+                    it("forwards the error to the caller") {
                         let promise = jsonClient.promisesByURL[urlProvider.newsFeedURL()]!
                         let expectedError = NSError(domain: "somedomain", code: 666, userInfo: nil)
-                        promise.failure(expectedError)
+                        promise.reject(expectedError)
 
-                        expect(operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
-                        operationQueue.lastReceivedBlock()
                         expect(newsArticlesFuture.error).to(beIdenticalTo(expectedError))
                     }
                 }

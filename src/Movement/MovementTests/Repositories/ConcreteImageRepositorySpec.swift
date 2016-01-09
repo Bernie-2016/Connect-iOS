@@ -1,7 +1,7 @@
 import Quick
 import Nimble
 import WebImage
-import BrightFutures
+import CBGPromise
 import Result
 
 @testable import Movement
@@ -48,7 +48,6 @@ class ConcreteImageRepositorySpec : QuickSpec {
 
                     self.webImageManager.lastReceivedCompletionBlock(expectedImage, nil, SDImageCacheType.None, true, self.expectedURL)
 
-                    expect(imageFuture.isSuccess).to(beTrue())
                     expect(imageFuture.value).to(beIdenticalTo(expectedImage))
                 }
             }
@@ -58,7 +57,6 @@ class ConcreteImageRepositorySpec : QuickSpec {
                     let expectedError = NSError(domain: "some domain", code: 666, userInfo: nil)
                     self.webImageManager.lastReceivedCompletionBlock(nil, expectedError, SDImageCacheType.None, true, self.expectedURL)
 
-                    expect(imageFuture.isFailure).to(beTrue())
                     expect(imageFuture.error).to(beIdenticalTo(expectedError))
                 }
             }

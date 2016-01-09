@@ -1,21 +1,18 @@
 import Foundation
-import BrightFutures
+import CBGPromise
 
 class ConcreteNewsArticleRepository: NewsArticleRepository {
     private let urlProvider: URLProvider
     private let jsonClient: JSONClient
     private let newsArticleDeserializer: NewsArticleDeserializer
-    private let operationQueue: NSOperationQueue
 
     init(
         urlProvider: URLProvider,
         jsonClient: JSONClient,
-        newsArticleDeserializer: NewsArticleDeserializer,
-        operationQueue: NSOperationQueue) {
+        newsArticleDeserializer: NewsArticleDeserializer) {
             self.urlProvider = urlProvider
             self.jsonClient = jsonClient
             self.newsArticleDeserializer = newsArticleDeserializer
-            self.operationQueue = operationQueue
     }
 
     func fetchNewsArticles() -> Future<Array<NewsArticle>, NSError> {
@@ -23,26 +20,21 @@ class ConcreteNewsArticleRepository: NewsArticleRepository {
 
         let newsFeedJSONFuture = self.jsonClient.JSONPromiseWithURL(self.urlProvider.newsFeedURL(), method: "POST", bodyDictionary: self.HTTPBodyDictionary())
 
-        newsFeedJSONFuture.onSuccess { (deserializedObject) -> Void in
+        newsFeedJSONFuture.then({ deserializedObject in
             guard let jsonDictionary = deserializedObject as? NSDictionary else {
                 let incorrectObjectTypeError = NSError(domain: "ConcreteNewsArticleRepository", code: -1, userInfo: nil)
-                self.operationQueue.addOperationWithBlock({ () -> Void in
-                    promise.failure(incorrectObjectTypeError)
-                })
+                promise.reject(incorrectObjectTypeError)
                 return
             }
 
             let parsedNewsArticles = self.newsArticleDeserializer.deserializeNewsArticles(jsonDictionary)
 
-            self.operationQueue.addOperationWithBlock({ () -> Void in
-                promise.success(parsedNewsArticles as [NewsArticle])
-            })
-        }.onFailure { (receivedError) -> Void in
-            self.operationQueue.addOperationWithBlock({ () -> Void in
-                promise.failure(receivedError)
-            })
-        }
+            promise.resolve(parsedNewsArticles as [NewsArticle])
+        })
 
+        newsFeedJSONFuture.error { receivedError in
+            promise.reject(receivedError)
+        }
 
         return promise.future
     }

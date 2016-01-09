@@ -59,6 +59,7 @@ class AppBootstrapper {
 
         let webImageManager = SDWebImageManager()
         let imageRepository = ConcreteImageRepository(webImageManager: webImageManager)
+        let backgroundImageService = BackgroundImageService(imageRepository: imageRepository, workerQueue: NSOperationQueue(), resultQueue: NSOperationQueue.mainQueue())
 
         let aboutController = AboutController(analyticsService: analyticsService, urlOpener: urlOpener, urlProvider: urlProvider, theme: defaultTheme)
         let feedbackController = FeedbackController(urlProvider: urlProvider, analyticsService: analyticsService)
@@ -81,8 +82,7 @@ class AppBootstrapper {
         let newsArticleRepository = ConcreteNewsArticleRepository(
             urlProvider: urlProvider,
             jsonClient: jsonClient,
-            newsArticleDeserializer: newsArticleDeserializer,
-            operationQueue: mainQueue
+            newsArticleDeserializer: newsArticleDeserializer
         )
 
         let timeIntervalFormatter = ConcreteTimeIntervalFormatter(dateProvider: dateProvider)
@@ -105,7 +105,7 @@ class AppBootstrapper {
 
         let newsFeedItemControllerProvider = ConcreteNewsFeedItemControllerProvider(
             timeIntervalFormatter: timeIntervalFormatter,
-            imageRepository: imageRepository,
+            imageService: backgroundImageService,
             analyticsService: analyticsService,
             urlOpener: urlOpener,
             urlAttributionPresenter: urlAttributionPresenter,
@@ -117,15 +117,15 @@ class AppBootstrapper {
         let videoRepository = ConcreteVideoRepository(
             urlProvider: urlProvider,
             jsonClient: jsonClient,
-            videoDeserializer: videoDeserializer,
-            operationQueue: mainQueue)
+            videoDeserializer: videoDeserializer)
 
-        let newsFeedService = ConcreteNewsFeedService(newsArticleRepository: newsArticleRepository, videoRepository: videoRepository)
-        let newsFeedArticlePresenter = NewsFeedArticlePresenter(timeIntervalFormatter: timeIntervalFormatter, imageRepository: imageRepository, theme: defaultTheme)
+        let newsFeedService = BackgroundNewsFeedService(newsArticleRepository: newsArticleRepository, videoRepository: videoRepository, workerQueue: NSOperationQueue(), resultQueue: mainQueue)
+
+        let newsFeedArticlePresenter = NewsFeedArticlePresenter(timeIntervalFormatter: timeIntervalFormatter, imageService: backgroundImageService, theme: defaultTheme)
         let newsFeedVideoPresenter = NewsFeedVideoPresenter(
             timeIntervalFormatter: timeIntervalFormatter,
             urlProvider: urlProvider,
-            imageRepository: imageRepository,
+            imageService: backgroundImageService,
             theme: defaultTheme
         )
 
@@ -147,33 +147,34 @@ class AppBootstrapper {
         let issueRepository = ConcreteIssueRepository(
             urlProvider: urlProvider,
             jsonClient: jsonClient,
-            issueDeserializer: issueDeserializer,
-            operationQueue: mainQueue
+            issueDeserializer: issueDeserializer
         )
 
-        let issueControllerProvider = ConcreteIssueControllerProvider(imageRepository: imageRepository,
+        let backgroundIssueService = BackgroundIssueService(issueRepository: issueRepository, workerQueue: NSOperationQueue(), resultQueue: mainQueue)
+
+        let issueControllerProvider = ConcreteIssueControllerProvider(imageService: backgroundImageService,
             analyticsService: analyticsService,
             urlOpener: urlOpener,
             urlAttributionPresenter: urlAttributionPresenter,
             theme: defaultTheme)
 
-        let issuesTableController = IssuesController(
-            issueRepository: issueRepository,
+        let issuesController = IssuesController(
+            issueService: backgroundIssueService,
             issueControllerProvider: issueControllerProvider,
             analyticsService: analyticsService,
             tabBarItemStylist: tabBarItemStylist,
             theme: defaultTheme
         )
         let issuesNavigationController = NavigationController(theme: defaultTheme)
-        issuesNavigationController.pushViewController(issuesTableController, animated: false)
+        issuesNavigationController.pushViewController(issuesController, animated: false)
 
         let eventDeserializer = ConcreteEventDeserializer(stringContentSanitizer: stringContentSanitizer)
         let eventRepository = ConcreteEventRepository(
             geocoder: CLGeocoder(),
             urlProvider: urlProvider,
             jsonClient: jsonClient,
-            eventDeserializer: eventDeserializer,
-            operationQueue: mainQueue)
+            eventDeserializer: eventDeserializer)
+        let backgroundEventService = BackgroundEventService(eventRepository: eventRepository, workerQueue: NSOperationQueue(), resultQueue: NSOperationQueue.mainQueue())
         let eventPresenter = EventPresenter(
             sameTimeZoneDateFormatter: timeFormatter,
             differentTimeZoneDateFormatter: timeWithTimeZoneFormatter,
@@ -195,7 +196,7 @@ class AppBootstrapper {
 
         let eventListTableViewCellStylist = ConcreteEventListTableViewCellStylist(dateProvider: dateProvider, theme: defaultTheme)
         let eventsController = EventsController(
-            eventRepository: eventRepository,
+            eventService: backgroundEventService,
             eventPresenter: eventPresenter,
             eventControllerProvider: eventControllerProvider,
             eventSectionHeaderPresenter: eventSectionHeaderPresenter,

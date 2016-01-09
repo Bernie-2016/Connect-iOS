@@ -1,7 +1,7 @@
 import UIKit
 
 class IssuesController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    private let issueRepository: IssueRepository
+    private let issueService: IssueService
     private let issueControllerProvider: IssueControllerProvider
     private let analyticsService: AnalyticsService
     private let tabBarItemStylist: TabBarItemStylist
@@ -14,12 +14,12 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
 
     var issues: Array<Issue>!
 
-    init(issueRepository: IssueRepository,
+    init(issueService: IssueService,
         issueControllerProvider: IssueControllerProvider,
         analyticsService: AnalyticsService!,
         tabBarItemStylist: TabBarItemStylist,
         theme: Theme) {
-        self.issueRepository = issueRepository
+        self.issueService = issueService
         self.issueControllerProvider = issueControllerProvider
         self.analyticsService = analyticsService
         self.tabBarItemStylist = tabBarItemStylist
@@ -77,19 +77,24 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
             self.tableView.deselectRowAtIndexPath(selectedRowIndexPath, animated: false)
         }
 
-        self.issueRepository.fetchIssues({ (receivedIssues) -> Void in
+
+        let issuesFuture = issueService.fetchIssues()
+        issuesFuture.then { issues in
             self.errorLoadingIssues = false
-            self.issues = receivedIssues
+            self.issues = issues
             self.loadingIndicatorView.stopAnimating()
             self.tableView.hidden = false
             self.tableView.reloadData()
-            }, error: { (error) -> Void in
-                self.errorLoadingIssues = true
-                self.tableView.reloadData()
-                self.analyticsService.trackError(error, context: "Failed to load issues")
+        }
 
-                print(error.localizedDescription)
-        })
+        issuesFuture.error { error in
+            self.errorLoadingIssues = true
+            self.tableView.reloadData()
+            self.analyticsService.trackError(error, context: "Failed to load issues")
+
+            print(error.localizedDescription)
+
+        }
     }
 
     // MARK: UITableViewDataSource

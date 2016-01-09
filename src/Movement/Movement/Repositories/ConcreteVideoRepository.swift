@@ -1,21 +1,18 @@
 import Foundation
-import BrightFutures
+import CBGPromise
 import Result
 
 class ConcreteVideoRepository: VideoRepository {
     private let urlProvider: URLProvider
     private let jsonClient: JSONClient
     private let videoDeserializer: VideoDeserializer
-    private let operationQueue: NSOperationQueue
 
     init(urlProvider: URLProvider,
         jsonClient: JSONClient,
-        videoDeserializer: VideoDeserializer,
-        operationQueue: NSOperationQueue) {
-        self.urlProvider = urlProvider
-        self.jsonClient = jsonClient
-        self.videoDeserializer = videoDeserializer
-        self.operationQueue = operationQueue
+        videoDeserializer: VideoDeserializer) {
+            self.urlProvider = urlProvider
+            self.jsonClient = jsonClient
+            self.videoDeserializer = videoDeserializer
     }
 
     func fetchVideos() -> Future<Array<Video>, NSError> {
@@ -23,26 +20,23 @@ class ConcreteVideoRepository: VideoRepository {
 
         let videoJSONFuture = self.jsonClient.JSONPromiseWithURL(self.urlProvider.videoURL(), method: "POST", bodyDictionary: self.HTTPBodyDictionary())
 
-        videoJSONFuture.onSuccess { (deserializedObject) -> Void in
+        videoJSONFuture.then { deserializedObject in
             guard let jsonDictionary = deserializedObject as? NSDictionary else {
                 let incorrectObjectTypeError = NSError(domain: "ConcreteVideoRepository", code: -1, userInfo: nil)
-                self.operationQueue.addOperationWithBlock({ () -> Void in
-                    promise.failure(incorrectObjectTypeError)
-                })
+                promise.reject(incorrectObjectTypeError)
+
                 return
             }
 
             let parsedVideos = self.videoDeserializer.deserializeVideos(jsonDictionary)
 
-            self.operationQueue.addOperationWithBlock({ () -> Void in
-                promise.success(parsedVideos as [Video])
-            })
-            }.onFailure { (receivedError) -> Void in
-                self.operationQueue.addOperationWithBlock({ () -> Void in
-                    promise.failure(receivedError)
-                })
+            promise.resolve(parsedVideos as [Video])
         }
 
+
+        videoJSONFuture.error { receivedError in
+            promise.reject(receivedError)
+        }
 
         return promise.future
     }
@@ -58,5 +52,4 @@ class ConcreteVideoRepository: VideoRepository {
             ]
         ]
     }
-
 }

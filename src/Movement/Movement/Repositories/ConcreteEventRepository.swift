@@ -6,21 +6,16 @@ class ConcreteEventRepository: EventRepository {
     private let urlProvider: URLProvider
     private let jsonClient: JSONClient
     private let eventDeserializer: EventDeserializer
-    private let operationQueue: NSOperationQueue
 
-    init(
-        geocoder: CLGeocoder,
-        urlProvider: URLProvider,
-        jsonClient: JSONClient,
-        eventDeserializer: EventDeserializer,
-        operationQueue: NSOperationQueue) {
+    init(geocoder: CLGeocoder,
+         urlProvider: URLProvider,
+         jsonClient: JSONClient,
+         eventDeserializer: EventDeserializer) {
             self.geocoder = geocoder
             self.urlProvider = urlProvider
             self.jsonClient = jsonClient
             self.eventDeserializer = eventDeserializer
-            self.operationQueue = operationQueue
     }
-
 
     func fetchEventsWithZipCode(zipCode: String, radiusMiles: Float, completion: (EventSearchResult) -> Void, error: (NSError) -> Void) {
         self.geocoder.geocodeAddressString(zipCode, completionHandler: { (placemarks, geocodingError) -> Void in
@@ -41,20 +36,22 @@ class ConcreteEventRepository: EventRepository {
 
             let eventsFuture = self.jsonClient.JSONPromiseWithURL(url, method: "POST", bodyDictionary: HTTPBodyDictionary)
 
-            eventsFuture.onSuccess(callback: { (deserializedObject) -> Void in
+            eventsFuture.then { deserializedObject in
                 guard let jsonDictionary = deserializedObject as? NSDictionary else {
                     let incorrectObjectTypeError = NSError(domain: "ConcreteEventRepository", code: -1, userInfo: nil)
 
-                    self.operationQueue.addOperationWithBlock({ () -> Void in error(incorrectObjectTypeError) })
+                    error(incorrectObjectTypeError)
                     return
                 }
 
                 let parsedEvents = self.eventDeserializer.deserializeEvents(jsonDictionary)
                 let eventSearchResult = EventSearchResult(searchCentroid: location, events: parsedEvents)
-                self.operationQueue.addOperationWithBlock({ () -> Void in completion(eventSearchResult) })
-            }).onFailure(callback: { (receivedError) -> Void in
-                self.operationQueue.addOperationWithBlock({ () -> Void in error(receivedError) })
-            })
+                completion(eventSearchResult)
+            }
+
+            eventsFuture.error { receivedError in
+                error(receivedError)
+            }
         })
     }
 

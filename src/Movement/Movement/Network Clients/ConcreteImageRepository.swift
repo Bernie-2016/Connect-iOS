@@ -1,7 +1,6 @@
 import Foundation
-import BrightFutures
-import Result
 import WebImage
+import CBGPromise
 
 class ConcreteImageRepository: ImageRepository {
     private let webImageManager: SDWebImageManager
@@ -10,14 +9,14 @@ class ConcreteImageRepository: ImageRepository {
         self.webImageManager = webImageManager
     }
 
-    func fetchImageWithURL(url: NSURL) -> Future<UIImage, NSError> {
-        let promise = Promise<UIImage, NSError>()
+    func fetchImageWithURL(url: NSURL) -> ImageFuture {
+        let promise = ImagePromise()
 
         self.webImageManager.downloadImageWithURL(url, options: SDWebImageOptions(), progress: nil) { (image, error, cacheType, finished, imageURL) -> Void in
             if error != nil {
-                promise.failure(error)
+                promise.reject(error)
             } else {
-                promise.success(image)
+                promise.resolve(image)
             }
         }
 

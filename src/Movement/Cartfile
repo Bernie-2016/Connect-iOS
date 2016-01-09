@@ -1,5 +1,5 @@
 github "smileyborg/PureLayout"
 github "rs/SDWebImage"
-github "Thomvis/BrightFutures"
 github "0xced/XCDYouTubeKit"
 github "ParsePlatform/Parse-SDK-iOS-OSX" "master"
+github "mjstallard/CBGPromise" "errortype_generic"

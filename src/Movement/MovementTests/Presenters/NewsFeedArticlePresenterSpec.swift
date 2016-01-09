@@ -33,21 +33,21 @@ private class NewsFeedArticlePresenterFakeTheme : FakeTheme {
 }
 
 class NewsFeedArticlePresenterSpec: QuickSpec {
-    var subject: NewsFeedArticlePresenter!
-    var imageRepository: FakeImageRepository!
-    var timeIntervalFormatter: FakeTimeIntervalFormatter!
-    private let theme = NewsFeedArticlePresenterFakeTheme()
-
     override func spec() {
         describe("NewsFeedArticlePresenter") {
-            beforeEach {
-                self.imageRepository = FakeImageRepository()
-                self.timeIntervalFormatter = FakeTimeIntervalFormatter()
+            var subject: NewsFeedArticlePresenter!
+            var imageService: FakeImageService!
+            var timeIntervalFormatter: FakeTimeIntervalFormatter!
+            let theme = NewsFeedArticlePresenterFakeTheme()
 
-                self.subject = NewsFeedArticlePresenter(
-                    timeIntervalFormatter: self.timeIntervalFormatter,
-                    imageRepository: self.imageRepository,
-                    theme: self.theme)
+            beforeEach {
+                imageService = FakeImageService()
+                timeIntervalFormatter = FakeTimeIntervalFormatter()
+
+                subject = NewsFeedArticlePresenter(
+                    timeIntervalFormatter: timeIntervalFormatter,
+                    imageService: imageService,
+                    theme: theme)
             }
 
             describe("presenting a news article") {
@@ -56,53 +56,53 @@ class NewsFeedArticlePresenterSpec: QuickSpec {
                 let tableView = UITableView()
 
                 beforeEach {
-                    self.subject.setupTableView(tableView)
+                    subject.setupTableView(tableView)
                 }
 
                 it("sets the title label using the provided news article") {
-                    let cell = self.subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
+                    let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
                     expect(cell.titleLabel.text).to(equal("Bernie to release new album"))
                 }
 
                 it("sets the excerpt label using the provided news article") {
-                    let cell = self.subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
+                    let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
                     expect(cell.excerptLabel.text).to(equal("excerpt A"))
                 }
 
                 it("uses the time interval formatter for the date label") {
-                    let cell = self.subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
+                    let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
                     expect(cell.dateLabel.text).to(equal("abbreviated 1970-01-01 00:00:00 +0000"))
-                    expect(self.timeIntervalFormatter.lastAbbreviatedDates).to(equal([newsArticleDate]))
+                    expect(timeIntervalFormatter.lastAbbreviatedDates).to(equal([newsArticleDate]))
                 }
 
                 it("initially nils out the image") {
-                    var cell = self.subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
+                    var cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
                     cell.newsImageView.image = TestUtils.testImageNamed("bernie", type: "jpg")
-                    cell = self.subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
+                    cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
                     expect(cell.newsImageView.image).to(beNil())
                 }
 
                 context("when the news item has an image URL") {
                     it("asks the image repository to fetch the image") {
-                        self.subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
+                        subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
 
-                        expect(self.imageRepository.lastReceivedURL).to(beIdenticalTo(newsArticle.imageURL))
+                        expect(imageService.lastReceivedURL).to(beIdenticalTo(newsArticle.imageURL))
                     }
 
                     it("shows the image view") {
-                        var cell = self.subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
+                        var cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
                         cell.newsImageVisible = false
-                        cell = self.subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
+                        cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
 
                         expect(cell.newsImageVisible).to(beTrue())
                     }
 
                     context("when the image is loaded succesfully") {
                         it("sets the image") {
-                            let cell = self.subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
+                            let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
 
                             let bernieImage = TestUtils.testImageNamed("bernie", type: "jpg")
-                            self.imageRepository.lastRequestPromise.success(bernieImage)
+                            imageService.lastRequestPromise.resolve(bernieImage)
 
                             expect(cell.newsImageView.image).to(beIdenticalTo(bernieImage))
                         }
@@ -113,19 +113,19 @@ class NewsFeedArticlePresenterSpec: QuickSpec {
                     let newsArticle = NewsArticle(title: "Bernie to release new album", date: newsArticleDate, body: "yeahhh", excerpt: "excerpt A", imageURL: nil, url: NSURL())
 
                     it("does not make a call to the image repository") {
-                        self.imageRepository.lastReceivedURL = nil
-                        self.subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
-                        expect(self.imageRepository.lastReceivedURL).to(beNil())
+                        imageService.lastReceivedURL = nil
+                        subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
+                        expect(imageService.lastReceivedURL).to(beNil())
                     }
 
                     it("hides the image view") {
-                        let cell = self.subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
+                        let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
                         expect(cell.newsImageVisible).to(beFalse())
                     }
                 }
 
                 it("styles the cell using the theme") {
-                    let cell = self.subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
+                    let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
 
                     expect(cell.titleLabel.textColor).to(equal(UIColor.magentaColor()))
                     expect(cell.titleLabel.font).to(equal(UIFont.boldSystemFontOfSize(20)))
@@ -136,17 +136,17 @@ class NewsFeedArticlePresenterSpec: QuickSpec {
 
                 context("when the news item is from today") {
                     beforeEach {
-                        self.timeIntervalFormatter.returnsDaysSinceDate = 0
+                        timeIntervalFormatter.returnsDaysSinceDate = 0
                     }
 
                     it("uses the breaking styling for the date label") {
-                        let cell = self.subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
+                        let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
 
                         expect(cell.dateLabel.textColor).to(equal(UIColor.whiteColor()))
                     }
 
                     it("uses the breaking styling for the disclosure indicator") {
-                        let cell = self.subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
+                        let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
 
                         expect(cell.disclosureView.color).to(equal(UIColor.whiteColor()))
                     }
@@ -155,17 +155,17 @@ class NewsFeedArticlePresenterSpec: QuickSpec {
 
                 context("when the news item is from the past") {
                     beforeEach {
-                        self.timeIntervalFormatter.returnsDaysSinceDate = 1
+                        timeIntervalFormatter.returnsDaysSinceDate = 1
                     }
 
                     it("uses the standard styling for the date label") {
-                        let cell = self.subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
+                        let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
 
                         expect(cell.dateLabel.textColor).to(equal(UIColor.brownColor()))
                     }
 
                     it("uses the standard styling for the disclosure indicator") {
-                        let cell = self.subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
+                        let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
 
                         expect(cell.disclosureView.color).to(equal(UIColor.brownColor()))
                     }

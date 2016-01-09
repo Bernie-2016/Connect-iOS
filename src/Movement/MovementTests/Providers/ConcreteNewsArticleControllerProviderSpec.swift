@@ -8,7 +8,7 @@ class ConcreteNewsFeedItemControllerProviderSpec : QuickSpec {
         describe("ConcreteNewsFeedItemControllerProvider") {
             var subject : ConcreteNewsFeedItemControllerProvider!
             let timeIntervalFormatter = FakeTimeIntervalFormatter()
-            let imageRepository = FakeImageRepository()
+            let imageService = FakeImageService()
             let analyticsService = FakeAnalyticsService()
             let urlOpener = FakeURLOpener()
             let urlAttributionPresenter = FakeURLAttributionPresenter()
@@ -19,7 +19,7 @@ class ConcreteNewsFeedItemControllerProviderSpec : QuickSpec {
                 beforeEach {
                     subject = ConcreteNewsFeedItemControllerProvider(
                         timeIntervalFormatter: timeIntervalFormatter,
-                        imageRepository: imageRepository,
+                        imageService: imageService,
                         analyticsService: analyticsService,
                         urlOpener: urlOpener,
                         urlAttributionPresenter: urlAttributionPresenter,
@@ -34,7 +34,7 @@ class ConcreteNewsFeedItemControllerProviderSpec : QuickSpec {
                     let controller = subject.provideInstanceWithNewsFeedItem(newsArticle) as! NewsArticleController
 
                     expect(controller.newsArticle).to(beIdenticalTo(newsArticle))
-                    expect(controller.imageRepository as? FakeImageRepository).to(beIdenticalTo(imageRepository))
+                    expect(controller.imageService as? FakeImageService).to(beIdenticalTo(imageService))
                     expect(controller.timeIntervalFormatter as? FakeTimeIntervalFormatter).to(beIdenticalTo(timeIntervalFormatter))
                     expect(controller.analyticsService as? FakeAnalyticsService).to(beIdenticalTo(analyticsService))
                     expect(controller.urlOpener as? FakeURLOpener).to(beIdenticalTo(urlOpener))
@@ -50,7 +50,7 @@ class ConcreteNewsFeedItemControllerProviderSpec : QuickSpec {
                     let controller = subject.provideInstanceWithNewsFeedItem(video) as! VideoController
 
                     expect(controller.video).to(beIdenticalTo(video))
-                    expect(controller.imageRepository as? FakeImageRepository).to(beIdenticalTo(imageRepository))
+                    expect(controller.imageService as? FakeImageService).to(beIdenticalTo(imageService))
                     expect(controller.timeIntervalFormatter as? FakeTimeIntervalFormatter).to(beIdenticalTo(timeIntervalFormatter))
                     expect(controller.urlProvider as? FakeURLProvider).to(beIdenticalTo(urlProvider))
                     expect(controller.urlOpener as? FakeURLOpener).to(beIdenticalTo(urlOpener))

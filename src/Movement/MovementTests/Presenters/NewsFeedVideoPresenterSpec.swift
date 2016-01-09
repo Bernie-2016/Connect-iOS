@@ -51,19 +51,19 @@ class NewsFeedVideoPresenterSpec: QuickSpec {
         var subject: NewsFeedVideoPresenter!
         var timeIntervalFormatter: FakeTimeIntervalFormatter!
         var urlProvider: NewsFeedVideoFakeURLProvider!
-        var imageRepository: FakeImageRepository!
+        var imageService: FakeImageService!
         let theme = NewsFeedVideoPresenterFakeTheme()
 
         describe("NewsFeedVideoPresenter") {
             beforeEach {
                 timeIntervalFormatter = FakeTimeIntervalFormatter()
                 urlProvider = NewsFeedVideoFakeURLProvider()
-                imageRepository = FakeImageRepository()
+                imageService = FakeImageService()
 
                 subject = NewsFeedVideoPresenter(
                     timeIntervalFormatter: timeIntervalFormatter,
                     urlProvider: urlProvider,
-                    imageRepository: imageRepository,
+                    imageService: imageService,
                     theme: theme
                 )
             }
@@ -97,7 +97,7 @@ class NewsFeedVideoPresenterSpec: QuickSpec {
                     subject.cellForTableView(tableView, newsFeedItem: video) as! NewsFeedVideoTableViewCell
 
                     expect(urlProvider.lastReceivedIdentifier).to(equal("some-identifier"))
-                    expect(imageRepository.lastReceivedURL).to(beIdenticalTo(urlProvider.returnedURL))
+                    expect(imageService.lastReceivedURL).to(beIdenticalTo(urlProvider.returnedURL))
                 }
 
                 context("when the image is loaded succesfully") {
@@ -106,7 +106,7 @@ class NewsFeedVideoPresenterSpec: QuickSpec {
 
                         let bernieImage = TestUtils.testImageNamed("bernie", type: "jpg")
 
-                        imageRepository.lastRequestPromise.success(bernieImage)
+                        imageService.lastRequestPromise.resolve(bernieImage)
 
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
                             expect(cell.thumbnailImageView.image).to(beIdenticalTo(bernieImage))

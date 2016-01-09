@@ -1,5 +1,5 @@
 import Foundation
-import BrightFutures
+import CBGPromise
 
 protocol NewsArticleRepository {
     func fetchNewsArticles() -> Future<Array<NewsArticle>, NSError>

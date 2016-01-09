@@ -1,5 +1,5 @@
 import Foundation
-import BrightFutures
+import CBGPromise
 import Result
 @testable import Movement
 

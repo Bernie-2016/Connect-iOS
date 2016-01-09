@@ -39,7 +39,7 @@ class VideoControllerSpec: QuickSpec {
         describe("VideoController") {
             var subject: VideoController!
             var video: Video!
-            var imageRepository: FakeImageRepository!
+            var imageService: FakeImageService!
             var timeIntervalFormatter: FakeTimeIntervalFormatter!
             var urlProvider: VideoFakeURLProvider!
             var urlOpener: FakeURLOpener!
@@ -50,7 +50,7 @@ class VideoControllerSpec: QuickSpec {
 
             beforeEach {
                 video = Video(title: "Happy Dance", date: videoDate, identifier: "FGHmzu9Dz18", description: "yay, happy!")
-                imageRepository = FakeImageRepository()
+                imageService = FakeImageService()
                 timeIntervalFormatter = FakeTimeIntervalFormatter()
                 urlProvider = VideoFakeURLProvider()
                 urlOpener = FakeURLOpener()
@@ -58,7 +58,7 @@ class VideoControllerSpec: QuickSpec {
                 analyticsService = FakeAnalyticsService()
 
                 subject = VideoController(video: video,
-                    imageRepository: imageRepository,
+                    imageService: imageService,
                     timeIntervalFormatter: timeIntervalFormatter,
                     urlProvider: urlProvider,
                     urlOpener: urlOpener,

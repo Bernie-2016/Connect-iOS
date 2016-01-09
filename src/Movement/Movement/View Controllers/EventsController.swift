@@ -8,7 +8,7 @@ import CoreLocation
 // swiftlint:disable type_body_length
 
 class EventsController: UIViewController, CLLocationManagerDelegate {
-    let eventRepository: EventRepository
+    let eventService: EventService
     let eventPresenter: EventPresenter
     private let eventControllerProvider: EventControllerProvider
     private let eventSectionHeaderPresenter: EventSectionHeaderPresenter
@@ -43,7 +43,7 @@ class EventsController: UIViewController, CLLocationManagerDelegate {
     private var cancelButtonZipCodeConstraint: NSLayoutConstraint!
     private var filterButtonZipCodeConstraint: NSLayoutConstraint!
 
-    init(eventRepository: EventRepository,
+    init(eventService: EventService,
         eventPresenter: EventPresenter,
         eventControllerProvider: EventControllerProvider,
         eventSectionHeaderPresenter: EventSectionHeaderPresenter,
@@ -54,7 +54,7 @@ class EventsController: UIViewController, CLLocationManagerDelegate {
         eventListTableViewCellStylist: EventListTableViewCellStylist,
         theme: Theme) {
 
-            self.eventRepository = eventRepository
+            self.eventService = eventService
             self.eventPresenter = eventPresenter
             self.eventControllerProvider = eventControllerProvider
             self.eventSectionHeaderPresenter = eventSectionHeaderPresenter
@@ -215,49 +215,46 @@ class EventsController: UIViewController, CLLocationManagerDelegate {
 
     // MARK: Private
 
-    func performSearchWithZipCode(zipCode: String) {
+    private func performSearchWithZipCode(zipCode: String) {
+        let radiusMiles = Float(self.radiusPickerViewOptions[self.selectedSearchRadiusIndex])
+        let searchResultFuture = eventService.fetchEventsWithZipCode(zipCode, radiusMiles: radiusMiles)
         loadingActivityIndicatorView.startAnimating()
 
-        self.eventRepository.fetchEventsWithZipCode(zipCode, radiusMiles: Float(self.radiusPickerViewOptions[self.selectedSearchRadiusIndex]),
-            completion: { (eventSearchResult: EventSearchResult) -> Void in
-                let matchingEventsFound = eventSearchResult.events.count > 0
+        searchResultFuture.then { eventSearchResult in
+            let matchingEventsFound = eventSearchResult.events.count > 0
+            self.view.layoutIfNeeded()
+            self.filterButtonZipCodeConstraint.active = true
+
+            UIView.animateWithDuration(0.2, animations: {
                 self.view.layoutIfNeeded()
+                }) { _  in self.filterButton.hidden = false }
 
-                self.filterButtonZipCodeConstraint.active = true
+            self.eventSearchResult = eventSearchResult
 
-                UIView.animateWithDuration(0.2, animations: { () -> Void in
-                    self.view.layoutIfNeeded()
-                    }) { (finished) -> Void in
-                        self.filterButton.hidden = false
-                }
+            self.noResultsLabel.hidden = matchingEventsFound
+            self.createEventCTATextView.hidden = matchingEventsFound
+            self.resultsTableView.hidden = !matchingEventsFound
+            self.loadingActivityIndicatorView.stopAnimating()
 
-                self.eventSearchResult = eventSearchResult
+            self.resultsTableView.reloadData()
+        }
 
-                self.noResultsLabel.hidden = matchingEventsFound
-                self.createEventCTATextView.hidden = matchingEventsFound
-                self.resultsTableView.hidden = !matchingEventsFound
-                self.loadingActivityIndicatorView.stopAnimating()
+        searchResultFuture.error { error in
+            self.view.layoutIfNeeded()
+            self.filterButtonZipCodeConstraint.active = false
 
-                self.resultsTableView.reloadData()
-            }) { (error: NSError) -> Void in
+            UIView.animateWithDuration(0.2, animations: {
                 self.view.layoutIfNeeded()
+                }) { _ in self.filterButton.hidden = true}
 
-                self.filterButtonZipCodeConstraint.active = false
-
-                UIView.animateWithDuration(0.2, animations: { () -> Void in
-                    self.view.layoutIfNeeded()
-                    }) { (finished) -> Void in
-                        self.filterButton.hidden = true
-                }
-
-                self.analyticsService.trackError(error, context: "Events")
-                self.noResultsLabel.hidden = false
-                self.createEventCTATextView.hidden = false
-                self.loadingActivityIndicatorView.stopAnimating()
+            self.analyticsService.trackError(error, context: "Events")
+            self.noResultsLabel.hidden = false
+            self.createEventCTATextView.hidden = false
+            self.loadingActivityIndicatorView.stopAnimating()
         }
     }
 
-    func setupSubviews() {
+    private func setupSubviews() {
         searchBar.addSubview(zipCodeTextField)
         searchBar.addSubview(searchButton)
         searchBar.addSubview(cancelButton)
@@ -276,7 +273,7 @@ class EventsController: UIViewController, CLLocationManagerDelegate {
         setupResults()
     }
 
-    func setupSearchBar() {
+    private func setupSearchBar() {
         zipCodeTextField.delegate = self
 
         let magnifyingGlassIcon =   UIImageView(frame: CGRect(x: 0, y: 0, width: 22, height: 17))
@@ -309,7 +306,7 @@ class EventsController: UIViewController, CLLocationManagerDelegate {
         radiusPickerView.showsSelectionIndicator = true
     }
 
-    func setupResults() {
+    private func setupResults() {
         resultsTableView.dataSource = self
         resultsTableView.delegate = self
         resultsTableView.hidden = true
@@ -368,7 +365,7 @@ class EventsController: UIViewController, CLLocationManagerDelegate {
         createEventCTATextView.addGestureRecognizer(tapOrganizeRecognizer)
     }
 
-    func applyTheme() {
+    private func applyTheme() {
         searchBar.backgroundColor = self.theme.eventsSearchBarBackgroundColor()
 
         zipCodeTextField.textColor = self.theme.eventsZipCodeTextColor()
@@ -397,7 +394,7 @@ class EventsController: UIViewController, CLLocationManagerDelegate {
         loadingActivityIndicatorView.color = self.theme.defaultSpinnerColor()
     }
 
-    func setupConstraints() {
+    private func setupConstraints() {
         self.setupSearchBarConstraints()
 
         locateButton.autoAlignAxisToSuperviewAxis(.Vertical)
@@ -429,7 +426,7 @@ class EventsController: UIViewController, CLLocationManagerDelegate {
         loadingActivityIndicatorView.autoAlignAxisToSuperviewAxis(.Vertical)
     }
 
-    func setupSearchBarConstraints() {
+    private func setupSearchBarConstraints() {
         searchBar.autoPinEdgeToSuperviewEdge(.Top)
         searchBar.autoPinEdgeToSuperviewEdge(.Left)
         searchBar.autoPinEdgeToSuperviewEdge(.Right)

@@ -1,7 +1,7 @@
 @testable import Movement
 import Quick
 import Nimble
-import BrightFutures
+import CBGPromise
 import Result
 
 private class VideoRepositoryFakeURLProvider: FakeURLProvider {
@@ -25,7 +25,6 @@ class ConcreteVideoRepositorySpec : QuickSpec {
     let jsonClient = FakeJSONClient()
     private let urlProvider = VideoRepositoryFakeURLProvider()
     private let videoDeserializer = FakeVideoDeserializer()
-    let operationQueue = FakeOperationQueue()
     var receivedVideos: Array<Video>!
     var receivedError: NSError!
 
@@ -34,8 +33,7 @@ class ConcreteVideoRepositorySpec : QuickSpec {
             self.subject = ConcreteVideoRepository(
                 urlProvider: self.urlProvider,
                 jsonClient: self.jsonClient,
-                videoDeserializer: self.videoDeserializer,
-                operationQueue: self.operationQueue
+                videoDeserializer: self.videoDeserializer
             )
 
             describe(".fetchVideos") {
@@ -68,16 +66,14 @@ class ConcreteVideoRepositorySpec : QuickSpec {
                     beforeEach {
                         let promise = self.jsonClient.promisesByURL[self.urlProvider.videoURL()]!
 
-                        promise.success(expectedJSONDictionary)
-                        expect(self.operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
+                        promise.resolve(expectedJSONDictionary)
                     }
 
                     it("passes the json dictionary to the video deserializer") {
                         expect(self.videoDeserializer.lastReceivedJSONDictionary).to(beIdenticalTo(expectedJSONDictionary))
                     }
 
-                    it("calls the completion handler with the deserialized value objects on the operation queue") {
-                        self.operationQueue.lastReceivedBlock()
+                    it("calls the completion handler with the deserialized value objects") {
                         let receivedVideos =  videosFuture.value!
                         expect(receivedVideos.count).to(equal(1))
                         expect(receivedVideos.first!.title).to(equal("Bernie MegaMix"))
@@ -88,24 +84,20 @@ class ConcreteVideoRepositorySpec : QuickSpec {
                     beforeEach {
                         let promise = self.jsonClient.promisesByURL[self.urlProvider.videoURL()]!
 
-                        promise.success([1,2,3])
-                        expect(self.operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
+                        promise.resolve([1,2,3])
                     }
 
                     it("calls the completion handler with an error") {
-                        self.operationQueue.lastReceivedBlock()
                         expect(videosFuture.error).notTo(beNil())
                     }
                 }
 
                 context("when the request to the JSON client fails") {
-                    it("forwards the error to the caller on the operation queue") {
+                    it("forwards the error to the caller") {
                         let promise = self.jsonClient.promisesByURL[self.urlProvider.videoURL()]!
                         let expectedError = NSError(domain: "somedomain", code: 666, userInfo: nil)
-                        promise.failure(expectedError)
-                        expect(self.operationQueue.lastReceivedBlock).toEventuallyNot(beNil())
+                        promise.reject(expectedError)
 
-                        self.operationQueue.lastReceivedBlock()
                         expect(videosFuture.error).to(beIdenticalTo(expectedError))
                     }
                 }
