@@ -1,0 +1,7 @@
+machine:
+  xcode:
+    version: 7.2
+test:
+  override:
+    - script/cibuild
+
