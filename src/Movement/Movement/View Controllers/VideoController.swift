@@ -23,7 +23,6 @@ class VideoController: UIViewController {
     let viewOriginalButton = UIButton()
 
     init(video: Video,
-        imageService: ImageService,
         timeIntervalFormatter: TimeIntervalFormatter,
         urlProvider: URLProvider,
         urlOpener: URLOpener,

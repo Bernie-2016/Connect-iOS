@@ -40,7 +40,6 @@ class ConcreteNewsFeedItemControllerProvider: NewsFeedItemControllerProvider {
         } else if newsFeedItem is Video {
             let video: Video! = newsFeedItem as? Video
             return VideoController(video: video,
-                imageService: imageService,
                 timeIntervalFormatter: timeIntervalFormatter,
                 urlProvider: urlProvider,
                 urlOpener: urlOpener,
