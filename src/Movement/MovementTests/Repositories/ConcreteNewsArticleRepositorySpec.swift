@@ -2,7 +2,6 @@
 import Quick
 import Nimble
 import CBGPromise
-import Result
 
 private class NewsArticleRepositoryFakeURLProvider: FakeURLProvider {
     override func newsFeedURL() -> NSURL {

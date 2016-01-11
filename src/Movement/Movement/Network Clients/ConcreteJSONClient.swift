@@ -1,6 +1,5 @@
 import Foundation
 import CBGPromise
-import Result
 
 class ConcreteJSONClient: JSONClient {
     struct Error {

@@ -1,6 +1,5 @@
 import Foundation
 import CBGPromise
-import Result
 
 
 class BackgroundNewsFeedService: NewsFeedService {

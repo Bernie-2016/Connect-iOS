@@ -1,17 +1,17 @@
 import Foundation
 import CBGPromise
-import Result
+
 @testable import Movement
 
 
-class FakeImageRepository : Movement.ImageRepository {
+class FakeImageRepository: ImageRepository {
     var lastReceivedURL : NSURL?
-    var lastRequestPromise : Promise<UIImage, NSError>!
+    var lastRequestPromise : ImagePromise!
     var imageRequested = false
 
-    func fetchImageWithURL(url: NSURL) -> Future<UIImage, NSError> {
+    func fetchImageWithURL(url: NSURL) -> ImageFuture {
         self.lastReceivedURL = url
-        self.lastRequestPromise = Promise<UIImage, NSError>()
+        self.lastRequestPromise = ImagePromise()
         self.imageRequested = true
         return self.lastRequestPromise.future
     }

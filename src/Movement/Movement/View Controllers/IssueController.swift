@@ -1,7 +1,6 @@
 import UIKit
 import PureLayout
 import CBGPromise
-import Result
 
 class IssueController: UIViewController {
     let issue: Issue

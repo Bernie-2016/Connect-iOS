@@ -1,7 +1,6 @@
 import UIKit
 import PureLayout
 import CBGPromise
-import Result
 
 // swiftlint:disable type_body_length
 class NewsArticleController: UIViewController {
@@ -23,14 +22,13 @@ class NewsArticleController: UIViewController {
     let attributionLabel = UILabel.newAutoLayoutView()
     let viewOriginalButton = UIButton.newAutoLayoutView()
 
-    init(
-        newsArticle: NewsArticle,
-        imageService: ImageService,
-        timeIntervalFormatter: TimeIntervalFormatter,
-        analyticsService: AnalyticsService,
-        urlOpener: URLOpener,
-        urlAttributionPresenter: URLAttributionPresenter,
-        theme: Theme) {
+    init(newsArticle: NewsArticle,
+         imageService: ImageService,
+         timeIntervalFormatter: TimeIntervalFormatter,
+         analyticsService: AnalyticsService,
+         urlOpener: URLOpener,
+         urlAttributionPresenter: URLAttributionPresenter,
+         theme: Theme) {
 
         self.newsArticle = newsArticle
         self.imageService = imageService
@@ -137,7 +135,6 @@ class NewsArticleController: UIViewController {
     }
 
     // MARK: Private
-
     // swiftlint:disable function_body_length
     private func setupConstraintsAndLayout() {
         let screenBounds = UIScreen.mainScreen().bounds
@@ -157,11 +154,12 @@ class NewsArticleController: UIViewController {
 
         titleLabel.numberOfLines = 0
         titleLabel.preferredMaxLayoutWidth = screenBounds.width - 8
-        NSLayoutConstraint.autoSetPriority(1000, forConstraints: { () -> Void in
+
+        NSLayoutConstraint.autoSetPriority(1000, forConstraints: {
             self.titleButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.storyImageView, withOffset: 25)
         })
 
-        NSLayoutConstraint.autoSetPriority(500, forConstraints: { () -> Void in
+        NSLayoutConstraint.autoSetPriority(500, forConstraints: {
             self.titleButton.autoPinEdgeToSuperviewEdge(.Top, withInset: 25)
         })
 

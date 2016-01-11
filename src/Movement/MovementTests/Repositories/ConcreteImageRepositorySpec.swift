@@ -2,7 +2,6 @@ import Quick
 import Nimble
 import WebImage
 import CBGPromise
-import Result
 
 @testable import Movement
 

@@ -1,5 +1,4 @@
 import CBGPromise
-import Result
 
 @testable import Movement
 

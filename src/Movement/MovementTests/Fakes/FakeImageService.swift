@@ -1,6 +1,6 @@
 import Foundation
 import CBGPromise
-import Result
+
 @testable import Movement
 
 

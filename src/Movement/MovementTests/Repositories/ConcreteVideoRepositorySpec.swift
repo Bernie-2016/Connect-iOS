@@ -1,24 +1,8 @@
-@testable import Movement
 import Quick
 import Nimble
 import CBGPromise
-import Result
 
-private class VideoRepositoryFakeURLProvider: FakeURLProvider {
-    override func videoURL() -> NSURL {
-        return NSURL(string: "https://youtube.com/bernese/")!
-    }
-}
-
-private class FakeVideoDeserializer: VideoDeserializer {
-    var lastReceivedJSONDictionary: NSDictionary!
-    let returnedVideos = [TestUtils.video()]
-
-    func deserializeVideos(jsonDictionary: NSDictionary) -> Array<Video> {
-        self.lastReceivedJSONDictionary = jsonDictionary
-        return self.returnedVideos
-    }
-}
+@testable import Movement
 
 class ConcreteVideoRepositorySpec : QuickSpec {
     var subject: ConcreteVideoRepository!
@@ -103,5 +87,21 @@ class ConcreteVideoRepositorySpec : QuickSpec {
                 }
             }
         }
+    }
+}
+
+private class VideoRepositoryFakeURLProvider: FakeURLProvider {
+    override func videoURL() -> NSURL {
+        return NSURL(string: "https://youtube.com/bernese/")!
+    }
+}
+
+private class FakeVideoDeserializer: VideoDeserializer {
+    var lastReceivedJSONDictionary: NSDictionary!
+    let returnedVideos = [TestUtils.video()]
+
+    func deserializeVideos(jsonDictionary: NSDictionary) -> Array<Video> {
+        self.lastReceivedJSONDictionary = jsonDictionary
+        return self.returnedVideos
     }
 }
