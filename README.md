@@ -1,6 +1,6 @@
 # Movement
 
-[![Build Status](https://travis-ci.org/SandersForPresident/BernieAppiOS.png?branch=master)](https://travis-ci.org/SandersForPresident/BernieAppiOS)
+[![CI Status](https://img.shields.io/circleci/project/SandersForPresident/BernieAppiOS/master.svg)](https://circleci.com/gh/SandersForPresident/BernieAppiOS/tree/master)
 
 
 Mobile application for getting involved and keeping up with Bernie.

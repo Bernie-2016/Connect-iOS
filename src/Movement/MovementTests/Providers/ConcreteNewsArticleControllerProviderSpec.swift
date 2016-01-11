@@ -50,7 +50,6 @@ class ConcreteNewsFeedItemControllerProviderSpec : QuickSpec {
                     let controller = subject.provideInstanceWithNewsFeedItem(video) as! VideoController
 
                     expect(controller.video).to(beIdenticalTo(video))
-                    expect(controller.imageService as? FakeImageService).to(beIdenticalTo(imageService))
                     expect(controller.timeIntervalFormatter as? FakeTimeIntervalFormatter).to(beIdenticalTo(timeIntervalFormatter))
                     expect(controller.urlProvider as? FakeURLProvider).to(beIdenticalTo(urlProvider))
                     expect(controller.urlOpener as? FakeURLOpener).to(beIdenticalTo(urlOpener))
