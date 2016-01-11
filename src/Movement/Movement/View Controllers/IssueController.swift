@@ -61,19 +61,14 @@ class IssueController: UIViewController {
         setupConstraintsAndLayout()
         applyThemeToViews()
 
-        if issue.imageURL != nil {
-            let imageFuture = imageService.fetchImageWithURL(self.issue.imageURL!)
-
-            imageFuture.then({ image in
-                self.issueImageView.image = image
-            })
-
-            imageFuture.error({ error in
-                self.issueImageView.removeFromSuperview()
-            })
-        } else {
+        guard let imageURL = issue.imageURL else {
             issueImageView.removeFromSuperview()
+            return
         }
+
+        let imageFuture = imageService.fetchImageWithURL(imageURL)
+        imageFuture.then { image in self.issueImageView.image = image }
+        imageFuture.error { error in self.issueImageView.removeFromSuperview() }
     }
 
     override func didMoveToParentViewController(parent: UIViewController?) {

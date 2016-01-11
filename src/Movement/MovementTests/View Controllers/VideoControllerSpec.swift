@@ -5,41 +5,11 @@ import XCDYouTubeKit
 
 @testable import Movement
 
-class VideoFakeTheme: FakeTheme {
-    override func defaultBackgroundColor() -> UIColor { return UIColor.magentaColor() }
-    override func videoDateFont() -> UIFont { return UIFont.systemFontOfSize(111) }
-    override func videoDateColor() -> UIColor { return UIColor.redColor() }
-    override func videoTitleFont() -> UIFont  { return UIFont.systemFontOfSize(222) }
-    override func videoTitleColor() -> UIColor { return UIColor.blueColor() }
-    override func videoDescriptionFont() -> UIFont  { return UIFont.systemFontOfSize(333) }
-    override func videoDescriptionColor() -> UIColor { return UIColor.greenColor() }
-    override func attributionFont() -> UIFont { return UIFont.systemFontOfSize(444) }
-    override func attributionTextColor() -> UIColor { return UIColor.orangeColor() }
-
-    override func defaultButtonBackgroundColor() -> UIColor { return UIColor.brownColor() }
-    override func defaultButtonTextColor() -> UIColor { return UIColor.lightGrayColor() }
-    override func defaultButtonFont() -> UIFont { return UIFont.systemFontOfSize(555) }
-
-}
-
-class VideoFakeURLProvider: FakeURLProvider {
-    var lastReturnedURL: NSURL!
-    var lastIdentifier: String!
-
-    override func youtubeVideoURL(identifier: String) -> NSURL {
-        lastIdentifier = identifier
-        let urlString = "https://example.com/".stringByAppendingString(identifier)
-        lastReturnedURL = NSURL(string: urlString)!
-        return lastReturnedURL
-    }
-}
-
 class VideoControllerSpec: QuickSpec {
     override func spec() {
         describe("VideoController") {
             var subject: VideoController!
             var video: Video!
-            var imageService: FakeImageService!
             var timeIntervalFormatter: FakeTimeIntervalFormatter!
             var urlProvider: VideoFakeURLProvider!
             var urlOpener: FakeURLOpener!
@@ -50,7 +20,6 @@ class VideoControllerSpec: QuickSpec {
 
             beforeEach {
                 video = Video(title: "Happy Dance", date: videoDate, identifier: "FGHmzu9Dz18", description: "yay, happy!")
-                imageService = FakeImageService()
                 timeIntervalFormatter = FakeTimeIntervalFormatter()
                 urlProvider = VideoFakeURLProvider()
                 urlOpener = FakeURLOpener()
@@ -58,7 +27,6 @@ class VideoControllerSpec: QuickSpec {
                 analyticsService = FakeAnalyticsService()
 
                 subject = VideoController(video: video,
-                    imageService: imageService,
                     timeIntervalFormatter: timeIntervalFormatter,
                     urlProvider: urlProvider,
                     urlOpener: urlOpener,
@@ -239,5 +207,33 @@ class VideoControllerSpec: QuickSpec {
                 }
             }
         }
+    }
+}
+
+class VideoFakeTheme: FakeTheme {
+    override func defaultBackgroundColor() -> UIColor { return UIColor.magentaColor() }
+    override func videoDateFont() -> UIFont { return UIFont.systemFontOfSize(111) }
+    override func videoDateColor() -> UIColor { return UIColor.redColor() }
+    override func videoTitleFont() -> UIFont  { return UIFont.systemFontOfSize(222) }
+    override func videoTitleColor() -> UIColor { return UIColor.blueColor() }
+    override func videoDescriptionFont() -> UIFont  { return UIFont.systemFontOfSize(333) }
+    override func videoDescriptionColor() -> UIColor { return UIColor.greenColor() }
+    override func attributionFont() -> UIFont { return UIFont.systemFontOfSize(444) }
+    override func attributionTextColor() -> UIColor { return UIColor.orangeColor() }
+    
+    override func defaultButtonBackgroundColor() -> UIColor { return UIColor.brownColor() }
+    override func defaultButtonTextColor() -> UIColor { return UIColor.lightGrayColor() }
+    override func defaultButtonFont() -> UIFont { return UIFont.systemFontOfSize(555) }    
+}
+
+class VideoFakeURLProvider: FakeURLProvider {
+    var lastReturnedURL: NSURL!
+    var lastIdentifier: String!
+    
+    override func youtubeVideoURL(identifier: String) -> NSURL {
+        lastIdentifier = identifier
+        let urlString = "https://example.com/".stringByAppendingString(identifier)
+        lastReturnedURL = NSURL(string: urlString)!
+        return lastReturnedURL
     }
 }

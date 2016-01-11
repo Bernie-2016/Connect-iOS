@@ -1,55 +1,8 @@
-
 import Quick
 import Nimble
 import UIKit
 
 @testable import Movement
-
-private class NewsFakeTheme : FakeTheme {
-    override func newsFeedTitleFont() -> UIFont {
-        return UIFont.boldSystemFontOfSize(20)
-    }
-
-    override func newsFeedTitleColor() -> UIColor {
-        return UIColor.magentaColor()
-    }
-
-    override func newsFeedBackgroundColor() -> UIColor {
-        return UIColor.blueColor()
-    }
-
-    override func defaultSpinnerColor() -> UIColor {
-        return UIColor.greenColor()
-    }
-}
-
-private class FakeNewsFeedService: NewsFeedService {
-    var lastCompletionBlock: (([NewsFeedItem]) -> Void)?
-    var lastErrorBlock: ((ErrorType) -> Void)?
-    var fetchNewsFeedCalled: Bool = false
-
-    func fetchNewsFeed(completion: ([NewsFeedItem]) -> Void, error: (ErrorType) -> Void) {
-        self.fetchNewsFeedCalled = true
-        self.lastCompletionBlock = completion
-        self.lastErrorBlock = error
-    }
-}
-
-class FakeNewsFeedItemControllerProvider : Movement.NewsFeedItemControllerProvider {
-    let controller = NewsArticleController(newsArticle: TestUtils.newsArticle(),
-        imageService: FakeImageService(),
-        timeIntervalFormatter: FakeTimeIntervalFormatter(),
-        analyticsService: FakeAnalyticsService(),
-        urlOpener: FakeURLOpener(),
-        urlAttributionPresenter: FakeURLAttributionPresenter(),
-        theme: FakeTheme())
-    var lastNewsFeedItem: NewsFeedItem?
-
-    func provideInstanceWithNewsFeedItem(newsFeedItem: NewsFeedItem) -> UIViewController {
-        self.lastNewsFeedItem = newsFeedItem;
-        return self.controller
-    }
-}
 
 class NewsFeedControllerSpecs: QuickSpec {
     var subject: NewsFeedController!
@@ -288,3 +241,48 @@ class NewsFeedControllerSpecs: QuickSpec {
     }
 }
 
+private class NewsFakeTheme: FakeTheme {
+    override func newsFeedTitleFont() -> UIFont {
+        return UIFont.boldSystemFontOfSize(20)
+    }
+    
+    override func newsFeedTitleColor() -> UIColor {
+        return UIColor.magentaColor()
+    }
+    
+    override func newsFeedBackgroundColor() -> UIColor {
+        return UIColor.blueColor()
+    }
+    
+    override func defaultSpinnerColor() -> UIColor {
+        return UIColor.greenColor()
+    }
+}
+
+private class FakeNewsFeedService: NewsFeedService {
+    var lastCompletionBlock: (([NewsFeedItem]) -> Void)?
+    var lastErrorBlock: ((ErrorType) -> Void)?
+    var fetchNewsFeedCalled: Bool = false
+    
+    func fetchNewsFeed(completion: ([NewsFeedItem]) -> Void, error: (ErrorType) -> Void) {
+        self.fetchNewsFeedCalled = true
+        self.lastCompletionBlock = completion
+        self.lastErrorBlock = error
+    }
+}
+
+class FakeNewsFeedItemControllerProvider: NewsFeedItemControllerProvider {
+    let controller = NewsArticleController(newsArticle: TestUtils.newsArticle(),
+        imageService: FakeImageService(),
+        timeIntervalFormatter: FakeTimeIntervalFormatter(),
+        analyticsService: FakeAnalyticsService(),
+        urlOpener: FakeURLOpener(),
+        urlAttributionPresenter: FakeURLAttributionPresenter(),
+        theme: FakeTheme())
+    var lastNewsFeedItem: NewsFeedItem?
+    
+    func provideInstanceWithNewsFeedItem(newsFeedItem: NewsFeedItem) -> UIViewController {
+        self.lastNewsFeedItem = newsFeedItem;
+        return self.controller
+    }
+}

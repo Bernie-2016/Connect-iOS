@@ -3,7 +3,6 @@ import XCDYouTubeKit
 
 class VideoController: UIViewController {
     let video: Video
-    let imageService: ImageService
     let timeIntervalFormatter: TimeIntervalFormatter
     let urlProvider: URLProvider
     let urlOpener: URLOpener
@@ -32,7 +31,6 @@ class VideoController: UIViewController {
         analyticsService: AnalyticsService,
         theme: Theme) {
             self.video = video
-            self.imageService = imageService
             self.timeIntervalFormatter = timeIntervalFormatter
             self.analyticsService = analyticsService
             self.urlProvider = urlProvider

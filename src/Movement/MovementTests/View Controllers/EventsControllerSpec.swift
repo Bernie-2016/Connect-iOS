@@ -795,7 +795,7 @@ private class EventsFakeTheme : FakeTheme {
     }
 }
 
-private class FakeEventControllerProvider : Movement.EventControllerProvider {
+private class FakeEventControllerProvider: EventControllerProvider {
     let controller = EventController(
         event: TestUtils.eventWithName("some event"),
         eventPresenter: FakeEventPresenter(                    sameTimeZoneDateFormatter: FakeDateFormatter(),

@@ -1,7 +1,8 @@
-@testable import Movement
 import UIKit
 
-class FakeTheme : Movement.Theme {
+@testable import Movement
+
+class FakeTheme: Theme {
     func tabBarTintColor() -> UIColor {
         fatalError("FakeTheme used without being overridden in spec!")
     }
