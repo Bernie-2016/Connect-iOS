@@ -1402,7 +1402,6 @@
 			inputPaths = (
 				"$(PROJECT_DIR)/Carthage/Build/iOS/PureLayout.framework",
 				"$(PROJECT_DIR)/Carthage/Build/iOS/WebImage.framework",
-				"$(PROJECT_DIR)/Carthage/Build/iOS/Result.framework",
 				"$(PROJECT_DIR)/Carthage/Build/iOS/XCDYouTubeKit.framework",
 				"$(PROJECT_DIR)/Carthage/Build/iOS/Parse.framework",
 				"$(PROJECT_DIR)/Carthage/Build/iOS/Bolts.framework",
