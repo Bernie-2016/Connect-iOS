@@ -154,7 +154,6 @@
 		6592FA3A1B99E30C00746EC3 /* IssueControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6592FA391B99E30C00746EC3 /* IssueControllerProvider.swift */; };
 		6592FA3C1B99E33300746EC3 /* IssueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6592FA3B1B99E33300746EC3 /* IssueController.swift */; };
 		65937D211C4058AE003A1EFA /* CBGPromise.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65937D1F1C4058AE003A1EFA /* CBGPromise.framework */; };
-		65937D221C4058AE003A1EFA /* CBGPromise.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 65937D201C4058AE003A1EFA /* CBGPromise.framework.dSYM */; };
 		65937D231C4058DC003A1EFA /* CBGPromise.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 65937D201C4058AE003A1EFA /* CBGPromise.framework.dSYM */; };
 		659A12031B8BA5CF00BE08F4 /* FakeOperationQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659A12021B8BA5CF00BE08F4 /* FakeOperationQueue.swift */; };
 		659D06861B9FD79D0099DA3F /* UIKit+PivotalSpecHelperStubs-iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659D06831B9FD79D0099DA3F /* UIKit+PivotalSpecHelperStubs-iOS.framework */; };
@@ -1322,7 +1321,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				654948D41BFADBD500C1ECDB /* ApiKeys.plist in Resources */,
-				65937D221C4058AE003A1EFA /* CBGPromise.framework.dSYM in Resources */,
 				654FDBBB1BC1862800A082CF /* cssInjection.js in Resources */,
 				65B165591B9789C00052EF8D /* Entitlements.plist in Resources */,
 				654FDBBD1BC1867F00A082CF /* feedbackGoogleFormOverrides.css in Resources */,
