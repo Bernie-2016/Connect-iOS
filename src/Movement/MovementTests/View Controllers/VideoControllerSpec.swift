@@ -220,16 +220,16 @@ class VideoFakeTheme: FakeTheme {
     override func videoDescriptionColor() -> UIColor { return UIColor.greenColor() }
     override func attributionFont() -> UIFont { return UIFont.systemFontOfSize(444) }
     override func attributionTextColor() -> UIColor { return UIColor.orangeColor() }
-    
+
     override func defaultButtonBackgroundColor() -> UIColor { return UIColor.brownColor() }
     override func defaultButtonTextColor() -> UIColor { return UIColor.lightGrayColor() }
-    override func defaultButtonFont() -> UIFont { return UIFont.systemFontOfSize(555) }    
+    override func defaultButtonFont() -> UIFont { return UIFont.systemFontOfSize(555) }
 }
 
 class VideoFakeURLProvider: FakeURLProvider {
     var lastReturnedURL: NSURL!
     var lastIdentifier: String!
-    
+
     override func youtubeVideoURL(identifier: String) -> NSURL {
         lastIdentifier = identifier
         let urlString = "https://example.com/".stringByAppendingString(identifier)

@@ -45,7 +45,6 @@ class AppBootstrapper {
             applicationSettingsRepository: applicationSettingsRepository,
             apiKeyProvider: apiKeyProvider
         )
-        let stringContentSanitizer = ConcreteStringContentSanitizer()
 
         let urlProvider = ConcreteURLProvider()
         let urlOpener = URLOpener()
@@ -78,7 +77,7 @@ class AppBootstrapper {
         settingsNavigationController.pushViewController(settingsController, animated: false)
 
 
-        let newsArticleDeserializer = ConcreteNewsArticleDeserializer(stringContentSanitizer: stringContentSanitizer)
+        let newsArticleDeserializer = ConcreteNewsArticleDeserializer()
         let newsArticleRepository = ConcreteNewsArticleRepository(
             urlProvider: urlProvider,
             jsonClient: jsonClient,
@@ -142,7 +141,7 @@ class AppBootstrapper {
 
         let newsNavigationController = NavigationController(theme: defaultTheme)
         newsNavigationController.pushViewController(newsFeedController, animated: false)
-        let issueDeserializer = ConcreteIssueDeserializer(stringContentSanitizer: stringContentSanitizer)
+        let issueDeserializer = ConcreteIssueDeserializer()
 
         let issueRepository = ConcreteIssueRepository(
             urlProvider: urlProvider,
@@ -168,7 +167,7 @@ class AppBootstrapper {
         let issuesNavigationController = NavigationController(theme: defaultTheme)
         issuesNavigationController.pushViewController(issuesController, animated: false)
 
-        let eventDeserializer = ConcreteEventDeserializer(stringContentSanitizer: stringContentSanitizer)
+        let eventDeserializer = ConcreteEventDeserializer()
         let eventRepository = ConcreteEventRepository(
             geocoder: CLGeocoder(),
             urlProvider: urlProvider,
