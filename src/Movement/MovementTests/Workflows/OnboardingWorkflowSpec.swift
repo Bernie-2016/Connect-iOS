@@ -72,6 +72,11 @@ class OnboardingWorkflowSpec: QuickSpec {
                         self.applicationSettingsRepository.lastTermsAndConditionsCompletionHandler(true)
                     }
 
+                    it("tells the push registrar to register for remote notifications") {
+                        let lastRegisteredApplication: FakeApplication = self.pushNotificationRegistrar.lastAppUsedForRegistration as! FakeApplication
+                        expect(lastRegisteredApplication).to(beIdenticalTo(self.application))
+                    }
+
                     it("returns the post-onboarding view controller") {
                         expect(initialViewController).to(beIdenticalTo(self.postOnboardingController))
                     }

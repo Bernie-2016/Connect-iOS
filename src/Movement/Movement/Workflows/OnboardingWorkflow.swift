@@ -21,8 +21,13 @@ class OnboardingWorkflow {
     }
 
     func initialViewController(completion: (UIViewController) -> Void) {
-        applicationSettingsRepository.termsAndConditionsAgreed { (termsHaveBeenAgreed) -> Void in
-            completion(termsHaveBeenAgreed ? self.postOnboardingController : self.onboardingController)
+        applicationSettingsRepository.termsAndConditionsAgreed { termsHaveBeenAgreed in
+            if termsHaveBeenAgreed {
+                self.pushNotificationRegistrar.registerForRemoteNotificationsWithApplication(self.application)
+                completion(self.postOnboardingController)
+            } else {
+                completion(self.onboardingController)
+            }
         }
     }
 
