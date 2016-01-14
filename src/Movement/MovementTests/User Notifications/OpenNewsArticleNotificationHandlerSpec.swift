@@ -10,19 +10,27 @@ class OpenNewsArticleNotificationHandlerSpec: QuickSpec {
             var newsNavigationController: UINavigationController!
             var existingNewsController: UIViewController!
             var interstitialController: UIViewController!
+            var tabBarController: UITabBarController!
+            var selectedTabController: UIViewController!
             var newsFeedItemControllerProvider: FakeNewsFeedItemControllerProvider!
             var newsArticleService: FakeNewsArticleService!
 
             beforeEach {
-                interstitialController = UIViewController()
                 existingNewsController = UIViewController()
                 newsNavigationController = UINavigationController(rootViewController: existingNewsController)
+                interstitialController = UIViewController()
+                tabBarController = UITabBarController()
+                selectedTabController = UIViewController()
                 newsFeedItemControllerProvider = FakeNewsFeedItemControllerProvider()
                 newsArticleService = FakeNewsArticleService()
+
+                tabBarController.viewControllers = [selectedTabController, newsNavigationController]
+                tabBarController.selectedIndex = 0
 
                 subject = OpenNewsArticleNotificationHandler(
                     newsNavigationController: newsNavigationController,
                     interstitialController: interstitialController,
+                    tabBarController: tabBarController,
                     newsFeedItemControllerProvider: newsFeedItemControllerProvider,
                     newsArticleService: newsArticleService
                 )
@@ -35,6 +43,12 @@ class OpenNewsArticleNotificationHandlerSpec: QuickSpec {
                     subject.handleRemoteNotification(userInfo)
 
                     expect(newsNavigationController.topViewController).to(beIdenticalTo(interstitialController))
+                }
+
+                it("ensures that the navigation controller is the selected controller of the tab bar controller") {
+                    subject.handleRemoteNotification(userInfo)
+
+                    expect(tabBarController.selectedViewController).to(beIdenticalTo(newsNavigationController))
                 }
 
                 it("asks the news service for an article with that identifier") {

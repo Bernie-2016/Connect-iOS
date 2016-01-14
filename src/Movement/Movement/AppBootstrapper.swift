@@ -247,7 +247,13 @@ class AppBootstrapper {
         let interstitialController = InterstitialController(theme: defaultTheme)
 
         let newsArticleService = BackgroundNewsArticleService(newsArticleRepository: newsArticleRepository, workerQueue: NSOperationQueue(), resultQueue: NSOperationQueue.mainQueue())
-        let openNewsArticleNotificationHandler = OpenNewsArticleNotificationHandler(newsNavigationController: newsNavigationController, interstitialController: interstitialController, newsFeedItemControllerProvider: newsFeedItemControllerProvider, newsArticleService: newsArticleService)
+        let openNewsArticleNotificationHandler = OpenNewsArticleNotificationHandler(
+            newsNavigationController: newsNavigationController,
+            interstitialController: interstitialController,
+            tabBarController: tabBarController,
+            newsFeedItemControllerProvider: newsFeedItemControllerProvider,
+            newsArticleService: newsArticleService
+        )
         let pfAnalyticsProxy = PFAnalyticsProxy()
         let parseAnalyticsNotificationHandler = ParseAnalyticsNotificationHandler(pfAnalyticsProxy: pfAnalyticsProxy)
 

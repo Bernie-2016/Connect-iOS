@@ -8,15 +8,18 @@ extension UserNotificationHandlerKeys.ActionTypes {
 class OpenNewsArticleNotificationHandler: UserNotificationHandler {
     let newsNavigationController: UINavigationController
     let interstitialController: UIViewController
+    let tabBarController: UITabBarController
     let newsFeedItemControllerProvider: NewsFeedItemControllerProvider
     let newsArticleService: NewsArticleService
 
     init(newsNavigationController: UINavigationController,
         interstitialController: UIViewController,
+        tabBarController: UITabBarController,
         newsFeedItemControllerProvider: NewsFeedItemControllerProvider,
         newsArticleService: NewsArticleService) {
         self.newsNavigationController = newsNavigationController
         self.interstitialController = interstitialController
+        self.tabBarController = tabBarController
         self.newsFeedItemControllerProvider = newsFeedItemControllerProvider
         self.newsArticleService = newsArticleService
     }
@@ -32,6 +35,7 @@ class OpenNewsArticleNotificationHandler: UserNotificationHandler {
             return
         }
 
+        tabBarController.selectedViewController = newsNavigationController
         newsNavigationController.pushViewController(interstitialController, animated: false)
 
         let newsArticleFuture = newsArticleService.fetchNewsArticle(identifier)
