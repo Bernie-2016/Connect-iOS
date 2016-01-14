@@ -188,17 +188,6 @@ class BackgroundNewsFeedServiceSpec: QuickSpec {
     }
 }
 
-private class FakeNewsArticleRepository: NewsArticleRepository {
-    var fetchNewsCalled: Bool = false
-    var lastPromise: Promise<Array<NewsArticle>, NSError>!
-
-    func fetchNewsArticles() -> Future<Array<NewsArticle>, NSError> {
-        self.fetchNewsCalled = true
-        self.lastPromise = Promise<Array<NewsArticle>, NSError>()
-        return self.lastPromise.future
-    }
-}
-
 private class FakeVideoRepository: VideoRepository {
     var fetchVideosCalled: Bool = false
     var lastPromise: Promise<Array<Video>, NSError>!

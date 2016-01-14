@@ -3,13 +3,19 @@ import AVFoundation
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var pushNotificationRegistrar: PushNotificationRegistrar!
+    var pushNotificationHandlerDispatcher: PushNotificationHandlerDispatcher!
     let appBootstrapper = AppBootstrapper()
 
     func application(
         application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
-            self.appBootstrapper.bootstrapWithApplication(application)
-            self.pushNotificationRegistrar = appBootstrapper.pushNotificationRegistrar
+            appBootstrapper.bootstrapWithApplication(application)
+            pushNotificationRegistrar = appBootstrapper.pushNotificationRegistrar
+            pushNotificationHandlerDispatcher = appBootstrapper.pushNotificationHandlerDispatcher
+
+            if let notificationUserInfo = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? NotificationUserInfo {
+                pushNotificationHandlerDispatcher.handleRemoteNotification(notificationUserInfo)
+            }
 
             let audioSession = AVAudioSession.sharedInstance()
             do {
@@ -22,10 +28,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-        self.pushNotificationRegistrar.application(application, didRegisterForRemoteNotificationsWithDeviceToken: deviceToken)
+        pushNotificationRegistrar.application(application, didRegisterForRemoteNotificationsWithDeviceToken: deviceToken)
     }
 
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
-        self.pushNotificationRegistrar.application(application, didFailToRegisterForRemoteNotificationsWithError: error)
+        pushNotificationRegistrar.application(application, didFailToRegisterForRemoteNotificationsWithError: error)
+    }
+
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        pushNotificationHandlerDispatcher.handleRemoteNotification(userInfo)
     }
 }

@@ -15,10 +15,10 @@ class ConcreteNewsArticleRepository: NewsArticleRepository {
             self.newsArticleDeserializer = newsArticleDeserializer
     }
 
-    func fetchNewsArticles() -> Future<Array<NewsArticle>, NSError> {
-        let promise = Promise<Array<NewsArticle>, NSError>()
+    func fetchNewsArticles() -> NewsArticlesFuture {
+        let promise = NewsArticlesPromise()
 
-        let newsFeedJSONFuture = self.jsonClient.JSONPromiseWithURL(self.urlProvider.newsFeedURL(), method: "POST", bodyDictionary: self.HTTPBodyDictionary())
+        let newsFeedJSONFuture = self.jsonClient.JSONPromiseWithURL(urlProvider.newsFeedURL(), method: "POST", bodyDictionary: ArticlesHTTPBodyDictionary())
 
         newsFeedJSONFuture.then({ deserializedObject in
             guard let jsonDictionary = deserializedObject as? NSDictionary else {
@@ -39,9 +39,38 @@ class ConcreteNewsArticleRepository: NewsArticleRepository {
         return promise.future
     }
 
+    func fetchNewsArticle(identifier: NewsArticleIdentifier) -> NewsArticleFuture {
+        let promise = NewsArticlePromise()
+
+        let newsFeedJSONFuture = self.jsonClient.JSONPromiseWithURL(urlProvider.newsFeedURL(), method: "POST", bodyDictionary: ArticleHTTPBodyDictionary(identifier))
+
+        newsFeedJSONFuture.then({ deserializedObject in
+            guard let jsonDictionary = deserializedObject as? NSDictionary else {
+                let incorrectObjectTypeError = NSError(domain: "ConcreteNewsArticleRepository", code: -1, userInfo: nil)
+                promise.reject(incorrectObjectTypeError)
+                return
+            }
+
+            let parsedNewsArticles = self.newsArticleDeserializer.deserializeNewsArticles(jsonDictionary)
+
+            guard let newsArticle = parsedNewsArticles.first else {
+                let noMatchingNewsArticleError = NSError(domain: "ConcreteNewsArticleRepository", code: 1, userInfo: nil)
+                promise.reject(noMatchingNewsArticleError)
+                return
+            }
+            promise.resolve(newsArticle)
+        })
+
+        newsFeedJSONFuture.error { receivedError in
+            promise.reject(receivedError)
+        }
+
+        return promise.future
+    }
+
     // MARK: Private
 
-    func HTTPBodyDictionary() -> NSDictionary {
+    private func ArticlesHTTPBodyDictionary() -> NSDictionary {
         return [
             "from": 0, "size": 30,
             "_source": ["title", "body", "excerpt", "created_at", "url", "image_url"],
@@ -49,6 +78,21 @@ class ConcreteNewsArticleRepository: NewsArticleRepository {
                 "query_string": [
                     "default_field": "article_type",
                     "query": "NOT ExternalLink OR NOT Issues"
+                ]
+            ],
+            "sort": [
+                "created_at": ["order": "desc"]
+            ]
+        ]
+    }
+
+    private func ArticleHTTPBodyDictionary(identifier: NewsArticleIdentifier) -> NSDictionary {
+        return [
+            "from": 0, "size": 1,
+            "_source": ["title", "body", "excerpt", "created_at", "url", "image_url"],
+            "filter": [
+                "term": [
+                    "_id": identifier,
                 ]
             ],
             "sort": [

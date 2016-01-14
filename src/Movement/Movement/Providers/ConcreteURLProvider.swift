@@ -2,8 +2,6 @@ import Foundation
 import CoreLocation
 
 class ConcreteURLProvider: URLProvider {
-    init() {}
-
     func issuesFeedURL() -> NSURL {
         return NSURL(string: "https://search.berniesanders.tech/articles_en/berniesanders_com/_search")!
     }

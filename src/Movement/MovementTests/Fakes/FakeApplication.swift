@@ -1,7 +1,7 @@
 import Foundation
 @testable import Movement
 
-class FakeApplication: ApplicationUserNotificationHandler {
+class FakeApplication: UserNotificationRegisterable {
     var callCount = 0
 
     var lastRegisteredUserNotificationSettings: UIUserNotificationSettings!

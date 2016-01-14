@@ -4,17 +4,17 @@ import Nimble
 @testable import Movement
 
 class FakePushNotificationRegistrar: PushNotificationRegistrar {
-    var lastAppUsedForRegistration: ApplicationUserNotificationHandler!
+    var lastAppUsedForRegistration: UserNotificationRegisterable!
 
-    func registerForRemoteNotificationsWithApplication(application: ApplicationUserNotificationHandler) {
+    func registerForRemoteNotificationsWithApplication(application: UserNotificationRegisterable) {
         self.lastAppUsedForRegistration = application
     }
 
-    func application(application: ApplicationUserNotificationHandler, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+    func application(application: UserNotificationRegisterable, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
 
     }
 
-    func application(application: ApplicationUserNotificationHandler, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+    func application(application: UserNotificationRegisterable, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
 
     }
 }

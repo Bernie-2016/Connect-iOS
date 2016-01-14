@@ -1,5 +1,7 @@
 import Foundation
 
+typealias NewsArticleIdentifier = String
+
 class NewsArticle: NewsFeedItem {
     let title: String
     let date: NSDate

@@ -1,7 +1,7 @@
 import UIKit
 
 protocol PushNotificationRegistrar {
-    func registerForRemoteNotificationsWithApplication(application: ApplicationUserNotificationHandler)
-    func application(application: ApplicationUserNotificationHandler, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData)
-    func application(application: ApplicationUserNotificationHandler, didFailToRegisterForRemoteNotificationsWithError error: NSError)
+    func registerForRemoteNotificationsWithApplication(application: UserNotificationRegisterable)
+    func application(application: UserNotificationRegisterable, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData)
+    func application(application: UserNotificationRegisterable, didFailToRegisterForRemoteNotificationsWithError error: NSError)
 }

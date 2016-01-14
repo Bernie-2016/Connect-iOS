@@ -8,7 +8,7 @@ class ConcretePushNotificationRegistrar: PushNotificationRegistrar {
         self.installation = installation
     }
 
-    func registerForRemoteNotificationsWithApplication(application: ApplicationUserNotificationHandler) {
+    func registerForRemoteNotificationsWithApplication(application: UserNotificationRegisterable) {
         let types = UIUserNotificationType([.Alert, .Badge, .Sound])
         let settings = UIUserNotificationSettings(forTypes: types, categories: nil)
 
@@ -16,11 +16,11 @@ class ConcretePushNotificationRegistrar: PushNotificationRegistrar {
         application.registerForRemoteNotifications()
     }
 
-    func application(application: ApplicationUserNotificationHandler, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+    func application(application: UserNotificationRegisterable, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
 
     }
 
-    func application(application: ApplicationUserNotificationHandler, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+    func application(application: UserNotificationRegisterable, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         self.installation.setDeviceTokenFromData(deviceToken)
         self.installation.saveInBackground()
     }

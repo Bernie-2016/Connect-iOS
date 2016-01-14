@@ -12,6 +12,7 @@ import Parse
 class AppBootstrapper {
     var window: UIWindow?
     var pushNotificationRegistrar: PushNotificationRegistrar!
+    var pushNotificationHandlerDispatcher: PushNotificationHandlerDispatcher!
 
     // swiftlint:disable function_body_length
     func bootstrapWithApplication(application: UIApplication) -> Bool {
@@ -242,6 +243,13 @@ class AppBootstrapper {
         )
 
         welcomeController.onboardingWorkflow = onboardingWorkflow
+
+        let interstitialController = InterstitialController(theme: defaultTheme)
+
+        let newsArticleService = BackgroundNewsArticleService(newsArticleRepository: newsArticleRepository, workerQueue: NSOperationQueue(), resultQueue: NSOperationQueue.mainQueue())
+        let openNewsArticleNotificationHandler = OpenNewsArticleNotificationHandler(newsNavigationController: newsNavigationController, interstitialController: interstitialController, newsFeedItemControllerProvider: newsFeedItemControllerProvider, newsArticleService: newsArticleService)
+
+        pushNotificationHandlerDispatcher = PushNotificationHandlerDispatcher(handlers: [openNewsArticleNotificationHandler])
 
         onboardingWorkflow.initialViewController { (controller) -> Void in
             self.window = UIWindow(frame: mainScreen.bounds)
