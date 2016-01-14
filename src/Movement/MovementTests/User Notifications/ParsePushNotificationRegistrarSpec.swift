@@ -16,20 +16,20 @@ private class FakePFInstallation: PFInstallation {
     }
 }
 
-class ConcretePushNotificationRegistrarSpec: QuickSpec {
-    var subject: ConcretePushNotificationRegistrar!
+class ParsePushNotificationRegistrarSpec: QuickSpec {
+    var subject: ParsePushNotificationRegistrar!
     private var application: FakeApplication!
     private var installation: FakePFInstallation!
 
     override func spec() {
-        describe("ConcretePushNotificationRegistrar") {
+        describe("ParsePushNotificationRegistrar") {
             beforeEach {
                 FakePFInstallation.registerSubclass() // wtf parse, whyyyy
 
                 self.application = FakeApplication()
                 self.installation = FakePFInstallation()
 
-                self.subject = ConcretePushNotificationRegistrar(installation: self.installation)
+                self.subject = ParsePushNotificationRegistrar(installation: self.installation)
             }
 
             describe("Registering for push notifications") {

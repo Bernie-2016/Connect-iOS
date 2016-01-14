@@ -40,7 +40,7 @@ class AppBootstrapper {
         let tabBarItemStylist = ConcreteTabBarItemStylist(theme: defaultTheme)
 
         Parse.setApplicationId(apiKeyProvider.parseApplicationId(), clientKey: apiKeyProvider.parseClientKey())
-        self.pushNotificationRegistrar = ConcretePushNotificationRegistrar(installation: PFInstallation.currentInstallation())
+        self.pushNotificationRegistrar = ParsePushNotificationRegistrar(installation: PFInstallation.currentInstallation())
 
         let analyticsService = ConcreteAnalyticsService(
             applicationSettingsRepository: applicationSettingsRepository,
@@ -248,8 +248,10 @@ class AppBootstrapper {
 
         let newsArticleService = BackgroundNewsArticleService(newsArticleRepository: newsArticleRepository, workerQueue: NSOperationQueue(), resultQueue: NSOperationQueue.mainQueue())
         let openNewsArticleNotificationHandler = OpenNewsArticleNotificationHandler(newsNavigationController: newsNavigationController, interstitialController: interstitialController, newsFeedItemControllerProvider: newsFeedItemControllerProvider, newsArticleService: newsArticleService)
+        let pfAnalyticsProxy = PFAnalyticsProxy()
+        let parseAnalyticsNotificationHandler = ParseAnalyticsNotificationHandler(pfAnalyticsProxy: pfAnalyticsProxy)
 
-        pushNotificationHandlerDispatcher = PushNotificationHandlerDispatcher(handlers: [openNewsArticleNotificationHandler])
+        pushNotificationHandlerDispatcher = PushNotificationHandlerDispatcher(handlers: [openNewsArticleNotificationHandler, parseAnalyticsNotificationHandler])
 
         onboardingWorkflow.initialViewController { (controller) -> Void in
             self.window = UIWindow(frame: mainScreen.bounds)

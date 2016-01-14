@@ -1,8 +1,9 @@
-@testable import Movement
 import Quick
 import Nimble
 import CoreLocation
 import MapKit
+
+@testable import Movement
 
 class EventRepositoryFakeURLProvider: FakeURLProvider {
     let returnedURL = NSURL(string: "https://example.com/berneseeventsss/")!

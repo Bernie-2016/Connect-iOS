@@ -1,7 +1,7 @@
 import UIKit
 import Parse
 
-class ConcretePushNotificationRegistrar: PushNotificationRegistrar {
+class ParsePushNotificationRegistrar: PushNotificationRegistrar {
     let installation: PFInstallation
 
     init(installation: PFInstallation) {

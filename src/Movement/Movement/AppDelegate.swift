@@ -1,5 +1,6 @@
 import UIKit
 import AVFoundation
+import Parse
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var pushNotificationRegistrar: PushNotificationRegistrar!
@@ -15,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
             if let notificationUserInfo = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? NotificationUserInfo {
                 pushNotificationHandlerDispatcher.handleRemoteNotification(notificationUserInfo)
+                PFAnalytics.trackAppOpenedWithRemoteNotificationPayload(notificationUserInfo)
             }
 
             let audioSession = AVAudioSession.sharedInstance()
@@ -37,5 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         pushNotificationHandlerDispatcher.handleRemoteNotification(userInfo)
+        PFAnalytics.trackAppOpenedWithRemoteNotificationPayload(userInfo)
     }
 }

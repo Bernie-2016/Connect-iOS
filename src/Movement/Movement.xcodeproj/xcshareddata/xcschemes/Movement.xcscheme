@@ -22,7 +22,7 @@
          </BuildActionEntry>
          <BuildActionEntry
             buildForTesting = "YES"
-            buildForRunning = "YES"
+            buildForRunning = "NO"
             buildForProfiling = "NO"
             buildForArchiving = "NO"
             buildForAnalyzing = "YES">
@@ -31,20 +31,6 @@
                BlueprintIdentifier = "8233FC1D1B7C28FB00A5E9ED"
                BuildableName = "MovementTests.xctest"
                BlueprintName = "MovementTests"
-               ReferencedContainer = "container:Movement.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "65EC4C9A1B84242D00DD4C83"
-               BuildableName = "berniesanders Tests.xctest"
-               BlueprintName = "berniesanders Tests"
                ReferencedContainer = "container:Movement.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
