@@ -10,7 +10,7 @@ class AboutController: UIViewController {
     private let containerView = UIView.newAutoLayoutView()
     private var containerViewWidthConstraint: NSLayoutConstraint!
 
-
+    let versionLabel = UILabel.newAutoLayoutView()
     let bodyTextLabel = UILabel.newAutoLayoutView()
     let redditLabel = UILabel.newAutoLayoutView()
     let codersButton = UIButton.newAutoLayoutView()
@@ -43,27 +43,34 @@ class AboutController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.addSubview(self.scrollView)
-        self.scrollView.addSubview(self.containerView)
+        view.addSubview(scrollView)
+        scrollView.addSubview(containerView)
 
-        self.containerView.addSubview(self.bodyTextLabel)
-        self.containerView.addSubview(self.redditLabel)
-        self.containerView.addSubview(self.codersButton)
-        self.containerView.addSubview(self.designersButton)
-        self.containerView.addSubview(self.sandersForPresidentButton)
+        containerView.addSubview(versionLabel)
+        containerView.addSubview(bodyTextLabel)
+        containerView.addSubview(redditLabel)
+        containerView.addSubview(codersButton)
+        containerView.addSubview(designersButton)
+        containerView.addSubview(sandersForPresidentButton)
 
-        self.bodyTextLabel.text = NSLocalizedString("About_bodyText", comment: "")
-        self.redditLabel.text = NSLocalizedString("About_redditText", comment: "")
-        self.codersButton.setTitle(NSLocalizedString("About_codersForSanders", comment: ""), forState: .Normal)
-        self.designersButton.setTitle(NSLocalizedString("About_designersForSanders", comment: ""), forState: .Normal)
-        self.sandersForPresidentButton.setTitle(NSLocalizedString("About_sandersForPresident", comment: ""), forState: .Normal)
+        let marketingVersion = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as? String ?? "unknown version"
+        let internalBuildNumber  = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleVersion") as? String  ?? "unknown build"
 
-        self.codersButton.addTarget(self, action: "didTapCoders", forControlEvents: .TouchUpInside)
-        self.designersButton.addTarget(self, action: "didTapDesigners", forControlEvents: .TouchUpInside)
-        self.sandersForPresidentButton.addTarget(self, action: "didTapSandersForPresident", forControlEvents: .TouchUpInside)
+        let versionString = "Version: \(marketingVersion) (\(internalBuildNumber))"
+        versionLabel.text = versionString
 
-        self.setupConstraintsAndLayout()
-        self.applyTheme()
+        bodyTextLabel.text = NSLocalizedString("About_bodyText", comment: "")
+        redditLabel.text = NSLocalizedString("About_redditText", comment: "")
+        codersButton.setTitle(NSLocalizedString("About_codersForSanders", comment: ""), forState: .Normal)
+        designersButton.setTitle(NSLocalizedString("About_designersForSanders", comment: ""), forState: .Normal)
+        sandersForPresidentButton.setTitle(NSLocalizedString("About_sandersForPresident", comment: ""), forState: .Normal)
+
+        codersButton.addTarget(self, action: "didTapCoders", forControlEvents: .TouchUpInside)
+        designersButton.addTarget(self, action: "didTapDesigners", forControlEvents: .TouchUpInside)
+        sandersForPresidentButton.addTarget(self, action: "didTapSandersForPresident", forControlEvents: .TouchUpInside)
+
+        setupConstraintsAndLayout()
+        applyTheme()
     }
 
     override func didMoveToParentViewController(parent: UIViewController?) {
@@ -102,48 +109,53 @@ class AboutController: UIViewController {
     func setupConstraintsAndLayout() {
         let screenBounds = UIScreen.mainScreen().bounds
 
-        self.scrollView.contentSize.width = self.view.bounds.width
-        self.scrollView.autoPinEdgesToSuperviewEdges()
+        scrollView.contentSize.width = self.view.bounds.width
+        scrollView.autoPinEdgesToSuperviewEdges()
 
-        self.containerView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Trailing)
-        self.containerViewWidthConstraint = self.containerView.autoSetDimension(.Width, toSize: screenBounds.width)
+        containerView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Trailing)
+        containerViewWidthConstraint = self.containerView.autoSetDimension(.Width, toSize: screenBounds.width)
 
-        self.bodyTextLabel.numberOfLines = 0
-        self.bodyTextLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: 16)
-        self.bodyTextLabel.autoPinEdgeToSuperviewMargin(.Left)
-        self.bodyTextLabel.autoPinEdgeToSuperviewMargin(.Right)
+        bodyTextLabel.numberOfLines = 0
+        bodyTextLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: 16)
+        bodyTextLabel.autoPinEdgeToSuperviewMargin(.Left)
+        bodyTextLabel.autoPinEdgeToSuperviewMargin(.Right)
 
-        self.redditLabel.numberOfLines = 0
-        self.redditLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: bodyTextLabel, withOffset: 8)
-        self.redditLabel.autoPinEdgeToSuperviewMargin(.Left)
-        self.redditLabel.autoPinEdgeToSuperviewMargin(.Right)
+        redditLabel.numberOfLines = 0
+        redditLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: bodyTextLabel, withOffset: 8)
+        redditLabel.autoPinEdgeToSuperviewMargin(.Left)
+        redditLabel.autoPinEdgeToSuperviewMargin(.Right)
 
-        self.codersButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: redditLabel, withOffset: 16)
-        self.codersButton.autoPinEdgeToSuperviewMargin(.Left)
-        self.codersButton.autoPinEdgeToSuperviewMargin(.Right)
+        codersButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: redditLabel, withOffset: 16)
+        codersButton.autoPinEdgeToSuperviewMargin(.Left)
+        codersButton.autoPinEdgeToSuperviewMargin(.Right)
 
-        self.designersButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: codersButton, withOffset: 8)
-        self.designersButton.autoPinEdgeToSuperviewMargin(.Left)
-        self.designersButton.autoPinEdgeToSuperviewMargin(.Right)
+        designersButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: codersButton, withOffset: 8)
+        designersButton.autoPinEdgeToSuperviewMargin(.Left)
+        designersButton.autoPinEdgeToSuperviewMargin(.Right)
 
-        self.sandersForPresidentButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: designersButton, withOffset: 8)
-        self.sandersForPresidentButton.autoPinEdgeToSuperviewMargin(.Left)
-        self.sandersForPresidentButton.autoPinEdgeToSuperviewMargin(.Right)
-        self.sandersForPresidentButton.autoPinEdgeToSuperviewMargin(.Bottom)
+        sandersForPresidentButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: designersButton, withOffset: 8)
+        sandersForPresidentButton.autoPinEdgeToSuperviewMargin(.Left)
+        sandersForPresidentButton.autoPinEdgeToSuperviewMargin(.Right)
+
+        versionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: sandersForPresidentButton, withOffset: 8)
+        versionLabel.autoPinEdgeToSuperviewMargin(.Left)
+        versionLabel.autoPinEdgeToSuperviewMargin(.Right)
+        versionLabel.autoPinEdgeToSuperviewMargin(.Bottom)
     }
 
     func applyTheme() {
-        self.view.backgroundColor = self.theme.defaultBackgroundColor()
-        self.bodyTextLabel.font = self.theme.aboutBodyTextFont()
-        self.redditLabel.font = self.theme.aboutBodyTextFont()
-        self.codersButton.backgroundColor = self.theme.aboutButtonBackgroundColor()
-        self.codersButton.titleLabel!.font = self.theme.aboutButtonFont()
-        self.codersButton.setTitleColor(self.theme.aboutButtonTextColor(), forState: .Normal)
-        self.designersButton.backgroundColor = self.theme.aboutButtonBackgroundColor()
-        self.designersButton.titleLabel!.font = self.theme.aboutButtonFont()
-        self.designersButton.setTitleColor(self.theme.aboutButtonTextColor(), forState: .Normal)
-        self.sandersForPresidentButton.backgroundColor = self.theme.aboutButtonBackgroundColor()
-        self.sandersForPresidentButton.titleLabel!.font = self.theme.aboutButtonFont()
-        self.sandersForPresidentButton.setTitleColor(self.theme.aboutButtonTextColor(), forState: .Normal)
+        view.backgroundColor = theme.defaultBackgroundColor()
+        versionLabel.font = theme.aboutBodyTextFont()
+        bodyTextLabel.font = theme.aboutBodyTextFont()
+        redditLabel.font = theme.aboutBodyTextFont()
+        codersButton.backgroundColor = theme.aboutButtonBackgroundColor()
+        codersButton.titleLabel!.font = theme.aboutButtonFont()
+        codersButton.setTitleColor(theme.aboutButtonTextColor(), forState: .Normal)
+        designersButton.backgroundColor = theme.aboutButtonBackgroundColor()
+        designersButton.titleLabel!.font = theme.aboutButtonFont()
+        designersButton.setTitleColor(theme.aboutButtonTextColor(), forState: .Normal)
+        sandersForPresidentButton.backgroundColor = theme.aboutButtonBackgroundColor()
+        sandersForPresidentButton.titleLabel!.font = theme.aboutButtonFont()
+        sandersForPresidentButton.setTitleColor(theme.aboutButtonTextColor(), forState: .Normal)
     }
 }
