@@ -123,7 +123,7 @@ class AboutControllerSpec : QuickSpec {
                         subject.sandersForPresidentButton.tap()
                     }
 
-                    it("opens maps with the correct arugments") {
+                    it("opens maps with the correct arguments") {
                         expect(urlOpener.lastOpenedURL).to(equal(NSURL(string: "http://example.com/reddit/prez")))
                     }
 

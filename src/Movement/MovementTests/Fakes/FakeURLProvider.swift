@@ -63,4 +63,6 @@ class FakeURLProvider : URLProvider {
     func youtubeThumbnailURL(idenifier: String) -> NSURL {
         fatalError("override me in spec!")
     }
+
+    func hostEventFormURL() -> NSURL { fatalError("override me in spec!") }
 }

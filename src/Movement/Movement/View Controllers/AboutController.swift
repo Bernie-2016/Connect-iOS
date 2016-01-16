@@ -106,7 +106,7 @@ class AboutController: UIViewController {
 
     // MARK: Private
 
-    func setupConstraintsAndLayout() {
+    private func setupConstraintsAndLayout() {
         let screenBounds = UIScreen.mainScreen().bounds
 
         scrollView.contentSize.width = self.view.bounds.width
@@ -143,7 +143,7 @@ class AboutController: UIViewController {
         versionLabel.autoPinEdgeToSuperviewMargin(.Bottom)
     }
 
-    func applyTheme() {
+    private func applyTheme() {
         view.backgroundColor = theme.defaultBackgroundColor()
         versionLabel.font = theme.aboutBodyTextFont()
         bodyTextLabel.font = theme.aboutBodyTextFont()

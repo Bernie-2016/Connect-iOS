@@ -37,7 +37,7 @@ class ConcreteIssueRepository: IssueRepository {
 
     // MARK: Private
 
-    func HTTPBodyDictionary() -> NSDictionary {
+    private func HTTPBodyDictionary() -> NSDictionary {
         return [
             "from": 0, "size": 30,
             "_source": ["title", "body", "url", "image_url"],

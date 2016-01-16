@@ -78,9 +78,9 @@ protocol Theme {
     func eventsListDateFont() -> UIFont
     func eventsListDateColor() -> UIColor
     func eventsListDateTodayColor() -> UIColor
-    func eventsListSectionHeaderFont() -> UIFont
-    func eventsListSectionHeaderTextColor() -> UIColor
-    func eventsListSectionHeaderBackgroundColor() -> UIColor
+    func defaultTableSectionHeaderFont() -> UIFont
+    func defaultTableSectionHeaderTextColor() -> UIColor
+    func defaultTableSectionHeaderBackgroundColor() -> UIColor
     func eventsSearchBarBackgroundColor() -> UIColor
     func eventsZipCodeTextColor() -> UIColor
     func eventsZipCodeBackgroundColor() -> UIColor
@@ -142,4 +142,10 @@ protocol Theme {
     func viewPolicyBackgroundColor() -> UIColor
     func agreeToTermsLabelFont() -> UIFont
 
+    // MARK: Actions
+
+    func actionsTitleFont() -> UIFont
+    func actionsTitleTextColor() -> UIColor
+    func actionsSubTitleFont() -> UIFont
+    func actionsSubTitleTextColor() -> UIColor
 }

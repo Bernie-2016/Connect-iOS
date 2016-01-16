@@ -121,6 +121,8 @@
 		655906F01BC45A8900D7B0BA /* OnboardingWorkflowSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655906EF1BC45A8900D7B0BA /* OnboardingWorkflowSpec.swift */; };
 		655906F21BC45F1700D7B0BA /* WelcomeControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655906F11BC45F1700D7B0BA /* WelcomeControllerSpec.swift */; };
 		655906F41BC4607100D7B0BA /* FakeApplicationSettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655906F31BC4607100D7B0BA /* FakeApplicationSettingsRepository.swift */; };
+		655999FA1C489E4800E9AB18 /* ActionsControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655999F91C489E4800E9AB18 /* ActionsControllerSpec.swift */; };
+		655999FC1C489EEE00E9AB18 /* ActionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655999FB1C489EEE00E9AB18 /* ActionsController.swift */; };
 		6559D70D1BBDC32100CBC7EE /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6559D70C1BBDC32100CBC7EE /* AnalyticsService.swift */; };
 		6559D70F1BBDC37000CBC7EE /* FakeAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6559D70E1BBDC37000CBC7EE /* FakeAnalyticsService.swift */; };
 		6559D7111BBDC5F200CBC7EE /* ConcreteAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6559D7101BBDC5F200CBC7EE /* ConcreteAnalyticsService.swift */; };
@@ -154,6 +156,7 @@
 		6587FF5C1B8A7FA500AC65F1 /* ConcreteIssueRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6587FF5B1B8A7FA500AC65F1 /* ConcreteIssueRepository.swift */; };
 		6587FF5E1B8A818A00AC65F1 /* IssueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6587FF5D1B8A818A00AC65F1 /* IssueTableViewCell.swift */; };
 		658A1E4D1C00B5E300BF15EE /* ResponderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658A1E4C1C00B5E300BF15EE /* ResponderButton.swift */; };
+		658A5AE61C49924C00EFCA7E /* ActionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658A5AE51C49924C00EFCA7E /* ActionTableViewCell.swift */; };
 		658E58E81C10E0B300B12E20 /* NewsFeedTableViewCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658E58E71C10E0B300B12E20 /* NewsFeedTableViewCellPresenter.swift */; };
 		658E58EA1C10E0D400B12E20 /* ConcreteNewsFeedTableViewCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658E58E91C10E0D400B12E20 /* ConcreteNewsFeedTableViewCellPresenter.swift */; };
 		658E58EC1C10EBA000B12E20 /* ConcreteNewsFeedTableViewCellPresenterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658E58EB1C10EBA000B12E20 /* ConcreteNewsFeedTableViewCellPresenterSpec.swift */; };
@@ -402,6 +405,8 @@
 		655906EF1BC45A8900D7B0BA /* OnboardingWorkflowSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingWorkflowSpec.swift; sourceTree = "<group>"; };
 		655906F11BC45F1700D7B0BA /* WelcomeControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeControllerSpec.swift; sourceTree = "<group>"; };
 		655906F31BC4607100D7B0BA /* FakeApplicationSettingsRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeApplicationSettingsRepository.swift; sourceTree = "<group>"; };
+		655999F91C489E4800E9AB18 /* ActionsControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionsControllerSpec.swift; sourceTree = "<group>"; };
+		655999FB1C489EEE00E9AB18 /* ActionsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionsController.swift; sourceTree = "<group>"; };
 		6559D70C1BBDC32100CBC7EE /* AnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		6559D70E1BBDC37000CBC7EE /* FakeAnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeAnalyticsService.swift; sourceTree = "<group>"; };
 		6559D7101BBDC5F200CBC7EE /* ConcreteAnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteAnalyticsService.swift; sourceTree = "<group>"; };
@@ -435,6 +440,7 @@
 		6587FF5B1B8A7FA500AC65F1 /* ConcreteIssueRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteIssueRepository.swift; sourceTree = "<group>"; };
 		6587FF5D1B8A818A00AC65F1 /* IssueTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueTableViewCell.swift; sourceTree = "<group>"; };
 		658A1E4C1C00B5E300BF15EE /* ResponderButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponderButton.swift; sourceTree = "<group>"; };
+		658A5AE51C49924C00EFCA7E /* ActionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionTableViewCell.swift; sourceTree = "<group>"; };
 		658E58E71C10E0B300B12E20 /* NewsFeedTableViewCellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFeedTableViewCellPresenter.swift; sourceTree = "<group>"; };
 		658E58E91C10E0D400B12E20 /* ConcreteNewsFeedTableViewCellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteNewsFeedTableViewCellPresenter.swift; sourceTree = "<group>"; };
 		658E58EB1C10EBA000B12E20 /* ConcreteNewsFeedTableViewCellPresenterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteNewsFeedTableViewCellPresenterSpec.swift; sourceTree = "<group>"; };
@@ -990,6 +996,7 @@
 		65CA5E951B86E5710001D870 /* Table View Cells */ = {
 			isa = PBXGroup;
 			children = (
+				658A5AE51C49924C00EFCA7E /* ActionTableViewCell.swift */,
 				DF90BBCA1BC5090200F9FA53 /* DonateTableViewCell.swift */,
 				654773FC1BB1EEBC00B87670 /* EventListTableViewCell.swift */,
 				6587FF5D1B8A818A00AC65F1 /* IssueTableViewCell.swift */,
@@ -1054,6 +1061,7 @@
 			isa = PBXGroup;
 			children = (
 				65C6589F1BC085F9001AD5CA /* AboutControllerSpec.swift */,
+				655999F91C489E4800E9AB18 /* ActionsControllerSpec.swift */,
 				6568B9D51BC7017A00BD149D /* AnalyticsSettingsControllerSpec.swift */,
 				6581F7BE1BB87FF500B26B76 /* EventControllerSpec.swift */,
 				65D0ECE81BBB8C360063B1D0 /* EventRSVPControllerSpec.swift */,
@@ -1226,6 +1234,7 @@
 			isa = PBXGroup;
 			children = (
 				65C658A11BC088FF001AD5CA /* AboutController.swift */,
+				655999FB1C489EEE00E9AB18 /* ActionsController.swift */,
 				6568B9D31BC700D800BD149D /* AnalyticsSettingsController.swift */,
 				654AD3541BB876C700A59966 /* EventController.swift */,
 				65D0ECE21BBAD7A20063B1D0 /* EventRSVPController.swift */,
@@ -1445,6 +1454,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				65C658A21BC088FF001AD5CA /* AboutController.swift in Sources */,
+				655999FC1C489EEE00E9AB18 /* ActionsController.swift in Sources */,
+				658A5AE61C49924C00EFCA7E /* ActionTableViewCell.swift in Sources */,
 				6559D70D1BBDC32100CBC7EE /* AnalyticsService.swift in Sources */,
 				6568B9D41BC700D800BD149D /* AnalyticsSettingsController.swift in Sources */,
 				654948DA1BFAF24000C1ECDB /* APIKeyProvider.swift in Sources */,
@@ -1564,6 +1575,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				65C658A01BC085F9001AD5CA /* AboutControllerSpec.swift in Sources */,
+				655999FA1C489E4800E9AB18 /* ActionsControllerSpec.swift in Sources */,
 				6568B9D61BC7017A00BD149D /* AnalyticsSettingsControllerSpec.swift in Sources */,
 				651F80F51C40B17F004E7FDA /* BackgroundEventServiceSpec.swift in Sources */,
 				651C466B1C433E470075F5DE /* BackgroundImageServiceSpec.swift in Sources */,

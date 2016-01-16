@@ -1,7 +1,6 @@
 import UIKit
 import PureLayout
 
-
 class NewsArticleTableViewCell: UITableViewCell {
     let titleLabel = UILabel.newAutoLayoutView()
     let excerptLabel = UILabel.newAutoLayoutView()

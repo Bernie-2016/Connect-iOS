@@ -13,6 +13,7 @@ protocol URLProvider {
     func sandersForPresidentURL() -> NSURL
     func feedbackFormURL() -> NSURL
     func donateFormURL() -> NSURL
+    func hostEventFormURL() -> NSURL
     func createEventURL() -> NSURL
     func videoURL() -> NSURL
     func youtubeVideoURL(identifier: String) -> NSURL

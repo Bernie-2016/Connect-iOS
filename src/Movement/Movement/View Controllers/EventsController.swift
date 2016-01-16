@@ -573,9 +573,9 @@ extension EventsController: UITableViewDelegate {
 
     func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let headerView = view as? UITableViewHeaderFooterView else { return }
-        headerView.contentView.backgroundColor = self.theme.eventsListSectionHeaderBackgroundColor()
-        headerView.textLabel?.textColor = self.theme.eventsListSectionHeaderTextColor()
-        headerView.textLabel?.font = self.theme.eventsListSectionHeaderFont()
+        headerView.contentView.backgroundColor = self.theme.defaultTableSectionHeaderBackgroundColor()
+        headerView.textLabel?.textColor = self.theme.defaultTableSectionHeaderTextColor()
+        headerView.textLabel?.font = self.theme.defaultTableSectionHeaderFont()
     }
 }
 

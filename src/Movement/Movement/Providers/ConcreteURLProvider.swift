@@ -86,4 +86,6 @@ class ConcreteURLProvider: URLProvider {
 
         return urlComponents.URL!
     }
+
+    func hostEventFormURL() -> NSURL { return NSURL(string: "https://go.berniesanders.com/page/event/create")! }
 }

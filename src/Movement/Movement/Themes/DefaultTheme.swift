@@ -1,6 +1,5 @@
 import UIKit
 
-
 class DefaultTheme: Theme {
     // swift:disable type_body_length
     // MARK: Global
@@ -20,7 +19,6 @@ class DefaultTheme: Theme {
     func tabBarInactiveTextColor() -> UIColor { return self.silverColor() }
 
     // MARK: Navigation Bar
-
     func navigationBarBackgroundColor() -> UIColor { return self.codGrayColor() }
     func navigationBarFont() -> UIFont {
         if #available(iOS 8.2, *) {
@@ -32,7 +30,6 @@ class DefaultTheme: Theme {
     func navigationBarTextColor() -> UIColor { return UIColor.whiteColor()}
 
     // MARK: News Feed
-
     func newsFeedBackgroundColor() -> UIColor { return self.mercuryColor() }
     func newsFeedTitleColor() -> UIColor { return self.tundoraColor() }
     func newsFeedTitleFont() -> UIFont { return UIFont(name: "Georgia-Bold", size: 20)! }
@@ -100,9 +97,9 @@ class DefaultTheme: Theme {
     func eventsListDateFont() -> UIFont { return UIFont.systemFontOfSize(12) }
     func eventsListDateColor() -> UIColor { return self.doveGreyColor() }
     func eventsListDateTodayColor() -> UIColor { return self.thunderbirdColor() }
-    func eventsListSectionHeaderFont() -> UIFont { return UIFont.systemFontOfSize(14) }
-    func eventsListSectionHeaderTextColor() -> UIColor { return self.doveGreyColor() }
-    func eventsListSectionHeaderBackgroundColor() -> UIColor { return self.seaShellColor() }
+    func defaultTableSectionHeaderFont() -> UIFont { return UIFont.systemFontOfSize(14) }
+    func defaultTableSectionHeaderTextColor() -> UIColor { return self.doveGreyColor() }
+    func defaultTableSectionHeaderBackgroundColor() -> UIColor { return self.seaShellColor() }
     func eventsSearchBarBackgroundColor() -> UIColor { return self.codGrayColor() }
     func eventsZipCodeTextColor() -> UIColor { return self.silverChaliceColor() }
     func eventsZipCodeBackgroundColor() -> UIColor { return self.mineShaftColor() }
@@ -167,6 +164,13 @@ class DefaultTheme: Theme {
     func agreeToTermsLabelFont() -> UIFont { return UIFont.systemFontOfSize(11) }
     func welcomeBackgroundColor() -> UIColor { return codGrayColor() }
     func welcomeTextColor() -> UIColor { return nobelColor() }
+
+    // MARK: Actions
+
+    func actionsTitleFont() -> UIFont { return UIFont.boldSystemFontOfSize(14) }
+    func actionsTitleTextColor() -> UIColor { return self.tundoraColor() }
+    func actionsSubTitleFont() -> UIFont { return UIFont.systemFontOfSize(12) }
+    func actionsSubTitleTextColor() -> UIColor { return self.doveGreyColor() }
 
     // MARK: default dimensions
 

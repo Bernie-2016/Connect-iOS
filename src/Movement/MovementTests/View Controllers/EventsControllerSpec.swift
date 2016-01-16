@@ -762,15 +762,15 @@ private class EventsFakeTheme : FakeTheme {
         return UIFont.italicSystemFontOfSize(555)
     }
 
-    override func eventsListSectionHeaderBackgroundColor() -> UIColor {
+    override func defaultTableSectionHeaderBackgroundColor() -> UIColor {
         return UIColor.darkGrayColor()
     }
 
-    override func eventsListSectionHeaderTextColor() -> UIColor {
+    override func defaultTableSectionHeaderTextColor() -> UIColor {
         return UIColor.lightGrayColor()
     }
 
-    override func eventsListSectionHeaderFont() -> UIFont {
+    override func defaultTableSectionHeaderFont() -> UIFont {
         return UIFont.italicSystemFontOfSize(999)
     }
 

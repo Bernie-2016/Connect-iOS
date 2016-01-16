@@ -28,7 +28,7 @@ class SettingsController: UITableViewController {
 
         navigationItem.backBarButtonItem = backBarButtonItem
 
-        self.tabBarItemStylist.applyThemeToBarBarItem(self.tabBarItem,
+        tabBarItemStylist.applyThemeToBarBarItem(self.tabBarItem,
             image: UIImage(named: "moreTabBarIconInactive")!,
             selectedImage: UIImage(named: "moreTabBarIcon")!)
 
@@ -85,6 +85,7 @@ class SettingsController: UITableViewController {
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row == self.tappableControllers.count {
+            self.analyticsService.trackContentViewWithName("Donate", type: .Settings, identifier: "Donate Form")
             self.urlOpener.openURL(self.urlProvider.donateFormURL())
         } else {
             let controller = self.tappableControllers[indexPath.row]
