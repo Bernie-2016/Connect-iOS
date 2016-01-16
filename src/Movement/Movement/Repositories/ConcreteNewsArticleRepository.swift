@@ -77,7 +77,7 @@ class ConcreteNewsArticleRepository: NewsArticleRepository {
             "query": [
                 "query_string": [
                     "default_field": "article_type",
-                    "query": "NOT ExternalLink OR NOT Issues"
+                    "query": "PressRelease OR DemocracyDaily"
                 ]
             ],
             "sort": [
