@@ -158,7 +158,7 @@ class DefaultTheme: Theme {
 
     // MARK: default dimensions
 
-    func defaultCornerRadius() -> CGFloat { return 2.0 }
+    func defaultCornerRadius() -> CGFloat { return 5.0 }
     func defaultBorderWidth() -> CGFloat { return 1.0 }
 
     // MARK: color definitions
