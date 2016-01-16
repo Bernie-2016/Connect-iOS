@@ -219,20 +219,15 @@ class AppBootstrapper {
         actionsNavigationController.pushViewController(actionsController, animated: false)
 
         let tabBarViewControllers = [
-            eventsNavigationController,
-            issuesNavigationController,
             newsNavigationController,
+            issuesNavigationController,
+            eventsNavigationController,
             actionsNavigationController,
             settingsNavigationController
         ]
 
         let tabBarController = TabBarController(viewControllers: tabBarViewControllers, analyticsService: analyticsService, theme: defaultTheme)
-        tabBarController.selectedIndex = 2
-        let rawSelectedTabBarBackground = UIImage(named: "selectedTabBarBackground")!
-        let croppedSelectedTabBarBackgroundImageRef = CGImageCreateWithImageInRect(rawSelectedTabBarBackground.CGImage, CGRect(x: 0, y: 0, width: mainScreen.bounds.width / CGFloat(tabBarViewControllers.count), height: 49))
-        let croppedSelectedTabBarBackground = UIImage(CGImage:croppedSelectedTabBarBackgroundImageRef!)
-        UITabBar.appearance().selectionIndicatorImage = croppedSelectedTabBarBackground
-
+        tabBarController.selectedViewController = newsNavigationController
 
         let welcomeController = WelcomeController(
             applicationSettingsRepository: applicationSettingsRepository,

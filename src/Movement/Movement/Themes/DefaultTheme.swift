@@ -21,7 +21,7 @@ class DefaultTheme: Theme {
 
     // MARK: Tab Bar
 
-    func tabBarTintColor() -> UIColor { return self.codGrayColor() }
+    func tabBarTintColor() -> UIColor { return UIColor.whiteColor()     }
     func tabBarFont() -> UIFont { return UIFont.systemFontOfSize(11) }
     func tabBarActiveTextColor() -> UIColor { return calypsoColor }
     func tabBarInactiveTextColor() -> UIColor { return grayChateauColor }

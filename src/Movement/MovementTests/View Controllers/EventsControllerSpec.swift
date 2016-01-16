@@ -66,7 +66,7 @@ class EventsControllerSpec : QuickSpec {
             }
 
             it("has the correct tab bar title") {
-                expect(subject.title).to(equal("Events"))
+                expect(subject.title).to(equal("Nearby"))
             }
 
             it("has the correct navigation item title") {
