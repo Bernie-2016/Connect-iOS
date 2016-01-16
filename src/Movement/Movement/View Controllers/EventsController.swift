@@ -432,7 +432,7 @@ class EventsController: UIViewController, CLLocationManagerDelegate {
         searchBar.autoPinEdgeToSuperviewEdge(.Top)
         searchBar.autoPinEdgeToSuperviewEdge(.Left)
         searchBar.autoPinEdgeToSuperviewEdge(.Right)
-        searchBar.autoSetDimension(.Height, toSize: 40 + 24)
+        searchBar.autoSetDimension(.Height, toSize: 57 + 24)
 
         NSLayoutConstraint.autoSetPriority(900, forConstraints: { () -> Void in
             self.searchButtonZipCodeConstraint = self.searchButton.autoPinEdge(.Left, toEdge: .Right, ofView: self.zipCodeTextField, withOffset: 15)
@@ -456,8 +456,9 @@ class EventsController: UIViewController, CLLocationManagerDelegate {
             self.zipCodeTextField.autoPinEdgeToSuperviewEdge(.Right, withInset: 15)
         })
 
-        zipCodeTextField.autoPinEdgeToSuperviewEdge(.Top, withInset: 27)
-        zipCodeTextField.autoSetDimension(.Height, toSize: 25)
+        zipCodeTextField.autoPinEdgeToSuperviewEdge(.Top, withInset: 9 + 24)
+        zipCodeTextField.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 14)
+        zipCodeTextField.autoSetDimension(.Height, toSize: 34)
 
         NSLayoutConstraint.autoSetPriority(850, forConstraints: { () -> Void in
             self.filterButtonZipCodeConstraint = self.filterButton.autoPinEdge(.Left, toEdge: .Right, ofView: self.zipCodeTextField, withOffset: 15)
