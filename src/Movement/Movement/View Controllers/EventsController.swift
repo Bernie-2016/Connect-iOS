@@ -554,7 +554,7 @@ extension EventsController: UITableViewDelegate {
     }
 
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 34
+        return 38
     }
 
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

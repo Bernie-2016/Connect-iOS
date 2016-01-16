@@ -97,7 +97,7 @@ extension ActionsController: UITableViewDelegate {
     }
 
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 34
+        return 41
     }
 
     func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -105,6 +105,9 @@ extension ActionsController: UITableViewDelegate {
         headerView.contentView.backgroundColor = self.theme.defaultTableSectionHeaderBackgroundColor()
         headerView.textLabel?.textColor = self.theme.defaultTableSectionHeaderTextColor()
         headerView.textLabel?.font = self.theme.defaultTableSectionHeaderFont()
+        var frame = headerView.frame
+        frame = CGRectMake(frame.origin.x, frame.origin.y + 20, frame.size.width, frame.size.height)
+        headerView.frame = frame
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
