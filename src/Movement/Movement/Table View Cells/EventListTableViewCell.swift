@@ -2,7 +2,6 @@ import UIKit
 
 class EventListTableViewCell: UITableViewCell {
     let nameLabel = UILabel.newAutoLayoutView()
-    let distanceLabel = UILabel.newAutoLayoutView()
     let dateLabel = UILabel.newAutoLayoutView()
     let disclosureView = DisclosureIndicatorView.newAutoLayoutView()
 
@@ -20,12 +19,10 @@ class EventListTableViewCell: UITableViewCell {
 
         nameLabel.numberOfLines = 2
 
-        distanceLabel.textAlignment = .Right
         dateLabel.textAlignment = .Right
 
         contentView.addSubview(nameLabel)
         contentView.addSubview(disclosureView)
-        contentView.addSubview(distanceLabel)
         contentView.addSubview(dateLabel)
 
         setupConstraints()
@@ -37,15 +34,11 @@ class EventListTableViewCell: UITableViewCell {
         nameLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 100)
         nameLabel.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 15)
 
-        dateLabel.autoPinEdge(.Top, toEdge: .Top, ofView: disclosureView, withOffset: -7)
+        dateLabel.autoAlignAxis(.Horizontal, toSameAxisOfView: disclosureView)
         dateLabel.autoPinEdge(.Left, toEdge: .Right, ofView: nameLabel)
         dateLabel.autoPinEdge(.Right, toEdge: .Left, ofView: disclosureView, withOffset: -7)
 
-        distanceLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: dateLabel)
-        distanceLabel.autoPinEdge(.Left, toEdge: .Right, ofView: nameLabel)
-        distanceLabel.autoPinEdge(.Right, toEdge: .Left, ofView: disclosureView, withOffset: -7)
-
-        disclosureView.autoAlignAxis(.Horizontal, toSameAxisOfView: nameLabel)
+        disclosureView.autoPinEdge(.Top, toEdge: .Top, ofView: nameLabel, withOffset: 2)
         disclosureView.autoPinEdgeToSuperviewEdge(.Right)
         disclosureView.autoSetDimension(.Height, toSize: 14)
         disclosureView.autoSetDimension(.Width, toSize: 20)

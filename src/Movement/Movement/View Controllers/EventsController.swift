@@ -285,7 +285,7 @@ class EventsController: UIViewController, CLLocationManagerDelegate {
         zipCodeTextField.contentVerticalAlignment = .Center
 
         zipCodeTextField.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("Events_zipCodeTextBoxPlaceholder",  comment: ""),
-            attributes:[NSForegroundColorAttributeName: self.theme.eventsZipCodeTextColor()])
+            attributes:[NSForegroundColorAttributeName: self.theme.eventsZipCodePlaceholderTextColor()])
         zipCodeTextField.keyboardType = .NumberPad
 
         searchButton.setTitle(NSLocalizedString("Events_eventSearchButtonTitle", comment: ""), forState: .Normal)
@@ -366,6 +366,8 @@ class EventsController: UIViewController, CLLocationManagerDelegate {
     }
 
     private func applyTheme() {
+        resultsTableView.separatorColor = theme.defaultTableSeparatorColor()
+
         searchBar.backgroundColor = self.theme.eventsSearchBarBackgroundColor()
 
         zipCodeTextField.textColor = self.theme.eventsZipCodeTextColor()

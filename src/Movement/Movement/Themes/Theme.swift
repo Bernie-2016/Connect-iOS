@@ -14,6 +14,11 @@ protocol Theme {
     func defaultButtonFont() -> UIFont
     func defaultDisclosureColor() -> UIColor
     func highlightDisclosureColor() -> UIColor
+    func defaultTableSectionHeaderFont() -> UIFont
+    func defaultTableSectionHeaderTextColor() -> UIColor
+    func defaultTableSectionHeaderBackgroundColor() -> UIColor
+    func defaultTableSeparatorColor() -> UIColor
+
 
     // MARK: Tab Bar
 
@@ -72,17 +77,11 @@ protocol Theme {
 
     func eventsListNameFont() -> UIFont
     func eventsListNameColor() -> UIColor
-    func eventsListDistanceFont() -> UIFont
-    func eventsListDistanceColor() -> UIColor
-    func eventsListDistanceTodayColor() -> UIColor
     func eventsListDateFont() -> UIFont
     func eventsListDateColor() -> UIColor
-    func eventsListDateTodayColor() -> UIColor
-    func defaultTableSectionHeaderFont() -> UIFont
-    func defaultTableSectionHeaderTextColor() -> UIColor
-    func defaultTableSectionHeaderBackgroundColor() -> UIColor
     func eventsSearchBarBackgroundColor() -> UIColor
     func eventsZipCodeTextColor() -> UIColor
+    func eventsZipCodePlaceholderTextColor() -> UIColor
     func eventsZipCodeBackgroundColor() -> UIColor
     func eventsZipCodeBorderColor() -> UIColor
     func eventsSearchBarFont() -> UIFont

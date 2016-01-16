@@ -20,11 +20,6 @@ class EventPresenter {
 
     func presentEventListCell(event: Event, searchCentroid: CLLocation, cell: EventListTableViewCell) -> EventListTableViewCell {
         cell.nameLabel.text = event.name
-
-        let distanceToEvent = searchCentroid.distanceFromLocation(event.location)
-        let lengthFormatter = NSLengthFormatter()
-        lengthFormatter.numberFormatter.maximumFractionDigits = 1
-        cell.distanceLabel.text = lengthFormatter.stringFromValue(distanceToEvent / 1609.34, unit: .Mile) // :(
         cell.dateLabel.text = self.presentTimeForEvent(event)
 
         return cell

@@ -20,6 +20,10 @@ class FakeTheme: Theme {
     func newsFeedVideoOverlayBackgroundColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func highlightDisclosureColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func defaultDisclosureColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func defaultTableSectionHeaderFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
+    func defaultTableSectionHeaderTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func defaultTableSectionHeaderBackgroundColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func defaultTableSeparatorColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
 
     func navigationBarFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
     func navigationBarTextColor() -> UIColor {
@@ -111,17 +115,11 @@ class FakeTheme: Theme {
 
     func eventsListNameFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
     func eventsListNameColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
-    func eventsListDistanceFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
-    func eventsListDistanceColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
-    func eventsListDistanceTodayColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func eventsListDateFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
     func eventsListDateColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
-    func eventsListDateTodayColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
-    func defaultTableSectionHeaderFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
-    func defaultTableSectionHeaderTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
-    func defaultTableSectionHeaderBackgroundColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func eventsSearchBarBackgroundColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func eventsZipCodeTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func eventsZipCodePlaceholderTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func eventsZipCodeBackgroundColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func eventsZipCodeBorderColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func eventsSearchBarFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }

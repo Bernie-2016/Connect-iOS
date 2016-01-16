@@ -90,10 +90,6 @@ class EventPresenterSpec : QuickSpec {
                     expect(cell.nameLabel.text).to(equal("some event"))
                 }
 
-                it("displays the distance label using the passed in search centroid") {
-                    expect(cell.distanceLabel.text).to(equal("2.7 mi"))
-                }
-
                 it("displays the date using the date formatter") {
                     expect(cell.dateLabel.text).to(equal("This is the date!"))
                     expect(self.sameTimeZoneDateFormatter.timeZone).to(equal(event.timeZone))

@@ -170,8 +170,9 @@ class EventsControllerSpec : QuickSpec {
                 expect(subject.createEventCTATextView.font).to(equal(UIFont.italicSystemFontOfSize(777)))
                 expect(subject.createEventCTATextView.textColor).to(equal(UIColor.blueColor()))
 
-
                 expect(subject.loadingActivityIndicatorView.color).to(equal(UIColor.blackColor()))
+
+                expect(subject.resultsTableView.separatorColor).to(equal(UIColor(rgba: "#666666")))
             }
 
             it("has the correct text for the search button for the zip code entry field") {
@@ -718,6 +719,8 @@ private class EventsFakeTheme : FakeTheme {
         return UIColor.redColor()
     }
 
+    override func eventsZipCodePlaceholderTextColor() -> UIColor { return UIColor(rgba: "#12345") }
+
     override func eventsZipCodeBackgroundColor() -> UIColor {
         return UIColor.brownColor()
     }
@@ -779,6 +782,10 @@ private class EventsFakeTheme : FakeTheme {
         return UIColor.blueColor()
     }
 
+
+    override func defaultTableSeparatorColor() -> UIColor {
+        return UIColor(rgba: "#666666")
+    }
 
     // TODO: use the below in tests.
 
