@@ -42,12 +42,12 @@ class DefaultTheme: Theme {
 
     // MARK: News Article screen
 
-    func newsArticleDateFont() -> UIFont { return UIFont.systemFontOfSize(13) }
-    func newsArticleDateColor() -> UIColor { return self.scorpionColor() }
-    func newsArticleTitleFont() -> UIFont { return UIFont(name: "Georgia-Bold", size: 26)! }
-    func newsArticleTitleColor() -> UIColor { return UIColor.blackColor() }
-    func newsArticleBodyFont() -> UIFont { return UIFont(name: "Georgia", size: 18)! }
-    func newsArticleBodyColor() -> UIColor { return UIColor.blackColor() }
+    func newsArticleDateFont() -> UIFont { return tinyTextFont() }
+    func newsArticleDateColor() -> UIColor { return tinyTextColor() }
+    func newsArticleTitleFont() -> UIFont { return h1HeaderFont() }
+    func newsArticleTitleColor() -> UIColor { return h1HeaderTextColor() }
+    func newsArticleBodyFont() -> UIFont { return defaultBodyTextFont() }
+    func newsArticleBodyColor() -> UIColor { return defaultBodyTextColor() }
 
     // MARK: Video Screen
 
@@ -193,13 +193,13 @@ class DefaultTheme: Theme {
     func defaultHeaderFont() -> UIFont { return UIFont.systemFontOfSize(17) }
 
     // new fonts
-    func h1HeaderFont() -> UIFont { return sanfranciscoMediumFontOfSize(25) }
+    func h1HeaderFont() -> UIFont { return mediumSystemFontOfSize(21) }
     func h1HeaderTextColor() -> UIColor { return UIColor.blackColor() }
 
-    func h2HeaderFont() -> UIFont { return sanfranciscoMediumFontOfSize(18) }
+    func h2HeaderFont() -> UIFont { return mediumSystemFontOfSize(18) }
     func h2HeaderTextColor() -> UIColor { return UIColor.blackColor() }
 
-    func h3HeaderFont() -> UIFont { return sanfranciscoMediumFontOfSize(15) }
+    func h3HeaderFont() -> UIFont { return mediumSystemFontOfSize(15) }
     func h3HeaderTextColor() -> UIColor { return coalMinerColor }
 
     func subHeadingFont() -> UIFont { return UIFont.systemFontOfSize(14) }
@@ -208,11 +208,10 @@ class DefaultTheme: Theme {
     func tinyTextFont() -> UIFont { return UIFont.systemFontOfSize(12) }
     func tinyTextColor() -> UIColor { return arachnidColor }
 
-    func tableSectionHeaderFont() -> UIFont { return sanfranciscoMediumFontOfSize(13) }
+    func tableSectionHeaderFont() -> UIFont { return mediumSystemFontOfSize(13) }
     func tableSectionHeaderTextColor() -> UIColor { return boulderColor }
 
-
-    func sanfranciscoMediumFontOfSize(size: CGFloat) -> UIFont {
+    private func mediumSystemFontOfSize(size: CGFloat) -> UIFont {
         if #available(iOS 8.2, *) {
             return UIFont.systemFontOfSize(size, weight: UIFontWeightMedium)
         } else {

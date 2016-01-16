@@ -50,16 +50,16 @@ class NewsArticleController: UIViewController {
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Global_share", comment: ""), style: .Plain, target: self, action: "share")
 
-        view.backgroundColor = self.theme.defaultBackgroundColor()
+        view.backgroundColor = theme.contentBackgroundColor()
 
-        view.addSubview(self.scrollView)
-        scrollView.addSubview(self.containerView)
-        containerView.addSubview(self.storyImageView)
-        containerView.addSubview(self.dateLabel)
-        containerView.addSubview(self.titleButton)
-        containerView.addSubview(self.bodyTextView)
-        containerView.addSubview(self.attributionLabel)
-        containerView.addSubview(self.viewOriginalButton)
+        view.addSubview(scrollView)
+        scrollView.addSubview(containerView)
+        containerView.addSubview(storyImageView)
+        containerView.addSubview(dateLabel)
+        containerView.addSubview(titleButton)
+        containerView.addSubview(bodyTextView)
+        containerView.addSubview(attributionLabel)
+        containerView.addSubview(viewOriginalButton)
 
         dateLabel.text = self.timeIntervalFormatter.humanDaysSinceDate(self.newsArticle.date)
         titleButton.setTitle(self.newsArticle.title, forState: .Normal)
@@ -137,6 +137,9 @@ class NewsArticleController: UIViewController {
     // MARK: Private
     // swiftlint:disable function_body_length
     private func setupConstraintsAndLayout() {
+        let defaultHorizontalMargin: CGFloat = 15
+        let defaultVerticalMargin: CGFloat = 21
+
         let screenBounds = UIScreen.mainScreen().bounds
 
         self.scrollView.contentSize.width = self.view.bounds.width
@@ -156,42 +159,41 @@ class NewsArticleController: UIViewController {
         titleLabel.preferredMaxLayoutWidth = screenBounds.width - 8
 
         NSLayoutConstraint.autoSetPriority(1000, forConstraints: {
-            self.titleButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.storyImageView, withOffset: 25)
+            self.titleButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.storyImageView, withOffset: defaultVerticalMargin + 5)
         })
 
         NSLayoutConstraint.autoSetPriority(500, forConstraints: {
-            self.titleButton.autoPinEdgeToSuperviewEdge(.Top, withInset: 25)
+            self.titleButton.autoPinEdgeToSuperviewEdge(.Top, withInset: defaultVerticalMargin)
         })
 
         titleButton.contentHorizontalAlignment = .Left
-        titleButton.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
-        titleButton.autoPinEdgeToSuperviewMargin(.Trailing)
+        titleButton.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
+        titleButton.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
         titleButton.layoutIfNeeded()
         titleButton.autoSetDimension(.Height, toSize: titleLabel.frame.height)
-
         dateLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.titleButton, withOffset: 5)
-        dateLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
-        dateLabel.autoPinEdgeToSuperviewMargin(.Trailing)
+        dateLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
+        dateLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
         dateLabel.autoSetDimension(.Height, toSize: 20)
 
         bodyTextView.scrollEnabled = false
-        bodyTextView.textContainerInset = UIEdgeInsetsZero
+        bodyTextView.textContainerInset = UIEdgeInsetsMake(-22, 0, 0, 0)
         bodyTextView.textContainer.lineFragmentPadding = 0
         bodyTextView.editable = false
 
-        bodyTextView.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.dateLabel, withOffset: 14)
-        bodyTextView.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
-        bodyTextView.autoPinEdgeToSuperviewMargin(.Right)
+        bodyTextView.autoPinEdge(.Top, toEdge: .Bottom, ofView: dateLabel, withOffset: defaultVerticalMargin - 5)
+        bodyTextView.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
+        bodyTextView.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
 
         attributionLabel.numberOfLines = 0
         attributionLabel.textAlignment = .Center
         attributionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.bodyTextView, withOffset: 16)
-        attributionLabel.autoPinEdgeToSuperviewMargin(.Left)
-        attributionLabel.autoPinEdgeToSuperviewMargin(.Right)
+        attributionLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
+        attributionLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
 
         viewOriginalButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.attributionLabel, withOffset: 16)
         viewOriginalButton.autoSetDimension(.Height, toSize: 54)
-        viewOriginalButton.autoPinEdgesToSuperviewMarginsExcludingEdge(.Top)
+        viewOriginalButton.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsets(top: 0, left: defaultHorizontalMargin, bottom: defaultHorizontalMargin, right: defaultVerticalMargin), excludingEdge: .Top)
     }
     // swiftlint:enable function_body_length
 

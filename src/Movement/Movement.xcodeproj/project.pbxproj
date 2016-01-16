@@ -1742,7 +1742,7 @@
 				GCC_WARN_PEDANTIC = YES;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Movement/Externals/Flurry";
 				INFOPLIST_FILE = Movement/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1898,7 +1898,7 @@
 				GCC_WARN_PEDANTIC = YES;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Movement/Externals/Flurry";
 				INFOPLIST_FILE = Movement/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1939,7 +1939,7 @@
 				GCC_WARN_PEDANTIC = YES;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Movement/Externals/Flurry";
 				INFOPLIST_FILE = Movement/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

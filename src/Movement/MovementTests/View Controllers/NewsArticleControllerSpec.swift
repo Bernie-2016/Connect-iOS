@@ -1,25 +1,8 @@
 import UIKit
 import Quick
 import Nimble
+
 @testable import Movement
-
-
-
-class NewsArticleFakeTheme : FakeTheme {
-    override func newsArticleDateFont() -> UIFont { return UIFont.boldSystemFontOfSize(20) }
-    override func newsArticleDateColor() -> UIColor { return UIColor.magentaColor() }
-    override func newsArticleTitleFont() -> UIFont { return UIFont.italicSystemFontOfSize(13) }
-    override func newsArticleTitleColor() -> UIColor { return UIColor.brownColor() }
-    override func newsArticleBodyFont() -> UIFont { return UIFont.systemFontOfSize(3) }
-    override func newsArticleBodyColor() -> UIColor { return UIColor.yellowColor() }
-    override func defaultBackgroundColor() -> UIColor { return UIColor.orangeColor() }
-    override func attributionFont() -> UIFont { return UIFont.boldSystemFontOfSize(111) }
-    override func attributionTextColor() -> UIColor { return UIColor.greenColor() }
-    override func defaultButtonBackgroundColor() -> UIColor { return UIColor.redColor() }
-    override func defaultButtonTextColor() -> UIColor { return UIColor.blueColor() }
-    override func defaultButtonFont() -> UIFont { return UIFont.boldSystemFontOfSize(222) }
-
-}
 
 class NewsArticleControllerSpec : QuickSpec {
     override func spec() {
@@ -301,4 +284,20 @@ class NewsArticleControllerSpec : QuickSpec {
             }
         }
     }
+}
+
+private class NewsArticleFakeTheme: FakeTheme {
+    override func newsArticleDateFont() -> UIFont { return UIFont.boldSystemFontOfSize(20) }
+    override func newsArticleDateColor() -> UIColor { return UIColor.magentaColor() }
+    override func newsArticleTitleFont() -> UIFont { return UIFont.italicSystemFontOfSize(13) }
+    override func newsArticleTitleColor() -> UIColor { return UIColor.brownColor() }
+    override func newsArticleBodyFont() -> UIFont { return UIFont.systemFontOfSize(3) }
+    override func newsArticleBodyColor() -> UIColor { return UIColor.yellowColor() }
+    override func contentBackgroundColor() -> UIColor { return UIColor.orangeColor() }
+    override func attributionFont() -> UIFont { return UIFont.boldSystemFontOfSize(111) }
+    override func attributionTextColor() -> UIColor { return UIColor.greenColor() }
+    override func defaultButtonBackgroundColor() -> UIColor { return UIColor.redColor() }
+    override func defaultButtonTextColor() -> UIColor { return UIColor.blueColor() }
+    override func defaultButtonFont() -> UIFont { return UIFont.boldSystemFontOfSize(222) }
+
 }
