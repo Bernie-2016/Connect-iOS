@@ -33,11 +33,11 @@ class DefaultTheme: Theme {
 
     // MARK: News Feed
     func newsFeedBackgroundColor() -> UIColor { return self.mercuryColor() }
-    func newsFeedTitleColor() -> UIColor { return self.tundoraColor() }
-    func newsFeedTitleFont() -> UIFont { return UIFont(name: "Georgia-Bold", size: 20)! }
-    func newsFeedExcerptFont() -> UIFont { return UIFont(name: "Georgia", size: 14)! }
-    func newsFeedExcerptColor() -> UIColor {  return self.mineShaftColor() }
-    func newsFeedDateFont() -> UIFont { return UIFont.systemFontOfSize(12) }
+    func newsFeedTitleColor() -> UIColor { return h2HeaderTextColor() }
+    func newsFeedTitleFont() -> UIFont { return h2HeaderFont() }
+    func newsFeedExcerptFont() -> UIFont { return subHeadingFont() }
+    func newsFeedExcerptColor() -> UIColor {  return subHeadingTextColor() }
+    func newsFeedDateFont() -> UIFont { return tinyTextFont() }
     func newsFeedVideoOverlayBackgroundColor() -> UIColor { return UIColor(red: 0, green: 0, blue: 0, alpha: 0.7) }
 
     // MARK: News Article screen
@@ -51,12 +51,12 @@ class DefaultTheme: Theme {
 
     // MARK: Video Screen
 
-    func videoDateFont() -> UIFont { return UIFont.systemFontOfSize(13) }
-    func videoDateColor() -> UIColor { return self.scorpionColor() }
-    func videoTitleFont() -> UIFont { return UIFont(name: "Georgia-Bold", size: 26)! }
-    func videoTitleColor() -> UIColor { return UIColor.blackColor() }
-    func videoDescriptionFont() -> UIFont { return UIFont(name: "Georgia", size: 18)! }
-    func videoDescriptionColor() -> UIColor { return UIColor.blackColor() }
+    func videoDateFont() -> UIFont { return tinyTextFont() }
+    func videoDateColor() -> UIColor { return tinyTextColor() }
+    func videoTitleFont() -> UIFont { return h1HeaderFont() }
+    func videoTitleColor() -> UIColor { return h1HeaderTextColor() }
+    func videoDescriptionFont() -> UIFont { return defaultBodyTextFont() }
+    func videoDescriptionColor() -> UIColor { return defaultBodyTextColor() }
 
     // MARK: issues
 
@@ -151,10 +151,10 @@ class DefaultTheme: Theme {
 
     // MARK: Actions
 
-    func actionsTitleFont() -> UIFont { return UIFont.boldSystemFontOfSize(14) }
-    func actionsTitleTextColor() -> UIColor { return self.tundoraColor() }
-    func actionsSubTitleFont() -> UIFont { return UIFont.systemFontOfSize(12) }
-    func actionsSubTitleTextColor() -> UIColor { return self.doveGreyColor }
+    func actionsTitleFont() -> UIFont { return h3HeaderFont() }
+    func actionsTitleTextColor() -> UIColor { return h3HeaderTextColor() }
+    func actionsSubTitleFont() -> UIFont { return subHeadingFont() }
+    func actionsSubTitleTextColor() -> UIColor { return subHeadingTextColor() }
 
     // MARK: default dimensions
 

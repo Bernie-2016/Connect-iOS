@@ -130,7 +130,7 @@ class VideoController: UIViewController {
     // MARK: Private
 
     private func applyThemeToViews() {
-        view.backgroundColor = theme.defaultBackgroundColor()
+        view.backgroundColor = theme.contentBackgroundColor()
         dateLabel.textColor = theme.videoDateColor()
         dateLabel.font = theme.videoDateFont()
         titleLabel.textColor = theme.videoTitleColor()
@@ -145,6 +145,9 @@ class VideoController: UIViewController {
     }
 
     private func setupConstraints() {
+        let defaultHorizontalMargin: CGFloat = 15
+        let defaultVerticalMargin: CGFloat = 21
+        
         let screenBounds = UIScreen.mainScreen().bounds
 
         videoView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Bottom)
@@ -163,12 +166,12 @@ class VideoController: UIViewController {
 
         attributionLabel.numberOfLines = 0
         attributionLabel.textAlignment = .Center
-        attributionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: descriptionTextView, withOffset: 16)
-        attributionLabel.autoPinEdgeToSuperviewMargin(.Left)
-        attributionLabel.autoPinEdgeToSuperviewMargin(.Right)
+        attributionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: descriptionTextView, withOffset: defaultVerticalMargin)
+        attributionLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
+        attributionLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
 
-        viewOriginalButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: attributionLabel, withOffset: 16)
-        viewOriginalButton.autoPinEdgesToSuperviewMarginsExcludingEdge(.Top)
+        viewOriginalButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: attributionLabel, withOffset: defaultHorizontalMargin)
+        viewOriginalButton.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsets(top: 0, left: defaultHorizontalMargin, bottom: defaultHorizontalMargin, right: defaultVerticalMargin), excludingEdge: .Top)
         viewOriginalButton.autoSetDimension(.Height, toSize: 54)
     }
 
@@ -193,7 +196,7 @@ class VideoController: UIViewController {
         descriptionTextView.textContainer.lineFragmentPadding = 0
         descriptionTextView.editable = false
 
-        descriptionTextView.autoPinEdge(.Top, toEdge: .Bottom, ofView: dateLabel, withOffset: 14)
+        descriptionTextView.autoPinEdge(.Top, toEdge: .Bottom, ofView: dateLabel, withOffset: 11)
         descriptionTextView.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
         descriptionTextView.autoPinEdgeToSuperviewMargin(.Right)
     }

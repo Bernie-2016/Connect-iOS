@@ -52,7 +52,7 @@ class NewsFeedVideoTableViewCell: UITableViewCell {
     }
 
     private func setupConstraints() {
-        containerView.autoPinEdgeToSuperviewEdge(.Top, withInset: 11)
+        containerView.autoPinEdgeToSuperviewEdge(.Top, withInset: 9)
         containerView.autoPinEdgeToSuperviewEdge(.Left)
         containerView.autoPinEdgeToSuperviewEdge(.Right)
         containerView.autoPinEdgeToSuperviewEdge(.Bottom)
@@ -74,7 +74,7 @@ class NewsFeedVideoTableViewCell: UITableViewCell {
         playIconImageView.autoAlignAxis(.Horizontal, toSameAxisOfView: thumbnailImageView)
         playIconImageView.autoAlignAxis(.Vertical, toSameAxisOfView: thumbnailImageView)
 
-        titleLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: thumbnailImageView, withOffset: 5)
+        titleLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: thumbnailImageView, withOffset: 16)
         titleLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultMargin)
         titleLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 50)
 

@@ -211,7 +211,7 @@ class VideoControllerSpec: QuickSpec {
 }
 
 class VideoFakeTheme: FakeTheme {
-    override func defaultBackgroundColor() -> UIColor { return UIColor.magentaColor() }
+    override func contentBackgroundColor() -> UIColor { return UIColor.magentaColor() }
     override func videoDateFont() -> UIFont { return UIFont.systemFontOfSize(111) }
     override func videoDateColor() -> UIColor { return UIColor.redColor() }
     override func videoTitleFont() -> UIFont  { return UIFont.systemFontOfSize(222) }

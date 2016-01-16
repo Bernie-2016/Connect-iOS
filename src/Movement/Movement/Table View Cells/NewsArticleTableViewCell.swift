@@ -9,7 +9,6 @@ class NewsArticleTableViewCell: UITableViewCell {
     let disclosureView = DisclosureIndicatorView.newAutoLayoutView()
 
     private var excerptRightEdge: NSLayoutConstraint?
-    private let defaultMargin: CGFloat
     private let rightMarginWithoutImage: CGFloat
     private let rightMarginWithImage: CGFloat
 
@@ -32,9 +31,9 @@ class NewsArticleTableViewCell: UITableViewCell {
     }
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        defaultMargin = 20
-        rightMarginWithoutImage = -defaultMargin
-        rightMarginWithImage = -(108 + defaultMargin + defaultMargin)
+        let defaultHorizontalMargin: CGFloat = 15
+        rightMarginWithoutImage = -defaultHorizontalMargin
+        rightMarginWithImage = -(108 + defaultHorizontalMargin + defaultHorizontalMargin)
 
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
@@ -71,18 +70,21 @@ class NewsArticleTableViewCell: UITableViewCell {
     }
 
     private func setupConstraints() {
-        containerView.autoPinEdgeToSuperviewEdge(.Top, withInset: 11)
+        let defaultVerticalMargin: CGFloat = 16
+        let defaultHorizontalMargin: CGFloat = 15
+        
+        containerView.autoPinEdgeToSuperviewEdge(.Top, withInset: 9)
         containerView.autoPinEdgeToSuperviewEdge(.Left)
         containerView.autoPinEdgeToSuperviewEdge(.Right)
         containerView.autoPinEdgeToSuperviewEdge(.Bottom)
 
-        titleLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: defaultMargin)
-        titleLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultMargin)
+        titleLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: defaultVerticalMargin)
+        titleLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
         titleLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 50)
 
         dateLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: 25)
         dateLabel.autoPinEdge(.Left, toEdge: .Right, ofView: titleLabel, withOffset: 5)
-        dateLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultMargin)
+        dateLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
 
         disclosureView.autoPinEdge(.Top, toEdge: .Top, ofView: dateLabel, withOffset: 1)
         disclosureView.autoPinEdge(.Left, toEdge: .Right, ofView: dateLabel, withOffset: 5)
@@ -90,15 +92,15 @@ class NewsArticleTableViewCell: UITableViewCell {
         disclosureView.autoSetDimension(.Height, toSize: 20)
 
         newsImageView.autoPinEdge(.Top, toEdge: .Bottom, ofView: titleLabel, withOffset: 5)
-        newsImageView.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultMargin)
+        newsImageView.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
         newsImageView.autoSetDimension(.Width, toSize: 108)
         newsImageView.autoSetDimension(.Height, toSize: 60)
         newsImageView.clipsToBounds = true
         newsImageView.contentMode = .ScaleAspectFill
 
         excerptLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: titleLabel, withOffset: 5)
-        excerptLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultMargin)
-        self.excerptRightEdge = excerptLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultMargin + 108 + defaultMargin)
-        excerptLabel.autoPinEdgeToSuperviewEdge(.Bottom, withInset: defaultMargin)
+        excerptLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
+        self.excerptRightEdge = excerptLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin + 108 + defaultHorizontalMargin)
+        excerptLabel.autoPinEdgeToSuperviewEdge(.Bottom, withInset: defaultVerticalMargin)
     }
 }
