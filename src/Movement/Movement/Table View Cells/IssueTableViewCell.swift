@@ -15,13 +15,13 @@ class IssueTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         accessoryType = .DisclosureIndicator
-        separatorInset = UIEdgeInsetsZero
+        separatorInset = UIEdgeInsetsMake(0, 20, 0, 0)
         layoutMargins = UIEdgeInsetsZero
         preservesSuperviewLayoutMargins = false
 
         contentView.addSubview(titleLabel)
         titleLabel.numberOfLines = 3
-        titleLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 8)
+        titleLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
         titleLabel.autoPinEdgeToSuperviewEdge(.Right)
         titleLabel.autoAlignAxisToSuperviewAxis(.Horizontal)
     }
