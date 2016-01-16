@@ -48,7 +48,7 @@ class ConcreteIssueRepository: IssueRepository {
                 ]
             ],
             "sort": [
-                "created_at": ["order": "desc"]
+                "timestamp_publish": ["order": "desc", "ignore_unmapped": true]
             ]
         ]
     }

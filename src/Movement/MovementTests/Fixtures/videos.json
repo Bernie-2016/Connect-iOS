@@ -17,12 +17,12 @@
                 "_score":1.0,
                 "_source":{
                 "description":"The results have been incredible",
-                "inserted_at":"2015-10-20T22:57:26.280000",
+                "timestamp_creation":"2015-10-20T22:57:26.280000",
                 "timestamp":1446835335.490976,
-                "created_at":"2015-10-05T00:00:00.000Z",
+                "timestamp_publish":"2015-10-05T00:00:00+00:00",
                 "title":"Butterfield Diet Plan",
                 "site":"youtube.com",
-                "videoId":"wtF3_ybJJ50",
+                "video_id":"wtF3_ybJJ50",
                 "thumbnail_url":"https://i.ytimg.com/vi/KUafOV3oqJw/hqdefault.jpg",
                 "_id":"5626c6d6fe57e40001ab8a15"
                 }
@@ -34,12 +34,12 @@
                 "_score":1.0,
                 "_source":{
                 "description":"Dine Like a True Champion",
-                "inserted_at":"2015-10-27T22:05:29.147000",
+                "timestamp_creation":"2015-10-27T22:05:29.147000",
                 "timestamp":1446835335.517319,
-                "created_at":"2015-10-25T00:00:00.000Z",
+                "timestamp_publish":"2015-10-25T00:00:00+00:00",
                 "title":"Butterfield Sports Restuarant",
                 "site":"youtube.com",
-                "videoId":"asxxHrKt9EQ",
+                "video_id":"asxxHrKt9EQ",
                 "thumbnail_url":"https://i.ytimg.com/vi/XpkMUsZxnQw/hqdefault.jpg",
                 "_id":"562ff529b481d90001272299"
                 }

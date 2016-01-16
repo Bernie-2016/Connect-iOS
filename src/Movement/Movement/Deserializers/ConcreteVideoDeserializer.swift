@@ -6,7 +6,7 @@ class ConcreteVideoDeserializer: VideoDeserializer {
     init(
         ) {
         self.dateFormatter = NSDateFormatter()
-        self.dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSz"  // "2015-08-28T05:10:21Z"
+        self.dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"  // "2015-08-28T05:10:21Z"
     }
 
     func deserializeVideos(jsonDictionary: NSDictionary) -> Array<Video> {
@@ -17,11 +17,10 @@ class ConcreteVideoDeserializer: VideoDeserializer {
 
         for videoDictionary: NSDictionary in videoDictionaries {
             guard let sourceDictionary = videoDictionary["_source"] as? NSDictionary else { continue }
-
             guard let title = sourceDictionary["title"] as? String else { continue }
             guard let description = sourceDictionary["description"] as? String else { continue }
-            guard let identifier = sourceDictionary["videoId"] as? String else { continue }
-            guard let dateString = sourceDictionary["created_at"] as? String else { continue }
+            guard let identifier = sourceDictionary["video_id"] as? String else { continue }
+            guard let dateString = sourceDictionary["timestamp_publish"] as? String else { continue }
 
             guard let date = dateFormatter.dateFromString(dateString) else { continue }
 

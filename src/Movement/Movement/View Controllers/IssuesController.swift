@@ -91,9 +91,6 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
             self.errorLoadingIssues = true
             self.tableView.reloadData()
             self.analyticsService.trackError(error, context: "Failed to load issues")
-
-            print(error.localizedDescription)
-
         }
     }
 

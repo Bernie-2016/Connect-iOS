@@ -52,7 +52,7 @@ class ConcreteNewsArticleRepositorySpec: QuickSpec {
                     let expectedHTTPBodyDictionary =
                     [
                         "from": 0, "size": 30,
-                        "_source": ["title", "body", "excerpt", "created_at", "url", "image_url"],
+                        "_source": ["title", "body", "excerpt", "timestamp_publish", "url", "image_url"],
                         "query": [
                             "query_string": [
                                 "default_field": "article_type",
@@ -60,7 +60,7 @@ class ConcreteNewsArticleRepositorySpec: QuickSpec {
                             ]
                         ],
                         "sort": [
-                            "created_at": ["order": "desc"]
+                            "timestamp_publish": ["order": "desc", "ignore_unmapped": true]
                         ]
                     ]
 
@@ -125,14 +125,11 @@ class ConcreteNewsArticleRepositorySpec: QuickSpec {
                     let expectedHTTPBodyDictionary =
                     [
                         "from": 0, "size": 1,
-                        "_source": ["title", "body", "excerpt", "created_at", "url", "image_url"],
+                        "_source": ["title", "body", "excerpt", "timestamp_publish", "url", "image_url"],
                         "filter": [
                             "term": [
                                 "_id": "some-identifier",
                             ]
-                        ],
-                        "sort": [
-                            "created_at": ["order": "desc"]
                         ]
                     ]
 

@@ -7,7 +7,7 @@ class ConcreteNewsArticleDeserializer: NewsArticleDeserializer {
 
     init() {
         self.dateFormatter = NSDateFormatter()
-        self.dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"  // "2015-08-28T05:10:21"
+        self.dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'+00:00'"  // "2015-08-28T05:10:21+00:00"
     }
 
     func deserializeNewsArticles(jsonDictionary: NSDictionary) -> [NewsArticle] {
@@ -18,13 +18,11 @@ class ConcreteNewsArticleDeserializer: NewsArticleDeserializer {
 
         for newsArticleDictionary: NSDictionary in newsArticleDictionaries {
             guard let sourceDictionary = newsArticleDictionary["_source"] as? NSDictionary else { continue }
-
             guard let title = sourceDictionary["title"] as? String else { continue }
             guard let body = sourceDictionary["body"] as? String else { continue }
             guard let excerpt = sourceDictionary["excerpt"] as? String else { continue }
-            guard let dateString = sourceDictionary["created_at"] as? String else { continue }
+            guard let dateString = sourceDictionary["timestamp_publish"] as? String else { continue }
             guard let urlString = sourceDictionary["url"] as? String else { continue }
-
             guard let url = NSURL(string: urlString) else { continue }
             guard let date = dateFormatter.dateFromString(dateString) else { continue }
 

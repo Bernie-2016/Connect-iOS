@@ -3,13 +3,13 @@ import Quick
 import Nimble
 @testable import Movement
 
-class ConcreteVideDeserializerSpec : QuickSpec {
-    var subject: ConcreteVideoDeserializer!
-
+class ConcreteVideoDeserializerSpec : QuickSpec {
     override func spec() {
         describe("ConcreteVideoDeserializer") {
+            var subject: ConcreteVideoDeserializer!
+
             beforeEach {
-                self.subject = ConcreteVideoDeserializer()
+                subject = ConcreteVideoDeserializer()
             }
 
             it("deserializes the videos correctly") {
@@ -19,7 +19,7 @@ class ConcreteVideDeserializerSpec : QuickSpec {
                 let data = TestUtils.dataFromFixtureFileNamed("videos", type: "json")
 
                 let jsonDictionary = (try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions())) as! NSDictionary
-                var videos = self.subject.deserializeVideos(jsonDictionary)
+                var videos = subject.deserializeVideos(jsonDictionary)
 
                 expect(videos.count).to(equal(2))
                 let videoA = videos[0]
@@ -42,7 +42,7 @@ class ConcreteVideDeserializerSpec : QuickSpec {
                     let data = TestUtils.dataFromFixtureFileNamed("video_nasties", type: "json")
 
                     let jsonDictionary = (try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions())) as! NSDictionary
-                    let videos = self.subject.deserializeVideos(jsonDictionary)
+                    let videos = subject.deserializeVideos(jsonDictionary)
 
                     expect(videos.count).to(equal(1))
                     let video = videos[0]
@@ -52,13 +52,13 @@ class ConcreteVideDeserializerSpec : QuickSpec {
 
             context("when there's not enough hits") {
                 it("should not explode") {
-                    var videos = self.subject.deserializeVideos([String: AnyObject]())
+                    var videos = subject.deserializeVideos([String: AnyObject]())
                     expect(videos.count).to(equal(0))
 
-                    videos = self.subject.deserializeVideos(["hits": [String: AnyObject]()])
+                    videos = subject.deserializeVideos(["hits": [String: AnyObject]()])
                     expect(videos.count).to(equal(0))
 
-                    videos = self.subject.deserializeVideos(["hits": [ "hits": [String: AnyObject]()]])
+                    videos = subject.deserializeVideos(["hits": [ "hits": [String: AnyObject]()]])
                     expect(videos.count).to(equal(0));
                 }
             }

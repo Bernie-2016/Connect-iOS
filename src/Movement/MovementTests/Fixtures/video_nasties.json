@@ -16,12 +16,12 @@
                 "_id":"5626c6d6fe57e40001ab8a15",
                 "_score":1.0,
                 "_source":{
-                "inserted_at":"2015-10-20T22:57:26.280000",
+                "timestamp_creation":"2015-10-20T22:57:26.280000",
                 "timestamp":1446835335.490976,
-                "created_at":"2015-10-05T13:59:01.000Z",
+                "timestamp_publish":"2015-10-05T13:59:01.000+00:00",
                 "title":"Butterfield Sports Wear",
                 "site":"youtube.com",
-                "videoId":"CM17Im0IV1o",
+                "video_id":"CM17Im0IV1o",
                 "thumbnail_url":"https://i.ytimg.com/vi/KUafOV3oqJw/hqdefault.jpg",
                 "_id":"5626c6d6fe57e40001ab8a15"
                 }
@@ -33,11 +33,11 @@
                 "_score":1.0,
                 "_source":{
                 "description":"4 Sports Sportscap",
-                "inserted_at":"2015-10-20T22:57:26.280000",
+                "timestamp_creation":"2015-10-20T22:57:26.280000",
                 "timestamp":1446835335.490976,
                 "title":"Calculator Trainor",
                 "site":"youtube.com",
-                "videoId":"CM17Im0IV1o",
+                "video_id":"CM17Im0IV1o",
                 "thumbnail_url":"https://i.ytimg.com/vi/KUafOV3oqJw/hqdefault.jpg",
                 "_id":"5626c6d6fe57e40001ab8a15"
                 }
@@ -49,11 +49,11 @@
                 "_score":1.0,
                 "_source":{
                 "description":"It's dropped off",
-                "inserted_at":"2015-10-20T22:57:26.280000",
+                "timestamp_creation":"2015-10-20T22:57:26.280000",
                 "timestamp":1446835335.490976,
-                "created_at":"2015-10-05T13:59:01.000Z",
+                "timestamp_publish":"2015-10-05T13:59:01.000+00:00",
                 "site":"youtube.com",
-                "videoId":"CM17Im0IV1o",
+                "video_id":"CM17Im0IV1o",
                 "thumbnail_url":"https://i.ytimg.com/vi/KUafOV3oqJw/hqdefault.jpg",
                 "_id":"5626c6d6fe57e40001ab8a15"
                 }
@@ -65,9 +65,9 @@
                 "_score":1.0,
                 "_source":{
                 "description":"Call now!",
-                "inserted_at":"2015-10-20T22:57:26.280000",
+                "timestamp_creation":"2015-10-20T22:57:26.280000",
                 "timestamp":1446835335.490976,
-                "created_at":"2015-10-05T13:59:01.000Z",
+                "timestamp_publish":"2015-10-05T13:59:01+00:00",
                 "title":"Fluffy Ruffs",
                 "site":"youtube.com",
                 "thumbnail_url":"https://i.ytimg.com/vi/KUafOV3oqJw/hqdefault.jpg",
@@ -81,12 +81,12 @@
                 "_score":1.0,
                 "_source":{
                 "description":"A Perfect Start to Your Day",
-                "inserted_at":"2015-10-27T22:05:29.147000",
+                "timestamp_creation":"2015-10-27T22:05:29.147000",
                 "timestamp":1446835335.517319,
-                "created_at":"2015-10-05T13:59:01.000Z",
+                "timestamp_publish":"2015-10-05T13:59:00+00:00",
                 "title":"The Brian Butterfield Ultra-Pill",
                 "site":"youtube.com",
-                "videoId":"CM17Im0IV1o",
+                "video_id":"CM17Im0IV1o",
                 "thumbnail_url":"https://i.ytimg.com/vi/XpkMUsZxnQw/hqdefault.jpg",
                 "_id":"562ff529b481d90001272299"
                 }

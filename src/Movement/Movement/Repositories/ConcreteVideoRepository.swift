@@ -45,9 +45,9 @@ class ConcreteVideoRepository: VideoRepository {
     func HTTPBodyDictionary() -> NSDictionary {
         return [
             "from": 0, "size": 5,
-            "_source": ["title", "videoId", "description", "created_at"],
+            "_source": [ "title", "video_id", "description", "timestamp_publish" ],
             "sort": [
-                "created_at": ["order": "desc"]
+                "timestamp_publish": ["order": "desc", "ignore_unmapped": true]
             ]
         ]
     }

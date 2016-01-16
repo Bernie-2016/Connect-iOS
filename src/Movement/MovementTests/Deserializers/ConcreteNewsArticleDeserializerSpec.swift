@@ -1,15 +1,16 @@
 import Foundation
 import Quick
 import Nimble
+
 @testable import Movement
 
 class ConcreteNewsArticleDeserializerSpec : QuickSpec {
-    var subject: ConcreteNewsArticleDeserializer!
-
     override func spec() {
         describe("ConcreteNewsArticleDeserializer") {
+            var subject: ConcreteNewsArticleDeserializer!
+
             beforeEach {
-                self.subject = ConcreteNewsArticleDeserializer()
+                subject = ConcreteNewsArticleDeserializer()
             }
 
             it("deserializes the news items correctly with the sanitizer") {
@@ -18,7 +19,7 @@ class ConcreteNewsArticleDeserializerSpec : QuickSpec {
                 let data = TestUtils.dataFromFixtureFileNamed("news_feed", type: "json")
 
                 let jsonDictionary = (try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions())) as! NSDictionary
-                var newsArticles = self.subject.deserializeNewsArticles(jsonDictionary)
+                var newsArticles = subject.deserializeNewsArticles(jsonDictionary)
 
                 expect(newsArticles.count).to(equal(2))
                 let newsArticleA = newsArticles[0]
@@ -45,7 +46,7 @@ class ConcreteNewsArticleDeserializerSpec : QuickSpec {
                     let data = TestUtils.dataFromFixtureFileNamed("dodgy_news_feed", type: "json")
 
                     let jsonDictionary = (try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions())) as! NSDictionary
-                    var newsArticles = self.subject.deserializeNewsArticles(jsonDictionary)
+                    var newsArticles = subject.deserializeNewsArticles(jsonDictionary)
 
                     expect(newsArticles.count).to(equal(1))
                     let newsArticleA = newsArticles[0]
@@ -55,13 +56,13 @@ class ConcreteNewsArticleDeserializerSpec : QuickSpec {
 
             context("when there's not enough hits") {
                 it("should not explode") {
-                    var newsArticles = self.subject.deserializeNewsArticles([String: AnyObject]())
+                    var newsArticles = subject.deserializeNewsArticles([String: AnyObject]())
                     expect(newsArticles.count).to(equal(0))
 
-                    newsArticles = self.subject.deserializeNewsArticles(["hits": [String: AnyObject]()])
+                    newsArticles = subject.deserializeNewsArticles(["hits": [String: AnyObject]()])
                     expect(newsArticles.count).to(equal(0))
 
-                    newsArticles = self.subject.deserializeNewsArticles(["hits": [ "hits": [String: AnyObject]()]])
+                    newsArticles = subject.deserializeNewsArticles(["hits": [ "hits": [String: AnyObject]()]])
                     expect(newsArticles.count).to(equal(0));
                 }
             }

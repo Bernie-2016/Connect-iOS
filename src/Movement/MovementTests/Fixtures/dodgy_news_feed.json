@@ -13,7 +13,7 @@
                  {
                  "_source": {
                  "url": "https://berniesanders.com/on-the-road-for-bernie-in-iowa/",
-                 "created_at": "2015-09-09T00:00:00",
+                 "timestamp_publish": "2015-09-09T00:00:00+00:00",
                  "image_url": "https://berniesanders.com/wp-content/uploads/2015/09/iowa-600x250.jpg",
                  "title": "On the Road for Bernie in Iowa",
                  "excerpt": "Excerpt yo"
@@ -22,16 +22,7 @@
                  {
                  "_source": {
                  "body": "Larry Cohen reports from Iowa:\n\nOn a hot Iowa Labor Day weekend, everyone was feeling the Bern!",
-                 "created_at": "2015-09-09T00:00:00",
-                 "image_url": "https://berniesanders.com/wp-content/uploads/2015/09/iowa-600x250.jpg",
-                 "title": "On the Road for Bernie in Iowa",
-                 "excerpt": "Excerpt yo"
-                 }
-                 },
-                 {
-                 "_source": {
-                 "body": "Larry Cohen reports from Iowa:\n\nOn a hot Iowa Labor Day weekend, everyone was feeling the Bern!",
-                 "url": "https://berniesanders.com/on-the-road-for-bernie-in-iowa/",
+                 "timestamp_publish": "2015-09-09T00:00:00+00:00",
                  "image_url": "https://berniesanders.com/wp-content/uploads/2015/09/iowa-600x250.jpg",
                  "title": "On the Road for Bernie in Iowa",
                  "excerpt": "Excerpt yo"
@@ -41,7 +32,8 @@
                  "_source": {
                  "body": "Larry Cohen reports from Iowa:\n\nOn a hot Iowa Labor Day weekend, everyone was feeling the Bern!",
                  "url": "https://berniesanders.com/on-the-road-for-bernie-in-iowa/",
-                 "created_at": "2015-09-09T00:00:00",
+                 "image_url": "https://berniesanders.com/wp-content/uploads/2015/09/iowa-600x250.jpg",
+                 "title": "On the Road for Bernie in Iowa",
                  "excerpt": "Excerpt yo"
                  }
                  },
@@ -49,7 +41,15 @@
                  "_source": {
                  "body": "Larry Cohen reports from Iowa:\n\nOn a hot Iowa Labor Day weekend, everyone was feeling the Bern!",
                  "url": "https://berniesanders.com/on-the-road-for-bernie-in-iowa/",
-                 "created_at": "2015-09-sdflkjasdflkjasdf09T00:00:00",
+                 "timestamp_publish": "2015-09-09T00:00:00+00:00",
+                 "excerpt": "Excerpt yo"
+                 }
+                 },
+                 {
+                 "_source": {
+                 "body": "Larry Cohen reports from Iowa:\n\nOn a hot Iowa Labor Day weekend, everyone was feeling the Bern!",
+                 "url": "https://berniesanders.com/on-the-road-for-bernie-in-iowa/",
+                 "timestamp_publish": "2015-09-sdflkjasdflkjasdf09T00:00:00",
                  "title": "This is bad news",
                  "excerpt": "Excerpt yo"
                  }
@@ -58,7 +58,7 @@
                  "_source": {
                  "body": "Larry Cohen reports from Iowa:\n\nOn a hot Iowa Labor Day weekend, everyone was feeling the Bern!",
                  "url": "https://berniesanders.com/on-the-road-for-bernie-in-iowa/ https://berniesanders.com/on-the-road-for-bernie-in-iowa/ ",
-                 "created_at": "2015-09-09T00:00:00",
+                 "timestamp_publish": "2015-09-09T00:00:00+00:00",
                  "title": "This is bad news",
                  "excerpt": "Excerpt yo"
                  }
@@ -68,7 +68,7 @@
                  "_source": {
                  "body": "Larry Cohen reports from Iowa:\n\nOn a hot Iowa Labor Day weekend, everyone was feeling the Bern!",
                  "url": "https://berniesanders.com/on-the-road-for-bernie-in-iowa/",
-                 "created_at": "2015-09-09T00:00:00",
+                 "timestamp_publish": "2015-09-09T00:00:00+00:00",
                  "title": "This is bad news"
                  }
                  },
@@ -76,7 +76,7 @@
                  "_source": {
                  "body": "Larry Cohen reports from Iowa:\n\nOn a hot Iowa Labor Day weekend, everyone was feeling the Bern!",
                  "url": "https://berniesanders.com/on-the-road-for-bernie-in-iowa/",
-                 "created_at": "2015-09-09T00:00:00",
+                 "timestamp_publish": "2015-09-09T00:00:00+00:00",
                  "title": "This is good news",
                  "excerpt": "Excerpt yo"
                  }

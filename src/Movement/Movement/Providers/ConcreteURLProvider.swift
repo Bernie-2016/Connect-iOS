@@ -3,11 +3,11 @@ import CoreLocation
 
 class ConcreteURLProvider: URLProvider {
     func issuesFeedURL() -> NSURL {
-        return NSURL(string: "https://search.berniesanders.tech/articles_en/berniesanders_com/_search")!
+        return NSURL(string: "https://elasticsearch.movementapp.io/articles_en_v1/berniesanders_com/_search")!
     }
 
     func newsFeedURL() -> NSURL {
-        return NSURL(string: "https://search.berniesanders.tech/articles_en/berniesanders_com/_search")!
+        return NSURL(string: "https://elasticsearch.movementapp.io/articles_en_v1/berniesanders_com/_search")!
     }
 
     func bernieCrowdURL() -> NSURL {
@@ -19,7 +19,7 @@ class ConcreteURLProvider: URLProvider {
     }
 
     func eventsURL() -> NSURL {
-        return NSURL(string: "https://search.berniesanders.tech/events/berniesanders_com/_search")!
+        return NSURL(string: "https://elasticsearch.movementapp.io/events_en_v1/berniesanders_com/_search")!
     }
 
     func mapsURLForEvent(event: Event) -> NSURL {
@@ -66,7 +66,7 @@ class ConcreteURLProvider: URLProvider {
     }
 
     func videoURL() -> NSURL {
-        return NSURL(string: "https://search.berniesanders.tech/videos_v1/_search")!
+        return NSURL(string: "https://elasticsearch.movementapp.io/videos_v1/_search")!
     }
 
     func youtubeVideoURL(identifier: String) -> NSURL {

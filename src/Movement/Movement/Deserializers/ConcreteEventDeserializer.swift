@@ -32,6 +32,7 @@ class ConcreteEventDeserializer: EventDeserializer {
             let streetAddress = venueDictionary["address1"] as? String
             guard let city = venueDictionary["city"] as? String else { continue }
             guard let state = venueDictionary["state"] as? String else { continue }
+
             guard let zip = venueDictionary["zip"] as? String else { continue }
             guard let description = sourceDictionary["description"] as? String else { continue }
             guard let URLString = sourceDictionary["url"] as? String else { continue }
@@ -39,7 +40,6 @@ class ConcreteEventDeserializer: EventDeserializer {
             guard let URL = NSURL(string: URLString) else { continue }
             guard let timeZone = NSTimeZone(abbreviation: timeZoneString) else { continue }
 
-            self.dateFormatter.timeZone = timeZone
             guard let startDate = self.dateFormatter.dateFromString(startDateString) else { continue }
 
             let event = Event(name: name, startDate: startDate, timeZone: timeZone, attendeeCapacity: attendeeCapacity, attendeeCount: attendeeCount,
