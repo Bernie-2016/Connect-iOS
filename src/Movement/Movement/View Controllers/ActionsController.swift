@@ -39,7 +39,7 @@ class ActionsController: UIViewController {
         tableView.delegate = self
         tableView.registerClass(ActionTableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.tableFooterView = UIView(frame: CGRectZero)
-        
+
         setupConstraints()
     }
 

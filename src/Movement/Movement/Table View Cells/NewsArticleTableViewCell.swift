@@ -72,7 +72,7 @@ class NewsArticleTableViewCell: UITableViewCell {
     private func setupConstraints() {
         let defaultVerticalMargin: CGFloat = 16
         let defaultHorizontalMargin: CGFloat = 15
-        
+
         containerView.autoPinEdgeToSuperviewEdge(.Top, withInset: 9)
         containerView.autoPinEdgeToSuperviewEdge(.Left)
         containerView.autoPinEdgeToSuperviewEdge(.Right)

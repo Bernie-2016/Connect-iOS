@@ -60,11 +60,11 @@ class SettingsController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("regularCell")
         if cell == nil { cell = UITableViewCell() }
-        
+
         cell.textLabel!.text = self.tappableControllers[indexPath.row].title
         cell.textLabel!.textColor = self.theme.settingsTitleColor()
         cell.textLabel!.font = self.theme.settingsTitleFont()
-        
+
         return cell
     }
 

@@ -147,7 +147,7 @@ class VideoController: UIViewController {
     private func setupConstraints() {
         let defaultHorizontalMargin: CGFloat = 15
         let defaultVerticalMargin: CGFloat = 21
-        
+
         let screenBounds = UIScreen.mainScreen().bounds
 
         videoView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Bottom)
