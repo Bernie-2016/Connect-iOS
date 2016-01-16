@@ -99,7 +99,7 @@ class DefaultTheme: Theme {
     func eventsSearchBarFont() -> UIFont { return h3HeaderFont() }
     func eventsZipCodeCornerRadius() -> CGFloat { return self.defaultCornerRadius() }
     func eventsZipCodeBorderWidth() -> CGFloat { return self.defaultBorderWidth() }
-    func eventsZipCodeTextOffset() -> CATransform3D { return CATransform3DMakeTranslation(4, 0, 0); }
+    func eventsZipCodeTextOffset() -> CATransform3D { return CATransform3DMakeTranslation(14, 0, 0); }
     func eventsGoButtonCornerRadius() -> CGFloat { return self.defaultCornerRadius() }
     func eventsInformationTextColor() -> UIColor { return self.silverChaliceColor() }
     func eventsNoResultsFont() -> UIFont { return UIFont.systemFontOfSize(21) }
