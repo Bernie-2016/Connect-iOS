@@ -29,7 +29,7 @@ class ConcreteNewsArticleDeserializer: NewsArticleDeserializer {
             let imageURLString = sourceDictionary["image_url"] as? String
             var imageURL: NSURL?
 
-            if imageURLString != nil && imageURLString != bannedBernieImageURLString {
+            if imageURLString != nil && imageURLString?.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) > 0 && imageURLString != bannedBernieImageURLString {
                 imageURL = NSURL(string: imageURLString!)
             }
 

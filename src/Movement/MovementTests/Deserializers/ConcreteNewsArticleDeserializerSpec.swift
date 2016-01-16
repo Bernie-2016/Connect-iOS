@@ -41,6 +41,20 @@ class ConcreteNewsArticleDeserializerSpec : QuickSpec {
                 expect(newsArticleB.url).to(equal(NSURL(string: "https://berniesanders.com/labor-day-2015-stand-together-and-fight-back/")))
             }
 
+            it("converts image urls that are empty strings to nil") {
+                let originalData = TestUtils.dataFromFixtureFileNamed("news_feed", type: "json")
+                var feedString = String(data: originalData, encoding: NSUTF8StringEncoding)!
+                feedString = feedString.stringByReplacingOccurrencesOfString("https://berniesanders.com/wp-content/uploads/2015/09/iowa-600x250.jpg", withString: "")
+                let dataWithoutImage = feedString.dataUsingEncoding(NSUTF8StringEncoding)!
+
+                let jsonDictionary = (try! NSJSONSerialization.JSONObjectWithData(dataWithoutImage, options: NSJSONReadingOptions())) as! NSDictionary
+                var newsArticles = subject.deserializeNewsArticles(jsonDictionary)
+                expect(newsArticles.count).to(equal(2))
+                let newsArticleA = newsArticles[0]
+                expect(newsArticleA.title).to(equal("On the Road for Bernie in Iowa"))
+                expect(newsArticleA.imageURL).to(beNil())
+            }
+
             context("when title, body or url are missing") {
                 it("should not explode and ignore stories that lack them") {
                     let data = TestUtils.dataFromFixtureFileNamed("dodgy_news_feed", type: "json")
