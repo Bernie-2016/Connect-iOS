@@ -25,13 +25,7 @@ class DefaultTheme: Theme {
 
     // MARK: Navigation Bar
     func navigationBarBackgroundColor() -> UIColor { return chathamsBlueColor }
-    func navigationBarFont() -> UIFont {
-        if #available(iOS 8.2, *) {
-            return UIFont.systemFontOfSize(16, weight: UIFontWeightLight)
-        } else {
-            return UIFont.systemFontOfSize(16)
-        }
-    }
+    func navigationBarFont() -> UIFont { return UIFont.systemFontOfSize(18) }
     func navigationBarTextColor() -> UIColor { return UIColor.whiteColor()}
 
     // MARK: News Feed
@@ -117,29 +111,25 @@ class DefaultTheme: Theme {
 
     // MARK: Event screen
 
-    func eventNameFont() -> UIFont { return UIFont.systemFontOfSize(21) }
-    func eventNameColor() -> UIColor { return self.tundoraColor() }
-    func eventStartDateFont() -> UIFont { return UIFont.systemFontOfSize(13) }
-    func eventStartDateColor() -> UIColor { return self.thunderbirdColor() }
-    func eventAddressFont() -> UIFont { return UIFont.systemFontOfSize(13)}
-    func eventAddressColor() -> UIColor { return self.emperorColor() }
-    func eventDescriptionHeadingFont() -> UIFont { return UIFont.systemFontOfSize(17) }
-    func eventDescriptionHeadingColor() -> UIColor { return self.tundoraColor() }
+    func eventNameFont() -> UIFont { return h1HeaderFont() }
+    func eventNameColor() -> UIColor { return h1HeaderTextColor() }
+    func eventStartDateFont() -> UIFont { return subHeadingFont() }
+    func eventStartDateColor() -> UIColor { return subHeadingTextColor() }
+    func eventAddressFont() -> UIFont { return subHeadingFont() }
+    func eventAddressColor() -> UIColor { return subHeadingTextColor() }
+    func eventDescriptionHeadingFont() -> UIFont { return h3HeaderFont() }
+    func eventDescriptionHeadingColor() -> UIColor { return h3HeaderTextColor() }
     func eventDescriptionFont() -> UIFont { return UIFont.systemFontOfSize(13) }
     func eventDescriptionColor() -> UIColor { return self.emperorColor() }
     func eventDirectionsButtonBackgroundColor() -> UIColor { return UIColor.whiteColor() }
-    func eventDirectionsButtonTextColor() -> UIColor { return self.tundoraColor() }
+    func eventDirectionsButtonTextColor() -> UIColor { return h3HeaderTextColor() }
+    func eventDirectionsButtonFont() -> UIFont { return h3HeaderFont() }
     func eventRSVPButtonTextColor() -> UIColor { return UIColor.whiteColor() }
-    func eventDirectionsButtonFont() -> UIFont { return UIFont.systemFontOfSize(17) }
-    func eventRSVPButtonBackgroundColor() -> UIColor { return self.chathamsBlueColor }
-    func eventRSVPButtonFont() -> UIFont { if #available(iOS 8.2, *) {
-        return UIFont.systemFontOfSize(17, weight: UIFontWeightSemibold)
-    } else {
-        return UIFont.systemFontOfSize(17)
-    } }
-    func eventBackgroundColor() -> UIColor { return self.mercuryColor() }
-    func eventTypeFont() -> UIFont { return UIFont.boldSystemFontOfSize(15) }
-    func eventTypeColor() -> UIColor { return self.emperorColor() }
+    func eventRSVPButtonBackgroundColor() -> UIColor { return navigationBarBackgroundColor() }
+    func eventRSVPButtonFont() -> UIFont { return h3HeaderFont() }
+    func eventBackgroundColor() -> UIColor { return defaultBackgroundColor() }
+    func eventTypeFont() -> UIFont { return subHeadingFont() }
+    func eventTypeColor() -> UIColor { return subHeadingTextColor() }
 
     // MARK: About screen
 
