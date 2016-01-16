@@ -245,7 +245,6 @@
 		8233FC0D1B7C28FB00A5E9ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8233FC0C1B7C28FB00A5E9ED /* AppDelegate.swift */; };
 		8233FC301B7C48A500A5E9ED /* NewsFeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8233FC2F1B7C48A500A5E9ED /* NewsFeedController.swift */; };
 		8233FC321B7C4A9600A5E9ED /* IssuesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8233FC311B7C4A9600A5E9ED /* IssuesController.swift */; };
-		DF90BBCB1BC5090200F9FA53 /* DonateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF90BBCA1BC5090200F9FA53 /* DonateTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -529,7 +528,6 @@
 		8233FC231B7C28FB00A5E9ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8233FC2F1B7C48A500A5E9ED /* NewsFeedController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFeedController.swift; sourceTree = "<group>"; };
 		8233FC311B7C4A9600A5E9ED /* IssuesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuesController.swift; sourceTree = "<group>"; };
-		DF90BBCA1BC5090200F9FA53 /* DonateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DonateTableViewCell.swift; path = "../View Controllers/DonateTableViewCell.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -997,7 +995,6 @@
 			isa = PBXGroup;
 			children = (
 				658A5AE51C49924C00EFCA7E /* ActionTableViewCell.swift */,
-				DF90BBCA1BC5090200F9FA53 /* DonateTableViewCell.swift */,
 				654773FC1BB1EEBC00B87670 /* EventListTableViewCell.swift */,
 				6587FF5D1B8A818A00AC65F1 /* IssueTableViewCell.swift */,
 				65CA5E961B86E5950001D870 /* NewsArticleTableViewCell.swift */,
@@ -1494,7 +1491,6 @@
 				65CA5E931B86E4A00001D870 /* DefaultTheme.swift in Sources */,
 				656A97001BF19DBC007509EB /* DisclosureButton.swift in Sources */,
 				65F6C82A1BE861E700EA973C /* DisclosureIndicatorView.swift in Sources */,
-				DF90BBCB1BC5090200F9FA53 /* DonateTableViewCell.swift in Sources */,
 				655AF0C61BB095E500F0448E /* Event.swift in Sources */,
 				654AD3551BB876C700A59966 /* EventController.swift in Sources */,
 				654AD3531BB876A200A59966 /* EventControllerProvider.swift in Sources */,

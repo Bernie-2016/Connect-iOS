@@ -4,16 +4,12 @@ import PureLayout
 
 class SettingsController: UITableViewController {
     private let tappableControllers: [UIViewController]
-    private let urlOpener: URLOpener
-    private let urlProvider: URLProvider
     private let analyticsService: AnalyticsService
     private let tabBarItemStylist: TabBarItemStylist
     private let theme: Theme
 
-    init(tappableControllers: [UIViewController], urlOpener: URLOpener, urlProvider: URLProvider, analyticsService: AnalyticsService, tabBarItemStylist: TabBarItemStylist, theme: Theme) {
+    init(tappableControllers: [UIViewController], analyticsService: AnalyticsService, tabBarItemStylist: TabBarItemStylist, theme: Theme) {
         self.tappableControllers = tappableControllers
-        self.urlOpener = urlOpener
-        self.urlProvider = urlProvider
         self.analyticsService = analyticsService
         self.tabBarItemStylist = tabBarItemStylist
         self.theme = theme
@@ -47,7 +43,6 @@ class SettingsController: UITableViewController {
         view.backgroundColor = self.theme.defaultBackgroundColor()
 
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "regularCell")
-        self.tableView.registerClass(DonateTableViewCell.self, forCellReuseIdentifier: "donateCell")
     }
 
     override func didMoveToParentViewController(parent: UIViewController?) {
@@ -59,38 +54,25 @@ class SettingsController: UITableViewController {
     // MARK: <UITableViewDataSource>
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.tappableControllers.count + 1
+        return self.tappableControllers.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.row == self.tappableControllers.count {
-            var cell: DonateTableViewCell! = tableView.dequeueReusableCellWithIdentifier("donateCell") as? DonateTableViewCell
-            if cell == nil { cell = DonateTableViewCell() }
-
-            cell.setupViews(self.theme)
-            return cell
-        } else {
-            var cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("regularCell")
-            if cell == nil { cell = UITableViewCell() }
-
-            cell.textLabel!.text = self.tappableControllers[indexPath.row].title
-            cell.textLabel!.textColor = self.theme.settingsTitleColor()
-            cell.textLabel!.font = self.theme.settingsTitleFont()
-
-            return cell
-        }
+        var cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("regularCell")
+        if cell == nil { cell = UITableViewCell() }
+        
+        cell.textLabel!.text = self.tappableControllers[indexPath.row].title
+        cell.textLabel!.textColor = self.theme.settingsTitleColor()
+        cell.textLabel!.font = self.theme.settingsTitleFont()
+        
+        return cell
     }
 
     // MARK: <UITableViewDelegate>
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.row == self.tappableControllers.count {
-            self.analyticsService.trackContentViewWithName("Donate", type: .Settings, identifier: "Donate Form")
-            self.urlOpener.openURL(self.urlProvider.donateFormURL())
-        } else {
-            let controller = self.tappableControllers[indexPath.row]
-            self.analyticsService.trackContentViewWithName(controller.title!, type: .Settings, identifier: controller.title!)
-            self.navigationController?.pushViewController(controller, animated: true)
-        }
+        let controller = self.tappableControllers[indexPath.row]
+        self.analyticsService.trackContentViewWithName(controller.title!, type: .Settings, identifier: controller.title!)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
 }

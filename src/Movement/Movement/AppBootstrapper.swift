@@ -69,8 +69,6 @@ class AppBootstrapper {
         let analyticsSettingsController = AnalyticsSettingsController(applicationSettingsRepository: applicationSettingsRepository, analyticsService: analyticsService, theme: defaultTheme)
         let settingsController = SettingsController(
             tappableControllers: [aboutController, feedbackController, analyticsSettingsController, termsAndConditionsController, privacyPolicyController, flossController],
-            urlOpener: urlOpener,
-            urlProvider: urlProvider,
             analyticsService: analyticsService,
             tabBarItemStylist: tabBarItemStylist,
             theme: defaultTheme)

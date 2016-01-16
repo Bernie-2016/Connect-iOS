@@ -79,9 +79,6 @@ class DefaultTheme: Theme {
 
     func settingsTitleFont() -> UIFont { return UIFont.systemFontOfSize(15) }
     func settingsTitleColor() -> UIColor { return tundoraColor() }
-    func settingsDonateButtonColor() -> UIColor { return defaultButtonBackgroundColor() }
-    func settingsDonateButtonTextColor() -> UIColor { return UIColor.whiteColor() }
-    func settingsDonateButtonFont() -> UIFont { return UIFont.systemFontOfSize(20) }
     func settingsAnalyticsFont() -> UIFont { return defaultBodyTextFont() }
     func settingsSwitchColor() -> UIColor { return chathamsBlueColor }
 

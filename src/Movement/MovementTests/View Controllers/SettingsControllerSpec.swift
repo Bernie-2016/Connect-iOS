@@ -7,133 +7,97 @@ class SettingsControllerSpec : QuickSpec {
     override func spec() {
         describe("SettingsController") {
             var subject: SettingsController!
-            var urlOpener: FakeURLOpener!
-            let urlProvider = SettingsFakeURLProvider()
             var analyticsService: FakeAnalyticsService!
             var tabBarItemStylist: FakeTabBarItemStylist!
             let theme = SettingsFakeTheme()
-
+            
             let regularController = FakeSettingsController(title: "Regular Controller")
-
+            
             var navigationController: UINavigationController!
-
+            
             beforeEach {
-                urlOpener = FakeURLOpener()
                 analyticsService = FakeAnalyticsService()
                 tabBarItemStylist = FakeTabBarItemStylist()
-
+                
                 subject = SettingsController(tappableControllers: [
-                        regularController
+                    regularController
                     ],
-                    urlOpener: urlOpener,
-                    urlProvider: urlProvider,
                     analyticsService: analyticsService,
                     tabBarItemStylist: tabBarItemStylist,
                     theme: theme)
-
+                
                 navigationController = UINavigationController()
                 navigationController.pushViewController(subject, animated: false)
             }
-
+            
             it("has the correct navigation item title") {
                 expect(subject.navigationItem.title).to(equal("More"))
             }
-
+            
             it("has the correct tab bar title") {
                 expect(subject.title).to(equal("More"))
             }
-
+            
             it("should set the back bar button item title correctly") {
                 expect(subject.navigationItem.backBarButtonItem?.title).to(equal("Back"))
             }
-
+            
             it("tracks taps on the back button with the analytics service") {
                 subject.didMoveToParentViewController(nil)
-
+                
                 expect(analyticsService.lastBackButtonTapScreen).to(equal("Settings"))
                 expect(analyticsService.lastBackButtonTapAttributes).to(beNil())
             }
-
+            
             describe("when the view loads") {
                 beforeEach {
                     subject.view.layoutSubviews()
                 }
-
+                
                 it("uses the tab bar item stylist to style its tab bar item") {
                     expect(tabBarItemStylist.lastReceivedTabBarItem).to(beIdenticalTo(subject.tabBarItem))
-
+                    
                     expect(tabBarItemStylist.lastReceivedTabBarImage).to(equal(UIImage(named: "moreTabBarIconInactive")))
                     expect(tabBarItemStylist.lastReceivedTabBarSelectedImage).to(equal(UIImage(named: "moreTabBarIcon")))
                 }
-
+                
                 it("styles the views according to the theme") {
                     expect(subject.view.backgroundColor).to(equal(UIColor.orangeColor()))
                 }
-
+                
                 it("should have rows in the table") {
                     expect(subject.tableView.numberOfSections).to(equal(1))
-                    expect(subject.tableView.numberOfRowsInSection(0)).to(equal(2))
+                    expect(subject.tableView.numberOfRowsInSection(0)).to(equal(1))
                 }
-
+                
                 it("should style the regular rows using the theme") {
                     let cell = subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))!
-
+                    
                     expect(cell.textLabel!.textColor).to(equal(UIColor.purpleColor()))
                     expect(cell.textLabel!.font).to(equal(UIFont.systemFontOfSize(123)))
                 }
-
-                it("should style the donate row using the theme") {
-                    let cell = subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))! as! DonateTableViewCell
-
-                    expect(cell.messageView.textColor).to(equal(UIColor.purpleColor()))
-                    expect(cell.messageView.font).to(equal(UIFont.systemFontOfSize(123)))
-
-                    expect(cell.buttonView.backgroundColor).to(equal(UIColor.magentaColor()))
-                    expect(cell.buttonView.font).to(equal(UIFont.systemFontOfSize(222)))
-                    expect(cell.buttonView.textColor).to(equal(UIColor.greenColor()))
-                }
-
+                
                 describe("the table contents") {
                     it("has a regular UITableViewCell row for evey configured 'regular' controller") {
                         let cell = subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))!
                         expect(cell.textLabel!.text).to(equal("Regular Controller"))
                         expect(cell).to(beAnInstanceOf(UITableViewCell.self))
                     }
-
+                    
                     describe("tapping the rows") {
-                        describe("when the donate row is tapped") {
-                            it("opens the donate page in safari when the donate row is tapped") {
-                                let tableView = subject.tableView
-                                tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
-
-                                expect(urlOpener.lastOpenedURL).to(equal(NSURL(string: "https://example.com/donate")!))
-                            }
-
-                            it("should log a content view with the analytics service") {
-                                let tableView = subject.tableView
-                                tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
-
-                                expect(analyticsService.lastContentViewName).to(equal("Donate"))
-                                expect(analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.Settings))
-                                expect(analyticsService.lastContentViewID).to(equal("Donate Form"))
-                            }
+                        it("should push the correct view controller onto the nav stack when the other row is tapped") {
+                            let tableView = subject.tableView
+                            tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+                            expect(subject.navigationController!.topViewController).to(beIdenticalTo(regularController))
                         }
-
-                        describe("when the other row is tapped") {
-                            it("should push the correct view controller onto the nav stack when the other row is tapped") {
-                                let tableView = subject.tableView
-                                tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
-                                expect(subject.navigationController!.topViewController).to(beIdenticalTo(regularController))
-                            }
-
-                            it("should log a content view with the analytics service") {
-                                let tableView = subject.tableView
-                                tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
-
-                                expect(analyticsService.lastContentViewName).to(equal("Regular Controller"))
-                                expect(analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.Settings))
-                                expect(analyticsService.lastContentViewID).to(equal("Regular Controller"))
-                            }
+                        
+                        it("should log a content view with the analytics service") {
+                            let tableView = subject.tableView
+                            tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+                            
+                            expect(analyticsService.lastContentViewName).to(equal("Regular Controller"))
+                            expect(analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.Settings))
+                            expect(analyticsService.lastContentViewID).to(equal("Regular Controller"))
                         }
                     }
                 }
@@ -142,35 +106,17 @@ class SettingsControllerSpec : QuickSpec {
     }
 }
 
-private class SettingsFakeURLProvider: FakeURLProvider {
-    override func donateFormURL() -> NSURL {
-        return NSURL(string: "https://example.com/donate")!
-    }
-}
-
 private class SettingsFakeTheme: FakeTheme {
     override func defaultBackgroundColor() -> UIColor {
         return UIColor.orangeColor()
     }
-
+    
     override func settingsTitleFont() -> UIFont {
         return UIFont.systemFontOfSize(123)
     }
-
+    
     override func settingsTitleColor() -> UIColor {
         return UIColor.purpleColor()
-    }
-
-    override func settingsDonateButtonTextColor() -> UIColor {
-        return UIColor.greenColor()
-    }
-
-    override func settingsDonateButtonFont() -> UIFont {
-        return UIFont.systemFontOfSize(222)
-    }
-
-    override func settingsDonateButtonColor() -> UIColor {
-        return UIColor.magentaColor()
     }
 }
 
@@ -179,7 +125,7 @@ private class FakeSettingsController : UIViewController {
         super.init(nibName: nil, bundle: nil)
         self.title = title
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
