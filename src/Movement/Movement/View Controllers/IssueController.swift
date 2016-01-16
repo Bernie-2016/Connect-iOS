@@ -13,7 +13,7 @@ class IssueController: UIViewController {
     private let containerView = UIView()
     private var containerViewWidthConstraint: NSLayoutConstraint!
     private let scrollView = UIScrollView()
-    let titleButton = UIButton.newAutoLayoutView()
+    let titleLabel = UILabel.newAutoLayoutView()
     let bodyTextView = UITextView.newAutoLayoutView()
     let issueImageView = UIImageView.newAutoLayoutView()
     let attributionLabel = UILabel.newAutoLayoutView()
@@ -34,7 +34,7 @@ class IssueController: UIViewController {
 
         super.init(nibName: nil, bundle: nil)
 
-        self.hidesBottomBarWhenPushed = true
+        hidesBottomBarWhenPushed = true
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -48,13 +48,12 @@ class IssueController: UIViewController {
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Global_share", comment: ""), style: .Plain, target: self, action: "share")
 
-        self.addSubviews()
+        addSubviews()
 
-        bodyTextView.text = self.issue.body
-        titleButton.setTitle(self.issue.title, forState: .Normal)
-        titleButton.addTarget(self, action: "didTapViewOriginal:", forControlEvents: .TouchUpInside)
+        bodyTextView.text = issue.body
+        titleLabel.text = issue.title
 
-        attributionLabel.text = self.urlAttributionPresenter.attributionTextForURL(issue.url)
+        attributionLabel.text = urlAttributionPresenter.attributionTextForURL(issue.url)
         viewOriginalButton.setTitle(NSLocalizedString("Issue_viewOriginal", comment: ""), forState: .Normal)
         viewOriginalButton.addTarget(self, action: "didTapViewOriginal:", forControlEvents: .TouchUpInside)
 
@@ -88,7 +87,7 @@ class IssueController: UIViewController {
 
     func share() {
         analyticsService.trackCustomEventWithName("Began Share", customAttributes: [AnalyticsServiceConstants.contentIDKey: issue.url.absoluteString,
-            AnalyticsServiceConstants.contentNameKey: self.issue.title,
+            AnalyticsServiceConstants.contentNameKey: issue.title,
             AnalyticsServiceConstants.contentTypeKey: AnalyticsServiceContentType.Issue.description
             ])
 
@@ -112,86 +111,85 @@ class IssueController: UIViewController {
     }
 
     func didTapViewOriginal(sender: UIButton) {
-        let eventName = sender == self.titleButton ? "Tapped title on Issue" : "Tapped 'View Original' on Issue"
+        let eventName = sender == titleLabel ? "Tapped title on Issue" : "Tapped 'View Original' on Issue"
         analyticsService.trackCustomEventWithName(eventName, customAttributes: [AnalyticsServiceConstants.contentIDKey: issue.url.absoluteString])
-        self.urlOpener.openURL(self.issue.url)
+        urlOpener.openURL(issue.url)
     }
 
     // MARK: Private
 
     // swiftlint:disable function_body_length
     private func setupConstraintsAndLayout() {
+        let defaultMargin: CGFloat = 15
         let screenBounds = UIScreen.mainScreen().bounds
 
-        self.scrollView.translatesAutoresizingMaskIntoConstraints = false
-        self.scrollView.contentSize.width = self.view.bounds.width
-        self.scrollView.autoPinEdgesToSuperviewEdges()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.contentSize.width = view.bounds.width
+        scrollView.autoPinEdgesToSuperviewEdges()
 
-        self.containerView.translatesAutoresizingMaskIntoConstraints = false
-        self.containerView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Trailing)
-        self.containerViewWidthConstraint = self.containerView.autoSetDimension(.Width, toSize: screenBounds.width)
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Trailing)
+        containerViewWidthConstraint = containerView.autoSetDimension(.Width, toSize: screenBounds.width)
 
-        self.issueImageView.contentMode = .ScaleAspectFill
-        self.issueImageView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Bottom)
-        self.issueImageView.autoSetDimension(.Height, toSize: screenBounds.height / 3, relation: NSLayoutRelation.LessThanOrEqual)
-        self.issueImageView.clipsToBounds = true
+        issueImageView.contentMode = .ScaleAspectFill
+        issueImageView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Bottom)
+        issueImageView.autoSetDimension(.Height, toSize: screenBounds.height / 3, relation: NSLayoutRelation.LessThanOrEqual)
+        issueImageView.clipsToBounds = true
 
         NSLayoutConstraint.autoSetPriority(1000, forConstraints: { () -> Void in
-            self.titleButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.issueImageView, withOffset: 25)
+            self.titleLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.issueImageView, withOffset: defaultMargin)
         })
 
         NSLayoutConstraint.autoSetPriority(500, forConstraints: { () -> Void in
-            self.titleButton.autoPinEdgeToSuperviewEdge(.Top, withInset: 25)
+            self.titleLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: defaultMargin)
         })
 
-        let titleLabel = self.titleButton.titleLabel!
         titleLabel.numberOfLines = 0
-        titleLabel.preferredMaxLayoutWidth = screenBounds.width - 8
-        titleButton.contentHorizontalAlignment = .Left
-        titleButton.autoPinEdgeToSuperviewMargin(.Left)
-        titleButton.autoPinEdgeToSuperviewMargin(.Right)
-        titleButton.layoutIfNeeded()
-        titleButton.autoSetDimension(.Height, toSize: titleLabel.frame.height)
+        titleLabel.preferredMaxLayoutWidth = screenBounds.width - defaultMargin
+        titleLabel.textAlignment = .Left
+        titleLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultMargin)
+        titleLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultMargin)
 
         bodyTextView.scrollEnabled = false
         bodyTextView.translatesAutoresizingMaskIntoConstraints = false
-        bodyTextView.textContainerInset = UIEdgeInsetsZero
+        bodyTextView.textContainerInset = UIEdgeInsetsMake(-22, 0, 0, 0)
         bodyTextView.textContainer.lineFragmentPadding = 0
         bodyTextView.editable = false
+        bodyTextView.selectable = false
 
-        bodyTextView.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.titleButton, withOffset: 16)
-        bodyTextView.autoPinEdgeToSuperviewMargin(.Left)
-        bodyTextView.autoPinEdgeToSuperviewMargin(.Right)
+        bodyTextView.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: titleLabel, withOffset: defaultMargin)
+        bodyTextView.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultMargin)
+        bodyTextView.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultMargin)
 
         attributionLabel.numberOfLines = 0
         attributionLabel.textAlignment = .Center
-        attributionLabel.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: self.bodyTextView, withOffset: 16)
-        attributionLabel.autoPinEdgeToSuperviewMargin(.Left)
-        attributionLabel.autoPinEdgeToSuperviewMargin(.Right)
+        attributionLabel.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: bodyTextView, withOffset: 16)
+        attributionLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultMargin)
+        attributionLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultMargin)
 
-        viewOriginalButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.attributionLabel, withOffset: 16)
-        viewOriginalButton.autoPinEdgesToSuperviewMarginsExcludingEdge(.Top)
+        viewOriginalButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: attributionLabel, withOffset: 16)
+        viewOriginalButton.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsets(top: 0, left: defaultMargin, bottom: defaultMargin, right: defaultMargin), excludingEdge: .Top)
         viewOriginalButton.autoSetDimension(.Height, toSize: 54)
     }
     // swiftlint:enable function_body_length
 
     private func applyThemeToViews() {
-        self.view.backgroundColor = self.theme.defaultBackgroundColor()
-        self.titleButton.titleLabel!.font = self.theme.issueTitleFont()
-        self.titleButton.setTitleColor(self.theme.issueTitleColor(), forState: .Normal)
-        self.bodyTextView.font = self.theme.issueBodyFont()
-        self.bodyTextView.textColor = self.theme.issueBodyColor()
-        self.attributionLabel.font = self.theme.attributionFont()
-        self.attributionLabel.textColor = self.theme.attributionTextColor()
-        self.viewOriginalButton.backgroundColor = self.theme.defaultButtonBackgroundColor()
-        self.viewOriginalButton.setTitleColor(self.theme.defaultButtonTextColor(), forState: .Normal)
-        self.viewOriginalButton.titleLabel!.font = self.theme.defaultButtonFont()
+        view.backgroundColor = theme.contentBackgroundColor()
+        titleLabel.font = theme.issueTitleFont()
+        titleLabel.textColor = theme.issueTitleColor()
+        bodyTextView.font = theme.issueBodyFont()
+        bodyTextView.textColor = theme.issueBodyColor()
+        attributionLabel.font = theme.attributionFont()
+        attributionLabel.textColor = theme.attributionTextColor()
+        viewOriginalButton.backgroundColor = theme.defaultButtonBackgroundColor()
+        viewOriginalButton.setTitleColor(theme.defaultButtonTextColor(), forState: .Normal)
+        viewOriginalButton.titleLabel!.font = theme.defaultButtonFont()
     }
 
     private func addSubviews() {
         view.addSubview(scrollView)
         scrollView.addSubview(containerView)
-        containerView.addSubview(titleButton)
+        containerView.addSubview(titleLabel)
         containerView.addSubview(issueImageView)
         containerView.addSubview(bodyTextView)
         containerView.addSubview(attributionLabel)

@@ -6,6 +6,7 @@ import UIKit
 class DefaultTheme: Theme {
     // MARK: Global
     func defaultBackgroundColor() -> UIColor { return seaShellColor }
+    func contentBackgroundColor() -> UIColor { return UIColor.whiteColor() }
     func defaultSpinnerColor() -> UIColor { return self.silverColor() }
     func attributionFont() -> UIFont { return UIFont.systemFontOfSize(12) }
     func attributionTextColor() -> UIColor { return self.silverColor() }
@@ -15,6 +16,8 @@ class DefaultTheme: Theme {
     func defaultTableSectionHeaderTextColor() -> UIColor { return tableSectionHeaderTextColor() }
     func defaultTableSectionHeaderBackgroundColor() -> UIColor { return defaultBackgroundColor() }
     func defaultTableSeparatorColor() -> UIColor { return galleryColor }
+    func defaultBodyTextFont() -> UIFont { return UIFont(name: "Georgia", size: 17)!  }
+    func defaultBodyTextColor() -> UIColor { return coalMinerColor }
 
     // MARK: Tab Bar
 
@@ -57,25 +60,20 @@ class DefaultTheme: Theme {
 
     // MARK: issues
 
-    func issuesFeedTitleFont() -> UIFont { return UIFont.systemFontOfSize(17) }
-    func issuesFeedTitleColor() -> UIColor { return self.tundoraColor() }
+    func issuesFeedTitleFont() -> UIFont { return h3HeaderFont() }
+    func issuesFeedTitleColor() -> UIColor { return h3HeaderTextColor() }
 
     // MARK: Issue detail screen
 
-    func issueTitleFont() -> UIFont { return UIFont.systemFontOfSize(21) }
-    func issueTitleColor() -> UIColor { return mineShaftColor() }
-    func issueBodyFont() -> UIFont { return UIFont.systemFontOfSize(17) }
-    func issueBodyColor() -> UIColor { return self.tundoraColor() }
+    func issueTitleFont() -> UIFont { return h1HeaderFont() }
+    func issueTitleColor() -> UIColor { return h1HeaderTextColor() }
+    func issueBodyFont() -> UIFont { return defaultBodyTextFont() }
+    func issueBodyColor() -> UIColor { return defaultBodyTextColor() }
 
     // MARK: buttons
-    func defaultButtonBackgroundColor() -> UIColor { return self.chathamsBlueColor }
+    func defaultButtonBackgroundColor() -> UIColor { return chathamsBlueColor }
     func defaultButtonTextColor() -> UIColor { return UIColor.whiteColor() }
-    func defaultButtonFont() -> UIFont { if #available(iOS 8.2, *) {
-        return UIFont.systemFontOfSize(17, weight: UIFontWeightSemibold)
-    } else {
-        return UIFont.systemFontOfSize(17)
-        } }
-
+    func defaultButtonFont() -> UIFont { return h2HeaderFont() }
 
     // MARK: Settings
 
@@ -179,7 +177,7 @@ class DefaultTheme: Theme {
 
 
     // new colors
-    let coalMinerColor = UIColor(rgba: "#3C3C3C")
+    let coalMinerColor = UIColor(rgba: "#333333")
     let boulderColor = UIColor(rgba: "#7a7a7a")
     let arachnidColor = UIColor(rgba: "#5a5a5a")
     let grayChateauColor = UIColor(rgba: "#969EA6")
@@ -193,7 +191,6 @@ class DefaultTheme: Theme {
     // MARK: font definitions
 
     func defaultHeaderFont() -> UIFont { return UIFont.systemFontOfSize(17) }
-    func defaultBodyTextFont() -> UIFont { return  UIFont.systemFontOfSize(14) }
 
     // new fonts
     func h1HeaderFont() -> UIFont { return sanfranciscoMediumFontOfSize(25) }

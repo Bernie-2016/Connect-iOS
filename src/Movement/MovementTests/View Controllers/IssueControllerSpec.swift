@@ -1,42 +1,8 @@
 import UIKit
 import Quick
 import Nimble
+
 @testable import Movement
-
-class IssueFakeTheme : FakeTheme {
-    override func issueTitleFont() -> UIFont {
-        return UIFont.italicSystemFontOfSize(13)
-    }
-
-    override func issueTitleColor() -> UIColor {
-        return UIColor.brownColor()
-    }
-
-    override func issueBodyFont() -> UIFont {
-        return UIFont.systemFontOfSize(3)
-    }
-
-    override func issueBodyColor() -> UIColor {
-        return UIColor.yellowColor()
-    }
-
-    override func defaultBackgroundColor() -> UIColor {
-        return UIColor.orangeColor()
-    }
-
-    override func attributionFont() -> UIFont {
-        return UIFont.systemFontOfSize(222)
-    }
-
-    override func attributionTextColor() -> UIColor {
-        return UIColor.magentaColor()
-    }
-
-    override func defaultButtonBackgroundColor() -> UIColor { return UIColor.greenColor() }
-    override func defaultButtonTextColor() -> UIColor { return UIColor.redColor() }
-    override func defaultButtonFont() -> UIFont { return UIFont.systemFontOfSize(333) }
-}
-
 
 class IssueControllerSpec : QuickSpec {
     override func spec() {
@@ -158,7 +124,6 @@ class IssueControllerSpec : QuickSpec {
                         let containerViewSubViews = containerView.subviews
 
                         expect(containerViewSubViews.contains(subject.issueImageView)).to(beTrue())
-                        expect(containerViewSubViews.contains(subject.titleButton)).to(beTrue())
                         expect(containerViewSubViews.contains(subject.bodyTextView)).to(beTrue())
                         expect(containerViewSubViews.contains(subject.attributionLabel)).to(beTrue())
                         expect(containerViewSubViews.contains(subject.viewOriginalButton)).to(beTrue())
@@ -166,8 +131,8 @@ class IssueControllerSpec : QuickSpec {
 
                     it("styles the views according to the theme") {
                         expect(subject.view.backgroundColor).to(equal(UIColor.orangeColor()))
-                        expect(subject.titleButton.titleLabel!.font).to(equal(UIFont.italicSystemFontOfSize(13)))
-                        expect(subject.titleButton.titleColorForState(.Normal)).to(equal(UIColor.brownColor()))
+                        expect(subject.titleLabel.font).to(equal(UIFont.italicSystemFontOfSize(13)))
+                        expect(subject.titleLabel.textColor).to(equal(UIColor.brownColor()))
                         expect(subject.bodyTextView.font).to(equal(UIFont.systemFontOfSize(3)))
                         expect(subject.bodyTextView.textColor).to(equal(UIColor.yellowColor()))
                         expect(subject.attributionLabel.font).to(equal(UIFont.systemFontOfSize(222)))
@@ -178,23 +143,7 @@ class IssueControllerSpec : QuickSpec {
                     }
 
                     it("displays the title from the issue as a button") {
-                        expect(subject.titleButton.titleForState(.Normal)).to(equal("An issue title made by TestUtils"))
-                    }
-
-                    describe("tapping on the title button") {
-                        beforeEach {
-                            subject.titleButton.tap()
-                        }
-
-                        it("opens the original issue in safari") {
-                            expect(urlOpener.lastOpenedURL).to(beIdenticalTo(issue.url))
-                        }
-
-                        it("logs that the user tapped view original") {
-                            expect(analyticsService.lastCustomEventName).to(equal("Tapped title on Issue"))
-                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: issue.url.absoluteString]
-                            expect(analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
-                        }
+                        expect(subject.titleLabel.text).to(equal("An issue title made by TestUtils"))
                     }
 
                     it("displays the issue body") {
@@ -285,4 +234,38 @@ class IssueControllerSpec : QuickSpec {
             }
         }
     }
+}
+
+class IssueFakeTheme : FakeTheme {
+    override func issueTitleFont() -> UIFont {
+        return UIFont.italicSystemFontOfSize(13)
+    }
+
+    override func issueTitleColor() -> UIColor {
+        return UIColor.brownColor()
+    }
+
+    override func issueBodyFont() -> UIFont {
+        return UIFont.systemFontOfSize(3)
+    }
+
+    override func issueBodyColor() -> UIColor {
+        return UIColor.yellowColor()
+    }
+
+    override func contentBackgroundColor() -> UIColor {
+        return UIColor.orangeColor()
+    }
+
+    override func attributionFont() -> UIFont {
+        return UIFont.systemFontOfSize(222)
+    }
+
+    override func attributionTextColor() -> UIColor {
+        return UIColor.magentaColor()
+    }
+
+    override func defaultButtonBackgroundColor() -> UIColor { return UIColor.greenColor() }
+    override func defaultButtonTextColor() -> UIColor { return UIColor.redColor() }
+    override func defaultButtonFont() -> UIFont { return UIFont.systemFontOfSize(333) }
 }

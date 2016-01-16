@@ -6,6 +6,7 @@ protocol Theme {
     // MARK: Global
 
     func defaultBackgroundColor() -> UIColor
+    func contentBackgroundColor() -> UIColor
     func defaultSpinnerColor() -> UIColor
     func attributionFont() -> UIFont
     func attributionTextColor() -> UIColor
