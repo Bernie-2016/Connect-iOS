@@ -1,9 +1,8 @@
 import UIKit
 
+// swift:disable type_body_length
 class DefaultTheme: Theme {
-    // swift:disable type_body_length
     // MARK: Global
-
     func defaultBackgroundColor() -> UIColor { return UIColor.whiteColor() }
     func defaultSpinnerColor() -> UIColor { return self.silverColor() }
     func attributionFont() -> UIFont { return UIFont.systemFontOfSize(12) }
@@ -15,8 +14,8 @@ class DefaultTheme: Theme {
 
     func tabBarTintColor() -> UIColor { return self.codGrayColor() }
     func tabBarFont() -> UIFont { return UIFont.systemFontOfSize(11) }
-    func tabBarActiveTextColor() -> UIColor { return self.galleryColor() }
-    func tabBarInactiveTextColor() -> UIColor { return self.silverColor() }
+    func tabBarActiveTextColor() -> UIColor { return calypsoColor }
+    func tabBarInactiveTextColor() -> UIColor { return grayChateauColor }
 
     // MARK: Navigation Bar
     func navigationBarBackgroundColor() -> UIColor { return self.codGrayColor() }
@@ -195,9 +194,42 @@ class DefaultTheme: Theme {
     func emperorColor() -> UIColor { return UIColor(rgba: "#555555") }
     func nobelColor() -> UIColor { return UIColor(rgba: "#b5b5b5") }
 
+
+    // new colors
+    let coalMinerColor = UIColor(rgba: "#3C3C3C")
+    let boulderColor = UIColor(rgba: "#7a7a7a")
+    let arachnidColor = UIColor(rgba: "#5a5a5a")
+    let grayChateauColor = UIColor(rgba: "#969EA6")
+    let calypsoColor = UIColor(rgba: "#396899")
+
     // MARK: font definitions
 
     func defaultHeaderFont() -> UIFont { return UIFont.systemFontOfSize(17) }
     func defaultBodyTextFont() -> UIFont { return  UIFont.systemFontOfSize(14) }
-    // swift:enable type_body_length
+
+    // new fonts
+    func h1HeaderFont() -> UIFont { return sanfranciscoMediumFontOfSize(25) }
+    func h1HeaderTextColor() -> UIColor { return UIColor.blackColor() }
+
+    func h2HeaderFont() -> UIFont { return sanfranciscoMediumFontOfSize(18) }
+    func h2HeaderTextColor() -> UIColor { return UIColor.blackColor() }
+
+    func h3HeaderFont() -> UIFont { return sanfranciscoMediumFontOfSize(15) }
+    func h3HeaderTextColor() -> UIColor { return coalMinerColor }
+
+    func subHeadingFont() -> UIFont { return UIFont.systemFontOfSize(14) }
+    func subHeadingColor() -> UIColor { return boulderColor }
+
+    func tinyTextFont() -> UIFont { return UIFont.systemFontOfSize(12) }
+    func tinyTextColor() -> UIColor { return arachnidColor }
+
+
+    func sanfranciscoMediumFontOfSize(size: CGFloat) -> UIFont {
+        if #available(iOS 8.2, *) {
+            return UIFont.systemFontOfSize(size, weight: UIFontWeightMedium)
+        } else {
+            return UIFont.systemFontOfSize(size)
+        }
+    }
 }
+// swift:enable type_body_length
