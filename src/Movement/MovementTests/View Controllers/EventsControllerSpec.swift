@@ -747,7 +747,7 @@ private class EventsFakeTheme : FakeTheme {
         return UIColor.redColor()
     }
 
-    override func eventsZipCodePlaceholderTextColor() -> UIColor { return UIColor(rgba: "#12345") }
+    override func eventsZipCodePlaceholderTextColor() -> UIColor { return UIColor(rgba: "#123456") }
 
     override func eventsZipCodeBackgroundColor() -> UIColor {
         return UIColor.brownColor()
