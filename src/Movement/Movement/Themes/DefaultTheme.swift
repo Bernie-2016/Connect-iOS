@@ -210,11 +210,7 @@ class DefaultTheme: Theme {
     func tableSectionHeaderTextColor() -> UIColor { return boulderColor }
 
     private func mediumSystemFontOfSize(size: CGFloat) -> UIFont {
-        if #available(iOS 8.2, *) {
-            return UIFont.systemFontOfSize(size, weight: UIFontWeightMedium)
-        } else {
-            return UIFont.systemFontOfSize(size)
-        }
+        return UIFont(name: ".SFUIDisplay-Medium", size: size)!
     }
 }
 // swift:enable type_body_length
