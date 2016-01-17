@@ -4,7 +4,6 @@ import PureLayout
 class NewsArticleTableViewCell: UITableViewCell {
     let titleLabel = UILabel.newAutoLayoutView()
     let excerptLabel = UILabel.newAutoLayoutView()
-    let dateLabel = UILabel.newAutoLayoutView()
     let newsImageView = UIImageView.newAutoLayoutView()
 
     private var excerptRightEdge: NSLayoutConstraint?
@@ -40,7 +39,6 @@ class NewsArticleTableViewCell: UITableViewCell {
 
         contentView.addSubview(containerView)
         containerView.addSubview(titleLabel)
-        containerView.addSubview(dateLabel)
         containerView.addSubview(excerptLabel)
         containerView.addSubview(newsImageView)
 
@@ -54,8 +52,6 @@ class NewsArticleTableViewCell: UITableViewCell {
         preservesSuperviewLayoutMargins = false
 
         titleLabel.numberOfLines = 3
-
-        dateLabel.textAlignment = .Right
 
         excerptLabel.numberOfLines = 4
         excerptLabel.adjustsFontSizeToFitWidth = false
@@ -78,10 +74,6 @@ class NewsArticleTableViewCell: UITableViewCell {
         titleLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: defaultVerticalMargin)
         titleLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
         titleLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 50)
-
-        dateLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: 25)
-        dateLabel.autoPinEdge(.Left, toEdge: .Right, ofView: titleLabel, withOffset: 5)
-        dateLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
 
         newsImageView.autoPinEdge(.Top, toEdge: .Bottom, ofView: titleLabel, withOffset: 5)
         newsImageView.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)

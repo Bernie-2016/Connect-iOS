@@ -25,10 +25,22 @@ class NewsFeedVideoPresenter: NewsFeedTableViewCellPresenter {
         let cell: NewsFeedVideoTableViewCell! = tableView.dequeueReusableCellWithIdentifier("videoCell") as? NewsFeedVideoTableViewCell
 
         guard let video: Video = newsFeedItem as? Video else { return cell }
+        applyThemeToCell(cell, video: video)
 
         cell.titleLabel.text = video.title
-        cell.descriptionLabel.text = video.description
-        cell.dateLabel.text = timeIntervalFormatter.abbreviatedHumanDaysSinceDate(video.date)
+        let videoPublishedToday = timeIntervalFormatter.numberOfDaysSinceDate(video.date) == 0
+
+        if videoPublishedToday {
+            let nowText = NSLocalizedString("Now", comment: "")
+            let attributedString = NSMutableAttributedString(string: "\(nowText) | \(video.description)")
+            let range = NSRange(location: 0, length: nowText.lengthOfBytesUsingEncoding(NSUTF8StringEncoding))
+            attributedString.addAttribute(NSForegroundColorAttributeName, value: theme.highlightDisclosureColor(), range: range)
+
+            cell.descriptionLabel.attributedText = attributedString
+        } else {
+            cell.descriptionLabel.text = video.description
+        }
+
         cell.topSpaceConstraint.constant = (indexPath.section == 0 && indexPath.row == 0 ? 0 : 9)
 
         let thumbnailURL = urlProvider.youtubeThumbnailURL(video.identifier)
@@ -37,7 +49,6 @@ class NewsFeedVideoPresenter: NewsFeedTableViewCellPresenter {
             cell.thumbnailImageView.image = image
         })
 
-        applyThemeToCell(cell, video: video)
 
         return cell
     }
@@ -45,10 +56,8 @@ class NewsFeedVideoPresenter: NewsFeedTableViewCellPresenter {
     private func applyThemeToCell(cell: NewsFeedVideoTableViewCell, video: Video) {
         cell.titleLabel.font = self.theme.newsFeedTitleFont()
         cell.titleLabel.textColor = self.theme.newsFeedTitleColor()
-        cell.dateLabel.font = self.theme.newsFeedDateFont()
         cell.descriptionLabel.textColor = theme.newsFeedExcerptColor()
         cell.descriptionLabel.font = theme.newsFeedExcerptFont()
         cell.overlayView.backgroundColor = theme.newsFeedVideoOverlayBackgroundColor()
-        cell.dateLabel.textColor = self.theme.highlightDisclosureColor()
     }
 }

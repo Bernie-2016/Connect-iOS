@@ -12,11 +12,6 @@ class FakeTimeIntervalFormatter: TimeIntervalFormatter {
         return "human date"
     }
 
-    func abbreviatedHumanDaysSinceDate(date: NSDate) -> String {
-        self.lastAbbreviatedDates.append(date)
-        return "abbreviated \(date)"
-    }
-
     func numberOfDaysSinceDate(date: NSDate) -> Int {
         self.lastDaysSinceDates.append(date)
         return self.returnsDaysSinceDate

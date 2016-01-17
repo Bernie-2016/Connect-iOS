@@ -18,15 +18,25 @@ class NewsFeedArticlePresenter: NewsFeedTableViewCellPresenter {
 
     func cellForTableView(tableView: UITableView, newsFeedItem: NewsFeedItem, indexPath: NSIndexPath) -> UITableViewCell {
         let cell: NewsArticleTableViewCell! = tableView.dequeueReusableCellWithIdentifier("regularCell") as? NewsArticleTableViewCell
+        self.applyThemeToNewsCell(cell)
 
         let newsArticle: NewsArticle! = newsFeedItem as? NewsArticle
         if newsArticle == nil { return cell }
 
         cell.titleLabel.text = newsArticle.title
-        cell.excerptLabel.text = newsArticle.excerpt
-        cell.dateLabel.text = self.timeIntervalFormatter.abbreviatedHumanDaysSinceDate(newsArticle.date)
+        let articlePublishedToday = timeIntervalFormatter.numberOfDaysSinceDate(newsArticle.date) == 0
 
-        self.applyThemeToNewsCell(cell, newsArticle: newsArticle)
+        if articlePublishedToday {
+            let nowText = NSLocalizedString("Now", comment: "")
+            let attributedString = NSMutableAttributedString(string: "\(nowText) | \(newsArticle.excerpt)")
+            let range = NSRange(location: 0, length: nowText.lengthOfBytesUsingEncoding(NSUTF8StringEncoding))
+            attributedString.addAttribute(NSForegroundColorAttributeName, value: theme.highlightDisclosureColor(), range: range)
+
+            cell.excerptLabel.attributedText = attributedString
+        } else {
+            cell.excerptLabel.text = newsArticle.excerpt
+        }
+
 
         cell.newsImageView.image = nil
 
@@ -44,12 +54,11 @@ class NewsFeedArticlePresenter: NewsFeedTableViewCellPresenter {
         return cell
     }
 
-    private func applyThemeToNewsCell(cell: NewsArticleTableViewCell, newsArticle: NewsArticle) {
+    private func applyThemeToNewsCell(cell: NewsArticleTableViewCell) {
         cell.titleLabel.font = self.theme.newsFeedTitleFont()
         cell.titleLabel.textColor = self.theme.newsFeedTitleColor()
         cell.excerptLabel.font = self.theme.newsFeedExcerptFont()
         cell.excerptLabel.textColor = self.theme.newsFeedExcerptColor()
-        cell.dateLabel.font = self.theme.newsFeedDateFont()
-        cell.dateLabel.textColor = self.theme.highlightDisclosureColor()
+
     }
 }

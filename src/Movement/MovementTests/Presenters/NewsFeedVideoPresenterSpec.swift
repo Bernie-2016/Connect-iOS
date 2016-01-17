@@ -41,15 +41,20 @@ class NewsFeedVideoPresenterSpec: QuickSpec {
                     expect(cell.titleLabel.text).to(equal("Some video"))
                 }
 
-                it("uses the time interval formatter for the date label") {
-                    let cell = subject.cellForTableView(tableView, newsFeedItem: video, indexPath: indexPath) as! NewsFeedVideoTableViewCell
-                    expect(cell.dateLabel.text).to(equal("abbreviated 1970-01-01 00:00:00 +0000"))
-                    expect(timeIntervalFormatter.lastAbbreviatedDates).to(equal([videoDate]))
+                context("when the video was published today") {
+                    it("sets the description label using the provided video, including the abbreviated date") {
+                        timeIntervalFormatter.returnsDaysSinceDate = 0
+                        let cell = subject.cellForTableView(tableView, newsFeedItem: video, indexPath: indexPath) as! NewsFeedVideoTableViewCell
+                        expect(cell.descriptionLabel.text).to(equal("Now | Stuff that moves"))
+                    }
                 }
 
-                it("sets the description label using the provided video") {
-                    let cell = subject.cellForTableView(tableView, newsFeedItem: video, indexPath: indexPath) as! NewsFeedVideoTableViewCell
-                    expect(cell.descriptionLabel.text).to(equal("Stuff that moves"))
+                context("when the video was published in the past") {
+                    it("sets the description label using the provided video") {
+                        timeIntervalFormatter.returnsDaysSinceDate = 1
+                        let cell = subject.cellForTableView(tableView, newsFeedItem: video, indexPath: indexPath) as! NewsFeedVideoTableViewCell
+                        expect(cell.descriptionLabel.text).to(equal("Stuff that moves"))
+                    }
                 }
 
                 it("asks the image repository to fetch the URL from the provider") {
@@ -102,11 +107,8 @@ class NewsFeedVideoPresenterSpec: QuickSpec {
 
                     expect(cell.titleLabel.textColor).to(equal(UIColor.magentaColor()))
                     expect(cell.titleLabel.font).to(equal(UIFont.boldSystemFontOfSize(20)))
-                    expect(cell.dateLabel.font).to(equal(UIFont.italicSystemFontOfSize(13)))
-                    expect(cell.descriptionLabel.textColor).to(equal(UIColor.redColor()))
                     expect(cell.descriptionLabel.font).to(equal(UIFont.boldSystemFontOfSize(21)))
                     expect(cell.overlayView.backgroundColor).to(equal(UIColor.orangeColor()))
-                    expect(cell.dateLabel.textColor).to(equal(UIColor.whiteColor()))
                 }
             }
         }

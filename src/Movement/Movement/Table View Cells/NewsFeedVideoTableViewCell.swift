@@ -2,7 +2,6 @@ import Foundation
 
 class NewsFeedVideoTableViewCell: UITableViewCell {
     let titleLabel = UILabel.newAutoLayoutView()
-    let dateLabel = UILabel.newAutoLayoutView()
     let descriptionLabel = UILabel.newAutoLayoutView()
     let thumbnailImageView = UIImageView.newAutoLayoutView()
     let overlayView = UIView.newAutoLayoutView()
@@ -23,7 +22,6 @@ class NewsFeedVideoTableViewCell: UITableViewCell {
 
         contentView.addSubview(containerView)
         containerView.addSubview(titleLabel)
-        containerView.addSubview(dateLabel)
         containerView.addSubview(descriptionLabel)
         containerView.addSubview(thumbnailImageView)
         containerView.addSubview(overlayView)
@@ -76,10 +74,6 @@ class NewsFeedVideoTableViewCell: UITableViewCell {
         titleLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: thumbnailImageView, withOffset: 16)
         titleLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultMargin)
         titleLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 50)
-
-        dateLabel.autoPinEdge(.Top, toEdge: .Top, ofView: titleLabel, withOffset: 5)
-        dateLabel.autoPinEdge(.Left, toEdge: .Right, ofView: titleLabel, withOffset: 5)
-        dateLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultMargin)
 
         descriptionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: titleLabel, withOffset: 5)
         descriptionLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultMargin)

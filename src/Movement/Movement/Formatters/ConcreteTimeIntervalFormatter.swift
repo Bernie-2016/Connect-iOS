@@ -18,17 +18,6 @@ class ConcreteTimeIntervalFormatter: TimeIntervalFormatter {
         }
     }
 
-    func abbreviatedHumanDaysSinceDate(date: NSDate) -> String {
-        let numberOfDays = self.numberOfDaysSinceDate(date)
-
-        if numberOfDays == 0 {
-            return NSLocalizedString("TimeInterval_now", comment: "")
-        } else {
-            return NSString.localizedStringWithFormat(NSLocalizedString("TimeInterval_abbreviatedDaysAgo %d", comment: ""),  numberOfDays) as String
-        }
-
-    }
-
     func numberOfDaysSinceDate(date: NSDate) -> Int {
         return self.currentCalendar.components(.Day, fromDate: date, toDate: self.dateProvider.now(), options: []).day
     }

@@ -65,15 +65,22 @@ class NewsFeedArticlePresenterSpec: QuickSpec {
                     expect(cell.titleLabel.text).to(equal("Bernie to release new album"))
                 }
 
-                it("sets the excerpt label using the provided news article") {
-                    let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
-                    expect(cell.excerptLabel.text).to(equal("excerpt A"))
+
+
+                context("when the video was published today") {
+                    it("sets the excerpt label using the provided news article, including the abbreviated date") {
+                        timeIntervalFormatter.returnsDaysSinceDate = 0
+                        let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
+                        expect(cell.excerptLabel.attributedText!.string).to(equal("Now | excerpt A"))
+                    }
                 }
 
-                it("uses the time interval formatter for the date label") {
-                    let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
-                    expect(cell.dateLabel.text).to(equal("abbreviated 1970-01-01 00:00:00 +0000"))
-                    expect(timeIntervalFormatter.lastAbbreviatedDates).to(equal([newsArticleDate]))
+                context("when the video was published in the past") {
+                    it("sets the excerpt label using the provided news article") {
+                        timeIntervalFormatter.returnsDaysSinceDate = 1
+                        let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
+                        expect(cell.excerptLabel.text).to(equal("excerpt A"))
+                    }
                 }
 
                 it("initially nils out the image") {
@@ -130,10 +137,7 @@ class NewsFeedArticlePresenterSpec: QuickSpec {
 
                     expect(cell.titleLabel.textColor).to(equal(UIColor.magentaColor()))
                     expect(cell.titleLabel.font).to(equal(UIFont.boldSystemFontOfSize(20)))
-                    expect(cell.excerptLabel.textColor).to(equal(UIColor.redColor()))
                     expect(cell.excerptLabel.font).to(equal(UIFont.boldSystemFontOfSize(21)))
-                    expect(cell.dateLabel.font).to(equal(UIFont.italicSystemFontOfSize(13)))
-                    expect(cell.dateLabel.textColor).to(equal(UIColor.whiteColor()))
                 }
             }
         }
