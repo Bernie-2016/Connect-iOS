@@ -10,7 +10,7 @@ class ConcreteURLProviderSpec : QuickSpec {
 
         describe("ConcreteURLProvider") {
             beforeEach {
-                subject = ConcreteURLProvider()
+                subject = ConcreteURLProvider(sharknadoBaseURL: NSURL(string: "https://example.com")!)
             }
 
             describe("building a maps URL for an event") {

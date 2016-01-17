@@ -2,24 +2,30 @@ import Foundation
 import CoreLocation
 
 class ConcreteURLProvider: URLProvider {
+    let sharknadoBaseURL: NSURL
+
+    init(sharknadoBaseURL: NSURL) {
+        self.sharknadoBaseURL = sharknadoBaseURL
+    }
+
     func issuesFeedURL() -> NSURL {
-        return NSURL(string: "https://elasticsearch.movementapp.io/articles_en_v1/berniesanders_com/_search")!
+        return NSURL(string: "/articles_en_v1/berniesanders_com/_search", relativeToURL: sharknadoBaseURL)!
     }
 
     func newsFeedURL() -> NSURL {
-        return NSURL(string: "https://elasticsearch.movementapp.io/articles_en_v1/berniesanders_com/_search")!
+        return NSURL(string: "/articles_en_v1/berniesanders_com/_search", relativeToURL: sharknadoBaseURL)!
     }
 
-    func bernieCrowdURL() -> NSURL {
-        return NSURL(string: "https://berniecrowd.org/")!
+    func eventsURL() -> NSURL {
+        return NSURL(string: "/events_en_v1/berniesanders_com/_search", relativeToURL: sharknadoBaseURL)!
+    }
+
+    func videoURL() -> NSURL {
+        return NSURL(string: "/videos_v1/_search", relativeToURL: sharknadoBaseURL)!
     }
 
     func privacyPolicyURL() -> NSURL {
         return NSURL(string: "https://www.iubenda.com/privacy-policy/128001")!
-    }
-
-    func eventsURL() -> NSURL {
-        return NSURL(string: "https://elasticsearch.movementapp.io/events_en_v1/berniesanders_com/_search")!
     }
 
     func mapsURLForEvent(event: Event) -> NSURL {
@@ -58,15 +64,11 @@ class ConcreteURLProvider: URLProvider {
     }
 
     func donateFormURL() -> NSURL {
-        return NSURL(string: "https://secure.actblue.com/contribute/page/lets-go-bernie?refcode=berniesanders_iosApp")!
+        return NSURL(string: "https://secure.actblue.com/contribute/page/lets-go-bernie?refcode=movement_iosApp")!
     }
 
     func hostEventFormURL() -> NSURL {
         return NSURL(string: "https://go.berniesanders.com/page/event/create#eventcreate")!
-    }
-
-    func videoURL() -> NSURL {
-        return NSURL(string: "https://elasticsearch.movementapp.io/videos_v1/_search")!
     }
 
     func youtubeVideoURL(identifier: String) -> NSURL {

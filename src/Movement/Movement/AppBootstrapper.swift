@@ -48,7 +48,8 @@ class AppBootstrapper {
             apiKeyProvider: apiKeyProvider
         )
 
-        let urlProvider = ConcreteURLProvider()
+        let sharknadoBaseURL = NSURL(string: "https://elasticsearch.movementapp.io")!
+        let urlProvider = ConcreteURLProvider(sharknadoBaseURL: sharknadoBaseURL)
         let urlOpener = URLOpener()
         let urlAttributionPresenter = ConcreteURLAttributionPresenter()
 

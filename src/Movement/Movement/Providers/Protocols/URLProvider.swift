@@ -5,7 +5,6 @@ protocol URLProvider {
     func issuesFeedURL() -> NSURL
     func newsFeedURL() -> NSURL
     func eventsURL() -> NSURL
-    func bernieCrowdURL() -> NSURL
     func privacyPolicyURL() -> NSURL
     func hostEventFormURL() -> NSURL
     func mapsURLForEvent(event: Event) -> NSURL
