@@ -196,7 +196,7 @@ class DefaultTheme: Theme {
     func tinyTextFont() -> UIFont { return UIFont.systemFontOfSize(12) }
     func tinyTextColor() -> UIColor { return arachnidColor }
 
-    func tableSectionHeaderFont() -> UIFont { return mediumSystemFontOfSize(13) }
+    func tableSectionHeaderFont() -> UIFont { return semiBoldSystemFontOfSize(13) }
     func tableSectionHeaderTextColor() -> UIColor { return boulderColor }
 
     func mediumSystemFontOfSize(size: CGFloat) -> UIFont {

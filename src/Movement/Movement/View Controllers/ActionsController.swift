@@ -38,7 +38,6 @@ class ActionsController: UIViewController {
         tableView.delegate = self
         tableView.registerClass(ActionTableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.tableFooterView = UIView(frame: CGRectZero)
-        tableView.registerClass(ActionsSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: "header")
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         tableView.backgroundColor = theme.defaultBackgroundColor()
 
@@ -92,17 +91,16 @@ extension ActionsController: UITableViewDataSource {
         return cell
     }
 
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let headerView = tableView.dequeueReusableHeaderFooterViewWithIdentifier("header") else {
-            return nil
-        }
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return NSLocalizedString(section == 0 ? "Actions_fundraiseHeader" : "Actions_organizeHeader", comment: "")
+    }
 
-        headerView.textLabel!.text = NSLocalizedString(section == 0 ? "Actions_fundraiseHeader" : "Actions_organizeHeader", comment: "")
+
+    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        guard let headerView = view as? UITableViewHeaderFooterView else { return }
         headerView.contentView.backgroundColor = self.theme.defaultTableSectionHeaderBackgroundColor()
-        headerView.textLabel?.textColor = self.theme.defaultTableSectionHeaderTextColor()
-        headerView.textLabel?.font = self.theme.defaultTableSectionHeaderFont()
-
-        return headerView
+        headerView.textLabel!.textColor = self.theme.defaultTableSectionHeaderTextColor()
+        headerView.textLabel!.font = self.theme.defaultTableSectionHeaderFont()
     }
 }
 

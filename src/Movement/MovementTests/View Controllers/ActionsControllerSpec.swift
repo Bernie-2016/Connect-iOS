@@ -64,7 +64,9 @@ class ActionsControllerSpec: QuickSpec {
                     }
 
                     it("styles the section headers with the theme") {
-                        let sectionHeader = tableView.delegate?.tableView!(tableView, viewForHeaderInSection: 0) as! ActionsSectionHeaderView
+                        let sectionHeader = UITableViewHeaderFooterView()
+
+                        tableView.delegate!.tableView!(tableView, willDisplayHeaderView: sectionHeader, forSection: 0)
 
                         expect(sectionHeader.contentView.backgroundColor).to(equal(UIColor.darkGrayColor()))
                         expect(sectionHeader.textLabel!.textColor).to(equal(UIColor.lightGrayColor()))
@@ -73,8 +75,8 @@ class ActionsControllerSpec: QuickSpec {
 
                     describe("the fundraising section") {
                         it("has a section for fundraising") {
-                            let header = tableView.delegate?.tableView!(tableView, viewForHeaderInSection: 0) as! ActionsSectionHeaderView
-                            expect(header.textLabel!.text).to(equal("FUNDRAISE"))
+                            let title = tableView.dataSource?.tableView!(tableView, titleForHeaderInSection: 0)
+                            expect(title).to(equal("FUNDRAISE"))
                         }
 
                         it("has the correct number of rows") {
@@ -208,8 +210,8 @@ class ActionsControllerSpec: QuickSpec {
 
                     describe("the organizing section") {
                         it("has a section for organizing") {
-                            let header = tableView.delegate?.tableView!(tableView, viewForHeaderInSection: 1) as! ActionsSectionHeaderView
-                            expect(header.textLabel!.text).to(equal("ORGANIZE"))
+                            let title = tableView.dataSource?.tableView!(tableView, titleForHeaderInSection: 1)
+                            expect(title).to(equal("ORGANIZE"))
                         }
 
                         it("has the correct number of rows") {

@@ -69,7 +69,6 @@
 		653885221B94E67400DCA808 /* NewsArticleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653885211B94E67400DCA808 /* NewsArticleController.swift */; };
 		653885251B94E89600DCA808 /* ConcreteNewsArticleControllerProviderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653885241B94E89600DCA808 /* ConcreteNewsArticleControllerProviderSpec.swift */; };
 		653885271B94E91800DCA808 /* ConcreteNewsArticleControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653885261B94E91800DCA808 /* ConcreteNewsArticleControllerProvider.swift */; };
-		65459DC81C4B1FA80088562A /* ActionsSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65459DC71C4B1FA80088562A /* ActionsSectionHeaderView.swift */; };
 		65459DCA1C4B21D80088562A /* EventsSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65459DC91C4B21D80088562A /* EventsSectionHeaderView.swift */; };
 		654773FD1BB1EEBC00B87670 /* EventListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654773FC1BB1EEBC00B87670 /* EventListTableViewCell.swift */; };
 		654773FF1BB23FAE00B87670 /* ConcreteEventRepositorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654773FE1BB23FAE00B87670 /* ConcreteEventRepositorySpec.swift */; };
@@ -352,7 +351,6 @@
 		653885211B94E67400DCA808 /* NewsArticleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsArticleController.swift; sourceTree = "<group>"; };
 		653885241B94E89600DCA808 /* ConcreteNewsArticleControllerProviderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteNewsArticleControllerProviderSpec.swift; sourceTree = "<group>"; };
 		653885261B94E91800DCA808 /* ConcreteNewsArticleControllerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteNewsArticleControllerProvider.swift; sourceTree = "<group>"; };
-		65459DC71C4B1FA80088562A /* ActionsSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionsSectionHeaderView.swift; sourceTree = "<group>"; };
 		65459DC91C4B21D80088562A /* EventsSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsSectionHeaderView.swift; sourceTree = "<group>"; };
 		654773FC1BB1EEBC00B87670 /* EventListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventListTableViewCell.swift; sourceTree = "<group>"; };
 		654773FE1BB23FAE00B87670 /* ConcreteEventRepositorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteEventRepositorySpec.swift; sourceTree = "<group>"; };
@@ -998,7 +996,6 @@
 		65CA5E951B86E5710001D870 /* Table View Cells */ = {
 			isa = PBXGroup;
 			children = (
-				65459DC71C4B1FA80088562A /* ActionsSectionHeaderView.swift */,
 				658A5AE51C49924C00EFCA7E /* ActionTableViewCell.swift */,
 				654773FC1BB1EEBC00B87670 /* EventListTableViewCell.swift */,
 				65459DC91C4B21D80088562A /* EventsSectionHeaderView.swift */,
@@ -1458,7 +1455,6 @@
 			files = (
 				65C658A21BC088FF001AD5CA /* AboutController.swift in Sources */,
 				655999FC1C489EEE00E9AB18 /* ActionsController.swift in Sources */,
-				65459DC81C4B1FA80088562A /* ActionsSectionHeaderView.swift in Sources */,
 				658A5AE61C49924C00EFCA7E /* ActionTableViewCell.swift in Sources */,
 				6559D70D1BBDC32100CBC7EE /* AnalyticsService.swift in Sources */,
 				6568B9D41BC700D800BD149D /* AnalyticsSettingsController.swift in Sources */,
