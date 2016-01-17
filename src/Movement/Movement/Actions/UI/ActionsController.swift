@@ -37,7 +37,7 @@ class ActionsController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.registerClass(ActionTableViewCell.self, forCellReuseIdentifier: "cell")
-        tableView.tableFooterView = UIView(frame: CGRectZero)
+        tableView.tableFooterView = UIView(frame: CGRect.zero)
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         tableView.backgroundColor = theme.defaultBackgroundColor()
 

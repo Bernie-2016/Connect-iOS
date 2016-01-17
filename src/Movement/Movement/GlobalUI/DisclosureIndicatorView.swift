@@ -8,7 +8,7 @@ class DisclosureIndicatorView: UIView {
     }
 
     init() {
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
         self.backgroundColor = UIColor.whiteColor()
     }
 

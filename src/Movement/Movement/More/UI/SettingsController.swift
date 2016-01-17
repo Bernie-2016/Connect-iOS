@@ -44,7 +44,7 @@ class SettingsController: UITableViewController {
         view.backgroundColor = self.theme.defaultBackgroundColor()
 
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "regularCell")
-        tableView.tableFooterView = UIView(frame: CGRectZero)
+        tableView.tableFooterView = UIView(frame: CGRect.zero)
     }
 
     override func didMoveToParentViewController(parent: UIViewController?) {
