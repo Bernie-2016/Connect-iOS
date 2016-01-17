@@ -16,7 +16,7 @@ class NewsFeedArticlePresenter: NewsFeedTableViewCellPresenter {
         tableView.registerClass(NewsArticleTableViewCell.self, forCellReuseIdentifier: "regularCell")
     }
 
-    func cellForTableView(tableView: UITableView, newsFeedItem: NewsFeedItem) -> UITableViewCell {
+    func cellForTableView(tableView: UITableView, newsFeedItem: NewsFeedItem, indexPath: NSIndexPath) -> UITableViewCell {
         let cell: NewsArticleTableViewCell! = tableView.dequeueReusableCellWithIdentifier("regularCell") as? NewsArticleTableViewCell
 
         let newsArticle: NewsArticle! = newsFeedItem as? NewsArticle

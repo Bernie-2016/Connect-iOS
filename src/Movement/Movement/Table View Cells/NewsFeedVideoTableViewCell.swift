@@ -7,6 +7,7 @@ class NewsFeedVideoTableViewCell: UITableViewCell {
     let thumbnailImageView = UIImageView.newAutoLayoutView()
     let overlayView = UIView.newAutoLayoutView()
     let playIconImageView = UIImageView.newAutoLayoutView()
+    var topSpaceConstraint: NSLayoutConstraint!
 
     private let containerView = UIView.newAutoLayoutView()
     private let defaultMargin: CGFloat = 20
@@ -50,7 +51,7 @@ class NewsFeedVideoTableViewCell: UITableViewCell {
     }
 
     private func setupConstraints() {
-        containerView.autoPinEdgeToSuperviewEdge(.Top, withInset: 9)
+        topSpaceConstraint = containerView.autoPinEdgeToSuperviewEdge(.Top, withInset: 9)
         containerView.autoPinEdgeToSuperviewEdge(.Left)
         containerView.autoPinEdgeToSuperviewEdge(.Right)
         containerView.autoPinEdgeToSuperviewEdge(.Bottom)

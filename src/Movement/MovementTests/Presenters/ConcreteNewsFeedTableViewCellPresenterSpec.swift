@@ -11,31 +11,31 @@ private class DodgyNewsItem: NewsFeedItem {
 }
 
 class ConcreteNewsFeedTableViewCellPresenterSpec: QuickSpec {
-    var subject: ConcreteNewsFeedTableViewCellPresenter!
-    var articlePresenter: FakeNewsFeedTableViewCellPresenter!
-    var videoPresenter: FakeNewsFeedTableViewCellPresenter!
-
     override func spec() {
         describe("ConcreteNewsFeedTableViewCellPresenter") {
+            var subject: ConcreteNewsFeedTableViewCellPresenter!
+            var articlePresenter: FakeNewsFeedTableViewCellPresenter!
+            var videoPresenter: FakeNewsFeedTableViewCellPresenter!
+
             beforeEach {
-                self.articlePresenter = FakeNewsFeedTableViewCellPresenter()
-                self.videoPresenter = FakeNewsFeedTableViewCellPresenter()
-                self.subject = ConcreteNewsFeedTableViewCellPresenter(articlePresenter: self.articlePresenter, videoPresenter: self.videoPresenter)
+                articlePresenter = FakeNewsFeedTableViewCellPresenter()
+                videoPresenter = FakeNewsFeedTableViewCellPresenter()
+                subject = ConcreteNewsFeedTableViewCellPresenter(articlePresenter: articlePresenter, videoPresenter: videoPresenter)
             }
 
             describe("setting up a table view") {
                 let tableView = UITableView()
 
                 it("tells the article presenter to setup the table view") {
-                    self.subject.setupTableView(tableView)
+                    subject.setupTableView(tableView)
 
-                    expect(self.articlePresenter.lastSetupTableView).to(beIdenticalTo(tableView))
+                    expect(articlePresenter.lastSetupTableView).to(beIdenticalTo(tableView))
                 }
 
                 it("tells the video presenter to setup the table view") {
-                    self.subject.setupTableView(tableView)
+                    subject.setupTableView(tableView)
 
-                    expect(self.videoPresenter.lastSetupTableView).to(beIdenticalTo(tableView))
+                    expect(videoPresenter.lastSetupTableView).to(beIdenticalTo(tableView))
                 }
             }
 
@@ -46,14 +46,16 @@ class ConcreteNewsFeedTableViewCellPresenterSpec: QuickSpec {
                     let newsArticle = TestUtils.newsArticle()
 
                     beforeEach {
-                        self.subject.setupTableView(tableView)
+                        subject.setupTableView(tableView)
                     }
 
                     it("uses the article presenter") {
-                        let cell = self.subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
-                        expect(cell).to(beIdenticalTo(self.articlePresenter.returnedCells.last))
-                        expect(self.articlePresenter.receivedTableViews.last).to(beIdenticalTo(tableView))
-                        expect(self.articlePresenter.receivedNewsFeedItems.last as? NewsArticle).to(beIdenticalTo(newsArticle))
+                        let indexPath = NSIndexPath(forRow: 1, inSection: 1)
+                        let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
+                        expect(cell).to(beIdenticalTo(articlePresenter.returnedCells.last))
+                        expect(articlePresenter.receivedTableViews.last).to(beIdenticalTo(tableView))
+                        expect(articlePresenter.receivedNewsFeedItems.last as? NewsArticle).to(beIdenticalTo(newsArticle))
+                        expect(articlePresenter.receivedIndexPaths.last).to(equal(indexPath))
                     }
                 }
 
@@ -61,14 +63,16 @@ class ConcreteNewsFeedTableViewCellPresenterSpec: QuickSpec {
                     let video = TestUtils.video()
 
                     beforeEach {
-                        self.subject.setupTableView(tableView)
+                        subject.setupTableView(tableView)
                     }
 
                     it("uses the video presenter") {
-                        let cell = self.subject.cellForTableView(tableView, newsFeedItem: video) as! NewsArticleTableViewCell
-                        expect(cell).to(beIdenticalTo(self.videoPresenter.returnedCells.last))
-                        expect(self.videoPresenter.receivedTableViews.last).to(beIdenticalTo(tableView))
-                        expect(self.videoPresenter.receivedNewsFeedItems.last as? Video).to(beIdenticalTo(video))
+                        let indexPath = NSIndexPath(forRow: 1, inSection: 1)
+                        let cell = subject.cellForTableView(tableView, newsFeedItem: video, indexPath: indexPath) as! NewsArticleTableViewCell
+                        expect(cell).to(beIdenticalTo(videoPresenter.returnedCells.last))
+                        expect(videoPresenter.receivedTableViews.last).to(beIdenticalTo(tableView))
+                        expect(videoPresenter.receivedNewsFeedItems.last as? Video).to(beIdenticalTo(video))
+                        expect(videoPresenter.receivedIndexPaths.last).to(equal(indexPath))
                     }
                 }
             }

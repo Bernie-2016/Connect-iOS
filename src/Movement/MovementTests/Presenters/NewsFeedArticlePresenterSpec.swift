@@ -54,52 +54,53 @@ class NewsFeedArticlePresenterSpec: QuickSpec {
                 let newsArticleDate = NSDate(timeIntervalSince1970: 0)
                 let newsArticle = NewsArticle(title: "Bernie to release new album", date: newsArticleDate, body: "yeahhh", excerpt: "excerpt A", imageURL: NSURL(string: "http://bs.com")!, url: NSURL())
                 let tableView = UITableView()
+                let indexPath = NSIndexPath(forRow: 1, inSection: 1)
 
                 beforeEach {
                     subject.setupTableView(tableView)
                 }
 
                 it("sets the title label using the provided news article") {
-                    let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
+                    let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
                     expect(cell.titleLabel.text).to(equal("Bernie to release new album"))
                 }
 
                 it("sets the excerpt label using the provided news article") {
-                    let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
+                    let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
                     expect(cell.excerptLabel.text).to(equal("excerpt A"))
                 }
 
                 it("uses the time interval formatter for the date label") {
-                    let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
+                    let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
                     expect(cell.dateLabel.text).to(equal("abbreviated 1970-01-01 00:00:00 +0000"))
                     expect(timeIntervalFormatter.lastAbbreviatedDates).to(equal([newsArticleDate]))
                 }
 
                 it("initially nils out the image") {
-                    var cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
+                    var cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
                     cell.newsImageView.image = TestUtils.testImageNamed("bernie", type: "jpg")
-                    cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
+                    cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
                     expect(cell.newsImageView.image).to(beNil())
                 }
 
                 context("when the news item has an image URL") {
                     it("asks the image repository to fetch the image") {
-                        subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
+                        subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
 
                         expect(imageService.lastReceivedURL).to(beIdenticalTo(newsArticle.imageURL))
                     }
 
                     it("shows the image view") {
-                        var cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
+                        var cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
                         cell.newsImageVisible = false
-                        cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
+                        cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
 
                         expect(cell.newsImageVisible).to(beTrue())
                     }
 
                     context("when the image is loaded succesfully") {
                         it("sets the image") {
-                            let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
+                            let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
 
                             let bernieImage = TestUtils.testImageNamed("bernie", type: "jpg")
                             imageService.lastRequestPromise.resolve(bernieImage)
@@ -114,18 +115,18 @@ class NewsFeedArticlePresenterSpec: QuickSpec {
 
                     it("does not make a call to the image repository") {
                         imageService.lastReceivedURL = nil
-                        subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
+                        subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
                         expect(imageService.lastReceivedURL).to(beNil())
                     }
 
                     it("hides the image view") {
-                        let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
+                        let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
                         expect(cell.newsImageVisible).to(beFalse())
                     }
                 }
 
                 it("styles the cell using the theme") {
-                    let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
+                    let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
 
                     expect(cell.titleLabel.textColor).to(equal(UIColor.magentaColor()))
                     expect(cell.titleLabel.font).to(equal(UIFont.boldSystemFontOfSize(20)))

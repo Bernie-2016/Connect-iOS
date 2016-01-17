@@ -21,7 +21,7 @@ class NewsFeedVideoPresenter: NewsFeedTableViewCellPresenter {
         tableView.registerClass(NewsFeedVideoTableViewCell.self, forCellReuseIdentifier: "videoCell")
     }
 
-    func cellForTableView(tableView: UITableView, newsFeedItem: NewsFeedItem) -> UITableViewCell {
+    func cellForTableView(tableView: UITableView, newsFeedItem: NewsFeedItem, indexPath: NSIndexPath) -> UITableViewCell {
         let cell: NewsFeedVideoTableViewCell! = tableView.dequeueReusableCellWithIdentifier("videoCell") as? NewsFeedVideoTableViewCell
 
         guard let video: Video = newsFeedItem as? Video else { return cell }
@@ -29,6 +29,7 @@ class NewsFeedVideoPresenter: NewsFeedTableViewCellPresenter {
         cell.titleLabel.text = video.title
         cell.descriptionLabel.text = video.description
         cell.dateLabel.text = timeIntervalFormatter.abbreviatedHumanDaysSinceDate(video.date)
+        cell.topSpaceConstraint.constant = (indexPath.section == 0 && indexPath.row == 0 ? 0 : 9)
 
         let thumbnailURL = urlProvider.youtubeThumbnailURL(video.identifier)
         let imageFuture = imageService.fetchImageWithURL(thumbnailURL)

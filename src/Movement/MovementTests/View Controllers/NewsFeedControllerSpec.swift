@@ -126,15 +126,19 @@ class NewsFeedControllerSpecs: QuickSpec {
                         it("shows the news items in the table, using the presenter") {
                             expect(self.subject.tableView.numberOfRowsInSection(0)).to(equal(2))
 
-                            let cellA = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NewsArticleTableViewCell
+                            let indexPathA = NSIndexPath(forRow: 0, inSection: 0)
+                            let cellA = self.subject.tableView.cellForRowAtIndexPath(indexPathA) as! NewsArticleTableViewCell
                             expect(cellA).to(beIdenticalTo(self.newsFeedTableViewCellPresenter.returnedCells[0]))
                             expect(self.newsFeedTableViewCellPresenter.receivedTableViews[0]).to(beIdenticalTo(self.subject.tableView))
                             expect(self.newsFeedTableViewCellPresenter.receivedNewsFeedItems[0] as? NewsArticle).to(beIdenticalTo(newsArticleA))
+                            expect(self.newsFeedTableViewCellPresenter.receivedIndexPaths[0]).to(equal(indexPathA))
 
-                            let cellB = self.subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! NewsArticleTableViewCell
+                            let indexPathB = NSIndexPath(forRow: 1, inSection: 0)
+                            let cellB = self.subject.tableView.cellForRowAtIndexPath(indexPathB) as! NewsArticleTableViewCell
                             expect(cellB).to(beIdenticalTo(self.newsFeedTableViewCellPresenter.returnedCells[1]))
                             expect(self.newsFeedTableViewCellPresenter.receivedTableViews[1]).to(beIdenticalTo(self.subject.tableView))
                             expect(self.newsFeedTableViewCellPresenter.receivedNewsFeedItems[1] as? NewsArticle).to(beIdenticalTo(newsArticleB))
+                            expect(self.newsFeedTableViewCellPresenter.receivedIndexPaths[1]).to(equal(indexPathB))
                         }
                     }
                 })

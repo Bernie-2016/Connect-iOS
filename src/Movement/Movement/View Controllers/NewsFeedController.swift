@@ -134,7 +134,7 @@ extension NewsFeedController: UITableViewDataSource {
         }
 
         let newsFeedItem = self.newsFeedItems[indexPath.row]
-        return self.newsFeedTableViewCellPresenter.cellForTableView(tableView, newsFeedItem: newsFeedItem)
+        return self.newsFeedTableViewCellPresenter.cellForTableView(tableView, newsFeedItem: newsFeedItem, indexPath: indexPath)
     }
 }
 

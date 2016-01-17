@@ -15,11 +15,11 @@ class ConcreteNewsFeedTableViewCellPresenter: NewsFeedTableViewCellPresenter {
         self.videoPresenter.setupTableView(tableView)
     }
 
-    func cellForTableView(tableView: UITableView, newsFeedItem: NewsFeedItem) -> UITableViewCell {
+    func cellForTableView(tableView: UITableView, newsFeedItem: NewsFeedItem, indexPath: NSIndexPath) -> UITableViewCell {
         if newsFeedItem is Video {
-            return self.videoPresenter.cellForTableView(tableView, newsFeedItem: newsFeedItem)
+            return self.videoPresenter.cellForTableView(tableView, newsFeedItem: newsFeedItem, indexPath: indexPath)
         } else {
-            return self.articlePresenter.cellForTableView(tableView, newsFeedItem: newsFeedItem)
+            return self.articlePresenter.cellForTableView(tableView, newsFeedItem: newsFeedItem, indexPath: indexPath)
         }
     }
 }
