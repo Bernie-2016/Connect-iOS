@@ -198,7 +198,7 @@ class EventsController: UIViewController, CLLocationManagerDelegate {
             let organizeValue = textView.textStorage.attribute("organize", atIndex: characterIndex, effectiveRange: nil)
 
             if organizeValue != nil {
-                self.urlOpener.openURL(self.urlProvider.createEventURL())
+                self.urlOpener.openURL(self.urlProvider.hostEventFormURL())
                 return
             }
         }

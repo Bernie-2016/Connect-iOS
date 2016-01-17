@@ -8,7 +8,7 @@ import MapKit
 class EventRepositoryFakeURLProvider: FakeURLProvider {
     let returnedURL = NSURL(string: "https://example.com/berneseeventsss/")!
 
-    override func eventsURL() -> NSURL {
+    override func hostEventFormURL() -> NSURL {
         return returnedURL
     }
 }

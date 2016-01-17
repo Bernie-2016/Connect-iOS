@@ -20,10 +20,6 @@ class FakeURLProvider : URLProvider {
         fatalError("override me in spec!")
     }
 
-    func eventsURL() -> NSURL {
-        fatalError("override me in spec!")
-    }
-
     func mapsURLForEvent(event: Event) -> NSURL {
         fatalError("override me in spec!")
     }
@@ -48,7 +44,7 @@ class FakeURLProvider : URLProvider {
         fatalError("override me in spec!")
     }
 
-    func createEventURL() -> NSURL {
+    func hostEventFormURL() -> NSURL {
         fatalError("override me in spec!")
     }
 
@@ -63,6 +59,4 @@ class FakeURLProvider : URLProvider {
     func youtubeThumbnailURL(idenifier: String) -> NSURL {
         fatalError("override me in spec!")
     }
-
-    func hostEventFormURL() -> NSURL { fatalError("override me in spec!") }
 }

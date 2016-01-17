@@ -61,7 +61,7 @@ class ConcreteURLProvider: URLProvider {
         return NSURL(string: "https://secure.actblue.com/contribute/page/lets-go-bernie?refcode=berniesanders_iosApp")!
     }
 
-    func createEventURL() -> NSURL {
+    func hostEventFormURL() -> NSURL {
         return NSURL(string: "https://go.berniesanders.com/page/event/create#eventcreate")!
     }
 
@@ -86,6 +86,4 @@ class ConcreteURLProvider: URLProvider {
 
         return urlComponents.URL!
     }
-
-    func hostEventFormURL() -> NSURL { return NSURL(string: "https://go.berniesanders.com/page/event/create")! }
 }
