@@ -148,30 +148,14 @@ class NewsArticleControllerSpec : QuickSpec {
 
                         let containerViewSubViews = containerView.subviews
 
-                        expect(containerViewSubViews.contains(subject.titleButton)).to(beTrue())
+                        expect(containerViewSubViews.contains(subject.titleLabel)).to(beTrue())
                         expect(containerViewSubViews.contains(subject.bodyTextView)).to(beTrue())
                         expect(containerViewSubViews.contains(subject.dateLabel)).to(beTrue())
                         expect(containerViewSubViews.contains(subject.storyImageView)).to(beTrue())
                     }
 
-                    it("displays the title from the news item as a button") {
-                        expect(subject.titleButton.titleForState(.Normal)).to(equal("some title"))
-                    }
-
-                    describe("tapping on the title button") {
-                        beforeEach {
-                            subject.titleButton.tap()
-                        }
-
-                        it("opens the original issue in safari") {
-                            expect(urlOpener.lastOpenedURL).to(beIdenticalTo(newsArticle.url))
-                        }
-
-                        it("logs that the user tapped view original") {
-                            expect(analyticsService.lastCustomEventName).to(equal("Tapped title on News Item"))
-                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: newsArticle.url.absoluteString]
-                            expect(analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
-                        }
+                    it("displays the title from the news item") {
+                        expect(subject.titleLabel.text).to(equal("some title"))
                     }
 
                     it("displays the story body") {
@@ -216,8 +200,8 @@ class NewsArticleControllerSpec : QuickSpec {
                         expect(subject.view.backgroundColor).to(equal(UIColor.orangeColor()))
                         expect(subject.dateLabel.font).to(equal(UIFont.boldSystemFontOfSize(20)))
                         expect(subject.dateLabel.textColor).to(equal(UIColor.magentaColor()))
-                        expect(subject.titleButton.titleLabel!.font).to(equal(UIFont.italicSystemFontOfSize(13)))
-                        expect(subject.titleButton.titleColorForState(.Normal)).to(equal(UIColor.brownColor()))
+                        expect(subject.titleLabel.font).to(equal(UIFont.italicSystemFontOfSize(13)))
+                        expect(subject.titleLabel.textColor).to(equal(UIColor.brownColor()))
                         expect(subject.bodyTextView.font).to(equal(UIFont.systemFontOfSize(3)))
                         expect(subject.bodyTextView.textColor).to(equal(UIColor.yellowColor()))
                         expect(subject.attributionLabel.textColor).to(equal(UIColor.greenColor()))

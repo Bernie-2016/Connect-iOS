@@ -16,7 +16,7 @@ class NewsArticleController: UIViewController {
     private var containerViewWidthConstraint: NSLayoutConstraint!
     private let scrollView = UIScrollView.newAutoLayoutView()
     let dateLabel = UILabel.newAutoLayoutView()
-    let titleButton = UIButton.newAutoLayoutView()
+    let titleLabel = UILabel.newAutoLayoutView()
     let bodyTextView = UITextView.newAutoLayoutView()
     let storyImageView = UIImageView.newAutoLayoutView()
     let attributionLabel = UILabel.newAutoLayoutView()
@@ -56,14 +56,13 @@ class NewsArticleController: UIViewController {
         scrollView.addSubview(containerView)
         containerView.addSubview(storyImageView)
         containerView.addSubview(dateLabel)
-        containerView.addSubview(titleButton)
+        containerView.addSubview(titleLabel)
         containerView.addSubview(bodyTextView)
         containerView.addSubview(attributionLabel)
         containerView.addSubview(viewOriginalButton)
 
-        dateLabel.text = self.timeIntervalFormatter.humanDaysSinceDate(self.newsArticle.date)
-        titleButton.setTitle(self.newsArticle.title, forState: .Normal)
-        titleButton.addTarget(self, action: "didTapViewOriginal:", forControlEvents: .TouchUpInside)
+        dateLabel.text = timeIntervalFormatter.humanDaysSinceDate(self.newsArticle.date)
+        titleLabel.text = newsArticle.title
         bodyTextView.text = self.newsArticle.body
 
         attributionLabel.text = self.urlAttributionPresenter.attributionTextForURL(newsArticle.url)
@@ -129,7 +128,7 @@ class NewsArticleController: UIViewController {
     }
 
     func didTapViewOriginal(sender: UIButton) {
-        let eventName = sender == self.titleButton ? "Tapped title on News Item" : "Tapped 'View Original' on News Item"
+        let eventName = sender == self.titleLabel ? "Tapped title on News Item" : "Tapped 'View Original' on News Item"
         analyticsService.trackCustomEventWithName(eventName, customAttributes: [AnalyticsServiceConstants.contentIDKey: newsArticle.url.absoluteString])
         self.urlOpener.openURL(self.newsArticle.url)
     }
@@ -153,25 +152,22 @@ class NewsArticleController: UIViewController {
         self.storyImageView.autoSetDimension(.Height, toSize: screenBounds.height / 3)
         self.storyImageView.clipsToBounds = true
 
-        let titleLabel = self.titleButton.titleLabel!
-
         titleLabel.numberOfLines = 0
         titleLabel.preferredMaxLayoutWidth = screenBounds.width - 8
 
         NSLayoutConstraint.autoSetPriority(1000, forConstraints: {
-            self.titleButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.storyImageView, withOffset: defaultVerticalMargin + 5)
+            self.titleLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.storyImageView, withOffset: defaultVerticalMargin + 5)
         })
 
         NSLayoutConstraint.autoSetPriority(500, forConstraints: {
-            self.titleButton.autoPinEdgeToSuperviewEdge(.Top, withInset: defaultVerticalMargin)
+            self.titleLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: defaultVerticalMargin)
         })
 
-        titleButton.contentHorizontalAlignment = .Left
-        titleButton.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
-        titleButton.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
-        titleButton.layoutIfNeeded()
-        titleButton.autoSetDimension(.Height, toSize: titleLabel.frame.height)
-        dateLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.titleButton, withOffset: 5)
+        titleLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
+        titleLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
+        titleLabel.layoutIfNeeded()
+        titleLabel.autoSetDimension(.Height, toSize: titleLabel.frame.height)
+        dateLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.titleLabel, withOffset: 5)
         dateLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
         dateLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
         dateLabel.autoSetDimension(.Height, toSize: 20)
@@ -198,17 +194,17 @@ class NewsArticleController: UIViewController {
     // swiftlint:enable function_body_length
 
     private func applyThemeToViews() {
-        self.dateLabel.font = self.theme.newsArticleDateFont()
-        self.dateLabel.textColor = self.theme.newsArticleDateColor()
-        self.self.titleButton.titleLabel!.font = self.theme.newsArticleTitleFont()
-        self.titleButton.setTitleColor(self.theme.newsArticleTitleColor(), forState: .Normal)
-        self.bodyTextView.font = self.theme.newsArticleBodyFont()
-        self.bodyTextView.textColor = self.theme.newsArticleBodyColor()
-        self.attributionLabel.font = self.theme.attributionFont()
-        self.attributionLabel.textColor = self.theme.attributionTextColor()
-        self.viewOriginalButton.backgroundColor = self.theme.defaultButtonBackgroundColor()
-        self.viewOriginalButton.setTitleColor(self.theme.defaultButtonTextColor(), forState: .Normal)
-        self.viewOriginalButton.titleLabel!.font = self.theme.defaultButtonFont()
+        dateLabel.font = theme.newsArticleDateFont()
+        dateLabel.textColor = theme.newsArticleDateColor()
+        titleLabel.font = theme.newsArticleTitleFont()
+        titleLabel.textColor = theme.newsArticleTitleColor()
+        bodyTextView.font = theme.newsArticleBodyFont()
+        bodyTextView.textColor = theme.newsArticleBodyColor()
+        attributionLabel.font = theme.attributionFont()
+        attributionLabel.textColor = theme.attributionTextColor()
+        viewOriginalButton.backgroundColor = theme.defaultButtonBackgroundColor()
+        viewOriginalButton.setTitleColor(theme.defaultButtonTextColor(), forState: .Normal)
+        viewOriginalButton.titleLabel!.font = theme.defaultButtonFont()
     }
 }
 // swiftlint:enable type_body_length
