@@ -153,7 +153,8 @@ class NewsArticleController: UIViewController {
         self.storyImageView.clipsToBounds = true
 
         titleLabel.numberOfLines = 0
-        titleLabel.preferredMaxLayoutWidth = screenBounds.width - 8
+        titleLabel.preferredMaxLayoutWidth = screenBounds.width - defaultHorizontalMargin
+        titleLabel.textAlignment = .Left
 
         NSLayoutConstraint.autoSetPriority(1000, forConstraints: {
             self.titleLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.storyImageView, withOffset: defaultVerticalMargin + 5)
@@ -166,7 +167,7 @@ class NewsArticleController: UIViewController {
         titleLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
         titleLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
         titleLabel.layoutIfNeeded()
-        titleLabel.autoSetDimension(.Height, toSize: titleLabel.frame.height)
+
         dateLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.titleLabel, withOffset: 5)
         dateLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
         dateLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
