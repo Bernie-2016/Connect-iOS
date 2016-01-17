@@ -132,43 +132,7 @@ class NewsFeedArticlePresenterSpec: QuickSpec {
                     expect(cell.excerptLabel.textColor).to(equal(UIColor.redColor()))
                     expect(cell.excerptLabel.font).to(equal(UIFont.boldSystemFontOfSize(21)))
                     expect(cell.dateLabel.font).to(equal(UIFont.italicSystemFontOfSize(13)))
-                }
-
-                context("when the news item is from today") {
-                    beforeEach {
-                        timeIntervalFormatter.returnsDaysSinceDate = 0
-                    }
-
-                    it("uses the breaking styling for the date label") {
-                        let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
-
-                        expect(cell.dateLabel.textColor).to(equal(UIColor.whiteColor()))
-                    }
-
-                    it("uses the breaking styling for the disclosure indicator") {
-                        let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
-
-                        expect(cell.disclosureView.color).to(equal(UIColor.whiteColor()))
-                    }
-
-                }
-
-                context("when the news item is from the past") {
-                    beforeEach {
-                        timeIntervalFormatter.returnsDaysSinceDate = 1
-                    }
-
-                    it("uses the standard styling for the date label") {
-                        let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
-
-                        expect(cell.dateLabel.textColor).to(equal(UIColor.brownColor()))
-                    }
-
-                    it("uses the standard styling for the disclosure indicator") {
-                        let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle) as! NewsArticleTableViewCell
-
-                        expect(cell.disclosureView.color).to(equal(UIColor.brownColor()))
-                    }
+                    expect(cell.dateLabel.textColor).to(equal(UIColor.whiteColor()))
                 }
             }
         }

@@ -48,15 +48,6 @@ class NewsFeedVideoPresenter: NewsFeedTableViewCellPresenter {
         cell.descriptionLabel.textColor = theme.newsFeedExcerptColor()
         cell.descriptionLabel.font = theme.newsFeedExcerptFont()
         cell.overlayView.backgroundColor = theme.newsFeedVideoOverlayBackgroundColor()
-
-        let disclosureColor: UIColor
-        if self.timeIntervalFormatter.numberOfDaysSinceDate(video.date) == 0 {
-            disclosureColor = self.theme.highlightDisclosureColor()
-        } else {
-            disclosureColor =  self.theme.defaultDisclosureColor()
-        }
-
-        cell.dateLabel.textColor = disclosureColor
-        cell.disclosureView.color = disclosureColor
+        cell.dateLabel.textColor = self.theme.highlightDisclosureColor()
     }
 }

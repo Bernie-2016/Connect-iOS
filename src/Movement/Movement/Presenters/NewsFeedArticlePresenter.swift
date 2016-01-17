@@ -50,15 +50,6 @@ class NewsFeedArticlePresenter: NewsFeedTableViewCellPresenter {
         cell.excerptLabel.font = self.theme.newsFeedExcerptFont()
         cell.excerptLabel.textColor = self.theme.newsFeedExcerptColor()
         cell.dateLabel.font = self.theme.newsFeedDateFont()
-
-        let disclosureColor: UIColor
-        if self.timeIntervalFormatter.numberOfDaysSinceDate(newsArticle.date) == 0 {
-            disclosureColor = self.theme.highlightDisclosureColor()
-        } else {
-            disclosureColor =  self.theme.defaultDisclosureColor()
-        }
-
-        cell.dateLabel.textColor = disclosureColor
-        cell.disclosureView.color = disclosureColor
+        cell.dateLabel.textColor = self.theme.highlightDisclosureColor()
     }
 }

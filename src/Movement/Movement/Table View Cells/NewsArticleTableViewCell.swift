@@ -6,7 +6,6 @@ class NewsArticleTableViewCell: UITableViewCell {
     let excerptLabel = UILabel.newAutoLayoutView()
     let dateLabel = UILabel.newAutoLayoutView()
     let newsImageView = UIImageView.newAutoLayoutView()
-    let disclosureView = DisclosureIndicatorView.newAutoLayoutView()
 
     private var excerptRightEdge: NSLayoutConstraint?
     private let rightMarginWithoutImage: CGFloat
@@ -42,7 +41,6 @@ class NewsArticleTableViewCell: UITableViewCell {
         contentView.addSubview(containerView)
         containerView.addSubview(titleLabel)
         containerView.addSubview(dateLabel)
-        containerView.addSubview(disclosureView)
         containerView.addSubview(excerptLabel)
         containerView.addSubview(newsImageView)
 
@@ -58,7 +56,6 @@ class NewsArticleTableViewCell: UITableViewCell {
         titleLabel.numberOfLines = 3
 
         dateLabel.textAlignment = .Right
-        disclosureView.backgroundColor = UIColor.whiteColor()
 
         excerptLabel.numberOfLines = 4
         excerptLabel.adjustsFontSizeToFitWidth = false
@@ -85,11 +82,6 @@ class NewsArticleTableViewCell: UITableViewCell {
         dateLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: 25)
         dateLabel.autoPinEdge(.Left, toEdge: .Right, ofView: titleLabel, withOffset: 5)
         dateLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
-
-        disclosureView.autoPinEdge(.Top, toEdge: .Top, ofView: dateLabel, withOffset: 1)
-        disclosureView.autoPinEdge(.Left, toEdge: .Right, ofView: dateLabel, withOffset: 5)
-        disclosureView.autoPinEdgeToSuperviewEdge(.Right)
-        disclosureView.autoSetDimension(.Height, toSize: 20)
 
         newsImageView.autoPinEdge(.Top, toEdge: .Bottom, ofView: titleLabel, withOffset: 5)
         newsImageView.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)

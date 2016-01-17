@@ -5,7 +5,6 @@ class NewsFeedVideoTableViewCell: UITableViewCell {
     let dateLabel = UILabel.newAutoLayoutView()
     let descriptionLabel = UILabel.newAutoLayoutView()
     let thumbnailImageView = UIImageView.newAutoLayoutView()
-    let disclosureView = DisclosureIndicatorView.newAutoLayoutView()
     let overlayView = UIView.newAutoLayoutView()
     let playIconImageView = UIImageView.newAutoLayoutView()
 
@@ -24,7 +23,6 @@ class NewsFeedVideoTableViewCell: UITableViewCell {
         contentView.addSubview(containerView)
         containerView.addSubview(titleLabel)
         containerView.addSubview(dateLabel)
-        containerView.addSubview(disclosureView)
         containerView.addSubview(descriptionLabel)
         containerView.addSubview(thumbnailImageView)
         containerView.addSubview(overlayView)
@@ -81,11 +79,6 @@ class NewsFeedVideoTableViewCell: UITableViewCell {
         dateLabel.autoPinEdge(.Top, toEdge: .Top, ofView: titleLabel, withOffset: 5)
         dateLabel.autoPinEdge(.Left, toEdge: .Right, ofView: titleLabel, withOffset: 5)
         dateLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultMargin)
-
-        disclosureView.autoPinEdge(.Top, toEdge: .Top, ofView: dateLabel, withOffset: 1)
-        disclosureView.autoPinEdge(.Left, toEdge: .Right, ofView: dateLabel, withOffset: 5)
-        disclosureView.autoPinEdgeToSuperviewEdge(.Right)
-        disclosureView.autoSetDimension(.Height, toSize: 20)
 
         descriptionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: titleLabel, withOffset: 5)
         descriptionLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultMargin)
