@@ -277,7 +277,7 @@ class EventsController: UIViewController, CLLocationManagerDelegate {
         zipCodeTextField.delegate = self
 
         let magnifyingGlassIcon =   UIImageView(frame: CGRect(x: 0, y: 0, width: 22, height: 17))
-        let magnifyingGlassImage = UIImage(named: "searchMagnifyingGlass")!
+        let magnifyingGlassImage = UIImage(named: "searchMagnifyingGlassInactive")!
         magnifyingGlassIcon.image = magnifyingGlassImage
         magnifyingGlassIcon.contentMode = .Left
         zipCodeTextField.leftView = magnifyingGlassIcon
@@ -600,6 +600,17 @@ extension EventsController: UITextFieldDelegate {
         }
 
         analyticsService.trackCustomEventWithName("Tapped on ZIP Code text field on Events", customAttributes: nil)
+    }
+
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        let textFieldRange = NSRange(location: 0, length: (textField.text?.lengthOfBytesUsingEncoding(NSUTF8StringEncoding))!)
+        let stringLength = string.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
+
+        guard let magnifyingGlassIcon = textField.leftView as? UIImageView else { return true }
+        let textFieldIsBecomingEmpty = (NSEqualRanges(range, textFieldRange) && stringLength == 0)
+        magnifyingGlassIcon.image = textFieldIsBecomingEmpty ? UIImage(named: "searchMagnifyingGlassInactive")! : UIImage(named: "searchMagnifyingGlass")!
+
+        return true
     }
 }
 

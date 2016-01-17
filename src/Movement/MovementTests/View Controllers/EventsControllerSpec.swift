@@ -187,6 +187,12 @@ class EventsControllerSpec : QuickSpec {
                 expect(subject.filterButton.inputView).to(beIdenticalTo(subject.radiusPickerView))
             }
 
+            it("sets the left view of the zip code text field to be the inactive magnifying glass") {
+                let leftImageView = subject.zipCodeTextField.leftView as! UIImageView
+
+                expect(leftImageView.image).to(equal(UIImage(named: "searchMagnifyingGlassInactive")))
+            }
+
             it("sets the image of the filter button") {
                 let image = subject.filterButton.imageForState(.Normal)!
                 let expectedImage = UIImage(named: "filterIcon")!
@@ -234,10 +240,30 @@ class EventsControllerSpec : QuickSpec {
                     expect(subject.cancelButton.hidden).to(beFalse())
                 }
 
-                xit("should log an event via the analytics service") {
-                    // TODO: test is failing on Travis, so marking as pending for now.
+                it("should log an event via the analytics service") {
                     expect(analyticsService.lastCustomEventName).to(equal("Tapped on ZIP Code text field on Events"))
                     expect(analyticsService.lastCustomEventAttributes).to(beNil())
+                }
+
+                it("sets the left view of the zip code text field to be the active magnifying glass") {
+                    let textField = subject.zipCodeTextField
+
+                    subject.zipCodeTextField.delegate!.textField!(textField, shouldChangeCharactersInRange: NSMakeRange(0, 0), replacementString: "90210")
+
+                    let leftImageView = textField.leftView as! UIImageView
+                    expect(leftImageView.image).to(equal(UIImage(named: "searchMagnifyingGlass")))
+                }
+
+                describe("deleting the contents of the zip code text field") {
+                    it("sets the left view of the zip code text field to be the inactive magnifying glass") {
+                        let textField = subject.zipCodeTextField
+                        textField.text = ""
+
+                        subject.zipCodeTextField.delegate!.textField!(textField, shouldChangeCharactersInRange: NSMakeRange(0, 0), replacementString: "")
+
+                        let leftImageView = textField.leftView as! UIImageView
+                        expect(leftImageView.image).to(equal(UIImage(named: "searchMagnifyingGlassInactive")))
+                    }
                 }
 
                 describe("aborting a search") {
@@ -249,8 +275,7 @@ class EventsControllerSpec : QuickSpec {
                         expect(subject.zipCodeTextField.isFirstResponder()).to(beFalse())
                     }
 
-                    xit("should log an event via the analytics service") {
-                        // TODO: test is failing on Travis, so marking as pending for now.
+                    it("should log an event via the analytics service") {
                         expect(analyticsService.lastCustomEventName).to(equal("Cancelled ZIP Code search on Events"))
                         expect(analyticsService.lastCustomEventAttributes).to(beNil())
                     }
