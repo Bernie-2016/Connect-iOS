@@ -10,13 +10,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(
         application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
-            for f in UIFont.familyNames() {
-                print("\(f): \(UIFont.fontNamesForFamilyName(f))")
-            }
-
-
-            print(UIFont.familyNames())
-
             appBootstrapper.bootstrapWithApplication(application)
             pushNotificationRegistrar = appBootstrapper.pushNotificationRegistrar
             pushNotificationHandlerDispatcher = appBootstrapper.pushNotificationHandlerDispatcher
