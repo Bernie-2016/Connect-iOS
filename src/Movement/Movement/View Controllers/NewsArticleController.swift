@@ -174,11 +174,10 @@ class NewsArticleController: UIViewController {
         dateLabel.autoSetDimension(.Height, toSize: 20)
 
         bodyTextView.scrollEnabled = false
-        bodyTextView.textContainerInset = UIEdgeInsetsMake(-22, 0, 0, 0)
         bodyTextView.textContainer.lineFragmentPadding = 0
         bodyTextView.editable = false
 
-        bodyTextView.autoPinEdge(.Top, toEdge: .Bottom, ofView: dateLabel, withOffset: defaultVerticalMargin - 5)
+        bodyTextView.autoPinEdge(.Top, toEdge: .Bottom, ofView: dateLabel, withOffset: 10)
         bodyTextView.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
         bodyTextView.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
 

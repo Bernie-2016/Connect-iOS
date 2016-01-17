@@ -10,9 +10,9 @@ class IssueController: UIViewController {
     let urlAttributionPresenter: URLAttributionPresenter
     let theme: Theme
 
-    private let containerView = UIView()
+    private let containerView = UIView.newAutoLayoutView()
     private var containerViewWidthConstraint: NSLayoutConstraint!
-    private let scrollView = UIScrollView()
+    private let scrollView = UIScrollView.newAutoLayoutView()
     let titleLabel = UILabel.newAutoLayoutView()
     let bodyTextView = UITextView.newAutoLayoutView()
     let issueImageView = UIImageView.newAutoLayoutView()
@@ -124,11 +124,9 @@ class IssueController: UIViewController {
         let defaultVerticalMargin: CGFloat = 21
         let screenBounds = UIScreen.mainScreen().bounds
 
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.contentSize.width = view.bounds.width
         scrollView.autoPinEdgesToSuperviewEdges()
 
-        containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Trailing)
         containerViewWidthConstraint = containerView.autoSetDimension(.Width, toSize: screenBounds.width)
 
@@ -153,12 +151,11 @@ class IssueController: UIViewController {
 
         bodyTextView.scrollEnabled = false
         bodyTextView.translatesAutoresizingMaskIntoConstraints = false
-        bodyTextView.textContainerInset = UIEdgeInsetsMake(-22, 0, 0, 0)
         bodyTextView.textContainer.lineFragmentPadding = 0
         bodyTextView.editable = false
         bodyTextView.selectable = false
 
-        bodyTextView.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: titleLabel, withOffset: defaultHorizontalMargin)
+        bodyTextView.autoPinEdge(.Top, toEdge: .Bottom, ofView: titleLabel, withOffset: 0)
         bodyTextView.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
         bodyTextView.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
 
