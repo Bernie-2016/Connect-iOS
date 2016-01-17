@@ -27,7 +27,7 @@ class ConcreteEventRepository: EventRepository {
             let placemark = placemarks!.first!
             let location = placemark.location!
 
-            let url = self.urlProvider.hostEventFormURL()
+            let url = self.urlProvider.eventsURL()
 
             let HTTPBodyDictionary = self.HTTPBodyDictionaryWithLatitude(
                 location.coordinate.latitude,
