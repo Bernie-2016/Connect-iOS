@@ -1830,7 +1830,7 @@
 				PRODUCT_MODULE_NAME = Movement;
 				PRODUCT_NAME = Movement;
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "Movement/Extensions/Movement-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Movement/Movement-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 				WARNING_CFLAGS = (
 					"-Weverything",
@@ -1986,7 +1986,7 @@
 				PRODUCT_MODULE_NAME = Movement;
 				PRODUCT_NAME = Movement;
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "Movement/Extensions/Movement-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Movement/Movement-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
 				WARNING_CFLAGS = (
@@ -2027,7 +2027,7 @@
 				PRODUCT_MODULE_NAME = Movement;
 				PRODUCT_NAME = Movement;
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "Movement/Extensions/Movement-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Movement/Movement-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 				WARNING_CFLAGS = (
 					"-Weverything",
