@@ -223,6 +223,8 @@
 		65B165571B9747350052EF8D /* WebImage.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 65B1654F1B9747240052EF8D /* WebImage.framework.dSYM */; };
 		65B165591B9789C00052EF8D /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65B165581B9789C00052EF8D /* Entitlements.plist */; };
 		65B70F9A1BA7BBD5007BF72C /* dodgy_news_feed.json in Resources */ = {isa = PBXBuildFile; fileRef = 65B70F991BA7BBD5007BF72C /* dodgy_news_feed.json */; };
+		65B7815A1C4C58B90087699B /* Swinject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B781581C4C58B90087699B /* Swinject.framework */; };
+		65B7815C1C4C58D90087699B /* Swinject.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 65B781591C4C58B90087699B /* Swinject.framework.dSYM */; };
 		65B97D571C459C9800F2F6B3 /* UserNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B97D561C459C9800F2F6B3 /* UserNotificationHandler.swift */; };
 		65CA5E851B86CA930001D870 /* SpecAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CA5E841B86CA930001D870 /* SpecAppDelegate.swift */; };
 		65CA5E871B86CAAF0001D870 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CA5E861B86CAAF0001D870 /* main.swift */; };
@@ -269,6 +271,7 @@
 				65937D231C4058DC003A1EFA /* CBGPromise.framework.dSYM in Copy symbolication files */,
 				654D12971C3E0F4F000A2982 /* Parse.framework.dSYM in Copy symbolication files */,
 				65B165561B9747350052EF8D /* PureLayout.framework.dSYM in Copy symbolication files */,
+				65B7815C1C4C58D90087699B /* Swinject.framework.dSYM in Copy symbolication files */,
 				65B165571B9747350052EF8D /* WebImage.framework.dSYM in Copy symbolication files */,
 				652B42CF1C3C6792002FD38F /* XCDYouTubeKit.framework.dSYM in Copy symbolication files */,
 			);
@@ -508,6 +511,8 @@
 		65B1654F1B9747240052EF8D /* WebImage.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = WebImage.framework.dSYM; path = Carthage/Build/iOS/WebImage.framework.dSYM; sourceTree = "<group>"; };
 		65B165581B9789C00052EF8D /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		65B70F991BA7BBD5007BF72C /* dodgy_news_feed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dodgy_news_feed.json; sourceTree = "<group>"; };
+		65B781581C4C58B90087699B /* Swinject.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Swinject.framework; path = Carthage/Build/iOS/Swinject.framework; sourceTree = "<group>"; };
+		65B781591C4C58B90087699B /* Swinject.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Swinject.framework.dSYM; path = Carthage/Build/iOS/Swinject.framework.dSYM; sourceTree = "<group>"; };
 		65B97D561C459C9800F2F6B3 /* UserNotificationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserNotificationHandler.swift; sourceTree = "<group>"; };
 		65CA5E841B86CA930001D870 /* SpecAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecAppDelegate.swift; sourceTree = "<group>"; };
 		65CA5E861B86CAAF0001D870 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -546,6 +551,7 @@
 				65494C601BFB8EC100C1ECDB /* libsqlite3.tbd in Frameworks */,
 				654D12941C3E0F28000A2982 /* Parse.framework in Frameworks */,
 				65CA5E991B86E76D0001D870 /* PureLayout.framework in Frameworks */,
+				65B7815A1C4C58B90087699B /* Swinject.framework in Frameworks */,
 				654948D71BFADF9F00C1ECDB /* SystemConfiguration.framework in Frameworks */,
 				65AD23AF1B96413200C32A02 /* WebImage.framework in Frameworks */,
 				65D08DC31C19201A0082FBC4 /* XCDYouTubeKit.framework in Frameworks */,
@@ -1206,6 +1212,8 @@
 				65CA5E981B86E76D0001D870 /* PureLayout.framework */,
 				65B1654E1B9747240052EF8D /* PureLayout.framework.dSYM */,
 				65EC4CED1B842A1900DD4C83 /* Quick.framework */,
+				65B781581C4C58B90087699B /* Swinject.framework */,
+				65B781591C4C58B90087699B /* Swinject.framework.dSYM */,
 				65AD23AE1B96413200C32A02 /* WebImage.framework */,
 				65B1654F1B9747240052EF8D /* WebImage.framework.dSYM */,
 				65D08DC11C19201A0082FBC4 /* XCDYouTubeKit.framework */,
@@ -1514,6 +1522,7 @@
 				"$(PROJECT_DIR)/Carthage/Build/iOS/Parse.framework",
 				"$(PROJECT_DIR)/Carthage/Build/iOS/Bolts.framework",
 				"$(PROJECT_DIR)/Carthage/Build/iOS/CBGPromise.framework",
+				"$(PROJECT_DIR)/Carthage/Build/iOS/Swinject.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (

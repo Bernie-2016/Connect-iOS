@@ -3,3 +3,5 @@ github "rs/SDWebImage"
 github "0xced/XCDYouTubeKit"
 github "ParsePlatform/Parse-SDK-iOS-OSX" "master"
 github "cbguder/CBGPromise" "master"
+github "Swinject/Swinject" ~> 1.0.0
+
