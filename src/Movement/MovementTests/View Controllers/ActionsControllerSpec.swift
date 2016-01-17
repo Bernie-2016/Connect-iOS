@@ -74,8 +74,8 @@ class ActionsControllerSpec: QuickSpec {
 
                     describe("the fundraising section") {
                         it("has a section for fundraising") {
-                            let title = tableView.dataSource?.tableView!(tableView, titleForHeaderInSection: 0)
-                            expect(title).to(equal("FUNDRAISE"))
+                            let header = tableView.delegate?.tableView!(tableView, viewForHeaderInSection: 0) as! ActionsSectionHeaderView
+                            expect(header.textLabel!.text).to(equal("FUNDRAISE"))
                         }
 
                         it("has the correct number of rows") {
@@ -209,8 +209,8 @@ class ActionsControllerSpec: QuickSpec {
 
                     describe("the organizing section") {
                         it("has a section for organizing") {
-                            let title = tableView.dataSource?.tableView!(tableView, titleForHeaderInSection: 1)
-                            expect(title).to(equal("ORGANIZE"))
+                            let header = tableView.delegate?.tableView!(tableView, viewForHeaderInSection: 1) as! ActionsSectionHeaderView
+                            expect(header.textLabel!.text).to(equal("ORGANIZE"))
                         }
 
                         it("has the correct number of rows") {

@@ -39,6 +39,8 @@ class ActionsController: UIViewController {
         tableView.delegate = self
         tableView.registerClass(ActionTableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.tableFooterView = UIView(frame: CGRectZero)
+        tableView.registerClass(ActionsSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: "header")
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 
         setupConstraints()
     }
@@ -87,8 +89,13 @@ extension ActionsController: UITableViewDataSource {
         return cell
     }
 
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return NSLocalizedString(section == 0 ? "Actions_fundraiseHeader" : "Actions_organizeHeader", comment: "")
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let header = tableView.dequeueReusableHeaderFooterViewWithIdentifier("header") else {
+            return nil
+        }
+
+        header.textLabel!.text = NSLocalizedString(section == 0 ? "Actions_fundraiseHeader" : "Actions_organizeHeader", comment: "")
+        return header
     }
 }
 

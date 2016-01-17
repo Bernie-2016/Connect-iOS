@@ -14,7 +14,7 @@ class EventListTableViewCell: UITableViewCell {
 
         accessoryType = .None
         separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
-        layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
+        layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         preservesSuperviewLayoutMargins = false
 
         nameLabel.numberOfLines = 2
@@ -29,8 +29,10 @@ class EventListTableViewCell: UITableViewCell {
     }
 
     private func setupConstraints() {
+        let defaultHorizontalMargin: CGFloat = 19
+
         nameLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: 15)
-        nameLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
+        nameLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
         nameLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 100)
         nameLabel.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 15)
 

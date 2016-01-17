@@ -311,6 +311,8 @@ class EventsController: UIViewController, CLLocationManagerDelegate {
         resultsTableView.delegate = self
         resultsTableView.hidden = true
         resultsTableView.registerClass(EventListTableViewCell.self, forCellReuseIdentifier: "eventCell")
+        resultsTableView.registerClass(EventsSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: "header")
+        resultsTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 
         locateButton.setImage(UIImage(named: "LocateIcon"), forState: .Normal)
         locateButton.titleEdgeInsets = UIEdgeInsets(top: 0.0, left: 8.0, bottom: 0.0, right: 0.0)
@@ -557,13 +559,18 @@ extension EventsController: UITableViewDelegate {
         return 38
     }
 
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let header = tableView.dequeueReusableHeaderFooterViewWithIdentifier("header") else {
+            return nil
+        }
+
         if eventSearchResult == nil {
             return nil
         }
 
         let sectionDate = self.eventSearchResult.uniqueDaysInLocalTimeZone()[section]
-        return self.eventSectionHeaderPresenter.headerForDate(sectionDate)
+        header.textLabel!.text = self.eventSectionHeaderPresenter.headerForDate(sectionDate)
+        return header
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

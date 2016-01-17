@@ -508,14 +508,15 @@ class EventsControllerSpec : QuickSpec {
                                 }
 
                                 it("uses the events section header presenter for the header title") {
+                                    let tableView = subject.resultsTableView
                                     let dateForSection = NSDate()
                                     eventSearchResult.uniqueDays = [NSDate(), dateForSection]
                                     eventSearchResult.eventsByDay = [[eventA], [eventB]]
-                                    subject.resultsTableView.reloadData()
+                                    tableView.reloadData()
 
-                                    let header = subject.tableView(subject.resultsTableView, titleForHeaderInSection: 1)
-                                    expect(header).to(equal("Section header"))
-                                    expect(eventSectionHeaderPresenter.lastPresentedDate).to(beIdenticalTo(dateForSection))
+                                    let header = subject.tableView(tableView, viewForHeaderInSection: 0) as! EventsSectionHeaderView
+                                    expect(header.textLabel!.text).to(equal("Section header"))
+                                    expect(Int(eventSectionHeaderPresenter.lastPresentedDate.timeIntervalSinceReferenceDate)).to(equal(Int(dateForSection.timeIntervalSinceReferenceDate)))
                                 }
 
                                 it("displays a cell per event in each day section") {
