@@ -144,7 +144,7 @@ class AboutController: UIViewController {
     }
 
     private func applyTheme() {
-        view.backgroundColor = theme.defaultBackgroundColor()
+        view.backgroundColor = theme.contentBackgroundColor()
         versionLabel.font = theme.aboutBodyTextFont()
         bodyTextLabel.font = theme.aboutBodyTextFont()
         redditLabel.font = theme.aboutBodyTextFont()

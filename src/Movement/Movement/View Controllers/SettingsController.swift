@@ -38,11 +38,13 @@ class SettingsController: UITableViewController {
     // MARK: UIViewController
 
     override func viewDidLoad() {
-        self.tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.estimatedRowHeight = 44.0
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 70.0
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         view.backgroundColor = self.theme.defaultBackgroundColor()
 
-        self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "regularCell")
+        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "regularCell")
+        tableView.tableFooterView = UIView(frame: CGRectZero)
     }
 
     override func didMoveToParentViewController(parent: UIViewController?) {
@@ -61,14 +63,22 @@ class SettingsController: UITableViewController {
         var cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("regularCell")
         if cell == nil { cell = UITableViewCell() }
 
-        cell.textLabel!.text = self.tappableControllers[indexPath.row].title
-        cell.textLabel!.textColor = self.theme.settingsTitleColor()
-        cell.textLabel!.font = self.theme.settingsTitleFont()
+        cell.layoutMargins = UIEdgeInsetsZero
+        cell.preservesSuperviewLayoutMargins = false
+        cell.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
+        cell.textLabel!.text = tappableControllers[indexPath.row].title
+        cell.textLabel!.textColor = theme.settingsTitleColor()
+        cell.textLabel!.font = theme.settingsTitleFont()
+        cell.backgroundColor = theme.defaultTableCellBackgroundColor()
 
         return cell
     }
 
     // MARK: <UITableViewDelegate>
+
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 70.0
+    }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let controller = self.tappableControllers[indexPath.row]

@@ -19,7 +19,7 @@ protocol Theme {
     func defaultTableSectionHeaderTextColor() -> UIColor
     func defaultTableSectionHeaderBackgroundColor() -> UIColor
     func defaultTableSeparatorColor() -> UIColor
-
+    func defaultTableCellBackgroundColor() -> UIColor
 
     // MARK: Tab Bar
 

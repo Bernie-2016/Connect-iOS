@@ -156,7 +156,7 @@ class AboutControllerSpec : QuickSpec {
 }
 
 private class AboutFakeTheme: FakeTheme {
-    override func defaultBackgroundColor() -> UIColor { return UIColor.orangeColor() }
+    override func contentBackgroundColor() -> UIColor { return UIColor.orangeColor() }
     override func aboutButtonBackgroundColor() -> UIColor { return UIColor.yellowColor() }
     override func aboutButtonTextColor() -> UIColor { return UIColor.redColor() }
     override func aboutButtonFont() -> UIFont { return UIFont.italicSystemFontOfSize(111) }

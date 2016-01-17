@@ -18,6 +18,7 @@ class DefaultTheme: Theme {
     func defaultTableSeparatorColor() -> UIColor { return galleryColor }
     func defaultBodyTextFont() -> UIFont { return UIFont(name: "Georgia", size: 17)!  }
     func defaultBodyTextColor() -> UIColor { return coalMinerColor }
+    func defaultTableCellBackgroundColor() -> UIColor { return UIColor.whiteColor() }
 
     // MARK: Tab Bar
 
@@ -77,9 +78,9 @@ class DefaultTheme: Theme {
 
     // MARK: Settings
 
-    func settingsTitleFont() -> UIFont { return UIFont.systemFontOfSize(15) }
-    func settingsTitleColor() -> UIColor { return tundoraColor() }
-    func settingsAnalyticsFont() -> UIFont { return defaultBodyTextFont() }
+    func settingsTitleFont() -> UIFont { return h3HeaderFont() }
+    func settingsTitleColor() -> UIColor { return h3HeaderTextColor() }
+    func settingsAnalyticsFont() -> UIFont { return UIFont.systemFontOfSize(13) }
     func settingsSwitchColor() -> UIColor { return chathamsBlueColor }
 
     // MARK: Events
@@ -130,7 +131,7 @@ class DefaultTheme: Theme {
 
     func aboutButtonBackgroundColor() -> UIColor { return defaultButtonBackgroundColor() }
     func aboutButtonTextColor() -> UIColor { return UIColor.whiteColor() }
-    func aboutButtonFont() -> UIFont { return UIFont.systemFontOfSize(15) }
+    func aboutButtonFont() -> UIFont { return h3HeaderFont() }
     func aboutBodyTextFont() -> UIFont { return defaultBodyTextFont() }
 
 

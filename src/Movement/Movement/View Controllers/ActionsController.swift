@@ -32,7 +32,6 @@ class ActionsController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         view.addSubview(tableView)
 
         tableView.dataSource = self
@@ -41,6 +40,7 @@ class ActionsController: UIViewController {
         tableView.tableFooterView = UIView(frame: CGRectZero)
         tableView.registerClass(ActionsSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: "header")
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        tableView.backgroundColor = theme.defaultBackgroundColor()
 
         setupConstraints()
     }
@@ -76,6 +76,7 @@ extension ActionsController: UITableViewDataSource {
             imageName = "HostEvent"
         }
 
+        cell.backgroundColor = theme.defaultTableCellBackgroundColor()
         cell.titleLabel.text = NSLocalizedString(titleKey, comment: "")
         cell.subTitleLabel.text = NSLocalizedString(subTitleKey, comment: "")
         cell.iconImageView.image = UIImage(named: imageName)
@@ -90,12 +91,16 @@ extension ActionsController: UITableViewDataSource {
     }
 
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let header = tableView.dequeueReusableHeaderFooterViewWithIdentifier("header") else {
+        guard let headerView = tableView.dequeueReusableHeaderFooterViewWithIdentifier("header") else {
             return nil
         }
 
-        header.textLabel!.text = NSLocalizedString(section == 0 ? "Actions_fundraiseHeader" : "Actions_organizeHeader", comment: "")
-        return header
+        headerView.textLabel!.text = NSLocalizedString(section == 0 ? "Actions_fundraiseHeader" : "Actions_organizeHeader", comment: "")
+        headerView.contentView.backgroundColor = self.theme.defaultTableSectionHeaderBackgroundColor()
+        headerView.textLabel?.textColor = self.theme.defaultTableSectionHeaderTextColor()
+        headerView.textLabel?.font = self.theme.defaultTableSectionHeaderFont()
+
+        return headerView
     }
 }
 
@@ -106,13 +111,6 @@ extension ActionsController: UITableViewDelegate {
 
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 41
-    }
-
-    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        guard let headerView = view as? UITableViewHeaderFooterView else { return }
-        headerView.contentView.backgroundColor = self.theme.defaultTableSectionHeaderBackgroundColor()
-        headerView.textLabel?.textColor = self.theme.defaultTableSectionHeaderTextColor()
-        headerView.textLabel?.font = self.theme.defaultTableSectionHeaderFont()
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

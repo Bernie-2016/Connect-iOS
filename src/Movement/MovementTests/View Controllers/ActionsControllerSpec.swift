@@ -45,11 +45,12 @@ class ActionsControllerSpec: QuickSpec {
                     expect(tabBarItemStylist.lastReceivedTabBarSelectedImage).to(equal(UIImage(named: "actionsTabBarIcon")))
                 }
 
-                it("has a table view") {
+                it("has a table view styled with the theme") {
                     expect(subject.view.subviews.count).to(equal(1))
 
                     let tableView = subject.view.subviews.first!
                     expect(tableView).to(beAnInstanceOf(UITableView.self))
+                    expect(tableView.backgroundColor).to(equal(UIColor.orangeColor()))
                 }
 
                 describe("the table view contents") {
@@ -63,9 +64,7 @@ class ActionsControllerSpec: QuickSpec {
                     }
 
                     it("styles the section headers with the theme") {
-                        let sectionHeader = UITableViewHeaderFooterView()
-
-                        tableView.delegate!.tableView!(tableView, willDisplayHeaderView: sectionHeader, forSection: 0)
+                        let sectionHeader = tableView.delegate?.tableView!(tableView, viewForHeaderInSection: 0) as! ActionsSectionHeaderView
 
                         expect(sectionHeader.contentView.backgroundColor).to(equal(UIColor.darkGrayColor()))
                         expect(sectionHeader.textLabel!.textColor).to(equal(UIColor.lightGrayColor()))
@@ -235,6 +234,7 @@ class ActionsControllerSpec: QuickSpec {
                                 expect(cell.subTitleLabel.font).to(equal(UIFont.boldSystemFontOfSize(222)))
                                 expect(cell.subTitleLabel.textColor).to(equal(UIColor.magentaColor()))
                                 expect(cell.disclosureView.color).to(equal(UIColor.greenColor()))
+                                expect(cell.backgroundColor).to(equal(UIColor.yellowColor()))
                             }
 
                             describe("tapping on the host an event row") {
@@ -271,6 +271,7 @@ private class ActionsControllerFakeURLProvider: FakeURLProvider {
 }
 
 private class ActionsControllerFakeTheme: FakeTheme {
+    override func defaultBackgroundColor() -> UIColor { return UIColor.orangeColor() }
     override func defaultDisclosureColor() -> UIColor { return UIColor.greenColor() }
     override func actionsTitleFont() -> UIFont { return UIFont.boldSystemFontOfSize(111) }
     override func actionsTitleTextColor() -> UIColor { return UIColor.purpleColor() }
@@ -279,4 +280,5 @@ private class ActionsControllerFakeTheme: FakeTheme {
     override func defaultTableSectionHeaderBackgroundColor() -> UIColor { return UIColor.darkGrayColor() }
     override func defaultTableSectionHeaderTextColor() -> UIColor { return UIColor.lightGrayColor() }
     override func defaultTableSectionHeaderFont() -> UIFont { return UIFont.italicSystemFontOfSize(999) }
+    override func defaultTableCellBackgroundColor() -> UIColor { return UIColor.yellowColor() }
 }

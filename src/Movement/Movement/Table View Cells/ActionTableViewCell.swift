@@ -24,7 +24,7 @@ class ActionTableViewCell: UITableViewCell {
         self.backgroundColor = UIColor.clearColor()
 
         accessoryType = .None
-        separatorInset = UIEdgeInsetsZero
+        separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
         layoutMargins = UIEdgeInsetsZero
         preservesSuperviewLayoutMargins = false
 

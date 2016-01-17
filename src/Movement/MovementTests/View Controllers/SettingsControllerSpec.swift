@@ -5,7 +5,7 @@ import Nimble
 
 class SettingsControllerSpec : QuickSpec {
     override func spec() {
-        describe("SettingsController") {
+            describe("SettingsController") {
             var subject: SettingsController!
             var analyticsService: FakeAnalyticsService!
             var tabBarItemStylist: FakeTabBarItemStylist!
@@ -62,7 +62,7 @@ class SettingsControllerSpec : QuickSpec {
                 }
 
                 it("styles the views according to the theme") {
-                    expect(subject.view.backgroundColor).to(equal(UIColor.orangeColor()))
+                    expect(subject.tableView.backgroundColor).to(equal(UIColor.orangeColor()))
                 }
 
                 it("should have rows in the table") {
@@ -75,6 +75,7 @@ class SettingsControllerSpec : QuickSpec {
 
                     expect(cell.textLabel!.textColor).to(equal(UIColor.purpleColor()))
                     expect(cell.textLabel!.font).to(equal(UIFont.systemFontOfSize(123)))
+                    expect(cell.backgroundColor).to(equal(UIColor.yellowColor()))
                 }
 
                 describe("the table contents") {
@@ -118,6 +119,8 @@ private class SettingsFakeTheme: FakeTheme {
     override func settingsTitleColor() -> UIColor {
         return UIColor.purpleColor()
     }
+
+    override func defaultTableCellBackgroundColor() -> UIColor { return UIColor.yellowColor() }
 }
 
 private class FakeSettingsController : UIViewController {
