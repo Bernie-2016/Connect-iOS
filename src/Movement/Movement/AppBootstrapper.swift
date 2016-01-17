@@ -26,7 +26,8 @@ class AppBootstrapper {
         UITabBar.appearance().translucent = false
         UINavigationBar.appearance().tintColor = defaultTheme.navigationBarTextColor()
         UIBarButtonItem.appearance().setTitleTextAttributes([
-            NSFontAttributeName: defaultTheme.navigationBarFont(), NSForegroundColorAttributeName: defaultTheme.navigationBarTextColor()], forState: UIControlState.Normal)
+            NSFontAttributeName: defaultTheme.navigationBarButtonFont(), NSForegroundColorAttributeName: defaultTheme.navigationBarTextColor()], forState: UIControlState.Normal)
+
 
         let apiKeyProvider = APIKeyProvider()
 

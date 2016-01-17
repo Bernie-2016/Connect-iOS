@@ -2,7 +2,6 @@ import UIKit
 
 // swiftlint:disable type_body_length
 
-
 class DefaultTheme: Theme {
     // MARK: Global
     func defaultBackgroundColor() -> UIColor { return seaShellColor }
@@ -30,6 +29,7 @@ class DefaultTheme: Theme {
     // MARK: Navigation Bar
     func navigationBarBackgroundColor() -> UIColor { return chathamsBlueColor }
     func navigationBarFont() -> UIFont { return UIFont.systemFontOfSize(18) }
+    func navigationBarButtonFont() -> UIFont { return UIFont.systemFontOfSize(16) }
     func navigationBarTextColor() -> UIColor { return UIColor.whiteColor()}
 
     // MARK: News Feed
