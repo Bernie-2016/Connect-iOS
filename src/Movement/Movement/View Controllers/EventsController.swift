@@ -369,7 +369,7 @@ class EventsController: UIViewController, CLLocationManagerDelegate {
 
     private func applyTheme() {
         resultsTableView.separatorColor = theme.defaultTableSeparatorColor()
-
+        resultsTableView.backgroundColor = theme.defaultBackgroundColor()
         searchBar.backgroundColor = self.theme.eventsSearchBarBackgroundColor()
 
         zipCodeTextField.textColor = self.theme.eventsZipCodeTextColor()
@@ -385,6 +385,7 @@ class EventsController: UIViewController, CLLocationManagerDelegate {
 
         subInstructionsLabel.font = theme.eventsSubInstructionsFont()
         subInstructionsLabel.textColor = theme.eventsInformationTextColor()
+        subInstructionsLabel.backgroundColor = theme.defaultBackgroundColor()
 
         locateButton.titleLabel!.font = self.theme.eventsSearchBarFont()
         locateIndicatorView.color = self.theme.defaultSpinnerColor()
@@ -394,6 +395,7 @@ class EventsController: UIViewController, CLLocationManagerDelegate {
 
         createEventCTATextView.font = self.theme.eventsCreateEventCTAFont()
         createEventCTATextView.textColor = self.theme.eventsInformationTextColor()
+        createEventCTATextView.backgroundColor = theme.defaultBackgroundColor()
 
         loadingActivityIndicatorView.color = self.theme.defaultSpinnerColor()
     }
@@ -423,8 +425,8 @@ class EventsController: UIViewController, CLLocationManagerDelegate {
         noResultsLabel.autoSetDimension(.Width, toSize: 220)
 
         createEventCTATextView.autoPinEdge(.Top, toEdge: .Bottom, ofView: noResultsLabel, withOffset: 15)
-        createEventCTATextView.autoPinEdge(.Left, toEdge: .Left, ofView: noResultsLabel, withOffset: 25)
-        createEventCTATextView.autoPinEdge(.Right, toEdge: .Right, ofView: noResultsLabel, withOffset: -25)
+        createEventCTATextView.autoPinEdge(.Left, toEdge: .Left, ofView: noResultsLabel, withOffset: 30)
+        createEventCTATextView.autoPinEdge(.Right, toEdge: .Right, ofView: noResultsLabel, withOffset: -30)
 
         loadingActivityIndicatorView.autoAlignAxisToSuperviewAxis(.Horizontal)
         loadingActivityIndicatorView.autoAlignAxisToSuperviewAxis(.Vertical)

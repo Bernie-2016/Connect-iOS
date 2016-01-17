@@ -141,6 +141,7 @@ class EventsControllerSpec : QuickSpec {
             }
 
             it("styles the page components with the theme") {
+                expect(subject.resultsTableView.backgroundColor).to(equal(UIColor(rgba: "#462462")))
                 expect(subject.searchBar.backgroundColor).to(equal(UIColor.greenColor()))
                 expect(subject.zipCodeTextField.backgroundColor).to(equal(UIColor.brownColor()))
                 expect(subject.zipCodeTextField.font).to(equal(UIFont.boldSystemFontOfSize(4444)))
@@ -169,6 +170,7 @@ class EventsControllerSpec : QuickSpec {
 
                 expect(subject.createEventCTATextView.font).to(equal(UIFont.italicSystemFontOfSize(777)))
                 expect(subject.createEventCTATextView.textColor).to(equal(UIColor.blueColor()))
+                expect(subject.createEventCTATextView.backgroundColor).to(equal(UIColor(rgba: "#462462")))
 
                 expect(subject.loadingActivityIndicatorView.color).to(equal(UIColor.blackColor()))
 
@@ -811,6 +813,10 @@ private class EventsFakeTheme : FakeTheme {
 
     override func defaultTableSeparatorColor() -> UIColor {
         return UIColor(rgba: "#666666")
+    }
+
+    override func defaultBackgroundColor() -> UIColor {
+        return UIColor(rgba: "#462462")
     }
 
     // TODO: use the below in tests.

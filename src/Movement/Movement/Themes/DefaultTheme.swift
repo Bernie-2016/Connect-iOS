@@ -6,11 +6,11 @@ class DefaultTheme: Theme {
     // MARK: Global
     func defaultBackgroundColor() -> UIColor { return seaShellColor }
     func contentBackgroundColor() -> UIColor { return UIColor.whiteColor() }
-    func defaultSpinnerColor() -> UIColor { return self.silverColor() }
+    func defaultSpinnerColor() -> UIColor { return silverColor }
     func attributionFont() -> UIFont { return UIFont.systemFontOfSize(12) }
-    func attributionTextColor() -> UIColor { return self.silverColor() }
+    func attributionTextColor() -> UIColor { return silverColor }
     func defaultDisclosureColor() -> UIColor { return doveGreyColor }
-    func highlightDisclosureColor() -> UIColor { return self.thunderbirdColor() }
+    func highlightDisclosureColor() -> UIColor { return thunderbirdColor }
     func defaultTableSectionHeaderFont() -> UIFont { return tableSectionHeaderFont() }
     func defaultTableSectionHeaderTextColor() -> UIColor { return tableSectionHeaderTextColor() }
     func defaultTableSectionHeaderBackgroundColor() -> UIColor { return defaultBackgroundColor() }
@@ -33,7 +33,7 @@ class DefaultTheme: Theme {
     func navigationBarTextColor() -> UIColor { return UIColor.whiteColor()}
 
     // MARK: News Feed
-    func newsFeedBackgroundColor() -> UIColor { return self.mercuryColor() }
+    func newsFeedBackgroundColor() -> UIColor { return defaultBackgroundColor() }
     func newsFeedTitleColor() -> UIColor { return h2HeaderTextColor() }
     func newsFeedTitleFont() -> UIFont { return h2HeaderFont() }
     func newsFeedExcerptFont() -> UIFont { return subHeadingFont() }
@@ -99,7 +99,7 @@ class DefaultTheme: Theme {
     func eventsZipCodeBorderWidth() -> CGFloat { return self.defaultBorderWidth() }
     func eventsZipCodeTextOffset() -> CATransform3D { return CATransform3DMakeTranslation(14, 0, 0); }
     func eventsGoButtonCornerRadius() -> CGFloat { return self.defaultCornerRadius() }
-    func eventsInformationTextColor() -> UIColor { return self.silverChaliceColor() }
+    func eventsInformationTextColor() -> UIColor { return defaultBodyTextColor() }
     func eventsNoResultsFont() -> UIFont { return UIFont.systemFontOfSize(21) }
     func eventsCreateEventCTAFont() -> UIFont { return UIFont.systemFontOfSize(13) }
     func eventsInstructionsFont() -> UIFont { return UIFont.systemFontOfSize(21)  }
@@ -116,7 +116,7 @@ class DefaultTheme: Theme {
     func eventDescriptionHeadingFont() -> UIFont { return h3HeaderFont() }
     func eventDescriptionHeadingColor() -> UIColor { return h3HeaderTextColor() }
     func eventDescriptionFont() -> UIFont { return UIFont.systemFontOfSize(13) }
-    func eventDescriptionColor() -> UIColor { return self.emperorColor() }
+    func eventDescriptionColor() -> UIColor { return h3HeaderTextColor() }
     func eventDirectionsButtonBackgroundColor() -> UIColor { return UIColor.whiteColor() }
     func eventDirectionsButtonTextColor() -> UIColor { return h3HeaderTextColor() }
     func eventDirectionsButtonFont() -> UIFont { return h3HeaderFont() }
@@ -142,10 +142,10 @@ class DefaultTheme: Theme {
     } else {
         return UIFont.systemFontOfSize(35)
     } }
-    func viewPolicyBackgroundColor() -> UIColor { return silverColor() }
+    func viewPolicyBackgroundColor() -> UIColor { return silverColor }
     func agreeToTermsLabelFont() -> UIFont { return UIFont.systemFontOfSize(11) }
-    func welcomeBackgroundColor() -> UIColor { return codGrayColor() }
-    func welcomeTextColor() -> UIColor { return nobelColor() }
+    func welcomeBackgroundColor() -> UIColor { return codGrayColor }
+    func welcomeTextColor() -> UIColor { return nobelColor }
 
     // MARK: Actions
 
@@ -159,22 +159,12 @@ class DefaultTheme: Theme {
     func defaultCornerRadius() -> CGFloat { return 5.0 }
     func defaultBorderWidth() -> CGFloat { return 1.0 }
 
-    // MARK: color definitions
-
-    func silverColor() -> UIColor { return UIColor(rgba: "#c9c9c9") }
-    func codGrayColor() -> UIColor { return UIColor(rgba: "#0F0F0F") }
-    func mercuryColor() -> UIColor { return UIColor(rgba: "#e8e8e8") }
-    func altoColor() -> UIColor { return UIColor(rgba: "#dcdcdc") }
-    func silverChaliceColor() -> UIColor { return UIColor(rgba: "#a5a5a5") }
-    func scorpionColor() -> UIColor { return UIColor(rgba: "#606060") }
-    func tundoraColor() -> UIColor { return UIColor(rgba: "#414141") }
-    func mineShaftColor() -> UIColor { return UIColor(rgba: "#212121") }
-    func thunderbirdColor() -> UIColor { return UIColor(rgba: "#C01E0E") }
-    func emperorColor() -> UIColor { return UIColor(rgba: "#555555") }
-    func nobelColor() -> UIColor { return UIColor(rgba: "#b5b5b5") }
-
 
     // new colors
+    let codGrayColor = UIColor(rgba: "#0F0F0F")
+    let nobelColor = UIColor(rgba: "#b5b5b5")
+    let silverColor = UIColor(rgba: "#c9c9c9")
+    let thunderbirdColor = UIColor(rgba: "#C01E0E")
     let coalMinerColor = UIColor(rgba: "#333333")
     let boulderColor = UIColor(rgba: "#7a7a7a")
     let arachnidColor = UIColor(rgba: "#5a5a5a")
@@ -209,7 +199,7 @@ class DefaultTheme: Theme {
     func tableSectionHeaderFont() -> UIFont { return mediumSystemFontOfSize(13) }
     func tableSectionHeaderTextColor() -> UIColor { return boulderColor }
 
-    private func mediumSystemFontOfSize(size: CGFloat) -> UIFont {
+    func mediumSystemFontOfSize(size: CGFloat) -> UIFont {
         return UIFont(name: ".SFUIDisplay-Medium", size: size)!
     }
 }

@@ -16,5 +16,6 @@ class ConcreteEventListTableViewCellStylist: EventListTableViewCellStylist {
         cell.nameLabel.textColor = theme.eventsListNameColor()
         cell.dateLabel.font = theme.eventsListDateFont()
         cell.dateLabel.textColor = theme.eventsListDateColor()
+        cell.backgroundColor = theme.defaultTableCellBackgroundColor()
     }
 }

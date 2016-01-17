@@ -28,6 +28,7 @@ class ConcreteEventListTableViewCellStylistSpec: QuickSpec {
                     expect(cell.dateLabel.font).to(equal(UIFont.italicSystemFontOfSize(777)))
                     expect(cell.dateLabel.textColor).to(equal(UIColor.darkGrayColor()))
                     expect(cell.disclosureView.color).to(equal(UIColor.whiteColor()))
+                    expect(cell.backgroundColor).to(equal(UIColor(rgba: "#777777")))
                 }
             }
         }
@@ -53,5 +54,9 @@ private class FakeEventCellTheme: FakeTheme {
 
     override func defaultDisclosureColor() -> UIColor {
         return UIColor.whiteColor()
+    }
+
+    override func defaultTableCellBackgroundColor() -> UIColor {
+        return UIColor(rgba: "#777777")
     }
 }

@@ -62,6 +62,7 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "errorCell")
         tableView.autoPinEdgesToSuperviewEdges()
         tableView.hidden = true
+        tableView.backgroundColor = theme.defaultBackgroundColor()
 
         loadingIndicatorView.startAnimating()
         loadingIndicatorView.hidesWhenStopped = true
@@ -104,8 +105,10 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
         if self.errorLoadingIssues {
             let cell = tableView.dequeueReusableCellWithIdentifier("errorCell", forIndexPath: indexPath)
             cell.textLabel!.text = NSLocalizedString("Issues_errorText", comment: "")
-            cell.textLabel!.font = self.theme.issuesFeedTitleFont()
-            cell.textLabel!.textColor = self.theme.issuesFeedTitleColor()
+            cell.textLabel!.font = theme.issuesFeedTitleFont()
+            cell.textLabel!.textColor = theme.issuesFeedTitleColor()
+            cell.backgroundColor = theme.defaultTableCellBackgroundColor()
+
             return cell
 
         } else {
@@ -114,8 +117,9 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
 
             let issue = self.issues[indexPath.row]
             cell.titleLabel.text = issue.title
-            cell.titleLabel.font = self.theme.issuesFeedTitleFont()
-            cell.titleLabel.textColor = self.theme.issuesFeedTitleColor()
+            cell.titleLabel.font = theme.issuesFeedTitleFont()
+            cell.titleLabel.textColor = theme.issuesFeedTitleColor()
+            cell.backgroundColor = theme.defaultTableCellBackgroundColor()
 
             return cell
         }

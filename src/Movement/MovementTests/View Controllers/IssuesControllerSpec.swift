@@ -68,7 +68,8 @@ class IssuesControllerSpec: QuickSpec {
                 expect(subject.loadingIndicatorView.hidesWhenStopped).to(equal(true))
             }
 
-            it("styles the spinner from the theme") {
+            it("styles the views with the theme") {
+                expect(subject.tableView.backgroundColor).to(equal(UIColor.orangeColor()))
                 expect(subject.loadingIndicatorView.color).to(equal(UIColor.greenColor()))
             }
 
@@ -116,6 +117,7 @@ class IssuesControllerSpec: QuickSpec {
 
                         expect(cell.titleLabel.textColor).to(equal(UIColor.magentaColor()))
                         expect(cell.titleLabel.font).to(equal(UIFont.boldSystemFontOfSize(20)))
+                        expect(cell.backgroundColor).to(equal(UIColor.redColor()))
                     }
                 }
 
@@ -228,6 +230,14 @@ private class IssuesFakeTheme: FakeTheme {
 
     override func defaultSpinnerColor() -> UIColor {
         return UIColor.greenColor()
+    }
+
+    override func defaultBackgroundColor() -> UIColor {
+        return UIColor.orangeColor()
+    }
+
+    override func defaultTableCellBackgroundColor() -> UIColor {
+        return UIColor.redColor()
     }
 }
 
