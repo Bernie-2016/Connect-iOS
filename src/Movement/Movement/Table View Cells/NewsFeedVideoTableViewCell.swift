@@ -9,7 +9,7 @@ class NewsFeedVideoTableViewCell: UITableViewCell {
     var topSpaceConstraint: NSLayoutConstraint!
 
     private let containerView = UIView.newAutoLayoutView()
-    private let defaultMargin: CGFloat = 20
+    private let defaultMargin: CGFloat = 15
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

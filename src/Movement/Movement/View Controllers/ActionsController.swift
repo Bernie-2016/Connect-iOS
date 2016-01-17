@@ -74,6 +74,8 @@ extension ActionsController: UITableViewDataSource {
             titleKey = "Actions_hostEventTitle"
             subTitleKey = "Actions_hostEventSubTitle"
             imageName = "HostEvent"
+
+            cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: CGRectGetWidth(tableView.bounds))
         }
 
         cell.backgroundColor = theme.defaultTableCellBackgroundColor()

@@ -460,9 +460,8 @@ class EventsController: UIViewController, CLLocationManagerDelegate {
             self.zipCodeTextField.autoPinEdgeToSuperviewEdge(.Right, withInset: 15)
         })
 
-        zipCodeTextField.autoPinEdgeToSuperviewEdge(.Top, withInset: 9 + 24)
-        zipCodeTextField.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 14)
-        zipCodeTextField.autoSetDimension(.Height, toSize: 34)
+        zipCodeTextField.autoPinEdgeToSuperviewEdge(.Top, withInset: 5 + 24)
+        zipCodeTextField.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 9)
 
         NSLayoutConstraint.autoSetPriority(850, forConstraints: { () -> Void in
             self.filterButtonZipCodeConstraint = self.filterButton.autoPinEdge(.Left, toEdge: .Right, ofView: self.zipCodeTextField, withOffset: 15)

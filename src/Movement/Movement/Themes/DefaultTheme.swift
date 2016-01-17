@@ -16,7 +16,7 @@ class DefaultTheme: Theme {
     func defaultTableSectionHeaderBackgroundColor() -> UIColor { return defaultBackgroundColor() }
     func defaultTableSeparatorColor() -> UIColor { return galleryColor }
     func defaultBodyTextFont() -> UIFont { return UIFont(name: "Georgia", size: 17)!  }
-    func defaultBodyTextColor() -> UIColor { return coalMinerColor }
+    func defaultBodyTextColor() -> UIColor { return UIColor.blackColor() }
     func defaultTableCellBackgroundColor() -> UIColor { return UIColor.whiteColor() }
 
     // MARK: Tab Bar
@@ -184,10 +184,10 @@ class DefaultTheme: Theme {
     func h1HeaderFont() -> UIFont { return mediumSystemFontOfSize(21) }
     func h1HeaderTextColor() -> UIColor { return UIColor.blackColor() }
 
-    func h2HeaderFont() -> UIFont { return mediumSystemFontOfSize(18) }
+    func h2HeaderFont() -> UIFont { return semiBoldSystemFontOfSize(16) }
     func h2HeaderTextColor() -> UIColor { return UIColor.blackColor() }
 
-    func h3HeaderFont() -> UIFont { return mediumSystemFontOfSize(15) }
+    func h3HeaderFont() -> UIFont { return semiBoldSystemFontOfSize(15) }
     func h3HeaderTextColor() -> UIColor { return coalMinerColor }
 
     func subHeadingFont() -> UIFont { return UIFont.systemFontOfSize(14) }
@@ -202,5 +202,14 @@ class DefaultTheme: Theme {
     func mediumSystemFontOfSize(size: CGFloat) -> UIFont {
         return UIFont(name: ".SFUIDisplay-Medium", size: size)!
     }
+
+    func semiBoldSystemFontOfSize(size: CGFloat) -> UIFont {
+        if #available(iOS 8.2, *) {
+            return UIFont.systemFontOfSize(size, weight: UIFontWeightSemibold)
+        } else {
+            return UIFont.systemFontOfSize(size)
+        }
+    }
+
 }
 // swift:enable type_body_length

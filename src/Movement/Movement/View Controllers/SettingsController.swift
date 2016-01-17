@@ -65,11 +65,16 @@ class SettingsController: UITableViewController {
 
         cell.layoutMargins = UIEdgeInsetsZero
         cell.preservesSuperviewLayoutMargins = false
-        cell.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
         cell.textLabel!.text = tappableControllers[indexPath.row].title
         cell.textLabel!.textColor = theme.settingsTitleColor()
         cell.textLabel!.font = theme.settingsTitleFont()
         cell.backgroundColor = theme.defaultTableCellBackgroundColor()
+
+        if indexPath.row == (tappableControllers.count - 1) {
+            cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: CGRectGetWidth(tableView.bounds))
+        } else {
+            cell.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
+        }
 
         return cell
     }

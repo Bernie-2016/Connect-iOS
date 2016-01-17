@@ -53,7 +53,7 @@ class NewsArticleTableViewCell: UITableViewCell {
 
         titleLabel.numberOfLines = 3
 
-        excerptLabel.numberOfLines = 4
+        excerptLabel.numberOfLines = 3
         excerptLabel.adjustsFontSizeToFitWidth = false
         excerptLabel.lineBreakMode = .ByTruncatingTail
 

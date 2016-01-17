@@ -1,44 +1,10 @@
 import UIKit
 import Quick
 import Nimble
-@testable import Movement
 import CoreLocation
 import MapKit
 
-class EventFakeTheme : FakeTheme {
-    override func defaultBackgroundColor() -> UIColor { return UIColor.orangeColor() }
-    override func eventNameFont() -> UIFont { return UIFont.systemFontOfSize(111) }
-    override func eventNameColor() -> UIColor { return UIColor.purpleColor() }
-    override func eventStartDateFont() -> UIFont { return UIFont.systemFontOfSize(222)  }
-    override func eventStartDateColor() -> UIColor { return UIColor.yellowColor() }
-    override func eventAttendeesFont() -> UIFont { return UIFont.systemFontOfSize(333) }
-    override func eventAttendeesColor() -> UIColor { return UIColor.greenColor() }
-    override func eventAddressFont() -> UIFont { return UIFont.systemFontOfSize(444) }
-    override func eventAddressColor() -> UIColor { return UIColor.blueColor() }
-    override func eventDescriptionHeadingFont() -> UIFont { return UIFont.systemFontOfSize(555) }
-    override func eventDescriptionHeadingColor() -> UIColor { return UIColor.brownColor() }
-    override func eventDescriptionFont() -> UIFont { return UIFont.systemFontOfSize(666) }
-    override func eventDescriptionColor() -> UIColor { return UIColor.magentaColor() }
-    override func eventDirectionsButtonBackgroundColor() -> UIColor { return UIColor.lightGrayColor() }
-    override func eventDirectionsButtonTextColor() -> UIColor { return UIColor.darkGrayColor() }
-    override func eventDirectionsButtonFont() -> UIFont { return UIFont.italicSystemFontOfSize(777) }
-    override func eventRSVPButtonBackgroundColor() -> UIColor { return UIColor.whiteColor() }
-    override func eventRSVPButtonTextColor() -> UIColor { return UIColor.blackColor() }
-    override func eventRSVPButtonFont() -> UIFont { return UIFont.systemFontOfSize(888) }
-    override func defaultDisclosureColor() -> UIColor { return UIColor.redColor() }
-    override func eventBackgroundColor() -> UIColor { return UIColor.darkTextColor() }
-    override func eventTypeColor() -> UIColor { return UIColor(rgba: "#aaaaaa") }
-    override func eventTypeFont() -> UIFont { return UIFont.systemFontOfSize(999) }
-}
-
-class EventControllerFakeURLProvider : FakeURLProvider {
-    var lastReceivedEvent : Event!
-
-    override func mapsURLForEvent(event: Event) -> NSURL {
-        self.lastReceivedEvent = event
-        return NSURL(string: "http://example.com/mapz")!
-    }
-}
+@testable import Movement
 
 class EventControllerSpec: QuickSpec {
     var subject: EventController!
@@ -313,5 +279,40 @@ class EventControllerSpec: QuickSpec {
                 }
             }
         }
+    }
+}
+
+class EventFakeTheme : FakeTheme {
+    override func defaultBackgroundColor() -> UIColor { return UIColor.orangeColor() }
+    override func eventNameFont() -> UIFont { return UIFont.systemFontOfSize(111) }
+    override func eventNameColor() -> UIColor { return UIColor.purpleColor() }
+    override func eventStartDateFont() -> UIFont { return UIFont.systemFontOfSize(222)  }
+    override func eventStartDateColor() -> UIColor { return UIColor.yellowColor() }
+    override func eventAttendeesFont() -> UIFont { return UIFont.systemFontOfSize(333) }
+    override func eventAttendeesColor() -> UIColor { return UIColor.greenColor() }
+    override func eventAddressFont() -> UIFont { return UIFont.systemFontOfSize(444) }
+    override func eventAddressColor() -> UIColor { return UIColor.blueColor() }
+    override func eventDescriptionHeadingFont() -> UIFont { return UIFont.systemFontOfSize(555) }
+    override func eventDescriptionHeadingColor() -> UIColor { return UIColor.brownColor() }
+    override func eventDescriptionFont() -> UIFont { return UIFont.systemFontOfSize(666) }
+    override func eventDescriptionColor() -> UIColor { return UIColor.magentaColor() }
+    override func eventDirectionsButtonBackgroundColor() -> UIColor { return UIColor.lightGrayColor() }
+    override func eventDirectionsButtonTextColor() -> UIColor { return UIColor.darkGrayColor() }
+    override func eventDirectionsButtonFont() -> UIFont { return UIFont.italicSystemFontOfSize(777) }
+    override func eventRSVPButtonBackgroundColor() -> UIColor { return UIColor.whiteColor() }
+    override func eventRSVPButtonTextColor() -> UIColor { return UIColor.blackColor() }
+    override func eventRSVPButtonFont() -> UIFont { return UIFont.systemFontOfSize(888) }
+    override func defaultDisclosureColor() -> UIColor { return UIColor.redColor() }
+    override func eventBackgroundColor() -> UIColor { return UIColor.darkTextColor() }
+    override func eventTypeColor() -> UIColor { return UIColor(rgba: "#aaaaaa") }
+    override func eventTypeFont() -> UIFont { return UIFont.systemFontOfSize(999) }
+}
+
+class EventControllerFakeURLProvider : FakeURLProvider {
+    var lastReceivedEvent : Event!
+
+    override func mapsURLForEvent(event: Event) -> NSURL {
+        self.lastReceivedEvent = event
+        return NSURL(string: "http://example.com/mapz")!
     }
 }

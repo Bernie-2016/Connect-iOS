@@ -72,7 +72,6 @@ class EventController: UIViewController {
             target: nil, action: nil)
 
         navigationItem.backBarButtonItem = backBarButtonItem
-
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Global_share", comment: ""), style: .Plain, target: self, action: "share")
         navigationItem.title = NSLocalizedString("Event_navigationTitle", comment: "")
 
@@ -212,19 +211,19 @@ class EventController: UIViewController {
     func setupConstraints() {
         let screenBounds = UIScreen.mainScreen().bounds
 
-        scrollView.contentSize.width = self.view.bounds.width
+        scrollView.contentSize.width = view.bounds.width
         scrollView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero)
 
         rsvpButton.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Top)
         rsvpButton.autoSetDimension(.Height, toSize: 54)
 
         containerView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Trailing)
-        self.containerViewWidthConstraint = containerView.autoSetDimension(.Width, toSize: screenBounds.width)
+        containerViewWidthConstraint = containerView.autoSetDimension(.Width, toSize: screenBounds.width)
 
         mapView.autoPinEdgeToSuperviewEdge(.Top)
         mapView.autoPinEdgeToSuperviewEdge(.Left)
         mapView.autoPinEdgeToSuperviewEdge(.Right)
-        mapView.autoSetDimension(.Height, toSize: self.view.bounds.height / 3)
+        mapView.autoSetDimension(.Height, toSize: view.bounds.height / 3)
 
         dateLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: mapView, withOffset: 15)
         dateLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
