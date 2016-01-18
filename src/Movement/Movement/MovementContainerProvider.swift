@@ -2,9 +2,9 @@ import Swinject
 import CoreLocation
 import WebImage
 import Parse
+import Swinject
 
 class MovementContainerProvider {
-    // swiftlint:disable function_body_length
     static func container(application: UIApplication) -> Container {
         let container = Container()
 
@@ -32,6 +32,32 @@ class MovementContainerProvider {
             return NSURLSession.sharedSession()
             }.inObjectScope(.Container)
 
+        container.register(SDWebImageManager.self) { _ in
+            return SDWebImageManager()
+        }.inObjectScope(.Container)
+
+        container.register(UserNotificationRegisterable.self) { _ in application }.inObjectScope(.Container)
+
+        container.register(PFInstallation.self) { resolver in
+            let apiKeyProvider = resolver.resolve(APIKeyProvider.self)!
+            Parse.setApplicationId(
+                apiKeyProvider.parseApplicationId(),
+                clientKey: apiKeyProvider.parseClientKey()
+            )
+
+            return PFInstallation.currentInstallation()
+        }.inObjectScope(.Container)
+
+        container.register(UIScreen.self, name: "main") { _ in
+            return UIScreen.mainScreen()
+        }.inObjectScope(.Container)
+
+        configureDateFormatters(container)
+
+        return container
+    }
+
+    private static func configureDateFormatters(container: Container) {
         container.register(NSDateFormatter.self, name: "time") { _ in
             let timeFormatter = NSDateFormatter()
             timeFormatter.dateFormat = "hh:mma"
@@ -56,7 +82,6 @@ class MovementContainerProvider {
             return timeFormatter
             }.inObjectScope(.Container)
 
-
         container.register(NSDateFormatter.self, name: "day") { _ in
             let dayDateFormatter = NSDateFormatter()
             dayDateFormatter.dateFormat = "EEEE"
@@ -67,29 +92,6 @@ class MovementContainerProvider {
             let shortDateFormatter = NSDateFormatter()
             shortDateFormatter.dateStyle = .ShortStyle
             return shortDateFormatter
-        }.inObjectScope(.Container)
-
-        container.register(SDWebImageManager.self) { _ in
-            return SDWebImageManager()
-        }.inObjectScope(.Container)
-
-        container.register(UserNotificationRegisterable.self) { _ in application }.inObjectScope(.Container)
-
-        container.register(PFInstallation.self) { resolver in
-            let apiKeyProvider = resolver.resolve(APIKeyProvider.self)!
-            Parse.setApplicationId(
-                apiKeyProvider.parseApplicationId(),
-                clientKey: apiKeyProvider.parseClientKey()
-            )
-
-            return PFInstallation.currentInstallation()
-        }.inObjectScope(.Container)
-
-        container.register(UIScreen.self, name: "main") { _ in
-            return UIScreen.mainScreen()
-        }.inObjectScope(.Container)
-
-        return container
+            }.inObjectScope(.Container)
     }
-    // swiftlint:enable function_body_length
 }
