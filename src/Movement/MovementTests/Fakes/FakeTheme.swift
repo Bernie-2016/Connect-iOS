@@ -178,4 +178,5 @@ class FakeTheme: Theme {
     func actionsSubTitleTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func contentBackgroundColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func defaultTableCellBackgroundColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func navigationBarButtonFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
 }

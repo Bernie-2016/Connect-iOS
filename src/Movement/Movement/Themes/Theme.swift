@@ -2,7 +2,6 @@ import UIKit
 
 
 protocol Theme {
-
     // MARK: Global
 
     func defaultBackgroundColor() -> UIColor
@@ -33,6 +32,7 @@ protocol Theme {
     func navigationBarBackgroundColor() -> UIColor
     func navigationBarFont() -> UIFont
     func navigationBarTextColor() -> UIColor
+    func navigationBarButtonFont() -> UIFont
 
     // MARK: News Feed
 
