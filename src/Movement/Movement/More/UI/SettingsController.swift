@@ -63,6 +63,7 @@ class SettingsController: UITableViewController {
         var cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("regularCell")
         if cell == nil { cell = UITableViewCell() }
 
+        cell.accessoryType = .DisclosureIndicator
         cell.layoutMargins = UIEdgeInsetsZero
         cell.preservesSuperviewLayoutMargins = false
         cell.textLabel!.text = tappableControllers[indexPath.row].title
