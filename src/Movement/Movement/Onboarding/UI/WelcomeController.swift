@@ -68,7 +68,8 @@ class WelcomeController: UIViewController {
     }
 
     override func viewWillAppear(animated: Bool) {
-        self.navigationController!.setNavigationBarHidden(true, animated: true)
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
 
     // MARK: Actions

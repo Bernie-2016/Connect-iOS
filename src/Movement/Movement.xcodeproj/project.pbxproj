@@ -206,6 +206,7 @@
 		655A3AD01B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655A3ACF1B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework */; };
 		655A3DB81BBCCE7400E08051 /* floss_licenses.html in Resources */ = {isa = PBXBuildFile; fileRef = 655A3DB71BBCCE7400E08051 /* floss_licenses.html */; };
 		658492461BE3BA5B007279E8 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 658492481BE3BA5B007279E8 /* Localizable.stringsdict */; };
+		659011161C4D8ADB005489C4 /* AppBootstrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659011151C4D8ADB005489C4 /* AppBootstrapper.swift */; };
 		6592FA331B98D8F600746EC3 /* issue_feed.json in Resources */ = {isa = PBXBuildFile; fileRef = 6592FA321B98D8F600746EC3 /* issue_feed.json */; };
 		65937D211C4058AE003A1EFA /* CBGPromise.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65937D1F1C4058AE003A1EFA /* CBGPromise.framework */; };
 		65937D231C4058DC003A1EFA /* CBGPromise.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 65937D201C4058AE003A1EFA /* CBGPromise.framework.dSYM */; };
@@ -503,6 +504,7 @@
 		655A3ACF1B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "UIKit+PivotalSpecHelper-iOS.framework"; sourceTree = "<group>"; };
 		655A3DB71BBCCE7400E08051 /* floss_licenses.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = floss_licenses.html; sourceTree = "<group>"; };
 		658492471BE3BA5B007279E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = Base; path = Base.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		659011151C4D8ADB005489C4 /* AppBootstrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppBootstrapper.swift; sourceTree = "<group>"; };
 		6592FA321B98D8F600746EC3 /* issue_feed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = issue_feed.json; sourceTree = "<group>"; };
 		65937D1F1C4058AE003A1EFA /* CBGPromise.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CBGPromise.framework; path = Carthage/Build/iOS/CBGPromise.framework; sourceTree = "<group>"; };
 		65937D201C4058AE003A1EFA /* CBGPromise.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = CBGPromise.framework.dSYM; path = Carthage/Build/iOS/CBGPromise.framework.dSYM; sourceTree = "<group>"; };
@@ -1322,6 +1324,7 @@
 				8233FC0A1B7C28FB00A5E9ED /* Supporting Files */,
 				65CA5E8F1B86E3490001D870 /* Themes */,
 				654948DE1BFB7D3900C1ECDB /* User Notifications */,
+				659011151C4D8ADB005489C4 /* AppBootstrapper.swift */,
 				8233FC0C1B7C28FB00A5E9ED /* AppDelegate.swift */,
 				65CA5E861B86CAAF0001D870 /* main.swift */,
 				653D0FA71C4C3604004CB8A0 /* Movement-Bridging-Header.h */,
@@ -1575,6 +1578,7 @@
 				653D0F721C4C2F68004CB8A0 /* AnalyticsService.swift in Sources */,
 				653D0F4E1C4C2DE2004CB8A0 /* AnalyticsSettingsController.swift in Sources */,
 				653D0F741C4C2F68004CB8A0 /* APIKeyProvider.swift in Sources */,
+				659011161C4D8ADB005489C4 /* AppBootstrapper.swift in Sources */,
 				8233FC0D1B7C28FB00A5E9ED /* AppDelegate.swift in Sources */,
 				653D0F751C4C2F68004CB8A0 /* ApplicationSettingsRepository.swift in Sources */,
 				653D0ECD1C4C292D004CB8A0 /* BackgroundEventService.swift in Sources */,

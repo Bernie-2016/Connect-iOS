@@ -3,17 +3,48 @@ import CoreLocation
 import WebImage
 import Parse
 import Swinject
+import AVFoundation
 
 class MovementContainerProvider {
     static func container(application: UIApplication) -> Container {
         let container = Container()
 
-        container.register(NSUserDefaults.self) { resolver in
-            return NSUserDefaults.standardUserDefaults()
-            }.inObjectScope(.Container)
-
         container.register(Theme.self) { resolver in
             return DefaultTheme()
+            }.inObjectScope(.Container)
+
+        container.register(SDWebImageManager.self) { _ in
+            return SDWebImageManager()
+            }.inObjectScope(.Container)
+
+        container.register(UserNotificationRegisterable.self) { _ in application }.inObjectScope(.Container)
+
+        container.register(PFInstallation.self) { resolver in
+            let apiKeyProvider = resolver.resolve(APIKeyProvider.self)!
+            Parse.setApplicationId(
+                apiKeyProvider.parseApplicationId(),
+                clientKey: apiKeyProvider.parseClientKey()
+            )
+
+            return PFInstallation.currentInstallation()
+            }.inObjectScope(.Container)
+
+        container.register(AppBootstrapper.self) { resolver in
+            return AppBootstrapper(
+                onboardingWorkflow: resolver.resolve(OnboardingWorkflow.self)!,
+                window: resolver.resolve(UIWindow.self, name: "main")!,
+                audioSession: resolver.resolve(AVAudioSession.self)!,
+                theme: resolver.resolve(Theme.self)!)
+            }.inObjectScope(.Container)
+
+        configureAppleDependencies(container)
+
+        return container
+    }
+
+    private static func configureAppleDependencies(container: Container) {
+        container.register(NSUserDefaults.self) { resolver in
+            return NSUserDefaults.standardUserDefaults()
             }.inObjectScope(.Container)
 
         container.register(NSOperationQueue.self, name: "work") { _ in
@@ -32,29 +63,20 @@ class MovementContainerProvider {
             return NSURLSession.sharedSession()
             }.inObjectScope(.Container)
 
-        container.register(SDWebImageManager.self) { _ in
-            return SDWebImageManager()
-        }.inObjectScope(.Container)
-
-        container.register(UserNotificationRegisterable.self) { _ in application }.inObjectScope(.Container)
-
-        container.register(PFInstallation.self) { resolver in
-            let apiKeyProvider = resolver.resolve(APIKeyProvider.self)!
-            Parse.setApplicationId(
-                apiKeyProvider.parseApplicationId(),
-                clientKey: apiKeyProvider.parseClientKey()
-            )
-
-            return PFInstallation.currentInstallation()
-        }.inObjectScope(.Container)
-
         container.register(UIScreen.self, name: "main") { _ in
             return UIScreen.mainScreen()
-        }.inObjectScope(.Container)
+            }.inObjectScope(.Container)
+
+        container.register(UIWindow.self, name: "main") { resolver in
+            let screen = resolver.resolve(UIScreen.self, name: "main")!
+            return UIWindow(frame: screen.bounds)
+            }.inObjectScope(.None)
+
+        container.register(AVAudioSession.self) { _ in
+            return AVAudioSession.sharedInstance()
+            }.inObjectScope(.Container)
 
         configureDateFormatters(container)
-
-        return container
     }
 
     private static func configureDateFormatters(container: Container) {
