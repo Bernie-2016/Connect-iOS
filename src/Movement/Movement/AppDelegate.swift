@@ -4,18 +4,19 @@ import Swinject
 class AppDelegate: UIResponder, UIApplicationDelegate {
     private var pushNotificationRegistrar: PushNotificationRegistrar!
     private var userNotificationHandler: UserNotificationHandler!
-    private var container: Container!
+    var container: Container!
 
     func application(application: UIApplication, willFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
         container = configureAppContainer(application)
-        pushNotificationRegistrar = container.resolve(PushNotificationRegistrar.self)!
-        userNotificationHandler = container.resolve(UserNotificationHandler.self)
         return true
     }
 
     func application(
         application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
+            pushNotificationRegistrar = container.resolve(PushNotificationRegistrar.self)!
+            userNotificationHandler = container.resolve(UserNotificationHandler.self)
+
             let appBootstrapper = container.resolve(AppBootstrapper.self)!
             appBootstrapper.bootstrap()
 

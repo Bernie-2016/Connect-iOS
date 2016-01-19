@@ -30,7 +30,7 @@ class MovementContainerProvider {
             }.inObjectScope(.Container)
 
         container.register(AppBootstrapper.self) { resolver in
-            return AppBootstrapper(
+            return StockAppBootstrapper(
                 onboardingWorkflow: resolver.resolve(OnboardingWorkflow.self)!,
                 window: resolver.resolve(UIWindow.self, name: "main")!,
                 audioSession: resolver.resolve(AVAudioSession.self)!,

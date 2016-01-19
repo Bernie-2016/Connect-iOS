@@ -1,7 +1,11 @@
 import UIKit
 import AVFoundation
 
-class AppBootstrapper {
+protocol AppBootstrapper {
+    func bootstrap()
+}
+
+class StockAppBootstrapper: AppBootstrapper {
     let onboardingWorkflow: OnboardingWorkflow
     let window: UIWindow
     let audioSession: AVAudioSession

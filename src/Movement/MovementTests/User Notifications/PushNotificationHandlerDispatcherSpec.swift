@@ -31,10 +31,3 @@ class PushNotificationHandlerDispatcherSpec: QuickSpec {
     }
 }
 
-private class FakeUserNotificationHandler: UserNotificationHandler {
-    var lastReceivedUserInfo: NotificationUserInfo!
-
-    private func handleRemoteNotification(notificationUserInfo: NotificationUserInfo) {
-        lastReceivedUserInfo = notificationUserInfo
-    }
-}

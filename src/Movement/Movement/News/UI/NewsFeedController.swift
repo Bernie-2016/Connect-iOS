@@ -1,13 +1,14 @@
 import UIKit
 import XCDYouTubeKit
 
+
 class NewsFeedController: UIViewController {
     private let newsFeedService: NewsFeedService
     private let newsFeedTableViewCellPresenter: NewsFeedTableViewCellPresenter
     private let newsFeedItemControllerProvider: NewsFeedItemControllerProvider
     private let analyticsService: AnalyticsService
     private let tabBarItemStylist: TabBarItemStylist
-    private let theme: Theme
+    private var theme: Theme
 
     private var errorLoadingNews = false
 

@@ -3,23 +3,6 @@ import Quick
 import Nimble
 @testable import Movement
 
-class FakePushNotificationRegistrar: PushNotificationRegistrar {
-    var lastAppUsedForRegistration: UserNotificationRegisterable!
-
-    func registerForRemoteNotificationsWithApplication(application: UserNotificationRegisterable) {
-        self.lastAppUsedForRegistration = application
-    }
-
-    func application(application: UserNotificationRegisterable, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
-
-    }
-
-    func application(application: UserNotificationRegisterable, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-
-    }
-}
-
-
 
 class OnboardingWorkflowSpec: QuickSpec {
     var subject: OnboardingWorkflow!

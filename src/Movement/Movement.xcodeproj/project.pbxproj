@@ -11,6 +11,10 @@
 		6505C9531BB9FF3F008DD278 /* FakeURLOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6505C9521BB9FF3F008DD278 /* FakeURLOpener.swift */; };
 		6507631E1B8B720E00BA0659 /* FakeURLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6507631D1B8B720E00BA0659 /* FakeURLProvider.swift */; };
 		6518CBAD1BC1C5A2000C238C /* terms_and_conditions.html in Resources */ = {isa = PBXBuildFile; fileRef = 6518CBAC1BC1C5A2000C238C /* terms_and_conditions.html */; };
+		651960851C4D8ECB004AAC6D /* FakeUIApplicationProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 651960841C4D8ECB004AAC6D /* FakeUIApplicationProvider.m */; };
+		651960871C4D8F20004AAC6D /* AppDelegateSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651960861C4D8F20004AAC6D /* AppDelegateSpec.swift */; };
+		651960891C4D9429004AAC6D /* FakeUserNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651960881C4D9429004AAC6D /* FakeUserNotificationHandler.swift */; };
+		6519608B1C4DCA85004AAC6D /* FakePushNotificationRegistrar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6519608A1C4DCA85004AAC6D /* FakePushNotificationRegistrar.swift */; };
 		651C466D1C4340F50075F5DE /* FakeImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C466C1C4340F50075F5DE /* FakeImageService.swift */; };
 		651F80F71C40B211004E7FDA /* FakeEventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651F80F61C40B211004E7FDA /* FakeEventRepository.swift */; };
 		65205F321BC098DF005A55F2 /* FakeURLAttributionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65205F311BC098DF005A55F2 /* FakeURLAttributionPresenter.swift */; };
@@ -307,6 +311,11 @@
 		6505C9521BB9FF3F008DD278 /* FakeURLOpener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeURLOpener.swift; sourceTree = "<group>"; };
 		6507631D1B8B720E00BA0659 /* FakeURLProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeURLProvider.swift; sourceTree = "<group>"; };
 		6518CBAC1BC1C5A2000C238C /* terms_and_conditions.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = terms_and_conditions.html; sourceTree = "<group>"; };
+		651960831C4D8ECB004AAC6D /* FakeUIApplicationProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FakeUIApplicationProvider.h; sourceTree = "<group>"; };
+		651960841C4D8ECB004AAC6D /* FakeUIApplicationProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FakeUIApplicationProvider.m; sourceTree = "<group>"; };
+		651960861C4D8F20004AAC6D /* AppDelegateSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateSpec.swift; sourceTree = "<group>"; };
+		651960881C4D9429004AAC6D /* FakeUserNotificationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeUserNotificationHandler.swift; sourceTree = "<group>"; };
+		6519608A1C4DCA85004AAC6D /* FakePushNotificationRegistrar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakePushNotificationRegistrar.swift; sourceTree = "<group>"; };
 		651C466C1C4340F50075F5DE /* FakeImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeImageService.swift; sourceTree = "<group>"; };
 		651F80F61C40B211004E7FDA /* FakeEventRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeEventRepository.swift; sourceTree = "<group>"; };
 		65205F311BC098DF005A55F2 /* FakeURLAttributionPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeURLAttributionPresenter.swift; sourceTree = "<group>"; };
@@ -1286,12 +1295,16 @@
 				653885191B90F7DD00DCA808 /* FakeNSURLSession.swift */,
 				6538851B1B90F80000DCA808 /* FakeNSURLSessionDataTask.swift */,
 				659A12021B8BA5CF00BE08F4 /* FakeOperationQueue.swift */,
+				6519608A1C4DCA85004AAC6D /* FakePushNotificationRegistrar.swift */,
 				654A4DD61BCD865200FC523F /* FakeTabBarItemStylist.swift */,
 				65F5F6561B8967AD0049353C /* FakeTheme.swift */,
 				65DE887D1BE31540001AEDD8 /* FakeTimeIntervalFormatter.swift */,
+				651960831C4D8ECB004AAC6D /* FakeUIApplicationProvider.h */,
+				651960841C4D8ECB004AAC6D /* FakeUIApplicationProvider.m */,
 				65205F311BC098DF005A55F2 /* FakeURLAttributionPresenter.swift */,
 				6505C9521BB9FF3F008DD278 /* FakeURLOpener.swift */,
 				6507631D1B8B720E00BA0659 /* FakeURLProvider.swift */,
+				651960881C4D9429004AAC6D /* FakeUserNotificationHandler.swift */,
 			);
 			path = Fakes;
 			sourceTree = "<group>";
@@ -1360,6 +1373,7 @@
 				655598061BFC301C00BCE1AB /* Products */,
 				8233FC221B7C28FB00A5E9ED /* Supporting Files */,
 				654948E41BFB7FF200C1ECDB /* User Notifications */,
+				651960861C4D8F20004AAC6D /* AppDelegateSpec.swift */,
 				659D06871B9FD7E00099DA3F /* MovementTests-Bridging-Header.h */,
 				65CA5E841B86CA930001D870 /* SpecAppDelegate.swift */,
 			);
@@ -1706,6 +1720,7 @@
 				653D101F1C4C53BB004CB8A0 /* AboutControllerSpec.swift in Sources */,
 				653D10021C4C53BB004CB8A0 /* ActionsControllerSpec.swift in Sources */,
 				653D10201C4C53BB004CB8A0 /* AnalyticsSettingsControllerSpec.swift in Sources */,
+				651960871C4D8F20004AAC6D /* AppDelegateSpec.swift in Sources */,
 				653D10031C4C53BB004CB8A0 /* BackgroundEventServiceSpec.swift in Sources */,
 				653D10141C4C53BB004CB8A0 /* BackgroundImageServiceSpec.swift in Sources */,
 				653D10191C4C53BB004CB8A0 /* BackgroundIssueServiceSpec.swift in Sources */,
@@ -1754,12 +1769,15 @@
 				6538851A1B90F7DD00DCA808 /* FakeNSURLSession.swift in Sources */,
 				6538851C1B90F80000DCA808 /* FakeNSURLSessionDataTask.swift in Sources */,
 				659A12031B8BA5CF00BE08F4 /* FakeOperationQueue.swift in Sources */,
+				6519608B1C4DCA85004AAC6D /* FakePushNotificationRegistrar.swift in Sources */,
 				654A4DD71BCD865200FC523F /* FakeTabBarItemStylist.swift in Sources */,
 				65F5F6571B8967AD0049353C /* FakeTheme.swift in Sources */,
 				65DE887E1BE31540001AEDD8 /* FakeTimeIntervalFormatter.swift in Sources */,
+				651960851C4D8ECB004AAC6D /* FakeUIApplicationProvider.m in Sources */,
 				65205F321BC098DF005A55F2 /* FakeURLAttributionPresenter.swift in Sources */,
 				6505C9531BB9FF3F008DD278 /* FakeURLOpener.swift in Sources */,
 				6507631E1B8B720E00BA0659 /* FakeURLProvider.swift in Sources */,
+				651960891C4D9429004AAC6D /* FakeUserNotificationHandler.swift in Sources */,
 				653D10211C4C53BB004CB8A0 /* FeedbackControllerSpec.swift in Sources */,
 				653D10221C4C53BB004CB8A0 /* FLOSSControllerSpec.swift in Sources */,
 				653D101D1C4C53BB004CB8A0 /* IssueControllerSpec.swift in Sources */,
