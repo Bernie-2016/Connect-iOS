@@ -29,6 +29,11 @@ class FakeOnboardingWorkflow: OnboardingWorkflow {
         )
     }
 
+    var lastInitialViewControllerCompletionHandler: ((UIViewController) -> Void)!
+    override func initialViewController(completion: (UIViewController) -> Void) {
+        lastInitialViewControllerCompletionHandler = completion
+    }
+
     override internal func controllerDidFinishOnboarding(controller: UIViewController) {
         hasFinishedOnboarding = true
         lastControllerToFinishOnboarding = controller

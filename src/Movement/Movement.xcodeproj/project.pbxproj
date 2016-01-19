@@ -15,6 +15,7 @@
 		651960871C4D8F20004AAC6D /* AppDelegateSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651960861C4D8F20004AAC6D /* AppDelegateSpec.swift */; };
 		651960891C4D9429004AAC6D /* FakeUserNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651960881C4D9429004AAC6D /* FakeUserNotificationHandler.swift */; };
 		6519608B1C4DCA85004AAC6D /* FakePushNotificationRegistrar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6519608A1C4DCA85004AAC6D /* FakePushNotificationRegistrar.swift */; };
+		6519608D1C4DCDCF004AAC6D /* StockAppBootstrapperSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6519608C1C4DCDCF004AAC6D /* StockAppBootstrapperSpec.swift */; };
 		651C466D1C4340F50075F5DE /* FakeImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C466C1C4340F50075F5DE /* FakeImageService.swift */; };
 		651F80F71C40B211004E7FDA /* FakeEventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651F80F61C40B211004E7FDA /* FakeEventRepository.swift */; };
 		65205F321BC098DF005A55F2 /* FakeURLAttributionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65205F311BC098DF005A55F2 /* FakeURLAttributionPresenter.swift */; };
@@ -316,6 +317,7 @@
 		651960861C4D8F20004AAC6D /* AppDelegateSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateSpec.swift; sourceTree = "<group>"; };
 		651960881C4D9429004AAC6D /* FakeUserNotificationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeUserNotificationHandler.swift; sourceTree = "<group>"; };
 		6519608A1C4DCA85004AAC6D /* FakePushNotificationRegistrar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakePushNotificationRegistrar.swift; sourceTree = "<group>"; };
+		6519608C1C4DCDCF004AAC6D /* StockAppBootstrapperSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockAppBootstrapperSpec.swift; sourceTree = "<group>"; };
 		651C466C1C4340F50075F5DE /* FakeImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeImageService.swift; sourceTree = "<group>"; };
 		651F80F61C40B211004E7FDA /* FakeEventRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeEventRepository.swift; sourceTree = "<group>"; };
 		65205F311BC098DF005A55F2 /* FakeURLAttributionPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeURLAttributionPresenter.swift; sourceTree = "<group>"; };
@@ -1376,6 +1378,7 @@
 				651960861C4D8F20004AAC6D /* AppDelegateSpec.swift */,
 				659D06871B9FD7E00099DA3F /* MovementTests-Bridging-Header.h */,
 				65CA5E841B86CA930001D870 /* SpecAppDelegate.swift */,
+				6519608C1C4DCDCF004AAC6D /* StockAppBootstrapperSpec.swift */,
 			);
 			path = MovementTests;
 			sourceTree = "<group>";
@@ -1795,6 +1798,7 @@
 				65E33D801C46EB9A003464D9 /* PushNotificationHandlerDispatcherSpec.swift in Sources */,
 				653D10241C4C53BB004CB8A0 /* SettingsControllerSpec.swift in Sources */,
 				65CA5E851B86CA930001D870 /* SpecAppDelegate.swift in Sources */,
+				6519608D1C4DCDCF004AAC6D /* StockAppBootstrapperSpec.swift in Sources */,
 				653D10131C4C53BB004CB8A0 /* TabBarControllerSpec.swift in Sources */,
 				653D10251C4C53BB004CB8A0 /* TermsAndConditionsControllerSpec.swift in Sources */,
 				65AD23B21B968D6800C32A02 /* TestUtils.swift in Sources */,
