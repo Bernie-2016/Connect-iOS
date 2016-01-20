@@ -21,7 +21,6 @@ class BackgroundIssueService: IssueService {
                     self.resultQueue.addOperationWithBlock({
                         promise.reject(error)
                     })
-
             })
         }
 

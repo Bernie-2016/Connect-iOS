@@ -24,7 +24,7 @@ class ConcreteIssueRepositorySpec : QuickSpec {
     private let urlProvider = IssueRepositoryFakeURLProvider()
     private var issueDeserializer: FakeIssueDeserializer!
     var receivedIssues: Array<Issue>!
-    var receivedError: NSError!
+    var receivedError: IssueRepositoryError!
 
     override func spec() {
         describe("ConcreteIssueRepository") {
@@ -94,24 +94,41 @@ class ConcreteIssueRepositorySpec : QuickSpec {
                 }
 
                 context("when he request to the JSON client succeeds but does not resolve with a JSON dictioanry") {
-                    beforeEach {
+                    it("calls the completion handler with an error") {
                         let promise = self.jsonClient.promisesByURL[self.urlProvider.issuesFeedURL()]!
 
-                        promise.resolve([1,2,3])
-                    }
+                        let badObj = [1,2,3]
+                        promise.resolve(badObj)
 
-                    it("calls the completion handler with an error") {
-                        expect(self.receivedError).notTo(beNil())
+                        switch(self.receivedError!) {
+                        case .InvalidJSON(let jsonObject):
+                            expect(jsonObject as? [Int]).to(equal(badObj))
+                        default:
+                            fail("unexpected error type")
+                        }
                     }
                 }
 
                 context("when the request to the JSON client fails") {
                     it("forwards the error to the caller") {
                         let promise = self.jsonClient.promisesByURL[self.urlProvider.issuesFeedURL()]!
-                        let expectedError = NSError(domain: "somedomain", code: 666, userInfo: nil)
-                        promise.reject(expectedError)
+                        let expectedUnderlyingError = NSError(domain: "somedomain", code: 666, userInfo: nil)
+                        let jsonClientError = JSONClientError.NetworkError(error: expectedUnderlyingError)
 
-                        expect(self.receivedError).to(beIdenticalTo(expectedError))
+                        promise.reject(jsonClientError)
+
+                        switch(self.receivedError!) {
+                        case .ErrorInJSONClient(let jsonClientError):
+                            switch(jsonClientError) {
+                            case JSONClientError.NetworkError(let underlyingError):
+                                expect(underlyingError).to(beIdenticalTo(expectedUnderlyingError))
+                            default:
+                                fail("unexpected error type")
+                            }
+                        default:
+                            fail("unexpected error type")
+                        }
+
                     }
                 }
             }

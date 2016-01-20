@@ -42,7 +42,7 @@ class ConcreteEventRepositorySpec : QuickSpec {
             var eventDeserializer: FakeEventDeserializer!
 
             var receivedEventSearchResult: EventSearchResult!
-            var receivedError: NSError!
+            var receivedError: EventRepositoryError!
 
             beforeEach {
                 geocoder = FakeGeocoder()
@@ -177,27 +177,38 @@ class ConcreteEventRepositorySpec : QuickSpec {
                     }
 
                     context("when he request to the JSON client succeeds but does not resolve with a JSON dictioanry") {
-                        beforeEach {
-                            expect(receivedEventSearchResult).to(beNil())
-
-                            let promise = jsonClient.promisesByURL[urlProvider.returnedURL]!
-
-                            promise.resolve([1,2,3])
-                        }
-
                         it("calls the completion handler with an error") {
-                            expect(receivedEventSearchResult).to(beNil())
-                            expect(receivedError).toNot(beNil())
+                            let promise = jsonClient.promisesByURL[urlProvider.eventsURL()]!
+
+                            let badObj = [1,2,3]
+                            promise.resolve(badObj)
+
+                            switch(receivedError!) {
+                            case .InvalidJSONError(let jsonObject):
+                                expect(jsonObject as? [Int]).to(equal(badObj))
+                            default:
+                                fail("unexpected error type")
+                            }
                         }
                     }
 
                     context("when the request to the JSON client fails") {
                         it("forwards the error to the caller on the operation queue") {
                             let promise = jsonClient.promisesByURL[urlProvider.returnedURL]!
-                            let expectedError = NSError(domain: "somedomain", code: 666, userInfo: nil)
-                            promise.reject(expectedError)
+                            let underlyingError = JSONClientError.HTTPStatusCodeError(statusCode: 400, data: nil)
+                            promise.reject(underlyingError)
 
-                            expect(receivedError).to(equal(expectedError))
+                            switch(receivedError!) {
+                            case .ErrorInJSONClient(let jsonClientError):
+                                switch(jsonClientError) {
+                                case .HTTPStatusCodeError(let statusCode, _):
+                                    expect(statusCode).to(equal(400))
+                                default:
+                                    fail("unexpected error type")
+                                }
+                            default:
+                                fail("unexpected error type")
+                            }
                         }
                     }
                 }
@@ -210,7 +221,12 @@ class ConcreteEventRepositorySpec : QuickSpec {
                     }
 
                     it("calls the error handler with the geocoding error") {
-                        expect(receivedError).to(beIdenticalTo(expectedError))
+                        switch(receivedError!) {
+                        case .GeocodingError(let error):
+                            expect(error).to(beIdenticalTo(expectedError))
+                        default:
+                            fail("unexpected error type")
+                        }
                     }
                 }
             }

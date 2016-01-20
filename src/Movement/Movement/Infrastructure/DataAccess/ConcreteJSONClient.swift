@@ -2,10 +2,6 @@ import Foundation
 import CBGPromise
 
 class ConcreteJSONClient: JSONClient {
-    struct Error {
-        static let badResponse = "badResponse"
-    }
-
     private let urlSession: NSURLSession
     private let jsonSerializationProvider: NSJSONSerializationProvider
 
@@ -14,15 +10,16 @@ class ConcreteJSONClient: JSONClient {
         self.jsonSerializationProvider = jsonSerializationProvider
     }
 
-    func JSONPromiseWithURL(url: NSURL, method: String, bodyDictionary: NSDictionary?) -> Future<AnyObject, NSError> {
-        let promise = Promise<AnyObject, NSError>()
+    func JSONPromiseWithURL(url: NSURL, method: String, bodyDictionary: NSDictionary?) -> JSONFuture {
+        let promise = JSONPromise()
 
         var httpBody: NSData?
         if bodyDictionary !=  nil {
             do {
                 httpBody = try self.jsonSerializationProvider.dataWithJSONObject(bodyDictionary!, options: NSJSONWritingOptions())
             } catch let error as NSError {
-                promise.reject(error)
+                let bodySerializationError = JSONClientError.BodySerializationError(error: error)
+                promise.reject(bodySerializationError)
                 return promise.future
             }
         }
@@ -38,21 +35,22 @@ class ConcreteJSONClient: JSONClient {
 
     // MARK: Private
 
-    func makeRequest(request: NSURLRequest, promise: Promise<AnyObject, NSError>) {
+    func makeRequest(request: NSURLRequest, promise: JSONPromise) {
         let task = self.urlSession.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
             if error != nil {
-                promise.reject(error!)
+                let networkError = JSONClientError.NetworkError(error: error)
+                promise.reject(networkError)
                 return
             }
 
             guard let httpResponse = response as? NSHTTPURLResponse else {
-                let httpResponseUnwrappingError = NSError(domain: ConcreteJSONClient.Error.badResponse, code: -1, userInfo: nil)
-                promise.reject(httpResponseUnwrappingError)
+                let notAnHTTPResponseError = JSONClientError.NotAnHTTPResponseError(response: response!)
+                promise.reject(notAnHTTPResponseError)
                 return
             }
 
             if httpResponse.statusCode != 200 {
-                let httpError = NSError(domain: ConcreteJSONClient.Error.badResponse, code: httpResponse.statusCode, userInfo: nil)
+                let httpError = JSONClientError.HTTPStatusCodeError(statusCode: httpResponse.statusCode, data: data)
                 promise.reject(httpError)
                 return
             }
@@ -61,7 +59,8 @@ class ConcreteJSONClient: JSONClient {
             do {
                 jsonBody = try self.jsonSerializationProvider.jsonObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments)
             } catch let error as NSError {
-                promise.reject(error)
+                let jsonError = JSONClientError.JSONDeserializationError(error: error, data: data!)
+                promise.reject(jsonError)
                 return
             }
 

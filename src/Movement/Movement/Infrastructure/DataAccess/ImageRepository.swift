@@ -1,9 +1,12 @@
 import Foundation
 import CBGPromise
 
-typealias ImageFuture = Future<UIImage, NSError>
-typealias ImagePromise = Promise<UIImage, NSError>
+enum ImageRepositoryError: ErrorType {
+    case DownloadError(error: NSError)
+}
 
+typealias ImageFuture = Future<UIImage, ImageRepositoryError>
+typealias ImagePromise = Promise<UIImage, ImageRepositoryError>
 
 protocol ImageRepository {
     func fetchImageWithURL(url: NSURL) -> ImageFuture

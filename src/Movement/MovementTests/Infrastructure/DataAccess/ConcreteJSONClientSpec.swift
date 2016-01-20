@@ -5,44 +5,6 @@ import CBGPromise
 
 @testable import Movement
 
-
-class FakeNSJSONSerializationProvider : NSJSONSerializationProvider {
-    var enableError : Bool = false
-    let returnedData = "{\"some\": \"data\"}".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
-    let returnedJSON = NSDictionary()
-    let returnedError = NSError(domain: "errrr", code: 123, userInfo: nil)
-    var lastReceivedObjectToConvertToData : AnyObject!
-    var lastReceivedData : NSData!
-    var lastReceivedReadingOptions : NSJSONReadingOptions!
-    var lastReceivedWritingOptions : NSJSONWritingOptions!
-
-    override func jsonObjectWithData(data: NSData, options opt: NSJSONReadingOptions) throws -> AnyObject {
-        self.lastReceivedData = data
-        self.lastReceivedReadingOptions = opt
-
-        if(self.enableError) {
-            throw returnedError
-        } else {
-            return self.returnedJSON
-        }
-    }
-
-    override func dataWithJSONObject(obj: AnyObject, options opt: NSJSONWritingOptions) throws -> NSData {
-        let error: NSError! = NSError(domain: "Migrator", code: 0, userInfo: nil)
-        self.lastReceivedObjectToConvertToData = obj
-        self.lastReceivedWritingOptions = opt
-
-        if(self.enableError) {
-            throw returnedError
-        } else {
-            if let value = self.returnedData {
-                return value
-            }
-            throw error
-        }
-    }
-}
-
 class ConcreteJSONClientSpec : QuickSpec {
     var subject: ConcreteJSONClient!
     var jsonSerializationProvider : FakeNSJSONSerializationProvider!
@@ -64,7 +26,7 @@ class ConcreteJSONClientSpec : QuickSpec {
                 let expectedURL = NSURL(string: "https://example.com/berrniieee")!
                 let expectedMethod = "POST"
                 let expectedBodyDictionary = ["some": "data"]
-                var future : Future<AnyObject, NSError>!
+                var future: JSONFuture!
 
                 context("when the given data can be serialized to JSON") {
                     beforeEach {
@@ -96,6 +58,7 @@ class ConcreteJSONClientSpec : QuickSpec {
                             describe("parsing the JSON") {
                                 it("attempts to parse the received data") {
                                     self.urlSession.lastCompletionHandler!(expectedData, response!, nil)
+
                                     expect(self.jsonSerializationProvider.lastReceivedData).to(beIdenticalTo(expectedData))
                                 }
                             }
@@ -111,11 +74,17 @@ class ConcreteJSONClientSpec : QuickSpec {
                             }
 
                             context("when JSON parsing fails") {
-                                it("rejects the promise with the parse error") {
-                                    self.jsonSerializationProvider.enableError = true
+                                it("rejects the promise with an error") {
+                                    self.jsonSerializationProvider.enableDecodingError = true
                                     self.urlSession.lastCompletionHandler!(expectedData, response!, nil)
 
-                                    expect(future.error).to(beIdenticalTo(self.jsonSerializationProvider.returnedError))
+                                    switch(future.error!) {
+                                    case JSONClientError.JSONDeserializationError(let error, let data):
+                                        expect(error).to(beIdenticalTo(self.jsonSerializationProvider.returnedError))
+                                        expect(data).to(beIdenticalTo(expectedData))
+                                    default:
+                                        fail("Unexpected error type")
+                                    }
                                 }
                             }
                         }
@@ -125,8 +94,28 @@ class ConcreteJSONClientSpec : QuickSpec {
 
                             it("rejects the promise with an error") {
                                 self.urlSession.lastCompletionHandler!(expectedData, response!, nil)
+                                switch(future.error!) {
+                                case JSONClientError.HTTPStatusCodeError(let statusCode, let data):
+                                    expect(statusCode).to(equal(400))
+                                    expect(data).to(beIdenticalTo(expectedData))
+                                default:
+                                    fail("Unexpected error type")
+                                }
+                            }
+                        }
 
-                                expect(future.error!.domain).to(equal(ConcreteJSONClient.Error.badResponse))
+                        context("with a wrong response type") {
+                            it("rejects the promise with an error") {
+                                let badResponse = NSURLResponse()
+                                self.urlSession.lastCompletionHandler!(expectedData, badResponse, nil)
+
+                                switch(future.error!) {
+                                case JSONClientError.NotAnHTTPResponseError(let receivedResponse):
+                                    expect(receivedResponse).to(beIdenticalTo(badResponse))
+                                default:
+                                    fail("Unexpected error type")
+                                }
+
                             }
                         }
                     }
@@ -136,14 +125,19 @@ class ConcreteJSONClientSpec : QuickSpec {
                             let expectedError = NSError(domain: "some domain", code: 0, userInfo: nil)
                             self.urlSession.lastCompletionHandler!(nil, nil, expectedError)
 
-                            expect(future.error).to(beIdenticalTo(expectedError))
+                            switch(future.error!) {
+                            case JSONClientError.NetworkError(let error):
+                                expect(error).to(beIdenticalTo(expectedError))
+                            default:
+                                fail("Unexpected error type")
+                            }
                         }
                     }
                 }
 
                 context("when the given data cannot be serialized to JSON") {
                     beforeEach {
-                        self.jsonSerializationProvider.enableError = true
+                        self.jsonSerializationProvider.enableEncodingError = true
 
                         future = self.subject.JSONPromiseWithURL(expectedURL,
                             method: expectedMethod,
@@ -151,7 +145,12 @@ class ConcreteJSONClientSpec : QuickSpec {
                     }
 
                     it("rejects the promise with the serialization error") {
-                        expect(future.error).to(beIdenticalTo(self.jsonSerializationProvider.returnedError))
+                        switch(future.error!) {
+                        case JSONClientError.BodySerializationError(let error):
+                            expect(error).to(beIdenticalTo(self.jsonSerializationProvider.returnedError))
+                        default:
+                            fail("Unexpected error type")
+                        }
                     }
 
                     it("does not attempt to make a request") {
@@ -160,6 +159,44 @@ class ConcreteJSONClientSpec : QuickSpec {
                     }
                 }
             }
+        }
+    }
+}
+
+class FakeNSJSONSerializationProvider : NSJSONSerializationProvider {
+    var enableDecodingError : Bool = false
+    var enableEncodingError : Bool = false
+    let returnedData = "{\"some\": \"data\"}".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
+    let returnedJSON = NSDictionary()
+    let returnedError = NSError(domain: "errrr", code: 123, userInfo: nil)
+    var lastReceivedObjectToConvertToData : AnyObject!
+    var lastReceivedData : NSData!
+    var lastReceivedReadingOptions : NSJSONReadingOptions!
+    var lastReceivedWritingOptions : NSJSONWritingOptions!
+
+    override func jsonObjectWithData(data: NSData, options opt: NSJSONReadingOptions) throws -> AnyObject {
+        self.lastReceivedData = data
+        self.lastReceivedReadingOptions = opt
+
+        if(enableDecodingError) {
+            throw returnedError
+        } else {
+            return self.returnedJSON
+        }
+    }
+
+    override func dataWithJSONObject(obj: AnyObject, options opt: NSJSONWritingOptions) throws -> NSData {
+        let error: NSError! = NSError(domain: "Migrator", code: 0, userInfo: nil)
+        self.lastReceivedObjectToConvertToData = obj
+        self.lastReceivedWritingOptions = opt
+
+        if(enableEncodingError) {
+            throw returnedError
+        } else {
+            if let value = self.returnedData {
+                return value
+            }
+            throw error
         }
     }
 }

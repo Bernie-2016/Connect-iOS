@@ -54,15 +54,19 @@ class BackgroundEventServiceSpec: QuickSpec {
                         let future = subject.fetchEventsWithZipCode("12345", radiusMiles: 42.0)
                         workerQueue.lastReceivedBlock()
 
-                        let expectedError = NSError(domain: "rr", code: 123, userInfo: nil)
-
+                        let expectedError = EventRepositoryError.InvalidJSONError(jsonObject: "wat")
                         eventRepository.lastErrorBlock!(expectedError)
 
                         expect(future.error).to(beNil())
 
                         resultQueue.lastReceivedBlock()
 
-                        expect(future.error).to(beIdenticalTo(expectedError))
+                        switch(future.error!) {
+                        case .InvalidJSONError(let jsonObject):
+                            expect((jsonObject as! String)).to(equal("wat"))
+                        default:
+                            fail("unexpected error type")
+                        }
                     }
                 }
             }

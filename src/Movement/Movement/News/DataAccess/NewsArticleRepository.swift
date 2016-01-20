@@ -1,10 +1,16 @@
 import Foundation
 import CBGPromise
 
-typealias NewsArticlesFuture = Future<[NewsArticle], NSError>
-typealias NewsArticlesPromise = Promise<[NewsArticle], NSError>
-typealias NewsArticleFuture = Future<NewsArticle, NSError>
-typealias NewsArticlePromise = Promise<NewsArticle, NSError>
+enum NewsArticleRepositoryError: ErrorType {
+    case InvalidJSON(jsonObject: AnyObject)
+    case ErrorInJSONClient(error: JSONClientError)
+    case NoMatchingNewsArticle(identifier: NewsArticleIdentifier)
+}
+
+typealias NewsArticlesFuture = Future<[NewsArticle], NewsArticleRepositoryError>
+typealias NewsArticlesPromise = Promise<[NewsArticle], NewsArticleRepositoryError>
+typealias NewsArticleFuture = Future<NewsArticle, NewsArticleRepositoryError>
+typealias NewsArticlePromise = Promise<NewsArticle, NewsArticleRepositoryError>
 
 protocol NewsArticleRepository {
     func fetchNewsArticles() -> NewsArticlesFuture

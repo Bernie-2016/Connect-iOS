@@ -1,6 +1,7 @@
 import Foundation
 import CBGPromise
 
+
 class ConcreteVideoRepository: VideoRepository {
     private let urlProvider: URLProvider
     private let jsonClient: JSONClient
@@ -14,16 +15,15 @@ class ConcreteVideoRepository: VideoRepository {
             self.videoDeserializer = videoDeserializer
     }
 
-    func fetchVideos() -> Future<Array<Video>, NSError> {
-        let promise = Promise<Array<Video>, NSError>()
+    func fetchVideos() -> VideoFuture {
+        let promise = VideoPromise()
 
-        let videoJSONFuture = self.jsonClient.JSONPromiseWithURL(self.urlProvider.videoURL(), method: "POST", bodyDictionary: self.HTTPBodyDictionary())
+        let videoJSONFuture = self.jsonClient.JSONPromiseWithURL(self.urlProvider.videoURL(), method: "POST", bodyDictionary: HTTPBodyDictionary())
 
         videoJSONFuture.then { deserializedObject in
             guard let jsonDictionary = deserializedObject as? NSDictionary else {
-                let incorrectObjectTypeError = NSError(domain: "ConcreteVideoRepository", code: -1, userInfo: nil)
+                let incorrectObjectTypeError = VideoRepositoryError.InvalidJSON(jsonObject: deserializedObject)
                 promise.reject(incorrectObjectTypeError)
-
                 return
             }
 
@@ -34,7 +34,8 @@ class ConcreteVideoRepository: VideoRepository {
 
 
         videoJSONFuture.error { receivedError in
-            promise.reject(receivedError)
+            let jsonClientError = VideoRepositoryError.ErrorInJSONClient(error: receivedError)
+            promise.reject(jsonClientError)
         }
 
         return promise.future

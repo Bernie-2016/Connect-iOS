@@ -14,7 +14,8 @@ class BackgroundEventService: EventService {
     func fetchEventsWithZipCode(zipCode: String, radiusMiles: Float) -> EventSearchResultFuture {
         let promise = EventSearchResultPromise()
 
-        workerQueue.addOperationWithBlock {            self.eventRepository.fetchEventsWithZipCode(zipCode, radiusMiles: radiusMiles, completion: { eventSearchResult -> Void in
+        workerQueue.addOperationWithBlock {
+            self.eventRepository.fetchEventsWithZipCode(zipCode, radiusMiles: radiusMiles, completion: { eventSearchResult -> Void in
                 self.resultQueue.addOperationWithBlock {
                     promise.resolve(eventSearchResult)
                 }

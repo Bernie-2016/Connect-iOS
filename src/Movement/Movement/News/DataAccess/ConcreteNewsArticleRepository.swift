@@ -22,7 +22,7 @@ class ConcreteNewsArticleRepository: NewsArticleRepository {
 
         newsFeedJSONFuture.then({ deserializedObject in
             guard let jsonDictionary = deserializedObject as? NSDictionary else {
-                let incorrectObjectTypeError = NSError(domain: "ConcreteNewsArticleRepository", code: -1, userInfo: nil)
+                let incorrectObjectTypeError = NewsArticleRepositoryError.InvalidJSON(jsonObject: deserializedObject)
                 promise.reject(incorrectObjectTypeError)
                 return
             }
@@ -33,7 +33,8 @@ class ConcreteNewsArticleRepository: NewsArticleRepository {
         })
 
         newsFeedJSONFuture.error { receivedError in
-            promise.reject(receivedError)
+            let error = NewsArticleRepositoryError.ErrorInJSONClient(error: receivedError)
+            promise.reject(error)
         }
 
         return promise.future
@@ -42,11 +43,11 @@ class ConcreteNewsArticleRepository: NewsArticleRepository {
     func fetchNewsArticle(identifier: NewsArticleIdentifier) -> NewsArticleFuture {
         let promise = NewsArticlePromise()
 
-        let newsFeedJSONFuture = self.jsonClient.JSONPromiseWithURL(urlProvider.newsFeedURL(), method: "POST", bodyDictionary: ArticleHTTPBodyDictionary(identifier))
+        let newsArticleJSONFuture = self.jsonClient.JSONPromiseWithURL(urlProvider.newsFeedURL(), method: "POST", bodyDictionary: ArticleHTTPBodyDictionary(identifier))
 
-        newsFeedJSONFuture.then({ deserializedObject in
+        newsArticleJSONFuture.then({ deserializedObject in
             guard let jsonDictionary = deserializedObject as? NSDictionary else {
-                let incorrectObjectTypeError = NSError(domain: "ConcreteNewsArticleRepository", code: -1, userInfo: nil)
+                let incorrectObjectTypeError = NewsArticleRepositoryError.InvalidJSON(jsonObject: deserializedObject)
                 promise.reject(incorrectObjectTypeError)
                 return
             }
@@ -54,16 +55,18 @@ class ConcreteNewsArticleRepository: NewsArticleRepository {
             let parsedNewsArticles = self.newsArticleDeserializer.deserializeNewsArticles(jsonDictionary)
 
             guard let newsArticle = parsedNewsArticles.first else {
-                let noMatchingNewsArticleError = NSError(domain: "ConcreteNewsArticleRepository", code: 1, userInfo: nil)
-                promise.reject(noMatchingNewsArticleError)
+                let noMatchingArticleError = NewsArticleRepositoryError.NoMatchingNewsArticle(identifier: identifier)
+                promise.reject(noMatchingArticleError)
                 return
             }
             promise.resolve(newsArticle)
         })
 
-        newsFeedJSONFuture.error { receivedError in
-            promise.reject(receivedError)
+        newsArticleJSONFuture.error { receivedError in
+            let error = NewsArticleRepositoryError.ErrorInJSONClient(error: receivedError)
+            promise.reject(error)
         }
+
 
         return promise.future
     }

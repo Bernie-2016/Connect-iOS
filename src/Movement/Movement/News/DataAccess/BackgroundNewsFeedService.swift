@@ -15,11 +15,11 @@ class BackgroundNewsFeedService: NewsFeedService {
         self.resultQueue = resultQueue
     }
 
-    func fetchNewsFeed(completion: ([NewsFeedItem]) -> Void, error: (ErrorType) -> Void) {
+    func fetchNewsFeed(completion: ([NewsFeedItem]) -> Void, error: (NewsFeedServiceError) -> Void) {
         workerQueue.addOperationWithBlock {
             var completedFutures = 0
             let numberOfRepositories = 2
-            var errors = Array<NSError>()
+            var errors = [ErrorType]()
 
             let newsFuture = self.newsArticleRepository.fetchNewsArticles()
             let videosFuture = self.videoRepository.fetchVideos()
@@ -34,11 +34,11 @@ class BackgroundNewsFeedService: NewsFeedService {
                 }
             }
 
-            let handleFailure = { (receivedError: NSError) in
+            let handleFailure = { (receivedError: ErrorType) in
                 completedFutures += 1
-                errors.append(receivedError as NSError)
+                errors.append(receivedError)
                 if errors.count == numberOfRepositories {
-                    let wrapperError = NSError(domain: "NewsFeedService", code: 0, userInfo: ["UnderlyingErrors": errors])
+                    let wrapperError = NewsFeedServiceError.FailedToFetchNews(underlyingErrors: errors)
                     self.resultQueue.addOperationWithBlock { error(wrapperError) }
                 }
             }

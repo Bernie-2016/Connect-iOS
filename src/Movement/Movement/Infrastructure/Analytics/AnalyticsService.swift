@@ -5,7 +5,7 @@ protocol AnalyticsService {
     func trackPageViewWithName(name: String, customAttributes: [NSObject: AnyObject]?)
     func trackContentViewWithName(name: String, type: AnalyticsServiceContentType, identifier: String)
     func trackBackButtonTapOnScreen(screen: String, customAttributes: [NSObject : AnyObject]?)
-    func trackError(error: NSError, context: String)
+    func trackError(error: ErrorType, context: String)
     func trackShareWithActivityType(activityType: String, contentName: String, contentType: AnalyticsServiceContentType, identifier: String)
     func trackSearchWithQuery(query: String, context: AnalyticsSearchContext)
 }

@@ -17,10 +17,11 @@ class ConcreteEventRepository: EventRepository {
             self.eventDeserializer = eventDeserializer
     }
 
-    func fetchEventsWithZipCode(zipCode: String, radiusMiles: Float, completion: (EventSearchResult) -> Void, error: (NSError) -> Void) {
+    func fetchEventsWithZipCode(zipCode: String, radiusMiles: Float, completion: (EventSearchResult) -> Void, error: (EventRepositoryError) -> Void) {
         self.geocoder.geocodeAddressString(zipCode, completionHandler: { (placemarks, geocodingError) -> Void in
             if geocodingError != nil {
-                error(geocodingError!)
+                let wrappedError = EventRepositoryError.GeocodingError(error: geocodingError!)
+                error(wrappedError)
                 return
             }
 
@@ -38,9 +39,8 @@ class ConcreteEventRepository: EventRepository {
 
             eventsFuture.then { deserializedObject in
                 guard let jsonDictionary = deserializedObject as? NSDictionary else {
-                    let incorrectObjectTypeError = NSError(domain: "ConcreteEventRepository", code: -1, userInfo: nil)
-
-                    error(incorrectObjectTypeError)
+                    let invalidJSONError = EventRepositoryError.InvalidJSONError(jsonObject: deserializedObject)
+                    error(invalidJSONError)
                     return
                 }
 
@@ -50,7 +50,8 @@ class ConcreteEventRepository: EventRepository {
             }
 
             eventsFuture.error { receivedError in
-                error(receivedError)
+                let jsonClientError = EventRepositoryError.ErrorInJSONClient(error: receivedError)
+                error(jsonClientError)
             }
         })
     }

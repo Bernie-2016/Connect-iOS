@@ -329,7 +329,8 @@ class EventsControllerSpec : QuickSpec {
                     }
 
                     context("when the search results in an error") {
-                        let expectedError = NSError(domain: "someerror", code: 0, userInfo: nil)
+                        let expectedError = EventRepositoryError.InvalidJSONError(jsonObject: "wat")
+
                         beforeEach {
                             eventService.lastReturnedPromise!.reject(expectedError)
                         }
@@ -339,7 +340,12 @@ class EventsControllerSpec : QuickSpec {
                         }
 
                         it("should log an event via the analytics service") {
-                            expect(analyticsService.lastError as NSError).to(beIdenticalTo(expectedError))
+                            switch(analyticsService.lastError as! EventRepositoryError) {
+                            case .InvalidJSONError(let jsonObject):
+                                expect((jsonObject as! String)).to(equal("wat"))
+                            default:
+                                fail("unexpected error type")
+                            }
                             expect(analyticsService.lastErrorContext).to(equal("Events"))
                         }
 

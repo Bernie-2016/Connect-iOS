@@ -31,7 +31,7 @@ class ConcreteImageRepositorySpec : QuickSpec {
         }
 
         describe("fetching an image by URL") {
-            var imageFuture: Future<UIImage, NSError>!
+            var imageFuture: ImageFuture!
 
             beforeEach {
                 imageFuture = self.subject.fetchImageWithURL(self.expectedURL)
@@ -56,7 +56,10 @@ class ConcreteImageRepositorySpec : QuickSpec {
                     let expectedError = NSError(domain: "some domain", code: 666, userInfo: nil)
                     self.webImageManager.lastReceivedCompletionBlock(nil, expectedError, SDImageCacheType.None, true, self.expectedURL)
 
-                    expect(imageFuture.error).to(beIdenticalTo(expectedError))
+                    switch(imageFuture.error!) {
+                    case ImageRepositoryError.DownloadError(let underlyingError):
+                        expect(underlyingError).to(beIdenticalTo(expectedError))
+                    }
                 }
             }
         }

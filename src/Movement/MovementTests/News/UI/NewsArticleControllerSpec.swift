@@ -92,7 +92,7 @@ class NewsArticleControllerSpec : QuickSpec {
                                 AnalyticsServiceConstants.contentIDKey: newsArticle.url.absoluteString,
                                 AnalyticsServiceConstants.contentNameKey: newsArticle.title,
                                 AnalyticsServiceConstants.contentTypeKey: "News Article"
-]
+                            ]
                             expect(analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
                         }
 
@@ -225,7 +225,9 @@ class NewsArticleControllerSpec : QuickSpec {
 
                     context("when the request for the story's image fails") {
                         it("removes the image view from the container") {
-                            imageService.lastRequestPromise.reject(NSError(domain: "", code: 0, userInfo: nil))
+                            let error = ImageRepositoryError.DownloadError(error: NSError(domain: "", code: 0, userInfo: nil))
+
+                            imageService.lastRequestPromise.reject(error)
                             let scrollView = subject.view.subviews.first!
                             let containerView = scrollView.subviews.first!
                             let containerViewSubViews = containerView.subviews

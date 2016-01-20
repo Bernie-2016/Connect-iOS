@@ -122,14 +122,19 @@ class IssuesControllerSpec: QuickSpec {
                 }
 
                 context("when the repository encounters an error fetching issues") {
-                    let expectedError = NSError(domain: "some error", code: 666, userInfo: nil)
+                    let expectedError = IssueRepositoryError.InvalidJSON(jsonObject: "wat")
 
                     beforeEach {
                         issueService.lastReturnedPromise!.reject(expectedError)
                     }
 
                     it("logs that error to the analytics service") {
-                        expect(analyticsService.lastError as NSError).to(beIdenticalTo(expectedError))
+                        switch(analyticsService.lastError  as! IssueRepositoryError) {
+                        case .InvalidJSON(let jsonObject):
+                            expect((jsonObject as! String)).to(equal("wat"))
+                        default:
+                            fail("unexpected error type")
+                        }
                         expect(analyticsService.lastErrorContext).to(equal("Failed to load issues"))
                     }
 

@@ -28,7 +28,7 @@ class BackgroundNewsFeedServiceSpec: QuickSpec {
             }
             describe("fetching the news feed") {
                 var receivedNewsFeedItems: [NewsFeedItem]!
-                var receivedError: ErrorType!
+                var receivedError: NewsFeedServiceError!
 
                 beforeEach {
                     receivedNewsFeedItems = nil
@@ -127,7 +127,7 @@ class BackgroundNewsFeedServiceSpec: QuickSpec {
 
                     describe("when just the news article repo reports an error") {
                         it("calls the completion handler with the videos, on the result queue") {
-                            let error = NSError(domain: "what", code: 123, userInfo: nil)
+                            let error = NewsArticleRepositoryError.InvalidJSON(jsonObject: "wat")
                             newsArticleRepository.lastPromise.reject(error)
 
                             let videoA  = TestUtils.video(NSDate(timeIntervalSince1970: 4))
@@ -147,7 +147,7 @@ class BackgroundNewsFeedServiceSpec: QuickSpec {
 
                     describe("when just the videos repo reports an error") {
                         it("calls the completion handler with the news articles, on the result queue") {
-                            let error = NSError(domain: "what", code: 123, userInfo: nil)
+                            let error = VideoRepositoryError.InvalidJSON(jsonObject: "lol")
                             videoRepository.lastPromise.reject(error)
 
                             let newsArticleA = TestUtils.newsArticle(NSDate(timeIntervalSince1970: 5))
@@ -169,17 +169,34 @@ class BackgroundNewsFeedServiceSpec: QuickSpec {
 
                     describe("when both the news article repo and videos repo reports an error") {
                         it("calls the error handler with a wrapped error, on the result queue") {
-                            let newsError = NSError(domain: "news error", code: 123, userInfo: nil)
+                            let newsError = NewsArticleRepositoryError.InvalidJSON(jsonObject: "wat")
                             newsArticleRepository.lastPromise.reject(newsError)
 
-                            let videoError = NSError(domain: "video error", code: 123, userInfo: nil)
+                            let videoError = VideoRepositoryError.InvalidJSON(jsonObject: "lol")
                             videoRepository.lastPromise.reject(videoError)
 
                             expect(receivedError).to(beNil())
 
                             resultQueue.lastReceivedBlock()
 
-                            expect((receivedError as NSError).userInfo["UnderlyingErrors"] as? Array).to(equal([newsError, videoError]))
+                            switch(receivedError!) {
+                            case NewsFeedServiceError.FailedToFetchNews(let underlyingErrors):
+                                expect(underlyingErrors.count).to(equal(2))
+
+                                switch(underlyingErrors.first as! NewsArticleRepositoryError) {
+                                case NewsArticleRepositoryError.InvalidJSON(let badJson):
+                                    expect((badJson as! String)).to(equal("wat"))
+                                default:
+                                    fail("unexpected error")
+                                }
+
+                                switch(underlyingErrors.last as! VideoRepositoryError) {
+                                case VideoRepositoryError.InvalidJSON(let badJson):
+                                    expect((badJson as! String)).to(equal("lol"))
+                                default:
+                                    fail("unexpected error")
+                                }
+                            }
                         }
                     }
                 }
@@ -190,11 +207,11 @@ class BackgroundNewsFeedServiceSpec: QuickSpec {
 
 private class FakeVideoRepository: VideoRepository {
     var fetchVideosCalled: Bool = false
-    var lastPromise: Promise<Array<Video>, NSError>!
+    var lastPromise: VideoPromise!
 
-    func fetchVideos() -> Future<Array<Video>, NSError> {
+    func fetchVideos() -> VideoFuture {
         self.fetchVideosCalled = true
-        self.lastPromise = Promise<Array<Video>, NSError>()
+        self.lastPromise = VideoPromise()
         return self.lastPromise.future
     }
 }

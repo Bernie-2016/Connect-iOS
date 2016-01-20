@@ -53,10 +53,11 @@ class BackgroundIssueServiceSpec: QuickSpec {
 
                 context("when the issue repo calls the error handler") {
                     it("resolves the promise on the result queue with the error") {
+                        let badObj = "wat"
+                        let expectedError = IssueRepositoryError.InvalidJSON(jsonObject: badObj)
+
                         let future = subject.fetchIssues()
                         workerQueue.lastReceivedBlock()
-
-                        let expectedError = NSError(domain: "boo", code: 123, userInfo: nil)
 
                         issueRepository.lastErrorBlock!(expectedError)
 
@@ -64,7 +65,12 @@ class BackgroundIssueServiceSpec: QuickSpec {
 
                         resultQueue.lastReceivedBlock()
 
-                        expect(future.error).to(beIdenticalTo(expectedError))
+                        switch(future.error!) {
+                        case IssueRepositoryError.InvalidJSON(let jsonObject):
+                            expect((jsonObject as! String)).to(equal("wat"))
+                        default:
+                            fail("unexpected error type")
+                        }
                     }
                 }
             }
@@ -74,10 +80,10 @@ class BackgroundIssueServiceSpec: QuickSpec {
 
 private class FakeIssueRepository: IssueRepository {
     var lastCompletionBlock: ((Array<Issue>) -> Void)?
-    var lastErrorBlock: ((NSError) -> Void)?
+    var lastErrorBlock: ((IssueRepositoryError) -> Void)?
     var fetchIssuesCalled: Bool = false
 
-    func fetchIssues(completion: (Array<Issue>) -> Void, error: (NSError) -> Void) {
+    func fetchIssues(completion: (Array<Issue>) -> Void, error: (IssueRepositoryError) -> Void) {
         self.fetchIssuesCalled = true
         self.lastCompletionBlock = completion
         self.lastErrorBlock = error

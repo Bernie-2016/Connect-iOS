@@ -54,7 +54,8 @@ class BackgroundImageServiceSpec: QuickSpec {
                         let future = subject.fetchImageWithURL(expectedURL)
                         workerQueue.lastReceivedBlock()
 
-                        let expectedError = NSError(domain: "rr", code: 123, userInfo: nil)
+                        let originalError = NSError(domain: "rr", code: 123, userInfo: nil)
+                        let expectedError = ImageRepositoryError.DownloadError(error: originalError)
 
                         imageRepository.lastRequestPromise.reject(expectedError)
 
@@ -62,7 +63,10 @@ class BackgroundImageServiceSpec: QuickSpec {
 
                         resultQueue.lastReceivedBlock()
 
-                        expect(future.error).to(beIdenticalTo(expectedError))
+                        switch(future.error!) {
+                        case ImageRepositoryError.DownloadError(let underlyingError):
+                            expect(underlyingError).to(beIdenticalTo(originalError))
+                        }
                     }
                 }
             }

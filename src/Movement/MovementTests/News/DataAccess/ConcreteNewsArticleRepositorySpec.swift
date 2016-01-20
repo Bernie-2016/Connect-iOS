@@ -88,25 +88,41 @@ class ConcreteNewsArticleRepositorySpec: QuickSpec {
                     }
                 }
 
-                context("when the request to the JSON client succeeds but does not resolve with a JSON dictioanry") {
-                    beforeEach {
+                context("when the request to the JSON client succeeds but does not resolve with a JSON dictionary") {
+                    it("calls the completion handler with an error") {
                         let promise = jsonClient.promisesByURL[urlProvider.newsFeedURL()]!
 
-                        promise.resolve([1,2,3])
-                    }
+                        let badObj = [1,2,3]
+                        promise.resolve(badObj)
 
-                    it("calls the completion handler with an error") {
-                        expect(newsArticlesFuture.error).notTo(beNil())
+                        switch(newsArticlesFuture.error!) {
+                        case NewsArticleRepositoryError.InvalidJSON(let jsonObject):
+                            expect(jsonObject as? [Int]).to(equal(badObj))
+                        default:
+                            fail("unexpected error type")
+                        }
                     }
                 }
 
                 context("when the request to the JSON client fails") {
                     it("forwards the error to the caller") {
                         let promise = jsonClient.promisesByURL[urlProvider.newsFeedURL()]!
-                        let expectedError = NSError(domain: "somedomain", code: 666, userInfo: nil)
-                        promise.reject(expectedError)
+                        let expectedUnderlyingError = NSError(domain: "somedomain", code: 666, userInfo: nil)
+                        let jsonClientError = JSONClientError.NetworkError(error: expectedUnderlyingError)
 
-                        expect(newsArticlesFuture.error).to(beIdenticalTo(expectedError))
+                        promise.reject(jsonClientError)
+
+                        switch(newsArticlesFuture.error!) {
+                        case NewsArticleRepositoryError.ErrorInJSONClient(let jsonClientError):
+                            switch(jsonClientError) {
+                            case JSONClientError.NetworkError(let underlyingError):
+                                expect(underlyingError).to(beIdenticalTo(expectedUnderlyingError))
+                            default:
+                                fail("unexpected error type")
+                            }
+                        default:
+                            fail("unexpected error type")
+                        }
                     }
                 }
             }
@@ -170,32 +186,54 @@ class ConcreteNewsArticleRepositorySpec: QuickSpec {
                     }
 
                     it("calls the completion handler with an error") {
-                        expect(newsArticleFuture.error).notTo(beNil())
+                        switch(newsArticleFuture.error!) {
+                        case NewsArticleRepositoryError.NoMatchingNewsArticle(let identifier):
+                            expect(identifier).to(equal("some-identifier"))
+                        default:
+                            fail("unexpected error type")
+                        }
                     }
                 }
 
 
                 context("when the request to the JSON client succeeds but does not resolve with a JSON dictioanry") {
-                    beforeEach {
+                    it("calls the completion handler with an error") {
                         let promise = jsonClient.promisesByURL[urlProvider.newsFeedURL()]!
 
-                        promise.resolve([1,2,3])
-                    }
+                        let badObj = [1,2,3]
+                        promise.resolve(badObj)
 
-                    it("calls the completion handler with an error") {
-                        expect(newsArticleFuture.error).notTo(beNil())
+                        switch(newsArticleFuture.error!) {
+                        case NewsArticleRepositoryError.InvalidJSON(let jsonObject):
+                            expect(jsonObject as? [Int]).to(equal(badObj))
+                        default:
+                            fail("unexpected error type")
+                        }
                     }
                 }
 
                 context("when the request to the JSON client fails") {
                     it("forwards the error to the caller") {
                         let promise = jsonClient.promisesByURL[urlProvider.newsFeedURL()]!
-                        let expectedError = NSError(domain: "somedomain", code: 666, userInfo: nil)
-                        promise.reject(expectedError)
+                        let expectedUnderlyingError = NSError(domain: "somedomain", code: 666, userInfo: nil)
+                        let jsonClientError = JSONClientError.NetworkError(error: expectedUnderlyingError)
 
-                        expect(newsArticleFuture.error).to(beIdenticalTo(expectedError))
+                        promise.reject(jsonClientError)
+
+                        switch(newsArticleFuture.error!) {
+                        case NewsArticleRepositoryError.ErrorInJSONClient(let jsonClientError):
+                            switch(jsonClientError) {
+                            case JSONClientError.NetworkError(let underlyingError):
+                                expect(underlyingError).to(beIdenticalTo(expectedUnderlyingError))
+                            default:
+                                fail("unexpected error type")
+                            }
+                        default:
+                            fail("unexpected error type")
+                        }
                     }
                 }
+
             }
         }
     }

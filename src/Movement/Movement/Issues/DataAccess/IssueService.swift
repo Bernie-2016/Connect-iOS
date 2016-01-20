@@ -1,7 +1,7 @@
 import CBGPromise
 
-typealias IssuesPromise = Promise<[Issue], NSError>
-typealias IssuesFuture = Future<[Issue], NSError>
+typealias IssuesPromise = Promise<[Issue], IssueRepositoryError>
+typealias IssuesFuture = Future<[Issue], IssueRepositoryError>
 
 
 protocol IssueService {

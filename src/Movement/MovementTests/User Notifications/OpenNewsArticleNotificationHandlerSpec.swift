@@ -76,7 +76,7 @@ class OpenNewsArticleNotificationHandlerSpec: QuickSpec {
                     beforeEach { subject.handleRemoteNotification(userInfo) }
 
                     it("it pops the interstitial controller from the navigation controller") {
-                        let error = NSError(domain: "asdf", code: 123, userInfo: nil)
+                        let error = NewsArticleRepositoryError.NoMatchingNewsArticle(identifier: "bowlax")
                         newsArticleService.lastReturnedPromise.reject(error)
 
                         expect(newsNavigationController.topViewController).to(beIdenticalTo(existingNewsController))

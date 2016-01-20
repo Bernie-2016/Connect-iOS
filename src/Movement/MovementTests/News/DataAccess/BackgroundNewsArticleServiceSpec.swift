@@ -36,7 +36,7 @@ class BackgroundNewsArticleServiceSpec: QuickSpec {
                 }
 
                 context("when the repository resolves its promise with a news article") {
-                    it("resolves its promise with the news article") {
+                    it("resolves its promise with the news article on the result queue") {
                         let expectedNewsArticle = TestUtils.newsArticle()
 
                         let future = subject.fetchNewsArticle("some-identifier")
@@ -53,8 +53,8 @@ class BackgroundNewsArticleServiceSpec: QuickSpec {
                 }
 
                 context("when the repository rejects its promise with an error") {
-                    it("rejects its promise with the error") {
-                        let expectedError = NSError(domain: "", code: 1, userInfo: nil)
+                    it("rejects its promise with the error on the result queue") {
+                        let expectedError = NewsArticleRepositoryError.NoMatchingNewsArticle(identifier: "wat")
 
                         let future = subject.fetchNewsArticle("some-identifier")
                         workerQueue.lastReceivedBlock()
@@ -65,7 +65,12 @@ class BackgroundNewsArticleServiceSpec: QuickSpec {
 
                         resultQueue.lastReceivedBlock()
 
-                        expect(future.error).to(beIdenticalTo(expectedError))
+                        switch(future.error!) {
+                        case .NoMatchingNewsArticle(let identifier):
+                            expect(identifier).to(equal("wat"))
+                        default:
+                            fail("unexpected error type")
+                        }
                     }
                 }
             }

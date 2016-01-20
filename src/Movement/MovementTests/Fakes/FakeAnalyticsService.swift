@@ -41,7 +41,7 @@ class FakeAnalyticsService: AnalyticsService {
     var lastError: ErrorType!
     var lastErrorContext: String!
 
-    func trackError(error: NSError, context: String) {
+    func trackError(error: ErrorType, context: String) {
         lastError = error
         lastErrorContext = context
     }

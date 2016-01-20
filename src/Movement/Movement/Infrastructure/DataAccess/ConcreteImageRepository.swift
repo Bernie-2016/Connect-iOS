@@ -14,7 +14,8 @@ class ConcreteImageRepository: ImageRepository {
 
         self.webImageManager.downloadImageWithURL(url, options: SDWebImageOptions(), progress: nil) { (image, error, cacheType, finished, imageURL) -> Void in
             if error != nil {
-                promise.reject(error)
+                let downloadError = ImageRepositoryError.DownloadError(error: error)
+                promise.reject(downloadError)
             } else {
                 promise.resolve(image)
             }

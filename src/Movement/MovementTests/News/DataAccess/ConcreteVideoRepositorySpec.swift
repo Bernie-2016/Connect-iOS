@@ -21,7 +21,7 @@ class ConcreteVideoRepositorySpec : QuickSpec {
             )
 
             describe(".fetchVideos") {
-                var videosFuture: Future<Array<Video>, NSError>!
+                var videosFuture: VideoFuture!
 
                 beforeEach {
                     videosFuture = self.subject.fetchVideos()
@@ -64,25 +64,41 @@ class ConcreteVideoRepositorySpec : QuickSpec {
                     }
                 }
 
-                context("when he request to the JSON client succeeds but does not resolve with a JSON dictioanry") {
-                    beforeEach {
+                context("when the request to the JSON client succeeds but does not resolve with a JSON dictioanry") {
+                    it("calls the completion handler with an error") {
                         let promise = self.jsonClient.promisesByURL[self.urlProvider.videoURL()]!
 
-                        promise.resolve([1,2,3])
-                    }
+                        let badObj = [1,2,3]
+                        promise.resolve(badObj)
 
-                    it("calls the completion handler with an error") {
-                        expect(videosFuture.error).notTo(beNil())
+                        switch(videosFuture.error!) {
+                        case VideoRepositoryError.InvalidJSON(let jsonObject):
+                            expect(jsonObject as? [Int]).to(equal(badObj))
+                        default:
+                            fail("unexpected error type")
+                        }
                     }
                 }
 
                 context("when the request to the JSON client fails") {
                     it("forwards the error to the caller") {
                         let promise = self.jsonClient.promisesByURL[self.urlProvider.videoURL()]!
-                        let expectedError = NSError(domain: "somedomain", code: 666, userInfo: nil)
-                        promise.reject(expectedError)
+                        let expectedUnderlyingError = NSError(domain: "somedomain", code: 666, userInfo: nil)
+                        let jsonClientError = JSONClientError.NetworkError(error: expectedUnderlyingError)
 
-                        expect(videosFuture.error).to(beIdenticalTo(expectedError))
+                        promise.reject(jsonClientError)
+
+                        switch(videosFuture.error!) {
+                        case VideoRepositoryError.ErrorInJSONClient(let jsonClientError):
+                            switch(jsonClientError) {
+                            case JSONClientError.NetworkError(let underlyingError):
+                                expect(underlyingError).to(beIdenticalTo(expectedUnderlyingError))
+                            default:
+                                fail("unexpected error type")
+                            }
+                        default:
+                               fail("unexpected error type")
+                        }
                     }
                 }
             }
