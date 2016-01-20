@@ -106,13 +106,13 @@ class NewsFeedControllerSpecs: QuickSpec {
                     let newsArticles: [NewsFeedItem] = [newsArticleA, newsArticleB]
 
                     it("has 1 section") {
-                        newsFeedService.lastCompletionBlock!(newsArticles)
+                        newsFeedService.lastReturnedPromise.resolve(newsArticles)
 
                         expect(subject.tableView.numberOfSections).to(equal(1))
                     }
 
                     it("shows the table view, and stops the loading spinner") {
-                        newsFeedService.lastCompletionBlock!(newsArticles)
+                        newsFeedService.lastReturnedPromise.resolve(newsArticles)
 
                         expect(subject.tableView.hidden).to(equal(false));
                         expect(subject.loadingIndicatorView.isAnimating()).to(equal(false))
@@ -120,7 +120,7 @@ class NewsFeedControllerSpecs: QuickSpec {
 
                     describe("the content of the news feed") {
                         beforeEach {
-                            newsFeedService.lastCompletionBlock!(newsArticles)
+                            newsFeedService.lastReturnedPromise.resolve(newsArticles)
                         }
 
                         it("shows the news items in the table, using the presenter") {
@@ -148,7 +148,7 @@ class NewsFeedControllerSpecs: QuickSpec {
                     let expectedError = NewsFeedServiceError.FailedToFetchNews(underlyingErrors: [expectedUnderlyingError])
 
                     beforeEach {
-                        newsFeedService.lastErrorBlock!(expectedError)
+                        newsFeedService.lastReturnedPromise.reject(expectedError)
                     }
 
                     it("logs that error to the analytics service") {
@@ -190,14 +190,14 @@ class NewsFeedControllerSpecs: QuickSpec {
                             let newsArticles: [NewsFeedItem] = [newsArticleA, newsArticleB]
 
                             it("has 1 section") {
-                                newsFeedService.lastCompletionBlock!(newsArticles)
+                                newsFeedService.lastReturnedPromise.resolve(newsArticles)
 
                                 expect(subject.tableView.numberOfSections).to(equal(1))
                             }
 
 
                             it("shows the news items in the table") {
-                                newsFeedService.lastCompletionBlock!(newsArticles)
+                                newsFeedService.lastReturnedPromise.resolve(newsArticles)
 
                                 expect(subject.tableView.numberOfRowsInSection(0)).to(equal(2))
 
@@ -226,7 +226,7 @@ class NewsFeedControllerSpecs: QuickSpec {
 
                     let newsArticles: [NewsFeedItem] = [expectedNewsItemA, expectedNewsItemB]
 
-                    newsFeedService.lastCompletionBlock!(newsArticles)
+                    newsFeedService.lastReturnedPromise.resolve(newsArticles)
 
                     let tableView = subject.tableView
                     tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 1))
@@ -271,13 +271,12 @@ private class NewsFakeTheme: FakeTheme {
 }
 
 private class FakeNewsFeedService: NewsFeedService {
-    var lastCompletionBlock: (([NewsFeedItem]) -> Void)?
-    var lastErrorBlock: ((NewsFeedServiceError) -> Void)?
+    var lastReturnedPromise: NewsFeedPromise!
     var fetchNewsFeedCalled: Bool = false
 
-    func fetchNewsFeed(completion: ([NewsFeedItem]) -> Void, error: (NewsFeedServiceError) -> Void) {
+    func fetchNewsFeed() -> NewsFeedFuture {
         fetchNewsFeedCalled = true
-        lastCompletionBlock = completion
-        lastErrorBlock = error
+        lastReturnedPromise = NewsFeedPromise()
+        return lastReturnedPromise.future
     }
 }

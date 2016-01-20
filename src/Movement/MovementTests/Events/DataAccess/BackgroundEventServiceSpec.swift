@@ -39,7 +39,7 @@ class BackgroundEventServiceSpec: QuickSpec {
                         workerQueue.lastReceivedBlock()
 
                         let expectedSearchResult = EventSearchResult(searchCentroid: CLLocation(latitude: 12, longitude: 34), events: [])
-                        eventRepository.lastCompletionBlock!(expectedSearchResult)
+                        eventRepository.lastReturnedPromise.resolve(expectedSearchResult)
 
                         expect(future.value).to(beNil())
 
@@ -55,7 +55,7 @@ class BackgroundEventServiceSpec: QuickSpec {
                         workerQueue.lastReceivedBlock()
 
                         let expectedError = EventRepositoryError.InvalidJSONError(jsonObject: "wat")
-                        eventRepository.lastErrorBlock!(expectedError)
+                        eventRepository.lastReturnedPromise.reject(expectedError)
 
                         expect(future.error).to(beNil())
 

@@ -15,16 +15,11 @@ class BackgroundEventService: EventService {
         let promise = EventSearchResultPromise()
 
         workerQueue.addOperationWithBlock {
-            self.eventRepository.fetchEventsWithZipCode(zipCode, radiusMiles: radiusMiles, completion: { eventSearchResult -> Void in
-                self.resultQueue.addOperationWithBlock {
-                    promise.resolve(eventSearchResult)
-                }
-                }, error: { error in
-                    self.resultQueue.addOperationWithBlock {
-                        promise.reject(error)
-                    }
-            })
-
+            self.eventRepository.fetchEventsWithZipCode(zipCode, radiusMiles: radiusMiles).then { eventSearchResult in
+                self.resultQueue.addOperationWithBlock { promise.resolve(eventSearchResult) }
+            }.error { error in
+                self.resultQueue.addOperationWithBlock { promise.reject(error) }
+            }
         }
 
         return promise.future

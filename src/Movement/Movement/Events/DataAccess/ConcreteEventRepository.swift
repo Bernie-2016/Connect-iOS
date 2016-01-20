@@ -17,11 +17,13 @@ class ConcreteEventRepository: EventRepository {
             self.eventDeserializer = eventDeserializer
     }
 
-    func fetchEventsWithZipCode(zipCode: String, radiusMiles: Float, completion: (EventSearchResult) -> Void, error: (EventRepositoryError) -> Void) {
+    func fetchEventsWithZipCode(zipCode: String, radiusMiles: Float) -> EventSearchResultFuture {
+        let promise = EventSearchResultPromise()
+
         self.geocoder.geocodeAddressString(zipCode, completionHandler: { (placemarks, geocodingError) -> Void in
             if geocodingError != nil {
                 let wrappedError = EventRepositoryError.GeocodingError(error: geocodingError!)
-                error(wrappedError)
+                promise.reject(wrappedError)
                 return
             }
 
@@ -35,25 +37,27 @@ class ConcreteEventRepository: EventRepository {
                 longitude: location.coordinate.longitude,
                 radiusMiles: radiusMiles)
 
-            let eventsFuture = self.jsonClient.JSONPromiseWithURL(url, method: "POST", bodyDictionary: HTTPBodyDictionary)
+            let eventsJSONFuture = self.jsonClient.JSONPromiseWithURL(url, method: "POST", bodyDictionary: HTTPBodyDictionary)
 
-            eventsFuture.then { deserializedObject in
+            eventsJSONFuture.then { deserializedObject in
                 guard let jsonDictionary = deserializedObject as? NSDictionary else {
                     let invalidJSONError = EventRepositoryError.InvalidJSONError(jsonObject: deserializedObject)
-                    error(invalidJSONError)
+                    promise.reject(invalidJSONError)
                     return
                 }
 
                 let parsedEvents = self.eventDeserializer.deserializeEvents(jsonDictionary)
                 let eventSearchResult = EventSearchResult(searchCentroid: location, events: parsedEvents)
-                completion(eventSearchResult)
+                promise.resolve(eventSearchResult)
             }
 
-            eventsFuture.error { receivedError in
+            eventsJSONFuture.error { receivedError in
                 let jsonClientError = EventRepositoryError.ErrorInJSONClient(error: receivedError)
-                error(jsonClientError)
+                promise.reject(jsonClientError)
             }
         })
+
+        return promise.future
     }
 
     // MARK: Private

@@ -27,18 +27,10 @@ class BackgroundNewsFeedServiceSpec: QuickSpec {
                 )
             }
             describe("fetching the news feed") {
-                var receivedNewsFeedItems: [NewsFeedItem]!
-                var receivedError: NewsFeedServiceError!
+                var newsFeedFuture: NewsFeedFuture!
 
                 beforeEach {
-                    receivedNewsFeedItems = nil
-                    receivedError = nil
-
-                    subject.fetchNewsFeed({ (newsFeedItems) -> Void in
-                        receivedNewsFeedItems = newsFeedItems
-                        }, error: { (error) -> Void in
-                            receivedError = error
-                    })
+                    newsFeedFuture = subject.fetchNewsFeed()
                 }
 
                 it("asks the news article repository to fetch some news articles on the worker queue") {
@@ -73,12 +65,13 @@ class BackgroundNewsFeedServiceSpec: QuickSpec {
 
                         resultQueue.lastReceivedBlock()
 
+                        let receivedNewsFeedItems = newsFeedFuture.value!
                         expect(receivedNewsFeedItems.count).to(equal(5))
-                        expect(receivedNewsFeedItems![0] as? Video).to(beIdenticalTo(videoA))
-                        expect(receivedNewsFeedItems![1] as? NewsArticle).to(beIdenticalTo(newsArticleA))
-                        expect(receivedNewsFeedItems![2] as? NewsArticle).to(beIdenticalTo(newsArticleB))
-                        expect(receivedNewsFeedItems![3] as? Video).to(beIdenticalTo(videoB))
-                        expect(receivedNewsFeedItems![4] as? NewsArticle).to(beIdenticalTo(newsArticleC))
+                        expect(receivedNewsFeedItems[0] as? Video).to(beIdenticalTo(videoA))
+                        expect(receivedNewsFeedItems[1] as? NewsArticle).to(beIdenticalTo(newsArticleA))
+                        expect(receivedNewsFeedItems[2] as? NewsArticle).to(beIdenticalTo(newsArticleB))
+                        expect(receivedNewsFeedItems[3] as? Video).to(beIdenticalTo(videoB))
+                        expect(receivedNewsFeedItems[4] as? NewsArticle).to(beIdenticalTo(newsArticleC))
                     }
                 }
 
@@ -95,10 +88,11 @@ class BackgroundNewsFeedServiceSpec: QuickSpec {
 
                         resultQueue.lastReceivedBlock()
 
+                        let receivedNewsFeedItems = newsFeedFuture.value!
                         expect(receivedNewsFeedItems.count).to(equal(3))
-                        expect(receivedNewsFeedItems![0] as? NewsArticle).to(beIdenticalTo(newsArticleA))
-                        expect(receivedNewsFeedItems![1] as? NewsArticle).to(beIdenticalTo(newsArticleB))
-                        expect(receivedNewsFeedItems![2] as? NewsArticle).to(beIdenticalTo(newsArticleC))
+                        expect(receivedNewsFeedItems[0] as? NewsArticle).to(beIdenticalTo(newsArticleA))
+                        expect(receivedNewsFeedItems[1] as? NewsArticle).to(beIdenticalTo(newsArticleB))
+                        expect(receivedNewsFeedItems[2] as? NewsArticle).to(beIdenticalTo(newsArticleC))
                     }
                 }
 
@@ -112,13 +106,14 @@ class BackgroundNewsFeedServiceSpec: QuickSpec {
                         newsArticleRepository.lastPromise.resolve([])
                         videoRepository.lastPromise.resolve([videoB, videoA])
 
-                        expect(receivedNewsFeedItems).to(beNil())
+                        expect(newsFeedFuture.value).to(beNil())
 
                         resultQueue.lastReceivedBlock()
 
+                        let receivedNewsFeedItems = newsFeedFuture.value!
                         expect(receivedNewsFeedItems.count).to(equal(2))
-                        expect(receivedNewsFeedItems![0] as? Video).to(beIdenticalTo(videoA))
-                        expect(receivedNewsFeedItems![1] as? Video).to(beIdenticalTo(videoB))
+                        expect(receivedNewsFeedItems[0] as? Video).to(beIdenticalTo(videoA))
+                        expect(receivedNewsFeedItems[1] as? Video).to(beIdenticalTo(videoB))
                     }
                 }
 
@@ -135,13 +130,14 @@ class BackgroundNewsFeedServiceSpec: QuickSpec {
 
                             videoRepository.lastPromise.resolve([videoB, videoA])
 
-                            expect(receivedNewsFeedItems).to(beNil())
+                            expect(newsFeedFuture.value).to(beNil())
 
                             resultQueue.lastReceivedBlock()
 
+                            let receivedNewsFeedItems = newsFeedFuture.value!
                             expect(receivedNewsFeedItems.count).to(equal(2))
-                            expect(receivedNewsFeedItems![0] as? Video).to(beIdenticalTo(videoA))
-                            expect(receivedNewsFeedItems![1] as? Video).to(beIdenticalTo(videoB))
+                            expect(receivedNewsFeedItems[0] as? Video).to(beIdenticalTo(videoA))
+                            expect(receivedNewsFeedItems[1] as? Video).to(beIdenticalTo(videoB))
                         }
                     }
 
@@ -156,14 +152,15 @@ class BackgroundNewsFeedServiceSpec: QuickSpec {
 
                             newsArticleRepository.lastPromise.resolve([newsArticleC, newsArticleA, newsArticleB])
 
-                            expect(receivedNewsFeedItems).to(beNil())
+                            expect(newsFeedFuture.value).to(beNil())
 
                             resultQueue.lastReceivedBlock()
 
+                            let receivedNewsFeedItems = newsFeedFuture.value!
                             expect(receivedNewsFeedItems.count).to(equal(3))
-                            expect(receivedNewsFeedItems![0] as? NewsArticle).to(beIdenticalTo(newsArticleA))
-                            expect(receivedNewsFeedItems![1] as? NewsArticle).to(beIdenticalTo(newsArticleB))
-                            expect(receivedNewsFeedItems![2] as? NewsArticle).to(beIdenticalTo(newsArticleC))
+                            expect(receivedNewsFeedItems[0] as? NewsArticle).to(beIdenticalTo(newsArticleA))
+                            expect(receivedNewsFeedItems[1] as? NewsArticle).to(beIdenticalTo(newsArticleB))
+                            expect(receivedNewsFeedItems[2] as? NewsArticle).to(beIdenticalTo(newsArticleC))
                         }
                     }
 
@@ -175,11 +172,11 @@ class BackgroundNewsFeedServiceSpec: QuickSpec {
                             let videoError = VideoRepositoryError.InvalidJSON(jsonObject: "lol")
                             videoRepository.lastPromise.reject(videoError)
 
-                            expect(receivedError).to(beNil())
+                            expect(newsFeedFuture.error).to(beNil())
 
                             resultQueue.lastReceivedBlock()
 
-                            switch(receivedError!) {
+                            switch(newsFeedFuture.error!) {
                             case NewsFeedServiceError.FailedToFetchNews(let underlyingErrors):
                                 expect(underlyingErrors.count).to(equal(2))
 

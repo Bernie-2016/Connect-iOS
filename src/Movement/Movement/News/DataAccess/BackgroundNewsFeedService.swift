@@ -15,7 +15,9 @@ class BackgroundNewsFeedService: NewsFeedService {
         self.resultQueue = resultQueue
     }
 
-    func fetchNewsFeed(completion: ([NewsFeedItem]) -> Void, error: (NewsFeedServiceError) -> Void) {
+    func fetchNewsFeed() -> NewsFeedFuture {
+        let promise = NewsFeedPromise()
+
         workerQueue.addOperationWithBlock {
             var completedFutures = 0
             let numberOfRepositories = 2
@@ -30,7 +32,7 @@ class BackgroundNewsFeedService: NewsFeedService {
                 completedFutures += 1
                 if completedFutures == numberOfRepositories {
                     let sortedNewsItems = self.sortNewsItems(videos, newsArticles: newsArticles)
-                    self.resultQueue.addOperationWithBlock { completion(sortedNewsItems) }
+                    self.resultQueue.addOperationWithBlock { promise.resolve(sortedNewsItems) }
                 }
             }
 
@@ -39,7 +41,7 @@ class BackgroundNewsFeedService: NewsFeedService {
                 errors.append(receivedError)
                 if errors.count == numberOfRepositories {
                     let wrapperError = NewsFeedServiceError.FailedToFetchNews(underlyingErrors: errors)
-                    self.resultQueue.addOperationWithBlock { error(wrapperError) }
+                    self.resultQueue.addOperationWithBlock { promise.reject(wrapperError) }
                 }
             }
 
@@ -55,6 +57,8 @@ class BackgroundNewsFeedService: NewsFeedService {
             }
             videosFuture.error(handleFailure)
         }
+
+        return promise.future
     }
 
     private func sortNewsItems(videos: Array<NewsFeedItem>, newsArticles: Array<NewsFeedItem>) -> Array<NewsFeedItem> {

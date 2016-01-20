@@ -3,14 +3,13 @@
 class FakeEventRepository : EventRepository {
     var lastReceivedZipCode : NSString?
     var lastReceivedRadiusMiles : Float?
-    var lastCompletionBlock: ((EventSearchResult) -> Void)?
-    var lastErrorBlock: ((EventRepositoryError) -> Void)?
+    var lastReturnedPromise: EventSearchResultPromise!
 
-    func fetchEventsWithZipCode(zipCode: String, radiusMiles: Float, completion: (EventSearchResult) -> Void, error: (EventRepositoryError) -> Void) {
-        self.lastReceivedZipCode = zipCode
-        self.lastReceivedRadiusMiles = radiusMiles
-        self.lastCompletionBlock = completion
-        self.lastErrorBlock = error
+    func fetchEventsWithZipCode(zipCode: String, radiusMiles: Float) -> EventSearchResultFuture {
+        lastReceivedZipCode = zipCode
+        lastReceivedRadiusMiles = radiusMiles
+        lastReturnedPromise = EventSearchResultPromise()
+        return lastReturnedPromise.future
     }
 }
 

@@ -11,5 +11,5 @@ typealias EventSearchResultFuture = Future<EventSearchResult, EventRepositoryErr
 typealias EventSearchResultPromise = Promise<EventSearchResult, EventRepositoryError>
 
 protocol EventRepository {
-    func fetchEventsWithZipCode(zipCode: String, radiusMiles: Float, completion: (EventSearchResult) -> Void, error: (EventRepositoryError) -> Void)
+    func fetchEventsWithZipCode(zipCode: String, radiusMiles: Float) -> EventSearchResultFuture
 }

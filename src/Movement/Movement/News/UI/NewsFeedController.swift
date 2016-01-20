@@ -91,13 +91,13 @@ class NewsFeedController: UIViewController {
             self.tableView.deselectRowAtIndexPath(selectedRowIndexPath, animated: false)
         }
 
-        self.newsFeedService.fetchNewsFeed({ (newsFeedItems) -> Void in
+        self.newsFeedService.fetchNewsFeed().then { newsFeedItems in
             self.errorLoadingNews = false
             self.tableView.hidden = false
             self.loadingIndicatorView.stopAnimating()
             self.newsFeedItems = newsFeedItems
             self.tableView.reloadData()
-            }) { (error) -> Void in
+            }.error { error in
                 self.errorLoadingNews = true
                 self.tableView.reloadData()
                 self.analyticsService.trackError(error, context: "Failed to load news feed")

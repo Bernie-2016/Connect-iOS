@@ -41,9 +41,6 @@ class ConcreteEventRepositorySpec : QuickSpec {
             var jsonClient: FakeJSONClient!
             var eventDeserializer: FakeEventDeserializer!
 
-            var receivedEventSearchResult: EventSearchResult!
-            var receivedError: EventRepositoryError!
-
             beforeEach {
                 geocoder = FakeGeocoder()
                 jsonClient = FakeJSONClient()
@@ -58,15 +55,10 @@ class ConcreteEventRepositorySpec : QuickSpec {
             }
 
             describe(".fetchEventsWithZipCode") {
-                beforeEach {
-                    receivedEventSearchResult = nil
-                    receivedError = nil
+                var eventsFuture: EventSearchResultFuture!
 
-                    subject.fetchEventsWithZipCode("90210", radiusMiles: 50.1, completion: { (eventSearchResult) -> Void in
-                        receivedEventSearchResult = eventSearchResult
-                        }, error: { (error) -> Void in
-                            receivedError = error
-                    })
+                beforeEach {
+                    eventsFuture = subject.fetchEventsWithZipCode("90210", radiusMiles: 50.1)
                 }
 
                 it("tries to geocode the zip code") {
@@ -170,6 +162,7 @@ class ConcreteEventRepositorySpec : QuickSpec {
                         }
 
                         it("calls the completion handler with an event search object containing the deserialized value objects on the operation queue") {
+                            let receivedEventSearchResult = eventsFuture.value!
                             expect(receivedEventSearchResult.searchCentroid).to(equal(expectedLocation))
                             expect(receivedEventSearchResult.events.count).to(equal(1))
                             expect(receivedEventSearchResult.events.first!).to(beIdenticalTo(expectedEvents.first!))
@@ -183,7 +176,7 @@ class ConcreteEventRepositorySpec : QuickSpec {
                             let badObj = [1,2,3]
                             promise.resolve(badObj)
 
-                            switch(receivedError!) {
+                            switch(eventsFuture.error!) {
                             case .InvalidJSONError(let jsonObject):
                                 expect(jsonObject as? [Int]).to(equal(badObj))
                             default:
@@ -198,7 +191,7 @@ class ConcreteEventRepositorySpec : QuickSpec {
                             let underlyingError = JSONClientError.HTTPStatusCodeError(statusCode: 400, data: nil)
                             promise.reject(underlyingError)
 
-                            switch(receivedError!) {
+                            switch(eventsFuture.error!) {
                             case .ErrorInJSONClient(let jsonClientError):
                                 switch(jsonClientError) {
                                 case .HTTPStatusCodeError(let statusCode, _):
@@ -221,7 +214,7 @@ class ConcreteEventRepositorySpec : QuickSpec {
                     }
 
                     it("calls the error handler with the geocoding error") {
-                        switch(receivedError!) {
+                        switch(eventsFuture.error!) {
                         case .GeocodingError(let error):
                             expect(error).to(beIdenticalTo(expectedError))
                         default:
