@@ -11,4 +11,9 @@ namespace :git do
     end
     puts "Done!"
   end
+
+  desc "Pushes the current branch to origin"
+  task :push_origin do
+    system("git push origin head") || bail
+  end
 end
