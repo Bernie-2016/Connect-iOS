@@ -37,7 +37,7 @@ class BackgroundIssueServiceSpec: QuickSpec {
                         workerQueue.lastReceivedBlock()
 
                         let expectedIssue = TestUtils.issue()
-                        issueRepository.lastCompletionBlock!([expectedIssue])
+                        issueRepository.lastReturnedPromise.resolve([expectedIssue])
 
                         expect(future.value).to(beNil())
 
@@ -59,7 +59,7 @@ class BackgroundIssueServiceSpec: QuickSpec {
                         let future = subject.fetchIssues()
                         workerQueue.lastReceivedBlock()
 
-                        issueRepository.lastErrorBlock!(expectedError)
+                        issueRepository.lastReturnedPromise.reject(expectedError)
 
                         expect(future.error).to(beNil())
 
@@ -79,13 +79,12 @@ class BackgroundIssueServiceSpec: QuickSpec {
 }
 
 private class FakeIssueRepository: IssueRepository {
-    var lastCompletionBlock: ((Array<Issue>) -> Void)?
-    var lastErrorBlock: ((IssueRepositoryError) -> Void)?
+    var lastReturnedPromise: IssuesPromise!
     var fetchIssuesCalled: Bool = false
 
-    func fetchIssues(completion: (Array<Issue>) -> Void, error: (IssueRepositoryError) -> Void) {
+    func fetchIssues() -> IssuesFuture {
+        lastReturnedPromise = IssuesPromise()
         self.fetchIssuesCalled = true
-        self.lastCompletionBlock = completion
-        self.lastErrorBlock = error
+        return lastReturnedPromise.future
     }
 }

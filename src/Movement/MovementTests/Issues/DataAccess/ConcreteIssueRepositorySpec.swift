@@ -23,8 +23,6 @@ class ConcreteIssueRepositorySpec : QuickSpec {
     var jsonClient: FakeJSONClient!
     private let urlProvider = IssueRepositoryFakeURLProvider()
     private var issueDeserializer: FakeIssueDeserializer!
-    var receivedIssues: Array<Issue>!
-    var receivedError: IssueRepositoryError!
 
     override func spec() {
         describe("ConcreteIssueRepository") {
@@ -40,12 +38,10 @@ class ConcreteIssueRepositorySpec : QuickSpec {
             }
 
             describe(".fetchIssues") {
+                var issuesFuture: IssuesFuture!
+
                 beforeEach {
-                    self.subject.fetchIssues({ issues in
-                        self.receivedIssues = issues
-                        }, error: { error in
-                            self.receivedError = error
-                    })
+                    issuesFuture = self.subject.fetchIssues()
                 }
 
                 it("makes a single request to the JSON Client with the correct URL, method and parametrs") {
@@ -88,8 +84,8 @@ class ConcreteIssueRepositorySpec : QuickSpec {
                     }
 
                     it("calls the completion handler with the deserialized value objects") {
-                        expect(self.receivedIssues.count).to(equal(1))
-                        expect(self.receivedIssues.first!).to(beIdenticalTo(expectedIssues.first!))
+                        expect(issuesFuture.value!.count).to(equal(1))
+                        expect(issuesFuture.value!.first!).to(beIdenticalTo(expectedIssues.first!))
                     }
                 }
 
@@ -100,7 +96,7 @@ class ConcreteIssueRepositorySpec : QuickSpec {
                         let badObj = [1,2,3]
                         promise.resolve(badObj)
 
-                        switch(self.receivedError!) {
+                        switch(issuesFuture.error!) {
                         case .InvalidJSON(let jsonObject):
                             expect(jsonObject as? [Int]).to(equal(badObj))
                         default:
@@ -117,7 +113,7 @@ class ConcreteIssueRepositorySpec : QuickSpec {
 
                         promise.reject(jsonClientError)
 
-                        switch(self.receivedError!) {
+                        switch(issuesFuture.error!) {
                         case .ErrorInJSONClient(let jsonClientError):
                             switch(jsonClientError) {
                             case JSONClientError.NetworkError(let underlyingError):

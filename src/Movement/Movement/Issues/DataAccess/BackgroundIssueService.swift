@@ -13,15 +13,15 @@ class BackgroundIssueService: IssueService {
         let promise = IssuesPromise()
 
         workerQueue.addOperationWithBlock {
-            self.issueRepository.fetchIssues({ issues in
+            self.issueRepository.fetchIssues().then { issues in
                 self.resultQueue.addOperationWithBlock({
                     promise.resolve(issues)
                 })
-                }, error: { error in
+                }.error { error in
                     self.resultQueue.addOperationWithBlock({
                         promise.reject(error)
                     })
-            })
+            }
         }
 
         return promise.future

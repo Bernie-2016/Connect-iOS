@@ -5,34 +5,36 @@ class ConcreteIssueRepository: IssueRepository {
     private let jsonClient: JSONClient
     private let issueDeserializer: IssueDeserializer
 
-    init(
-        urlProvider: URLProvider,
-        jsonClient: JSONClient,
-        issueDeserializer: IssueDeserializer) {
+    init(urlProvider: URLProvider,
+         jsonClient: JSONClient,
+         issueDeserializer: IssueDeserializer) {
             self.urlProvider = urlProvider
             self.jsonClient = jsonClient
             self.issueDeserializer = issueDeserializer
     }
 
-    func fetchIssues(completion: (Array<Issue>) -> Void, error: (IssueRepositoryError) -> Void) {
+    func fetchIssues() -> IssuesFuture {
+        let promise = IssuesPromise()
+
         let issuesJSONFuture = self.jsonClient.JSONPromiseWithURL(self.urlProvider.issuesFeedURL(), method: "POST", bodyDictionary: self.HTTPBodyDictionary())
 
         issuesJSONFuture.then { deserializedObject in
             guard let jsonDictionary = deserializedObject as? NSDictionary else {
                 let incorrectObjectTypeError = IssueRepositoryError.InvalidJSON(jsonObject: deserializedObject)
-                error(incorrectObjectTypeError)
+                promise.reject(incorrectObjectTypeError)
                 return
             }
 
             let parsedIssues = self.issueDeserializer.deserializeIssues(jsonDictionary)
-
-            completion(parsedIssues)
+            promise.resolve(parsedIssues)
         }
 
         issuesJSONFuture.error { receivedError in
             let jsonClientError = IssueRepositoryError.ErrorInJSONClient(error: receivedError)
-            error(jsonClientError)
+            promise.reject(jsonClientError)
         }
+
+        return promise.future
     }
 
     // MARK: Private
