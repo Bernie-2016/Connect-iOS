@@ -83,7 +83,7 @@ class ConcreteURLProvider: URLProvider {
         let urlComponents = NSURLComponents(string: "https://img.youtube.com/")!
 
         let basePath = ("/vi" as NSString).stringByAppendingPathComponent(identifier) as NSString
-        let fullPath = basePath.stringByAppendingPathComponent("maxresdefault.jpg")
+        let fullPath = basePath.stringByAppendingPathComponent("hqdefault.jpg")
         urlComponents.path = fullPath
 
         return urlComponents.URL!

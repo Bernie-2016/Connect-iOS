@@ -66,7 +66,7 @@ class ConcreteURLProviderSpec : QuickSpec {
 
             describe("building the YouTube thumbnail URL") {
                 it("returns the correct URL") {
-                    expect(subject.youtubeThumbnailURL("some-id")).to(equal(NSURL(string: "https://img.youtube.com/vi/some-id/maxresdefault.jpg")))
+                    expect(subject.youtubeThumbnailURL("some-id")).to(equal(NSURL(string: "https://img.youtube.com/vi/some-id/hqdefault.jpg")))
                 }
             }
         }
