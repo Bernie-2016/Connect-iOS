@@ -65,7 +65,7 @@ class ConcreteAnalyticsService: AnalyticsService {
         self.applicationSettingsRepository.isAnalyticsEnabled { (analyticsEnabled) -> Void in
             if analyticsEnabled {
                 #if RELEASE
-                    Flurry.logError(context, message: error.description, error: error)
+                    Flurry.logError(context, message: "\(error)", error: error as NSError)
                 #endif
             }
         }

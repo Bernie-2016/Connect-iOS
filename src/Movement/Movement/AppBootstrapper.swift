@@ -1,5 +1,7 @@
 import UIKit
 import AVFoundation
+import Fabric
+import Crashlytics
 
 protocol AppBootstrapper {
     func bootstrap()
