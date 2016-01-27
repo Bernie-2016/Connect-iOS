@@ -201,7 +201,11 @@ class DefaultTheme: Theme {
     func tableSectionHeaderTextColor() -> UIColor { return boulderColor }
 
     func mediumSystemFontOfSize(size: CGFloat) -> UIFont {
-        return UIFont(name: ".SFUIDisplay-Medium", size: size)!
+        guard let font = UIFont(name: ".SFUIDisplay-Medium", size: size) else {
+            return UIFont.systemFontOfSize(size)
+        }
+
+        return font
     }
 
     func semiBoldSystemFontOfSize(size: CGFloat) -> UIFont {
