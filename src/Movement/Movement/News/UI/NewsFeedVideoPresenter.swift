@@ -41,9 +41,10 @@ class NewsFeedVideoPresenter: NewsFeedTableViewCellPresenter {
         let thumbnailURL = urlProvider.youtubeThumbnailURL(video.identifier)
         let imageFuture = imageService.fetchImageWithURL(thumbnailURL)
         imageFuture.then({ image in
-            cell.thumbnailImageView.image = image
+            UIView.transitionWithView(cell.thumbnailImageView, duration: 0.3, options: .TransitionCrossDissolve, animations: {
+                cell.thumbnailImageView.image = image
+            }, completion: nil)
         })
-
 
         return cell
     }

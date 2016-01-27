@@ -66,8 +66,16 @@ class IssueController: UIViewController {
         }
 
         let imageFuture = imageService.fetchImageWithURL(imageURL)
-        imageFuture.then { image in self.issueImageView.image = image }
-        imageFuture.error { error in self.issueImageView.removeFromSuperview() }
+        imageFuture.then { image in
+            UIView.transitionWithView(self.issueImageView, duration: 0.3, options: .TransitionCrossDissolve, animations: {
+                self.issueImageView.image = image
+                }, completion: nil)
+        }
+        imageFuture.error { error in
+            UIView.transitionWithView(self.issueImageView, duration: 0.3, options: .TransitionCrossDissolve, animations: {
+                self.issueImageView.removeFromSuperview()
+                }, completion: nil)
+        }
     }
 
     override func didMoveToParentViewController(parent: UIViewController?) {

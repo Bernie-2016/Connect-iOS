@@ -48,7 +48,9 @@ class NewsFeedArticlePresenter: NewsFeedTableViewCellPresenter {
         cell.newsImageVisible = true
         let imageFuture = imageService.fetchImageWithURL(imageURL)
         imageFuture.then { image in
-            cell.newsImageView.image = image
+            UIView.transitionWithView(cell.newsImageView, duration: 0.3, options: .TransitionCrossDissolve, animations: {
+                cell.newsImageView.image = image
+            }, completion: nil)
         }
 
         return cell

@@ -78,8 +78,16 @@ class NewsArticleController: UIViewController {
         }
 
         let imageFuture = imageService.fetchImageWithURL(imageURL)
-        imageFuture.then { image in self.storyImageView.image = image }
-        imageFuture.error { error in self.storyImageView.removeFromSuperview() }
+        imageFuture.then { image in
+            UIView.transitionWithView(self.storyImageView, duration: 0.3, options: .TransitionCrossDissolve, animations: {
+                self.storyImageView.image = image
+                }, completion: nil)
+        }
+        imageFuture.error { error in
+            UIView.transitionWithView(self.storyImageView, duration: 0.3, options: .TransitionCrossDissolve, animations: {
+                self.storyImageView.removeFromSuperview()
+                }, completion: nil)
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {
