@@ -3,7 +3,7 @@ import Quick
 import Nimble
 import UIKit
 
-class NavBarFakeTheme : FakeTheme {
+class NavBarFakeTheme: FakeTheme {
     override func defaultBackgroundColor() -> UIColor {
         return UIColor.greenColor()
     }
@@ -18,6 +18,10 @@ class NavBarFakeTheme : FakeTheme {
 
     override func navigationBarTextColor() -> UIColor {
         return UIColor.magentaColor()
+    }
+
+    override func navigationBarButtonFont() -> UIFont {
+        return UIFont.systemFontOfSize(42)
     }
 }
 

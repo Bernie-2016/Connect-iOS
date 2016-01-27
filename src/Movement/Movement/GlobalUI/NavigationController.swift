@@ -14,14 +14,20 @@ class NavigationController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = self.theme.defaultBackgroundColor()
-        self.setNeedsStatusBarAppearanceUpdate()
-        self.navigationBar.translucent = false
-        self.navigationBar.barTintColor = self.theme.navigationBarBackgroundColor()
-        self.navigationBar.titleTextAttributes = [
-            NSForegroundColorAttributeName: self.theme.navigationBarTextColor(),
-            NSFontAttributeName: self.theme.navigationBarFont()
+        view.backgroundColor = theme.defaultBackgroundColor()
+        setNeedsStatusBarAppearanceUpdate()
+        navigationBar.translucent = false
+        navigationBar.barTintColor = theme.navigationBarBackgroundColor()
+        navigationBar.tintColor = theme.navigationBarTextColor()
+        navigationBar.titleTextAttributes = [
+            NSForegroundColorAttributeName: theme.navigationBarTextColor(),
+            NSFontAttributeName: theme.navigationBarFont()
         ]
+
+        UIBarButtonItem.appearance().setTitleTextAttributes([
+            NSForegroundColorAttributeName: theme.navigationBarTextColor(),
+            NSFontAttributeName: theme.navigationBarButtonFont()], forState: .Normal
+        )
     }
 
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
