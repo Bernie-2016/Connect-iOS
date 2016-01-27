@@ -74,6 +74,7 @@ class DefaultTheme: Theme {
     // MARK: buttons
     func defaultButtonBackgroundColor() -> UIColor { return chathamsBlueColor }
     func defaultButtonTextColor() -> UIColor { return UIColor.whiteColor() }
+    func defaultButtonDisabledTextColor() -> UIColor { return grayChateauColor }
     func defaultButtonFont() -> UIFont { return h2HeaderFont() }
 
     // MARK: Settings

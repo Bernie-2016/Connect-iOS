@@ -31,12 +31,7 @@ class NewsFeedVideoPresenter: NewsFeedTableViewCellPresenter {
         let videoPublishedToday = timeIntervalFormatter.numberOfDaysSinceDate(video.date) == 0
 
         if videoPublishedToday {
-            let nowText = NSLocalizedString("Now", comment: "")
-            let attributedString = NSMutableAttributedString(string: "\(nowText) | \(video.description)")
-            let range = NSRange(location: 0, length: nowText.lengthOfBytesUsingEncoding(NSUTF8StringEncoding))
-            attributedString.addAttribute(NSForegroundColorAttributeName, value: theme.highlightDisclosureColor(), range: range)
-
-            cell.descriptionLabel.attributedText = attributedString
+            cell.descriptionLabel.attributedText = todayDescription(video)
         } else {
             cell.descriptionLabel.text = video.description
         }
@@ -59,5 +54,13 @@ class NewsFeedVideoPresenter: NewsFeedTableViewCellPresenter {
         cell.descriptionLabel.textColor = theme.newsFeedExcerptColor()
         cell.descriptionLabel.font = theme.newsFeedExcerptFont()
         cell.overlayView.backgroundColor = theme.newsFeedVideoOverlayBackgroundColor()
+    }
+
+    private func todayDescription(video: Video) -> NSAttributedString {
+        let nowText = NSLocalizedString("Now", comment: "")
+        let attributedString = NSMutableAttributedString(string: "\(nowText) | \(video.description)")
+        let range = NSRange(location: 0, length: nowText.lengthOfBytesUsingEncoding(NSUTF8StringEncoding))
+        attributedString.addAttribute(NSForegroundColorAttributeName, value: theme.highlightDisclosureColor(), range: range)
+        return attributedString
     }
 }

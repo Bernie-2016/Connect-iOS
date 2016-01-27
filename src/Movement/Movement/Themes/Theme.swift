@@ -11,6 +11,7 @@ protocol Theme {
     func attributionTextColor() -> UIColor
     func defaultButtonBackgroundColor() -> UIColor
     func defaultButtonTextColor() -> UIColor
+    func defaultButtonDisabledTextColor() -> UIColor
     func defaultButtonFont() -> UIFont
     func defaultDisclosureColor() -> UIColor
     func highlightDisclosureColor() -> UIColor

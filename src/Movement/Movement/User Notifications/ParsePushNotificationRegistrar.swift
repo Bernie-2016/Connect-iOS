@@ -23,5 +23,6 @@ class ParsePushNotificationRegistrar: PushNotificationRegistrar {
     func application(application: UserNotificationRegisterable, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         self.installation.setDeviceTokenFromData(deviceToken)
         self.installation.saveInBackground()
+        print(self.installation.installationId)
     }
 }

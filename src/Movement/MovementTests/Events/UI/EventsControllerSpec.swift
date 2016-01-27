@@ -20,6 +20,7 @@ class EventsControllerSpec : QuickSpec {
         var navigationController: UINavigationController!
         var eventSectionHeaderPresenter: FakeEventSectionHeaderPresenter!
         var eventListTableViewCellStylist: FakeEventListTableViewCellStylist!
+        var zipCodeValidator: FakeZipCodeValidator!
 
         describe("EventsController") {
             beforeEach {
@@ -35,6 +36,7 @@ class EventsControllerSpec : QuickSpec {
                 analyticsService = FakeAnalyticsService()
                 tabBarItemStylist = FakeTabBarItemStylist()
                 eventListTableViewCellStylist = FakeEventListTableViewCellStylist()
+                zipCodeValidator = FakeZipCodeValidator()
 
                 window = UIWindow()
 
@@ -48,6 +50,7 @@ class EventsControllerSpec : QuickSpec {
                     analyticsService: analyticsService,
                     tabBarItemStylist: tabBarItemStylist,
                     eventListTableViewCellStylist: eventListTableViewCellStylist,
+                    zipCodeValidator: zipCodeValidator,
                     theme: EventsFakeTheme()
                 )
 
@@ -140,6 +143,10 @@ class EventsControllerSpec : QuickSpec {
                 expect(subject.zipCodeTextField.keyboardType).to(equal(UIKeyboardType.NumberPad))
             }
 
+            it("initially disables the search button") {
+                expect(subject.searchButton.enabled).to(beFalse())
+            }
+
             it("styles the page components with the theme") {
                 expect(subject.resultsTableView.backgroundColor).to(equal(UIColor(rgba: "#462462")))
                 expect(subject.searchBar.backgroundColor).to(equal(UIColor.greenColor()))
@@ -153,6 +160,7 @@ class EventsControllerSpec : QuickSpec {
                 expect(subject.zipCodeTextField.layer.sublayerTransform.m42).to(equal(5))
                 expect(subject.zipCodeTextField.layer.sublayerTransform.m43).to(equal(6))
 
+                expect(subject.searchButton.titleColorForState(.Disabled)).to(equal(UIColor(rgba: "#abcdef")))
                 expect(subject.searchButton.titleLabel!.font).to(equal(UIFont.boldSystemFontOfSize(4444)))
                 expect(subject.cancelButton.titleLabel!.font).to(equal(UIFont.boldSystemFontOfSize(4444)))
 
@@ -232,6 +240,54 @@ class EventsControllerSpec : QuickSpec {
                     expect(subject.zipCodeTextField.isFirstResponder()).to(beTrue())
 
                     subject.zipCodeTextField.text = "90210"
+                    let range = NSRange(location: 0, length: 5)
+                    subject.zipCodeTextField.delegate?.textField!(subject.zipCodeTextField, shouldChangeCharactersInRange: range, replacementString: "90210")
+                }
+
+                context("and the updated zipcode is determined to be valid by the validator") {
+                    it("enables the search button") {
+                        subject.zipCodeTextField.text = "9021"
+                        zipCodeValidator.returnedValidationResult = true
+                        let range = NSRange(location: 3, length: 0)
+                        subject.zipCodeTextField.delegate?.textField!(subject.zipCodeTextField, shouldChangeCharactersInRange: range, replacementString: "1")
+
+                        expect(zipCodeValidator.lastReceivedZipCode).to(equal("90211"))
+                        expect(subject.searchButton.enabled).to(beTrue())
+                    }
+                }
+
+                context("and the updated zipcode is invalid") {
+                    it("disables the search button") {
+                        subject.zipCodeTextField.text = "9021"
+                        zipCodeValidator.returnedValidationResult = false
+                        let range = NSRange(location: 3, length: 0)
+                        subject.zipCodeTextField.delegate?.textField!(subject.zipCodeTextField, shouldChangeCharactersInRange: range, replacementString: "1")
+
+                        expect(zipCodeValidator.lastReceivedZipCode).to(equal("90211"))
+                        expect(subject.searchButton.enabled).to(beFalse())
+                    }
+                }
+
+                context("and user tries to enter a zipcode more than 5 characters in length") {
+                    it("prevents the user from entering more characters") {
+                        subject.zipCodeTextField.text = "9021"
+                        zipCodeValidator.returnedValidationResult = true
+                        let range = NSRange(location: 3, length: 0)
+
+                        let shouldChange = subject.zipCodeTextField.delegate?.textField!(subject.zipCodeTextField, shouldChangeCharactersInRange: range, replacementString: "12")
+
+                        expect(shouldChange).to(beFalse())
+                    }
+
+                    it("does not disable the search button if the existing text was valid") {
+                        subject.zipCodeTextField.text = "90210"
+                        zipCodeValidator.returnedValidationResult = false
+                        let range = NSRange(location: 5, length: 0)
+
+                        subject.zipCodeTextField.delegate?.textField!(subject.zipCodeTextField, shouldChangeCharactersInRange: range, replacementString: "1")
+
+                        expect(subject.searchButton.enabled).to(beTrue())
+                    }
                 }
 
                 it("should show the search button") {
@@ -293,6 +349,7 @@ class EventsControllerSpec : QuickSpec {
 
                 describe("and then tapping search") {
                     beforeEach {
+                        expect(subject.searchButton.enabled).to(beTrue())
                         subject.searchButton.tap()
                     }
 
@@ -838,6 +895,10 @@ private class EventsFakeTheme : FakeTheme {
     override func defaultButtonTextColor() -> UIColor {
         return UIColor.blueColor()
     }
+
+    override func defaultButtonDisabledTextColor() -> UIColor {
+        return UIColor(rgba: "#abcdef")
+    }
 }
 
 private class FakeEventControllerProvider: EventControllerProvider {
@@ -910,5 +971,15 @@ private class FakeEventService: EventService {
         lastReceivedRadiusMiles = radiusMiles
         lastReturnedPromise = EventSearchResultPromise()
         return lastReturnedPromise.future
+    }
+}
+
+private class FakeZipCodeValidator: ZipCodeValidator {
+    var lastReceivedZipCode: NSString!
+    var returnedValidationResult = true
+
+    private func validate(zip: String) -> Bool {
+        lastReceivedZipCode = zip
+        return returnedValidationResult
     }
 }

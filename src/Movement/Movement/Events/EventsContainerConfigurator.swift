@@ -62,13 +62,17 @@ class EventsContainerConfigurator: ContainerConfigurator {
                 currentWeekDateFormatter: resolver.resolve(NSDateFormatter.self, name: "day")!,
                 nonCurrentWeekDateFormatter: resolver.resolve(NSDateFormatter.self, name: "shortDate")!,
                 dateProvider: resolver.resolve(DateProvider.self)!)
-        }
+        }.inObjectScope(.Container)
 
         container.register(EventListTableViewCellStylist.self) { resolver in
             return ConcreteEventListTableViewCellStylist(
                 dateProvider: resolver.resolve(DateProvider.self)!,
                 theme: resolver.resolve(Theme.self)!)
-        }
+        }.inObjectScope(.Container)
+
+        container.register(ZipCodeValidator.self) { resolver in
+            return StockZipCodeValidator()
+        }.inObjectScope(.Container)
 
         container.register(EventsController.self) { resolver in
             return EventsController(
@@ -81,6 +85,7 @@ class EventsContainerConfigurator: ContainerConfigurator {
                 analyticsService: resolver.resolve(AnalyticsService.self)!,
                 tabBarItemStylist: resolver.resolve(TabBarItemStylist.self)!,
                 eventListTableViewCellStylist: resolver.resolve(EventListTableViewCellStylist.self)!,
+                zipCodeValidator: resolver.resolve(ZipCodeValidator.self)!,
                 theme: resolver.resolve(Theme.self)!)
         }
 

@@ -242,6 +242,8 @@
 		65B7815A1C4C58B90087699B /* Swinject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B781581C4C58B90087699B /* Swinject.framework */; };
 		65B7815C1C4C58D90087699B /* Swinject.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 65B781591C4C58B90087699B /* Swinject.framework.dSYM */; };
 		65B97D571C459C9800F2F6B3 /* UserNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B97D561C459C9800F2F6B3 /* UserNotificationHandler.swift */; };
+		65BF649E1C573C8000B825E7 /* ZipCodeValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BF649D1C573C8000B825E7 /* ZipCodeValidator.swift */; };
+		65BF64A01C573CC200B825E7 /* ZipCodeValidatorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BF649F1C573CC200B825E7 /* ZipCodeValidatorSpec.swift */; };
 		65CA5E851B86CA930001D870 /* SpecAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CA5E841B86CA930001D870 /* SpecAppDelegate.swift */; };
 		65CA5E871B86CAAF0001D870 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CA5E861B86CAAF0001D870 /* main.swift */; };
 		65CA5E881B86CABB0001D870 /* SpecAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CA5E841B86CA930001D870 /* SpecAppDelegate.swift */; };
@@ -547,6 +549,8 @@
 		65B781581C4C58B90087699B /* Swinject.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Swinject.framework; path = Carthage/Build/iOS/Swinject.framework; sourceTree = "<group>"; };
 		65B781591C4C58B90087699B /* Swinject.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Swinject.framework.dSYM; path = Carthage/Build/iOS/Swinject.framework.dSYM; sourceTree = "<group>"; };
 		65B97D561C459C9800F2F6B3 /* UserNotificationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserNotificationHandler.swift; sourceTree = "<group>"; };
+		65BF649D1C573C8000B825E7 /* ZipCodeValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ZipCodeValidator.swift; path = UI/ZipCodeValidator.swift; sourceTree = "<group>"; };
+		65BF649F1C573CC200B825E7 /* ZipCodeValidatorSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZipCodeValidatorSpec.swift; sourceTree = "<group>"; };
 		65CA5E841B86CA930001D870 /* SpecAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecAppDelegate.swift; sourceTree = "<group>"; };
 		65CA5E861B86CAAF0001D870 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		65CA5E901B86E3D00001D870 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -652,6 +656,7 @@
 				653D0EB51C4C28C0004CB8A0 /* EventsController.swift */,
 				653D0EB61C4C28C0004CB8A0 /* EventSectionHeaderPresenter.swift */,
 				653D0EB71C4C28C0004CB8A0 /* EventsSectionHeaderView.swift */,
+				65BF649D1C573C8000B825E7 /* ZipCodeValidator.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -986,6 +991,7 @@
 				653D0FCC1C4C53BB004CB8A0 /* EventRSVPControllerSpec.swift */,
 				653D0FCD1C4C53BB004CB8A0 /* EventsControllerSpec.swift */,
 				653D0FCE1C4C53BB004CB8A0 /* EventSectionHeaderPresenterSpec.swift */,
+				65BF649F1C573CC200B825E7 /* ZipCodeValidatorSpec.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1713,6 +1719,7 @@
 				653D0FB71C4C536F004CB8A0 /* VideoDeserializer.swift in Sources */,
 				653D0EFB1C4C2B7D004CB8A0 /* VideoRepository.swift in Sources */,
 				653D0F8D1C4C2FF7004CB8A0 /* WelcomeController.swift in Sources */,
+				65BF649E1C573C8000B825E7 /* ZipCodeValidator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1804,6 +1811,7 @@
 				65AD23B21B968D6800C32A02 /* TestUtils.swift in Sources */,
 				653D10321C4C53BB004CB8A0 /* VideoControllerSpec.swift in Sources */,
 				653D10341C4C53BB004CB8A0 /* WelcomeControllerSpec.swift in Sources */,
+				65BF64A01C573CC200B825E7 /* ZipCodeValidatorSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

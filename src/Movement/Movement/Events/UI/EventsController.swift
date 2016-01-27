@@ -17,6 +17,7 @@ class EventsController: UIViewController, CLLocationManagerDelegate {
     private let analyticsService: AnalyticsService
     private let tabBarItemStylist: TabBarItemStylist
     private let eventListTableViewCellStylist: EventListTableViewCellStylist
+    private let zipCodeValidator: ZipCodeValidator
     private let theme: Theme
 
     let searchBar = UIView.newAutoLayoutView()
@@ -52,6 +53,7 @@ class EventsController: UIViewController, CLLocationManagerDelegate {
         analyticsService: AnalyticsService,
         tabBarItemStylist: TabBarItemStylist,
         eventListTableViewCellStylist: EventListTableViewCellStylist,
+        zipCodeValidator: ZipCodeValidator,
         theme: Theme) {
 
             self.eventService = eventService
@@ -63,6 +65,7 @@ class EventsController: UIViewController, CLLocationManagerDelegate {
             self.analyticsService = analyticsService
             self.tabBarItemStylist = tabBarItemStylist
             self.eventListTableViewCellStylist = eventListTableViewCellStylist
+            self.zipCodeValidator = zipCodeValidator
             self.theme = theme
 
             super.init(nibName: nil, bundle: nil)
@@ -134,12 +137,9 @@ class EventsController: UIViewController, CLLocationManagerDelegate {
 
     func didTapSearch(sender: UIButton!) {
         let enteredZipCode = self.zipCodeTextField.text!
-        
-        //Do zip code validation here
-        let zipCodeValidation = ZipCodeValidator()
-        let validationRtn = zipCodeValidation.validate(enteredZipCode)
-        
-        if (validationRtn == false){
+
+        let zipCodeValidator = StockZipCodeValidator()
+        if zipCodeValidator.validate(enteredZipCode) != true {
             return
         }
 
@@ -297,12 +297,14 @@ class EventsController: UIViewController, CLLocationManagerDelegate {
             attributes:[NSForegroundColorAttributeName: self.theme.eventsZipCodePlaceholderTextColor()])
         zipCodeTextField.keyboardType = .NumberPad
 
+        searchButton.enabled = false
         searchButton.setTitle(NSLocalizedString("Events_eventSearchButtonTitle", comment: ""), forState: .Normal)
         searchButton.hidden = true
         searchButton.addTarget(self, action: "didTapSearch:", forControlEvents: .TouchUpInside)
         cancelButton.setTitle(NSLocalizedString("Events_eventCancelButtonTitle", comment: ""), forState: .Normal)
         cancelButton.hidden = true
         cancelButton.addTarget(self, action: "didTapCancel:", forControlEvents: .TouchUpInside)
+        searchButton.setTitleColor(theme.defaultButtonDisabledTextColor(), forState: .Disabled)
 
         filterButton.setImage(UIImage(named: "filterIcon"), forState: .Normal)
         filterButton.setTitleColor(self.theme.eventsZipCodeTextColor(), forState: .Normal)
@@ -609,11 +611,10 @@ extension EventsController: UITextFieldDelegate {
 
         UIView.animateWithDuration(0.2, animations: { () -> Void in
             self.view.layoutIfNeeded()
-            }) { (finished) -> Void in
+            }) { _ in
                 self.searchButton.hidden = false
                 self.cancelButton.hidden = false
                 self.filterButton.hidden = true
-
         }
 
         analyticsService.trackCustomEventWithName("Tapped on ZIP Code text field on Events", customAttributes: nil)
@@ -627,7 +628,13 @@ extension EventsController: UITextFieldDelegate {
         let textFieldIsBecomingEmpty = (NSEqualRanges(range, textFieldRange) && stringLength == 0)
         magnifyingGlassIcon.image = textFieldIsBecomingEmpty ? UIImage(named: "searchMagnifyingGlassInactive")! : UIImage(named: "searchMagnifyingGlass")!
 
-        return true
+        let updatedZipCode = (zipCodeTextField.text! as NSString).stringByReplacingCharactersInRange(range, withString: string)
+
+        if updatedZipCode.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) < 6 {
+            searchButton.enabled = zipCodeValidator.validate(updatedZipCode)
+        }
+
+        return updatedZipCode.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) <= 5
     }
 }
 
