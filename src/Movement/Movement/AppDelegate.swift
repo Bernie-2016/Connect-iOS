@@ -1,6 +1,7 @@
 import UIKit
 import Swinject
 
+
 class AppDelegate: UIResponder, UIApplicationDelegate {
     private var pushNotificationRegistrar: PushNotificationRegistrar!
     private var userNotificationHandler: UserNotificationHandler!

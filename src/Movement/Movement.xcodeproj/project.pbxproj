@@ -250,6 +250,8 @@
 		65B97D571C459C9800F2F6B3 /* UserNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B97D561C459C9800F2F6B3 /* UserNotificationHandler.swift */; };
 		65BF649E1C573C8000B825E7 /* ZipCodeValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BF649D1C573C8000B825E7 /* ZipCodeValidator.swift */; };
 		65BF64A01C573CC200B825E7 /* ZipCodeValidatorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BF649F1C573CC200B825E7 /* ZipCodeValidatorSpec.swift */; };
+		65C246821C5AB282007B2A48 /* ActionAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C246811C5AB282007B2A48 /* ActionAlertController.swift */; };
+		65C246841C5AB29F007B2A48 /* ActionAlertControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C246831C5AB29F007B2A48 /* ActionAlertControllerProvider.swift */; };
 		65CA5E851B86CA930001D870 /* SpecAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CA5E841B86CA930001D870 /* SpecAppDelegate.swift */; };
 		65CA5E871B86CAAF0001D870 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CA5E861B86CAAF0001D870 /* main.swift */; };
 		65CA5E881B86CABB0001D870 /* SpecAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CA5E841B86CA930001D870 /* SpecAppDelegate.swift */; };
@@ -566,6 +568,8 @@
 		65B97D561C459C9800F2F6B3 /* UserNotificationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserNotificationHandler.swift; sourceTree = "<group>"; };
 		65BF649D1C573C8000B825E7 /* ZipCodeValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ZipCodeValidator.swift; path = UI/ZipCodeValidator.swift; sourceTree = "<group>"; };
 		65BF649F1C573CC200B825E7 /* ZipCodeValidatorSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZipCodeValidatorSpec.swift; sourceTree = "<group>"; };
+		65C246811C5AB282007B2A48 /* ActionAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionAlertController.swift; sourceTree = "<group>"; };
+		65C246831C5AB29F007B2A48 /* ActionAlertControllerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionAlertControllerProvider.swift; sourceTree = "<group>"; };
 		65CA5E841B86CA930001D870 /* SpecAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecAppDelegate.swift; sourceTree = "<group>"; };
 		65CA5E861B86CAAF0001D870 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		65CA5E901B86E3D00001D870 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -971,6 +975,8 @@
 		653D0FAB1C4C36D9004CB8A0 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				65C246811C5AB282007B2A48 /* ActionAlertController.swift */,
+				65C246831C5AB29F007B2A48 /* ActionAlertControllerProvider.swift */,
 				653D0FAC1C4C36D9004CB8A0 /* ActionsController.swift */,
 				653D0FAD1C4C36D9004CB8A0 /* ActionTableViewCell.swift */,
 			);
@@ -1651,6 +1657,8 @@
 			files = (
 				653D0F4D1C4C2DE2004CB8A0 /* AboutController.swift in Sources */,
 				6513E47B1C59B2E200CA51BD /* ActionAlert.swift in Sources */,
+				65C246821C5AB282007B2A48 /* ActionAlertController.swift in Sources */,
+				65C246841C5AB29F007B2A48 /* ActionAlertControllerProvider.swift in Sources */,
 				659885761C59CCA100C661C6 /* ActionAlertDeserializer.swift in Sources */,
 				65B0235B1C59C6490082E211 /* ActionAlertRepository.swift in Sources */,
 				6513E4781C59B29E00CA51BD /* ActionAlertService.swift in Sources */,

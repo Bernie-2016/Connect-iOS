@@ -57,7 +57,7 @@ class StockActionAlertRepositoySpec: QuickSpec {
                     }
                 }
 
-                context("when he request to the JSON client succeeds but does not resolve with a JSON dictioanry") {
+                context("when the request to the JSON client succeeds but does not resolve with a JSON dictioanry") {
                     it("calls the completion handler with an error") {
                         let jsonPromise = jsonClient.promisesByURL[urlProvider.actionAlertsURL()]!
 

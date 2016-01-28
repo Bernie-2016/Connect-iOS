@@ -251,16 +251,19 @@ class ActionsControllerSpec: QuickSpec {
             var urlProvider: URLProvider!
             var urlOpener: FakeURLOpener!
             var actionAlertService: FakeActionAlertService!
+            var actionAlertControllerProvider: FakeActionAlertControllerProvider!
             var analyticsService: FakeAnalyticsService!
             var tabBarItemStylist: FakeTabBarItemStylist!
             var theme: Theme!
 
             var sharedContext: Dictionary<String, AnyObject>!
+            var navigationController: UINavigationController!
 
             beforeEach {
                 urlProvider = ActionsControllerFakeURLProvider()
                 urlOpener = FakeURLOpener()
                 actionAlertService = FakeActionAlertService()
+                actionAlertControllerProvider = FakeActionAlertControllerProvider()
                 analyticsService = FakeAnalyticsService()
                 tabBarItemStylist = FakeTabBarItemStylist()
 
@@ -270,11 +273,10 @@ class ActionsControllerSpec: QuickSpec {
                     urlProvider: urlProvider,
                     urlOpener: urlOpener,
                     actionAlertService: actionAlertService,
+                    actionAlertControllerProvider: actionAlertControllerProvider,
                     analyticsService: analyticsService,
                     tabBarItemStylist: tabBarItemStylist,
                     theme: theme)
-
-                expect(subject.view).toNot(beNil())
 
                 sharedContext = [
                     "subject": subject,
@@ -282,6 +284,9 @@ class ActionsControllerSpec: QuickSpec {
                     "analyticsService": analyticsService,
                     "theme": theme as! ActionsControllerFakeTheme
                 ]
+
+                navigationController = UINavigationController(rootViewController: subject)
+                expect(subject.view).toNot(beNil())
             }
 
             context("when the view appears") {
@@ -320,9 +325,13 @@ class ActionsControllerSpec: QuickSpec {
                 describe("when the request to the action alert service succeeds") {
                     context("and the service resolves its promise with more than zero action alerts") {
                         var tableView: UITableView!
-
+                        let firstActionAlert = ActionAlert(title: "FTB!")
+                        let secondActionAlert = ActionAlert(title: "Aha!")
                         beforeEach {
-                            actionAlertService.lastReturnedActionAlertsPromise.resolve([ActionAlert(title: "FTB!"), ActionAlert(title: "Aha!")])
+                            actionAlertService.lastReturnedActionAlertsPromise.resolve([
+                                firstActionAlert,
+                                secondActionAlert
+                            ])
 
                             tableView = subject.view.subviews.first! as! UITableView
 
@@ -354,6 +363,22 @@ class ActionsControllerSpec: QuickSpec {
                         it("uses the disclosure indicator for the cells") {
                             let cell = tableView.dataSource!.tableView(tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
                             expect(cell.accessoryType).to(equal(UITableViewCellAccessoryType.DisclosureIndicator))
+                        }
+
+                        describe("tapping on an action alert row") {
+                            it("asks the action alert controller provider for a controller") {
+                                tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+
+                                expect(actionAlertControllerProvider.lastActionAlertReceived).to(equal(firstActionAlert))
+                            }
+
+                            it("pushes the controller from the action alert controller provider onto the nav stack") {
+                                expect(navigationController.topViewController).to(beIdenticalTo(subject))
+
+                                tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+
+                                expect(navigationController.topViewController).to(beIdenticalTo(actionAlertControllerProvider.returnedController))
+                            }
                         }
 
                         itBehavesLike("a controller that sets up the table view with the default rows correctly") {
@@ -425,3 +450,12 @@ private class FakeActionAlertService: ActionAlertService {
     }
 }
 
+private class FakeActionAlertControllerProvider: ActionAlertControllerProvider {
+    var lastActionAlertReceived: ActionAlert!
+    let returnedController = TestUtils.actionAlertController()
+
+    func provideInstanceWithActionAlert(actionAlert: ActionAlert) -> ActionAlertController {
+        lastActionAlertReceived = actionAlert
+        return returnedController
+    }
+}

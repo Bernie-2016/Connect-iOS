@@ -5,6 +5,7 @@ class ActionsController: UIViewController {
     private let urlOpener: URLOpener
     private let analyticsService: AnalyticsService
     private let actionAlertService: ActionAlertService
+    private let actionAlertControllerProvider: ActionAlertControllerProvider
     private let tabBarItemStylist: TabBarItemStylist
     private let theme: Theme
 
@@ -15,6 +16,7 @@ class ActionsController: UIViewController {
     init(urlProvider: URLProvider,
         urlOpener: URLOpener,
         actionAlertService: ActionAlertService,
+        actionAlertControllerProvider: ActionAlertControllerProvider,
         analyticsService: AnalyticsService,
         tabBarItemStylist: TabBarItemStylist,
         theme: Theme) {
@@ -22,6 +24,7 @@ class ActionsController: UIViewController {
         self.urlProvider = urlProvider
         self.urlOpener = urlOpener
         self.actionAlertService = actionAlertService
+        self.actionAlertControllerProvider = actionAlertControllerProvider
         self.analyticsService = analyticsService
         self.tabBarItemStylist = tabBarItemStylist
         self.theme = theme
@@ -169,6 +172,8 @@ extension ActionsController: UITableViewDelegate {
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if actionAlerts.count > 0 && indexPath.section == 0 {
+            let controller = actionAlertControllerProvider.provideInstanceWithActionAlert(actionAlerts[indexPath.row])
+            navigationController?.pushViewController(controller, animated: true)
             return
         }
 

@@ -27,6 +27,7 @@ class ActionsContainerConfigurator: ContainerConfigurator {
                 urlProvider: resolver.resolve(URLProvider.self)!,
                 urlOpener: resolver.resolve(URLOpener.self)!,
                 actionAlertService: resolver.resolve(ActionAlertService.self)!,
+                actionAlertControllerProvider: container,
                 analyticsService: resolver.resolve(AnalyticsService.self)!,
                 tabBarItemStylist: resolver.resolve(TabBarItemStylist.self)!,
                 theme: resolver.resolve(Theme.self)!)
@@ -38,5 +39,11 @@ class ActionsContainerConfigurator: ContainerConfigurator {
             navigationController.pushViewController(newsFeedController, animated: false)
             return navigationController
         }
+    }
+}
+
+extension Container: ActionAlertControllerProvider {
+    func provideInstanceWithActionAlert(actionAlert: ActionAlert) -> ActionAlertController {
+        return ActionAlertController()
     }
 }
