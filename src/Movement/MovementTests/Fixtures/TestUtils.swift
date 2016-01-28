@@ -46,6 +46,10 @@ class TestUtils {
             description: "This isn't Beverly Hills! It's Knot's Landing!", url: NSURL(string: "https://example.com")!, eventTypeName: "Big Time Bernie Fun")
     }
 
+    class func actionAlert() -> ActionAlert {
+        return ActionAlert(title: "Do it now")
+    }
+
     // MARK: Controllers
 
     class func settingsController() -> SettingsController {

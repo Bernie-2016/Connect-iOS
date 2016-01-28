@@ -1,22 +1,7 @@
-@testable import Movement
 import Quick
 import Nimble
 
-private class IssueRepositoryFakeURLProvider: FakeURLProvider {
-    override func issuesFeedURL() -> NSURL {
-        return NSURL(string: "https://example.com/bernese/")!
-    }
-}
-
-private class FakeIssueDeserializer: IssueDeserializer {
-    var lastReceivedJSONDictionary: NSDictionary!
-    let returnedIssues = [TestUtils.issue()]
-
-    func deserializeIssues(jsonDictionary: NSDictionary) -> Array<Issue> {
-        self.lastReceivedJSONDictionary = jsonDictionary
-        return self.returnedIssues
-    }
-}
+@testable import Movement
 
 class ConcreteIssueRepositorySpec : QuickSpec {
     var subject: ConcreteIssueRepository!
@@ -129,5 +114,21 @@ class ConcreteIssueRepositorySpec : QuickSpec {
                 }
             }
         }
+    }
+}
+
+private class IssueRepositoryFakeURLProvider: FakeURLProvider {
+    override func issuesFeedURL() -> NSURL {
+        return NSURL(string: "https://example.com/bernese/")!
+    }
+}
+
+private class FakeIssueDeserializer: IssueDeserializer {
+    var lastReceivedJSONDictionary: NSDictionary!
+    let returnedIssues = [TestUtils.issue()]
+
+    func deserializeIssues(jsonDictionary: NSDictionary) -> Array<Issue> {
+        self.lastReceivedJSONDictionary = jsonDictionary
+        return self.returnedIssues
     }
 }

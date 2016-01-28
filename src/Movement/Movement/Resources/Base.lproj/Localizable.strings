@@ -129,6 +129,7 @@
 // Actions
 
 "Actions_title" = "Actions";
+"Actions_actionAlertsHeader" = "CAMPAIGN ACTION ALERTS";
 "Actions_fundraiseHeader" = "FUNDRAISE";
 "Actions_organizeHeader" = "ORGANIZE";
 "Actions_donateTitle" = "Donate to the Campaign";
@@ -137,3 +138,4 @@
 "Actions_shareDonateSubTitle" = "Ask friends and family to donate";
 "Actions_hostEventTitle" = "Host an event";
 "Actions_hostEventSubTitle" = "Organize supporters in your area";
+

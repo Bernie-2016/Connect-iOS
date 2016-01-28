@@ -88,4 +88,8 @@ class ConcreteURLProvider: URLProvider {
 
         return urlComponents.URL!
     }
+
+    func actionAlertsURL() -> NSURL {
+        return NSURL(string: "https://sanders-connect-staging.herokuapp.com/api/action_alerts")!
+    }
 }

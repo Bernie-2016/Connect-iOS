@@ -16,4 +16,5 @@ protocol URLProvider {
     func videoURL() -> NSURL
     func youtubeVideoURL(identifier: String) -> NSURL
     func youtubeThumbnailURL(identifier: String) -> NSURL
+    func actionAlertsURL() -> NSURL
 }

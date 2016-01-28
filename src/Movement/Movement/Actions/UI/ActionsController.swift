@@ -4,14 +4,24 @@ class ActionsController: UIViewController {
     private let urlProvider: URLProvider
     private let urlOpener: URLOpener
     private let analyticsService: AnalyticsService
+    private let actionAlertService: ActionAlertService
     private let tabBarItemStylist: TabBarItemStylist
     private let theme: Theme
 
     private let tableView = UITableView.newAutoLayoutView()
 
-    init(urlProvider: URLProvider, urlOpener: URLOpener, analyticsService: AnalyticsService, tabBarItemStylist: TabBarItemStylist, theme: Theme) {
+    private var actionAlerts = [ActionAlert]()
+
+    init(urlProvider: URLProvider,
+        urlOpener: URLOpener,
+        actionAlertService: ActionAlertService,
+        analyticsService: AnalyticsService,
+        tabBarItemStylist: TabBarItemStylist,
+        theme: Theme) {
+
         self.urlProvider = urlProvider
         self.urlOpener = urlOpener
+        self.actionAlertService = actionAlertService
         self.analyticsService = analyticsService
         self.tabBarItemStylist = tabBarItemStylist
         self.theme = theme
@@ -34,14 +44,26 @@ class ActionsController: UIViewController {
         super.viewDidLoad()
         view.addSubview(tableView)
 
+        tableView.hidden = true
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "actionAlertCell")
         tableView.registerClass(ActionTableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         tableView.backgroundColor = theme.defaultBackgroundColor()
 
         setupConstraints()
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        actionAlertService.fetchActionAlerts().then { actionAlerts in
+            self.actionAlerts = actionAlerts
+            self.tableView.reloadData()
+            self.tableView.hidden = false
+            }.error { _ in
+                self.tableView.hidden = false
+        }
     }
 
     // MARK: Private
@@ -53,19 +75,38 @@ class ActionsController: UIViewController {
 
 extension ActionsController: UITableViewDataSource {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return actionAlerts.count > 0 ? 3 : 2
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? 2 : 1
+        if actionAlerts.count == 0 {
+            return section == 0 ? 2 : 1
+        }
+
+        if section == 0 {
+            return actionAlerts.count
+        } else {
+            return section == 1 ? 2 : 1
+        }
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if actionAlerts.count > 0 && indexPath.section == 0 {
+            guard let cell = tableView.dequeueReusableCellWithIdentifier("actionAlertCell") else { return UITableViewCell() }
+            cell.textLabel!.text = actionAlerts[indexPath.row].title
+            cell.textLabel!.textColor = theme.actionsTitleTextColor()
+            cell.textLabel!.font = theme.actionsTitleFont()
+            cell.accessoryType = .DisclosureIndicator
+            return cell
+        }
+
+        let donationRow = actionAlerts.count == 0 ? 0 : 1
+
         guard let cell = tableView.dequeueReusableCellWithIdentifier("cell") as? ActionTableViewCell else { return UITableViewCell() }
         var titleKey: String!
         var subTitleKey: String!
         var imageName: String!
-        if indexPath.section == 0 {
+        if indexPath.section == donationRow {
             titleKey = indexPath.row == 0 ? "Actions_donateTitle" : "Actions_shareDonateTitle"
             subTitleKey = indexPath.row == 0 ? "Actions_donateSubTitle" : "Actions_shareDonateSubTitle"
             imageName = indexPath.row == 0 ? "Donate" : "ShareDonate"
@@ -92,7 +133,20 @@ extension ActionsController: UITableViewDataSource {
     }
 
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return NSLocalizedString(section == 0 ? "Actions_fundraiseHeader" : "Actions_organizeHeader", comment: "")
+        if actionAlerts.count == 0 {
+            return NSLocalizedString(section == 0 ? "Actions_fundraiseHeader" : "Actions_organizeHeader", comment: "")
+        } else {
+            switch section {
+            case 0:
+                return NSLocalizedString("Actions_actionAlertsHeader", comment: "")
+            case 1:
+                return NSLocalizedString("Actions_fundraiseHeader", comment: "")
+            case 2:
+                return NSLocalizedString("Actions_organizeHeader", comment: "")
+            default:
+                return ""
+            }
+        }
     }
 
 
@@ -114,7 +168,13 @@ extension ActionsController: UITableViewDelegate {
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 0 {
+        if actionAlerts.count > 0 && indexPath.section == 0 {
+            return
+        }
+
+        let sectionOffset = actionAlerts.count > 0 ? 1 : 0
+
+        if indexPath.section == (0 + sectionOffset) {
             if indexPath.row == 0 {
                 openFormInSafari("Donate Form", url: urlProvider.donateFormURL())
             } else {
