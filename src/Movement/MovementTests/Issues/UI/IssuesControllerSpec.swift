@@ -187,7 +187,7 @@ class IssuesControllerSpec: QuickSpec {
                         expect(issueService.fetchIssuesCalled).to(beTrue())
                     }
                 }
-                
+
                 describe("Tapping on an issue") {
                     let expectedIssue = TestUtils.issue()
 
