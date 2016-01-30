@@ -13,6 +13,7 @@ class NewsFeedController: UIViewController {
     private var errorLoadingNews = false
 
     let tableView = UITableView.newAutoLayoutView()
+    let refreshControl = UIRefreshControl()
     let loadingIndicatorView = UIActivityIndicatorView.newAutoLayoutView()
 
     private var newsFeedItems: [NewsFeedItem]
@@ -59,7 +60,9 @@ class NewsFeedController: UIViewController {
 
         navigationItem.backBarButtonItem = backBarButtonItem
 
-
+        refreshControl.addTarget(self, action:"refresh:",forControlEvents:.ValueChanged)
+        tableView.addSubview(refreshControl)
+        tableView.sendSubviewToBack(refreshControl)
         view.addSubview(tableView)
         view.addSubview(loadingIndicatorView)
 
@@ -91,16 +94,31 @@ class NewsFeedController: UIViewController {
             self.tableView.deselectRowAtIndexPath(selectedRowIndexPath, animated: false)
         }
 
+        loadNewsFeed(){}
+    }
+
+    func loadNewsFeed(completion:()->()){
         self.newsFeedService.fetchNewsFeed().then { newsFeedItems in
             self.errorLoadingNews = false
             self.tableView.hidden = false
             self.loadingIndicatorView.stopAnimating()
             self.newsFeedItems = newsFeedItems
             self.tableView.reloadData()
-            }.error { error in
-                self.errorLoadingNews = true
-                self.tableView.reloadData()
-                self.analyticsService.trackError(error, context: "Failed to load news feed")
+            completion()
+        }.error { error in
+            self.errorLoadingNews = true
+            self.tableView.reloadData()
+            self.analyticsService.trackError(error, context: "Failed to load news feed")
+            completion()
+        }
+    }
+
+    func refresh(sender:AnyObject!){
+        self.refreshControl.beginRefreshing()
+        self.loadNewsFeed(){
+            self.tableView.reloadData()
+            self.tableView.layoutIfNeeded()
+            self.refreshControl.endRefreshing()
         }
     }
 }
