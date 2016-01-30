@@ -8,6 +8,7 @@ class NewsFeedController: UIViewController {
     private let newsFeedItemControllerProvider: NewsFeedItemControllerProvider
     private let analyticsService: AnalyticsService
     private let tabBarItemStylist: TabBarItemStylist
+    private let mainQueue: NSOperationQueue
     private var theme: Theme
 
     private var errorLoadingNews = false
@@ -23,12 +24,14 @@ class NewsFeedController: UIViewController {
          newsFeedTableViewCellPresenter: NewsFeedTableViewCellPresenter,
          analyticsService: AnalyticsService,
          tabBarItemStylist: TabBarItemStylist,
+         mainQueue: NSOperationQueue,
          theme: Theme) {
             self.newsFeedService = newsFeedService
             self.newsFeedItemControllerProvider = newsFeedItemControllerProvider
             self.newsFeedTableViewCellPresenter = newsFeedTableViewCellPresenter
             self.analyticsService = analyticsService
             self.tabBarItemStylist = tabBarItemStylist
+            self.mainQueue = mainQueue
             self.theme = theme
 
             self.newsFeedItems = []
@@ -99,20 +102,14 @@ class NewsFeedController: UIViewController {
 
     func loadNewsFeed() {
         newsFeedService.fetchNewsFeed().then { newsFeedItems in
-            NSOperationQueue.currentQueue()?.addOperationWithBlock({ () -> Void in
-                self.refreshControl.endRefreshing() //TODO: test
-            })
-            
+            self.mainQueue.addOperationWithBlock { self.refreshControl.endRefreshing() }
             self.errorLoadingNews = false
             self.tableView.hidden = false
             self.loadingIndicatorView.stopAnimating()
             self.newsFeedItems = newsFeedItems
             self.tableView.reloadData()
         }.error { error in
-            NSOperationQueue.currentQueue()?.addOperationWithBlock({ () -> Void in
-                self.refreshControl.endRefreshing() //TODO: test
-            })
-            
+            self.mainQueue.addOperationWithBlock { self.refreshControl.endRefreshing() }
             self.errorLoadingNews = true
             self.tableView.reloadData()
             self.analyticsService.trackError(error, context: "Failed to load news feed")

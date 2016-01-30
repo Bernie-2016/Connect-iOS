@@ -12,6 +12,7 @@ class IssuesControllerSpec: QuickSpec {
             var navigationController: UINavigationController!
             var analyticsService: FakeAnalyticsService!
             var tabBarItemStylist: FakeTabBarItemStylist!
+            var mainQueue: FakeOperationQueue!
 
 
             beforeEach {
@@ -19,6 +20,7 @@ class IssuesControllerSpec: QuickSpec {
                 issueControllerProvider = FakeIssueControllerProvider()
                 navigationController = UINavigationController()
                 tabBarItemStylist = FakeTabBarItemStylist()
+                mainQueue = FakeOperationQueue()
                 analyticsService = FakeAnalyticsService()
 
                 subject = IssuesController(
@@ -26,6 +28,7 @@ class IssuesControllerSpec: QuickSpec {
                     issueControllerProvider: issueControllerProvider,
                     analyticsService: analyticsService,
                     tabBarItemStylist: tabBarItemStylist,
+                    mainQueue: mainQueue,
                     theme: IssuesFakeTheme()
                 )
 
@@ -185,6 +188,39 @@ class IssuesControllerSpec: QuickSpec {
                         issueService.fetchIssuesCalled = false
                         subject.refreshControl.sendActionsForControlEvents(.ValueChanged)
                         expect(issueService.fetchIssuesCalled).to(beTrue())
+                    }
+
+                    describe("when the issues service successfully resolves its promise with news feed items") {
+                        beforeEach {
+                            subject.refreshControl.sendActionsForControlEvents(.ValueChanged)
+                        }
+
+                        it("stops the pull to refresh spinner on the main queue") {
+                            issueService.lastReturnedPromise.resolve([])
+
+                            expect(subject.refreshControl.refreshing).to(beTrue())
+
+                            mainQueue.lastReceivedBlock()
+
+                            expect(subject.refreshControl.refreshing).to(beFalse())
+                        }
+                    }
+
+                    describe("when the issues service rejects its promise with an error") {
+                        beforeEach {
+                            subject.refreshControl.sendActionsForControlEvents(.ValueChanged)
+                        }
+
+                        it("stops the pull to refresh spinner on the main queue") {
+                            let error = IssueRepositoryError.InvalidJSON(jsonObject: [])
+                            issueService.lastReturnedPromise.reject(error)
+
+                            expect(subject.refreshControl.refreshing).to(beTrue())
+
+                            mainQueue.lastReceivedBlock()
+
+                            expect(subject.refreshControl.refreshing).to(beFalse())
+                        }
                     }
                 }
 

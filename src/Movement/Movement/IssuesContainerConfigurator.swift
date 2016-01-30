@@ -37,6 +37,7 @@ class IssuesContainerConfigurator: ContainerConfigurator {
                     issueControllerProvider: resolver.resolve(IssueControllerProvider.self)!,
                     analyticsService: resolver.resolve(AnalyticsService.self)!,
                     tabBarItemStylist: resolver.resolve(TabBarItemStylist.self)!,
+                    mainQueue: resolver.resolve(NSOperationQueue.self, name: "main")!,
                     theme: resolver.resolve(Theme.self)!)
         }.inObjectScope(.Container)
 

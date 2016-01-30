@@ -5,6 +5,7 @@ class IssuesController: UIViewController {
     private let issueControllerProvider: IssueControllerProvider
     private let analyticsService: AnalyticsService
     private let tabBarItemStylist: TabBarItemStylist
+    private let mainQueue: NSOperationQueue
     private let theme: Theme
 
     var errorLoadingIssues = false
@@ -19,11 +20,13 @@ class IssuesController: UIViewController {
         issueControllerProvider: IssueControllerProvider,
         analyticsService: AnalyticsService!,
         tabBarItemStylist: TabBarItemStylist,
+        mainQueue: NSOperationQueue,
         theme: Theme) {
         self.issueService = issueService
         self.issueControllerProvider = issueControllerProvider
         self.analyticsService = analyticsService
         self.tabBarItemStylist = tabBarItemStylist
+        self.mainQueue = mainQueue
         self.theme = theme
 
         self.issues = []
@@ -90,6 +93,7 @@ class IssuesController: UIViewController {
     // MARK: Actions
 
     func refresh() {
+        refreshControl.beginRefreshing()
         loadIssues()
     }
 
@@ -99,10 +103,7 @@ class IssuesController: UIViewController {
         let issuesFuture = issueService.fetchIssues()
 
         issuesFuture.then { issues in
-            NSOperationQueue.currentQueue()?.addOperationWithBlock({ () -> Void in
-                self.refreshControl.endRefreshing() //TODO: test
-            })
-            
+            self.mainQueue.addOperationWithBlock { self.refreshControl.endRefreshing() }
             self.errorLoadingIssues = false
             self.issues = issues
             self.loadingIndicatorView.stopAnimating()
@@ -111,10 +112,7 @@ class IssuesController: UIViewController {
         }
 
         issuesFuture.error { error in
-            NSOperationQueue.currentQueue()?.addOperationWithBlock({ () -> Void in
-                self.refreshControl.endRefreshing() //TODO: test
-            })
-            
+            self.mainQueue.addOperationWithBlock { self.refreshControl.endRefreshing() }
             self.errorLoadingIssues = true
             self.tableView.reloadData()
             self.analyticsService.trackError(error, context: "Failed to load issues")

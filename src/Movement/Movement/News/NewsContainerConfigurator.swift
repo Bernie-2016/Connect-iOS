@@ -88,6 +88,7 @@ class NewsContainerConfigurator: ContainerConfigurator {
                 newsFeedTableViewCellPresenter: resolver.resolve(NewsFeedTableViewCellPresenter.self, name: "feed")!,
                 analyticsService: resolver.resolve(AnalyticsService.self)!,
                 tabBarItemStylist: resolver.resolve(TabBarItemStylist.self)!,
+                mainQueue: resolver.resolve(NSOperationQueue.self, name: "main")!,
                 theme: resolver.resolve(Theme.self)!)
             }.inObjectScope(.Container)
 

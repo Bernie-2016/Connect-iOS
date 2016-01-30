@@ -13,6 +13,7 @@ class NewsFeedControllerSpecs: QuickSpec {
             var newsFeedTableViewCellPresenter: FakeNewsFeedTableViewCellPresenter!
             var analyticsService: FakeAnalyticsService!
             var tabBarItemStylist: FakeTabBarItemStylist!
+            var mainQueue: FakeOperationQueue!
             let theme = NewsFakeTheme()
 
             var navigationController: UINavigationController!
@@ -20,8 +21,8 @@ class NewsFeedControllerSpecs: QuickSpec {
             beforeEach {
                 newsFeedService = FakeNewsFeedService()
                 newsFeedTableViewCellPresenter = FakeNewsFeedTableViewCellPresenter()
-
                 tabBarItemStylist = FakeTabBarItemStylist()
+                mainQueue = FakeOperationQueue()
                 analyticsService = FakeAnalyticsService()
 
                 subject = NewsFeedController(
@@ -30,6 +31,7 @@ class NewsFeedControllerSpecs: QuickSpec {
                     newsFeedTableViewCellPresenter: newsFeedTableViewCellPresenter,
                     analyticsService: analyticsService,
                     tabBarItemStylist: tabBarItemStylist,
+                    mainQueue: mainQueue,
                     theme: theme
                 )
 
@@ -217,11 +219,44 @@ class NewsFeedControllerSpecs: QuickSpec {
                 }
             }
 
-            describe("pull to refresh") {
+           describe("pull to refresh") {
                 it("asks the news feed service to reload the news feed") {
                     newsFeedService.fetchNewsFeedCalled = false
                     subject.refreshControl.sendActionsForControlEvents(.ValueChanged)
                     expect(newsFeedService.fetchNewsFeedCalled).to(beTrue())
+                }
+
+                describe("when the news feed service successfully resolves its promise with news feed items") {
+                    beforeEach {
+                        subject.refreshControl.sendActionsForControlEvents(.ValueChanged)
+                    }
+
+                    it("stops the pull to refresh spinner") {
+                        newsFeedService.lastReturnedPromise.resolve([])
+
+                        expect(subject.refreshControl.refreshing).to(beTrue())
+
+                        mainQueue.lastReceivedBlock()
+
+                        expect(subject.refreshControl.refreshing).to(beFalse())
+                    }
+                }
+
+                describe("when the news feed service rejects its promise with an error") {
+                    beforeEach {
+                        subject.refreshControl.sendActionsForControlEvents(.ValueChanged)
+                    }
+
+                    it("stops the pull to refresh spinner") {
+                        let error = NewsFeedServiceError.FailedToFetchNews(underlyingErrors: [NSError(domain: "", code: 0, userInfo: nil)])
+                        newsFeedService.lastReturnedPromise.reject(error)
+
+                        expect(subject.refreshControl.refreshing).to(beTrue())
+
+                        mainQueue.lastReceivedBlock()
+
+                        expect(subject.refreshControl.refreshing).to(beFalse())
+                    }
                 }
             }
 
