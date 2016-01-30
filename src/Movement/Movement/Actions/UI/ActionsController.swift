@@ -10,6 +10,7 @@ class ActionsController: UIViewController {
     private let theme: Theme
 
     private let tableView = UITableView.newAutoLayoutView()
+    let loadingIndicatorView = UIActivityIndicatorView.newAutoLayoutView()
 
     private var actionAlerts = [ActionAlert]()
 
@@ -46,6 +47,7 @@ class ActionsController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(tableView)
+        view.addSubview(loadingIndicatorView)
 
         tableView.hidden = true
         tableView.dataSource = self
@@ -57,15 +59,21 @@ class ActionsController: UIViewController {
         tableView.backgroundColor = theme.defaultBackgroundColor()
 
         setupConstraints()
+        loadingIndicatorView.startAnimating()
+        loadingIndicatorView.hidesWhenStopped = true
+        loadingIndicatorView.color = theme.defaultSpinnerColor()
+
     }
 
     override func viewWillAppear(animated: Bool) {
         actionAlertService.fetchActionAlerts().then { actionAlerts in
             self.actionAlerts = actionAlerts
             self.tableView.reloadData()
+            self.loadingIndicatorView.stopAnimating()
             self.tableView.hidden = false
             }.error { _ in
                 self.tableView.hidden = false
+                self.loadingIndicatorView.stopAnimating()
         }
     }
 
@@ -73,6 +81,9 @@ class ActionsController: UIViewController {
 
     private func setupConstraints() {
         tableView.autoPinEdgesToSuperviewEdges()
+
+        loadingIndicatorView.autoAlignAxisToSuperviewAxis(.Vertical)
+        loadingIndicatorView.autoAlignAxisToSuperviewAxis(.Horizontal)
     }
 }
 

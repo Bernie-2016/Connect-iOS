@@ -12,12 +12,12 @@ class CMMarkdownConverter: MarkdownConverter {
             NSFontAttributeName: theme.actionAlertBodyFont(),
             NSForegroundColorAttributeName: theme.actionAlertBodyTextColor()
         ]
-        
+
         attributes.linkAttributes = [
             NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue,
             NSForegroundColorAttributeName: theme.actionAlertBodyLinkTextColor()
         ]
-        
+
         attributes.h1Attributes = [ NSFontAttributeName: theme.actionAlertH1Font() ]
         attributes.h2Attributes = [ NSFontAttributeName: theme.actionAlertH2Font() ]
         attributes.h3Attributes = [ NSFontAttributeName: theme.actionAlertH3Font() ]

@@ -146,9 +146,9 @@ protocol Theme {
     func actionsTitleTextColor() -> UIColor
     func actionsSubTitleFont() -> UIFont
     func actionsSubTitleTextColor() -> UIColor
-    
+
     // MARK: Action Alerts
-    
+
     func actionAlertDateFont() -> UIFont
     func actionAlertDateTextColor() -> UIColor
     func actionAlertTitleFont() -> UIFont

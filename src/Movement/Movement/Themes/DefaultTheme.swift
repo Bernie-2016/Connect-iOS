@@ -154,9 +154,9 @@ class DefaultTheme: Theme {
     func actionsTitleTextColor() -> UIColor { return h3HeaderTextColor() }
     func actionsSubTitleFont() -> UIFont { return subHeadingFont() }
     func actionsSubTitleTextColor() -> UIColor { return subHeadingTextColor() }
-    
+
     // MARK: Action Alerts
-    
+
     func actionAlertDateFont() -> UIFont { return h2HeaderFont() }
     func actionAlertDateTextColor() -> UIColor { return thunderbirdColor }
     func actionAlertTitleFont() -> UIFont { return h1HeaderFont() }

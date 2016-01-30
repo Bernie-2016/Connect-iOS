@@ -6,20 +6,21 @@ import Nimble
 class ActionsControllerSpec: QuickSpec {
     override func spec() {
         sharedExamples("a controller that sets up the table view with the default rows correctly") { (sharedExampleContext: SharedExampleContext) in
+            var subject: ActionsController!
             var tableView: UITableView!
 
             beforeEach {
+                subject = sharedExampleContext()["subject"] as! ActionsController
                 tableView = sharedExampleContext()["tableView"] as! UITableView
             }
 
-            it("shows the table view") {
-                expect(tableView.hidden).to(beFalse())
+            it("shows the table view, and stops the loading spinner") {
+                expect(tableView.hidden).to(equal(false));
+                expect(subject.loadingIndicatorView.isAnimating()).to(equal(false))
             }
-
             describe("the table view contents") {
                 var expectedNumberOfSections: Int!
                 var sectionOffset: Int!
-                var subject: ActionsController!
                 var urlOpener: FakeURLOpener!
                 var analyticsService: FakeAnalyticsService!
 
@@ -306,16 +307,26 @@ class ActionsControllerSpec: QuickSpec {
                 }
 
                 it("has a table view styled with the theme") {
-                    expect(subject.view.subviews.count).to(equal(1))
+                    expect(subject.view.subviews.count).to(equal(2))
 
                     let tableView = subject.view.subviews.first!
                     expect(tableView).to(beAnInstanceOf(UITableView.self))
                     expect(tableView.backgroundColor).to(equal(UIColor.orangeColor()))
                 }
 
-                it("initially hides the table view") {
+                it("initially hides the table view, and shows the loading spinner") {
                     let tableView = subject.view.subviews.first! as! UITableView
-                    expect(tableView.hidden).to(beTrue())
+                    expect(tableView.hidden).to(equal(true));
+                    expect(subject.view.subviews).to(contain(subject.loadingIndicatorView))
+                    expect(subject.loadingIndicatorView.isAnimating()).to(equal(true))
+                }
+
+                it("sets the spinner up to hide when stopped") {
+                    expect(subject.loadingIndicatorView.hidesWhenStopped).to(equal(true))
+                }
+
+                it("styles the spinner with the theme") {
+                    expect(subject.loadingIndicatorView.color).to(equal(UIColor.greenColor()))
                 }
 
                 it("makes a request to the action alert service") {
@@ -437,6 +448,7 @@ private class ActionsControllerFakeTheme: FakeTheme {
     override func defaultTableSectionHeaderTextColor() -> UIColor { return UIColor.lightGrayColor() }
     override func defaultTableSectionHeaderFont() -> UIFont { return UIFont.italicSystemFontOfSize(999) }
     override func defaultTableCellBackgroundColor() -> UIColor { return UIColor.yellowColor() }
+    override func defaultSpinnerColor() -> UIColor { return UIColor.greenColor() }
 }
 
 private class FakeActionAlertService: ActionAlertService {

@@ -5,7 +5,7 @@ import Nimble
 
 class ActionAlertControllerSpec: QuickSpec {
     override func spec() {
-        fdescribe("ActionAlertController") {
+        describe("ActionAlertController") {
             var subject: ActionAlertController!
             var markdownConverter: FakeMarkdownConverter!
             var actionAlert: ActionAlert!
@@ -48,15 +48,15 @@ class ActionAlertControllerSpec: QuickSpec {
                     expect(markdownConverter.lastReceivedMarkdown).to(equal(actionAlert.body))
                     expect(subject.bodyTextView.attributedText.string).to(equal(markdownConverter.returnedAttributedString.string))
                 }
-                
+
                 it("styles the non-body text content using the theme") {
                     expect(subject.view.backgroundColor).to(equal(UIColor.yellowColor()))
-                    
+
                     expect(subject.dateLabel.font).to(equal(UIFont.systemFontOfSize(111)))
                     expect(subject.dateLabel.textColor).to(equal(UIColor.magentaColor()))
 
-                    expect(subject.dateLabel.font).to(equal(UIFont.systemFontOfSize(222)))
-                    expect(subject.dateLabel.textColor).to(equal(UIColor.redColor()))
+                    expect(subject.titleLabel.font).to(equal(UIFont.systemFontOfSize(222)))
+                    expect(subject.titleLabel.textColor).to(equal(UIColor.redColor()))
                 }
             }
         }
@@ -67,19 +67,19 @@ private class FakeActionAlertControllerTheme: FakeTheme {
     private override func actionAlertDateFont() -> UIFont {
         return UIFont.systemFontOfSize(111)
     }
-    
+
     private override func actionAlertDateTextColor() -> UIColor {
         return UIColor.magentaColor()
     }
-    
+
     private override func actionAlertTitleFont() -> UIFont {
         return UIFont.systemFontOfSize(222)
     }
-    
+
     private override func actionAlertTitleTextColor() -> UIColor {
         return UIColor.redColor()
     }
-    
+
     private override func contentBackgroundColor() -> UIColor {
         return UIColor.yellowColor()
     }

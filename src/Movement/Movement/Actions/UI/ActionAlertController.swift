@@ -5,7 +5,7 @@ class ActionAlertController: UIViewController {
     private let actionAlert: ActionAlert
     private let markdownConverter: MarkdownConverter
     private let theme: Theme
-    
+
     private let scrollView = UIScrollView.newAutoLayoutView()
     private let containerView = UIView.newAutoLayoutView()
     let dateLabel = UILabel.newAutoLayoutView()
@@ -18,7 +18,7 @@ class ActionAlertController: UIViewController {
         self.actionAlert = actionAlert
         self.markdownConverter = markdownConverter
         self.theme = theme
-        
+
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -43,7 +43,7 @@ class ActionAlertController: UIViewController {
         bodyTextView.selectable = true
 
         setupConstraints()
-        
+
         view.backgroundColor = theme.contentBackgroundColor()
         dateLabel.font = theme.actionAlertDateFont()
         dateLabel.textColor = theme.actionAlertDateTextColor()
