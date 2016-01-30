@@ -224,7 +224,7 @@ class NewsFeedControllerSpecs: QuickSpec {
                     expect(newsFeedService.fetchNewsFeedCalled).to(beTrue())
                 }
             }
-            
+
             describe("Tapping on a news item") {
                 let expectedNewsItemA = TestUtils.newsArticle()
                 let expectedNewsItemB = NewsArticle(title: "B", date: NSDate(), body: "B Body", excerpt: "excerpt", imageURL: NSURL(), url: NSURL(string: "http://example.com/b")!)
