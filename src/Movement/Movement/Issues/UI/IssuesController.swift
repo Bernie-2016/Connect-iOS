@@ -1,6 +1,6 @@
 import UIKit
 
-class IssuesController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class IssuesController: UIViewController {
     private let issueService: IssueService
     private let issueControllerProvider: IssueControllerProvider
     private let analyticsService: AnalyticsService
@@ -10,6 +10,7 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
     var errorLoadingIssues = false
 
     let tableView = UITableView.newAutoLayoutView()
+    let refreshControl = UIRefreshControl()
     let loadingIndicatorView = UIActivityIndicatorView.newAutoLayoutView()
 
     var issues: Array<Issue>!
@@ -29,9 +30,9 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
 
         super.init(nibName: nil, bundle: nil)
 
-            self.tabBarItemStylist.applyThemeToBarBarItem(self.tabBarItem,
-                image: UIImage(named: "issuesTabBarIconInactive")!,
-                selectedImage: UIImage(named: "issuesTabBarIcon")!)
+        tabBarItemStylist.applyThemeToBarBarItem(self.tabBarItem,
+            image: UIImage(named: "issuesTabBarIconInactive")!,
+            selectedImage: UIImage(named: "issuesTabBarIcon")!)
 
         title = NSLocalizedString("Issues_tabBarTitle", comment: "")
     }
@@ -52,6 +53,11 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
             target: nil, action: nil)
 
         navigationItem.backBarButtonItem = backBarButtonItem
+
+        refreshControl.addTarget(self, action:"refresh", forControlEvents:.ValueChanged)
+
+        tableView.addSubview(refreshControl)
+        tableView.sendSubviewToBack(refreshControl)
 
         view.addSubview(tableView)
         view.addSubview(loadingIndicatorView)
@@ -78,8 +84,22 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
             self.tableView.deselectRowAtIndexPath(selectedRowIndexPath, animated: false)
         }
 
+        loadIssues()
+    }
 
+    // MARK: Actions
+
+    func refresh() {
+        loadIssues().then { _ in
+            self.refreshControl.endRefreshing()
+        }
+    }
+
+    // MARK: Private
+
+    func loadIssues() -> IssuesFuture {
         let issuesFuture = issueService.fetchIssues()
+
         issuesFuture.then { issues in
             self.errorLoadingIssues = false
             self.issues = issues
@@ -93,10 +113,14 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
             self.tableView.reloadData()
             self.analyticsService.trackError(error, context: "Failed to load issues")
         }
+
+        return issuesFuture
     }
+}
 
-    // MARK: UITableViewDataSource
+// MARK: UITableViewDataSource
 
+extension IssuesController: UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.errorLoadingIssues ? 1 : self.issues.count
     }
@@ -129,8 +153,10 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
         }
     }
 
-    // MARK: UITableViewDelegate
+}
 
+// MARK: UITableViewDelegate
+extension IssuesController: UITableViewDelegate {
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 70
     }
