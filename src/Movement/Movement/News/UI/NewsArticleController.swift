@@ -149,16 +149,16 @@ class NewsArticleController: UIViewController {
 
         let screenBounds = UIScreen.mainScreen().bounds
 
-        self.scrollView.contentSize.width = self.view.bounds.width
-        self.scrollView.autoPinEdgesToSuperviewEdges()
+        scrollView.contentSize.width = view.bounds.width
+        scrollView.autoPinEdgesToSuperviewEdges()
 
-        self.containerView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Trailing)
-        self.containerViewWidthConstraint = self.containerView.autoSetDimension(.Width, toSize: screenBounds.width)
+        containerView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Trailing)
+        containerViewWidthConstraint = containerView.autoSetDimension(.Width, toSize: screenBounds.width)
 
-        self.storyImageView.contentMode = .ScaleAspectFill
-        self.storyImageView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Bottom)
-        self.storyImageView.autoSetDimension(.Height, toSize: screenBounds.height / 3)
-        self.storyImageView.clipsToBounds = true
+        storyImageView.contentMode = .ScaleAspectFill
+        storyImageView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Bottom)
+        storyImageView.autoSetDimension(.Height, toSize: screenBounds.height / 3)
+        storyImageView.clipsToBounds = true
 
         titleLabel.numberOfLines = 0
         titleLabel.preferredMaxLayoutWidth = screenBounds.width - defaultHorizontalMargin
@@ -176,7 +176,7 @@ class NewsArticleController: UIViewController {
         titleLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
         titleLabel.layoutIfNeeded()
 
-        dateLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.titleLabel, withOffset: 5)
+        dateLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: titleLabel, withOffset: 5)
         dateLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
         dateLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
         dateLabel.autoSetDimension(.Height, toSize: 20)
@@ -191,11 +191,11 @@ class NewsArticleController: UIViewController {
 
         attributionLabel.numberOfLines = 0
         attributionLabel.textAlignment = .Center
-        attributionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.bodyTextView, withOffset: 16)
+        attributionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: bodyTextView, withOffset: 16)
         attributionLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
         attributionLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
 
-        viewOriginalButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.attributionLabel, withOffset: 16)
+        viewOriginalButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: attributionLabel, withOffset: 16)
         viewOriginalButton.autoSetDimension(.Height, toSize: 54)
         viewOriginalButton.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsets(top: 0, left: defaultHorizontalMargin, bottom: defaultHorizontalMargin, right: defaultVerticalMargin), excludingEdge: .Top)
     }

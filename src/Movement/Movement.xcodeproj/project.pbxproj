@@ -206,10 +206,13 @@
 		654D2F631C137A21001AA09B /* FakeNewsFeedTableViewCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654D2F621C137A21001AA09B /* FakeNewsFeedTableViewCellPresenter.swift */; };
 		654E27C11C18DB22005B6D2D /* videos.json in Resources */ = {isa = PBXBuildFile; fileRef = 654E27C01C18DB22005B6D2D /* videos.json */; };
 		654E27C31C18FF0B005B6D2D /* video_nasties.json in Resources */ = {isa = PBXBuildFile; fileRef = 654E27C21C18FF0B005B6D2D /* video_nasties.json */; };
+		654F927E1C5ABC8900C76992 /* CocoaMarkdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654F927C1C5ABC8900C76992 /* CocoaMarkdown.framework */; };
+		654F92811C5ABFBD00C76992 /* ActionAlertControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654F92801C5ABFBD00C76992 /* ActionAlertControllerSpec.swift */; };
 		654FDBBB1BC1862800A082CF /* cssInjection.js in Resources */ = {isa = PBXBuildFile; fileRef = 654FDBBA1BC1862800A082CF /* cssInjection.js */; };
 		654FDBBD1BC1867F00A082CF /* feedbackGoogleFormOverrides.css in Resources */ = {isa = PBXBuildFile; fileRef = 654FDBBC1BC1867F00A082CF /* feedbackGoogleFormOverrides.css */; };
 		655906F41BC4607100D7B0BA /* FakeApplicationSettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655906F31BC4607100D7B0BA /* FakeApplicationSettingsRepository.swift */; };
 		6559D70F1BBDC37000CBC7EE /* FakeAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6559D70E1BBDC37000CBC7EE /* FakeAnalyticsService.swift */; };
+		655A011A1C5BC9A7004548A0 /* CocoaMarkdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655A01191C5BC9A7004548A0 /* CocoaMarkdown.framework */; };
 		655A3AD01B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655A3ACF1B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework */; };
 		655A3DB81BBCCE7400E08051 /* floss_licenses.html in Resources */ = {isa = PBXBuildFile; fileRef = 655A3DB71BBCCE7400E08051 /* floss_licenses.html */; };
 		658492461BE3BA5B007279E8 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 658492481BE3BA5B007279E8 /* Localizable.stringsdict */; };
@@ -264,6 +267,9 @@
 		65CFACFD1C59D1FE005E1309 /* dodgy_action_alerts.json in Resources */ = {isa = PBXBuildFile; fileRef = 65CFACFC1C59D1FE005E1309 /* dodgy_action_alerts.json */; };
 		65D08DC31C19201A0082FBC4 /* XCDYouTubeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65D08DC11C19201A0082FBC4 /* XCDYouTubeKit.framework */; };
 		65D0ECE71BBAD9940063B1D0 /* FakeEventRSVPControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D0ECE61BBAD9940063B1D0 /* FakeEventRSVPControllerProvider.swift */; };
+		65D3C5401C5C507800317466 /* MarkdownConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D3C53F1C5C507800317466 /* MarkdownConverter.swift */; };
+		65D3C5421C5C514E00317466 /* FakeMarkdownConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D3C5411C5C514E00317466 /* FakeMarkdownConverter.swift */; };
+		65D3C5441C5C6B7400317466 /* CMMarkdownConverterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D3C5431C5C6B7400317466 /* CMMarkdownConverterSpec.swift */; };
 		65DE887E1BE31540001AEDD8 /* FakeTimeIntervalFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DE887D1BE31540001AEDD8 /* FakeTimeIntervalFormatter.swift */; };
 		65E06CAB1BCB30DC00BDDA61 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8233FC151B7C28FB00A5E9ED /* Images.xcassets */; };
 		65E33D801C46EB9A003464D9 /* PushNotificationHandlerDispatcherSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E33D7F1C46EB9A003464D9 /* PushNotificationHandlerDispatcherSpec.swift */; };
@@ -521,12 +527,15 @@
 		654D2F621C137A21001AA09B /* FakeNewsFeedTableViewCellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeNewsFeedTableViewCellPresenter.swift; sourceTree = "<group>"; };
 		654E27C01C18DB22005B6D2D /* videos.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = videos.json; sourceTree = "<group>"; };
 		654E27C21C18FF0B005B6D2D /* video_nasties.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = video_nasties.json; sourceTree = "<group>"; };
+		654F927C1C5ABC8900C76992 /* CocoaMarkdown.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CocoaMarkdown.framework; sourceTree = "<group>"; };
+		654F92801C5ABFBD00C76992 /* ActionAlertControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionAlertControllerSpec.swift; sourceTree = "<group>"; };
 		654FDBBA1BC1862800A082CF /* cssInjection.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = cssInjection.js; sourceTree = "<group>"; };
 		654FDBBC1BC1867F00A082CF /* feedbackGoogleFormOverrides.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = feedbackGoogleFormOverrides.css; sourceTree = "<group>"; };
 		655598041BFC2FFB00BCE1AB /* Movement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Movement.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		655598051BFC2FFB00BCE1AB /* MovementTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MovementTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		655906F31BC4607100D7B0BA /* FakeApplicationSettingsRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeApplicationSettingsRepository.swift; sourceTree = "<group>"; };
 		6559D70E1BBDC37000CBC7EE /* FakeAnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeAnalyticsService.swift; sourceTree = "<group>"; };
+		655A01191C5BC9A7004548A0 /* CocoaMarkdown.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CocoaMarkdown.framework; sourceTree = "<group>"; };
 		655A3ACF1B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "UIKit+PivotalSpecHelper-iOS.framework"; sourceTree = "<group>"; };
 		655A3DB71BBCCE7400E08051 /* floss_licenses.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = floss_licenses.html; sourceTree = "<group>"; };
 		658492471BE3BA5B007279E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = Base; path = Base.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -582,6 +591,9 @@
 		65D08DC11C19201A0082FBC4 /* XCDYouTubeKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCDYouTubeKit.framework; path = Carthage/Build/iOS/XCDYouTubeKit.framework; sourceTree = "<group>"; };
 		65D08DC21C19201A0082FBC4 /* XCDYouTubeKit.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = XCDYouTubeKit.framework.dSYM; path = Carthage/Build/iOS/XCDYouTubeKit.framework.dSYM; sourceTree = "<group>"; };
 		65D0ECE61BBAD9940063B1D0 /* FakeEventRSVPControllerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeEventRSVPControllerProvider.swift; sourceTree = "<group>"; };
+		65D3C53F1C5C507800317466 /* MarkdownConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownConverter.swift; sourceTree = "<group>"; };
+		65D3C5411C5C514E00317466 /* FakeMarkdownConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeMarkdownConverter.swift; sourceTree = "<group>"; };
+		65D3C5431C5C6B7400317466 /* CMMarkdownConverterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMMarkdownConverterSpec.swift; sourceTree = "<group>"; };
 		65DE887D1BE31540001AEDD8 /* FakeTimeIntervalFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeTimeIntervalFormatter.swift; sourceTree = "<group>"; };
 		65E33D7F1C46EB9A003464D9 /* PushNotificationHandlerDispatcherSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationHandlerDispatcherSpec.swift; sourceTree = "<group>"; };
 		65E33D811C46EC0D003464D9 /* PushNotificationHandlerDispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationHandlerDispatcher.swift; sourceTree = "<group>"; };
@@ -604,6 +616,8 @@
 				65494C5F1BFB8EBB00C1ECDB /* AudioToolbox.framework in Frameworks */,
 				654D12921C3E0F28000A2982 /* Bolts.framework in Frameworks */,
 				65937D211C4058AE003A1EFA /* CBGPromise.framework in Frameworks */,
+				655A011A1C5BC9A7004548A0 /* CocoaMarkdown.framework in Frameworks */,
+				654F927E1C5ABC8900C76992 /* CocoaMarkdown.framework in Frameworks */,
 				65A5C0FC1BA29F2200D46500 /* Crashlytics.framework in Frameworks */,
 				65A5C0FA1BA2978600D46500 /* Fabric.framework in Frameworks */,
 				654948DB1BFAFAE300C1ECDB /* libFlurry_7.3.0.a in Frameworks */,
@@ -954,6 +968,7 @@
 				653D0F931C4C35C0004CB8A0 /* DisclosureIndicatorView.swift */,
 				65979AA11C4C67AF00A312A9 /* GlobalUIContainerConfigurator.swift */,
 				653D0F941C4C35C0004CB8A0 /* InterstitialController.swift */,
+				65D3C53F1C5C507800317466 /* MarkdownConverter.swift */,
 				653D0F951C4C35C0004CB8A0 /* NavigationController.swift */,
 				653D0F961C4C35C0004CB8A0 /* ResponderButton.swift */,
 				653D0F971C4C35C0004CB8A0 /* TabBarController.swift */,
@@ -996,6 +1011,7 @@
 		653D0FBD1C4C53BB004CB8A0 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				654F92801C5ABFBD00C76992 /* ActionAlertControllerSpec.swift */,
 				653D0FBE1C4C53BB004CB8A0 /* ActionsControllerSpec.swift */,
 			);
 			path = UI;
@@ -1048,6 +1064,7 @@
 		653D0FCF1C4C53BB004CB8A0 /* GlobalUI */ = {
 			isa = PBXGroup;
 			children = (
+				65D3C5431C5C6B7400317466 /* CMMarkdownConverterSpec.swift */,
 				653D0FD01C4C53BB004CB8A0 /* ConcreteTabBarItemStylistSpec.swift */,
 				653D0FD11C4C53BB004CB8A0 /* ConcreteTimeIntervalFormatterSpec.swift */,
 				653D0FD21C4C53BB004CB8A0 /* ConcreteURLAttributionPresenterSpec.swift */,
@@ -1282,6 +1299,7 @@
 			isa = PBXGroup;
 			children = (
 				654948CE1BFA797E00C1ECDB /* Flurry */,
+				655A01191C5BC9A7004548A0 /* CocoaMarkdown.framework */,
 				65A5C0FB1BA29F2200D46500 /* Crashlytics.framework */,
 				65A5C0F91BA2978600D46500 /* Fabric.framework */,
 			);
@@ -1356,6 +1374,7 @@
 				659F0E1F1B95F0180049FA12 /* FakeImageRepository.swift */,
 				651C466C1C4340F50075F5DE /* FakeImageService.swift */,
 				6538850F1B90F13600DCA808 /* FakeJSONClient.swift */,
+				65D3C5411C5C514E00317466 /* FakeMarkdownConverter.swift */,
 				652AE5EF1C473CA300EE7B70 /* FakeNewsArticleRepository.swift */,
 				652AE5E71C46EF5800EE7B70 /* FakeNewsFeedItemControllerProvider.swift */,
 				654D2F621C137A21001AA09B /* FakeNewsFeedTableViewCellPresenter.swift */,
@@ -1640,6 +1659,7 @@
 				"$(PROJECT_DIR)/Carthage/Build/iOS/Bolts.framework",
 				"$(PROJECT_DIR)/Carthage/Build/iOS/CBGPromise.framework",
 				"$(PROJECT_DIR)/Carthage/Build/iOS/Swinject.framework",
+				"$(PROJECT_DIR)/Movement/Externals/CocoaMarkdown.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (
@@ -1738,6 +1758,7 @@
 				653D0F3B1C4C2C9F004CB8A0 /* IssueTableViewCell.swift in Sources */,
 				653D0F7C1C4C2F68004CB8A0 /* JSONClient.swift in Sources */,
 				65CA5E871B86CAAF0001D870 /* main.swift in Sources */,
+				65D3C5401C5C507800317466 /* MarkdownConverter.swift in Sources */,
 				65979AA81C4C741200A312A9 /* MoreContainerConfigurator.swift in Sources */,
 				65979A9A1C4C648C00A312A9 /* MovementContainerProvider.swift in Sources */,
 				653D0FA11C4C35C0004CB8A0 /* NavigationController.swift in Sources */,
@@ -1795,6 +1816,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				653D101F1C4C53BB004CB8A0 /* AboutControllerSpec.swift in Sources */,
+				654F92811C5ABFBD00C76992 /* ActionAlertControllerSpec.swift in Sources */,
 				653D10021C4C53BB004CB8A0 /* ActionsControllerSpec.swift in Sources */,
 				653D10201C4C53BB004CB8A0 /* AnalyticsSettingsControllerSpec.swift in Sources */,
 				651960871C4D8F20004AAC6D /* AppDelegateSpec.swift in Sources */,
@@ -1804,6 +1826,7 @@
 				653D10191C4C53BB004CB8A0 /* BackgroundIssueServiceSpec.swift in Sources */,
 				653D10261C4C53BB004CB8A0 /* BackgroundNewsArticleServiceSpec.swift in Sources */,
 				653D10271C4C53BB004CB8A0 /* BackgroundNewsFeedServiceSpec.swift in Sources */,
+				65D3C5441C5C6B7400317466 /* CMMarkdownConverterSpec.swift in Sources */,
 				653D10151C4C53BB004CB8A0 /* ConcreteApplicationSettingsRepositorySpec.swift in Sources */,
 				653D10071C4C53BB004CB8A0 /* ConcreteEventControllerProviderSpec.swift in Sources */,
 				653D10041C4C53BB004CB8A0 /* ConcreteEventDeserializerSpec.swift in Sources */,
@@ -1841,6 +1864,7 @@
 				659F0E201B95F0180049FA12 /* FakeImageRepository.swift in Sources */,
 				651C466D1C4340F50075F5DE /* FakeImageService.swift in Sources */,
 				653885101B90F13600DCA808 /* FakeJSONClient.swift in Sources */,
+				65D3C5421C5C514E00317466 /* FakeMarkdownConverter.swift in Sources */,
 				652AE5F01C473CA300EE7B70 /* FakeNewsArticleRepository.swift in Sources */,
 				652AE5E81C46EF5800EE7B70 /* FakeNewsFeedItemControllerProvider.swift in Sources */,
 				654D2F631C137A21001AA09B /* FakeNewsFeedTableViewCellPresenter.swift in Sources */,

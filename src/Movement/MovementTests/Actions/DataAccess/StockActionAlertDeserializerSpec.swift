@@ -23,13 +23,17 @@ class StockActionAlertDeserializerSpec: QuickSpec {
 
                 let actionAlertA = actionAlerts[0]
                 expect(actionAlertA.title).to(equal("This is another alert"))
+                expect(actionAlertA.body).to(equal("I wouldn't say I buy it Liz, let's just say I'm window shopping.\n\n\n\nAnd right now, there's a half price sale on '_weird_'"))
+                expect(actionAlertA.date).to(equal("Thursday alert!"))
 
                 let actionAlertB = actionAlerts[1]
                 expect(actionAlertB.title).to(equal("Get out the vote!"))
+                expect(actionAlertB.body).to(equal("Vote Bernie 2016"))
+                expect(actionAlertB.date).to(equal("This Minute"))
             }
 
-            context("when title is missing") {
-                it("should not explode and ignore stories that lack them") {
+            context("when content is missing") {
+                it("should not explode and ignore action alerts that lack required content") {
                     let data = TestUtils.dataFromFixtureFileNamed("dodgy_action_alerts", type: "json")
 
                     let jsonDictionary = (try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions()))

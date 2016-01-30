@@ -44,6 +44,10 @@ class ActionsContainerConfigurator: ContainerConfigurator {
 
 extension Container: ActionAlertControllerProvider {
     func provideInstanceWithActionAlert(actionAlert: ActionAlert) -> ActionAlertController {
-        return ActionAlertController()
+        return ActionAlertController(
+            actionAlert: actionAlert,
+            markdownConverter: resolve(MarkdownConverter.self)!,
+            theme: resolve(Theme.self)!
+        )
     }
 }

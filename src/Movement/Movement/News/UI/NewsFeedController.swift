@@ -97,14 +97,22 @@ class NewsFeedController: UIViewController {
         loadNewsFeed()
     }
 
-    func loadNewsFeed() -> NewsFeedFuture {
-        return newsFeedService.fetchNewsFeed().then { newsFeedItems in
+    func loadNewsFeed() {
+        newsFeedService.fetchNewsFeed().then { newsFeedItems in
+            NSOperationQueue.currentQueue()?.addOperationWithBlock({ () -> Void in
+                self.refreshControl.endRefreshing() //TODO: test
+            })
+            
             self.errorLoadingNews = false
             self.tableView.hidden = false
             self.loadingIndicatorView.stopAnimating()
             self.newsFeedItems = newsFeedItems
             self.tableView.reloadData()
         }.error { error in
+            NSOperationQueue.currentQueue()?.addOperationWithBlock({ () -> Void in
+                self.refreshControl.endRefreshing() //TODO: test
+            })
+            
             self.errorLoadingNews = true
             self.tableView.reloadData()
             self.analyticsService.trackError(error, context: "Failed to load news feed")
@@ -113,9 +121,7 @@ class NewsFeedController: UIViewController {
 
     func refresh() {
         refreshControl.beginRefreshing()
-        loadNewsFeed().then { _ in
-            self.refreshControl.endRefreshing()
-        }
+        loadNewsFeed()
     }
 }
 

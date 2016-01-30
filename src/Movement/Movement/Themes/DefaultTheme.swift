@@ -154,6 +154,26 @@ class DefaultTheme: Theme {
     func actionsTitleTextColor() -> UIColor { return h3HeaderTextColor() }
     func actionsSubTitleFont() -> UIFont { return subHeadingFont() }
     func actionsSubTitleTextColor() -> UIColor { return subHeadingTextColor() }
+    
+    // MARK: Action Alerts
+    
+    func actionAlertDateFont() -> UIFont { return h2HeaderFont() }
+    func actionAlertDateTextColor() -> UIColor { return thunderbirdColor }
+    func actionAlertTitleFont() -> UIFont { return h1HeaderFont() }
+    func actionAlertTitleTextColor() -> UIColor { return h1HeaderTextColor() }
+    func actionAlertH1Font() -> UIFont { return h1HeaderFont() }
+    func actionAlertH2Font() -> UIFont { return h2HeaderFont() }
+    func actionAlertH3Font() -> UIFont { return h3HeaderFont() }
+    func actionAlertH4Font() -> UIFont { return h4HeaderFont() }
+    func actionAlertH5Font() -> UIFont { return h5HeaderFont() }
+    func actionAlertH6Font() -> UIFont { return h6HeaderFont() }
+    func actionAlertBodyFont() -> UIFont { return defaultBodyTextFont() }
+    func actionAlertBodyTextColor() -> UIColor { return defaultBodyTextColor() }
+    func actionAlertBodyLinkTextColor() -> UIColor { return chathamsBlueColor }
+    func actionAlertShareButtonFont() -> UIFont { return defaultButtonFont() }
+    func actionAlertShareButtonTextColor() -> UIColor { return defaultButtonTextColor() }
+    func actionAlertShareButtonBorderColor() -> UIColor { return defaultButtonTextColor() }
+    func actionAlertShareButtonBackgroundColor() -> UIColor { return contentBackgroundColor() }
 
     // MARK: default dimensions
 
@@ -190,6 +210,10 @@ class DefaultTheme: Theme {
 
     func h3HeaderFont() -> UIFont { return semiBoldSystemFontOfSize(15) }
     func h3HeaderTextColor() -> UIColor { return coalMinerColor }
+
+    func h4HeaderFont() -> UIFont { return semiBoldSystemFontOfSize(14) }
+    func h5HeaderFont() -> UIFont { return semiBoldSystemFontOfSize(13) }
+    func h6HeaderFont() -> UIFont { return semiBoldSystemFontOfSize(12) }
 
     func subHeadingFont() -> UIFont { return UIFont.systemFontOfSize(14) }
     func subHeadingTextColor() -> UIColor { return boulderColor }

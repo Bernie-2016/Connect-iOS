@@ -146,4 +146,24 @@ protocol Theme {
     func actionsTitleTextColor() -> UIColor
     func actionsSubTitleFont() -> UIFont
     func actionsSubTitleTextColor() -> UIColor
+    
+    // MARK: Action Alerts
+    
+    func actionAlertDateFont() -> UIFont
+    func actionAlertDateTextColor() -> UIColor
+    func actionAlertTitleFont() -> UIFont
+    func actionAlertTitleTextColor() -> UIColor
+    func actionAlertH1Font() -> UIFont
+    func actionAlertH2Font() -> UIFont
+    func actionAlertH3Font() -> UIFont
+    func actionAlertH4Font() -> UIFont
+    func actionAlertH5Font() -> UIFont
+    func actionAlertH6Font() -> UIFont
+    func actionAlertBodyFont() -> UIFont
+    func actionAlertBodyTextColor() -> UIColor
+    func actionAlertBodyLinkTextColor() -> UIColor
+    func actionAlertShareButtonFont() -> UIFont
+    func actionAlertShareButtonTextColor() -> UIColor
+    func actionAlertShareButtonBorderColor() -> UIColor
+    func actionAlertShareButtonBackgroundColor() -> UIColor
 }

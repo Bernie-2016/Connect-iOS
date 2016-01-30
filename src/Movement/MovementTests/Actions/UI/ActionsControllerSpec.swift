@@ -325,8 +325,8 @@ class ActionsControllerSpec: QuickSpec {
                 describe("when the request to the action alert service succeeds") {
                     context("and the service resolves its promise with more than zero action alerts") {
                         var tableView: UITableView!
-                        let firstActionAlert = ActionAlert(title: "FTB!")
-                        let secondActionAlert = ActionAlert(title: "Aha!")
+                        let firstActionAlert = TestUtils.actionAlert("FTB!")
+                        let secondActionAlert = TestUtils.actionAlert("Aha!")
                         beforeEach {
                             actionAlertService.lastReturnedActionAlertsPromise.resolve([
                                 firstActionAlert,

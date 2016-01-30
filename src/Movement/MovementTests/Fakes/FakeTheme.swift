@@ -180,4 +180,21 @@ class FakeTheme: Theme {
     func defaultTableCellBackgroundColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func navigationBarButtonFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
     func defaultButtonDisabledTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func actionAlertDateFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
+    func actionAlertDateTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func actionAlertTitleFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
+    func actionAlertTitleTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func actionAlertH1Font() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
+    func actionAlertH2Font() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
+    func actionAlertH3Font() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
+    func actionAlertH4Font() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
+    func actionAlertH5Font() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
+    func actionAlertH6Font() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
+    func actionAlertBodyFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
+    func actionAlertBodyTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func actionAlertBodyLinkTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func actionAlertShareButtonFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
+    func actionAlertShareButtonTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func actionAlertShareButtonBorderColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func actionAlertShareButtonBackgroundColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
 }

@@ -90,17 +90,19 @@ class IssuesController: UIViewController {
     // MARK: Actions
 
     func refresh() {
-        loadIssues().then { _ in
-            self.refreshControl.endRefreshing()
-        }
+        loadIssues()
     }
 
     // MARK: Private
 
-    func loadIssues() -> IssuesFuture {
+    func loadIssues() {
         let issuesFuture = issueService.fetchIssues()
 
         issuesFuture.then { issues in
+            NSOperationQueue.currentQueue()?.addOperationWithBlock({ () -> Void in
+                self.refreshControl.endRefreshing() //TODO: test
+            })
+            
             self.errorLoadingIssues = false
             self.issues = issues
             self.loadingIndicatorView.stopAnimating()
@@ -109,12 +111,14 @@ class IssuesController: UIViewController {
         }
 
         issuesFuture.error { error in
+            NSOperationQueue.currentQueue()?.addOperationWithBlock({ () -> Void in
+                self.refreshControl.endRefreshing() //TODO: test
+            })
+            
             self.errorLoadingIssues = true
             self.tableView.reloadData()
             self.analyticsService.trackError(error, context: "Failed to load issues")
         }
-
-        return issuesFuture
     }
 }
 

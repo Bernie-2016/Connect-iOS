@@ -44,5 +44,9 @@ class GlobalUIContainerConfigurator: ContainerConfigurator {
         container.register(TimeIntervalFormatter.self) { resolver in
             return ConcreteTimeIntervalFormatter(dateProvider: resolver.resolve(DateProvider.self)!)
         }.inObjectScope(.Container)
+
+        container.register(MarkdownConverter.self) { resolver in
+            return CMMarkdownConverter(theme: resolver.resolve(Theme.self)!)
+        }.inObjectScope(.None)
     }
 }

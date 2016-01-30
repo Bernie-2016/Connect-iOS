@@ -22,6 +22,7 @@ class ConcreteNewsArticleDeserializer: NewsArticleDeserializer {
             guard let body = sourceDictionary["body"] as? String else { continue }
             guard let excerpt = sourceDictionary["excerpt"] as? String else { continue }
             guard let dateString = sourceDictionary["timestamp_publish"] as? String else { continue }
+
             guard let urlString = sourceDictionary["url"] as? String else { continue }
             guard let url = NSURL(string: urlString) else { continue }
             guard let date = dateFormatter.dateFromString(dateString) else { continue }

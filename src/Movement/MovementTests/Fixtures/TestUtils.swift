@@ -46,8 +46,8 @@ class TestUtils {
             description: "This isn't Beverly Hills! It's Knot's Landing!", url: NSURL(string: "https://example.com")!, eventTypeName: "Big Time Bernie Fun")
     }
 
-    class func actionAlert() -> ActionAlert {
-        return ActionAlert(title: "Do it now")
+    class func actionAlert(title: String = "Do it now") -> ActionAlert {
+        return ActionAlert(title: title, body: "I'm a cop you idiot", date: "Real soon now")
     }
 
     // MARK: Controllers
@@ -73,6 +73,7 @@ class TestUtils {
     }
 
     class func actionAlertController() -> ActionAlertController {
-        return ActionAlertController()
+        let actionAlert = self.actionAlert()
+        return ActionAlertController(actionAlert: actionAlert, markdownConverter: FakeMarkdownConverter(), theme: FakeTheme())
     }
 }
