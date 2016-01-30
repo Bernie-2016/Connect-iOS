@@ -10,10 +10,18 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
     var errorLoadingIssues = false
 
     let tableView = UITableView.newAutoLayoutView()
+    let refreshControl = UIRefreshControl()
     let loadingIndicatorView = UIActivityIndicatorView.newAutoLayoutView()
 
     var issues: Array<Issue>!
 
+    static func configuredPullToRefresh()->UIRefreshControl? {
+        let pullToRefresh = UIRefreshControl()
+        pullToRefresh.backgroundColor = UIColor.blueColor()
+        pullToRefresh.tintColor = UIColor.blackColor()
+        return pullToRefresh
+    }
+    
     init(issueService: IssueService,
         issueControllerProvider: IssueControllerProvider,
         analyticsService: AnalyticsService!,
@@ -41,7 +49,16 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
     }
 
     // MARK: UIViewController
+    func refresh(sender:AnyObject!){
+        self.refreshControl.beginRefreshing()
+        self.loadIssues(){
+            self.tableView.reloadData()
+            self.tableView.layoutIfNeeded()
+            self.refreshControl.endRefreshing()
+        }
+    }
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -53,6 +70,10 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
 
         navigationItem.backBarButtonItem = backBarButtonItem
 
+        refreshControl.addTarget(self, action:"refresh:",forControlEvents:.ValueChanged)
+        tableView.addSubview(refreshControl)
+        tableView.sendSubviewToBack(refreshControl)
+        
         view.addSubview(tableView)
         view.addSubview(loadingIndicatorView)
 
@@ -70,15 +91,9 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
         loadingIndicatorView.autoAlignAxisToSuperviewAxis(.Horizontal)
         loadingIndicatorView.color = self.theme.defaultSpinnerColor()
     }
-
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-
-        if let selectedRowIndexPath = self.tableView.indexPathForSelectedRow {
-            self.tableView.deselectRowAtIndexPath(selectedRowIndexPath, animated: false)
-        }
-
-
+    
+    func loadIssues(completion:()->()){
+        
         let issuesFuture = issueService.fetchIssues()
         issuesFuture.then { issues in
             self.errorLoadingIssues = false
@@ -86,13 +101,26 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
             self.loadingIndicatorView.stopAnimating()
             self.tableView.hidden = false
             self.tableView.reloadData()
+            completion()
         }
 
         issuesFuture.error { error in
             self.errorLoadingIssues = true
             self.tableView.reloadData()
             self.analyticsService.trackError(error, context: "Failed to load issues")
+            completion()
         }
+
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if let selectedRowIndexPath = self.tableView.indexPathForSelectedRow {
+            self.tableView.deselectRowAtIndexPath(selectedRowIndexPath, animated: false)
+        }
+
+        loadIssues(){}
     }
 
     // MARK: UITableViewDataSource

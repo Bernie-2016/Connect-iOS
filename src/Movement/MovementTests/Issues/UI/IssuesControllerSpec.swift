@@ -180,6 +180,14 @@ class IssuesControllerSpec: QuickSpec {
                     }
                 }
 
+                describe("Pull to refresh") {
+                    it("asks the news feed service to reload the news feed") {
+                        issueService.fetchIssuesCalled = false
+                        subject.refreshControl.sendActionsForControlEvents(.ValueChanged)
+                        expect(issueService.fetchIssuesCalled).to(beTrue())
+                    }
+                }
+                
                 describe("Tapping on an issue") {
                     let expectedIssue = TestUtils.issue()
 
