@@ -217,6 +217,14 @@ class NewsFeedControllerSpecs: QuickSpec {
                 }
             }
 
+            describe("pull to refresh") {
+                it("asks the news feed service to reload the news feed") {
+                    newsFeedService.fetchNewsFeedCalled = false
+                    subject.refreshControl.sendActionsForControlEvents(.ValueChanged)
+                    expect(newsFeedService.fetchNewsFeedCalled).to(beTrue())
+                }
+            }
+
             describe("Tapping on a news item") {
                 let expectedNewsItemA = TestUtils.newsArticle()
                 let expectedNewsItemB = NewsArticle(title: "B", date: NSDate(), body: "B Body", excerpt: "excerpt", imageURL: NSURL(), url: NSURL(string: "http://example.com/b")!)

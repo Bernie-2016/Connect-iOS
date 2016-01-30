@@ -13,16 +13,17 @@ class NewsFeedController: UIViewController {
     private var errorLoadingNews = false
 
     let tableView = UITableView.newAutoLayoutView()
+    let refreshControl = UIRefreshControl()
     let loadingIndicatorView = UIActivityIndicatorView.newAutoLayoutView()
 
     private var newsFeedItems: [NewsFeedItem]
 
     init(newsFeedService: NewsFeedService,
-        newsFeedItemControllerProvider: NewsFeedItemControllerProvider,
-        newsFeedTableViewCellPresenter: NewsFeedTableViewCellPresenter,
-        analyticsService: AnalyticsService,
-        tabBarItemStylist: TabBarItemStylist,
-        theme: Theme ) {
+         newsFeedItemControllerProvider: NewsFeedItemControllerProvider,
+         newsFeedTableViewCellPresenter: NewsFeedTableViewCellPresenter,
+         analyticsService: AnalyticsService,
+         tabBarItemStylist: TabBarItemStylist,
+         theme: Theme) {
             self.newsFeedService = newsFeedService
             self.newsFeedItemControllerProvider = newsFeedItemControllerProvider
             self.newsFeedTableViewCellPresenter = newsFeedTableViewCellPresenter
@@ -34,7 +35,7 @@ class NewsFeedController: UIViewController {
 
             super.init(nibName: nil, bundle: nil)
 
-            self.tabBarItemStylist.applyThemeToBarBarItem(self.tabBarItem,
+            tabBarItemStylist.applyThemeToBarBarItem(tabBarItem,
                 image: UIImage(named: "newsTabBarIconInactive")!,
                 selectedImage: UIImage(named: "newsTabBarIcon")!)
 
@@ -59,7 +60,9 @@ class NewsFeedController: UIViewController {
 
         navigationItem.backBarButtonItem = backBarButtonItem
 
-
+        refreshControl.addTarget(self, action:"refresh", forControlEvents:.ValueChanged)
+        tableView.addSubview(refreshControl)
+        tableView.sendSubviewToBack(refreshControl)
         view.addSubview(tableView)
         view.addSubview(loadingIndicatorView)
 
@@ -72,7 +75,7 @@ class NewsFeedController: UIViewController {
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "errorCell")
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.backgroundColor = self.theme.newsFeedBackgroundColor()
+        tableView.backgroundColor = theme.newsFeedBackgroundColor()
         tableView.autoPinEdgesToSuperviewEdges()
 
         newsFeedTableViewCellPresenter.setupTableView(tableView)
@@ -81,26 +84,37 @@ class NewsFeedController: UIViewController {
         loadingIndicatorView.hidesWhenStopped = true
         loadingIndicatorView.autoAlignAxisToSuperviewAxis(.Vertical)
         loadingIndicatorView.autoAlignAxisToSuperviewAxis(.Horizontal)
-        loadingIndicatorView.color = self.theme.defaultSpinnerColor()
+        loadingIndicatorView.color = theme.defaultSpinnerColor()
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
-        if let selectedRowIndexPath = self.tableView.indexPathForSelectedRow {
-            self.tableView.deselectRowAtIndexPath(selectedRowIndexPath, animated: false)
+        if let selectedRowIndexPath = tableView.indexPathForSelectedRow {
+            tableView.deselectRowAtIndexPath(selectedRowIndexPath, animated: false)
         }
 
-        self.newsFeedService.fetchNewsFeed().then { newsFeedItems in
+        loadNewsFeed()
+    }
+
+    func loadNewsFeed() -> NewsFeedFuture {
+        return newsFeedService.fetchNewsFeed().then { newsFeedItems in
             self.errorLoadingNews = false
             self.tableView.hidden = false
             self.loadingIndicatorView.stopAnimating()
             self.newsFeedItems = newsFeedItems
             self.tableView.reloadData()
-            }.error { error in
-                self.errorLoadingNews = true
-                self.tableView.reloadData()
-                self.analyticsService.trackError(error, context: "Failed to load news feed")
+        }.error { error in
+            self.errorLoadingNews = true
+            self.tableView.reloadData()
+            self.analyticsService.trackError(error, context: "Failed to load news feed")
+        }
+    }
+
+    func refresh() {
+        refreshControl.beginRefreshing()
+        loadNewsFeed().then { _ in
+            self.refreshControl.endRefreshing()
         }
     }
 }
@@ -113,29 +127,29 @@ extension NewsFeedController: UITableViewDataSource {
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.errorLoadingNews {
+        if errorLoadingNews {
             return 1
         }
 
-        if self.newsFeedItems.count == 0 {
+        if newsFeedItems.count == 0 {
             return 0
         }
 
-        return self.newsFeedItems.count
+        return newsFeedItems.count
     }
 
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if self.errorLoadingNews {
+        if errorLoadingNews {
             let cell = tableView.dequeueReusableCellWithIdentifier("errorCell")!
             cell.textLabel!.text = NSLocalizedString("NewsFeed_errorText", comment: "")
-            cell.textLabel!.font = self.theme.newsFeedTitleFont()
-            cell.textLabel!.textColor = self.theme.newsFeedTitleColor()
+            cell.textLabel!.font = theme.newsFeedTitleFont()
+            cell.textLabel!.textColor = theme.newsFeedTitleColor()
             return cell
         }
 
-        let newsFeedItem = self.newsFeedItems[indexPath.row]
-        return self.newsFeedTableViewCellPresenter.cellForTableView(tableView, newsFeedItem: newsFeedItem, indexPath: indexPath)
+        let newsFeedItem = newsFeedItems[indexPath.row]
+        return newsFeedTableViewCellPresenter.cellForTableView(tableView, newsFeedItem: newsFeedItem, indexPath: indexPath)
     }
 }
 
@@ -147,12 +161,12 @@ extension NewsFeedController: UITableViewDelegate {
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let newsFeedItem = self.newsFeedItems[indexPath.row]
+        let newsFeedItem = newsFeedItems[indexPath.row]
 
-        self.analyticsService.trackContentViewWithName(newsFeedItem.title, type: .NewsArticle, identifier: newsFeedItem.identifier)
+        analyticsService.trackContentViewWithName(newsFeedItem.title, type: .NewsArticle, identifier: newsFeedItem.identifier)
 
-        let controller = self.newsFeedItemControllerProvider.provideInstanceWithNewsFeedItem(newsFeedItem)
+        let controller = newsFeedItemControllerProvider.provideInstanceWithNewsFeedItem(newsFeedItem)
 
-        self.navigationController?.pushViewController(controller, animated: true)
+        navigationController?.pushViewController(controller, animated: true)
     }
 }
