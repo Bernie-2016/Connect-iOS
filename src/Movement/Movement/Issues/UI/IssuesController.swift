@@ -14,13 +14,6 @@ class IssuesController: UIViewController, UITableViewDataSource, UITableViewDele
     let loadingIndicatorView = UIActivityIndicatorView.newAutoLayoutView()
 
     var issues: Array<Issue>!
-
-    static func configuredPullToRefresh()->UIRefreshControl? {
-        let pullToRefresh = UIRefreshControl()
-        pullToRefresh.backgroundColor = UIColor.blueColor()
-        pullToRefresh.tintColor = UIColor.blackColor()
-        return pullToRefresh
-    }
     
     init(issueService: IssueService,
         issueControllerProvider: IssueControllerProvider,
