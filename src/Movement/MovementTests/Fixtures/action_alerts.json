@@ -8,8 +8,21 @@
              "date": "Thursday alert!",
              "body": "I wouldn't say I buy it Liz, let's just say I'm window shopping.\n\n\n\nAnd right now, there's a half price sale on '_weird_'",
              "short_body": "",
-             "target_url": "",
+             "target_url": "https://www.youtube.com/watch?v=cr6ufGzlcwk",
              "twitter_url": "https://www.youtube.com/watch?v=oNSPOYH510w",
+             "tweet_id": "677935459260096513"
+             }
+             },
+             {
+             "id": "11",
+             "type": "action_alerts",
+             "attributes": {
+             "title": "Empty string sharing URLs",
+             "date": "This Minute",
+             "body": "Vote Bernie 2016",
+             "short_body": "Vote Bernie now!",
+             "target_url": "",
+             "twitter_url": "",
              "tweet_id": ""
              }
              },
@@ -17,13 +30,10 @@
              "id": "11",
              "type": "action_alerts",
              "attributes": {
-             "title": "Get out the vote!",
+             "title": "Missing sharing URLs",
              "date": "This Minute",
              "body": "Vote Bernie 2016",
              "short_body": "Vote Bernie now!",
-             "target_url": "",
-             "twitter_url": "",
-             "tweet_id": ""
              }
              }
              ],

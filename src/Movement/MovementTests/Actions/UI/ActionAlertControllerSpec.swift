@@ -58,6 +58,67 @@ class ActionAlertControllerSpec: QuickSpec {
                     expect(subject.titleLabel.font).to(equal(UIFont.systemFontOfSize(222)))
                     expect(subject.titleLabel.textColor).to(equal(UIColor.redColor()))
                 }
+
+                describe("the facebook button") {
+                    context("when the action alert has a target url") {
+                        it("is visible") {
+                            fail("not yet")
+                        }
+
+                        describe("when tapped") {
+                            it("opens the facebook share intent in safari") {
+                                fail("not yet")
+                            }
+                        }
+                    }
+
+                    context("when the action alert does not have a target url") {
+                        it("is not visible") {
+                            fail("not yet")
+                        }
+                    }
+                }
+
+                describe("the twitter share button") {
+                    context("when the action alert has a twitter url") {
+                        it("is visible") {
+                            fail("not yet")
+                        }
+
+                        describe("when tapped") {
+                            it("opens the twitter share intent in safari") {
+                                fail("not yet")
+                            }
+                        }
+                    }
+
+                    context("when the action alert does not have a twitter url") {
+                        it("is not visible") {
+                            fail("not yet")
+                        }
+                    }
+                }
+
+
+                describe("the retweet button") {
+                    context("when the action alert has a retweet id") {
+                        it("is visible") {
+                            fail("not yet")
+                        }
+
+                        describe("when tapped") {
+                            it("opens the retweet intent in safari") {
+                                fail("not yet")
+                            }
+                        }
+                    }
+
+                    context("when the action alert does not have a retweet id") {
+                        it("is not visible") {
+                            fail("not yet")
+                        }
+                    }
+                }
             }
         }
     }

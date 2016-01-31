@@ -215,6 +215,7 @@
 		655A011A1C5BC9A7004548A0 /* CocoaMarkdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655A01191C5BC9A7004548A0 /* CocoaMarkdown.framework */; };
 		655A3AD01B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655A3ACF1B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework */; };
 		655A3DB81BBCCE7400E08051 /* floss_licenses.html in Resources */ = {isa = PBXBuildFile; fileRef = 655A3DB71BBCCE7400E08051 /* floss_licenses.html */; };
+		65713DE11C5DAA0F00E6E4FC /* action_alert_with_invalid_sharing_urls.json in Resources */ = {isa = PBXBuildFile; fileRef = 65713DE01C5DAA0F00E6E4FC /* action_alert_with_invalid_sharing_urls.json */; };
 		658492461BE3BA5B007279E8 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 658492481BE3BA5B007279E8 /* Localizable.stringsdict */; };
 		659011161C4D8ADB005489C4 /* AppBootstrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659011151C4D8ADB005489C4 /* AppBootstrapper.swift */; };
 		6592FA331B98D8F600746EC3 /* issue_feed.json in Resources */ = {isa = PBXBuildFile; fileRef = 6592FA321B98D8F600746EC3 /* issue_feed.json */; };
@@ -538,6 +539,7 @@
 		655A01191C5BC9A7004548A0 /* CocoaMarkdown.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CocoaMarkdown.framework; sourceTree = "<group>"; };
 		655A3ACF1B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "UIKit+PivotalSpecHelper-iOS.framework"; sourceTree = "<group>"; };
 		655A3DB71BBCCE7400E08051 /* floss_licenses.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = floss_licenses.html; sourceTree = "<group>"; };
+		65713DE01C5DAA0F00E6E4FC /* action_alert_with_invalid_sharing_urls.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = action_alert_with_invalid_sharing_urls.json; sourceTree = "<group>"; };
 		658492471BE3BA5B007279E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = Base; path = Base.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		659011151C4D8ADB005489C4 /* AppBootstrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppBootstrapper.swift; sourceTree = "<group>"; };
 		6592FA321B98D8F600746EC3 /* issue_feed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = issue_feed.json; sourceTree = "<group>"; };
@@ -651,6 +653,7 @@
 		650763301B8B809600BA0659 /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
+				65713DE01C5DAA0F00E6E4FC /* action_alert_with_invalid_sharing_urls.json */,
 				65CFACFA1C59D1AF005E1309 /* action_alerts.json */,
 				659F0E211B95F44E0049FA12 /* bernie.jpg */,
 				65CFACFC1C59D1FE005E1309 /* dodgy_action_alerts.json */,
@@ -1586,6 +1589,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65713DE11C5DAA0F00E6E4FC /* action_alert_with_invalid_sharing_urls.json in Resources */,
 				65CFACFB1C59D1AF005E1309 /* action_alerts.json in Resources */,
 				659F0E221B95F44E0049FA12 /* bernie.jpg in Resources */,
 				65CFACFD1C59D1FE005E1309 /* dodgy_action_alerts.json in Resources */,

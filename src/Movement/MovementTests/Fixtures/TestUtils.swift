@@ -47,7 +47,13 @@ class TestUtils {
     }
 
     class func actionAlert(title: String = "Do it now") -> ActionAlert {
-        return ActionAlert(title: title, body: "I'm a cop you idiot", date: "Real soon now")
+        return ActionAlert(
+            title: title,
+            body: "I'm a cop you idiot",
+            date: "Real soon now",
+            targetURL: NSURL(string: "https://example.com/fb")!,
+            twitterURL: NSURL(string: "https://example.com/twit")!,
+            tweetID: "1800tweet")
     }
 
     // MARK: Controllers

@@ -4,6 +4,9 @@ struct ActionAlert {
     let title: String
     let body: String
     let date: String
+    let targetURL: NSURL?
+    let twitterURL: NSURL?
+    let tweetID: String?
 }
 
 extension ActionAlert: Equatable {}
