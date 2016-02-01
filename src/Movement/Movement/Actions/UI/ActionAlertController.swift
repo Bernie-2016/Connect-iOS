@@ -4,19 +4,28 @@ import CocoaMarkdown
 class ActionAlertController: UIViewController {
     private let actionAlert: ActionAlert
     private let markdownConverter: MarkdownConverter
+    private let urlOpener: URLOpener
+    private let urlProvider: URLProvider
     private let theme: Theme
 
     private let scrollView = UIScrollView.newAutoLayoutView()
     private let containerView = UIView.newAutoLayoutView()
+
     let dateLabel = UILabel.newAutoLayoutView()
     let titleLabel = UILabel.newAutoLayoutView()
     let bodyTextView = UITextView.newAutoLayoutView()
+    let facebookShareButton = UIButton.newAutoLayoutView()
+    let twitterShareButton = UIButton.newAutoLayoutView()
+    let retweetButton = UIButton.newAutoLayoutView()
 
     private var containerViewWidthConstraint: NSLayoutConstraint!
+    private var numberOfActiveShareButtons = 0
 
-    init(actionAlert: ActionAlert, markdownConverter: MarkdownConverter, theme: Theme) {
+    init(actionAlert: ActionAlert, markdownConverter: MarkdownConverter, urlOpener: URLOpener, urlProvider: URLProvider, theme: Theme) {
         self.actionAlert = actionAlert
         self.markdownConverter = markdownConverter
+        self.urlOpener = urlOpener
+        self.urlProvider = urlProvider
         self.theme = theme
 
         super.init(nibName: nil, bundle: nil)
@@ -34,6 +43,9 @@ class ActionAlertController: UIViewController {
         containerView.addSubview(dateLabel)
         containerView.addSubview(titleLabel)
         containerView.addSubview(bodyTextView)
+        containerView.addSubview(facebookShareButton)
+        containerView.addSubview(twitterShareButton)
+        containerView.addSubview(retweetButton)
 
         dateLabel.text = actionAlert.date
         titleLabel.text = actionAlert.title
@@ -42,13 +54,22 @@ class ActionAlertController: UIViewController {
         bodyTextView.editable = false
         bodyTextView.selectable = true
 
-        setupConstraints()
+        facebookShareButton.hidden = actionAlert.targetURL == nil
+        facebookShareButton.setImage(UIImage(named: "FacebookShare"), forState: .Normal)
+        facebookShareButton.addTarget(self, action: "didTapFacebookShare", forControlEvents: .TouchUpInside)
 
-        view.backgroundColor = theme.contentBackgroundColor()
-        dateLabel.font = theme.actionAlertDateFont()
-        dateLabel.textColor = theme.actionAlertDateTextColor()
-        titleLabel.font = theme.actionAlertTitleFont()
-        titleLabel.textColor = theme.actionAlertTitleTextColor()
+        twitterShareButton.hidden = actionAlert.twitterURL == nil
+        twitterShareButton.setImage(UIImage(named: "TwitterShare"), forState: .Normal)
+        twitterShareButton.addTarget(self, action: "didTapTwitterShare", forControlEvents: .TouchUpInside)
+
+        retweetButton.hidden = actionAlert.tweetID == nil
+        retweetButton.setImage(UIImage(named: "Retweet"), forState: .Normal)
+        retweetButton.addTarget(self, action: "didTapRetweet", forControlEvents: .TouchUpInside)
+
+        numberOfActiveShareButtons = [facebookShareButton, twitterShareButton, retweetButton].filter { !$0.hidden }.count
+
+        setupConstraints()
+        applyTheme()
     }
 
     override func updateViewConstraints() {
@@ -57,6 +78,36 @@ class ActionAlertController: UIViewController {
         let screenBounds = UIScreen.mainScreen().bounds
         containerViewWidthConstraint.constant = screenBounds.width
     }
+
+    // MARK: Actions
+
+    func didTapFacebookShare() {
+        let activityVC = UIActivityViewController(activityItems: [actionAlert.targetURL!], applicationActivities: nil)
+        var excludedActivityTypes = [
+            UIActivityTypeAddToReadingList, UIActivityTypeAirDrop, UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard,
+            UIActivityTypeMail, UIActivityTypeMessage, UIActivityTypePostToFlickr, UIActivityTypePostToTencentWeibo,
+            UIActivityTypePostToTwitter, UIActivityTypePostToVimeo, UIActivityTypePostToWeibo, UIActivityTypePrint,
+            UIActivityTypeSaveToCameraRoll
+        ]
+
+        if #available(iOS 9.0, *) {
+            excludedActivityTypes.append(UIActivityTypeOpenInIBooks)
+        }
+
+        activityVC.excludedActivityTypes = excludedActivityTypes
+        presentViewController(activityVC, animated: true, completion: nil)
+    }
+
+    func didTapTwitterShare() {
+        let url = urlProvider.twitterShareURL(actionAlert.twitterURL!)
+        urlOpener.openURL(url)
+    }
+
+    func didTapRetweet() {
+        let url = urlProvider.retweetURL(actionAlert.tweetID!)
+        urlOpener.openURL(url)
+    }
+
     // MARK: Private
 
     private func setupConstraints() {
@@ -91,6 +142,57 @@ class ActionAlertController: UIViewController {
         bodyTextView.autoPinEdge(.Top, toEdge: .Bottom, ofView: titleLabel, withOffset: 10)
         bodyTextView.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
         bodyTextView.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
-        bodyTextView.autoPinEdgeToSuperviewEdge(.Bottom, withInset: defaultVerticalMargin, relation: .GreaterThanOrEqual)
+
+        facebookShareButton.autoSetDimension(.Height, toSize: 40)
+        facebookShareButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: bodyTextView, withOffset: 16)
+        facebookShareButton.autoPinEdgeToSuperviewEdge(.Left, withInset: facebookShareButton.hidden ? 0 : defaultHorizontalMargin)
+        facebookShareButton.autoPinEdgeToSuperviewEdge(.Bottom, withInset: defaultVerticalMargin, relation: .GreaterThanOrEqual)
+        configureShareButtonWidth(facebookShareButton, margin: defaultHorizontalMargin)
+
+        twitterShareButton.autoSetDimension(.Height, toSize: 40)
+        twitterShareButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: bodyTextView, withOffset: 16)
+        twitterShareButton.autoPinEdge(.Left, toEdge: .Right, ofView: facebookShareButton, withOffset: twitterShareButton.hidden ? 0 : defaultHorizontalMargin)
+        twitterShareButton.autoPinEdgeToSuperviewEdge(.Bottom, withInset: defaultVerticalMargin, relation: .GreaterThanOrEqual)
+        configureShareButtonWidth(twitterShareButton, margin: defaultHorizontalMargin)
+
+        retweetButton.autoSetDimension(.Height, toSize: 40)
+        retweetButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: bodyTextView, withOffset: 16)
+        retweetButton.autoPinEdge(.Left, toEdge: .Right, ofView: twitterShareButton, withOffset: retweetButton.hidden ? 0 : defaultHorizontalMargin)
+        retweetButton.autoPinEdgeToSuperviewEdge(.Bottom, withInset: defaultVerticalMargin, relation: .GreaterThanOrEqual)
+        configureShareButtonWidth(retweetButton, margin: defaultHorizontalMargin)
+    }
+
+    private func configureShareButtonWidth(shareButton: UIButton, margin: CGFloat) {
+        let activeWidthMultiplier = (1.0/CGFloat(numberOfActiveShareButtons))
+        let activeWidthOffset = -(CGFloat(numberOfActiveShareButtons + 1) * margin) / CGFloat(numberOfActiveShareButtons)
+
+        if shareButton.hidden {
+            shareButton.autoSetDimension(.Width, toSize: 0)
+        } else {
+            scrollView.addConstraint(NSLayoutConstraint(item: shareButton, attribute: .Width, relatedBy: .Equal, toItem: containerView, attribute: .Width, multiplier: activeWidthMultiplier, constant: activeWidthOffset))
+        }
+    }
+
+    private func applyTheme() {
+        view.backgroundColor = theme.contentBackgroundColor()
+        dateLabel.font = theme.actionAlertDateFont()
+        dateLabel.textColor = theme.actionAlertDateTextColor()
+        titleLabel.font = theme.actionAlertTitleFont()
+        titleLabel.textColor = theme.actionAlertTitleTextColor()
+
+        let buttonBorderWidth = CGFloat(1.0)
+        let buttonCornerRadius = CGFloat(3.0)
+
+        facebookShareButton.layer.borderColor = theme.defaultButtonBorderColor().CGColor
+        facebookShareButton.layer.borderWidth = buttonBorderWidth
+        facebookShareButton.layer.cornerRadius = buttonCornerRadius
+
+        twitterShareButton.layer.borderWidth = buttonBorderWidth
+        twitterShareButton.layer.borderColor = theme.defaultButtonBorderColor().CGColor
+        twitterShareButton.layer.cornerRadius = buttonCornerRadius
+
+        retweetButton.layer.borderWidth = buttonBorderWidth
+        retweetButton.layer.borderColor = theme.defaultButtonBorderColor().CGColor
+        retweetButton.layer.cornerRadius = buttonCornerRadius
     }
 }

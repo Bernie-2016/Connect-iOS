@@ -46,14 +46,18 @@ class TestUtils {
             description: "This isn't Beverly Hills! It's Knot's Landing!", url: NSURL(string: "https://example.com")!, eventTypeName: "Big Time Bernie Fun")
     }
 
-    class func actionAlert(title: String = "Do it now") -> ActionAlert {
+    class func actionAlert(
+        title: String = "Do it now",
+        targetURL: NSURL? = NSURL(string: "https://example.com/fb")!,
+        twitterURL: NSURL? = NSURL(string: "https://example.com/twit")!,
+        tweetID: String? = "1800tweet") -> ActionAlert {
         return ActionAlert(
             title: title,
             body: "I'm a cop you idiot",
             date: "Real soon now",
-            targetURL: NSURL(string: "https://example.com/fb")!,
-            twitterURL: NSURL(string: "https://example.com/twit")!,
-            tweetID: "1800tweet")
+            targetURL: targetURL,
+            twitterURL: twitterURL,
+            tweetID: tweetID)
     }
 
     // MARK: Controllers
@@ -80,6 +84,6 @@ class TestUtils {
 
     class func actionAlertController() -> ActionAlertController {
         let actionAlert = self.actionAlert()
-        return ActionAlertController(actionAlert: actionAlert, markdownConverter: FakeMarkdownConverter(), theme: FakeTheme())
+        return ActionAlertController(actionAlert: actionAlert, markdownConverter: FakeMarkdownConverter(), urlOpener: FakeURLOpener(), urlProvider: FakeURLProvider(), theme: FakeTheme())
     }
 }

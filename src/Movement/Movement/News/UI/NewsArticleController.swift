@@ -116,7 +116,6 @@ class NewsArticleController: UIViewController {
             AnalyticsServiceConstants.contentTypeKey: AnalyticsServiceContentType.NewsArticle.description
             ])
         let activityVC = UIActivityViewController(activityItems: [newsArticle.url], applicationActivities: nil)
-
         activityVC.completionWithItemsHandler = { activity, success, items, error in
             if error != nil {
                 self.analyticsService.trackError(error!, context: "Failed to share News Item")

@@ -1,12 +1,14 @@
 import Foundation
 
+typealias TweetID = String
+
 struct ActionAlert {
     let title: String
     let body: String
     let date: String
     let targetURL: NSURL?
     let twitterURL: NSURL?
-    let tweetID: String?
+    let tweetID: TweetID?
 }
 
 extension ActionAlert: Equatable {}

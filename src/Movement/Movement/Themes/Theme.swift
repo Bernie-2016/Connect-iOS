@@ -13,6 +13,7 @@ protocol Theme {
     func defaultButtonTextColor() -> UIColor
     func defaultButtonDisabledTextColor() -> UIColor
     func defaultButtonFont() -> UIFont
+    func defaultButtonBorderColor() -> UIColor
     func defaultDisclosureColor() -> UIColor
     func highlightDisclosureColor() -> UIColor
     func defaultTableSectionHeaderFont() -> UIFont

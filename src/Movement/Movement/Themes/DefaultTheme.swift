@@ -1,7 +1,6 @@
 import UIKit
 
 // swiftlint:disable type_body_length
-
 class DefaultTheme: Theme {
     // MARK: Global
     func defaultBackgroundColor() -> UIColor { return seaShellColor }
@@ -18,6 +17,7 @@ class DefaultTheme: Theme {
     func defaultBodyTextFont() -> UIFont { return UIFont(name: "Georgia", size: 17)!  }
     func defaultBodyTextColor() -> UIColor { return UIColor.blackColor() }
     func defaultTableCellBackgroundColor() -> UIColor { return UIColor.whiteColor() }
+    func defaultButtonBorderColor() -> UIColor { return coalMinerColor }
 
     // MARK: Tab Bar
 
@@ -134,7 +134,6 @@ class DefaultTheme: Theme {
     func aboutButtonTextColor() -> UIColor { return UIColor.whiteColor() }
     func aboutButtonFont() -> UIFont { return h3HeaderFont() }
     func aboutBodyTextFont() -> UIFont { return defaultBodyTextFont() }
-
 
     // MARK Welcome
 

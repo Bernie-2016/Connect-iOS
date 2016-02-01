@@ -139,3 +139,5 @@
 "Actions_hostEventTitle" = "Host an event";
 "Actions_hostEventSubTitle" = "Organize supporters in your area";
 
+// URLs
+"url_TwitterShareText" = "Check this out! #Bernie2016";

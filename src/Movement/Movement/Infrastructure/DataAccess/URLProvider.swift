@@ -17,4 +17,6 @@ protocol URLProvider {
     func youtubeVideoURL(identifier: String) -> NSURL
     func youtubeThumbnailURL(identifier: String) -> NSURL
     func actionAlertsURL() -> NSURL
+    func twitterShareURL(urlToShare: NSURL) -> NSURL
+    func retweetURL(tweetID: TweetID) -> NSURL
 }

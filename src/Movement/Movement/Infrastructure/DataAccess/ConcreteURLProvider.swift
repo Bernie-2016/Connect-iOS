@@ -92,4 +92,21 @@ class ConcreteURLProvider: URLProvider {
     func actionAlertsURL() -> NSURL {
         return NSURL(string: "https://sanders-connect-staging.herokuapp.com/api/action_alerts")!
     }
+
+    func twitterShareURL(urlToShare: NSURL) -> NSURL {
+        let urlComponents = NSURLComponents(string: "https://twitter.com/share")!
+        let urlQueryItem = NSURLQueryItem(name: "url", value: urlToShare.absoluteString)
+        let textQueryItem = NSURLQueryItem(name: "text", value: NSLocalizedString("url_TwitterShareText", comment: ""))
+        urlComponents.queryItems = [urlQueryItem, textQueryItem]
+
+        return urlComponents.URL!
+    }
+
+    func retweetURL(tweetID: TweetID) -> NSURL {
+        let urlComponents = NSURLComponents(string: "https://twitter.com/intent/retweet")!
+        let tweetIDQueryItem = NSURLQueryItem(name: "tweet_id", value: tweetID)
+        urlComponents.queryItems = [tweetIDQueryItem]
+
+        return urlComponents.URL!
+    }
 }
