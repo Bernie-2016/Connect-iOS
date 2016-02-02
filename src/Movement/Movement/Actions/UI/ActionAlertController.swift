@@ -186,23 +186,22 @@ extension ActionAlertController {
         bodyTextView.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
 
         facebookShareButton.autoSetDimension(.Height, toSize: 40)
-        facebookShareButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: bodyTextView, withOffset: twitterShareButton.hidden ? 0 : 16)
+        facebookShareButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: bodyTextView, withOffset: twitterShareButton.hidden ? 0 : 18)
         facebookShareButton.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
         facebookShareButton.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
         facebookShareButton.autoPinEdgeToSuperviewEdge(.Bottom, withInset: defaultVerticalMargin, relation: .GreaterThanOrEqual)
 
         twitterShareButton.autoSetDimension(.Height, toSize: 40)
-        twitterShareButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: facebookShareButton, withOffset: twitterShareButton.hidden ? 0 : 16)
+        twitterShareButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: facebookShareButton, withOffset: twitterShareButton.hidden ? 0 : 18)
         twitterShareButton.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
         twitterShareButton.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
 
         retweetButton.autoSetDimension(.Height, toSize: 40)
-        retweetButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: twitterShareButton, withOffset: retweetButton.hidden ? 0 : 16)
+        retweetButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: twitterShareButton, withOffset: retweetButton.hidden ? 0 : 18)
         retweetButton.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
         retweetButton.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
         retweetButton.autoPinEdgeToSuperviewEdge(.Bottom, withInset: defaultVerticalMargin, relation: .GreaterThanOrEqual)
     }
-
 
     private func applyTheme() {
         view.backgroundColor = theme.contentBackgroundColor()
