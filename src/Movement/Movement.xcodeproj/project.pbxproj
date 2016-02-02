@@ -221,6 +221,8 @@
 		655A3AD01B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655A3ACF1B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework */; };
 		655A3DB81BBCCE7400E08051 /* floss_licenses.html in Resources */ = {isa = PBXBuildFile; fileRef = 655A3DB71BBCCE7400E08051 /* floss_licenses.html */; };
 		65713DE11C5DAA0F00E6E4FC /* action_alert_with_invalid_sharing_urls.json in Resources */ = {isa = PBXBuildFile; fileRef = 65713DE01C5DAA0F00E6E4FC /* action_alert_with_invalid_sharing_urls.json */; };
+		657C13EF1C615CFF00EC1569 /* BaseURLs.plist in Resources */ = {isa = PBXBuildFile; fileRef = 657C13EE1C615CFF00EC1569 /* BaseURLs.plist */; };
+		657C13F31C615E1400EC1569 /* BaseURLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657C13F21C615E1400EC1569 /* BaseURLProvider.swift */; };
 		658492461BE3BA5B007279E8 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 658492481BE3BA5B007279E8 /* Localizable.stringsdict */; };
 		659011161C4D8ADB005489C4 /* AppBootstrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659011151C4D8ADB005489C4 /* AppBootstrapper.swift */; };
 		6592FA331B98D8F600746EC3 /* issue_feed.json in Resources */ = {isa = PBXBuildFile; fileRef = 6592FA321B98D8F600746EC3 /* issue_feed.json */; };
@@ -551,6 +553,8 @@
 		655A3ACF1B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "UIKit+PivotalSpecHelper-iOS.framework"; sourceTree = "<group>"; };
 		655A3DB71BBCCE7400E08051 /* floss_licenses.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = floss_licenses.html; sourceTree = "<group>"; };
 		65713DE01C5DAA0F00E6E4FC /* action_alert_with_invalid_sharing_urls.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = action_alert_with_invalid_sharing_urls.json; sourceTree = "<group>"; };
+		657C13EE1C615CFF00EC1569 /* BaseURLs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BaseURLs.plist; sourceTree = "<group>"; };
+		657C13F21C615E1400EC1569 /* BaseURLProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseURLProvider.swift; sourceTree = "<group>"; };
 		658492471BE3BA5B007279E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = Base; path = Base.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		659011151C4D8ADB005489C4 /* AppBootstrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppBootstrapper.swift; sourceTree = "<group>"; };
 		6592FA321B98D8F600746EC3 /* issue_feed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = issue_feed.json; sourceTree = "<group>"; };
@@ -925,6 +929,7 @@
 				653D0F5B1C4C2F68004CB8A0 /* APIKeyProvider.swift */,
 				653D0F5C1C4C2F68004CB8A0 /* ApplicationSettingsRepository.swift */,
 				653D0F5D1C4C2F68004CB8A0 /* BackgroundImageService.swift */,
+				657C13F21C615E1400EC1569 /* BaseURLProvider.swift */,
 				653D0F5E1C4C2F68004CB8A0 /* ConcreteApplicationSettingsRepository.swift */,
 				653D0F5F1C4C2F68004CB8A0 /* ConcreteImageRepository.swift */,
 				653D0F601C4C2F68004CB8A0 /* ConcreteJSONClient.swift */,
@@ -1457,6 +1462,7 @@
 			isa = PBXGroup;
 			children = (
 				654948D31BFADBD500C1ECDB /* ApiKeys.plist */,
+				657C13EE1C615CFF00EC1569 /* BaseURLs.plist */,
 				65B165581B9789C00052EF8D /* Entitlements.plist */,
 				8233FC0B1B7C28FB00A5E9ED /* Info.plist */,
 			);
@@ -1505,12 +1511,14 @@
 			buildPhases = (
 				8233FC031B7C28FB00A5E9ED /* Sources */,
 				8233FC041B7C28FB00A5E9ED /* Frameworks */,
+				657C13F01C615D3C00EC1569 /* Set up base URLs */,
 				654948D51BFADC7800C1ECDB /* Set up API Keys */,
 				8233FC051B7C28FB00A5E9ED /* Resources */,
 				65B1654B1B9747070052EF8D /* Copy symbolication files */,
 				65B1654A1B9746940052EF8D /* Copy Carthage frameworks */,
 				65A5C0F21BA27C0200D46500 /* Set up Fabric */,
 				654948D81BFAF11D00C1ECDB /* Reset API Keys */,
+				657C13F11C615D9900EC1569 /* Reset base URLs */,
 			);
 			buildRules = (
 			);
@@ -1592,6 +1600,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				654948D41BFADBD500C1ECDB /* ApiKeys.plist in Resources */,
+				657C13EF1C615CFF00EC1569 /* BaseURLs.plist in Resources */,
 				654FDBBB1BC1862800A082CF /* cssInjection.js in Resources */,
 				65B165591B9789C00052EF8D /* Entitlements.plist in Resources */,
 				654FDBBD1BC1867F00A082CF /* feedbackGoogleFormOverrides.css in Resources */,
@@ -1654,6 +1663,34 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -x -e\n\necho \"Resetting Flurry API Key\"\n\n/usr/libexec/PlistBuddy -c \"set :FLURRY_API_KEY SET_BY_PLIST_BUDDY\" Movement/ApiKeys.plist\n/usr/libexec/PlistBuddy -c \"set :PARSE_APPLICATION_ID SET_BY_PLIST_BUDDY\" Movement/ApiKeys.plist\n/usr/libexec/PlistBuddy -c \"set :PARSE_CLIENT_KEY SET_BY_PLIST_BUDDY\" Movement/ApiKeys.plist\n\n";
+		};
+		657C13F01C615D3C00EC1569 /* Set up base URLs */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Set up base URLs";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"Setting up Sharknado base URL for $CONFIGURATION\"\n/usr/libexec/PlistBuddy -c \"set :SHARKNADO_BASE_URL $SHARKNADO_BASE_URL\" Movement/BaseURLs.plist\n\necho \"Setting up Connect base URL for $CONFIGURATION\"\n/usr/libexec/PlistBuddy -c \"set :CONNECT_BASE_URL $CONNECT_BASE_URL\" Movement/BaseURLs.plist\n";
+		};
+		657C13F11C615D9900EC1569 /* Reset base URLs */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Reset base URLs";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -x -e\n\necho \"Resetting base URLs\"\n\n/usr/libexec/PlistBuddy -c \"set :SHARKNADO_BASE_URL SET_BY_PLIST_BUDDY\" Movement/BaseURLs.plist\n/usr/libexec/PlistBuddy -c \"set :CONNECT_BASE_URL SET_BY_PLIST_BUDDY\" Movement/BaseURLs.plist\n\n\n";
 		};
 		65A5C0F21BA27C0200D46500 /* Set up Fabric */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1720,6 +1757,7 @@
 				653D0F2A1C4C2C93004CB8A0 /* BackgroundIssueService.swift in Sources */,
 				653D0EF41C4C2B7D004CB8A0 /* BackgroundNewsArticleService.swift in Sources */,
 				653D0EF51C4C2B7D004CB8A0 /* BackgroundNewsFeedService.swift in Sources */,
+				657C13F31C615E1400EC1569 /* BaseURLProvider.swift in Sources */,
 				653D0F731C4C2F68004CB8A0 /* ConcreteAnalyticsService.swift in Sources */,
 				653D0F771C4C2F68004CB8A0 /* ConcreteApplicationSettingsRepository.swift in Sources */,
 				653D0F7D1C4C2F68004CB8A0 /* ConcreteDateProvider.swift in Sources */,
@@ -2014,6 +2052,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CONNECT_BASE_URL = "https://sanders-connect-staging.herokuapp.com/";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2037,6 +2076,7 @@
 				PRODUCT_MODULE_NAME = Movement;
 				PRODUCT_NAME = MvmtQA;
 				PROVISIONING_PROFILE = "";
+				SHARKNADO_BASE_URL = "https://elasticsearch-acceptance.movementapp.io/";
 				SWIFT_OBJC_BRIDGING_HEADER = "Movement/Movement-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 				WARNING_CFLAGS = (
@@ -2173,6 +2213,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CONNECT_BASE_URL = "https://sanders-connect-staging.herokuapp.com/";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2196,6 +2237,7 @@
 				PRODUCT_MODULE_NAME = Movement;
 				PRODUCT_NAME = Movement;
 				PROVISIONING_PROFILE = "";
+				SHARKNADO_BASE_URL = "https://elasticsearch-acceptance.movementapp.io/";
 				SWIFT_OBJC_BRIDGING_HEADER = "Movement/Movement-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2215,6 +2257,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CONNECT_BASE_URL = "https://connect.berniesanders.com/";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2238,6 +2281,7 @@
 				PRODUCT_MODULE_NAME = Movement;
 				PRODUCT_NAME = Movement;
 				PROVISIONING_PROFILE = "";
+				SHARKNADO_BASE_URL = "https://elasticsearch.movementapp.io";
 				SWIFT_OBJC_BRIDGING_HEADER = "Movement/Movement-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 				WARNING_CFLAGS = (
