@@ -6,6 +6,7 @@ class ActionAlertController: UIViewController {
     private let markdownConverter: MarkdownConverter
     private let urlOpener: URLOpener
     private let urlProvider: URLProvider
+    private let analyticsService: AnalyticsService
     private let theme: Theme
 
     private let scrollView = UIScrollView.newAutoLayoutView()
@@ -21,11 +22,12 @@ class ActionAlertController: UIViewController {
     private var containerViewWidthConstraint: NSLayoutConstraint!
     private var numberOfActiveShareButtons = 0
 
-    init(actionAlert: ActionAlert, markdownConverter: MarkdownConverter, urlOpener: URLOpener, urlProvider: URLProvider, theme: Theme) {
+    init(actionAlert: ActionAlert, markdownConverter: MarkdownConverter, urlOpener: URLOpener, urlProvider: URLProvider, analyticsService: AnalyticsService, theme: Theme) {
         self.actionAlert = actionAlert
         self.markdownConverter = markdownConverter
         self.urlOpener = urlOpener
         self.urlProvider = urlProvider
+        self.analyticsService = analyticsService
         self.theme = theme
 
         super.init(nibName: nil, bundle: nil)
@@ -79,9 +81,21 @@ class ActionAlertController: UIViewController {
         containerViewWidthConstraint.constant = screenBounds.width
     }
 
+    override func didMoveToParentViewController(parent: UIViewController?) {
+        if parent == nil {
+            self.analyticsService.trackBackButtonTapOnScreen("Action Alert", customAttributes: [AnalyticsServiceConstants.contentIDKey: actionAlert.identifier])
+        }
+    }
+
     // MARK: Actions
 
     func didTapFacebookShare() {
+        self.analyticsService.trackCustomEventWithName("Began Share", customAttributes: [
+            AnalyticsServiceConstants.contentIDKey: actionAlert.identifier,
+            AnalyticsServiceConstants.contentNameKey: actionAlert.title,
+            AnalyticsServiceConstants.contentTypeKey: AnalyticsServiceContentType.ActionAlertFacebook.description
+            ])
+
         let activityVC = UIActivityViewController(activityItems: [actionAlert.targetURL!], applicationActivities: nil)
         var excludedActivityTypes = [
             UIActivityTypeAddToReadingList, UIActivityTypeAirDrop, UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard,
@@ -95,21 +109,49 @@ class ActionAlertController: UIViewController {
         }
 
         activityVC.excludedActivityTypes = excludedActivityTypes
+        activityVC.completionWithItemsHandler = { activity, success, items, error in
+            if error != nil {
+                self.analyticsService.trackError(error!, context: "Failed to share Action Alert - Facebook")
+            } else {
+                if success == true {
+                    self.analyticsService.trackShareWithActivityType(activity!, contentName: self.actionAlert.title, contentType: .ActionAlertFacebook, identifier: self.actionAlert.identifier)
+                } else {
+                    self.analyticsService.trackCustomEventWithName("Cancelled Share", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.actionAlert.identifier,
+                        AnalyticsServiceConstants.contentNameKey: self.actionAlert.title,
+                        AnalyticsServiceConstants.contentTypeKey: AnalyticsServiceContentType.ActionAlertFacebook.description
+                        ])
+                }
+            }
+        }
         presentViewController(activityVC, animated: true, completion: nil)
     }
 
     func didTapTwitterShare() {
+        self.analyticsService.trackCustomEventWithName("Began Share", customAttributes: [
+            AnalyticsServiceConstants.contentIDKey: actionAlert.identifier,
+            AnalyticsServiceConstants.contentNameKey: actionAlert.title,
+            AnalyticsServiceConstants.contentTypeKey: AnalyticsServiceContentType.ActionAlertTwitter.description
+            ])
+
         let url = urlProvider.twitterShareURL(actionAlert.twitterURL!)
         urlOpener.openURL(url)
     }
 
     func didTapRetweet() {
+        self.analyticsService.trackCustomEventWithName("Began Share", customAttributes: [
+            AnalyticsServiceConstants.contentIDKey: actionAlert.identifier,
+            AnalyticsServiceConstants.contentNameKey: actionAlert.title,
+            AnalyticsServiceConstants.contentTypeKey: AnalyticsServiceContentType.ActionAlertRetweet.description
+            ])
+
         let url = urlProvider.retweetURL(actionAlert.tweetID!)
         urlOpener.openURL(url)
     }
+}
 
-    // MARK: Private
+// MARK: Private
 
+extension ActionAlertController {
     private func setupConstraints() {
         let defaultHorizontalMargin: CGFloat = 15
         let defaultVerticalMargin: CGFloat = 21

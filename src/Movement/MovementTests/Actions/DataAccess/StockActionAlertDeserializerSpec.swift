@@ -22,6 +22,7 @@ class StockActionAlertDeserializerSpec: QuickSpec {
                 expect(actionAlerts.count).to(equal(3))
 
                 let actionAlertA = actionAlerts[0]
+                expect(actionAlertA.identifier).to(equal("13"))
                 expect(actionAlertA.title).to(equal("This is another alert"))
                 expect(actionAlertA.body).to(equal("I wouldn't say I buy it Liz, let's just say I'm window shopping.\n\n\n\nAnd right now, there's a half price sale on '_weird_'"))
                 expect(actionAlertA.date).to(equal("Thursday alert!"))

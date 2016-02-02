@@ -52,6 +52,7 @@ class TestUtils {
         twitterURL: NSURL? = NSURL(string: "https://example.com/twit")!,
         tweetID: String? = "1800tweet") -> ActionAlert {
         return ActionAlert(
+            identifier: "some-identifier",
             title: title,
             body: "I'm a cop you idiot",
             date: "Real soon now",
@@ -84,6 +85,6 @@ class TestUtils {
 
     class func actionAlertController() -> ActionAlertController {
         let actionAlert = self.actionAlert()
-        return ActionAlertController(actionAlert: actionAlert, markdownConverter: FakeMarkdownConverter(), urlOpener: FakeURLOpener(), urlProvider: FakeURLProvider(), theme: FakeTheme())
+        return ActionAlertController(actionAlert: actionAlert, markdownConverter: FakeMarkdownConverter(), urlOpener: FakeURLOpener(), urlProvider: FakeURLProvider(), analyticsService: FakeAnalyticsService(), theme: FakeTheme())
     }
 }

@@ -49,6 +49,7 @@ extension Container: ActionAlertControllerProvider {
             markdownConverter: resolve(MarkdownConverter.self)!,
             urlOpener: resolve(URLOpener.self)!,
             urlProvider: resolve(URLProvider.self)!,
+            analyticsService: resolve(AnalyticsService.self)!,
             theme: resolve(Theme.self)!
         )
     }

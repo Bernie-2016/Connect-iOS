@@ -11,11 +11,13 @@ class ActionAlertControllerSpec: QuickSpec {
             var actionAlert: ActionAlert!
             var urlOpener: FakeURLOpener!
             var urlProvider: FakeActionAlertURLProvider!
+            var analyticsService: FakeAnalyticsService!
 
             beforeEach {
                 actionAlert = TestUtils.actionAlert("Do the thing")
                 urlOpener = FakeURLOpener()
                 urlProvider = FakeActionAlertURLProvider()
+                analyticsService = FakeAnalyticsService()
 
                 markdownConverter = FakeMarkdownConverter()
                 subject = ActionAlertController(
@@ -23,6 +25,7 @@ class ActionAlertControllerSpec: QuickSpec {
                     markdownConverter: markdownConverter,
                     urlOpener: urlOpener,
                     urlProvider: urlProvider,
+                    analyticsService: analyticsService,
                     theme: FakeActionAlertControllerTheme()
                 )
             }
@@ -84,6 +87,18 @@ class ActionAlertControllerSpec: QuickSpec {
                     expect(UIColor(CGColor: subject.retweetButton.layer.borderColor!)).to(equal(UIColor.orangeColor()))
                 }
 
+                it("tracks taps on the back button with the analytics service") {
+                    subject.didMoveToParentViewController(UIViewController())
+
+                    expect(analyticsService.lastBackButtonTapScreen).to(beNil())
+
+                    subject.didMoveToParentViewController(nil)
+
+                    expect(analyticsService.lastBackButtonTapScreen).to(equal("Action Alert"))
+                    let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: actionAlert.identifier]
+                    expect(analyticsService.lastBackButtonTapAttributes! as? [String: String]).to(equal(expectedAttributes))
+                }
+
                 describe("the facebook button") {
                     context("when the action alert has a target url") {
                         beforeEach {
@@ -93,6 +108,7 @@ class ActionAlertControllerSpec: QuickSpec {
                                 markdownConverter: markdownConverter,
                                 urlOpener: urlOpener,
                                 urlProvider: urlProvider,
+                                analyticsService: analyticsService,
                                 theme: FakeActionAlertControllerTheme()
                             )
                             subject.view.layoutSubviews()
@@ -114,6 +130,54 @@ class ActionAlertControllerSpec: QuickSpec {
                                 expect(activityItems.count).to(equal(1))
                                 expect(activityItems.first as? NSURL).to(equal(actionAlert.targetURL))
                             }
+
+                            it("logs that the user tapped the facebook share button") {
+                                expect(analyticsService.lastCustomEventName).to(equal("Began Share"))
+                                let expectedAttributes = [
+                                    AnalyticsServiceConstants.contentIDKey: actionAlert.identifier,
+                                    AnalyticsServiceConstants.contentNameKey: actionAlert.title,
+                                    AnalyticsServiceConstants.contentTypeKey: "Action Alert - Facebook"
+                                ]
+                                expect(analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
+                            }
+
+                            context("and the user completes the share succesfully") {
+                                it("tracks the share via the analytics service") {
+                                    let activityViewControler = subject.presentedViewController as! UIActivityViewController
+                                    activityViewControler.completionWithItemsHandler!("Some activity", true, nil, nil)
+
+                                    expect(analyticsService.lastShareActivityType).to(equal("Some activity"))
+                                    expect(analyticsService.lastShareContentName).to(equal(actionAlert.title))
+                                    expect(analyticsService.lastShareContentType).to(equal(AnalyticsServiceContentType.ActionAlertFacebook))
+                                    expect(analyticsService.lastShareID).to(equal(actionAlert.identifier))
+                                }
+                            }
+
+                            context("and the user cancels the share") {
+                                it("tracks the share cancellation via the analytics service") {
+                                    let activityViewControler = subject.presentedViewController as! UIActivityViewController
+                                    activityViewControler.completionWithItemsHandler!(nil, false, nil, nil)
+
+                                    expect(analyticsService.lastCustomEventName).to(equal("Cancelled Share"))
+                                    let expectedAttributes = [
+                                        AnalyticsServiceConstants.contentIDKey: actionAlert.identifier,
+                                        AnalyticsServiceConstants.contentNameKey: actionAlert.title,
+                                        AnalyticsServiceConstants.contentTypeKey: "Action Alert - Facebook"
+                                    ]
+                                    expect(analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
+                                }
+                            }
+
+                            context("and there is an error when sharing") {
+                                it("tracks the error via the analytics service") {
+                                    let expectedError = NSError(domain: "a", code: 0, userInfo: nil)
+                                    let activityViewControler = subject.presentedViewController as! UIActivityViewController
+                                    activityViewControler.completionWithItemsHandler!("asdf", true, nil, expectedError)
+
+                                    expect(analyticsService.lastError as NSError).to(beIdenticalTo(expectedError))
+                                    expect(analyticsService.lastErrorContext).to(equal("Failed to share Action Alert - Facebook"))
+                                }
+                            }
                         }
                     }
 
@@ -125,6 +189,7 @@ class ActionAlertControllerSpec: QuickSpec {
                                 markdownConverter: markdownConverter,
                                 urlOpener: urlOpener,
                                 urlProvider: urlProvider,
+                                analyticsService: analyticsService,
                                 theme: FakeActionAlertControllerTheme()
                             )
                             subject.view.layoutSubviews()
@@ -145,6 +210,7 @@ class ActionAlertControllerSpec: QuickSpec {
                                 markdownConverter: markdownConverter,
                                 urlOpener: urlOpener,
                                 urlProvider: urlProvider,
+                                analyticsService: analyticsService,
                                 theme: FakeActionAlertControllerTheme()
                             )
                             subject.view.layoutSubviews()
@@ -163,6 +229,18 @@ class ActionAlertControllerSpec: QuickSpec {
                                 expect(urlProvider.lastTwitterSharedURL).to(equal(actionAlert.twitterURL))
                                 expect(urlOpener.lastOpenedURL).to(beIdenticalTo(urlProvider.returnedTwitterShareURL))
                             }
+
+                            it("logs that the user tapped the twitter share button") {
+                                subject.twitterShareButton.tap()
+
+                                expect(analyticsService.lastCustomEventName).to(equal("Began Share"))
+                                let expectedAttributes = [
+                                    AnalyticsServiceConstants.contentIDKey: actionAlert.identifier,
+                                    AnalyticsServiceConstants.contentNameKey: actionAlert.title,
+                                    AnalyticsServiceConstants.contentTypeKey: "Action Alert - Twitter"
+                                ]
+                                expect(analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
+                            }
                         }
                     }
 
@@ -174,6 +252,7 @@ class ActionAlertControllerSpec: QuickSpec {
                                 markdownConverter: markdownConverter,
                                 urlOpener: urlOpener,
                                 urlProvider: urlProvider,
+                                analyticsService: analyticsService,
                                 theme: FakeActionAlertControllerTheme()
                             )
                             subject.view.layoutSubviews()
@@ -195,6 +274,7 @@ class ActionAlertControllerSpec: QuickSpec {
                                 markdownConverter: markdownConverter,
                                 urlOpener: urlOpener,
                                 urlProvider: urlProvider,
+                                analyticsService: analyticsService,
                                 theme: FakeActionAlertControllerTheme()
                             )
                             subject.view.layoutSubviews()
@@ -213,6 +293,18 @@ class ActionAlertControllerSpec: QuickSpec {
                                 expect(urlProvider.lastRetweetedTweetID).to(equal(actionAlert.tweetID))
                                 expect(urlOpener.lastOpenedURL).to(beIdenticalTo(urlProvider.returnedRetweetURL))
                             }
+
+                            it("logs that the user tapped the retweet button") {
+                                subject.retweetButton.tap()
+
+                                expect(analyticsService.lastCustomEventName).to(equal("Began Share"))
+                                let expectedAttributes = [
+                                    AnalyticsServiceConstants.contentIDKey: actionAlert.identifier,
+                                    AnalyticsServiceConstants.contentNameKey: actionAlert.title,
+                                    AnalyticsServiceConstants.contentTypeKey: "Action Alert - Retweet"
+                                ]
+                                expect(analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
+                            }
                         }
                     }
 
@@ -224,6 +316,7 @@ class ActionAlertControllerSpec: QuickSpec {
                                 markdownConverter: markdownConverter,
                                 urlOpener: urlOpener,
                                 urlProvider: urlProvider,
+                                analyticsService: analyticsService,
                                 theme: FakeActionAlertControllerTheme()
                             )
                             subject.view.layoutSubviews()
