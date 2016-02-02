@@ -10,6 +10,7 @@
 		65003A561BA7C5E900C66902 /* dodgy_issue_feed.json in Resources */ = {isa = PBXBuildFile; fileRef = 65003A551BA7C5E900C66902 /* dodgy_issue_feed.json */; };
 		6505C9531BB9FF3F008DD278 /* FakeURLOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6505C9521BB9FF3F008DD278 /* FakeURLOpener.swift */; };
 		6507631E1B8B720E00BA0659 /* FakeURLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6507631D1B8B720E00BA0659 /* FakeURLProvider.swift */; };
+		650CF4231C602E3400991CFE /* ActionAlertTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650CF4221C602E3400991CFE /* ActionAlertTableViewCell.swift */; };
 		6513E4781C59B29E00CA51BD /* ActionAlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6513E4771C59B29E00CA51BD /* ActionAlertService.swift */; };
 		6513E47B1C59B2E200CA51BD /* ActionAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6513E47A1C59B2E200CA51BD /* ActionAlert.swift */; };
 		6518CBAD1BC1C5A2000C238C /* terms_and_conditions.html in Resources */ = {isa = PBXBuildFile; fileRef = 6518CBAC1BC1C5A2000C238C /* terms_and_conditions.html */; };
@@ -331,6 +332,7 @@
 		65003A551BA7C5E900C66902 /* dodgy_issue_feed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dodgy_issue_feed.json; sourceTree = "<group>"; };
 		6505C9521BB9FF3F008DD278 /* FakeURLOpener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeURLOpener.swift; sourceTree = "<group>"; };
 		6507631D1B8B720E00BA0659 /* FakeURLProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeURLProvider.swift; sourceTree = "<group>"; };
+		650CF4221C602E3400991CFE /* ActionAlertTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionAlertTableViewCell.swift; sourceTree = "<group>"; };
 		6513E4771C59B29E00CA51BD /* ActionAlertService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionAlertService.swift; sourceTree = "<group>"; };
 		6513E47A1C59B2E200CA51BD /* ActionAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionAlert.swift; sourceTree = "<group>"; };
 		6518CBAC1BC1C5A2000C238C /* terms_and_conditions.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = terms_and_conditions.html; sourceTree = "<group>"; };
@@ -995,6 +997,7 @@
 			children = (
 				65C246811C5AB282007B2A48 /* ActionAlertController.swift */,
 				65C246831C5AB29F007B2A48 /* ActionAlertControllerProvider.swift */,
+				650CF4221C602E3400991CFE /* ActionAlertTableViewCell.swift */,
 				653D0FAC1C4C36D9004CB8A0 /* ActionsController.swift */,
 				653D0FAD1C4C36D9004CB8A0 /* ActionTableViewCell.swift */,
 			);
@@ -1686,6 +1689,7 @@
 				659885761C59CCA100C661C6 /* ActionAlertDeserializer.swift in Sources */,
 				65B0235B1C59C6490082E211 /* ActionAlertRepository.swift in Sources */,
 				6513E4781C59B29E00CA51BD /* ActionAlertService.swift in Sources */,
+				650CF4231C602E3400991CFE /* ActionAlertTableViewCell.swift in Sources */,
 				65979A9E1C4C654300A312A9 /* ActionsContainerConfigurator.swift in Sources */,
 				653D0FAE1C4C36D9004CB8A0 /* ActionsController.swift in Sources */,
 				653D0FAF1C4C36D9004CB8A0 /* ActionTableViewCell.swift in Sources */,

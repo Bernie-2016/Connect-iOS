@@ -18,6 +18,7 @@ class ActionsControllerSpec: QuickSpec {
                 expect(tableView.hidden).to(equal(false));
                 expect(subject.loadingIndicatorView.isAnimating()).to(equal(false))
             }
+
             describe("the table view contents") {
                 var expectedNumberOfSections: Int!
                 var sectionOffset: Int!
@@ -85,7 +86,6 @@ class ActionsControllerSpec: QuickSpec {
                             expect(cell.subTitleLabel.textColor).to(equal(UIColor.magentaColor()))
                             expect(cell.disclosureView.color).to(equal(UIColor.greenColor()))
                         }
-
 
                         describe("tapping on the donate row") {
                             it("opens the donate page in safari") {
@@ -358,22 +358,19 @@ class ActionsControllerSpec: QuickSpec {
                         it("has a row per action alert") {
                             expect(tableView.numberOfRowsInSection(0)).to(equal(2))
 
-                            let firstCell = tableView.dataSource!.tableView(tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
-                            expect(firstCell.textLabel!.text).to(equal("FTB!"))
+                            let firstCell = tableView.dataSource!.tableView(tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0)) as! ActionAlertTableViewCell
+                            expect(firstCell.titleLabel.text).to(equal("FTB!"))
 
-                            let secondCell = tableView.dataSource!.tableView(tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
-                            expect(secondCell.textLabel!.text).to(equal("Aha!"))
+                            let secondCell = tableView.dataSource!.tableView(tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0)) as! ActionAlertTableViewCell
+                            expect(secondCell.titleLabel.text).to(equal("Aha!"))
                         }
 
                         it("styles the action alert cells with the theme") {
-                            let cell = tableView.dataSource!.tableView(tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
-                            expect(cell.textLabel!.font).to(equal(UIFont.boldSystemFontOfSize(111)))
-                            expect(cell.textLabel?.textColor).to(equal(UIColor.purpleColor()))
-                        }
-
-                        it("uses the disclosure indicator for the cells") {
-                            let cell = tableView.dataSource!.tableView(tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
-                            expect(cell.accessoryType).to(equal(UITableViewCellAccessoryType.DisclosureIndicator))
+                            let cell = tableView.dataSource!.tableView(tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0)) as! ActionAlertTableViewCell
+                            expect(cell.titleLabel.font).to(equal(UIFont.boldSystemFontOfSize(111)))
+                            expect(cell.titleLabel.textColor).to(equal(UIColor.purpleColor()))
+                            expect(cell.disclosureView.color).to(equal(UIColor.greenColor()))
+                            expect(cell.backgroundColor).to(equal(UIColor.yellowColor()))
                         }
 
                         describe("tapping on an action alert row") {

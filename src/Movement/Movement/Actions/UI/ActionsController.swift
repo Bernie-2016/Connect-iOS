@@ -52,7 +52,7 @@ class ActionsController: UIViewController {
         tableView.hidden = true
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "actionAlertCell")
+        tableView.registerClass(ActionAlertTableViewCell.self, forCellReuseIdentifier: "actionAlertCell")
         tableView.registerClass(ActionTableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -106,11 +106,13 @@ extension ActionsController: UITableViewDataSource {
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if actionAlerts.count > 0 && indexPath.section == 0 {
-            guard let cell = tableView.dequeueReusableCellWithIdentifier("actionAlertCell") else { return UITableViewCell() }
-            cell.textLabel!.text = actionAlerts[indexPath.row].title
-            cell.textLabel!.textColor = theme.actionsTitleTextColor()
-            cell.textLabel!.font = theme.actionsTitleFont()
-            cell.accessoryType = .DisclosureIndicator
+            guard let cell = tableView.dequeueReusableCellWithIdentifier("actionAlertCell") as? ActionAlertTableViewCell else { return UITableViewCell() }
+            cell.backgroundColor = theme.defaultTableCellBackgroundColor()
+            cell.titleLabel.text = actionAlerts[indexPath.row].title
+            cell.titleLabel.textColor = theme.actionsTitleTextColor()
+            cell.titleLabel.font = theme.actionsTitleFont()
+            cell.disclosureView.color = theme.defaultDisclosureColor()
+
             return cell
         }
 
