@@ -11,7 +11,6 @@ class BackgroundActionAlertServiceSpec: QuickSpec {
             var workerQueue: FakeOperationQueue!
             var resultQueue: FakeOperationQueue!
 
-
             beforeEach {
                 actionAlertRepository = FakeActionAlertRepository()
                 workerQueue = FakeOperationQueue()
@@ -69,6 +68,52 @@ class BackgroundActionAlertServiceSpec: QuickSpec {
                     }
                 }
             }
+
+            describe("fetching a particular action alert") {
+                it("makes a request to the news article repository on the worker queue") {
+                    subject.fetchActionAlert("some-identifier")
+
+                    expect(actionAlertRepository.lastFetchedActionAlertIdentifier).to(beNil())
+
+                    workerQueue.lastReceivedBlock()
+
+                    expect(actionAlertRepository.lastFetchedActionAlertIdentifier).to(equal("some-identifier"))
+                }
+
+                context("when the repository resolves its promise with an action alert") {
+                    it("resolves its promise with the action alert on the result queue") {
+                        let expectedActionAlert = TestUtils.actionAlert()
+
+                        let future = subject.fetchActionAlert("some-identifier")
+                        workerQueue.lastReceivedBlock()
+
+                        actionAlertRepository.lastActionAlertPromise.resolve(expectedActionAlert)
+
+                        expect(future.value).to(beNil())
+
+                        resultQueue.lastReceivedBlock()
+
+                        expect(future.value).to(equal(expectedActionAlert))
+                    }
+                }
+
+                context("when the repository rejects its promise with an error") {
+                    it("rejects its promise with the error on the result queue") {
+                        let expectedError = ActionAlertRepositoryError.NoMatchingActionAlert("wat")
+
+                        let future = subject.fetchActionAlert("some-identifier")
+                        workerQueue.lastReceivedBlock()
+
+                        actionAlertRepository.lastActionAlertPromise.reject(expectedError)
+
+                        expect(future.error).to(beNil())
+
+                        resultQueue.lastReceivedBlock()
+
+                        expect(future.error!).to(equal(expectedError))
+                    }
+                }
+            }
         }
     }
 }
@@ -81,5 +126,13 @@ private class FakeActionAlertRepository: ActionAlertRepository {
         lastReturnedPromise = ActionAlertsPromise()
         fetchActionAlertsCalled = true
         return lastReturnedPromise.future
+    }
+
+    var lastActionAlertPromise: ActionAlertPromise!
+    var lastFetchedActionAlertIdentifier: ActionAlertIdentifier!
+    private func fetchActionAlert(identifier: ActionAlertIdentifier) -> ActionAlertFuture {
+        lastActionAlertPromise = ActionAlertPromise()
+        lastFetchedActionAlertIdentifier = identifier
+        return lastActionAlertPromise.future
     }
 }

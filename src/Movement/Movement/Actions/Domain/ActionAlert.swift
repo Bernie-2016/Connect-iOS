@@ -1,9 +1,10 @@
 import Foundation
 
 typealias TweetID = String
+typealias ActionAlertIdentifier = String
 
 struct ActionAlert {
-    let identifier: String
+    let identifier: ActionAlertIdentifier
     let title: String
     let body: String
     let date: String

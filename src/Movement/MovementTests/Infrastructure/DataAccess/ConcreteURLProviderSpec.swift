@@ -10,7 +10,10 @@ class ConcreteURLProviderSpec : QuickSpec {
 
         describe("ConcreteURLProvider") {
             beforeEach {
-                subject = ConcreteURLProvider(sharknadoBaseURL: NSURL(string: "https://example.com")!)
+                subject = ConcreteURLProvider(
+                    sharknadoBaseURL: NSURL(string: "https://example.com")!,
+                    connectBaseURL: NSURL(string: "https://connectexample.com")!
+                )
             }
 
             describe("building a maps URL for an event") {
@@ -75,13 +78,25 @@ class ConcreteURLProviderSpec : QuickSpec {
                         let urlToBeTweeted = NSURL(string: "https://www.youtube.com/watch?v=TABgNerEro8")!
                         let expectedURL = NSURL(string: "https://twitter.com/share?url=https://www.youtube.com/watch?v%3DTABgNerEro8&text=Check%20this%20out!%20%23Bernie2016")
 
-                        expect(subject.twitterShareURL(urlToBeTweeted).absoluteString).to(equal(expectedURL?.absoluteString))
+                        expect(subject.twitterShareURL(urlToBeTweeted).absoluteURL).to(equal(expectedURL?.absoluteURL))
                     }
                 }
 
                 describe("building the retweet URL") {
                     it("returns the correct URL") {
                         expect(subject.retweetURL("12345")).to(equal(NSURL(string: "https://twitter.com/intent/retweet?tweet_id=12345")!))
+                    }
+                }
+
+                describe("building the action alerts URL") {
+                    it("returns the correct URL") {
+                        expect(subject.actionAlertsURL().absoluteURL).to(equal(NSURL(string: "https://connectexample.com/api/action_alerts")!.absoluteURL))
+                    }
+                }
+
+                describe("building the action alert URL") {
+                    it("returns the correct URL") {
+                        expect(subject.actionAlertURL("some-identifier").absoluteURL).to(equal(NSURL(string: "https://connectexample.com/api/action_alerts/some-identifier")!.absoluteURL))
                     }
                 }
             }

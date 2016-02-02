@@ -6,6 +6,7 @@ enum ActionAlertServiceError: ErrorType {
 
 protocol ActionAlertService {
     func fetchActionAlerts() -> ActionAlertsFuture
+    func fetchActionAlert(identifier: ActionAlertIdentifier) -> ActionAlertFuture
 }
 
 class BackgroundActionAlertService: ActionAlertService {
@@ -27,13 +28,29 @@ class BackgroundActionAlertService: ActionAlertService {
                 self.resultQueue.addOperationWithBlock({
                     promise.resolve(actionAlerts)
                 })
-                }.error { error in
-                    self.resultQueue.addOperationWithBlock({
-                        promise.reject(error)
-                    })
+                }
+            .error { error in
+                self.resultQueue.addOperationWithBlock({
+                    promise.reject(error)
+                })
             }
         }
 
+        return promise.future
+    }
+
+    func fetchActionAlert(identifier: String) -> ActionAlertFuture {
+        let promise = ActionAlertPromise()
+
+        workerQueue.addOperationWithBlock {
+            let actionAlertFuture = self.actionAlertRepository.fetchActionAlert(identifier)
+
+            actionAlertFuture.then { actionAlert in
+                self.resultQueue.addOperationWithBlock { promise.resolve(actionAlert) }
+                }.error { error in
+                    self.resultQueue.addOperationWithBlock { promise.reject(error) }
+            }
+        }
 
         return promise.future
     }

@@ -7,6 +7,22 @@ enum NewsArticleRepositoryError: ErrorType {
     case NoMatchingNewsArticle(identifier: NewsArticleIdentifier)
 }
 
+extension NewsArticleRepositoryError: Equatable {}
+
+func == (lhs: NewsArticleRepositoryError, rhs: NewsArticleRepositoryError) -> Bool {
+    switch (lhs, rhs) {
+    case (.InvalidJSON, .InvalidJSON):
+        return true // punt on this for now.
+    case (.ErrorInJSONClient(let lhsJSONClientError), .ErrorInJSONClient(let rhsJSONClientError)):
+        return lhsJSONClientError == rhsJSONClientError
+    case (.NoMatchingNewsArticle(let lhsIdentifier), .NoMatchingNewsArticle(let rhsIdentifier)):
+        return lhsIdentifier == rhsIdentifier
+    default:
+        return lhs._domain == rhs._domain && lhs._code == rhs._code
+    }
+}
+
+
 typealias NewsArticlesFuture = Future<[NewsArticle], NewsArticleRepositoryError>
 typealias NewsArticlesPromise = Promise<[NewsArticle], NewsArticleRepositoryError>
 typealias NewsArticleFuture = Future<NewsArticle, NewsArticleRepositoryError>

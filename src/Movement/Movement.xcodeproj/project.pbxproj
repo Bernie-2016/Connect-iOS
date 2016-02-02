@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		65003A561BA7C5E900C66902 /* dodgy_issue_feed.json in Resources */ = {isa = PBXBuildFile; fileRef = 65003A551BA7C5E900C66902 /* dodgy_issue_feed.json */; };
+		650330ED1C603643006D0752 /* OpenActionAlertNotificationHandlerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650330EC1C603643006D0752 /* OpenActionAlertNotificationHandlerSpec.swift */; };
+		650330EF1C60366F006D0752 /* FakeActionAlertControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650330EE1C60366F006D0752 /* FakeActionAlertControllerProvider.swift */; };
+		650330F11C60369C006D0752 /* FakeActionAlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650330F01C60369C006D0752 /* FakeActionAlertService.swift */; };
+		650330F31C6038FD006D0752 /* OpenActionAlertNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650330F21C6038FD006D0752 /* OpenActionAlertNotificationHandler.swift */; };
 		6505C9531BB9FF3F008DD278 /* FakeURLOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6505C9521BB9FF3F008DD278 /* FakeURLOpener.swift */; };
 		6507631E1B8B720E00BA0659 /* FakeURLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6507631D1B8B720E00BA0659 /* FakeURLProvider.swift */; };
 		650CF4231C602E3400991CFE /* ActionAlertTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650CF4221C602E3400991CFE /* ActionAlertTableViewCell.swift */; };
@@ -282,6 +286,7 @@
 		65EC4CEE1B842A1900DD4C83 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65EC4CED1B842A1900DD4C83 /* Quick.framework */; };
 		65EC4CF01B842A3000DD4C83 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65EC4CED1B842A1900DD4C83 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		65EC4CF11B842A3000DD4C83 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		65F290C21C612BD400C60807 /* action_alert.json in Resources */ = {isa = PBXBuildFile; fileRef = 65F290C11C612BD400C60807 /* action_alert.json */; };
 		65F5F6571B8967AD0049353C /* FakeTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F5F6561B8967AD0049353C /* FakeTheme.swift */; };
 		65F5F6611B8A3CB00049353C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65F5F6631B8A3CB00049353C /* Localizable.strings */; };
 		8233FC0D1B7C28FB00A5E9ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8233FC0C1B7C28FB00A5E9ED /* AppDelegate.swift */; };
@@ -330,6 +335,10 @@
 
 /* Begin PBXFileReference section */
 		65003A551BA7C5E900C66902 /* dodgy_issue_feed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dodgy_issue_feed.json; sourceTree = "<group>"; };
+		650330EC1C603643006D0752 /* OpenActionAlertNotificationHandlerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenActionAlertNotificationHandlerSpec.swift; sourceTree = "<group>"; };
+		650330EE1C60366F006D0752 /* FakeActionAlertControllerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeActionAlertControllerProvider.swift; sourceTree = "<group>"; };
+		650330F01C60369C006D0752 /* FakeActionAlertService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeActionAlertService.swift; sourceTree = "<group>"; };
+		650330F21C6038FD006D0752 /* OpenActionAlertNotificationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenActionAlertNotificationHandler.swift; sourceTree = "<group>"; };
 		6505C9521BB9FF3F008DD278 /* FakeURLOpener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeURLOpener.swift; sourceTree = "<group>"; };
 		6507631D1B8B720E00BA0659 /* FakeURLProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeURLProvider.swift; sourceTree = "<group>"; };
 		650CF4221C602E3400991CFE /* ActionAlertTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionAlertTableViewCell.swift; sourceTree = "<group>"; };
@@ -604,6 +613,7 @@
 		65EA2F281BB9B648001D8FD5 /* FakeDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeDateFormatter.swift; sourceTree = "<group>"; };
 		65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		65EC4CED1B842A1900DD4C83 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
+		65F290C11C612BD400C60807 /* action_alert.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = action_alert.json; sourceTree = "<group>"; };
 		65F5F6561B8967AD0049353C /* FakeTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeTheme.swift; sourceTree = "<group>"; };
 		65F5F6621B8A3CB00049353C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8233FC0B1B7C28FB00A5E9ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -655,6 +665,7 @@
 		650763301B8B809600BA0659 /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
+				65F290C11C612BD400C60807 /* action_alert.json */,
 				65713DE01C5DAA0F00E6E4FC /* action_alert_with_invalid_sharing_urls.json */,
 				65CFACFA1C59D1AF005E1309 /* action_alerts.json */,
 				659F0E211B95F44E0049FA12 /* bernie.jpg */,
@@ -1218,6 +1229,7 @@
 			isa = PBXGroup;
 			children = (
 				654948DF1BFB7D5400C1ECDB /* Protocols */,
+				650330F21C6038FD006D0752 /* OpenActionAlertNotificationHandler.swift */,
 				652AE5E31C46EE9E00EE7B70 /* OpenNewsArticleNotificationHandler.swift */,
 				652AE5F31C475D3700EE7B70 /* ParseAnalyticsNotificationHandler.swift */,
 				654948E71BFB807600C1ECDB /* ParsePushNotificationRegistrar.swift */,
@@ -1240,6 +1252,7 @@
 		654948E41BFB7FF200C1ECDB /* User Notifications */ = {
 			isa = PBXGroup;
 			children = (
+				650330EC1C603643006D0752 /* OpenActionAlertNotificationHandlerSpec.swift */,
 				652AE5E51C46EEBB00EE7B70 /* OpenNewsArticleNotificationHandlerSpec.swift */,
 				652AE5F51C475D5300EE7B70 /* ParseAnalyticsNotificationHandlerSpec.swift */,
 				654948E51BFB800A00C1ECDB /* ParsePushNotificationRegistrarSpec.swift */,
@@ -1370,6 +1383,8 @@
 		65F5F6551B89678E0049353C /* Fakes */ = {
 			isa = PBXGroup;
 			children = (
+				650330EE1C60366F006D0752 /* FakeActionAlertControllerProvider.swift */,
+				650330F01C60369C006D0752 /* FakeActionAlertService.swift */,
 				6559D70E1BBDC37000CBC7EE /* FakeAnalyticsService.swift */,
 				65CAC2C71BFC1F540064B9E2 /* FakeApplication.swift */,
 				655906F31BC4607100D7B0BA /* FakeApplicationSettingsRepository.swift */,
@@ -1592,6 +1607,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65F290C21C612BD400C60807 /* action_alert.json in Resources */,
 				65713DE11C5DAA0F00E6E4FC /* action_alert_with_invalid_sharing_urls.json in Resources */,
 				65CFACFB1C59D1AF005E1309 /* action_alerts.json in Resources */,
 				659F0E221B95F44E0049FA12 /* bernie.jpg in Resources */,
@@ -1788,6 +1804,7 @@
 				653D0F801C4C2F68004CB8A0 /* NSJSONSerializationProvider.swift in Sources */,
 				65A1A2541C4C7A1400C09AB2 /* OnboardingContainerConfigurator.swift in Sources */,
 				653D0F8C1C4C2FF7004CB8A0 /* OnboardingWorkflow.swift in Sources */,
+				650330F31C6038FD006D0752 /* OpenActionAlertNotificationHandler.swift in Sources */,
 				652AE5E41C46EE9E00EE7B70 /* OpenNewsArticleNotificationHandler.swift in Sources */,
 				652AE5F41C475D3700EE7B70 /* ParseAnalyticsNotificationHandler.swift in Sources */,
 				654948E81BFB807600C1ECDB /* ParsePushNotificationRegistrar.swift in Sources */,
@@ -1862,6 +1879,8 @@
 				653D100D1C4C53BB004CB8A0 /* EventsControllerSpec.swift in Sources */,
 				653D10061C4C53BB004CB8A0 /* EventSearchResultsSpec.swift in Sources */,
 				653D100E1C4C53BB004CB8A0 /* EventSectionHeaderPresenterSpec.swift in Sources */,
+				650330EF1C60366F006D0752 /* FakeActionAlertControllerProvider.swift in Sources */,
+				650330F11C60369C006D0752 /* FakeActionAlertService.swift in Sources */,
 				6559D70F1BBDC37000CBC7EE /* FakeAnalyticsService.swift in Sources */,
 				65CAC2C81BFC1F540064B9E2 /* FakeApplication.swift in Sources */,
 				655906F41BC4607100D7B0BA /* FakeApplicationSettingsRepository.swift in Sources */,
@@ -1898,6 +1917,7 @@
 				653D10301C4C53BB004CB8A0 /* NewsFeedControllerSpec.swift in Sources */,
 				653D10311C4C53BB004CB8A0 /* NewsFeedVideoPresenterSpec.swift in Sources */,
 				653D10331C4C53BB004CB8A0 /* OnboardingWorkflowSpec.swift in Sources */,
+				650330ED1C603643006D0752 /* OpenActionAlertNotificationHandlerSpec.swift in Sources */,
 				652AE5E61C46EEBB00EE7B70 /* OpenNewsArticleNotificationHandlerSpec.swift in Sources */,
 				652AE5F61C475D5300EE7B70 /* ParseAnalyticsNotificationHandlerSpec.swift in Sources */,
 				654948E61BFB800A00C1ECDB /* ParsePushNotificationRegistrarSpec.swift in Sources */,

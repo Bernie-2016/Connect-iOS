@@ -3,9 +3,11 @@ import CoreLocation
 
 class ConcreteURLProvider: URLProvider {
     let sharknadoBaseURL: NSURL
+    let connectBaseURL: NSURL
 
-    init(sharknadoBaseURL: NSURL) {
+    init(sharknadoBaseURL: NSURL, connectBaseURL: NSURL) {
         self.sharknadoBaseURL = sharknadoBaseURL
+        self.connectBaseURL = connectBaseURL
     }
 
     func issuesFeedURL() -> NSURL {
@@ -90,7 +92,7 @@ class ConcreteURLProvider: URLProvider {
     }
 
     func actionAlertsURL() -> NSURL {
-        return NSURL(string: "https://sanders-connect-staging.herokuapp.com/api/action_alerts")!
+        return NSURL(string: "/api/action_alerts", relativeToURL: connectBaseURL)!
     }
 
     func twitterShareURL(urlToShare: NSURL) -> NSURL {
@@ -108,5 +110,12 @@ class ConcreteURLProvider: URLProvider {
         urlComponents.queryItems = [tweetIDQueryItem]
 
         return urlComponents.URL!
+    }
+
+    func actionAlertURL(identifier: ActionAlertIdentifier) -> NSURL {
+        var pathString = "/api/action_alerts"
+        pathString = pathString.stringByAppendingString("/\(identifier)")
+
+        return NSURL(string: pathString, relativeToURL: connectBaseURL)!
     }
 }

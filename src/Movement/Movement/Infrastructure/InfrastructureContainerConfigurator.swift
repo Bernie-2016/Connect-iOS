@@ -6,7 +6,8 @@ class InfrastructureContainerConfigurator: ContainerConfigurator {
     static func configureContainer(container: Container) {
         container.register(URLProvider.self) { resolver in
             let sharknadoBaseURL = NSURL(string: "https://elasticsearch.movementapp.io")!
-            return ConcreteURLProvider(sharknadoBaseURL: sharknadoBaseURL)
+            let connectBaseURL = NSURL(string: "https://sanders-connect-staging.herokuapp.com/")!
+            return ConcreteURLProvider(sharknadoBaseURL: sharknadoBaseURL, connectBaseURL: connectBaseURL)
         }.inObjectScope(.Container)
 
         container.register(URLOpener.self) { resolver in

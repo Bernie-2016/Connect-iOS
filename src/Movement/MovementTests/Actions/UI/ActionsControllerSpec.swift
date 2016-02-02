@@ -447,24 +447,3 @@ private class ActionsControllerFakeTheme: FakeTheme {
     override func defaultTableCellBackgroundColor() -> UIColor { return UIColor.yellowColor() }
     override func defaultSpinnerColor() -> UIColor { return UIColor.greenColor() }
 }
-
-private class FakeActionAlertService: ActionAlertService {
-    var fetchActionAlertsCalled = false
-    var lastReturnedActionAlertsPromise: ActionAlertsPromise!
-
-    private func fetchActionAlerts() -> ActionAlertsFuture {
-        fetchActionAlertsCalled = true
-        lastReturnedActionAlertsPromise = ActionAlertsPromise()
-        return lastReturnedActionAlertsPromise.future
-    }
-}
-
-private class FakeActionAlertControllerProvider: ActionAlertControllerProvider {
-    var lastActionAlertReceived: ActionAlert!
-    let returnedController = TestUtils.actionAlertController()
-
-    func provideInstanceWithActionAlert(actionAlert: ActionAlert) -> ActionAlertController {
-        lastActionAlertReceived = actionAlert
-        return returnedController
-    }
-}

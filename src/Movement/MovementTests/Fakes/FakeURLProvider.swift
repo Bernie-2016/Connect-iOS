@@ -71,4 +71,8 @@ class FakeURLProvider : URLProvider {
     func retweetURL(tweetID: TweetID) -> NSURL {
         fatalError("ovveride me in spec!")
     }
+
+    func actionAlertURL(identifier: ActionAlertIdentifier) -> NSURL {
+        fatalError("ovveride me in spec!")
+    }
 }
