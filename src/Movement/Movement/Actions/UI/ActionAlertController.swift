@@ -186,34 +186,23 @@ extension ActionAlertController {
         bodyTextView.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
 
         facebookShareButton.autoSetDimension(.Height, toSize: 40)
-        facebookShareButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: bodyTextView, withOffset: 16)
-        facebookShareButton.autoPinEdgeToSuperviewEdge(.Left, withInset: facebookShareButton.hidden ? 0 : defaultHorizontalMargin)
+        facebookShareButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: bodyTextView, withOffset: twitterShareButton.hidden ? 0 : 16)
+        facebookShareButton.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
+        facebookShareButton.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
         facebookShareButton.autoPinEdgeToSuperviewEdge(.Bottom, withInset: defaultVerticalMargin, relation: .GreaterThanOrEqual)
-        configureShareButtonWidth(facebookShareButton, margin: defaultHorizontalMargin)
 
         twitterShareButton.autoSetDimension(.Height, toSize: 40)
-        twitterShareButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: bodyTextView, withOffset: 16)
-        twitterShareButton.autoPinEdge(.Left, toEdge: .Right, ofView: facebookShareButton, withOffset: twitterShareButton.hidden ? 0 : defaultHorizontalMargin)
-        twitterShareButton.autoPinEdgeToSuperviewEdge(.Bottom, withInset: defaultVerticalMargin, relation: .GreaterThanOrEqual)
-        configureShareButtonWidth(twitterShareButton, margin: defaultHorizontalMargin)
+        twitterShareButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: facebookShareButton, withOffset: twitterShareButton.hidden ? 0 : 16)
+        twitterShareButton.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
+        twitterShareButton.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
 
         retweetButton.autoSetDimension(.Height, toSize: 40)
-        retweetButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: bodyTextView, withOffset: 16)
-        retweetButton.autoPinEdge(.Left, toEdge: .Right, ofView: twitterShareButton, withOffset: retweetButton.hidden ? 0 : defaultHorizontalMargin)
+        retweetButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: twitterShareButton, withOffset: retweetButton.hidden ? 0 : 16)
+        retweetButton.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
+        retweetButton.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
         retweetButton.autoPinEdgeToSuperviewEdge(.Bottom, withInset: defaultVerticalMargin, relation: .GreaterThanOrEqual)
-        configureShareButtonWidth(retweetButton, margin: defaultHorizontalMargin)
     }
 
-    private func configureShareButtonWidth(shareButton: UIButton, margin: CGFloat) {
-        let activeWidthMultiplier = (1.0/CGFloat(numberOfActiveShareButtons))
-        let activeWidthOffset = -(CGFloat(numberOfActiveShareButtons + 1) * margin) / CGFloat(numberOfActiveShareButtons)
-
-        if shareButton.hidden {
-            shareButton.autoSetDimension(.Width, toSize: 0)
-        } else {
-            scrollView.addConstraint(NSLayoutConstraint(item: shareButton, attribute: .Width, relatedBy: .Equal, toItem: containerView, attribute: .Width, multiplier: activeWidthMultiplier, constant: activeWidthOffset))
-        }
-    }
 
     private func applyTheme() {
         view.backgroundColor = theme.contentBackgroundColor()
