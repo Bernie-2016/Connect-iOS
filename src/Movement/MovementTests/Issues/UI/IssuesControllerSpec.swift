@@ -288,6 +288,10 @@ private class IssuesFakeTheme: FakeTheme {
     override func defaultTableCellBackgroundColor() -> UIColor {
         return UIColor.redColor()
     }
+
+    private override func defaultButtonBorderColor() -> UIColor {
+        return UIColor.blueColor()
+    }
 }
 
 private class FakeIssueControllerProvider: IssueControllerProvider {

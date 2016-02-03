@@ -18,6 +18,8 @@ class DefaultTheme: Theme {
     func defaultBodyTextColor() -> UIColor { return UIColor.blackColor() }
     func defaultTableCellBackgroundColor() -> UIColor { return UIColor.whiteColor() }
     func defaultButtonBorderColor() -> UIColor { return coalMinerColor }
+    func defaultBodyTextLineHeight() -> CGFloat { return 24.0 }
+    func attributionButtonBackgroundColor() -> UIColor { return UIColor.whiteColor() }
 
     // MARK: Tab Bar
 
@@ -28,7 +30,7 @@ class DefaultTheme: Theme {
 
     // MARK: Navigation Bar
     func navigationBarBackgroundColor() -> UIColor { return chathamsBlueColor }
-    func navigationBarFont() -> UIFont { return UIFont.systemFontOfSize(18) }
+    func navigationBarFont() -> UIFont { return UIFont.systemFontOfSize(16) }
     func navigationBarButtonFont() -> UIFont { return UIFont.systemFontOfSize(16) }
     func navigationBarTextColor() -> UIColor { return UIColor.whiteColor()}
 
@@ -201,7 +203,7 @@ class DefaultTheme: Theme {
     func defaultHeaderFont() -> UIFont { return UIFont.systemFontOfSize(17) }
 
     // new fonts
-    func h1HeaderFont() -> UIFont { return mediumSystemFontOfSize(21) }
+    func h1HeaderFont() -> UIFont { return semiBoldSystemFontOfSize(21) }
     func h1HeaderTextColor() -> UIColor { return UIColor.blackColor() }
 
     func h2HeaderFont() -> UIFont { return semiBoldSystemFontOfSize(16) }

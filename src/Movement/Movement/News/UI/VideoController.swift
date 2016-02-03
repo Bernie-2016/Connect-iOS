@@ -64,7 +64,7 @@ class VideoController: UIViewController {
         descriptionTextView.text = video.description
 
         attributionLabel.text = self.urlAttributionPresenter.attributionTextForURL(urlProvider.youtubeVideoURL(video.identifier))
-        viewOriginalButton.setTitle(NSLocalizedString("Video_viewOriginal", comment: ""), forState: .Normal)
+        viewOriginalButton.setImage(UIImage(named: "ViewOriginal"), forState: .Normal)
         viewOriginalButton.addTarget(self, action: "didTapViewOriginal:", forControlEvents: .TouchUpInside)
 
         videoController = XCDYouTubeVideoPlayerViewController(videoIdentifier: video.identifier)
@@ -139,15 +139,16 @@ class VideoController: UIViewController {
         descriptionTextView.font = theme.videoDescriptionFont()
         attributionLabel.font = theme.attributionFont()
         attributionLabel.textColor = theme.attributionTextColor()
-        viewOriginalButton.backgroundColor = theme.defaultButtonBackgroundColor()
-        viewOriginalButton.setTitleColor(theme.defaultButtonTextColor(), forState: .Normal)
-        viewOriginalButton.titleLabel!.font = theme.defaultButtonFont()
+
+        viewOriginalButton.backgroundColor = theme.attributionButtonBackgroundColor()
+        viewOriginalButton.layer.borderColor = theme.defaultButtonBorderColor().CGColor
+        viewOriginalButton.layer.borderWidth = 1.0
+        viewOriginalButton.layer.cornerRadius = 3.0
     }
 
     private func setupConstraints() {
         let defaultHorizontalMargin: CGFloat = 15
         let defaultVerticalMargin: CGFloat = 21
-
         let screenBounds = UIScreen.mainScreen().bounds
 
         videoView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Bottom)
@@ -164,15 +165,15 @@ class VideoController: UIViewController {
 
         setupTextContentConstraints()
 
+        viewOriginalButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: descriptionTextView, withOffset: 16)
+        viewOriginalButton.autoSetDimension(.Height, toSize: 54)
+        viewOriginalButton.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
+        viewOriginalButton.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
+
         attributionLabel.numberOfLines = 0
         attributionLabel.textAlignment = .Center
-        attributionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: descriptionTextView, withOffset: defaultVerticalMargin)
-        attributionLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
-        attributionLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
-
-        viewOriginalButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: attributionLabel, withOffset: defaultHorizontalMargin)
-        viewOriginalButton.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsets(top: 0, left: defaultHorizontalMargin, bottom: defaultHorizontalMargin, right: defaultVerticalMargin), excludingEdge: .Top)
-        viewOriginalButton.autoSetDimension(.Height, toSize: 54)
+        attributionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: viewOriginalButton, withOffset: 16)
+        attributionLabel.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsets(top: 0, left: defaultHorizontalMargin, bottom: defaultHorizontalMargin, right: defaultVerticalMargin), excludingEdge: .Top)
     }
 
     private func setupTextContentConstraints() {

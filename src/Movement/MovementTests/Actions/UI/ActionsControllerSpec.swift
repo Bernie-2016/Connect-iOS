@@ -75,8 +75,7 @@ class ActionsControllerSpec: QuickSpec {
 
                         it("has a row for donating to the campaign") {
                             expect(cell.titleLabel.text).to(equal("Donate to the Campaign"))
-                            expect(cell.subTitleLabel.text).to(equal("Contribute via the official campaign website"))
-                            expect(cell.iconImageView.image).to(equal(UIImage(named: "Donate")))
+                            expect(cell.subTitleLabel.text).to(equal("Contribute via the campaign website"))
                         }
 
                         it("applies the theme to the cell") {
@@ -114,7 +113,6 @@ class ActionsControllerSpec: QuickSpec {
                         it("has a row for sharing the donation page") {
                             expect(cell.titleLabel.text).to(equal("Share the Donate page"))
                             expect(cell.subTitleLabel.text).to(equal("Ask friends and family to donate"))
-                            expect(cell.iconImageView.image).to(equal(UIImage(named: "ShareDonate")))
                         }
 
                         it("applies the theme to the cell") {
@@ -215,7 +213,6 @@ class ActionsControllerSpec: QuickSpec {
                         it("has a row for hosting an event") {
                             expect(cell.titleLabel.text).to(equal("Host an event"))
                             expect(cell.subTitleLabel.text).to(equal("Organize supporters in your area"))
-                            expect(cell.iconImageView.image).to(equal(UIImage(named: "HostEvent")))
                         }
 
                         it("applies the theme to the cell") {

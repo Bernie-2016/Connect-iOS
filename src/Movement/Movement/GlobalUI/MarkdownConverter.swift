@@ -8,9 +8,15 @@ class CMMarkdownConverter: MarkdownConverter {
     let attributes: CMTextAttributes
     init(theme: Theme) {
         attributes = CMTextAttributes()
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineHeightMultiple = theme.defaultBodyTextLineHeight()
+        paragraphStyle.maximumLineHeight = theme.defaultBodyTextLineHeight()
+        paragraphStyle.minimumLineHeight = theme.defaultBodyTextLineHeight()
+
         attributes.textAttributes = [
             NSFontAttributeName: theme.actionAlertBodyFont(),
-            NSForegroundColorAttributeName: theme.actionAlertBodyTextColor()
+            NSForegroundColorAttributeName: theme.actionAlertBodyTextColor(),
+            NSParagraphStyleAttributeName: paragraphStyle
         ]
 
         attributes.linkAttributes = [

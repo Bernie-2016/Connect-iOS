@@ -138,8 +138,6 @@ class IssueControllerSpec : QuickSpec {
                         expect(subject.attributionLabel.font).to(equal(UIFont.systemFontOfSize(222)))
                         expect(subject.attributionLabel.textColor).to(equal(UIColor.magentaColor()))
                         expect(subject.viewOriginalButton.backgroundColor).to(equal(UIColor.greenColor()))
-                        expect(subject.viewOriginalButton.titleColorForState(.Normal)).to(equal(UIColor.redColor()))
-                        expect(subject.viewOriginalButton.titleLabel!.font).to(equal(UIFont.systemFontOfSize(333)))
                     }
 
                     it("displays the title from the issue as a button") {
@@ -156,7 +154,7 @@ class IssueControllerSpec : QuickSpec {
                     }
 
                     it("has a button to view the original issue") {
-                        expect(subject.viewOriginalButton.titleForState(.Normal)).to(equal("View Original"))
+                        expect(subject.viewOriginalButton.imageForState(.Normal)).to(equal(UIImage(named: "ViewOriginal")))
                     }
 
                     describe("tapping on the view original button") {
@@ -267,7 +265,9 @@ class IssueFakeTheme : FakeTheme {
         return UIColor.magentaColor()
     }
 
-    override func defaultButtonBackgroundColor() -> UIColor { return UIColor.greenColor() }
+    override func attributionButtonBackgroundColor() -> UIColor { return UIColor.greenColor() }
     override func defaultButtonTextColor() -> UIColor { return UIColor.redColor() }
     override func defaultButtonFont() -> UIFont { return UIFont.systemFontOfSize(333) }
+    override func defaultBodyTextLineHeight() -> CGFloat { return 666.0 }
+    override func defaultButtonBorderColor() -> UIColor { return UIColor.whiteColor() }
 }

@@ -236,17 +236,14 @@ class StockActionsTableViewCellPresenter: ActionsTableViewCellPresenter {
 
         var titleKey: String!
         var subTitleKey: String!
-        var imageName: String!
         let donationRow = actionAlerts.count == 0 ? 0 : 1
 
         if indexPath.section == donationRow {
             titleKey = indexPath.row == 0 ? "Actions_donateTitle" : "Actions_shareDonateTitle"
             subTitleKey = indexPath.row == 0 ? "Actions_donateSubTitle" : "Actions_shareDonateSubTitle"
-            imageName = indexPath.row == 0 ? "Donate" : "ShareDonate"
         } else {
             titleKey = "Actions_hostEventTitle"
             subTitleKey = "Actions_hostEventSubTitle"
-            imageName = "HostEvent"
 
             cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: CGRectGetWidth(tableView.bounds))
         }
@@ -254,7 +251,6 @@ class StockActionsTableViewCellPresenter: ActionsTableViewCellPresenter {
         cell.backgroundColor = theme.defaultTableCellBackgroundColor()
         cell.titleLabel.text = NSLocalizedString(titleKey, comment: "")
         cell.subTitleLabel.text = NSLocalizedString(subTitleKey, comment: "")
-        cell.iconImageView.image = UIImage(named: imageName)
 
         cell.titleLabel.font = theme.actionsTitleFont()
         cell.titleLabel.textColor = theme.actionsTitleTextColor()

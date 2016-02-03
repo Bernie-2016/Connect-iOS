@@ -173,7 +173,7 @@ class NewsArticleControllerSpec : QuickSpec {
                     }
 
                     it("has a button to view the original issue") {
-                        expect(subject.viewOriginalButton.titleForState(.Normal)).to(equal("View Original"))
+                        expect(subject.viewOriginalButton.imageForState(.Normal)).to(equal(UIImage(named: "ViewOriginal")))
                     }
 
                     describe("tapping on the view original button") {
@@ -207,7 +207,6 @@ class NewsArticleControllerSpec : QuickSpec {
                         expect(subject.attributionLabel.textColor).to(equal(UIColor.greenColor()))
                         expect(subject.attributionLabel.font).to(equal(UIFont.boldSystemFontOfSize(111)))
                         expect(subject.viewOriginalButton.backgroundColor).to(equal(UIColor.redColor()))
-                        expect(subject.viewOriginalButton.titleColorForState(.Normal)).to(equal(UIColor.blueColor()))
                     }
 
                     context("when the request for the story's image succeeds") {
@@ -282,8 +281,9 @@ private class NewsArticleFakeTheme: FakeTheme {
     override func contentBackgroundColor() -> UIColor { return UIColor.orangeColor() }
     override func attributionFont() -> UIFont { return UIFont.boldSystemFontOfSize(111) }
     override func attributionTextColor() -> UIColor { return UIColor.greenColor() }
-    override func defaultButtonBackgroundColor() -> UIColor { return UIColor.redColor() }
+    override func attributionButtonBackgroundColor() -> UIColor { return UIColor.redColor() }
     override func defaultButtonTextColor() -> UIColor { return UIColor.blueColor() }
     override func defaultButtonFont() -> UIFont { return UIFont.boldSystemFontOfSize(222) }
-
+    override func defaultBodyTextLineHeight() -> CGFloat { return 666.0 }
+    override func defaultButtonBorderColor() -> UIColor { return UIColor.whiteColor() }
 }

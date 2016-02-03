@@ -4,7 +4,6 @@ import PureLayout
 class ActionTableViewCell: UITableViewCell {
     let titleLabel = UILabel.newAutoLayoutView()
     let subTitleLabel = UILabel.newAutoLayoutView()
-    let iconImageView = UIImageView.newAutoLayoutView()
     let disclosureView = DisclosureIndicatorView.newAutoLayoutView()
 
     required init?(coder aDecoder: NSCoder) {
@@ -19,7 +18,6 @@ class ActionTableViewCell: UITableViewCell {
         contentView.addSubview(titleLabel)
         contentView.addSubview(disclosureView)
         contentView.addSubview(subTitleLabel)
-        contentView.addSubview(iconImageView)
 
         self.backgroundColor = UIColor.clearColor()
 
@@ -37,12 +35,8 @@ class ActionTableViewCell: UITableViewCell {
 
     private func setupConstraints() {
         titleLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: 20)
-        titleLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 56)
+        titleLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
         titleLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 45)
-
-        iconImageView.autoAlignAxis(.Horizontal, toSameAxisOfView: titleLabel)
-        iconImageView.autoPinEdgeToSuperviewEdge(.Left, withInset: 22)
-
 
         subTitleLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: titleLabel)
         subTitleLabel.autoPinEdge(.Left, toEdge: .Left, ofView: titleLabel)
@@ -53,6 +47,5 @@ class ActionTableViewCell: UITableViewCell {
         disclosureView.autoPinEdgeToSuperviewEdge(.Right)
         disclosureView.autoSetDimension(.Height, toSize: 14)
         disclosureView.autoSetDimension(.Width, toSize: 20)
-
     }
 }

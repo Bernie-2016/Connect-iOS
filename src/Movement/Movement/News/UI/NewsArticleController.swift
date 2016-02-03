@@ -63,10 +63,16 @@ class NewsArticleController: UIViewController {
 
         dateLabel.text = timeIntervalFormatter.humanDaysSinceDate(self.newsArticle.date)
         titleLabel.text = newsArticle.title
-        bodyTextView.text = self.newsArticle.body
+
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineHeightMultiple = theme.defaultBodyTextLineHeight()
+        paragraphStyle.maximumLineHeight = theme.defaultBodyTextLineHeight()
+        paragraphStyle.minimumLineHeight = theme.defaultBodyTextLineHeight()
+        let attributedText = NSAttributedString(string: newsArticle.body, attributes: [NSParagraphStyleAttributeName: paragraphStyle])
+        bodyTextView.attributedText = attributedText
 
         attributionLabel.text = self.urlAttributionPresenter.attributionTextForURL(newsArticle.url)
-        viewOriginalButton.setTitle(NSLocalizedString("NewsArticle_viewOriginal", comment: ""), forState: .Normal)
+        viewOriginalButton.setImage(UIImage(named: "ViewOriginal"), forState: .Normal)
         viewOriginalButton.addTarget(self, action: "didTapViewOriginal:", forControlEvents: .TouchUpInside)
 
         applyThemeToViews()
@@ -160,7 +166,7 @@ class NewsArticleController: UIViewController {
         storyImageView.clipsToBounds = true
 
         titleLabel.numberOfLines = 0
-        titleLabel.preferredMaxLayoutWidth = screenBounds.width - defaultHorizontalMargin
+        titleLabel.preferredMaxLayoutWidth = screenBounds.width - (defaultHorizontalMargin * 2)
         titleLabel.textAlignment = .Left
 
         NSLayoutConstraint.autoSetPriority(1000, forConstraints: {
@@ -188,15 +194,15 @@ class NewsArticleController: UIViewController {
         bodyTextView.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
         bodyTextView.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
 
+        viewOriginalButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: bodyTextView, withOffset: 16)
+        viewOriginalButton.autoSetDimension(.Height, toSize: 54)
+        viewOriginalButton.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
+        viewOriginalButton.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
+
         attributionLabel.numberOfLines = 0
         attributionLabel.textAlignment = .Center
-        attributionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: bodyTextView, withOffset: 16)
-        attributionLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
-        attributionLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
-
-        viewOriginalButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: attributionLabel, withOffset: 16)
-        viewOriginalButton.autoSetDimension(.Height, toSize: 54)
-        viewOriginalButton.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsets(top: 0, left: defaultHorizontalMargin, bottom: defaultHorizontalMargin, right: defaultVerticalMargin), excludingEdge: .Top)
+        attributionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: viewOriginalButton, withOffset: 16)
+        attributionLabel.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsets(top: 0, left: defaultHorizontalMargin, bottom: defaultHorizontalMargin, right: defaultVerticalMargin), excludingEdge: .Top)
     }
     // swiftlint:enable function_body_length
 
@@ -209,9 +215,11 @@ class NewsArticleController: UIViewController {
         bodyTextView.textColor = theme.newsArticleBodyColor()
         attributionLabel.font = theme.attributionFont()
         attributionLabel.textColor = theme.attributionTextColor()
-        viewOriginalButton.backgroundColor = theme.defaultButtonBackgroundColor()
-        viewOriginalButton.setTitleColor(theme.defaultButtonTextColor(), forState: .Normal)
-        viewOriginalButton.titleLabel!.font = theme.defaultButtonFont()
+
+        viewOriginalButton.layer.borderColor = theme.defaultButtonBorderColor().CGColor
+        viewOriginalButton.layer.borderWidth = 1.0
+        viewOriginalButton.layer.cornerRadius = 3.0
+        viewOriginalButton.backgroundColor = theme.attributionButtonBackgroundColor()
     }
 }
 // swiftlint:enable type_body_length

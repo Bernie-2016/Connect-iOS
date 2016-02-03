@@ -51,8 +51,6 @@ class VideoControllerSpec: QuickSpec {
                     expect(subject.attributionLabel.font).to(equal(UIFont.systemFontOfSize(444)))
                     expect(subject.attributionLabel.textColor).to(equal(UIColor.orangeColor()))
                     expect(subject.viewOriginalButton.backgroundColor).to(equal(UIColor.brownColor()))
-                    expect(subject.viewOriginalButton.titleColorForState(.Normal)).to(equal(UIColor.lightGrayColor()))
-                    expect(subject.viewOriginalButton.titleLabel!.font).to(equal(UIFont.systemFontOfSize(555)))
                 }
 
                 it("has the view components as sub-views of a scroll view") {
@@ -104,7 +102,7 @@ class VideoControllerSpec: QuickSpec {
                 }
 
                 it("has a button to view the original video") {
-                    expect(subject.viewOriginalButton.titleForState(.Normal)).to(equal("View on YouTube.com"))
+                    expect(subject.viewOriginalButton.imageForState(.Normal)).to(equal(UIImage(named: "ViewOriginal")))
                 }
 
                 describe("tapping on the view original button") {
@@ -210,7 +208,7 @@ class VideoControllerSpec: QuickSpec {
     }
 }
 
-class VideoFakeTheme: FakeTheme {
+private class VideoFakeTheme: FakeTheme {
     override func contentBackgroundColor() -> UIColor { return UIColor.magentaColor() }
     override func videoDateFont() -> UIFont { return UIFont.systemFontOfSize(111) }
     override func videoDateColor() -> UIColor { return UIColor.redColor() }
@@ -221,12 +219,13 @@ class VideoFakeTheme: FakeTheme {
     override func attributionFont() -> UIFont { return UIFont.systemFontOfSize(444) }
     override func attributionTextColor() -> UIColor { return UIColor.orangeColor() }
 
-    override func defaultButtonBackgroundColor() -> UIColor { return UIColor.brownColor() }
+    override func attributionButtonBackgroundColor() -> UIColor { return UIColor.brownColor() }
     override func defaultButtonTextColor() -> UIColor { return UIColor.lightGrayColor() }
     override func defaultButtonFont() -> UIFont { return UIFont.systemFontOfSize(555) }
+    override func defaultButtonBorderColor() -> UIColor { return UIColor.magentaColor() }
 }
 
-class VideoFakeURLProvider: FakeURLProvider {
+private class VideoFakeURLProvider: FakeURLProvider {
     var lastReturnedURL: NSURL!
     var lastIdentifier: String!
 

@@ -133,7 +133,7 @@
 "Actions_fundraiseHeader" = "FUNDRAISE";
 "Actions_organizeHeader" = "ORGANIZE";
 "Actions_donateTitle" = "Donate to the Campaign";
-"Actions_donateSubTitle" = "Contribute via the official campaign website";
+"Actions_donateSubTitle" = "Contribute via the campaign website";
 "Actions_shareDonateTitle" = "Share the Donate page";
 "Actions_shareDonateSubTitle" = "Ask friends and family to donate";
 "Actions_hostEventTitle" = "Host an event";

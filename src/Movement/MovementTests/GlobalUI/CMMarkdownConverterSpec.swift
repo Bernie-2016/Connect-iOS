@@ -99,4 +99,5 @@ private class FakeCMMarkdownTheme: FakeTheme {
     private override func actionAlertH4Font() -> UIFont { return UIFont.systemFontOfSize(4) }
     private override func actionAlertH5Font() -> UIFont { return UIFont.systemFontOfSize(5) }
     private override func actionAlertH6Font() -> UIFont { return UIFont.systemFontOfSize(6) }
+    private override func defaultBodyTextLineHeight() -> CGFloat { return 666.0 }
 }

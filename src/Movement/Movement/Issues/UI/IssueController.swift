@@ -50,11 +50,17 @@ class IssueController: UIViewController {
 
         addSubviews()
 
-        bodyTextView.text = issue.body
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineHeightMultiple = theme.defaultBodyTextLineHeight()
+        paragraphStyle.maximumLineHeight = theme.defaultBodyTextLineHeight()
+        paragraphStyle.minimumLineHeight = theme.defaultBodyTextLineHeight()
+        let attributedText = NSAttributedString(string: issue.body, attributes: [NSParagraphStyleAttributeName: paragraphStyle])
+
+        bodyTextView.attributedText = attributedText
         titleLabel.text = issue.title
 
         attributionLabel.text = urlAttributionPresenter.attributionTextForURL(issue.url)
-        viewOriginalButton.setTitle(NSLocalizedString("Issue_viewOriginal", comment: ""), forState: .Normal)
+        viewOriginalButton.setImage(UIImage(named: "ViewOriginal"), forState: .Normal)
         viewOriginalButton.addTarget(self, action: "didTapViewOriginal:", forControlEvents: .TouchUpInside)
 
         setupConstraintsAndLayout()
@@ -123,9 +129,10 @@ class IssueController: UIViewController {
         analyticsService.trackCustomEventWithName(eventName, customAttributes: [AnalyticsServiceConstants.contentIDKey: issue.url.absoluteString])
         urlOpener.openURL(issue.url)
     }
+}
 
-    // MARK: Private
-
+// MARK: Private
+extension IssueController {
     // swiftlint:disable function_body_length
     private func setupConstraintsAndLayout() {
         let defaultHorizontalMargin: CGFloat = 15
@@ -167,15 +174,15 @@ class IssueController: UIViewController {
         bodyTextView.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
         bodyTextView.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
 
+        viewOriginalButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: bodyTextView, withOffset: 16)
+        viewOriginalButton.autoSetDimension(.Height, toSize: 54)
+        viewOriginalButton.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
+        viewOriginalButton.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
+
         attributionLabel.numberOfLines = 0
         attributionLabel.textAlignment = .Center
-        attributionLabel.autoPinEdge(ALEdge.Top, toEdge: ALEdge.Bottom, ofView: bodyTextView, withOffset: 16)
-        attributionLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
-        attributionLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
-
-        viewOriginalButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: attributionLabel, withOffset: 16)
-        viewOriginalButton.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsets(top: 0, left: defaultHorizontalMargin, bottom: defaultHorizontalMargin, right: defaultVerticalMargin), excludingEdge: .Top)
-        viewOriginalButton.autoSetDimension(.Height, toSize: 54)
+        attributionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: viewOriginalButton, withOffset: 16)
+        attributionLabel.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsets(top: 0, left: defaultHorizontalMargin, bottom: defaultHorizontalMargin, right: defaultVerticalMargin), excludingEdge: .Top)
     }
     // swiftlint:enable function_body_length
 
@@ -187,9 +194,11 @@ class IssueController: UIViewController {
         bodyTextView.textColor = theme.issueBodyColor()
         attributionLabel.font = theme.attributionFont()
         attributionLabel.textColor = theme.attributionTextColor()
-        viewOriginalButton.backgroundColor = theme.defaultButtonBackgroundColor()
-        viewOriginalButton.setTitleColor(theme.defaultButtonTextColor(), forState: .Normal)
-        viewOriginalButton.titleLabel!.font = theme.defaultButtonFont()
+
+        viewOriginalButton.backgroundColor = theme.attributionButtonBackgroundColor()
+        viewOriginalButton.layer.borderColor = theme.defaultButtonBorderColor().CGColor
+        viewOriginalButton.layer.borderWidth = 1.0
+        viewOriginalButton.layer.cornerRadius = 3.0
     }
 
     private func addSubviews() {
