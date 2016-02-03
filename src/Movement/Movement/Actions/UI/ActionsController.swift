@@ -9,6 +9,8 @@ class ActionsController: UIViewController {
     private let tabBarItemStylist: TabBarItemStylist
     private let theme: Theme
 
+    private let actionsTableViewCellPresenter: ActionsTableViewCellPresenter
+
     private let tableView = UITableView.newAutoLayoutView()
     let loadingIndicatorView = UIActivityIndicatorView.newAutoLayoutView()
 
@@ -29,6 +31,8 @@ class ActionsController: UIViewController {
         self.analyticsService = analyticsService
         self.tabBarItemStylist = tabBarItemStylist
         self.theme = theme
+
+        self.actionsTableViewCellPresenter = StockActionsTableViewCellPresenter(theme: theme, tableView: tableView)
 
         super.init(nibName: nil, bundle: nil)
 
@@ -106,46 +110,10 @@ extension ActionsController: UITableViewDataSource {
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if actionAlerts.count > 0 && indexPath.section == 0 {
-            guard let cell = tableView.dequeueReusableCellWithIdentifier("actionAlertCell") as? ActionAlertTableViewCell else { return UITableViewCell() }
-            cell.backgroundColor = theme.defaultTableCellBackgroundColor()
-            cell.titleLabel.text = actionAlerts[indexPath.row].title
-            cell.titleLabel.textColor = theme.actionsTitleTextColor()
-            cell.titleLabel.font = theme.actionsTitleFont()
-            cell.disclosureView.color = theme.defaultDisclosureColor()
-
-            return cell
+            return actionsTableViewCellPresenter.presentActionAlertTableViewCell(actionAlerts[indexPath.row])
         }
 
-        let donationRow = actionAlerts.count == 0 ? 0 : 1
-
-        guard let cell = tableView.dequeueReusableCellWithIdentifier("cell") as? ActionTableViewCell else { return UITableViewCell() }
-        var titleKey: String!
-        var subTitleKey: String!
-        var imageName: String!
-        if indexPath.section == donationRow {
-            titleKey = indexPath.row == 0 ? "Actions_donateTitle" : "Actions_shareDonateTitle"
-            subTitleKey = indexPath.row == 0 ? "Actions_donateSubTitle" : "Actions_shareDonateSubTitle"
-            imageName = indexPath.row == 0 ? "Donate" : "ShareDonate"
-        } else {
-            titleKey = "Actions_hostEventTitle"
-            subTitleKey = "Actions_hostEventSubTitle"
-            imageName = "HostEvent"
-
-            cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: CGRectGetWidth(tableView.bounds))
-        }
-
-        cell.backgroundColor = theme.defaultTableCellBackgroundColor()
-        cell.titleLabel.text = NSLocalizedString(titleKey, comment: "")
-        cell.subTitleLabel.text = NSLocalizedString(subTitleKey, comment: "")
-        cell.iconImageView.image = UIImage(named: imageName)
-
-        cell.titleLabel.font = theme.actionsTitleFont()
-        cell.titleLabel.textColor = theme.actionsTitleTextColor()
-        cell.subTitleLabel.font = theme.actionsSubTitleFont()
-        cell.subTitleLabel.textColor = theme.actionsSubTitleTextColor()
-        cell.disclosureView.color = theme.defaultDisclosureColor()
-
-        return cell
+        return actionsTableViewCellPresenter.presentActionTableViewCell(actionAlerts, indexPath: indexPath)
     }
 
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -206,8 +174,8 @@ extension ActionsController: UITableViewDelegate {
     private func openFormInSafari(name: String, url: NSURL) {
         urlOpener.openURL(url)
         analyticsService.trackContentViewWithName(name, type: .Actions, identifier: name)
-
     }
+
     private func shareDonateForm() {
         let name = "Donate Form"
         let url = urlProvider.donateFormURL()
@@ -234,5 +202,66 @@ extension ActionsController: UITableViewDelegate {
         }
 
         presentViewController(activityVC, animated: true, completion: nil)
+    }
+}
+
+protocol ActionsTableViewCellPresenter {
+    func presentActionAlertTableViewCell(actionAlert: ActionAlert) -> UITableViewCell
+    func presentActionTableViewCell(actionAlerts: [ActionAlert], indexPath: NSIndexPath) -> UITableViewCell
+}
+
+class StockActionsTableViewCellPresenter: ActionsTableViewCellPresenter {
+    let theme: Theme
+    let tableView: UITableView
+
+    init(theme: Theme, tableView: UITableView) {
+        self.theme = theme
+        self.tableView = tableView
+    }
+
+    func presentActionAlertTableViewCell(actionAlert: ActionAlert) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCellWithIdentifier("actionAlertCell") as? ActionAlertTableViewCell else { return UITableViewCell() }
+
+        cell.backgroundColor = theme.defaultTableCellBackgroundColor()
+        cell.titleLabel.text = actionAlert.title
+        cell.titleLabel.textColor = theme.actionsTitleTextColor()
+        cell.titleLabel.font = theme.actionsTitleFont()
+        cell.disclosureView.color = theme.defaultDisclosureColor()
+
+        return cell
+    }
+
+    func presentActionTableViewCell(actionAlerts: [ActionAlert], indexPath: NSIndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCellWithIdentifier("cell") as? ActionTableViewCell else { return UITableViewCell() }
+
+        var titleKey: String!
+        var subTitleKey: String!
+        var imageName: String!
+        let donationRow = actionAlerts.count == 0 ? 0 : 1
+
+        if indexPath.section == donationRow {
+            titleKey = indexPath.row == 0 ? "Actions_donateTitle" : "Actions_shareDonateTitle"
+            subTitleKey = indexPath.row == 0 ? "Actions_donateSubTitle" : "Actions_shareDonateSubTitle"
+            imageName = indexPath.row == 0 ? "Donate" : "ShareDonate"
+        } else {
+            titleKey = "Actions_hostEventTitle"
+            subTitleKey = "Actions_hostEventSubTitle"
+            imageName = "HostEvent"
+
+            cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: CGRectGetWidth(tableView.bounds))
+        }
+
+        cell.backgroundColor = theme.defaultTableCellBackgroundColor()
+        cell.titleLabel.text = NSLocalizedString(titleKey, comment: "")
+        cell.subTitleLabel.text = NSLocalizedString(subTitleKey, comment: "")
+        cell.iconImageView.image = UIImage(named: imageName)
+
+        cell.titleLabel.font = theme.actionsTitleFont()
+        cell.titleLabel.textColor = theme.actionsTitleTextColor()
+        cell.subTitleLabel.font = theme.actionsSubTitleFont()
+        cell.subTitleLabel.textColor = theme.actionsSubTitleTextColor()
+        cell.disclosureView.color = theme.defaultDisclosureColor()
+
+        return cell
     }
 }
