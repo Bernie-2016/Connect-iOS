@@ -283,6 +283,7 @@
 		65E33D801C46EB9A003464D9 /* PushNotificationHandlerDispatcherSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E33D7F1C46EB9A003464D9 /* PushNotificationHandlerDispatcherSpec.swift */; };
 		65E33D821C46EC0D003464D9 /* PushNotificationHandlerDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E33D811C46EC0D003464D9 /* PushNotificationHandlerDispatcher.swift */; };
 		65E4A4FC1BC6DA050027501D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8233FC151B7C28FB00A5E9ED /* Images.xcassets */; };
+		65E856D21C61916600F4849C /* StockActionsTableViewCellPresenterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E856D11C61916600F4849C /* StockActionsTableViewCellPresenterSpec.swift */; };
 		65EA2F291BB9B648001D8FD5 /* FakeDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EA2F281BB9B648001D8FD5 /* FakeDateFormatter.swift */; };
 		65EC4CEC1B842A0B00DD4C83 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */; };
 		65EC4CEE1B842A1900DD4C83 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65EC4CED1B842A1900DD4C83 /* Quick.framework */; };
@@ -614,6 +615,7 @@
 		65DE887D1BE31540001AEDD8 /* FakeTimeIntervalFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeTimeIntervalFormatter.swift; sourceTree = "<group>"; };
 		65E33D7F1C46EB9A003464D9 /* PushNotificationHandlerDispatcherSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationHandlerDispatcherSpec.swift; sourceTree = "<group>"; };
 		65E33D811C46EC0D003464D9 /* PushNotificationHandlerDispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationHandlerDispatcher.swift; sourceTree = "<group>"; };
+		65E856D11C61916600F4849C /* StockActionsTableViewCellPresenterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockActionsTableViewCellPresenterSpec.swift; sourceTree = "<group>"; };
 		65EA2F281BB9B648001D8FD5 /* FakeDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeDateFormatter.swift; sourceTree = "<group>"; };
 		65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		65EC4CED1B842A1900DD4C83 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
@@ -1035,6 +1037,7 @@
 			children = (
 				654F92801C5ABFBD00C76992 /* ActionAlertControllerSpec.swift */,
 				653D0FBE1C4C53BB004CB8A0 /* ActionsControllerSpec.swift */,
+				65E856D11C61916600F4849C /* StockActionsTableViewCellPresenterSpec.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1951,6 +1954,7 @@
 				653D101E1C4C53BB004CB8A0 /* IssuesControllerSpec.swift in Sources */,
 				653D10121C4C53BB004CB8A0 /* NavigationControllerSpec.swift in Sources */,
 				653D102E1C4C53BB004CB8A0 /* NewsArticleControllerSpec.swift in Sources */,
+				65E856D21C61916600F4849C /* StockActionsTableViewCellPresenterSpec.swift in Sources */,
 				653D102F1C4C53BB004CB8A0 /* NewsFeedArticlePresenterSpec.swift in Sources */,
 				653D10301C4C53BB004CB8A0 /* NewsFeedControllerSpec.swift in Sources */,
 				653D10311C4C53BB004CB8A0 /* NewsFeedVideoPresenterSpec.swift in Sources */,

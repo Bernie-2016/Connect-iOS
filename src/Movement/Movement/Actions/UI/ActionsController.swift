@@ -236,9 +236,9 @@ class StockActionsTableViewCellPresenter: ActionsTableViewCellPresenter {
 
         var titleKey: String!
         var subTitleKey: String!
-        let donationRow = actionAlerts.count == 0 ? 0 : 1
+        let donationSection = actionAlerts.count == 0 ? 0 : 1
 
-        if indexPath.section == donationRow {
+        if indexPath.section == donationSection {
             titleKey = indexPath.row == 0 ? "Actions_donateTitle" : "Actions_shareDonateTitle"
             subTitleKey = indexPath.row == 0 ? "Actions_donateSubTitle" : "Actions_shareDonateSubTitle"
         } else {

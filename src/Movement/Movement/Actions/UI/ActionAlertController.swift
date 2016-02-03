@@ -185,18 +185,18 @@ extension ActionAlertController {
         bodyTextView.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
         bodyTextView.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
 
-        facebookShareButton.autoSetDimension(.Height, toSize: 40)
-        facebookShareButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: bodyTextView, withOffset: twitterShareButton.hidden ? 0 : 18)
+        facebookShareButton.autoSetDimension(.Height, toSize: facebookShareButton.hidden ? 0 : 40)
+        facebookShareButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: bodyTextView, withOffset: facebookShareButton.hidden ? 0 : 18)
         facebookShareButton.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
         facebookShareButton.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
         facebookShareButton.autoPinEdgeToSuperviewEdge(.Bottom, withInset: defaultVerticalMargin, relation: .GreaterThanOrEqual)
 
-        twitterShareButton.autoSetDimension(.Height, toSize: 40)
+        twitterShareButton.autoSetDimension(.Height, toSize: twitterShareButton.hidden ? 0 : 40)
         twitterShareButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: facebookShareButton, withOffset: twitterShareButton.hidden ? 0 : 18)
         twitterShareButton.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
         twitterShareButton.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
 
-        retweetButton.autoSetDimension(.Height, toSize: 40)
+        retweetButton.autoSetDimension(.Height, toSize: retweetButton.hidden ? 0 : 40)
         retweetButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: twitterShareButton, withOffset: retweetButton.hidden ? 0 : 18)
         retweetButton.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
         retweetButton.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
