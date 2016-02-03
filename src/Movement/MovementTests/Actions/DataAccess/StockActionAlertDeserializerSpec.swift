@@ -133,7 +133,11 @@ class StockActionAlertDeserializerSpec: QuickSpec {
                 }
 
                 describe("sharing URLs") {
-                    let data = TestUtils.dataFromFixtureFileNamed("action_alert", type: "json")
+                    var data: NSData!
+
+                    beforeEach {
+                        data = TestUtils.dataFromFixtureFileNamed("action_alert", type: "json")
+                    }
 
                     it("includes the sharing URLs when present and valid") {
                         let jsonDictionary = (try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions())) as! [String: AnyObject]
