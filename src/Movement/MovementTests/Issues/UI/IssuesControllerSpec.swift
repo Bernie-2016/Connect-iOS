@@ -108,15 +108,15 @@ class IssuesControllerSpec: QuickSpec {
                     it("shows the issues in the table") {
                         expect(subject.tableView.numberOfRowsInSection(0)).to(equal(2))
 
-                        let cellA = subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! IssueTableViewCell
+                        let cellA = subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! SimpleTableViewCell
                         expect(cellA.titleLabel.text).to(equal("Big Money in Little DC"))
 
-                        let cellB = subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! IssueTableViewCell
+                        let cellB = subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! SimpleTableViewCell
                         expect(cellB.titleLabel.text).to(equal("Long Live The NHS"))
                     }
 
                     it("styles the items in the table") {
-                        let cell = subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! IssueTableViewCell
+                        let cell = subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! SimpleTableViewCell
 
                         expect(cell.titleLabel.textColor).to(equal(UIColor.magentaColor()))
                         expect(cell.titleLabel.font).to(equal(UIFont.boldSystemFontOfSize(20)))
@@ -173,11 +173,17 @@ class IssuesControllerSpec: QuickSpec {
                             it("shows the issues in the table") {
                                 expect(subject.tableView.numberOfRowsInSection(0)).to(equal(2))
 
-                                let cellA = subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! IssueTableViewCell
+                                let cellA = subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! SimpleTableViewCell
                                 expect(cellA.titleLabel.text).to(equal("Big Money in Little DC"))
 
-                                let cellB = subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! IssueTableViewCell
+                                let cellB = subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as! SimpleTableViewCell
                                 expect(cellB.titleLabel.text).to(equal("Long Live The NHS"))
+                            }
+
+                            it("uses the custom disclosure indicator as the accessory view and styles it with the theme") {
+                                let cell = subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! SimpleTableViewCell
+
+                                expect(cell.disclosureIndicatorView.color).to(equal(UIColor.magentaColor()))
                             }
                         }
                     }
@@ -289,8 +295,12 @@ private class IssuesFakeTheme: FakeTheme {
         return UIColor.redColor()
     }
 
-    private override func defaultButtonBorderColor() -> UIColor {
+    override func defaultButtonBorderColor() -> UIColor {
         return UIColor.blueColor()
+    }
+
+    private override func defaultDisclosureColor() -> UIColor {
+        return UIColor.magentaColor()
     }
 }
 

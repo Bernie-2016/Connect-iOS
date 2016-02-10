@@ -40,6 +40,7 @@
 		6538851A1B90F7DD00DCA808 /* FakeNSURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653885191B90F7DD00DCA808 /* FakeNSURLSession.swift */; };
 		6538851C1B90F80000DCA808 /* FakeNSURLSessionDataTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6538851B1B90F80000DCA808 /* FakeNSURLSessionDataTask.swift */; };
 		6538B2A71C6AE82F0012E33C /* ActionsTableViewCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6538B2A61C6AE82F0012E33C /* ActionsTableViewCellPresenter.swift */; };
+		6538B2A91C6AF4D50012E33C /* SimpleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6538B2A81C6AF4D50012E33C /* SimpleTableViewCell.swift */; };
 		653D0EB81C4C28C0004CB8A0 /* ConcreteEventControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0EAB1C4C28C0004CB8A0 /* ConcreteEventControllerProvider.swift */; };
 		653D0EB91C4C28C0004CB8A0 /* ConcreteEventListTableViewCellStylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0EAC1C4C28C0004CB8A0 /* ConcreteEventListTableViewCellStylist.swift */; };
 		653D0EBA1C4C28C0004CB8A0 /* ConcreteEventRSVPControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0EAD1C4C28C0004CB8A0 /* ConcreteEventRSVPControllerProvider.swift */; };
@@ -94,7 +95,6 @@
 		653D0F381C4C2C9F004CB8A0 /* IssueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0F331C4C2C9F004CB8A0 /* IssueController.swift */; };
 		653D0F391C4C2C9F004CB8A0 /* IssueControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0F341C4C2C9F004CB8A0 /* IssueControllerProvider.swift */; };
 		653D0F3A1C4C2C9F004CB8A0 /* IssuesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0F351C4C2C9F004CB8A0 /* IssuesController.swift */; };
-		653D0F3B1C4C2C9F004CB8A0 /* IssueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0F361C4C2C9F004CB8A0 /* IssueTableViewCell.swift */; };
 		653D0F4D1C4C2DE2004CB8A0 /* AboutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0F461C4C2DE2004CB8A0 /* AboutController.swift */; };
 		653D0F4E1C4C2DE2004CB8A0 /* AnalyticsSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0F471C4C2DE2004CB8A0 /* AnalyticsSettingsController.swift */; };
 		653D0F4F1C4C2DE2004CB8A0 /* FeedbackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0F481C4C2DE2004CB8A0 /* FeedbackController.swift */; };
@@ -371,6 +371,7 @@
 		653885191B90F7DD00DCA808 /* FakeNSURLSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeNSURLSession.swift; sourceTree = "<group>"; };
 		6538851B1B90F80000DCA808 /* FakeNSURLSessionDataTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeNSURLSessionDataTask.swift; sourceTree = "<group>"; };
 		6538B2A61C6AE82F0012E33C /* ActionsTableViewCellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionsTableViewCellPresenter.swift; sourceTree = "<group>"; };
+		6538B2A81C6AF4D50012E33C /* SimpleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleTableViewCell.swift; sourceTree = "<group>"; };
 		653D0EAB1C4C28C0004CB8A0 /* ConcreteEventControllerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConcreteEventControllerProvider.swift; path = UI/ConcreteEventControllerProvider.swift; sourceTree = "<group>"; };
 		653D0EAC1C4C28C0004CB8A0 /* ConcreteEventListTableViewCellStylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConcreteEventListTableViewCellStylist.swift; path = UI/ConcreteEventListTableViewCellStylist.swift; sourceTree = "<group>"; };
 		653D0EAD1C4C28C0004CB8A0 /* ConcreteEventRSVPControllerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConcreteEventRSVPControllerProvider.swift; path = UI/ConcreteEventRSVPControllerProvider.swift; sourceTree = "<group>"; };
@@ -425,7 +426,6 @@
 		653D0F331C4C2C9F004CB8A0 /* IssueController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueController.swift; sourceTree = "<group>"; };
 		653D0F341C4C2C9F004CB8A0 /* IssueControllerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueControllerProvider.swift; sourceTree = "<group>"; };
 		653D0F351C4C2C9F004CB8A0 /* IssuesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuesController.swift; sourceTree = "<group>"; };
-		653D0F361C4C2C9F004CB8A0 /* IssueTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueTableViewCell.swift; sourceTree = "<group>"; };
 		653D0F461C4C2DE2004CB8A0 /* AboutController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutController.swift; sourceTree = "<group>"; };
 		653D0F471C4C2DE2004CB8A0 /* AnalyticsSettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsSettingsController.swift; sourceTree = "<group>"; };
 		653D0F481C4C2DE2004CB8A0 /* FeedbackController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackController.swift; sourceTree = "<group>"; };
@@ -841,7 +841,6 @@
 				653D0F331C4C2C9F004CB8A0 /* IssueController.swift */,
 				653D0F341C4C2C9F004CB8A0 /* IssueControllerProvider.swift */,
 				653D0F351C4C2C9F004CB8A0 /* IssuesController.swift */,
-				653D0F361C4C2C9F004CB8A0 /* IssueTableViewCell.swift */,
 			);
 			name = UI;
 			path = Issues/UI;
@@ -996,6 +995,7 @@
 				65D3C53F1C5C507800317466 /* MarkdownConverter.swift */,
 				653D0F951C4C35C0004CB8A0 /* NavigationController.swift */,
 				653D0F961C4C35C0004CB8A0 /* ResponderButton.swift */,
+				6538B2A81C6AF4D50012E33C /* SimpleTableViewCell.swift */,
 				653D0F971C4C35C0004CB8A0 /* TabBarController.swift */,
 				653D0F981C4C35C0004CB8A0 /* TabBarItemStylist.swift */,
 				653D0F991C4C35C0004CB8A0 /* TimeIntervalFormatter.swift */,
@@ -1824,7 +1824,6 @@
 				65979AA61C4C72C400A312A9 /* IssuesContainerConfigurator.swift in Sources */,
 				653D0F3A1C4C2C9F004CB8A0 /* IssuesController.swift in Sources */,
 				653D0F2F1C4C2C93004CB8A0 /* IssueService.swift in Sources */,
-				653D0F3B1C4C2C9F004CB8A0 /* IssueTableViewCell.swift in Sources */,
 				653D0F7C1C4C2F68004CB8A0 /* JSONClient.swift in Sources */,
 				65CA5E871B86CAAF0001D870 /* main.swift in Sources */,
 				65D3C5401C5C507800317466 /* MarkdownConverter.swift in Sources */,
@@ -1859,6 +1858,7 @@
 				654948E11BFB7D8100C1ECDB /* PushNotificationRegistrar.swift in Sources */,
 				653D0FA21C4C35C0004CB8A0 /* ResponderButton.swift in Sources */,
 				653D0F521C4C2DE2004CB8A0 /* SettingsController.swift in Sources */,
+				6538B2A91C6AF4D50012E33C /* SimpleTableViewCell.swift in Sources */,
 				65CA5E881B86CABB0001D870 /* SpecAppDelegate.swift in Sources */,
 				653D0FA31C4C35C0004CB8A0 /* TabBarController.swift in Sources */,
 				653D0FA41C4C35C0004CB8A0 /* TabBarItemStylist.swift in Sources */,

@@ -43,7 +43,7 @@ class SettingsController: UITableViewController {
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         view.backgroundColor = self.theme.defaultBackgroundColor()
 
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "regularCell")
+        tableView.registerClass(SimpleTableViewCell.self, forCellReuseIdentifier: "regularCell")
         tableView.tableFooterView = UIView(frame: CGRect.zero)
     }
 
@@ -60,21 +60,17 @@ class SettingsController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("regularCell")
-        if cell == nil { cell = UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCellWithIdentifier("regularCell") as? SimpleTableViewCell else {
+            return UITableViewCell()
+        }
 
-        cell.accessoryType = .DisclosureIndicator
-        cell.layoutMargins = UIEdgeInsetsZero
-        cell.preservesSuperviewLayoutMargins = false
-        cell.textLabel!.text = tappableControllers[indexPath.row].title
-        cell.textLabel!.textColor = theme.settingsTitleColor()
-        cell.textLabel!.font = theme.settingsTitleFont()
-        cell.backgroundColor = theme.defaultTableCellBackgroundColor()
+        cell.titleLabel.text = tappableControllers[indexPath.row].title
+        cell.titleLabel.textColor = theme.settingsTitleColor()
+        cell.titleLabel.font = theme.settingsTitleFont()
+        cell.disclosureIndicatorView.color = theme.defaultDisclosureColor()
 
         if indexPath.row == (tappableControllers.count - 1) {
-            cell.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: CGRectGetWidth(tableView.bounds))
-        } else {
-            cell.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
+            cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: CGRectGetWidth(tableView.bounds))
         }
 
         return cell

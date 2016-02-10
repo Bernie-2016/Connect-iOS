@@ -2,27 +2,32 @@ import UIKit
 import PureLayout
 
 
-class IssueTableViewCell: UITableViewCell {
-    let titleLabel: UILabel
+class SimpleTableViewCell: UITableViewCell {
+    let titleLabel = UILabel.newAutoLayoutView()
+    let disclosureIndicatorView = DisclosureIndicatorView()
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        titleLabel = UILabel.newAutoLayoutView()
-
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        accessoryType = .DisclosureIndicator
         separatorInset = UIEdgeInsetsMake(0, 20, 0, 0)
         layoutMargins = UIEdgeInsetsZero
         preservesSuperviewLayoutMargins = false
 
         contentView.addSubview(titleLabel)
+        contentView.addSubview(disclosureIndicatorView)
+
         titleLabel.numberOfLines = 3
         titleLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
-        titleLabel.autoPinEdgeToSuperviewEdge(.Right)
+        titleLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 45)
         titleLabel.autoAlignAxisToSuperviewAxis(.Horizontal)
+
+        disclosureIndicatorView.autoAlignAxis(.Horizontal, toSameAxisOfView: titleLabel)
+        disclosureIndicatorView.autoPinEdgeToSuperviewEdge(.Right)
+        disclosureIndicatorView.autoSetDimension(.Height, toSize: 14)
+        disclosureIndicatorView.autoSetDimension(.Width, toSize: 20)
     }
 }

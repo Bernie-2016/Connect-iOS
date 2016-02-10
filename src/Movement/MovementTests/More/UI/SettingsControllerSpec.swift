@@ -5,7 +5,7 @@ import Nimble
 
 class SettingsControllerSpec : QuickSpec {
     override func spec() {
-            describe("SettingsController") {
+        describe("SettingsController") {
             var subject: SettingsController!
             var analyticsService: FakeAnalyticsService!
             var tabBarItemStylist: FakeTabBarItemStylist!
@@ -70,19 +70,19 @@ class SettingsControllerSpec : QuickSpec {
                     expect(subject.tableView.numberOfRowsInSection(0)).to(equal(1))
                 }
 
-                it("should style the regular rows using the theme") {
-                    let cell = subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))!
+                it("should style the rows using the theme") {
+                    let cell = subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! SimpleTableViewCell
 
-                    expect(cell.textLabel!.textColor).to(equal(UIColor.purpleColor()))
-                    expect(cell.textLabel!.font).to(equal(UIFont.systemFontOfSize(123)))
-                    expect(cell.backgroundColor).to(equal(UIColor.yellowColor()))
+                    expect(cell.titleLabel.textColor).to(equal(UIColor.purpleColor()))
+                    expect(cell.titleLabel.font).to(equal(UIFont.systemFontOfSize(123)))
+                    expect(cell.disclosureIndicatorView.color).to(equal(UIColor.magentaColor()))
                 }
 
                 describe("the table contents") {
-                    it("has a regular UITableViewCell row for evey configured 'regular' controller") {
-                        let cell = subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))!
-                        expect(cell.textLabel!.text).to(equal("Regular Controller"))
-                        expect(cell).to(beAnInstanceOf(UITableViewCell.self))
+                    it("has a regular SimpleTableViewCell row for evey configured 'regular' controller") {
+                        let cell = subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))  as! SimpleTableViewCell
+                        expect(cell.titleLabel.text).to(equal("Regular Controller"))
+                        expect(cell).to(beAnInstanceOf(SimpleTableViewCell.self))
                     }
 
                     describe("tapping the rows") {
@@ -120,7 +120,9 @@ private class SettingsFakeTheme: FakeTheme {
         return UIColor.purpleColor()
     }
 
-    override func defaultTableCellBackgroundColor() -> UIColor { return UIColor.yellowColor() }
+    private override func defaultDisclosureColor() -> UIColor {
+        return UIColor.magentaColor()
+    }
 }
 
 private class FakeSettingsController : UIViewController {

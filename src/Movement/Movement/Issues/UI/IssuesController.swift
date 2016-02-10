@@ -67,7 +67,7 @@ class IssuesController: UIViewController {
 
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.registerClass(IssueTableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.registerClass(SimpleTableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "errorCell")
         tableView.autoPinEdgesToSuperviewEdges()
         tableView.hidden = true
@@ -138,14 +138,15 @@ extension IssuesController: UITableViewDataSource {
             return cell
 
         } else {
-            var cell: IssueTableViewCell! = tableView.dequeueReusableCellWithIdentifier("cell") as? IssueTableViewCell
-            if cell == nil { cell = IssueTableViewCell() }
+            var cell: SimpleTableViewCell! = tableView.dequeueReusableCellWithIdentifier("cell") as? SimpleTableViewCell
+            if cell == nil { cell = SimpleTableViewCell() }
 
             let issue = issues[indexPath.row]
             cell.titleLabel.text = issue.title
             cell.titleLabel.font = theme.issuesFeedTitleFont()
             cell.titleLabel.textColor = theme.issuesFeedTitleColor()
             cell.backgroundColor = theme.defaultTableCellBackgroundColor()
+            cell.disclosureIndicatorView.color = theme.defaultDisclosureColor()
 
             if indexPath.row == (issues.count - 1) {
                 cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: CGRectGetWidth(tableView.bounds))
