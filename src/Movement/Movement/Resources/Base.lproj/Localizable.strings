@@ -43,6 +43,7 @@
 "Events_createEventCTAText" = "Try another search or {0}";
 "Events_organizeText" = "be the first to organize.";
 
+"Events_zipCodeAccessibilityLabel" = "ZIP Code";
 "Events_zipCodeTextBoxPlaceholder" = "ZIP Code";
 "Events_eventSearchButtonTitle" = "Search";
 "Events_eventCancelButtonTitle" = "Cancel";

@@ -143,6 +143,10 @@ class EventsControllerSpec : QuickSpec {
                 expect(subject.zipCodeTextField.keyboardType).to(equal(UIKeyboardType.NumberPad))
             }
 
+            it("configures the accessibility label for the zip code text field") {
+                expect(subject.zipCodeTextField.accessibilityLabel).to(equal("ZIP Code"))
+            }
+
             it("initially disables the search button") {
                 expect(subject.searchButton.enabled).to(beFalse())
             }
