@@ -39,6 +39,7 @@
 		653885161B90F51300DCA808 /* news_feed.json in Resources */ = {isa = PBXBuildFile; fileRef = 653885151B90F51300DCA808 /* news_feed.json */; };
 		6538851A1B90F7DD00DCA808 /* FakeNSURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653885191B90F7DD00DCA808 /* FakeNSURLSession.swift */; };
 		6538851C1B90F80000DCA808 /* FakeNSURLSessionDataTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6538851B1B90F80000DCA808 /* FakeNSURLSessionDataTask.swift */; };
+		6538B2A71C6AE82F0012E33C /* ActionsTableViewCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6538B2A61C6AE82F0012E33C /* ActionsTableViewCellPresenter.swift */; };
 		653D0EB81C4C28C0004CB8A0 /* ConcreteEventControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0EAB1C4C28C0004CB8A0 /* ConcreteEventControllerProvider.swift */; };
 		653D0EB91C4C28C0004CB8A0 /* ConcreteEventListTableViewCellStylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0EAC1C4C28C0004CB8A0 /* ConcreteEventListTableViewCellStylist.swift */; };
 		653D0EBA1C4C28C0004CB8A0 /* ConcreteEventRSVPControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0EAD1C4C28C0004CB8A0 /* ConcreteEventRSVPControllerProvider.swift */; };
@@ -369,6 +370,7 @@
 		653885151B90F51300DCA808 /* news_feed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = news_feed.json; sourceTree = "<group>"; };
 		653885191B90F7DD00DCA808 /* FakeNSURLSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeNSURLSession.swift; sourceTree = "<group>"; };
 		6538851B1B90F80000DCA808 /* FakeNSURLSessionDataTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeNSURLSessionDataTask.swift; sourceTree = "<group>"; };
+		6538B2A61C6AE82F0012E33C /* ActionsTableViewCellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionsTableViewCellPresenter.swift; sourceTree = "<group>"; };
 		653D0EAB1C4C28C0004CB8A0 /* ConcreteEventControllerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConcreteEventControllerProvider.swift; path = UI/ConcreteEventControllerProvider.swift; sourceTree = "<group>"; };
 		653D0EAC1C4C28C0004CB8A0 /* ConcreteEventListTableViewCellStylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConcreteEventListTableViewCellStylist.swift; path = UI/ConcreteEventListTableViewCellStylist.swift; sourceTree = "<group>"; };
 		653D0EAD1C4C28C0004CB8A0 /* ConcreteEventRSVPControllerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConcreteEventRSVPControllerProvider.swift; path = UI/ConcreteEventRSVPControllerProvider.swift; sourceTree = "<group>"; };
@@ -1017,6 +1019,7 @@
 				65C246831C5AB29F007B2A48 /* ActionAlertControllerProvider.swift */,
 				650CF4221C602E3400991CFE /* ActionAlertTableViewCell.swift */,
 				653D0FAC1C4C36D9004CB8A0 /* ActionsController.swift */,
+				6538B2A61C6AE82F0012E33C /* ActionsTableViewCellPresenter.swift */,
 				653D0FAD1C4C36D9004CB8A0 /* ActionTableViewCell.swift */,
 			);
 			name = UI;
@@ -1748,6 +1751,7 @@
 				650CF4231C602E3400991CFE /* ActionAlertTableViewCell.swift in Sources */,
 				65979A9E1C4C654300A312A9 /* ActionsContainerConfigurator.swift in Sources */,
 				653D0FAE1C4C36D9004CB8A0 /* ActionsController.swift in Sources */,
+				6538B2A71C6AE82F0012E33C /* ActionsTableViewCellPresenter.swift in Sources */,
 				653D0FAF1C4C36D9004CB8A0 /* ActionTableViewCell.swift in Sources */,
 				653D0F721C4C2F68004CB8A0 /* AnalyticsService.swift in Sources */,
 				653D0F4E1C4C2DE2004CB8A0 /* AnalyticsSettingsController.swift in Sources */,
@@ -1954,7 +1958,6 @@
 				653D101E1C4C53BB004CB8A0 /* IssuesControllerSpec.swift in Sources */,
 				653D10121C4C53BB004CB8A0 /* NavigationControllerSpec.swift in Sources */,
 				653D102E1C4C53BB004CB8A0 /* NewsArticleControllerSpec.swift in Sources */,
-				65E856D21C61916600F4849C /* StockActionsTableViewCellPresenterSpec.swift in Sources */,
 				653D102F1C4C53BB004CB8A0 /* NewsFeedArticlePresenterSpec.swift in Sources */,
 				653D10301C4C53BB004CB8A0 /* NewsFeedControllerSpec.swift in Sources */,
 				653D10311C4C53BB004CB8A0 /* NewsFeedVideoPresenterSpec.swift in Sources */,
@@ -1969,6 +1972,7 @@
 				65CA5E851B86CA930001D870 /* SpecAppDelegate.swift in Sources */,
 				65CFACE21C59CF75005E1309 /* StockActionAlertDeserializerSpec.swift in Sources */,
 				65B0235D1C59C8710082E211 /* StockActionAlertRepositorySpec.swift in Sources */,
+				65E856D21C61916600F4849C /* StockActionsTableViewCellPresenterSpec.swift in Sources */,
 				6519608D1C4DCDCF004AAC6D /* StockAppBootstrapperSpec.swift in Sources */,
 				653D10131C4C53BB004CB8A0 /* TabBarControllerSpec.swift in Sources */,
 				653D10251C4C53BB004CB8A0 /* TermsAndConditionsControllerSpec.swift in Sources */,

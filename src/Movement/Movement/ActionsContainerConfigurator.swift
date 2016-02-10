@@ -28,10 +28,15 @@ class ActionsContainerConfigurator: ContainerConfigurator {
                 urlOpener: resolver.resolve(URLOpener.self)!,
                 actionAlertService: resolver.resolve(ActionAlertService.self)!,
                 actionAlertControllerProvider: container,
+                actionsTableViewCellPresenter: resolver.resolve(ActionsTableViewCellPresenter.self)!,
                 analyticsService: resolver.resolve(AnalyticsService.self)!,
                 tabBarItemStylist: resolver.resolve(TabBarItemStylist.self)!,
                 theme: resolver.resolve(Theme.self)!)
-            }.inObjectScope(.Container)
+        }.inObjectScope(.Container)
+
+        container.register(ActionsTableViewCellPresenter.self) { resolver in
+            return StockActionsTableViewCellPresenter(theme: resolver.resolve(Theme.self)!)
+        }
 
         container.register(NavigationController.self, name: "actions") { resolver in
             let navigationController = resolver.resolve(NavigationController.self)!

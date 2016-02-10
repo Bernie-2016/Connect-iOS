@@ -24,3 +24,16 @@ func == (lhs: ActionAlert, rhs: ActionAlert) -> Bool {
     && lhs.twitterURL == rhs.twitterURL
     && lhs.tweetID == rhs.tweetID
 }
+
+extension ActionAlert: Hashable {
+    var hashValue: Int {
+        get {
+            var hash = identifier.hashValue ^ title.hashValue ^ body.hashValue ^ date.hashValue
+            if targetURL != nil { hash = hash ^ targetURL!.hashValue }
+            if twitterURL != nil { hash = hash ^ twitterURL!.hashValue }
+            if tweetID != nil { hash = hash ^ tweetID!.hashValue }
+
+            return hash
+        }
+    }
+}

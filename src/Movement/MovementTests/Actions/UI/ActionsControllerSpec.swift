@@ -8,10 +8,15 @@ class ActionsControllerSpec: QuickSpec {
         sharedExamples("a controller that sets up the table view with the default rows correctly") { (sharedExampleContext: SharedExampleContext) in
             var subject: ActionsController!
             var tableView: UITableView!
+            var actionsTableViewCellPresenter: FakeActionsTableViewCellPresenter!
+            var actionAlerts: [ActionAlert]!
 
             beforeEach {
                 subject = sharedExampleContext()["subject"] as! ActionsController
                 tableView = sharedExampleContext()["tableView"] as! UITableView
+                actionsTableViewCellPresenter = sharedExampleContext()["actionsTableViewCellPresenter"] as! FakeActionsTableViewCellPresenter
+                let wrapper =  sharedExampleContext()["actionAlerts"] as! ActionAlertsWrapper
+                actionAlerts = wrapper.actionAlerts
             }
 
             it("shows the table view, and stops the loading spinner") {
@@ -67,34 +72,31 @@ class ActionsControllerSpec: QuickSpec {
                     }
 
                     describe("the donation row") {
-                        var cell: ActionTableViewCell!
+                        var cell: UITableViewCell!
+                        var indexPath: NSIndexPath!
 
                         beforeEach {
-                            cell = tableView.dataSource!.tableView(tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: fundraisingSectionIndex)) as! ActionTableViewCell
+                            indexPath = NSIndexPath(forRow: 0, inSection: fundraisingSectionIndex)
+                            cell = tableView.dataSource!.tableView(tableView, cellForRowAtIndexPath: indexPath)
                         }
 
-                        it("has a row for donating to the campaign") {
-                            expect(cell.titleLabel.text).to(equal("Donate to the Campaign"))
-                            expect(cell.subTitleLabel.text).to(equal("Contribute via the campaign website"))
-                        }
+                        it("uses the cell presenter to present the cell") {
+                            expect(actionsTableViewCellPresenter.lastActionActionAlerts).to(equal(actionAlerts))
+                            expect(actionsTableViewCellPresenter.lastActionTableView).to(beIdenticalTo(tableView))
+                            expect(actionsTableViewCellPresenter.lastActionIndexPath).to(equal(indexPath))
 
-                        it("applies the theme to the cell") {
-                            expect(cell.titleLabel.font).to(equal(UIFont.boldSystemFontOfSize(111)))
-                            expect(cell.titleLabel.textColor).to(equal(UIColor.purpleColor()))
-                            expect(cell.subTitleLabel.font).to(equal(UIFont.boldSystemFontOfSize(222)))
-                            expect(cell.subTitleLabel.textColor).to(equal(UIColor.magentaColor()))
-                            expect(cell.disclosureView.color).to(equal(UIColor.greenColor()))
+                            expect(cell).to(beIdenticalTo(actionsTableViewCellPresenter.lastReturnedActionTableViewCell))
                         }
 
                         describe("tapping on the donate row") {
                             it("opens the donate page in safari") {
-                                tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: fundraisingSectionIndex))
+                                tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: indexPath)
 
                                 expect(urlOpener.lastOpenedURL).to(equal(NSURL(string: "https://example.com/donate")!))
                             }
 
                             it("should log a content view with the analytics service") {
-                                tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: fundraisingSectionIndex))
+                                tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: indexPath)
 
                                 expect(analyticsService.lastContentViewName).to(equal("Donate Form"))
                                 expect(analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.Actions))
@@ -104,28 +106,25 @@ class ActionsControllerSpec: QuickSpec {
                     }
 
                     describe("the sharing the donation page row") {
-                        var cell: ActionTableViewCell!
+                        var cell: UITableViewCell!
+                        var indexPath: NSIndexPath!
 
                         beforeEach {
-                            cell = tableView.dataSource!.tableView(tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 1, inSection: fundraisingSectionIndex)) as! ActionTableViewCell
+                            indexPath = NSIndexPath(forRow: 1, inSection: fundraisingSectionIndex)
+                            cell = tableView.dataSource!.tableView(tableView, cellForRowAtIndexPath: indexPath)
                         }
 
-                        it("has a row for sharing the donation page") {
-                            expect(cell.titleLabel.text).to(equal("Share the Donate page"))
-                            expect(cell.subTitleLabel.text).to(equal("Ask friends and family to donate"))
-                        }
+                        it("uses the cell presenter to present the cell") {
+                            expect(actionsTableViewCellPresenter.lastActionActionAlerts).to(equal(actionAlerts))
+                            expect(actionsTableViewCellPresenter.lastActionTableView).to(beIdenticalTo(tableView))
+                            expect(actionsTableViewCellPresenter.lastActionIndexPath).to(equal(indexPath))
 
-                        it("applies the theme to the cell") {
-                            expect(cell.titleLabel.font).to(equal(UIFont.boldSystemFontOfSize(111)))
-                            expect(cell.titleLabel.textColor).to(equal(UIColor.purpleColor()))
-                            expect(cell.subTitleLabel.font).to(equal(UIFont.boldSystemFontOfSize(222)))
-                            expect(cell.subTitleLabel.textColor).to(equal(UIColor.magentaColor()))
-                            expect(cell.disclosureView.color).to(equal(UIColor.greenColor()))
+                            expect(cell).to(beIdenticalTo(actionsTableViewCellPresenter.lastReturnedActionTableViewCell))
                         }
 
                         describe("tapping on the sharing the donation page row") {
                             beforeEach {
-                                tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 1, inSection: fundraisingSectionIndex))
+                                tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: indexPath)
                             }
 
                             it("should present an activity view controller for donation page") {
@@ -205,34 +204,31 @@ class ActionsControllerSpec: QuickSpec {
                     }
 
                     describe("host an event row") {
-                        var cell: ActionTableViewCell!
+                        var cell: UITableViewCell!
+                        var indexPath: NSIndexPath!
+
                         beforeEach {
-                            cell = tableView.dataSource!.tableView(tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: organizingSectionIndex)) as! ActionTableViewCell
+                            indexPath = NSIndexPath(forRow: 0, inSection: organizingSectionIndex)
+                            cell = tableView.dataSource!.tableView(tableView, cellForRowAtIndexPath: indexPath)
                         }
 
-                        it("has a row for hosting an event") {
-                            expect(cell.titleLabel.text).to(equal("Host an event"))
-                            expect(cell.subTitleLabel.text).to(equal("Organize supporters in your area"))
-                        }
+                        it("uses the cell presenter to present the cell") {
+                            expect(actionsTableViewCellPresenter.lastActionActionAlerts).to(equal(actionAlerts))
+                            expect(actionsTableViewCellPresenter.lastActionTableView).to(beIdenticalTo(tableView))
+                            expect(actionsTableViewCellPresenter.lastActionIndexPath).to(equal(indexPath))
 
-                        it("applies the theme to the cell") {
-                            expect(cell.titleLabel.font).to(equal(UIFont.boldSystemFontOfSize(111)))
-                            expect(cell.titleLabel.textColor).to(equal(UIColor.purpleColor()))
-                            expect(cell.subTitleLabel.font).to(equal(UIFont.boldSystemFontOfSize(222)))
-                            expect(cell.subTitleLabel.textColor).to(equal(UIColor.magentaColor()))
-                            expect(cell.disclosureView.color).to(equal(UIColor.greenColor()))
-                            expect(cell.backgroundColor).to(equal(UIColor.yellowColor()))
+                            expect(cell).to(beIdenticalTo(actionsTableViewCellPresenter.lastReturnedActionTableViewCell))
                         }
 
                         describe("tapping on the host an event row") {
                             it("opens the host event page in safari") {
-                                tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: organizingSectionIndex))
+                                tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: indexPath)
 
                                 expect(urlOpener.lastOpenedURL).to(equal(NSURL(string: "https://example.com/host")!))
                             }
 
                             it("should log a content view with the analytics service") {
-                                tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: organizingSectionIndex))
+                                tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: indexPath)
 
                                 expect(analyticsService.lastContentViewName).to(equal("Host Event Form"))
                                 expect(analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.Actions))
@@ -250,6 +246,7 @@ class ActionsControllerSpec: QuickSpec {
             var urlOpener: FakeURLOpener!
             var actionAlertService: FakeActionAlertService!
             var actionAlertControllerProvider: FakeActionAlertControllerProvider!
+            var actionsTableViewCellPresenter: FakeActionsTableViewCellPresenter!
             var analyticsService: FakeAnalyticsService!
             var tabBarItemStylist: FakeTabBarItemStylist!
             var theme: Theme!
@@ -262,6 +259,7 @@ class ActionsControllerSpec: QuickSpec {
                 urlOpener = FakeURLOpener()
                 actionAlertService = FakeActionAlertService()
                 actionAlertControllerProvider = FakeActionAlertControllerProvider()
+                actionsTableViewCellPresenter = FakeActionsTableViewCellPresenter()
                 analyticsService = FakeAnalyticsService()
                 tabBarItemStylist = FakeTabBarItemStylist()
 
@@ -272,6 +270,7 @@ class ActionsControllerSpec: QuickSpec {
                     urlOpener: urlOpener,
                     actionAlertService: actionAlertService,
                     actionAlertControllerProvider: actionAlertControllerProvider,
+                    actionsTableViewCellPresenter: actionsTableViewCellPresenter,
                     analyticsService: analyticsService,
                     tabBarItemStylist: tabBarItemStylist,
                     theme: theme)
@@ -280,6 +279,7 @@ class ActionsControllerSpec: QuickSpec {
                     "subject": subject,
                     "urlOpener": urlOpener,
                     "analyticsService": analyticsService,
+                    "actionsTableViewCellPresenter": actionsTableViewCellPresenter,
                     "theme": theme as! ActionsControllerFakeTheme
                 ]
 
@@ -335,16 +335,17 @@ class ActionsControllerSpec: QuickSpec {
                         var tableView: UITableView!
                         let firstActionAlert = TestUtils.actionAlert("FTB!")
                         let secondActionAlert = TestUtils.actionAlert("Aha!")
+
                         beforeEach {
-                            actionAlertService.lastReturnedActionAlertsPromise.resolve([
-                                firstActionAlert,
-                                secondActionAlert
-                            ])
+                            let actionAlerts = [ firstActionAlert, secondActionAlert ]
+
+                            actionAlertService.lastReturnedActionAlertsPromise.resolve(actionAlerts)
 
                             tableView = subject.view.subviews.first! as! UITableView
 
                             sharedContext["tableView"] = tableView
                             sharedContext["numberOfSections"] = 3
+                            sharedContext["actionAlerts"] = ActionAlertsWrapper(actionAlerts: actionAlerts)
                         }
 
                         it("has a section for campaign actions") {
@@ -352,22 +353,19 @@ class ActionsControllerSpec: QuickSpec {
                             expect(title).to(equal("CAMPAIGN ACTION ALERTS"))
                         }
 
-                        it("has a row per action alert") {
+                        it("has a row per action alert, provided by the presenter") {
                             expect(tableView.numberOfRowsInSection(0)).to(equal(2))
 
-                            let firstCell = tableView.dataSource!.tableView(tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0)) as! ActionAlertTableViewCell
-                            expect(firstCell.titleLabel.text).to(equal("FTB!"))
+                            let firstCell = tableView.dataSource!.tableView(tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+                            expect(actionsTableViewCellPresenter.lastActionAlert).to(equal(firstActionAlert))
+                            expect(actionsTableViewCellPresenter.lastActionAlertTableView).to(beIdenticalTo(tableView))
+                            expect(firstCell).to(beIdenticalTo(actionsTableViewCellPresenter.lastReturnedActionAlertTableViewCell))
 
-                            let secondCell = tableView.dataSource!.tableView(tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0)) as! ActionAlertTableViewCell
-                            expect(secondCell.titleLabel.text).to(equal("Aha!"))
-                        }
 
-                        it("styles the action alert cells with the theme") {
-                            let cell = tableView.dataSource!.tableView(tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0)) as! ActionAlertTableViewCell
-                            expect(cell.titleLabel.font).to(equal(UIFont.boldSystemFontOfSize(111)))
-                            expect(cell.titleLabel.textColor).to(equal(UIColor.purpleColor()))
-                            expect(cell.disclosureView.color).to(equal(UIColor.greenColor()))
-                            expect(cell.backgroundColor).to(equal(UIColor.yellowColor()))
+                            let secondCell = tableView.dataSource!.tableView(tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
+                            expect(actionsTableViewCellPresenter.lastActionAlert).to(equal(secondActionAlert))
+                            expect(actionsTableViewCellPresenter.lastActionAlertTableView).to(beIdenticalTo(tableView))
+                            expect(secondCell).to(beIdenticalTo(actionsTableViewCellPresenter.lastReturnedActionAlertTableViewCell))
                         }
 
                         describe("tapping on an action alert row") {
@@ -396,6 +394,7 @@ class ActionsControllerSpec: QuickSpec {
                             actionAlertService.lastReturnedActionAlertsPromise.resolve([])
                             sharedContext["tableView"] = subject.view.subviews.first! as! UITableView
                             sharedContext["numberOfSections"] = 2
+                            sharedContext["actionAlerts"] = ActionAlertsWrapper(actionAlerts: [])
                         }
 
                         itBehavesLike("a controller that sets up the table view with the default rows correctly") {
@@ -409,6 +408,7 @@ class ActionsControllerSpec: QuickSpec {
                         actionAlertService.lastReturnedActionAlertsPromise.reject(.InvalidJSON(jsonObject: "wat"))
                         sharedContext["tableView"] = subject.view.subviews.first! as! UITableView
                         sharedContext["numberOfSections"] = 2
+                        sharedContext["actionAlerts"] = ActionAlertsWrapper(actionAlerts: [])
                     }
 
                     itBehavesLike("a controller that sets up the table view with the default rows correctly") {
@@ -433,14 +433,40 @@ private class ActionsControllerFakeURLProvider: FakeURLProvider {
 
 private class ActionsControllerFakeTheme: FakeTheme {
     override func defaultBackgroundColor() -> UIColor { return UIColor.orangeColor() }
-    override func defaultDisclosureColor() -> UIColor { return UIColor.greenColor() }
-    override func actionsTitleFont() -> UIFont { return UIFont.boldSystemFontOfSize(111) }
-    override func actionsTitleTextColor() -> UIColor { return UIColor.purpleColor() }
-    override func actionsSubTitleFont() -> UIFont { return UIFont.boldSystemFontOfSize(222) }
-    override func actionsSubTitleTextColor() -> UIColor { return UIColor.magentaColor() }
     override func defaultTableSectionHeaderBackgroundColor() -> UIColor { return UIColor.darkGrayColor() }
     override func defaultTableSectionHeaderTextColor() -> UIColor { return UIColor.lightGrayColor() }
     override func defaultTableSectionHeaderFont() -> UIFont { return UIFont.italicSystemFontOfSize(999) }
     override func defaultTableCellBackgroundColor() -> UIColor { return UIColor.yellowColor() }
     override func defaultSpinnerColor() -> UIColor { return UIColor.greenColor() }
+}
+
+private class FakeActionsTableViewCellPresenter: ActionsTableViewCellPresenter {
+    var lastActionAlert: ActionAlert!
+    var lastActionAlertTableView: UITableView!
+    var lastReturnedActionAlertTableViewCell: UITableViewCell!
+    func presentActionAlertTableViewCell(actionAlert: ActionAlert, tableView: UITableView) -> UITableViewCell {
+        lastActionAlert = actionAlert
+        lastActionAlertTableView = tableView
+        lastReturnedActionAlertTableViewCell = UITableViewCell()
+        return lastReturnedActionAlertTableViewCell
+    }
+
+    var lastActionActionAlerts: [ActionAlert]!
+    var lastActionIndexPath: NSIndexPath!
+    var lastActionTableView: UITableView!
+    var lastReturnedActionTableViewCell: UITableViewCell!
+    func presentActionTableViewCell(actionAlerts: [ActionAlert], indexPath: NSIndexPath, tableView: UITableView) -> UITableViewCell {
+        lastActionActionAlerts = actionAlerts
+        lastActionIndexPath = indexPath
+        lastActionTableView = tableView
+        lastReturnedActionTableViewCell = UITableViewCell()
+        return lastReturnedActionTableViewCell
+    }
+}
+
+private class ActionAlertsWrapper {
+    let actionAlerts: [ActionAlert]
+    init(actionAlerts: [ActionAlert]) {
+        self.actionAlerts = actionAlerts
+    }
 }
