@@ -53,7 +53,7 @@ class NewsFeedArticlePresenterSpec: QuickSpec {
             describe("presenting a news article") {
                 let newsArticleDate = NSDate(timeIntervalSince1970: 0)
                 let newsArticle = NewsArticle(title: "Bernie to release new album", date: newsArticleDate, body: "yeahhh", excerpt: "excerpt A", imageURL: NSURL(string: "http://bs.com")!, url: NSURL())
-                let tableView = UITableView()
+                let tableView = AlwaysReusingTableView()
                 let indexPath = NSIndexPath(forRow: 1, inSection: 1)
 
                 beforeEach {
@@ -64,8 +64,6 @@ class NewsFeedArticlePresenterSpec: QuickSpec {
                     let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
                     expect(cell.titleLabel.text).to(equal("Bernie to release new album"))
                 }
-
-
 
                 context("when the video was published today") {
                     it("sets the excerpt label using the provided news article, including the abbreviated date") {
@@ -83,36 +81,127 @@ class NewsFeedArticlePresenterSpec: QuickSpec {
                     }
                 }
 
-                it("initially nils out the image") {
-                    var cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
-                    cell.newsImageView.image = TestUtils.testImageNamed("bernie", type: "jpg")
-                    cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
-                    expect(cell.newsImageView.image).to(beNil())
-                }
-
                 context("when the news item has an image URL") {
-                    it("asks the image repository to fetch the image") {
-                        subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
+                    context("when the cell is tagged with the hash value of the image URL") {
+                        it("does not nil out the image") {
+                            var cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
+                            cell.tag = newsArticle.imageURL!.hashValue
 
-                        expect(imageService.lastReceivedURL).to(beIdenticalTo(newsArticle.imageURL))
-                    }
+                            cell.newsImageView.image = TestUtils.testImageNamed("bernie", type: "jpg")
+                            cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
 
-                    it("shows the image view") {
-                        var cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
-                        cell.newsImageVisible = false
-                        cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
+                            expect(cell.newsImageView.image).toNot(beNil())
+                        }
 
-                        expect(cell.newsImageVisible).to(beTrue())
-                    }
+                        it("asks the image repository to fetch the image") {
+                            subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
 
-                    context("when the image is loaded succesfully") {
-                        it("sets the image") {
+                            expect(imageService.lastReceivedURL).to(beIdenticalTo(newsArticle.imageURL))
+                        }
+
+                        it("tags the cell with the hash of the image url") {
                             let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
 
-                            let bernieImage = TestUtils.testImageNamed("bernie", type: "jpg")
-                            imageService.lastRequestPromise.resolve(bernieImage)
+                            expect(cell.tag) == newsArticle.imageURL!.hashValue
+                        }
 
-                            expect(cell.newsImageView.image).to(beIdenticalTo(bernieImage))
+                        it("marks the image visible flag as true") {
+                            var cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
+                            cell.newsImageVisible = false
+                            cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
+
+                            expect(cell.newsImageVisible).to(beTrue())
+                        }
+
+                        context("when the image is loaded succesfully") {
+                            context("and the tag has not changed") {
+                                it("sets the image") {
+                                    let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
+
+                                    let bernieImage = TestUtils.testImageNamed("bernie", type: "jpg")
+                                    imageService.lastRequestPromise.resolve(bernieImage)
+
+                                    expect(cell.newsImageView.image).to(beIdenticalTo(bernieImage))
+                                }
+                            }
+
+                            context("and the tag has changed") {
+                                it("does not change the image") {
+                                    let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
+
+                                    let tonyImage = TestUtils.testImageNamed("tonybenn", type: "jpg")
+                                    cell.newsImageView.image = tonyImage
+                                    cell.tag = 666
+
+                                    let bernieImage = TestUtils.testImageNamed("bernie", type: "jpg")
+                                    imageService.lastRequestPromise.resolve(bernieImage)
+
+                                    expect(cell.newsImageView.image!) === tonyImage
+                                }
+                            }
+                        }
+                    }
+
+                    context("when the cell is not tagged with the hash value of the image URL") {
+                        var cell: NewsArticleTableViewCell!
+
+                        beforeEach {
+                            cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
+                            cell.tag = 666
+                        }
+
+                        it("initially nils out the image") {
+                            cell.newsImageView.image = TestUtils.testImageNamed("bernie", type: "jpg")
+                            cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
+                            expect(cell.newsImageView.image).to(beNil())
+                        }
+
+                        it("asks the image repository to fetch the image") {
+                            subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
+
+                            expect(imageService.lastReceivedURL).to(beIdenticalTo(newsArticle.imageURL))
+                        }
+
+                        it("shows the image view") {
+                            var cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
+                            cell.newsImageVisible = false
+                            cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
+
+                            expect(cell.newsImageVisible).to(beTrue())
+                        }
+
+                        it("tags the cell with the hash of the image url") {
+                            let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
+
+                            expect(cell.tag) == newsArticle.imageURL!.hashValue
+                        }
+
+                        context("when the image is loaded succesfully") {
+                            context("and the tag has not changed") {
+                                it("sets the image") {
+                                    let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
+
+                                    let bernieImage = TestUtils.testImageNamed("bernie", type: "jpg")
+                                    imageService.lastRequestPromise.resolve(bernieImage)
+
+                                    expect(cell.newsImageView.image).to(beIdenticalTo(bernieImage))
+                                }
+                            }
+
+                            context("and the tag has changed") {
+                                it("does not change the image") {
+                                    let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
+
+                                    let tonyImage = TestUtils.testImageNamed("tonybenn", type: "jpg")
+                                    cell.newsImageView.image = tonyImage
+                                    cell.tag = 666
+
+                                    let bernieImage = TestUtils.testImageNamed("bernie", type: "jpg")
+                                    imageService.lastRequestPromise.resolve(bernieImage)
+
+                                    expect(cell.newsImageView.image!) === tonyImage
+                                }
+                            }
                         }
                     }
                 }
@@ -120,13 +209,20 @@ class NewsFeedArticlePresenterSpec: QuickSpec {
                 context("when the news item does not have an image URL") {
                     let newsArticle = NewsArticle(title: "Bernie to release new album", date: newsArticleDate, body: "yeahhh", excerpt: "excerpt A", imageURL: nil, url: NSURL())
 
+                    it("nils out the image") {
+                        var cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
+                        cell.newsImageView.image = TestUtils.testImageNamed("bernie", type: "jpg")
+                        cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
+                        expect(cell.newsImageView.image).to(beNil())
+                    }
+
                     it("does not make a call to the image repository") {
                         imageService.lastReceivedURL = nil
                         subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
                         expect(imageService.lastReceivedURL).to(beNil())
                     }
 
-                    it("hides the image view") {
+                    it("marks the cell as not to display the image") {
                         let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
                         expect(cell.newsImageVisible).to(beFalse())
                     }

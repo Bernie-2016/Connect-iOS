@@ -29,7 +29,7 @@ class NewsFeedVideoPresenterSpec: QuickSpec {
             describe("presenting a video") {
                 let videoDate = NSDate(timeIntervalSince1970: 0)
                 let video = Video(title: "Some video", date: videoDate, identifier: "some-identifier", description: "Stuff that moves")
-                let tableView = UITableView()
+                let tableView = AlwaysReusingTableView()
                 let indexPath = NSIndexPath(forRow: 1, inSection: 1)
 
                 beforeEach {
@@ -64,6 +64,33 @@ class NewsFeedVideoPresenterSpec: QuickSpec {
                     expect(imageService.lastReceivedURL).to(beIdenticalTo(urlProvider.returnedURL))
                 }
 
+                context("when the image tag does not match the hash of the thumbnail URL") {
+                    it("nils out the thumbnail image") {
+                        var cell = subject.cellForTableView(tableView, newsFeedItem: video, indexPath: indexPath) as! NewsFeedVideoTableViewCell
+
+                        let bernieImage = TestUtils.testImageNamed("bernie", type: "jpg")
+                        cell.thumbnailImageView.image = bernieImage
+                        cell.tag = 666
+
+                        cell = subject.cellForTableView(tableView, newsFeedItem: video, indexPath: indexPath) as! NewsFeedVideoTableViewCell
+
+                        expect(cell.thumbnailImageView.image).to(beNil())
+                    }
+                }
+
+                context("when the image tag hasn't changed") {
+                    it("leaves the thumbnail image alone") {
+                        var cell = subject.cellForTableView(tableView, newsFeedItem: video, indexPath: indexPath) as! NewsFeedVideoTableViewCell
+
+                        let bernieImage = TestUtils.testImageNamed("bernie", type: "jpg")
+                        cell.thumbnailImageView.image = bernieImage
+
+                        cell = subject.cellForTableView(tableView, newsFeedItem: video, indexPath: indexPath) as! NewsFeedVideoTableViewCell
+
+                        expect(cell.thumbnailImageView.image) === bernieImage
+                    }
+                }
+
                 context("when the cell is for the first section and the first row") {
                     it("sets the top spacing to zero") {
                         let zerothIndexPath = NSIndexPath(forRow: 0, inSection: 0)
@@ -89,16 +116,33 @@ class NewsFeedVideoPresenterSpec: QuickSpec {
                 }
 
                 context("when the image is loaded succesfully") {
-                    it("sets the image") {
-                        let cell = subject.cellForTableView(tableView, newsFeedItem: video, indexPath: indexPath) as! NewsFeedVideoTableViewCell
+                    context("when the cell tag hasn't changed") {
+                        it("sets the image") {
+                            let cell = subject.cellForTableView(tableView, newsFeedItem: video, indexPath: indexPath) as! NewsFeedVideoTableViewCell
 
-                        let bernieImage = TestUtils.testImageNamed("bernie", type: "jpg")
+                            let bernieImage = TestUtils.testImageNamed("bernie", type: "jpg")
 
-                        imageService.lastRequestPromise.resolve(bernieImage)
+                            imageService.lastRequestPromise.resolve(bernieImage)
 
-                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            expect(cell.thumbnailImageView.image).to(beIdenticalTo(bernieImage))
-                        })
+                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                expect(cell.thumbnailImageView.image).to(beIdenticalTo(bernieImage))
+                            })
+                        }
+                    }
+
+                    context("when the cell tag has changed") {
+                        it("leaves the image alone") {
+                            let cell = subject.cellForTableView(tableView, newsFeedItem: video, indexPath: indexPath) as! NewsFeedVideoTableViewCell
+
+                            let tonyImage = TestUtils.testImageNamed("tonybenn", type: "jpg")
+                            cell.tag = 42
+                            cell.thumbnailImageView.image = tonyImage
+
+                            let bernieImage = TestUtils.testImageNamed("bernie", type: "jpg")
+                            imageService.lastRequestPromise.resolve(bernieImage)
+
+                            expect(cell.thumbnailImageView.image) === tonyImage
+                        }
                     }
                 }
 

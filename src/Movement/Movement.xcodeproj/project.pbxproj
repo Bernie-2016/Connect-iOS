@@ -221,6 +221,8 @@
 		655A011A1C5BC9A7004548A0 /* CocoaMarkdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655A01191C5BC9A7004548A0 /* CocoaMarkdown.framework */; };
 		655A3AD01B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655A3ACF1B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework */; };
 		655A3DB81BBCCE7400E08051 /* floss_licenses.html in Resources */ = {isa = PBXBuildFile; fileRef = 655A3DB71BBCCE7400E08051 /* floss_licenses.html */; };
+		656BC9661C70260D00CFA4EB /* tonybenn.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 656BC9651C70260D00CFA4EB /* tonybenn.jpg */; };
+		656BC9681C702BA800CFA4EB /* AlwaysReusingTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656BC9671C702BA800CFA4EB /* AlwaysReusingTableView.swift */; };
 		65713DE11C5DAA0F00E6E4FC /* action_alert_with_invalid_sharing_urls.json in Resources */ = {isa = PBXBuildFile; fileRef = 65713DE01C5DAA0F00E6E4FC /* action_alert_with_invalid_sharing_urls.json */; };
 		657C13EF1C615CFF00EC1569 /* BaseURLs.plist in Resources */ = {isa = PBXBuildFile; fileRef = 657C13EE1C615CFF00EC1569 /* BaseURLs.plist */; };
 		657C13F31C615E1400EC1569 /* BaseURLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657C13F21C615E1400EC1569 /* BaseURLProvider.swift */; };
@@ -555,6 +557,8 @@
 		655A01191C5BC9A7004548A0 /* CocoaMarkdown.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CocoaMarkdown.framework; sourceTree = "<group>"; };
 		655A3ACF1B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "UIKit+PivotalSpecHelper-iOS.framework"; sourceTree = "<group>"; };
 		655A3DB71BBCCE7400E08051 /* floss_licenses.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = floss_licenses.html; sourceTree = "<group>"; };
+		656BC9651C70260D00CFA4EB /* tonybenn.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tonybenn.jpg; sourceTree = "<group>"; };
+		656BC9671C702BA800CFA4EB /* AlwaysReusingTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlwaysReusingTableView.swift; sourceTree = "<group>"; };
 		65713DE01C5DAA0F00E6E4FC /* action_alert_with_invalid_sharing_urls.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = action_alert_with_invalid_sharing_urls.json; sourceTree = "<group>"; };
 		657C13EE1C615CFF00EC1569 /* BaseURLs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BaseURLs.plist; sourceTree = "<group>"; };
 		657C13F21C615E1400EC1569 /* BaseURLProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseURLProvider.swift; sourceTree = "<group>"; };
@@ -685,6 +689,7 @@
 				6592FA321B98D8F600746EC3 /* issue_feed.json */,
 				653885151B90F51300DCA808 /* news_feed.json */,
 				65AD23B11B968D6800C32A02 /* TestUtils.swift */,
+				656BC9651C70260D00CFA4EB /* tonybenn.jpg */,
 				654E27C21C18FF0B005B6D2D /* video_nasties.json */,
 				654E27C01C18DB22005B6D2D /* videos.json */,
 			);
@@ -1394,6 +1399,7 @@
 		65F5F6551B89678E0049353C /* Fakes */ = {
 			isa = PBXGroup;
 			children = (
+				656BC9671C702BA800CFA4EB /* AlwaysReusingTableView.swift */,
 				650330EE1C60366F006D0752 /* FakeActionAlertControllerProvider.swift */,
 				650330F01C60369C006D0752 /* FakeActionAlertService.swift */,
 				6559D70E1BBDC37000CBC7EE /* FakeAnalyticsService.swift */,
@@ -1634,6 +1640,7 @@
 				65E06CAB1BCB30DC00BDDA61 /* Images.xcassets in Resources */,
 				6592FA331B98D8F600746EC3 /* issue_feed.json in Resources */,
 				653885161B90F51300DCA808 /* news_feed.json in Resources */,
+				656BC9661C70260D00CFA4EB /* tonybenn.jpg in Resources */,
 				654E27C31C18FF0B005B6D2D /* video_nasties.json in Resources */,
 				654E27C11C18DB22005B6D2D /* videos.json in Resources */,
 			);
@@ -1888,6 +1895,7 @@
 				653D101F1C4C53BB004CB8A0 /* AboutControllerSpec.swift in Sources */,
 				654F92811C5ABFBD00C76992 /* ActionAlertControllerSpec.swift in Sources */,
 				653D10021C4C53BB004CB8A0 /* ActionsControllerSpec.swift in Sources */,
+				656BC9681C702BA800CFA4EB /* AlwaysReusingTableView.swift in Sources */,
 				653D10201C4C53BB004CB8A0 /* AnalyticsSettingsControllerSpec.swift in Sources */,
 				651960871C4D8F20004AAC6D /* AppDelegateSpec.swift in Sources */,
 				65B023591C59C5570082E211 /* BackgroundActionAlertServiceSpec.swift in Sources */,

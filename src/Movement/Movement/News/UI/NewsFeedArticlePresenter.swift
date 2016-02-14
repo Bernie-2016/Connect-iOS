@@ -38,19 +38,26 @@ class NewsFeedArticlePresenter: NewsFeedTableViewCellPresenter {
         }
 
 
-        cell.newsImageView.image = nil
-
         guard let imageURL = newsArticle.imageURL else {
             cell.newsImageVisible = false
+            cell.newsImageView.image = nil
             return cell
         }
 
+        if cell.tag != imageURL.hashValue {
+            cell.newsImageView.image = nil
+        }
+
+        cell.tag = imageURL.hashValue
         cell.newsImageVisible = true
+
         let imageFuture = imageService.fetchImageWithURL(imageURL)
         imageFuture.then { image in
-            UIView.transitionWithView(cell.newsImageView, duration: 0.3, options: .TransitionCrossDissolve, animations: {
-                cell.newsImageView.image = image
-            }, completion: nil)
+            if cell.tag == imageURL.hashValue {
+                UIView.transitionWithView(cell.newsImageView, duration: 0.3, options: .TransitionCrossDissolve, animations: {
+                    cell.newsImageView.image = image
+                    }, completion: nil)
+            }
         }
 
         return cell

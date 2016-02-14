@@ -39,11 +39,20 @@ class NewsFeedVideoPresenter: NewsFeedTableViewCellPresenter {
         cell.topSpaceConstraint.constant = (indexPath.section == 0 && indexPath.row == 0 ? 0 : 9)
 
         let thumbnailURL = urlProvider.youtubeThumbnailURL(video.identifier)
+
+        if cell.tag != thumbnailURL.hashValue {
+            cell.thumbnailImageView.image = nil
+        }
+
+        cell.tag = thumbnailURL.hashValue
+
         let imageFuture = imageService.fetchImageWithURL(thumbnailURL)
         imageFuture.then({ image in
-            UIView.transitionWithView(cell.thumbnailImageView, duration: 0.3, options: .TransitionCrossDissolve, animations: {
-                cell.thumbnailImageView.image = image
-            }, completion: nil)
+            if cell.tag == thumbnailURL.hashValue {
+                UIView.transitionWithView(cell.thumbnailImageView, duration: 0.3, options: .TransitionCrossDissolve, animations: {
+                    cell.thumbnailImageView.image = image
+                }, completion: nil)
+            }
         })
 
         return cell
