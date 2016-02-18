@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8233FC061B7C28FB00A5E9ED"
-               BuildableName = "Movement.app"
+               BuildableName = "Connect.app"
                BlueprintName = "Movement"
                ReferencedContainer = "container:Movement.xcodeproj">
             </BuildableReference>
@@ -57,7 +57,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8233FC061B7C28FB00A5E9ED"
-            BuildableName = "Movement.app"
+            BuildableName = "Connect.app"
             BlueprintName = "Movement"
             ReferencedContainer = "container:Movement.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8233FC061B7C28FB00A5E9ED"
-            BuildableName = "Movement.app"
+            BuildableName = "Connect.app"
             BlueprintName = "Movement"
             ReferencedContainer = "container:Movement.xcodeproj">
          </BuildableReference>
@@ -99,7 +99,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8233FC061B7C28FB00A5E9ED"
-            BuildableName = "Movement.app"
+            BuildableName = "Connect.app"
             BlueprintName = "Movement"
             ReferencedContainer = "container:Movement.xcodeproj">
          </BuildableReference>
