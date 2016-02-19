@@ -119,15 +119,6 @@
 // Actions
 
 "Actions_title" = "Connect";
-"Actions_actionAlertsHeader" = "CAMPAIGN ACTION ALERTS";
-"Actions_fundraiseHeader" = "FUNDRAISE";
-"Actions_organizeHeader" = "ORGANIZE";
-"Actions_donateTitle" = "Donate to the Campaign";
-"Actions_donateSubTitle" = "Contribute via the campaign website";
-"Actions_shareDonateTitle" = "Share the Donate page";
-"Actions_shareDonateSubTitle" = "Ask friends and family to donate";
-"Actions_hostEventTitle" = "Host an event";
-"Actions_hostEventSubTitle" = "Organize supporters in your area";
 
 // URLs
 "url_TwitterShareText" = "Check this out! #Bernie2016";

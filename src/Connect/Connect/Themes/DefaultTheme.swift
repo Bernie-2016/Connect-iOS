@@ -141,8 +141,6 @@ class DefaultTheme: Theme {
 
     func actionsTitleFont() -> UIFont { return h3HeaderFont() }
     func actionsTitleTextColor() -> UIColor { return h3HeaderTextColor() }
-    func actionsSubTitleFont() -> UIFont { return subHeadingFont() }
-    func actionsSubTitleTextColor() -> UIColor { return subHeadingTextColor() }
 
     // MARK: Action Alerts
 

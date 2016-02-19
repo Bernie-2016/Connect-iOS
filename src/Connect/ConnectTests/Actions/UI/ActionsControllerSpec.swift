@@ -5,241 +5,6 @@ import Nimble
 
 class ActionsControllerSpec: QuickSpec {
     override func spec() {
-        sharedExamples("a controller that sets up the table view with the default rows correctly") { (sharedExampleContext: SharedExampleContext) in
-            var subject: ActionsController!
-            var tableView: UITableView!
-            var actionsTableViewCellPresenter: FakeActionsTableViewCellPresenter!
-            var actionAlerts: [ActionAlert]!
-
-            beforeEach {
-                subject = sharedExampleContext()["subject"] as! ActionsController
-                tableView = sharedExampleContext()["tableView"] as! UITableView
-                actionsTableViewCellPresenter = sharedExampleContext()["actionsTableViewCellPresenter"] as! FakeActionsTableViewCellPresenter
-                let wrapper =  sharedExampleContext()["actionAlerts"] as! ActionAlertsWrapper
-                actionAlerts = wrapper.actionAlerts
-            }
-
-            it("shows the table view, and stops the loading spinner") {
-                expect(tableView.hidden).to(equal(false));
-                expect(subject.loadingIndicatorView.isAnimating()).to(equal(false))
-            }
-
-            describe("the table view contents") {
-                var expectedNumberOfSections: Int!
-                var sectionOffset: Int!
-                var urlOpener: FakeURLOpener!
-                var analyticsService: FakeAnalyticsService!
-
-                beforeEach {
-                    expectedNumberOfSections = sharedExampleContext()["numberOfSections"] as! Int
-                    sectionOffset = expectedNumberOfSections == 2 ? 0 : 1
-
-                    subject = sharedExampleContext()["subject"] as! ActionsController
-                    urlOpener = sharedExampleContext()["urlOpener"] as! FakeURLOpener
-                    analyticsService = sharedExampleContext()["analyticsService"] as! FakeAnalyticsService
-                }
-
-                it("has the correct number of sections") {
-                    expect(tableView.numberOfSections).to(equal(expectedNumberOfSections))
-                }
-
-                it("styles the section headers with the theme") {
-                    let sectionHeader = UITableViewHeaderFooterView()
-
-                    for i in 0...(expectedNumberOfSections - 1) {
-                        tableView.delegate!.tableView!(tableView, willDisplayHeaderView: sectionHeader, forSection: i)
-
-                        expect(sectionHeader.contentView.backgroundColor).to(equal(UIColor.darkGrayColor()))
-                        expect(sectionHeader.textLabel!.textColor).to(equal(UIColor.lightGrayColor()))
-                        expect(sectionHeader.textLabel!.font).to(equal(UIFont.italicSystemFontOfSize(999)))
-                    }
-                }
-
-                describe("the fundraising section") {
-                    var fundraisingSectionIndex: Int!
-
-                    beforeEach {
-                        fundraisingSectionIndex = 0 + sectionOffset
-                    }
-
-                    it("has a section for fundraising") {
-                        let title = tableView.dataSource?.tableView!(tableView, titleForHeaderInSection: fundraisingSectionIndex)
-                        expect(title).to(equal("FUNDRAISE"))
-                    }
-
-                    it("has the correct number of rows") {
-                        expect(tableView.dataSource!.tableView(tableView, numberOfRowsInSection: fundraisingSectionIndex)).to(equal(2))
-                    }
-
-                    describe("the donation row") {
-                        var cell: UITableViewCell!
-                        var indexPath: NSIndexPath!
-
-                        beforeEach {
-                            indexPath = NSIndexPath(forRow: 0, inSection: fundraisingSectionIndex)
-                            cell = tableView.dataSource!.tableView(tableView, cellForRowAtIndexPath: indexPath)
-                        }
-
-                        it("uses the cell presenter to present the cell") {
-                            expect(actionsTableViewCellPresenter.lastActionActionAlerts).to(equal(actionAlerts))
-                            expect(actionsTableViewCellPresenter.lastActionTableView).to(beIdenticalTo(tableView))
-                            expect(actionsTableViewCellPresenter.lastActionIndexPath).to(equal(indexPath))
-
-                            expect(cell).to(beIdenticalTo(actionsTableViewCellPresenter.lastReturnedActionTableViewCell))
-                        }
-
-                        describe("tapping on the donate row") {
-                            it("opens the donate page in safari") {
-                                tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: indexPath)
-
-                                expect(urlOpener.lastOpenedURL).to(equal(NSURL(string: "https://example.com/donate")!))
-                            }
-
-                            it("should log a content view with the analytics service") {
-                                tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: indexPath)
-
-                                expect(analyticsService.lastContentViewName).to(equal("Donate Form"))
-                                expect(analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.Actions))
-                                expect(analyticsService.lastContentViewID).to(equal("Donate Form"))
-                            }
-                        }
-                    }
-
-                    describe("the sharing the donation page row") {
-                        var cell: UITableViewCell!
-                        var indexPath: NSIndexPath!
-
-                        beforeEach {
-                            indexPath = NSIndexPath(forRow: 1, inSection: fundraisingSectionIndex)
-                            cell = tableView.dataSource!.tableView(tableView, cellForRowAtIndexPath: indexPath)
-                        }
-
-                        it("uses the cell presenter to present the cell") {
-                            expect(actionsTableViewCellPresenter.lastActionActionAlerts).to(equal(actionAlerts))
-                            expect(actionsTableViewCellPresenter.lastActionTableView).to(beIdenticalTo(tableView))
-                            expect(actionsTableViewCellPresenter.lastActionIndexPath).to(equal(indexPath))
-
-                            expect(cell).to(beIdenticalTo(actionsTableViewCellPresenter.lastReturnedActionTableViewCell))
-                        }
-
-                        describe("tapping on the sharing the donation page row") {
-                            beforeEach {
-                                tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: indexPath)
-                            }
-
-                            it("should present an activity view controller for donation page") {
-                                let activityViewControler = subject.presentedViewController as! UIActivityViewController
-                                let activityItems = activityViewControler.activityItems()
-
-                                expect(activityItems.count).to(equal(1))
-                                expect(activityItems.first as? NSURL).to(equal(NSURL(string: "https://example.com/donate")!))
-                            }
-
-                            it("logs that the user tapped share") {
-                                expect(analyticsService.lastCustomEventName).to(equal("Began Share"))
-                                let expectedAttributes = [
-                                    AnalyticsServiceConstants.contentIDKey: NSURL(string: "https://example.com/donate")!.absoluteString,
-                                    AnalyticsServiceConstants.contentNameKey: "Donate Form",
-                                    AnalyticsServiceConstants.contentTypeKey: "Actions"
-                                ]
-
-                                expect(analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
-                            }
-
-                            context("and the user completes the share succesfully") {
-                                it("tracks the share via the analytics service") {
-                                    let activityViewControler = subject.presentedViewController as! UIActivityViewController
-                                    activityViewControler.completionWithItemsHandler!("Some activity", true, nil, nil)
-
-                                    expect(analyticsService.lastShareActivityType).to(equal("Some activity"))
-                                    expect(analyticsService.lastShareContentName).to(equal("Donate Form"))
-                                    expect(analyticsService.lastShareContentType!).to(equal(AnalyticsServiceContentType.Actions))
-                                    expect(analyticsService.lastShareID).to(equal(NSURL(string: "https://example.com/donate")!.absoluteString))
-                                }
-                            }
-
-                            context("and the user cancels the share") {
-                                it("tracks the share cancellation via the analytics service") {
-                                    let activityViewControler = subject.presentedViewController as! UIActivityViewController
-                                    activityViewControler.completionWithItemsHandler!(nil, false, nil, nil)
-
-                                    expect(analyticsService.lastCustomEventName).to(equal("Cancelled Share"))
-                                    let expectedAttributes = [
-                                        AnalyticsServiceConstants.contentIDKey: NSURL(string: "https://example.com/donate")!.absoluteString,
-                                        AnalyticsServiceConstants.contentNameKey: "Donate Form",
-                                        AnalyticsServiceConstants.contentTypeKey: "Actions"
-                                    ]
-                                    expect(analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
-                                }
-                            }
-
-                            context("and there is an error when sharing") {
-                                it("tracks the error via the analytics service") {
-                                    let expectedError = NSError(domain: "a", code: 0, userInfo: nil)
-                                    let activityViewControler = subject.presentedViewController as! UIActivityViewController
-                                    activityViewControler.completionWithItemsHandler!("asdf", true, nil, expectedError)
-
-                                    expect(analyticsService.lastError as NSError).to(beIdenticalTo(expectedError))
-                                    expect(analyticsService.lastErrorContext).to(equal("Failed to share Donate Form"))
-                                }
-                            }
-                        }
-                    }
-                }
-
-                describe("the organizing section") {
-                    var organizingSectionIndex: Int!
-
-                    beforeEach {
-                        organizingSectionIndex = 1 + sectionOffset
-                    }
-
-                    it("has a section for organizing") {
-                        let title = tableView.dataSource?.tableView!(tableView, titleForHeaderInSection: organizingSectionIndex)
-                        expect(title).to(equal("ORGANIZE"))
-                    }
-
-                    it("has the correct number of rows") {
-                        expect(tableView.dataSource!.tableView(tableView, numberOfRowsInSection: organizingSectionIndex)).to(equal(1))
-                    }
-
-                    describe("host an event row") {
-                        var cell: UITableViewCell!
-                        var indexPath: NSIndexPath!
-
-                        beforeEach {
-                            indexPath = NSIndexPath(forRow: 0, inSection: organizingSectionIndex)
-                            cell = tableView.dataSource!.tableView(tableView, cellForRowAtIndexPath: indexPath)
-                        }
-
-                        it("uses the cell presenter to present the cell") {
-                            expect(actionsTableViewCellPresenter.lastActionActionAlerts).to(equal(actionAlerts))
-                            expect(actionsTableViewCellPresenter.lastActionTableView).to(beIdenticalTo(tableView))
-                            expect(actionsTableViewCellPresenter.lastActionIndexPath).to(equal(indexPath))
-
-                            expect(cell).to(beIdenticalTo(actionsTableViewCellPresenter.lastReturnedActionTableViewCell))
-                        }
-
-                        describe("tapping on the host an event row") {
-                            it("opens the host event page in safari") {
-                                tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: indexPath)
-
-                                expect(urlOpener.lastOpenedURL).to(equal(NSURL(string: "https://example.com/host")!))
-                            }
-
-                            it("should log a content view with the analytics service") {
-                                tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: indexPath)
-
-                                expect(analyticsService.lastContentViewName).to(equal("Host Event Form"))
-                                expect(analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.Actions))
-                                expect(analyticsService.lastContentViewID).to(equal("Host Event Form"))
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
         describe("ActionsController") {
             var subject: ActionsController!
             var urlProvider: URLProvider!
@@ -251,7 +16,6 @@ class ActionsControllerSpec: QuickSpec {
             var tabBarItemStylist: FakeTabBarItemStylist!
             var theme: Theme!
 
-            var sharedContext: Dictionary<String, AnyObject>!
             var navigationController: UINavigationController!
 
             beforeEach {
@@ -274,14 +38,6 @@ class ActionsControllerSpec: QuickSpec {
                     analyticsService: analyticsService,
                     tabBarItemStylist: tabBarItemStylist,
                     theme: theme)
-
-                sharedContext = [
-                    "subject": subject,
-                    "urlOpener": urlOpener,
-                    "analyticsService": analyticsService,
-                    "actionsTableViewCellPresenter": actionsTableViewCellPresenter,
-                    "theme": theme as! ActionsControllerFakeTheme
-                ]
 
                 navigationController = UINavigationController(rootViewController: subject)
                 expect(subject.view).toNot(beNil())
@@ -331,7 +87,7 @@ class ActionsControllerSpec: QuickSpec {
                 }
 
                 describe("when the request to the action alert service succeeds") {
-                    context("and the service resolves its promise with more than zero action alerts") {
+                    context("and the service resolves its promise with action alerts") {
                         var tableView: UITableView!
                         let firstActionAlert = TestUtils.actionAlert("FTB!")
                         let secondActionAlert = TestUtils.actionAlert("Aha!")
@@ -342,15 +98,6 @@ class ActionsControllerSpec: QuickSpec {
                             actionAlertService.lastReturnedActionAlertsPromise.resolve(actionAlerts)
 
                             tableView = subject.view.subviews.first! as! UITableView
-
-                            sharedContext["tableView"] = tableView
-                            sharedContext["numberOfSections"] = 3
-                            sharedContext["actionAlerts"] = ActionAlertsWrapper(actionAlerts: actionAlerts)
-                        }
-
-                        it("has a section for campaign actions") {
-                            let title = tableView.dataSource?.tableView!(tableView, titleForHeaderInSection: 0)
-                            expect(title).to(equal("CAMPAIGN ACTION ALERTS"))
                         }
 
                         it("has a row per action alert, provided by the presenter") {
@@ -383,36 +130,6 @@ class ActionsControllerSpec: QuickSpec {
                                 expect(navigationController.topViewController).to(beIdenticalTo(actionAlertControllerProvider.returnedController))
                             }
                         }
-
-                        itBehavesLike("a controller that sets up the table view with the default rows correctly") {
-                            sharedContext
-                        }
-                    }
-
-                    context("and the service resolves its promise with zero action alerts") {
-                        beforeEach {
-                            actionAlertService.lastReturnedActionAlertsPromise.resolve([])
-                            sharedContext["tableView"] = subject.view.subviews.first! as! UITableView
-                            sharedContext["numberOfSections"] = 2
-                            sharedContext["actionAlerts"] = ActionAlertsWrapper(actionAlerts: [])
-                        }
-
-                        itBehavesLike("a controller that sets up the table view with the default rows correctly") {
-                            sharedContext
-                        }
-                    }
-                }
-
-                describe("when the request to the action alert service fails") {
-                    beforeEach {
-                        actionAlertService.lastReturnedActionAlertsPromise.reject(.InvalidJSON(jsonObject: "wat"))
-                        sharedContext["tableView"] = subject.view.subviews.first! as! UITableView
-                        sharedContext["numberOfSections"] = 2
-                        sharedContext["actionAlerts"] = ActionAlertsWrapper(actionAlerts: [])
-                    }
-
-                    itBehavesLike("a controller that sets up the table view with the default rows correctly") {
-                        sharedContext
                     }
                 }
             }
