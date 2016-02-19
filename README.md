@@ -1,6 +1,6 @@
 # Connect
 
-[![CI Status](https://img.shields.io/circleci/project/SandersForPresident/BernieAppiOS/master.svg)](https://circleci.com/gh/SandersForPresident/BernieAppiOS/tree/master)
+[![CI Status](https://img.shields.io/circleci/project/Bernie-2016/Connect-iOS/master.svg)](https://circleci.com/gh/Bernie-2016/Connect-iOS/tree/master)
 
 
 Mobile application for getting involved and keeping up with Bernie.
