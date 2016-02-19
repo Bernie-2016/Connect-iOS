@@ -293,7 +293,7 @@ class ActionsControllerSpec: QuickSpec {
                 }
 
                 it("has the correct title") {
-                    expect(subject.title).to(equal("Actions"))
+                    expect(subject.title).to(equal("Connect"))
                 }
 
                 it("uses the tab bar item stylist to style its tab bar item") {
