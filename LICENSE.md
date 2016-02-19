@@ -1,6 +1,6 @@
-This is Movement, a volunteer built application that is unofficial and is not associated with the official Bernie 2016 campaign in any way, shape or form.
+This is Connect, a volunteer built application that is unofficial and is not associated with the official Bernie 2016 campaign in any way, shape or form.
 
-Copyright (C) 2015 /r/CodersForSanders
+Copyright (C) 2016 Bernie 2016
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as

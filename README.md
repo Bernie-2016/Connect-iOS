@@ -1,4 +1,4 @@
-# Movement
+# Connect
 
 [![CI Status](https://img.shields.io/circleci/project/SandersForPresident/BernieAppiOS/master.svg)](https://circleci.com/gh/SandersForPresident/BernieAppiOS/tree/master)
 
@@ -23,7 +23,7 @@ Via [Homebrew](http://brew.sh/):
 
 ## Install dependencies
 
-* `$ cd src/Movement && carthage bootstrap --platform ios`
+* `$ cd src/Connect && carthage bootstrap --platform ios`
 
 You should now be able to run tests in Xcode by lightly depressing the key combination "⌘+u"
 
@@ -31,7 +31,7 @@ You should now be able to run tests in Xcode by lightly depressing the key combi
 
 ## Making changes
 
-In order to make changes, you need to get your development environment set up, make your changes on a fork of the Movement repository and then issue a pull request.  Please follow the advice below to ensure that your contribution will be readily accepted.
+In order to make changes, you need to get your development environment set up, make your changes on a fork of the Connect repository and then issue a pull request.  Please follow the advice below to ensure that your contribution will be readily accepted.
 
 ### Make your changes
 

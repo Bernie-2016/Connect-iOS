@@ -33,7 +33,7 @@ namespace :tidy do
   desc "Sorts the project file"
   task :project_file do
     puts "Sorting the project file..."
-    system("script/sort-Xcode-project-file.pl #{SRCROOT}/Movement.xcodeproj")
+    system("script/sort-Xcode-project-file.pl #{SRCROOT}/Connect.xcodeproj")
     puts "Done!"
   end
 

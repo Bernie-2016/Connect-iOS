@@ -1,0 +1,33 @@
+machine:
+  environment:
+    XCODE_SCHEME: CBGPromise-iOS
+  xcode:
+    version: "7.0"
+checkout:
+  post:
+    - git submodule update --init
+test:
+  override:
+    - xctool
+      -scheme 'CBGPromise-iOS'
+      -project 'CBGPromise.xcodeproj'
+      -reporter plain
+      -reporter plain:$CIRCLE_ARTIFACTS/xctool-ios.log
+      -reporter junit:$CIRCLE_TEST_REPORTS/xcode/results-ios.xml
+      -sdk iphonesimulator
+      -destination 'platform=iOS Simulator,name=iPhone 6,OS=latest'
+      CODE_SIGNING_REQUIRED=NO
+      CODE_SIGN_IDENTITY=
+      PROVISIONING_PROFILE=
+      build build-tests run-tests
+
+    - xctool
+      -scheme 'CBGPromise-OSX'
+      -project 'CBGPromise.xcodeproj'
+      -reporter plain
+      -reporter plain:$CIRCLE_ARTIFACTS/xctool-osx.log
+      -reporter junit:$CIRCLE_TEST_REPORTS/xcode/results-osx.xml
+      CODE_SIGNING_REQUIRED=NO
+      CODE_SIGN_IDENTITY=
+      PROVISIONING_PROFILE=
+      build build-tests run-tests

@@ -1,0 +1,23 @@
+//
+// Copyright (c) 2015-present, Parse, LLC.
+// All rights reserved.
+//
+// This source code is licensed under the BSD-style license found in the
+// LICENSE file in the root directory of this source tree. An additional grant
+// of patent rights can be found in the PATENTS file in the same directory.
+//
+
+#include "Shared/Platform/OSX.xcconfig"
+#include "Shared/Product/UnitTest.xcconfig"
+
+PRODUCT_NAME = ParseUnitTests-OSX
+PRODUCT_MODULE_NAME = ParseUnitTests
+PRODUCT_BUNDLE_IDENTIFIER = com.parse.unit.osx
+
+INFOPLIST_FILE = $(SRCROOT)/Tests/Resources/ParseUnitTests-OSX-Info.plist
+LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/../Frameworks @loader_path/../Frameworks @executable_path/Frameworks @loader_path/Frameworks
+
+USER_HEADER_SEARCH_PATHS = $(inherited) $(PARSE_DIR)/Parse/Internal/**
+
+// Swift
+SWIFT_OBJC_BRIDGING_HEADER = $(SRCROOT)/Tests/Other/Swift/ParseUnitTests-OSX-Bridging-Header.h

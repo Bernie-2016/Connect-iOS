@@ -1,7 +1,7 @@
 module Helpers
-  SRCROOT = "src/Movement"
-  TESTS_DIR = "#{SRCROOT}/MovementTests"
-  PRODUCTION_DIR = "#{SRCROOT}/Movement"
+  SRCROOT = "src/Connect"
+  TESTS_DIR = "#{SRCROOT}/ConnectTests"
+  PRODUCTION_DIR = "#{SRCROOT}/Connect"
 
   def bail
      puts "👎   👎   👎   👎   👎   👎   👎   👎   👎   👎   👎   👎 "

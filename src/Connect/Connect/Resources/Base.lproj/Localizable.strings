@@ -1,0 +1,144 @@
+// Global
+
+"Global_urlAttribution" = "This content is a reformatted version of the original from %@, and is reproduced for educational use only.";
+"Global_share" = "Share";
+
+// News Feed
+
+"NewsFeed_tabBarTitle" = "News";
+"NewsFeed_navigationTitle" = "News";
+"NewsFeed_backButtonTitle" = "Back";
+"NewsFeed_errorText" = "Oops! Sorry, we couldn't load any news.";
+
+// News Item
+
+"NewsArticle_viewOriginal" = "View Original";
+
+// Issues
+
+"Issues_tabBarTitle" = "Issues";
+"Issues_navigationTitle" = "Issues";
+"Issues_backButtonTitle" = "Back";
+"Issues_errorText" = "Oops! Sorry, we couldn't load any issues.";
+
+// Issue
+
+"Issue_viewOriginal" = "View Original";
+
+// Organize
+
+"Organize_tabBarTitle" = "Organize";
+"Organize_navigationTitle" = "Organize";
+
+// Events
+
+"Events_tabBarTitle" = "Nearby";
+"Events_navigationTitle" = "Events Near Me";
+"Events_backButtonTitle" = "Events";
+"Events_eventAddressLabel" =  "%@, %@ - %@";
+"Events_eventStreetAddressLabel" =  "%@, %@, %@ %@";
+"Events_eventRSVPButtonText" = "RSVP NOW | %d attending, %d spots total";
+"Events_eventRSVPWithoutCapacityButtonText" = "RSVP NOW | %d attending";
+"Events_noEventsFound" = "We couldn't find any events in that area";
+"Events_createEventCTAText" = "Try another search or {0}";
+"Events_organizeText" = "be the first to organize.";
+
+"Events_zipCodeAccessibilityLabel" = "ZIP Code";
+"Events_zipCodeTextBoxPlaceholder" = "ZIP Code";
+"Events_eventSearchButtonTitle" = "Search";
+"Events_eventCancelButtonTitle" = "Cancel";
+"Events_subInstructions" = "Event listings are gathered from the Bernie 2016 campaign website.";
+"Events_todayHeader" = "TODAY";
+"Events_radiusMiles" = "< %d Miles";
+"Events_locate" = "Find Events Near Me";
+
+// Event
+
+"Event_navigationTitle" = "Event Details";
+"Event_backButtonTitle" = "Back";
+"Event_directionsButtonTitle" = "Get Directions";
+"Event_descriptionHeading" = "Description";
+
+// Event RSVP
+
+"EventRSVP_navigationTitle" = "RSVP to Event";
+
+// Settings
+
+"Settings_navigationTitle" = "More";
+"Settings_tabBarTitle" = "More";
+"Settings_backButtonTitle" = "Back";
+
+// Settings | Donate
+
+"Settings_donate_buttonText" = "DONATE";
+"Settings_donate_tableCellText" = "Donate directly to the official Bernie Sanders campaign";
+"Settings_donate_title" = "Donate";
+
+// Settings | Analytics
+
+"Settings_analytics_title" = "Analytics Settings";
+"Settings_analytics_explanation" = "We collect anonymous data about how you use this app (i.e., we record what you tap on and share). This is done solely to improve the app for yourself and other users. We use Flurry to record this data. If you would rather not have your activity collected, you may disable analytics with the switch below.";
+"Settings_analytics_stateLoading" = "Loading...";
+"Settings_analytics_stateEnabled" = "Analytics enabled";
+"Settings_analytics_stateDisabled" = "Analytics disabled";
+
+// Privacy Policy
+
+"PrivacyPolicy_title" = "Privacy Policy";
+
+// Open Source Software
+
+"FLOSS_title" = "Open Source Software";
+
+// About
+
+"About_title" = "About";
+"About_bodyText" = "This app is built by a small group of volunteers, functioning independently and without affiliation or endorsement by the official Bernie Sanders Campaign. The purpose of this app is to help raise awareness of Bernie, his work, and the growing political Connect. When registering for an event, you will be registering into the website Events page. If making a donation, you will be making a donation through the official Bernie Sanders campaign site, www.berniesanders.com. We function as a connector and a funnel into the campaign website.";
+"About_redditText" = "If you'd like to find out more about us, look into these sub-reddits:";
+"About_codersForSanders" = "/r/codersforsanders";
+"About_designersForSanders" = "/r/designersforsanders";
+"About_sandersForPresident" = "/r/sandersforpresident";
+
+// Feedback
+
+"Feedback_title" = "Feedback";
+
+// Terms And Conditions
+
+"TermsAndConditions_title" = "Terms and Conditions";
+
+// Welcome
+
+"Welcome_takeThePowerBack" = "Let’s take our country back.";
+"Welcome_agreeToTermsButtonTitle" = "CONTINUE";
+"Welcome_viewTermsTitle" = "Terms and Conditions";
+"Welcome_viewPrivacyPolicyTitle" = "Privacy Policy";
+"Welcome_termsAndConditions" = "Terms and Conditions";
+"Welcome_privacyPolicy" = "Privacy Policy";
+"Welcome_agreeToTermsNoticeText" = "By tapping Continue, you are agreeing to the {0} and {1}. This app is not affiliated with or authorized by Bernie 2016.";
+
+// Time intervals
+
+"TimeInterval_today" = "Today";
+"TimeInterval_now" = "Now";
+
+// Video
+
+"Video_viewOriginal" = "View on YouTube.com";
+
+// Actions
+
+"Actions_title" = "Actions";
+"Actions_actionAlertsHeader" = "CAMPAIGN ACTION ALERTS";
+"Actions_fundraiseHeader" = "FUNDRAISE";
+"Actions_organizeHeader" = "ORGANIZE";
+"Actions_donateTitle" = "Donate to the Campaign";
+"Actions_donateSubTitle" = "Contribute via the campaign website";
+"Actions_shareDonateTitle" = "Share the Donate page";
+"Actions_shareDonateSubTitle" = "Ask friends and family to donate";
+"Actions_hostEventTitle" = "Host an event";
+"Actions_hostEventSubTitle" = "Organize supporters in your area";
+
+// URLs
+"url_TwitterShareText" = "Check this out! #Bernie2016";

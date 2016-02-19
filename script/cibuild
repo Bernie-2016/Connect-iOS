@@ -8,10 +8,10 @@ export SCRIPT_DIR=$(dirname "$0")
 
 main ()
 {
-    cd src/Movement 
+    cd src/Connect 
     carthage bootstrap --platform iphonesimulator --no-use-binaries
-    xctool clean build -project Movement.xcodeproj/ -scheme Movement -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
-    xctool test -project Movement.xcodeproj/ -scheme Movement -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+    xctool clean build -project Connect.xcodeproj/ -scheme Connect -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+    xctool test -project Connect.xcodeproj/ -scheme Connect -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
 
     local status=$?
 
