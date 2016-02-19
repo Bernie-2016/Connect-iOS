@@ -52,6 +52,7 @@ class NewsContainerConfigurator: ContainerConfigurator {
             return ConcreteNewsFeedItemControllerProvider(
                 timeIntervalFormatter: resolver.resolve(TimeIntervalFormatter.self)!,
                 imageService: resolver.resolve(ImageService.self)!,
+                markdownConverter: resolver.resolve(MarkdownConverter.self)!,
                 analyticsService: resolver.resolve(AnalyticsService.self)!,
                 urlOpener: resolver.resolve(URLOpener.self)!,
                 urlAttributionPresenter: resolver.resolve(URLAttributionPresenter.self)!,

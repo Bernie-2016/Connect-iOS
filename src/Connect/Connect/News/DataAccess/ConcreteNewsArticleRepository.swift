@@ -76,7 +76,7 @@ class ConcreteNewsArticleRepository: NewsArticleRepository {
     private func ArticlesHTTPBodyDictionary() -> NSDictionary {
         return [
             "from": 0, "size": 30,
-            "_source": ["title", "body", "excerpt", "timestamp_publish", "url", "image_url"],
+            "_source": ["title", "body_markdown", "excerpt", "timestamp_publish", "url", "image_url"],
             "query": [
                 "query_string": [
                     "default_field": "article_type",
@@ -92,7 +92,7 @@ class ConcreteNewsArticleRepository: NewsArticleRepository {
     private func ArticleHTTPBodyDictionary(identifier: NewsArticleIdentifier) -> NSDictionary {
         return [
             "from": 0, "size": 1,
-            "_source": ["title", "body", "excerpt", "timestamp_publish", "url", "image_url"],
+            "_source": ["title", "body_markdown", "excerpt", "timestamp_publish", "url", "image_url"],
             "filter": [
                 "term": [
                     "_id": identifier,

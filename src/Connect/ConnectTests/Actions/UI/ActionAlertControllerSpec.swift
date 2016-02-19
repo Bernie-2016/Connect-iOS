@@ -15,11 +15,11 @@ class ActionAlertControllerSpec: QuickSpec {
 
             beforeEach {
                 actionAlert = TestUtils.actionAlert("Do the thing")
+                markdownConverter = FakeMarkdownConverter()
                 urlOpener = FakeURLOpener()
                 urlProvider = FakeActionAlertURLProvider()
                 analyticsService = FakeAnalyticsService()
 
-                markdownConverter = FakeMarkdownConverter()
                 subject = ActionAlertController(
                     actionAlert: actionAlert,
                     markdownConverter: markdownConverter,

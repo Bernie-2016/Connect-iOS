@@ -2,6 +2,7 @@
 
 class FakeNewsFeedItemControllerProvider: NewsFeedItemControllerProvider {
     let controller = NewsArticleController(newsArticle: TestUtils.newsArticle(),
+        markdownConverter: FakeMarkdownConverter(),
         imageService: FakeImageService(),
         timeIntervalFormatter: FakeTimeIntervalFormatter(),
         analyticsService: FakeAnalyticsService(),

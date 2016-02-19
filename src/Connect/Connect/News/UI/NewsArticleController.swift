@@ -5,6 +5,7 @@ import CBGPromise
 // swiftlint:disable type_body_length
 class NewsArticleController: UIViewController {
     let newsArticle: NewsArticle
+    let markdownConverter: MarkdownConverter
     let imageService: ImageService
     let timeIntervalFormatter: TimeIntervalFormatter
     let analyticsService: AnalyticsService
@@ -23,6 +24,7 @@ class NewsArticleController: UIViewController {
     let viewOriginalButton = UIButton.newAutoLayoutView()
 
     init(newsArticle: NewsArticle,
+         markdownConverter: MarkdownConverter,
          imageService: ImageService,
          timeIntervalFormatter: TimeIntervalFormatter,
          analyticsService: AnalyticsService,
@@ -32,6 +34,7 @@ class NewsArticleController: UIViewController {
 
         self.newsArticle = newsArticle
         self.imageService = imageService
+        self.markdownConverter = markdownConverter
         self.timeIntervalFormatter = timeIntervalFormatter
         self.analyticsService = analyticsService
         self.urlOpener = urlOpener
@@ -64,12 +67,7 @@ class NewsArticleController: UIViewController {
         dateLabel.text = timeIntervalFormatter.humanDaysSinceDate(self.newsArticle.date)
         titleLabel.text = newsArticle.title
 
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineHeightMultiple = theme.defaultBodyTextLineHeight()
-        paragraphStyle.maximumLineHeight = theme.defaultBodyTextLineHeight()
-        paragraphStyle.minimumLineHeight = theme.defaultBodyTextLineHeight()
-        let attributedText = NSAttributedString(string: newsArticle.body, attributes: [NSParagraphStyleAttributeName: paragraphStyle])
-        bodyTextView.attributedText = attributedText
+        bodyTextView.attributedText = markdownConverter.convertToAttributedString(newsArticle.body)
 
         attributionLabel.text = self.urlAttributionPresenter.attributionTextForURL(newsArticle.url)
         viewOriginalButton.setImage(UIImage(named: "ViewOriginal"), forState: .Normal)

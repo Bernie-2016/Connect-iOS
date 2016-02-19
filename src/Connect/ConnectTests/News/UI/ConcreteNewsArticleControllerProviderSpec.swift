@@ -9,6 +9,7 @@ class ConcreteNewsFeedItemControllerProviderSpec : QuickSpec {
             var subject : ConcreteNewsFeedItemControllerProvider!
             let timeIntervalFormatter = FakeTimeIntervalFormatter()
             let imageService = FakeImageService()
+            let markdownConverter = FakeMarkdownConverter()
             let analyticsService = FakeAnalyticsService()
             let urlOpener = FakeURLOpener()
             let urlAttributionPresenter = FakeURLAttributionPresenter()
@@ -20,6 +21,7 @@ class ConcreteNewsFeedItemControllerProviderSpec : QuickSpec {
                     subject = ConcreteNewsFeedItemControllerProvider(
                         timeIntervalFormatter: timeIntervalFormatter,
                         imageService: imageService,
+                        markdownConverter: markdownConverter,
                         analyticsService: analyticsService,
                         urlOpener: urlOpener,
                         urlAttributionPresenter: urlAttributionPresenter,
@@ -35,6 +37,7 @@ class ConcreteNewsFeedItemControllerProviderSpec : QuickSpec {
 
                     expect(controller.newsArticle).to(beIdenticalTo(newsArticle))
                     expect(controller.imageService as? FakeImageService).to(beIdenticalTo(imageService))
+                    expect(controller.markdownConverter as? FakeMarkdownConverter) === markdownConverter
                     expect(controller.timeIntervalFormatter as? FakeTimeIntervalFormatter).to(beIdenticalTo(timeIntervalFormatter))
                     expect(controller.analyticsService as? FakeAnalyticsService).to(beIdenticalTo(analyticsService))
                     expect(controller.urlOpener as? FakeURLOpener).to(beIdenticalTo(urlOpener))

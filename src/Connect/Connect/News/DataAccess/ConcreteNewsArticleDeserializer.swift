@@ -19,7 +19,7 @@ class ConcreteNewsArticleDeserializer: NewsArticleDeserializer {
         for newsArticleDictionary: NSDictionary in newsArticleDictionaries {
             guard let sourceDictionary = newsArticleDictionary["_source"] as? NSDictionary else { continue }
             guard let title = sourceDictionary["title"] as? String else { continue }
-            guard let body = sourceDictionary["body"] as? String else { continue }
+            guard let body = sourceDictionary["body_markdown"] as? String else { continue }
             guard let excerpt = sourceDictionary["excerpt"] as? String else { continue }
             guard let dateString = sourceDictionary["timestamp_publish"] as? String else { continue }
 

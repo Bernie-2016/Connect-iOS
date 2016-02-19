@@ -13,6 +13,7 @@ class NewsArticleControllerSpec : QuickSpec {
             let newsArticleDate = NSDate(timeIntervalSince1970: 1441081523)
             var newsArticle: NewsArticle!
             var imageService: FakeImageService!
+            var markdownConverter: FakeMarkdownConverter!
             var timeIntervalFormatter: FakeTimeIntervalFormatter!
             var analyticsService: FakeAnalyticsService!
             var urlOpener: FakeURLOpener!
@@ -21,6 +22,7 @@ class NewsArticleControllerSpec : QuickSpec {
 
             beforeEach {
                 imageService = FakeImageService()
+                markdownConverter = FakeMarkdownConverter()
                 timeIntervalFormatter = FakeTimeIntervalFormatter()
                 analyticsService = FakeAnalyticsService()
                 urlOpener = FakeURLOpener()
@@ -33,6 +35,7 @@ class NewsArticleControllerSpec : QuickSpec {
 
                     subject = NewsArticleController(
                         newsArticle: newsArticle,
+                        markdownConverter: markdownConverter,
                         imageService: imageService,
                         timeIntervalFormatter: timeIntervalFormatter,
                         analyticsService: analyticsService,
@@ -158,8 +161,9 @@ class NewsArticleControllerSpec : QuickSpec {
                         expect(subject.titleLabel.text).to(equal("some title"))
                     }
 
-                    it("displays the story body") {
-                        expect(subject.bodyTextView.text).to(equal("some body text"))
+                    it("sets the body text view with text from the markdown converter") {
+                        expect(markdownConverter.lastReceivedMarkdown).to(equal(newsArticle.body))
+                        expect(subject.bodyTextView.attributedText.string).to(equal(markdownConverter.returnedAttributedString.string))
                     }
 
                     it("displays the date using the human date formatter") {
@@ -244,6 +248,7 @@ class NewsArticleControllerSpec : QuickSpec {
 
                     subject = NewsArticleController(
                         newsArticle: newsArticle,
+                        markdownConverter: markdownConverter,
                         imageService: imageService,
                         timeIntervalFormatter: timeIntervalFormatter,
                         analyticsService: analyticsService,
