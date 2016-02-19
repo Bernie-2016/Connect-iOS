@@ -2,7 +2,6 @@ import Foundation
 import CoreLocation
 
 protocol URLProvider {
-    func issuesFeedURL() -> NSURL
     func newsFeedURL() -> NSURL
     func eventsURL() -> NSURL
     func privacyPolicyURL() -> NSURL

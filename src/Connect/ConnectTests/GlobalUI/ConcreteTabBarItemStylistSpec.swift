@@ -31,7 +31,7 @@ class ConcreteTabBarItemStylistSpec: QuickSpec {
 
             describe("styling a tab bar item") {
                 let image = UIImage(named: "newsTabBarIcon")!
-                let selectedImage = UIImage(named: "issuesTabBarIcon")!
+                let selectedImage = UIImage(named: "moreTabBarIcon")!
 
                 beforeEach {
                     self.subject.applyThemeToBarBarItem(self.tabBarItem, image: image, selectedImage: selectedImage)

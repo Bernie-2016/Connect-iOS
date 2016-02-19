@@ -42,14 +42,6 @@ class FakeTheme: Theme {
         fatalError("FakeTheme used without being overridden in spec!")
     }
 
-    func issuesFeedTitleFont() -> UIFont {
-        fatalError("FakeTheme used without being overridden in spec!")
-    }
-
-    func issuesFeedTitleColor() -> UIColor {
-        fatalError("FakeTheme used without being overridden in spec!")
-    }
-
     func feedHeaderBackgroundColor() -> UIColor {
         fatalError("FakeTheme used without being overridden in spec!")
     }
@@ -87,22 +79,6 @@ class FakeTheme: Theme {
     }
 
     func defaultBackgroundColor() -> UIColor {
-        fatalError("FakeTheme used without being overridden in spec!")
-    }
-
-    func issueTitleColor() -> UIColor {
-        fatalError("FakeTheme used without being overridden in spec!")
-    }
-
-    func issueTitleFont() -> UIFont {
-        fatalError("FakeTheme used without being overridden in spec!")
-    }
-
-    func issueBodyFont() -> UIFont {
-        fatalError("FakeTheme used without being overridden in spec!")
-    }
-
-    func issueBodyColor() -> UIColor {
         fatalError("FakeTheme used without being overridden in spec!")
     }
 

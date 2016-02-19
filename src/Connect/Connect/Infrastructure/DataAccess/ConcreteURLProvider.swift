@@ -10,10 +10,6 @@ class ConcreteURLProvider: URLProvider {
         self.connectBaseURL = connectBaseURL
     }
 
-    func issuesFeedURL() -> NSURL {
-        return NSURL(string: "/articles_en_v1/berniesanders_com/_search", relativeToURL: sharknadoBaseURL)!
-    }
-
     func newsFeedURL() -> NSURL {
         return NSURL(string: "/articles_en_v1/berniesanders_com/_search", relativeToURL: sharknadoBaseURL)!
     }

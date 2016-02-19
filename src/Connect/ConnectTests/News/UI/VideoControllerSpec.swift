@@ -94,7 +94,7 @@ class VideoControllerSpec: QuickSpec {
                     expect(subject.videoController.moviePlayer.isPreparedToPlay).toEventually(beTrue())
                 }
 
-                it("uses the presenter to get attribution text for the issue") {
+                it("uses the presenter to get attribution text for the video") {
                     expect(urlProvider.lastIdentifier).to(equal(video.identifier))
 
                     expect(urlAttributionPresenter.lastPresentedURL).to(beIdenticalTo(urlProvider.lastReturnedURL))

@@ -48,7 +48,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         EventsContainerConfigurator.configureContainer(container)
         GlobalUIContainerConfigurator.configureContainer(container)
         InfrastructureContainerConfigurator.configureContainer(container)
-        IssuesContainerConfigurator.configureContainer(container)
         MoreContainerConfigurator.configureContainer(container)
         NewsContainerConfigurator.configureContainer(container)
         OnboardingControllerConfigurator.configureContainer(container)

@@ -14,17 +14,6 @@
 
 "NewsArticle_viewOriginal" = "View Original";
 
-// Issues
-
-"Issues_tabBarTitle" = "Issues";
-"Issues_navigationTitle" = "Issues";
-"Issues_backButtonTitle" = "Back";
-"Issues_errorText" = "Oops! Sorry, we couldn't load any issues.";
-
-// Issue
-
-"Issue_viewOriginal" = "View Original";
-
 // Organize
 
 "Organize_tabBarTitle" = "Organize";

@@ -61,18 +61,6 @@ class DefaultTheme: Theme {
     func videoDescriptionFont() -> UIFont { return defaultBodyTextFont() }
     func videoDescriptionColor() -> UIColor { return defaultBodyTextColor() }
 
-    // MARK: issues
-
-    func issuesFeedTitleFont() -> UIFont { return h3HeaderFont() }
-    func issuesFeedTitleColor() -> UIColor { return h3HeaderTextColor() }
-
-    // MARK: Issue detail screen
-
-    func issueTitleFont() -> UIFont { return h1HeaderFont() }
-    func issueTitleColor() -> UIColor { return h1HeaderTextColor() }
-    func issueBodyFont() -> UIFont { return defaultBodyTextFont() }
-    func issueBodyColor() -> UIColor { return defaultBodyTextColor() }
-
     // MARK: buttons
     func defaultButtonBackgroundColor() -> UIColor { return chathamsBlueColor }
     func defaultButtonTextColor() -> UIColor { return UIColor.whiteColor() }

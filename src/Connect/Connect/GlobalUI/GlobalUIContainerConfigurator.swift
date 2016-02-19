@@ -25,7 +25,6 @@ class GlobalUIContainerConfigurator: ContainerConfigurator {
         container.register([UIViewController].self, name: "tabBarControllers") { resolver in
             let controllers = [
                 resolver.resolve(NavigationController.self, name: "news")!,
-                resolver.resolve(NavigationController.self, name: "issues")!,
                 resolver.resolve(NavigationController.self, name: "events")!,
                 resolver.resolve(NavigationController.self, name: "actions")!,
                 resolver.resolve(NavigationController.self, name: "more")!,

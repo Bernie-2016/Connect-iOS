@@ -6,23 +6,19 @@ class TestUtils {
     // MARK: Fixture loaders
 
     class func testImageNamed(named: String, type: String) -> UIImage {
-        let bundle = NSBundle(forClass: NewsArticleControllerSpec.self)
+        let bundle = NSBundle(forClass: TestUtils.self)
         let imagePath = bundle.pathForResource(named, ofType: type)!
         return UIImage(contentsOfFile: imagePath)!
     }
 
     class func dataFromFixtureFileNamed(named: String, type: String) -> NSData
     {
-        let bundle = NSBundle(forClass: ConcreteIssueDeserializerSpec.self)
+        let bundle = NSBundle(forClass: TestUtils.self)
         let path = bundle.pathForResource(named, ofType: type)
         return NSData(contentsOfFile: path!)!
     }
 
     // MARK: Models
-
-    class func issue() -> Issue {
-        return Issue(title: "An issue title made by TestUtils", body: "An issue body made by TestUtils", imageURL: NSURL(string: "http://1wdojq181if3tdg01yomaof86.wpengine.netdna-cdn.com/wp-content/uploads/2015/05/Sanders.jpg")!, url: NSURL(string: "http://issue.com/issue/a")!)
-    }
 
     class func newsArticle(date: NSDate = NSDate(timeIntervalSince1970: 0)) -> NewsArticle {
         return NewsArticle(title: "Bernie to release new album", date: date, body: "yeahhh", excerpt: "excerpt A", imageURL: NSURL(string: "http://bs.com")!, url: NSURL())

@@ -4,10 +4,6 @@ import CoreLocation
 @testable import Connect
 
 class FakeURLProvider : URLProvider {
-    func issuesFeedURL() -> NSURL {
-        fatalError("override me in spec!")
-    }
-
     func newsFeedURL() -> NSURL {
         fatalError("override me in spec!")
     }

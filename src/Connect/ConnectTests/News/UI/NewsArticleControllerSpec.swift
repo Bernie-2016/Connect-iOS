@@ -167,12 +167,12 @@ class NewsArticleControllerSpec : QuickSpec {
                         expect(subject.dateLabel.text).to(equal("human date"))
                     }
 
-                    it("uses the presenter to get attribution text for the issue") {
+                    it("uses the presenter to get attribution text for the news article") {
                         expect(urlAttributionPresenter.lastPresentedURL).to(beIdenticalTo(newsArticle.url))
                         expect(subject.attributionLabel.text).to(equal(urlAttributionPresenter.returnedText))
                     }
 
-                    it("has a button to view the original issue") {
+                    it("has a button to view the original news article") {
                         expect(subject.viewOriginalButton.imageForState(.Normal)).to(equal(UIImage(named: "ViewOriginal")))
                     }
 
@@ -181,7 +181,7 @@ class NewsArticleControllerSpec : QuickSpec {
                             subject.viewOriginalButton.tap()
                         }
 
-                        it("opens the original issue in safari") {
+                        it("opens the original news article in safari") {
                             expect(urlOpener.lastOpenedURL).to(beIdenticalTo(newsArticle.url))
                         }
 

@@ -48,11 +48,6 @@ protocol Theme {
     func newsFeedDateFont() -> UIFont
     func newsFeedVideoOverlayBackgroundColor() -> UIColor
 
-    // MARK: Issues
-
-    func issuesFeedTitleFont() -> UIFont
-    func issuesFeedTitleColor() -> UIColor
-
     // MARK: News Article detail screen
 
     func newsArticleDateFont() -> UIFont
@@ -70,13 +65,6 @@ protocol Theme {
     func videoTitleColor() -> UIColor
     func videoDescriptionFont() -> UIFont
     func videoDescriptionColor() -> UIColor
-
-    // MARK: Issue detail screen
-
-    func issueTitleFont() -> UIFont
-    func issueTitleColor() -> UIColor
-    func issueBodyFont() -> UIFont
-    func issueBodyColor() -> UIColor
 
     // MARK: Events screen
 
