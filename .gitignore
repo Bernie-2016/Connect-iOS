@@ -27,8 +27,8 @@ xcuserdata
 *.hmap
 *.ipa
 
-src/Movement/Carthage/Build
-src/Movement/Carthage/Checkouts
+src/Connect/Carthage/Build
+src/Connect/Carthage/Checkouts
 
 fabric_secret
 flurry_key*
