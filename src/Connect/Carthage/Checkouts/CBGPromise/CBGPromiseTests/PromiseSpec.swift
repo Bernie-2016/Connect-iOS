@@ -179,6 +179,52 @@ class PromiseSpec: QuickSpec {
                     }
                 }
             }
+
+            describe("multiple resolving / rejecting") {
+                context("resolving after having been resolved already") {
+                    beforeEach {
+                        subject.resolve("old")
+                    }
+
+                    it("raises an exception") {
+                        expect { subject.resolve("new") }.to(raiseException())
+                    }
+                }
+
+                context("resolving after having been rejected already") {
+                    beforeEach {
+                        subject.reject(NSError(domain: "My Special Domain", code: 123, userInfo: nil))
+                    }
+
+                    it("raises an exception") {
+                        expect { subject.resolve("new") }.to(raiseException())
+                    }
+                }
+
+                context("rejecting after having been resolved already") {
+                    beforeEach {
+                        subject.resolve("old")
+                    }
+
+                    it("raises an exception") {
+                        expect {
+                            subject.reject(NSError(domain: "My Special Domain", code: 123, userInfo: nil))
+                        }.to(raiseException())
+                    }
+                }
+
+                context("rejecting after having been rejected already") {
+                    beforeEach {
+                        subject.reject(NSError(domain: "My Special Domain", code: 123, userInfo: nil))
+                    }
+
+                    it("raises an exception") {
+                        expect {
+                            subject.reject(NSError(domain: "My Special Domain", code: 123, userInfo: nil))
+                        }.to(raiseException())
+                    }
+                }
+            }
         }
     }
 }

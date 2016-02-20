@@ -194,13 +194,11 @@
 		654D2F631C137A21001AA09B /* FakeNewsFeedTableViewCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654D2F621C137A21001AA09B /* FakeNewsFeedTableViewCellPresenter.swift */; };
 		654E27C11C18DB22005B6D2D /* videos.json in Resources */ = {isa = PBXBuildFile; fileRef = 654E27C01C18DB22005B6D2D /* videos.json */; };
 		654E27C31C18FF0B005B6D2D /* video_nasties.json in Resources */ = {isa = PBXBuildFile; fileRef = 654E27C21C18FF0B005B6D2D /* video_nasties.json */; };
-		654F927E1C5ABC8900C76992 /* CocoaMarkdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654F927C1C5ABC8900C76992 /* CocoaMarkdown.framework */; };
 		654F92811C5ABFBD00C76992 /* ActionAlertControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654F92801C5ABFBD00C76992 /* ActionAlertControllerSpec.swift */; };
 		654FDBBB1BC1862800A082CF /* cssInjection.js in Resources */ = {isa = PBXBuildFile; fileRef = 654FDBBA1BC1862800A082CF /* cssInjection.js */; };
 		654FDBBD1BC1867F00A082CF /* feedbackGoogleFormOverrides.css in Resources */ = {isa = PBXBuildFile; fileRef = 654FDBBC1BC1867F00A082CF /* feedbackGoogleFormOverrides.css */; };
 		655906F41BC4607100D7B0BA /* FakeApplicationSettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655906F31BC4607100D7B0BA /* FakeApplicationSettingsRepository.swift */; };
 		6559D70F1BBDC37000CBC7EE /* FakeAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6559D70E1BBDC37000CBC7EE /* FakeAnalyticsService.swift */; };
-		655A011A1C5BC9A7004548A0 /* CocoaMarkdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655A01191C5BC9A7004548A0 /* CocoaMarkdown.framework */; };
 		655A3AD01B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655A3ACF1B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework */; };
 		655A3DB81BBCCE7400E08051 /* floss_licenses.html in Resources */ = {isa = PBXBuildFile; fileRef = 655A3DB71BBCCE7400E08051 /* floss_licenses.html */; };
 		656BC9661C70260D00CFA4EB /* tonybenn.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 656BC9651C70260D00CFA4EB /* tonybenn.jpg */; };
@@ -261,6 +259,8 @@
 		65D3C5401C5C507800317466 /* MarkdownConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D3C53F1C5C507800317466 /* MarkdownConverter.swift */; };
 		65D3C5421C5C514E00317466 /* FakeMarkdownConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D3C5411C5C514E00317466 /* FakeMarkdownConverter.swift */; };
 		65D3C5441C5C6B7400317466 /* CMMarkdownConverterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D3C5431C5C6B7400317466 /* CMMarkdownConverterSpec.swift */; };
+		65DA57C71C77F8D200D49826 /* CocoaMarkdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65DA57C51C77F8D200D49826 /* CocoaMarkdown.framework */; };
+		65DA57C91C77F8F000D49826 /* CocoaMarkdown.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 65DA57C61C77F8D200D49826 /* CocoaMarkdown.framework.dSYM */; };
 		65DE887E1BE31540001AEDD8 /* FakeTimeIntervalFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DE887D1BE31540001AEDD8 /* FakeTimeIntervalFormatter.swift */; };
 		65E06CAB1BCB30DC00BDDA61 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8233FC151B7C28FB00A5E9ED /* Images.xcassets */; };
 		65E33D801C46EB9A003464D9 /* PushNotificationHandlerDispatcherSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E33D7F1C46EB9A003464D9 /* PushNotificationHandlerDispatcherSpec.swift */; };
@@ -295,6 +295,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				65DA57C91C77F8F000D49826 /* CocoaMarkdown.framework.dSYM in Copy symbolication files */,
 				654D12961C3E0F4D000A2982 /* Bolts.framework.dSYM in Copy symbolication files */,
 				65937D231C4058DC003A1EFA /* CBGPromise.framework.dSYM in Copy symbolication files */,
 				654D12971C3E0F4F000A2982 /* Parse.framework.dSYM in Copy symbolication files */,
@@ -508,7 +509,6 @@
 		654D2F621C137A21001AA09B /* FakeNewsFeedTableViewCellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeNewsFeedTableViewCellPresenter.swift; sourceTree = "<group>"; };
 		654E27C01C18DB22005B6D2D /* videos.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = videos.json; sourceTree = "<group>"; };
 		654E27C21C18FF0B005B6D2D /* video_nasties.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = video_nasties.json; sourceTree = "<group>"; };
-		654F927C1C5ABC8900C76992 /* CocoaMarkdown.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CocoaMarkdown.framework; sourceTree = "<group>"; };
 		654F92801C5ABFBD00C76992 /* ActionAlertControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionAlertControllerSpec.swift; sourceTree = "<group>"; };
 		654FDBBA1BC1862800A082CF /* cssInjection.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = cssInjection.js; sourceTree = "<group>"; };
 		654FDBBC1BC1867F00A082CF /* feedbackGoogleFormOverrides.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = feedbackGoogleFormOverrides.css; sourceTree = "<group>"; };
@@ -516,7 +516,6 @@
 		655598051BFC2FFB00BCE1AB /* ConnectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ConnectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		655906F31BC4607100D7B0BA /* FakeApplicationSettingsRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeApplicationSettingsRepository.swift; sourceTree = "<group>"; };
 		6559D70E1BBDC37000CBC7EE /* FakeAnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeAnalyticsService.swift; sourceTree = "<group>"; };
-		655A01191C5BC9A7004548A0 /* CocoaMarkdown.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CocoaMarkdown.framework; sourceTree = "<group>"; };
 		655A3ACF1B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "UIKit+PivotalSpecHelper-iOS.framework"; sourceTree = "<group>"; };
 		655A3DB71BBCCE7400E08051 /* floss_licenses.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = floss_licenses.html; sourceTree = "<group>"; };
 		656BC9651C70260D00CFA4EB /* tonybenn.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tonybenn.jpg; sourceTree = "<group>"; };
@@ -578,6 +577,8 @@
 		65D3C53F1C5C507800317466 /* MarkdownConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkdownConverter.swift; sourceTree = "<group>"; };
 		65D3C5411C5C514E00317466 /* FakeMarkdownConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeMarkdownConverter.swift; sourceTree = "<group>"; };
 		65D3C5431C5C6B7400317466 /* CMMarkdownConverterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMMarkdownConverterSpec.swift; sourceTree = "<group>"; };
+		65DA57C51C77F8D200D49826 /* CocoaMarkdown.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaMarkdown.framework; path = Carthage/Build/iOS/CocoaMarkdown.framework; sourceTree = "<group>"; };
+		65DA57C61C77F8D200D49826 /* CocoaMarkdown.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = CocoaMarkdown.framework.dSYM; path = Carthage/Build/iOS/CocoaMarkdown.framework.dSYM; sourceTree = "<group>"; };
 		65DE887D1BE31540001AEDD8 /* FakeTimeIntervalFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeTimeIntervalFormatter.swift; sourceTree = "<group>"; };
 		65E33D7F1C46EB9A003464D9 /* PushNotificationHandlerDispatcherSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationHandlerDispatcherSpec.swift; sourceTree = "<group>"; };
 		65E33D811C46EC0D003464D9 /* PushNotificationHandlerDispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationHandlerDispatcher.swift; sourceTree = "<group>"; };
@@ -602,8 +603,6 @@
 				65494C5F1BFB8EBB00C1ECDB /* AudioToolbox.framework in Frameworks */,
 				654D12921C3E0F28000A2982 /* Bolts.framework in Frameworks */,
 				65937D211C4058AE003A1EFA /* CBGPromise.framework in Frameworks */,
-				655A011A1C5BC9A7004548A0 /* CocoaMarkdown.framework in Frameworks */,
-				654F927E1C5ABC8900C76992 /* CocoaMarkdown.framework in Frameworks */,
 				65A5C0FC1BA29F2200D46500 /* Crashlytics.framework in Frameworks */,
 				65A5C0FA1BA2978600D46500 /* Fabric.framework in Frameworks */,
 				654948DB1BFAFAE300C1ECDB /* libFlurry_7.3.0.a in Frameworks */,
@@ -612,6 +611,7 @@
 				65CA5E991B86E76D0001D870 /* PureLayout.framework in Frameworks */,
 				65B7815A1C4C58B90087699B /* Swinject.framework in Frameworks */,
 				654948D71BFADF9F00C1ECDB /* SystemConfiguration.framework in Frameworks */,
+				65DA57C71C77F8D200D49826 /* CocoaMarkdown.framework in Frameworks */,
 				65AD23AF1B96413200C32A02 /* WebImage.framework in Frameworks */,
 				65D08DC31C19201A0082FBC4 /* XCDYouTubeKit.framework in Frameworks */,
 			);
@@ -1217,7 +1217,6 @@
 			isa = PBXGroup;
 			children = (
 				654948CE1BFA797E00C1ECDB /* Flurry */,
-				655A01191C5BC9A7004548A0 /* CocoaMarkdown.framework */,
 				65A5C0FB1BA29F2200D46500 /* Crashlytics.framework */,
 				65A5C0F91BA2978600D46500 /* Fabric.framework */,
 			);
@@ -1246,6 +1245,8 @@
 		65EC4CF21B842A3D00DD4C83 /* Carthage */ = {
 			isa = PBXGroup;
 			children = (
+				65DA57C51C77F8D200D49826 /* CocoaMarkdown.framework */,
+				65DA57C61C77F8D200D49826 /* CocoaMarkdown.framework.dSYM */,
 				654D128E1C3E0F28000A2982 /* Bolts.framework */,
 				654D128F1C3E0F28000A2982 /* Bolts.framework.dSYM */,
 				65937D1F1C4058AE003A1EFA /* CBGPromise.framework */,
@@ -1611,7 +1612,7 @@
 				"$(PROJECT_DIR)/Carthage/Build/iOS/Bolts.framework",
 				"$(PROJECT_DIR)/Carthage/Build/iOS/CBGPromise.framework",
 				"$(PROJECT_DIR)/Carthage/Build/iOS/Swinject.framework",
-				"$(PROJECT_DIR)/Connect/Externals/CocoaMarkdown.framework",
+				"$(PROJECT_DIR)/Carthage/Build/iOS/CocoaMarkdown.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (

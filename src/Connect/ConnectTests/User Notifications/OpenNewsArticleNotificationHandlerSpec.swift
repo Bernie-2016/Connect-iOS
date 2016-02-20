@@ -68,7 +68,7 @@ class OpenNewsArticleNotificationHandlerSpec: QuickSpec {
 
                         let expectedController = newsFeedItemControllerProvider.controller
                         expect(newsNavigationController.topViewController).to(beIdenticalTo(expectedController))
-                        expect(newsNavigationController.viewControllers).to(equal([existingNewsController, expectedController]))
+                        expect(newsNavigationController.viewControllers) == [existingNewsController, expectedController]
                     }
                 }
 

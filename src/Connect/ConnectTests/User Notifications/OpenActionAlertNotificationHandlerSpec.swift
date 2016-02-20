@@ -68,7 +68,7 @@ class OpenActionAlertNotificationHandlerSpec: QuickSpec {
 
                         let expectedController = actionAlertControllerProvider.returnedController
                         expect(actionsNavigationController.topViewController).to(beIdenticalTo(expectedController))
-                        expect(actionsNavigationController.viewControllers).to(equal([existingActionController, expectedController]))
+                        expect(actionsNavigationController.viewControllers) == [existingActionController, expectedController]
                     }
                 }
 
