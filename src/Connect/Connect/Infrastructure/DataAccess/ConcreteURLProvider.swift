@@ -23,7 +23,7 @@ class ConcreteURLProvider: URLProvider {
     }
 
     func privacyPolicyURL() -> NSURL {
-        return NSURL(string: "https://www.iubenda.com/privacy-policy/128001")!
+        return NSURL(string: "https://berniesanders.com/privacy-policy/#post-424")!
     }
 
     func mapsURLForEvent(event: Event) -> NSURL {

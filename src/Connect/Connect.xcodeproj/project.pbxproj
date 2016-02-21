@@ -295,9 +295,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
-				65DA57C91C77F8F000D49826 /* CocoaMarkdown.framework.dSYM in Copy symbolication files */,
 				654D12961C3E0F4D000A2982 /* Bolts.framework.dSYM in Copy symbolication files */,
 				65937D231C4058DC003A1EFA /* CBGPromise.framework.dSYM in Copy symbolication files */,
+				65DA57C91C77F8F000D49826 /* CocoaMarkdown.framework.dSYM in Copy symbolication files */,
 				654D12971C3E0F4F000A2982 /* Parse.framework.dSYM in Copy symbolication files */,
 				65B165561B9747350052EF8D /* PureLayout.framework.dSYM in Copy symbolication files */,
 				65B7815C1C4C58D90087699B /* Swinject.framework.dSYM in Copy symbolication files */,
@@ -603,6 +603,7 @@
 				65494C5F1BFB8EBB00C1ECDB /* AudioToolbox.framework in Frameworks */,
 				654D12921C3E0F28000A2982 /* Bolts.framework in Frameworks */,
 				65937D211C4058AE003A1EFA /* CBGPromise.framework in Frameworks */,
+				65DA57C71C77F8D200D49826 /* CocoaMarkdown.framework in Frameworks */,
 				65A5C0FC1BA29F2200D46500 /* Crashlytics.framework in Frameworks */,
 				65A5C0FA1BA2978600D46500 /* Fabric.framework in Frameworks */,
 				654948DB1BFAFAE300C1ECDB /* libFlurry_7.3.0.a in Frameworks */,
@@ -611,7 +612,6 @@
 				65CA5E991B86E76D0001D870 /* PureLayout.framework in Frameworks */,
 				65B7815A1C4C58B90087699B /* Swinject.framework in Frameworks */,
 				654948D71BFADF9F00C1ECDB /* SystemConfiguration.framework in Frameworks */,
-				65DA57C71C77F8D200D49826 /* CocoaMarkdown.framework in Frameworks */,
 				65AD23AF1B96413200C32A02 /* WebImage.framework in Frameworks */,
 				65D08DC31C19201A0082FBC4 /* XCDYouTubeKit.framework in Frameworks */,
 			);
@@ -1245,12 +1245,12 @@
 		65EC4CF21B842A3D00DD4C83 /* Carthage */ = {
 			isa = PBXGroup;
 			children = (
-				65DA57C51C77F8D200D49826 /* CocoaMarkdown.framework */,
-				65DA57C61C77F8D200D49826 /* CocoaMarkdown.framework.dSYM */,
 				654D128E1C3E0F28000A2982 /* Bolts.framework */,
 				654D128F1C3E0F28000A2982 /* Bolts.framework.dSYM */,
 				65937D1F1C4058AE003A1EFA /* CBGPromise.framework */,
 				65937D201C4058AE003A1EFA /* CBGPromise.framework.dSYM */,
+				65DA57C51C77F8D200D49826 /* CocoaMarkdown.framework */,
+				65DA57C61C77F8D200D49826 /* CocoaMarkdown.framework.dSYM */,
 				65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */,
 				654D12901C3E0F28000A2982 /* Parse.framework */,
 				654D12911C3E0F28000A2982 /* Parse.framework.dSYM */,
