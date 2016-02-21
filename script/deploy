@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+set -e
+
+OUTPUT_DIR=/tmp/connect-ipa
+
+usage () { popd > /dev/null; echo "deploy <acceptance|release>"; exit 1; }
+
+pushd "src/Connect" > /dev/null
+
+mkdir -p OUTPUT_DIR
+
+if [ "$#" -ne 1 ]; then
+  usage
+fi
+
+if [ "$1" = "acceptance" ]; then
+  echo "Archiving and deploying to acceptance..."
+  gym -q Acceptance -o "$OUTPUT_DIR"
+elif [ "$1" = "release" ]; then
+  echo "Archiving and deploying to production..."
+  gym -q Release -o "$OUTPUT_DIR"
+else
+  usage
+fi
+
+pushd "$OUTPUT_DIR"
+
+deliver --ipa "Connect.ipa" --username "mikestallard@gmail.com" --skip_screenshots
+echo "Done!"
+
+popd > /dev/null
+popd > /dev/null
