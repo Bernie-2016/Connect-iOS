@@ -20,7 +20,8 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tabBar.barTintColor = self.theme.tabBarTintColor()
+        tabBar.translucent = false
+        tabBar.barTintColor = self.theme.tabBarTintColor()
     }
 
     override func viewWillAppear(animated: Bool) {
