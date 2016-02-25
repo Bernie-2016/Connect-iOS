@@ -23,35 +23,55 @@ class NavBarFakeTheme: FakeTheme {
     override func navigationBarButtonFont() -> UIFont {
         return UIFont.systemFontOfSize(42)
     }
+
+    override func navigationBarButtonTextColor() -> UIColor {
+        return UIColor.orangeColor()
+    }
+
+    override func navigationBarTintColor() -> UIColor {
+        return UIColor.blueColor()
+    }
 }
 
 class NavigationControllerSpec : QuickSpec {
-    var subject: NavigationController!
-
     override func spec() {
-        beforeEach {
-            let theme = NavBarFakeTheme()
-            self.subject = NavigationController(theme: theme)
-        }
+        describe("NavigationController") {
+            var subject: NavigationController!
 
-        describe("when the controller loads the view") {
             beforeEach {
-                self.subject.view.layoutIfNeeded()
+                let theme = NavBarFakeTheme()
+                subject = NavigationController(theme: theme)
             }
 
-            it("sets the navigation bar to be opaque") {
-                expect(self.subject.navigationBar.translucent).to(beFalse())
-            }
+            describe("when the controller loads the view") {
+                beforeEach {
+                    subject.view.layoutIfNeeded()
+                }
 
-            it("styles the navigation bar with the theme") {
-                let attributes = self.subject.navigationBar.titleTextAttributes!
-                let textColor = attributes[NSForegroundColorAttributeName] as! UIColor
-                let font = attributes[NSFontAttributeName] as! UIFont
+                it("sets the navigation bar to be opaque") {
+                    expect(subject.navigationBar.translucent).to(beFalse())
+                }
 
-                                expect(self.subject.navigationBar.barTintColor).to(equal(UIColor.brownColor()))
-                expect(textColor).to(equal(UIColor.magentaColor()))
-                expect(font).to(equal(UIFont.systemFontOfSize(666)))
-                expect(self.subject.view.backgroundColor).to(equal(UIColor.greenColor()))
+                it("styles the navigation bar with the theme") {
+                    let attributes = subject.navigationBar.titleTextAttributes!
+                    let textColor = attributes[NSForegroundColorAttributeName] as! UIColor
+                    let font = attributes[NSFontAttributeName] as! UIFont
+                    expect(subject.navigationBar.barTintColor) == UIColor.brownColor()
+                    expect(subject.navigationBar.tintColor) == UIColor.blueColor()
+                    expect(textColor) == UIColor.magentaColor()
+                    expect(font) == UIFont.systemFontOfSize(666)
+                    expect(subject.view.backgroundColor) == UIColor.greenColor()
+                }
+
+                it("styles the bar button item appearance with the theme") {
+                    let attributes = UIBarButtonItem.appearance().titleTextAttributesForState(.Normal)!
+
+                    let font = attributes[NSFontAttributeName] as! UIFont
+                    let textColor = attributes[NSForegroundColorAttributeName] as! UIColor
+
+                    expect(font) == UIFont.systemFontOfSize(42)
+                    expect(textColor) == UIColor.orangeColor()
+                }
             }
         }
     }

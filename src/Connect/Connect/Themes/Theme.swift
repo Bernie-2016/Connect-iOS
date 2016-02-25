@@ -34,9 +34,11 @@ protocol Theme {
     // MARK: Navigation Bar
 
     func navigationBarBackgroundColor() -> UIColor
+    func navigationBarTintColor() -> UIColor
     func navigationBarFont() -> UIFont
     func navigationBarTextColor() -> UIColor
     func navigationBarButtonFont() -> UIFont
+    func navigationBarButtonTextColor() -> UIColor
 
     // MARK: News Feed
 

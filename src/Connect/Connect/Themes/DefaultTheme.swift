@@ -29,10 +29,12 @@ class DefaultTheme: Theme {
     func tabBarInactiveTextColor() -> UIColor { return grayChateauColor }
 
     // MARK: Navigation Bar
-    func navigationBarBackgroundColor() -> UIColor { return chathamsBlueColor }
-    func navigationBarFont() -> UIFont { return UIFont.systemFontOfSize(16) }
+    func navigationBarTintColor() -> UIColor { return denimColor }
+    func navigationBarBackgroundColor() -> UIColor { return UIColor.whiteColor() }
+    func navigationBarFont() -> UIFont { return UIFont.boldSystemFontOfSize(16) }
     func navigationBarButtonFont() -> UIFont { return UIFont.systemFontOfSize(16) }
-    func navigationBarTextColor() -> UIColor { return UIColor.whiteColor()}
+    func navigationBarTextColor() -> UIColor { return coalMinerColor }
+    func navigationBarButtonTextColor() -> UIColor { return denimColor }
 
     // MARK: News Feed
     func newsFeedBackgroundColor() -> UIColor { return defaultBackgroundColor() }
@@ -183,6 +185,7 @@ class DefaultTheme: Theme {
     let chathamsBlueColor = UIColor(rgba: "#194d7b")
     let biscayColor = UIColor(rgba: "#163d5f")
     let galleryColor = UIColor(rgba: "#efefef")
+    let denimColor = UIColor(rgba: "#147fd7")
 
     // MARK: font definitions
 
@@ -226,6 +229,5 @@ class DefaultTheme: Theme {
             return UIFont.systemFontOfSize(size)
         }
     }
-
 }
 // swift:enable type_body_length

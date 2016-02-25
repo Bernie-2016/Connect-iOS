@@ -121,7 +121,7 @@ class EventsController: UIViewController, CLLocationManagerDelegate {
     }
 
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return UIStatusBarStyle.LightContent
+        return .Default
     }
 
     // MARK: Actions
