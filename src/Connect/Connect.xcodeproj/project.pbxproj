@@ -1932,6 +1932,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CONNECT_BASE_URL = "https://sanders-connect-staging.herokuapp.com/";
+				CURRENT_PROJECT_VERSION = 140;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1958,6 +1959,8 @@
 				SHARKNADO_BASE_URL = "https://elasticsearch.movementapp.io";
 				SWIFT_OBJC_BRIDGING_HEADER = "Connect/Connect-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_EXPORT_DECL = "#pragma clang diagnostic ignored \"-Wmissing-variable-declarations\"";
 				WARNING_CFLAGS = (
 					"-Weverything",
 					"-Wno-padded",
@@ -2094,6 +2097,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CONNECT_BASE_URL = "https://sanders-connect-staging.herokuapp.com/";
+				CURRENT_PROJECT_VERSION = 140;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2121,6 +2125,8 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Connect/Connect-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_EXPORT_DECL = "#pragma clang diagnostic ignored \"-Wmissing-variable-declarations\"";
 				WARNING_CFLAGS = (
 					"-Weverything",
 					"-Wno-padded",
@@ -2139,6 +2145,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CONNECT_BASE_URL = "https://connect.berniesanders.com/";
+				CURRENT_PROJECT_VERSION = 140;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2165,6 +2172,8 @@
 				SHARKNADO_BASE_URL = "https://elasticsearch.movementapp.io";
 				SWIFT_OBJC_BRIDGING_HEADER = "Connect/Connect-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_EXPORT_DECL = "#pragma clang diagnostic ignored \"-Wmissing-variable-declarations\"";
 				WARNING_CFLAGS = (
 					"-Weverything",
 					"-Wno-padded",
