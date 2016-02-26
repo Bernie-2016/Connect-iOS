@@ -49,7 +49,7 @@ class NewsFeedControllerSpecs: QuickSpec {
             }
 
             it("should set the back bar button item title correctly") {
-                expect(subject.navigationItem.backBarButtonItem?.title).to(equal("Back"))
+                expect(subject.navigationItem.backBarButtonItem?.title) == ""
             }
 
             it("uses the tab bar item stylist to style its tab bar item") {

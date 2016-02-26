@@ -68,7 +68,8 @@ class NewsArticleControllerSpec : QuickSpec {
 
                     it("has a share button on the navigation item") {
                         let shareBarButtonItem = subject.navigationItem.rightBarButtonItem!
-                        expect(shareBarButtonItem.title).to(equal("Share"))
+
+                        expect(shareBarButtonItem.image!) == UIImage(named: "navBarShareButton")
                     }
 
                     it("sets up the body text view not to be editable") {

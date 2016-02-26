@@ -67,12 +67,7 @@ class EventController: UIViewController {
         mapView.setRegion(coordinateRegion, animated: true)
         mapView.addAnnotation(eventPin)
 
-        let backBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Event_backButtonTitle", comment: ""),
-            style: UIBarButtonItemStyle.Plain,
-            target: nil, action: nil)
-
-        navigationItem.backBarButtonItem = backBarButtonItem
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Global_share", comment: ""), style: .Plain, target: self, action: "share")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "navBarShareButton"), style: .Plain, target: self, action: "share")
         navigationItem.title = NSLocalizedString("Event_navigationTitle", comment: "")
 
         directionsButton.addTarget(self, action: "didTapDirections", forControlEvents: .TouchUpInside)

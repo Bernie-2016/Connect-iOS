@@ -39,7 +39,7 @@ class SettingsControllerSpec : QuickSpec {
             }
 
             it("should set the back bar button item title correctly") {
-                expect(subject.navigationItem.backBarButtonItem?.title).to(equal("Back"))
+                expect(subject.navigationItem.backBarButtonItem?.title) == ""
             }
 
             it("tracks taps on the back button with the analytics service") {

@@ -52,6 +52,10 @@ class ActionsControllerSpec: QuickSpec {
                     expect(subject.title).to(equal("Connect"))
                 }
 
+                it("should set the back bar button item title correctly") {
+                    expect(subject.navigationItem.backBarButtonItem?.title).to(equal(""))
+                }
+
                 it("uses the tab bar item stylist to style its tab bar item") {
                     expect(tabBarItemStylist.lastReceivedTabBarItem).to(beIdenticalTo(subject.tabBarItem))
 

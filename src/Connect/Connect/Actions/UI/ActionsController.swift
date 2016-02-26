@@ -52,6 +52,12 @@ class ActionsController: UIViewController {
         view.addSubview(tableView)
         view.addSubview(loadingIndicatorView)
 
+        let backBarButtonItem = UIBarButtonItem(title: NSLocalizedString("NewsFeed_backButtonTitle", comment: ""),
+            style: UIBarButtonItemStyle.Plain,
+            target: nil, action: nil)
+
+        navigationItem.backBarButtonItem = backBarButtonItem
+
         tableView.hidden = true
         tableView.dataSource = self
         tableView.delegate = self

@@ -77,7 +77,7 @@ class EventsControllerSpec : QuickSpec {
             }
 
             it("should set the back bar button item title correctly") {
-                expect(subject.navigationItem.backBarButtonItem?.title).to(equal("Events"))
+                expect(subject.navigationItem.backBarButtonItem?.title) == ""
             }
 
             it("uses the tab bar item stylist to style its tab bar item") {

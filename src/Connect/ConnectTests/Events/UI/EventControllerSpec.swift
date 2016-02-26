@@ -73,11 +73,8 @@ class EventControllerSpec: QuickSpec {
 
                 it("has a share button on the navigation item") {
                     let shareBarButtonItem = self.subject.navigationItem.rightBarButtonItem!
-                    expect(shareBarButtonItem.title).to(equal("Share"))
-                }
 
-                it("should set the back bar button item title correctly") {
-                    expect(self.subject.navigationItem.backBarButtonItem?.title).to(equal("Back"))
+                    expect(shareBarButtonItem.image!) == UIImage(named: "navBarShareButton")
                 }
 
                 describe("tapping on the share button") {

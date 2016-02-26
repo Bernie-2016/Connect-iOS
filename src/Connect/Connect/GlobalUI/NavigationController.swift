@@ -29,6 +29,9 @@ class NavigationController: UINavigationController {
             NSForegroundColorAttributeName: theme.navigationBarButtonTextColor(),
             NSFontAttributeName: theme.navigationBarButtonFont()], forState: .Normal
         )
+
+        navigationBar.backIndicatorImage = UIImage(named: "BackArrow")
+        navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "BackArrow")
     }
 
     override func preferredStatusBarStyle() -> UIStatusBarStyle {

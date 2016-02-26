@@ -72,6 +72,15 @@ class NavigationControllerSpec : QuickSpec {
                     expect(font) == UIFont.systemFontOfSize(42)
                     expect(textColor) == UIColor.orangeColor()
                 }
+
+                it("sets the back button image on the navigation bar") {
+                    let expectedImage = UIImage(named: "BackArrow")
+                    let actualImage = subject.navigationBar.backIndicatorImage
+                    let actualTransitionImage = subject.navigationBar.backIndicatorTransitionMaskImage
+
+                    expect(actualImage) == expectedImage
+                    expect(actualTransitionImage) == expectedImage
+                }
             }
         }
     }
