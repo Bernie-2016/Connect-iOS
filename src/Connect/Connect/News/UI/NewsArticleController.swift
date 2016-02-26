@@ -148,7 +148,7 @@ class NewsArticleController: UIViewController {
     // swiftlint:disable function_body_length
     private func setupConstraintsAndLayout() {
         let defaultHorizontalMargin: CGFloat = 15
-        let defaultVerticalMargin: CGFloat = 21
+        let defaultVerticalMargin: CGFloat = 14
 
         let screenBounds = UIScreen.mainScreen().bounds
 
@@ -188,7 +188,7 @@ class NewsArticleController: UIViewController {
         bodyTextView.textContainer.lineFragmentPadding = 0
         bodyTextView.editable = false
 
-        bodyTextView.autoPinEdge(.Top, toEdge: .Bottom, ofView: dateLabel, withOffset: 10)
+        bodyTextView.autoPinEdge(.Top, toEdge: .Bottom, ofView: dateLabel, withOffset: defaultVerticalMargin - 14)
         bodyTextView.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
         bodyTextView.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
 
@@ -200,7 +200,7 @@ class NewsArticleController: UIViewController {
         attributionLabel.numberOfLines = 0
         attributionLabel.textAlignment = .Center
         attributionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: viewOriginalButton, withOffset: 16)
-        attributionLabel.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsets(top: 0, left: defaultHorizontalMargin, bottom: defaultHorizontalMargin, right: defaultVerticalMargin), excludingEdge: .Top)
+        attributionLabel.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsets(top: 0, left: defaultHorizontalMargin, bottom: defaultVerticalMargin, right: defaultHorizontalMargin), excludingEdge: .Top)
     }
     // swiftlint:enable function_body_length
 
