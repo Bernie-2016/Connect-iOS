@@ -83,10 +83,10 @@ class DefaultTheme: Theme {
     func eventsListDateFont() -> UIFont { return tinyTextFont() }
     func eventsListDateColor() -> UIColor { return tinyTextColor() }
     func eventsSearchBarBackgroundColor() -> UIColor { return navigationBarBackgroundColor() }
-    func eventsZipCodeTextColor() -> UIColor { return UIColor.whiteColor() }
+    func eventsZipCodeTextColor() -> UIColor { return grayChateauColor }
     func eventsZipCodePlaceholderTextColor() -> UIColor { return grayChateauColor }
-    func eventsZipCodeBackgroundColor() -> UIColor { return biscayColor }
-    func eventsZipCodeBorderColor() -> UIColor { return biscayColor }
+    func eventsZipCodeBackgroundColor() -> UIColor { return defaultBackgroundColor() }
+    func eventsZipCodeBorderColor() -> UIColor { return defaultBackgroundColor() }
     func eventsSearchBarFont() -> UIFont { return h3HeaderFont() }
     func eventsZipCodeCornerRadius() -> CGFloat { return self.defaultCornerRadius() }
     func eventsZipCodeBorderWidth() -> CGFloat { return self.defaultBorderWidth() }

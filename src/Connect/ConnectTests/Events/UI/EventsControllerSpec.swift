@@ -164,6 +164,7 @@ class EventsControllerSpec : QuickSpec {
                 expect(subject.zipCodeTextField.layer.sublayerTransform.m42).to(equal(5))
                 expect(subject.zipCodeTextField.layer.sublayerTransform.m43).to(equal(6))
 
+                expect(subject.searchButton.titleColorForState(.Normal)).to(equal(UIColor(rgba: "#111111")))
                 expect(subject.searchButton.titleColorForState(.Disabled)).to(equal(UIColor(rgba: "#abcdef")))
                 expect(subject.searchButton.titleLabel!.font).to(equal(UIFont.boldSystemFontOfSize(4444)))
                 expect(subject.cancelButton.titleLabel!.font).to(equal(UIFont.boldSystemFontOfSize(4444)))
@@ -902,6 +903,10 @@ private class EventsFakeTheme : FakeTheme {
 
     override func defaultButtonDisabledTextColor() -> UIColor {
         return UIColor(rgba: "#abcdef")
+    }
+
+    override func navigationBarButtonTextColor()  -> UIColor {
+        return UIColor(rgba: "#111111")
     }
 }
 

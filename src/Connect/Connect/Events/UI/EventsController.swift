@@ -306,6 +306,7 @@ class EventsController: UIViewController, CLLocationManagerDelegate {
         cancelButton.hidden = true
         cancelButton.addTarget(self, action: "didTapCancel:", forControlEvents: .TouchUpInside)
         searchButton.setTitleColor(theme.defaultButtonDisabledTextColor(), forState: .Disabled)
+        searchButton.setTitleColor(theme.navigationBarButtonTextColor(), forState: .Normal)
 
         filterButton.setImage(UIImage(named: "filterIcon"), forState: .Normal)
         filterButton.setTitleColor(self.theme.eventsZipCodeTextColor(), forState: .Normal)
