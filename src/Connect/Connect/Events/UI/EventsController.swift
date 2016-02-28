@@ -220,6 +220,7 @@ class EventsController: UIViewController, CLLocationManagerDelegate {
     }
 
     func didTapLocate(sender: UIButton!) {
+        didTapCancel(sender)
         locationManager.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {
             requestLocation()
@@ -520,6 +521,7 @@ class EventsController: UIViewController, CLLocationManagerDelegate {
 
                 if placemarks!.count > 0 {
                     if let postalCode = placemarks![0].postalCode {
+                        self.originalZipText = postalCode
                         self.zipCodeTextField.text = postalCode
                         self.searchButton.enabled = true
                         self.performSearchWithZipCode(postalCode)
