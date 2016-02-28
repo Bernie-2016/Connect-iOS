@@ -43,6 +43,7 @@ class EventsController: UIViewController, CLLocationManagerDelegate {
     private var searchButtonZipCodeConstraint: NSLayoutConstraint!
     private var cancelButtonZipCodeConstraint: NSLayoutConstraint!
     private var filterButtonZipCodeConstraint: NSLayoutConstraint!
+    private var originalZipText = ""
 
     init(eventService: EventService,
         eventPresenter: EventPresenter,
@@ -172,26 +173,30 @@ class EventsController: UIViewController, CLLocationManagerDelegate {
     }
 
     func didTapCancel(sender: UIButton!) {
-        self.searchButton.hidden = true
-        self.cancelButton.hidden = true
-        self.zipCodeTextField.hidden = false
+        zipCodeTextField.text = originalZipText
 
-        self.view.layoutIfNeeded()
+        searchButton.hidden = true
+        cancelButton.hidden = true
+        zipCodeTextField.hidden = false
 
-        self.searchButtonZipCodeConstraint.active = false
-        self.cancelButtonZipCodeConstraint.active = false
-        self.filterButtonZipCodeConstraint.active = self.eventSearchResult != nil
+        view.layoutIfNeeded()
 
-        self.analyticsService.trackCustomEventWithName("Cancelled ZIP Code search on Events", customAttributes: nil)
+        searchButtonZipCodeConstraint.active = false
+        cancelButtonZipCodeConstraint.active = false
+        filterButtonZipCodeConstraint.active = self.eventSearchResult != nil
+
+        analyticsService.trackCustomEventWithName("Cancelled ZIP Code search on Events", customAttributes: nil)
+
         UIView.animateWithDuration(0.2, animations: { () -> Void in
             self.view.layoutIfNeeded()
             }) { (finished) -> Void in
                 self.filterButton.hidden = self.eventSearchResult == nil
         }
-        self.zipCodeTextField.resignFirstResponder()
-        self.filterButton.resignFirstResponder()
-        self.radiusPickerView.selectRow(self.previouslySelectedRow, inComponent: 0, animated: false)
-        self.selectedSearchRadiusIndex = self.previouslySelectedRow
+
+        zipCodeTextField.resignFirstResponder()
+        filterButton.resignFirstResponder()
+        radiusPickerView.selectRow(self.previouslySelectedRow, inComponent: 0, animated: false)
+        selectedSearchRadiusIndex = self.previouslySelectedRow
     }
 
     func didTapOrganize(recognizer: UIGestureRecognizer) {
@@ -302,11 +307,14 @@ class EventsController: UIViewController, CLLocationManagerDelegate {
         searchButton.setTitle(NSLocalizedString("Events_eventSearchButtonTitle", comment: ""), forState: .Normal)
         searchButton.hidden = true
         searchButton.addTarget(self, action: "didTapSearch:", forControlEvents: .TouchUpInside)
+        searchButton.setTitleColor(theme.defaultButtonDisabledTextColor(), forState: .Disabled)
+        searchButton.setTitleColor(theme.navigationBarButtonTextColor(), forState: .Normal)
+
         cancelButton.setTitle(NSLocalizedString("Events_eventCancelButtonTitle", comment: ""), forState: .Normal)
         cancelButton.hidden = true
         cancelButton.addTarget(self, action: "didTapCancel:", forControlEvents: .TouchUpInside)
-        searchButton.setTitleColor(theme.defaultButtonDisabledTextColor(), forState: .Disabled)
-        searchButton.setTitleColor(theme.navigationBarButtonTextColor(), forState: .Normal)
+        cancelButton.setTitleColor(theme.defaultButtonDisabledTextColor(), forState: .Disabled)
+        cancelButton.setTitleColor(theme.navigationBarButtonTextColor(), forState: .Normal)
 
         filterButton.setImage(UIImage(named: "filterIcon"), forState: .Normal)
         filterButton.setTitleColor(self.theme.eventsZipCodeTextColor(), forState: .Normal)
@@ -606,10 +614,12 @@ extension EventsController: UITableViewDelegate {
 // MARK: <UITextFieldDelegate>
 extension EventsController: UITextFieldDelegate {
     func textFieldDidBeginEditing(textField: UITextField) {
-        self.view.layoutIfNeeded()
+        view.layoutIfNeeded()
 
-        self.searchButtonZipCodeConstraint.active = true
-        self.cancelButtonZipCodeConstraint.active = true
+        originalZipText = textField.text!
+
+        searchButtonZipCodeConstraint.active = true
+        cancelButtonZipCodeConstraint.active = true
 
         UIView.animateWithDuration(0.2, animations: { () -> Void in
             self.view.layoutIfNeeded()

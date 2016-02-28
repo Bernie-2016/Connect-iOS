@@ -167,6 +167,9 @@ class EventsControllerSpec : QuickSpec {
                 expect(subject.searchButton.titleColorForState(.Normal)).to(equal(UIColor(rgba: "#111111")))
                 expect(subject.searchButton.titleColorForState(.Disabled)).to(equal(UIColor(rgba: "#abcdef")))
                 expect(subject.searchButton.titleLabel!.font).to(equal(UIFont.boldSystemFontOfSize(4444)))
+
+                expect(subject.cancelButton.titleColorForState(.Normal)).to(equal(UIColor(rgba: "#111111")))
+                expect(subject.cancelButton.titleColorForState(.Disabled)).to(equal(UIColor(rgba: "#abcdef")))
                 expect(subject.cancelButton.titleLabel!.font).to(equal(UIFont.boldSystemFontOfSize(4444)))
 
                 let borderColor = UIColor(CGColor: subject.zipCodeTextField.layer.borderColor!)
@@ -331,11 +334,17 @@ class EventsControllerSpec : QuickSpec {
 
                 describe("aborting a search") {
                     beforeEach {
+                        subject.textFieldDidBeginEditing(subject.zipCodeTextField)
+                        subject.zipCodeTextField.text = "90211"
                         subject.cancelButton.tap()
                     }
 
                     it("should resign first responder") {
                         expect(subject.zipCodeTextField.isFirstResponder()).to(beFalse())
+                    }
+
+                    it("should restore the text to the unedited version") {
+                        expect(subject.zipCodeTextField.text) == "90210"
                     }
 
                     it("should log an event via the analytics service") {
