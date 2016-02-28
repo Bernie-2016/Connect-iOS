@@ -25,7 +25,7 @@ class DefaultTheme: Theme {
 
     func tabBarTintColor() -> UIColor { return UIColor.whiteColor()     }
     func tabBarFont() -> UIFont { return UIFont.systemFontOfSize(11) }
-    func tabBarActiveTextColor() -> UIColor { return calypsoColor }
+    func tabBarActiveTextColor() -> UIColor { return denimColor }
     func tabBarInactiveTextColor() -> UIColor { return grayChateauColor }
 
     // MARK: Navigation Bar
@@ -64,7 +64,7 @@ class DefaultTheme: Theme {
     func videoDescriptionColor() -> UIColor { return defaultBodyTextColor() }
 
     // MARK: buttons
-    func defaultButtonBackgroundColor() -> UIColor { return chathamsBlueColor }
+    func defaultButtonBackgroundColor() -> UIColor { return denimColor }
     func defaultButtonTextColor() -> UIColor { return UIColor.whiteColor() }
     func defaultButtonDisabledTextColor() -> UIColor { return grayChateauColor }
     func defaultButtonFont() -> UIFont { return h2HeaderFont() }
@@ -74,7 +74,7 @@ class DefaultTheme: Theme {
     func settingsTitleFont() -> UIFont { return h3HeaderFont() }
     func settingsTitleColor() -> UIColor { return h3HeaderTextColor() }
     func settingsAnalyticsFont() -> UIFont { return UIFont.systemFontOfSize(13) }
-    func settingsSwitchColor() -> UIColor { return chathamsBlueColor }
+    func settingsSwitchColor() -> UIColor { return denimColor }
 
     // MARK: Events
 
@@ -114,7 +114,7 @@ class DefaultTheme: Theme {
     func eventDirectionsButtonTextColor() -> UIColor { return h3HeaderTextColor() }
     func eventDirectionsButtonFont() -> UIFont { return h3HeaderFont() }
     func eventRSVPButtonTextColor() -> UIColor { return UIColor.whiteColor() }
-    func eventRSVPButtonBackgroundColor() -> UIColor { return navigationBarBackgroundColor() }
+    func eventRSVPButtonBackgroundColor() -> UIColor { return denimColor }
     func eventRSVPButtonFont() -> UIFont { return h3HeaderFont() }
     func eventBackgroundColor() -> UIColor { return defaultBackgroundColor() }
     func eventTypeFont() -> UIFont { return subHeadingFont() }
@@ -158,7 +158,7 @@ class DefaultTheme: Theme {
     func actionAlertH6Font() -> UIFont { return h6HeaderFont() }
     func actionAlertBodyFont() -> UIFont { return defaultBodyTextFont() }
     func actionAlertBodyTextColor() -> UIColor { return defaultBodyTextColor() }
-    func actionAlertBodyLinkTextColor() -> UIColor { return chathamsBlueColor }
+    func actionAlertBodyLinkTextColor() -> UIColor { return denimColor }
     func actionAlertShareButtonFont() -> UIFont { return defaultButtonFont() }
     func actionAlertShareButtonTextColor() -> UIColor { return defaultButtonTextColor() }
     func actionAlertShareButtonBorderColor() -> UIColor { return defaultButtonTextColor() }
@@ -179,11 +179,8 @@ class DefaultTheme: Theme {
     let boulderColor = UIColor(rgba: "#7a7a7a")
     let arachnidColor = UIColor(rgba: "#5a5a5a")
     let grayChateauColor = UIColor(rgba: "#969EA6")
-    let calypsoColor = UIColor(rgba: "#396899")
     let seaShellColor = UIColor(rgba: "#f1f1f1")
     let doveGreyColor = UIColor(rgba: "#6d6d6d")
-    let chathamsBlueColor = UIColor(rgba: "#194d7b")
-    let biscayColor = UIColor(rgba: "#163d5f")
     let galleryColor = UIColor(rgba: "#efefef")
     let denimColor = UIColor(rgba: "#147fd7")
 
