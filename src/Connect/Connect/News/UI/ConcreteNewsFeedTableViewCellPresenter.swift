@@ -1,6 +1,5 @@
 import Foundation
 
-
 class ConcreteNewsFeedTableViewCellPresenter: NewsFeedTableViewCellPresenter {
     private let articlePresenter: NewsFeedTableViewCellPresenter!
     private let videoPresenter: NewsFeedTableViewCellPresenter!
@@ -11,15 +10,15 @@ class ConcreteNewsFeedTableViewCellPresenter: NewsFeedTableViewCellPresenter {
     }
 
     func setupTableView(tableView: UITableView) {
-        self.articlePresenter.setupTableView(tableView)
-        self.videoPresenter.setupTableView(tableView)
+        articlePresenter.setupTableView(tableView)
+        videoPresenter.setupTableView(tableView)
     }
 
     func cellForTableView(tableView: UITableView, newsFeedItem: NewsFeedItem, indexPath: NSIndexPath) -> UITableViewCell {
         if newsFeedItem is Video {
-            return self.videoPresenter.cellForTableView(tableView, newsFeedItem: newsFeedItem, indexPath: indexPath)
+            return videoPresenter.cellForTableView(tableView, newsFeedItem: newsFeedItem, indexPath: indexPath)
         } else {
-            return self.articlePresenter.cellForTableView(tableView, newsFeedItem: newsFeedItem, indexPath: indexPath)
+            return articlePresenter.cellForTableView(tableView, newsFeedItem: newsFeedItem, indexPath: indexPath)
         }
     }
 }

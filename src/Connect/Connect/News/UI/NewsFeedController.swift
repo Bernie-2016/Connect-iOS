@@ -1,6 +1,4 @@
 import UIKit
-import XCDYouTubeKit
-
 
 class NewsFeedController: UIViewController {
     private let newsFeedService: NewsFeedService
@@ -130,17 +128,10 @@ extension NewsFeedController: UITableViewDataSource {
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if errorLoadingNews {
-            return 1
-        }
-
-        if newsFeedItems.count == 0 {
-            return 0
-        }
-
+        if errorLoadingNews { return 1 }
+        if newsFeedItems.count == 0 { return 0 }
         return newsFeedItems.count
     }
-
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if errorLoadingNews {
@@ -169,7 +160,6 @@ extension NewsFeedController: UITableViewDelegate {
         analyticsService.trackContentViewWithName(newsFeedItem.title, type: .NewsArticle, identifier: newsFeedItem.identifier)
 
         let controller = newsFeedItemControllerProvider.provideInstanceWithNewsFeedItem(newsFeedItem)
-
         navigationController?.pushViewController(controller, animated: true)
     }
 }
