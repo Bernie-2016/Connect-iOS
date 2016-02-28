@@ -174,6 +174,7 @@ class EventsController: UIViewController, CLLocationManagerDelegate {
 
     func didTapCancel(sender: UIButton!) {
         zipCodeTextField.text = originalZipText
+        searchButton.enabled = zipCodeValidator.validate(zipCodeTextField.text!)
 
         searchButton.hidden = true
         cancelButton.hidden = true

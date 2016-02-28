@@ -335,7 +335,11 @@ class EventsControllerSpec : QuickSpec {
                 describe("aborting a search") {
                     beforeEach {
                         subject.textFieldDidBeginEditing(subject.zipCodeTextField)
-                        subject.zipCodeTextField.text = "90211"
+                        subject.zipCodeTextField.text = "999"
+                        subject.searchButton.enabled = false
+
+                        zipCodeValidator.reset()
+
                         subject.cancelButton.tap()
                     }
 
@@ -358,6 +362,11 @@ class EventsControllerSpec : QuickSpec {
 
                     it("should hide the cancel button") {
                         expect(subject.cancelButton.hidden).to(beTrue())
+                    }
+
+                    it("should re-validate the original zip code and use the validation result on the text field") {
+                        expect(zipCodeValidator.lastReceivedZipCode) == "90210"
+                        expect(subject.searchButton.enabled) == true
                     }
                 }
 
@@ -995,6 +1004,10 @@ private class FakeEventService: EventService {
 private class FakeZipCodeValidator: ZipCodeValidator {
     var lastReceivedZipCode: NSString!
     var returnedValidationResult = true
+
+    func reset() {
+        lastReceivedZipCode = nil
+    }
 
     private func validate(zip: String) -> Bool {
         lastReceivedZipCode = zip
