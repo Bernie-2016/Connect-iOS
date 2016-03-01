@@ -86,7 +86,7 @@ class NewsContainerConfigurator: ContainerConfigurator {
             return NewsFeedController(
                 newsFeedService: resolver.resolve(NewsFeedService.self)!,
                 newsFeedItemControllerProvider: resolver.resolve(NewsFeedItemControllerProvider.self)!,
-                newsFeedTableViewCellPresenter: resolver.resolve(NewsFeedTableViewCellPresenter.self, name: "feed")!,
+                newsFeedCollectionViewCellPresenter: resolver.resolve(NewsFeedCollectionViewCellPresenter.self)!,
                 analyticsService: resolver.resolve(AnalyticsService.self)!,
                 tabBarItemStylist: resolver.resolve(TabBarItemStylist.self)!,
                 mainQueue: resolver.resolve(NSOperationQueue.self, name: "main")!,
@@ -98,6 +98,10 @@ class NewsContainerConfigurator: ContainerConfigurator {
             let newsFeedController = resolver.resolve(NewsFeedController.self)!
             navigationController.pushViewController(newsFeedController, animated: false)
             return navigationController
+        }
+
+        container.register(NewsFeedCollectionViewCellPresenter.self) { resolver in
+            return StockNewsFeedCollectionViewCellPresenter()
         }
     }
     // swiftlint:enable function_body_length

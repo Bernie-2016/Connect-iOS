@@ -242,6 +242,8 @@
 		65B97D571C459C9800F2F6B3 /* UserNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B97D561C459C9800F2F6B3 /* UserNotificationHandler.swift */; };
 		65BF649E1C573C8000B825E7 /* ZipCodeValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BF649D1C573C8000B825E7 /* ZipCodeValidator.swift */; };
 		65BF64A01C573CC200B825E7 /* ZipCodeValidatorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BF649F1C573CC200B825E7 /* ZipCodeValidatorSpec.swift */; };
+		65C1477C1C84E5A400D9B78A /* NewsFeedCollectionViewCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C1477B1C84E5A400D9B78A /* NewsFeedCollectionViewCellPresenter.swift */; };
+		65C1477E1C84E6B300D9B78A /* NewsFeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C1477D1C84E6B300D9B78A /* NewsFeedCollectionViewCell.swift */; };
 		65C246821C5AB282007B2A48 /* ActionAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C246811C5AB282007B2A48 /* ActionAlertController.swift */; };
 		65C246841C5AB29F007B2A48 /* ActionAlertControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C246831C5AB29F007B2A48 /* ActionAlertControllerProvider.swift */; };
 		65CA5E851B86CA930001D870 /* SpecAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CA5E841B86CA930001D870 /* SpecAppDelegate.swift */; };
@@ -560,6 +562,8 @@
 		65B97D561C459C9800F2F6B3 /* UserNotificationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserNotificationHandler.swift; sourceTree = "<group>"; };
 		65BF649D1C573C8000B825E7 /* ZipCodeValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ZipCodeValidator.swift; path = UI/ZipCodeValidator.swift; sourceTree = "<group>"; };
 		65BF649F1C573CC200B825E7 /* ZipCodeValidatorSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZipCodeValidatorSpec.swift; sourceTree = "<group>"; };
+		65C1477B1C84E5A400D9B78A /* NewsFeedCollectionViewCellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFeedCollectionViewCellPresenter.swift; sourceTree = "<group>"; };
+		65C1477D1C84E6B300D9B78A /* NewsFeedCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFeedCollectionViewCell.swift; sourceTree = "<group>"; };
 		65C246811C5AB282007B2A48 /* ActionAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionAlertController.swift; sourceTree = "<group>"; };
 		65C246831C5AB29F007B2A48 /* ActionAlertControllerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionAlertControllerProvider.swift; sourceTree = "<group>"; };
 		65CA5E841B86CA930001D870 /* SpecAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecAppDelegate.swift; sourceTree = "<group>"; };
@@ -748,6 +752,8 @@
 				653D0F071C4C2B8B004CB8A0 /* NewsArticleControllerProvider.swift */,
 				653D0F091C4C2B8B004CB8A0 /* NewsArticleTableViewCell.swift */,
 				653D0F0A1C4C2B8B004CB8A0 /* NewsFeedArticlePresenter.swift */,
+				65C1477D1C84E6B300D9B78A /* NewsFeedCollectionViewCell.swift */,
+				65C1477B1C84E5A400D9B78A /* NewsFeedCollectionViewCellPresenter.swift */,
 				653D0F0B1C4C2B8B004CB8A0 /* NewsFeedController.swift */,
 				653D0F0C1C4C2B8B004CB8A0 /* NewsFeedTableViewCellPresenter.swift */,
 				653D0F0D1C4C2B8B004CB8A0 /* NewsFeedVideoPresenter.swift */,
@@ -1714,6 +1720,8 @@
 				653D0F181C4C2B8B004CB8A0 /* NewsArticleTableViewCell.swift in Sources */,
 				65979AAA1C4C767D00A312A9 /* NewsContainerConfigurator.swift in Sources */,
 				653D0F191C4C2B8B004CB8A0 /* NewsFeedArticlePresenter.swift in Sources */,
+				65C1477E1C84E6B300D9B78A /* NewsFeedCollectionViewCell.swift in Sources */,
+				65C1477C1C84E5A400D9B78A /* NewsFeedCollectionViewCellPresenter.swift in Sources */,
 				653D0F1A1C4C2B8B004CB8A0 /* NewsFeedController.swift in Sources */,
 				653D0F001C4C2B84004CB8A0 /* NewsFeedItem.swift in Sources */,
 				653D0EFA1C4C2B7D004CB8A0 /* NewsFeedService.swift in Sources */,

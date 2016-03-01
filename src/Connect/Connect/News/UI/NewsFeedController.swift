@@ -2,7 +2,7 @@ import UIKit
 
 class NewsFeedController: UIViewController {
     private let newsFeedService: NewsFeedService
-    private let newsFeedTableViewCellPresenter: NewsFeedTableViewCellPresenter
+    private let newsFeedCollectionViewCellPresenter: NewsFeedCollectionViewCellPresenter
     private let newsFeedItemControllerProvider: NewsFeedItemControllerProvider
     private let analyticsService: AnalyticsService
     private let tabBarItemStylist: TabBarItemStylist
@@ -11,7 +11,7 @@ class NewsFeedController: UIViewController {
 
     private var errorLoadingNews = false
 
-    let tableView = UITableView.newAutoLayoutView()
+    let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
     let refreshControl = UIRefreshControl()
     let loadingIndicatorView = UIActivityIndicatorView.newAutoLayoutView()
 
@@ -19,14 +19,14 @@ class NewsFeedController: UIViewController {
 
     init(newsFeedService: NewsFeedService,
          newsFeedItemControllerProvider: NewsFeedItemControllerProvider,
-         newsFeedTableViewCellPresenter: NewsFeedTableViewCellPresenter,
+         newsFeedCollectionViewCellPresenter: NewsFeedCollectionViewCellPresenter,
          analyticsService: AnalyticsService,
          tabBarItemStylist: TabBarItemStylist,
          mainQueue: NSOperationQueue,
          theme: Theme) {
             self.newsFeedService = newsFeedService
             self.newsFeedItemControllerProvider = newsFeedItemControllerProvider
-            self.newsFeedTableViewCellPresenter = newsFeedTableViewCellPresenter
+            self.newsFeedCollectionViewCellPresenter = newsFeedCollectionViewCellPresenter
             self.analyticsService = analyticsService
             self.tabBarItemStylist = tabBarItemStylist
             self.mainQueue = mainQueue
@@ -62,24 +62,24 @@ class NewsFeedController: UIViewController {
         navigationItem.backBarButtonItem = backBarButtonItem
 
         refreshControl.addTarget(self, action:"refresh", forControlEvents:.ValueChanged)
-        tableView.addSubview(refreshControl)
-        tableView.sendSubviewToBack(refreshControl)
-        view.addSubview(tableView)
+        collectionView.addSubview(refreshControl)
+        collectionView.sendSubviewToBack(refreshControl)
+        view.addSubview(collectionView)
         view.addSubview(loadingIndicatorView)
 
-        tableView.separatorStyle = .None
-        tableView.contentInset = UIEdgeInsetsZero
-        tableView.layoutMargins = UIEdgeInsetsZero
-        tableView.separatorInset = UIEdgeInsetsZero
-        tableView.hidden = true
-        tableView.registerClass(NewsArticleTableViewCell.self, forCellReuseIdentifier: "regularCell")
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "errorCell")
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.backgroundColor = theme.newsFeedBackgroundColor()
-        tableView.autoPinEdgesToSuperviewEdges()
+//        tableView.separatorStyle = .None
+//        tableView.contentInset = UIEdgeInsetsZero
+//        tableView.layoutMargins = UIEdgeInsetsZero
+//        tableView.separatorInset = UIEdgeInsetsZero
+        collectionView.hidden = true
+//        tableView.registerClass(NewsArticleTableViewCell.self, forCellReuseIdentifier: "regularCell")
+//        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "errorCell")
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.backgroundColor = theme.newsFeedBackgroundColor()
+        collectionView.autoPinEdgesToSuperviewEdges()
 
-        newsFeedTableViewCellPresenter.setupTableView(tableView)
+        newsFeedCollectionViewCellPresenter.setupCollectionView(collectionView)
 
         loadingIndicatorView.startAnimating()
         loadingIndicatorView.hidesWhenStopped = true
@@ -91,9 +91,9 @@ class NewsFeedController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
-        if let selectedRowIndexPath = tableView.indexPathForSelectedRow {
-            tableView.deselectRowAtIndexPath(selectedRowIndexPath, animated: false)
-        }
+//        if let selectedRowIndexPath = collectionView.indexPathForSelectedRow {
+//            tableView.deselectRowAtIndexPath(selectedRowIndexPath, animated: false)
+//        }
 
         loadNewsFeed()
     }
@@ -102,14 +102,14 @@ class NewsFeedController: UIViewController {
         newsFeedService.fetchNewsFeed().then { newsFeedItems in
             self.mainQueue.addOperationWithBlock { self.refreshControl.endRefreshing() }
             self.errorLoadingNews = false
-            self.tableView.hidden = false
+            self.collectionView.hidden = false
             self.loadingIndicatorView.stopAnimating()
             self.newsFeedItems = newsFeedItems
-            self.tableView.reloadData()
+            self.collectionView.reloadData()
         }.error { error in
             self.mainQueue.addOperationWithBlock { self.refreshControl.endRefreshing() }
             self.errorLoadingNews = true
-            self.tableView.reloadData()
+            self.collectionView.reloadData()
             self.analyticsService.trackError(error, context: "Failed to load news feed")
         }
     }
@@ -120,41 +120,39 @@ class NewsFeedController: UIViewController {
     }
 }
 
-// MARK: UITableViewDataSource
 
-extension NewsFeedController: UITableViewDataSource {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+// MARK: UICollectionViewDataSource
+
+extension NewsFeedController: UICollectionViewDataSource {
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if errorLoadingNews { return 1 }
         if newsFeedItems.count == 0 { return 0 }
         return newsFeedItems.count
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         if errorLoadingNews {
-            let cell = tableView.dequeueReusableCellWithIdentifier("errorCell")!
-            cell.textLabel!.text = NSLocalizedString("NewsFeed_errorText", comment: "")
-            cell.textLabel!.font = theme.newsFeedTitleFont()
-            cell.textLabel!.textColor = theme.newsFeedTitleColor()
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("errorCell", forIndexPath: indexPath)
+//            cell.textLabel!.text = NSLocalizedString("NewsFeed_errorText", comment: "")
+//            cell.textLabel!.font = theme.newsFeedTitleFont()
+//            cell.textLabel!.textColor = theme.newsFeedTitleColor()
             return cell
         }
 
         let newsFeedItem = newsFeedItems[indexPath.row]
-        return newsFeedTableViewCellPresenter.cellForTableView(tableView, newsFeedItem: newsFeedItem, indexPath: indexPath)
+        return newsFeedCollectionViewCellPresenter.cellForCollectionView(collectionView, newsFeedItem: newsFeedItem, indexPath: indexPath)
     }
 }
 
-// MARK: UITableViewDelegate
 
-extension NewsFeedController: UITableViewDelegate {
-    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 180.0
-    }
+// MARK: UICollectionViewDelegate
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+extension NewsFeedController: UICollectionViewDelegate {
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let newsFeedItem = newsFeedItems[indexPath.row]
 
         analyticsService.trackContentViewWithName(newsFeedItem.title, type: .NewsArticle, identifier: newsFeedItem.identifier)
