@@ -2,17 +2,29 @@ import UIKit
 
 protocol NewsFeedCollectionViewCellPresenter {
     func setupCollectionView(collectionView: UICollectionView)
-    func cellForCollectionView(collectionView: UICollectionView, newsFeedItem: NewsFeedItem, indexPath: NSIndexPath) -> UICollectionViewCell
+    func cellForCollectionView(collectionView: UICollectionView, newsFeedItem: NewsFeedItem, indexPath: NSIndexPath) -> UICollectionViewCell?
 }
 
 class StockNewsFeedCollectionViewCellPresenter: NewsFeedCollectionViewCellPresenter {
-    func setupCollectionView(collectionView: UICollectionView) {
-        collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+    let childPresenters: [NewsFeedCollectionViewCellPresenter]
+
+    init(childPresenters: [NewsFeedCollectionViewCellPresenter]) {
+        self.childPresenters = childPresenters
     }
 
-    func cellForCollectionView(collectionView: UICollectionView, newsFeedItem: NewsFeedItem, indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath)
-        cell.backgroundColor = UIColor.redColor()
-        return cell
+    func setupCollectionView(collectionView: UICollectionView) {
+        for childPresenter in childPresenters {
+            childPresenter.setupCollectionView(collectionView)
+        }
+    }
+
+    func cellForCollectionView(collectionView: UICollectionView, newsFeedItem: NewsFeedItem, indexPath: NSIndexPath) -> UICollectionViewCell? {
+        for childPresenter in childPresenters {
+            if let cell = childPresenter.cellForCollectionView(collectionView, newsFeedItem: newsFeedItem, indexPath: indexPath) {
+                return cell
+            }
+        }
+
+        return nil
     }
 }

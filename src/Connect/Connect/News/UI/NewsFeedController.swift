@@ -144,7 +144,7 @@ extension NewsFeedController: UICollectionViewDataSource {
         }
 
         let newsFeedItem = newsFeedItems[indexPath.row]
-        return newsFeedCollectionViewCellPresenter.cellForCollectionView(collectionView, newsFeedItem: newsFeedItem, indexPath: indexPath)
+        return newsFeedCollectionViewCellPresenter.cellForCollectionView(collectionView, newsFeedItem: newsFeedItem, indexPath: indexPath)!
     }
 }
 
