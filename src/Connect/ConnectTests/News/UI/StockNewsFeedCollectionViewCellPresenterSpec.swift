@@ -10,7 +10,9 @@ class StockNewsFeedCollectionViewCellPresenterSpec: QuickSpec {
             var childPresenterA: FakeNewsFeedCollectionViewCellPresenter!
             var childPresenterB: FakeNewsFeedCollectionViewCellPresenter!
 
-            let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
+            let layout =  UICollectionViewFlowLayout()
+            layout.invalidateLayout()
+            let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
             let newsArticle = TestUtils.newsArticle()
             let indexPath = NSIndexPath(forItem: 0, inSection: 0)
 

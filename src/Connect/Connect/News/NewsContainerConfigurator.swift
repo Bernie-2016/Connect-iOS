@@ -101,7 +101,7 @@ class NewsContainerConfigurator: ContainerConfigurator {
         }
 
         container.register(NewsFeedCollectionViewCellPresenter.self) { resolver in
-            return StockNewsFeedCollectionViewCellPresenter(childPresenters: [])
+            return StockNewsFeedCollectionViewCellPresenter(childPresenters: [NewsArticleNewsFeedCollectionViewCellPresenter()])
         }
     }
     // swiftlint:enable function_body_length

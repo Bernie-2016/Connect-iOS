@@ -67,17 +67,21 @@ class NewsFeedController: UIViewController {
         view.addSubview(collectionView)
         view.addSubview(loadingIndicatorView)
 
-//        tableView.separatorStyle = .None
-//        tableView.contentInset = UIEdgeInsetsZero
-//        tableView.layoutMargins = UIEdgeInsetsZero
-//        tableView.separatorInset = UIEdgeInsetsZero
         collectionView.hidden = true
-//        tableView.registerClass(NewsArticleTableViewCell.self, forCellReuseIdentifier: "regularCell")
-//        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "errorCell")
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = theme.newsFeedBackgroundColor()
         collectionView.autoPinEdgesToSuperviewEdges()
+
+        let screen = UIScreen.mainScreen()
+        let width = (screen.bounds.width - 45)/2
+
+        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.itemSize = CGSize(width: width, height: 200)
+            layout.sectionInset = UIEdgeInsetsMake(15, 15, 15, 15)
+            layout.minimumInteritemSpacing = 15.0
+            layout.minimumLineSpacing = 15.0
+        }
 
         newsFeedCollectionViewCellPresenter.setupCollectionView(collectionView)
 
@@ -129,20 +133,10 @@ extension NewsFeedController: UICollectionViewDataSource {
     }
 
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if errorLoadingNews { return 1 }
-        if newsFeedItems.count == 0 { return 0 }
         return newsFeedItems.count
     }
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        if errorLoadingNews {
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("errorCell", forIndexPath: indexPath)
-//            cell.textLabel!.text = NSLocalizedString("NewsFeed_errorText", comment: "")
-//            cell.textLabel!.font = theme.newsFeedTitleFont()
-//            cell.textLabel!.textColor = theme.newsFeedTitleColor()
-            return cell
-        }
-
         let newsFeedItem = newsFeedItems[indexPath.row]
         return newsFeedCollectionViewCellPresenter.cellForCollectionView(collectionView, newsFeedItem: newsFeedItem, indexPath: indexPath)!
     }

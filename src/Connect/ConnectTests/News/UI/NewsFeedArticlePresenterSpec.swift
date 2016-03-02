@@ -3,35 +3,6 @@ import Nimble
 
 @testable import Connect
 
-private class NewsFeedArticlePresenterFakeTheme : FakeTheme {
-    override func newsFeedTitleFont() -> UIFont {
-        return UIFont.boldSystemFontOfSize(20)
-    }
-
-    override func newsFeedTitleColor() -> UIColor {
-        return UIColor.magentaColor()
-    }
-
-    override func newsFeedExcerptFont() -> UIFont {
-        return UIFont.boldSystemFontOfSize(21)
-    }
-
-    override func newsFeedExcerptColor() -> UIColor {
-        return UIColor.redColor()
-    }
-
-    override func newsFeedDateFont() -> UIFont {
-        return UIFont.italicSystemFontOfSize(13)    }
-
-    override func defaultDisclosureColor() -> UIColor {
-        return UIColor.brownColor()
-    }
-
-    override func highlightDisclosureColor() -> UIColor {
-        return UIColor.whiteColor()
-    }
-}
-
 class NewsFeedArticlePresenterSpec: QuickSpec {
     override func spec() {
         describe("NewsFeedArticlePresenter") {
@@ -65,7 +36,7 @@ class NewsFeedArticlePresenterSpec: QuickSpec {
                     expect(cell.titleLabel.text).to(equal("Bernie to release new album"))
                 }
 
-                context("when the video was published today") {
+                context("when the news article was published today") {
                     it("sets the excerpt label using the provided news article, including the abbreviated date") {
                         timeIntervalFormatter.returnsDaysSinceDate = 0
                         let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
@@ -73,7 +44,7 @@ class NewsFeedArticlePresenterSpec: QuickSpec {
                     }
                 }
 
-                context("when the video was published in the past") {
+                context("when the news article was published in the past") {
                     it("sets the excerpt label using the provided news article") {
                         timeIntervalFormatter.returnsDaysSinceDate = 1
                         let cell = subject.cellForTableView(tableView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleTableViewCell
@@ -237,5 +208,34 @@ class NewsFeedArticlePresenterSpec: QuickSpec {
                 }
             }
         }
+    }
+}
+
+private class NewsFeedArticlePresenterFakeTheme : FakeTheme {
+    override func newsFeedTitleFont() -> UIFont {
+        return UIFont.boldSystemFontOfSize(20)
+    }
+
+    override func newsFeedTitleColor() -> UIColor {
+        return UIColor.magentaColor()
+    }
+
+    override func newsFeedExcerptFont() -> UIFont {
+        return UIFont.boldSystemFontOfSize(21)
+    }
+
+    override func newsFeedExcerptColor() -> UIColor {
+        return UIColor.redColor()
+    }
+
+    override func newsFeedDateFont() -> UIFont {
+        return UIFont.italicSystemFontOfSize(13)    }
+
+    override func defaultDisclosureColor() -> UIColor {
+        return UIColor.brownColor()
+    }
+
+    override func highlightDisclosureColor() -> UIColor {
+        return UIColor.whiteColor()
     }
 }
