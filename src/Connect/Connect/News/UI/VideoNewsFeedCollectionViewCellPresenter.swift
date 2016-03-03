@@ -24,13 +24,11 @@ class VideoNewsFeedCollectionViewCellPresenter: NewsFeedCollectionViewCellPresen
         guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(kCollectionViewCellName, forIndexPath: indexPath) as? VideoCollectionViewCell else {
             return nil
         }
-
+        
         applyThemeToVideCell(cell)
 
         cell.titleLabel.text = video.title
         cell.dateLabel.text = timeIntervalFormatter.humanDaysSinceDate(video.date)
-
-        cell.imageVisible = true
 
         let thumbnailURL = urlProvider.youtubeThumbnailURL(video.identifier)
 
@@ -49,15 +47,14 @@ class VideoNewsFeedCollectionViewCellPresenter: NewsFeedCollectionViewCellPresen
             }
         })
 
-
         return cell
     }
-
-    private func applyThemeToVideCell(cell: VideoCollectionViewCell) {
-        cell.backgroundColor = theme.contentBackgroundColor()
-        cell.titleLabel.font = theme.newsFeedTitleFont()
-        cell.titleLabel.textColor = theme.newsFeedTitleColor()
-        cell.dateLabel.font = theme.newsFeedDateFont()
-        cell.dateLabel.textColor = theme.newsFeedDateColor()
-    }
+    
+      private func applyThemeToVideCell(cell: VideoCollectionViewCell) {
+           cell.backgroundColor = theme.contentBackgroundColor()
+               cell.titleLabel.font = theme.newsFeedTitleFont()
+               cell.titleLabel.textColor = theme.newsFeedTitleColor()
+               cell.dateLabel.font = theme.newsFeedDateFont()
+               cell.dateLabel.textColor = theme.newsFeedDateColor()
+          }
 }

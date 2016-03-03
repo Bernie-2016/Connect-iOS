@@ -2,23 +2,9 @@ import UIKit
 
 class VideoCollectionViewCell: UICollectionViewCell {
     let imageView = UIImageView.newAutoLayoutView()
+    let playIconImageView = UIImageView.newAutoLayoutView()
     let titleLabel = UILabel.newAutoLayoutView()
     let dateLabel = UILabel.newAutoLayoutView()
-
-    var titleToImageConstaint: NSLayoutConstraint!
-    var titleToTopConstraint: NSLayoutConstraint!
-
-    var imageVisible: Bool {
-        get {
-            return !self.imageView.hidden
-        }
-        set {
-            self.imageView.hidden = !newValue
-            self.titleToTopConstraint.priority = newValue ? 100 : 999
-            self.titleToImageConstaint.priority = newValue ? 999 : 100
-            self.layoutSubviews()
-        }
-    }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -26,11 +12,14 @@ class VideoCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        playIconImageView.image = UIImage(named: "Play")
 
         imageView.contentMode = .ScaleAspectFill
         imageView.clipsToBounds = true
 
         contentView.addSubview(imageView)
+        contentView.addSubview(playIconImageView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(dateLabel)
 
@@ -41,16 +30,11 @@ class VideoCollectionViewCell: UICollectionViewCell {
         imageView.autoPinEdgeToSuperviewEdge(.Right)
         imageView.autoPinEdgeToSuperviewEdge(.Left)
 
+        playIconImageView.autoPinEdge(.Left, toEdge: .Left, ofView: imageView, withOffset: 10)
+        playIconImageView.autoPinEdge(.Bottom, toEdge: .Bottom, ofView: imageView, withOffset: -10)
+
         titleLabel.numberOfLines = 4
-
-        NSLayoutConstraint.autoSetPriority(999, forConstraints: { () -> Void in
-            self.titleToImageConstaint = self.titleLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.imageView, withOffset: verticalPadding)
-        })
-
-        NSLayoutConstraint.autoSetPriority(100, forConstraints: { () -> Void in
-            self.titleToTopConstraint = self.titleLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: verticalPadding)
-        })
-
+        titleLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: imageView, withOffset: verticalPadding)
         titleLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: borderPadding)
         titleLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: borderPadding)
 

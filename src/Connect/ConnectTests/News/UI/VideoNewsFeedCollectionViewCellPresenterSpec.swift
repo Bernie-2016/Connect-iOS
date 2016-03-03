@@ -64,16 +64,6 @@ class VideoNewsFeedCollectionViewCellPresenterSpec: QuickSpec {
                     expect(imageService.lastReceivedURL) === urlProvider.returnedURL
                 }
 
-                it("marks the image as visible") {
-                    var cell = subject.cellForCollectionView(collectionView, newsFeedItem: video, indexPath: indexPath) as! VideoCollectionViewCell
-
-                    cell.imageVisible = false
-
-                    cell = subject.cellForCollectionView(collectionView, newsFeedItem: video, indexPath: indexPath) as! VideoCollectionViewCell
-
-                    expect(cell.imageVisible) == true
-                }
-
                 it("styles the cell using the theme") {
                     let cell = subject.cellForCollectionView(collectionView, newsFeedItem: video, indexPath: indexPath) as! VideoCollectionViewCell
 
