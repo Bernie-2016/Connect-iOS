@@ -13,9 +13,12 @@ class VideoCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        clipsToBounds = true
-
         playIconImageView.image = UIImage(named: "Play")
+
+        layer.shadowOffset = CGSize.zero
+        layer.shadowOpacity = 1
+        layer.shadowRadius = 2
+        layer.shadowPath = UIBezierPath(rect: bounds).CGPath
 
         imageView.contentMode = .ScaleAspectFill
         imageView.clipsToBounds = true

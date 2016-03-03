@@ -25,8 +25,6 @@ class NewsFeedVideoCellProvider: NewsFeedCellProvider {
             return nil
         }
 
-        cell.layer.borderWidth = 1
-        cell.layer.cornerRadius = 2
         applyThemeToVideCell(cell)
 
         cell.titleLabel.text = video.title
@@ -58,6 +56,6 @@ class NewsFeedVideoCellProvider: NewsFeedCellProvider {
         cell.titleLabel.textColor = theme.newsFeedTitleColor()
         cell.dateLabel.font = theme.newsFeedDateFont()
         cell.dateLabel.textColor = theme.newsFeedDateColor()
-        cell.layer.borderColor = theme.newsFeedCellBorderColor().CGColor
+        cell.layer.shadowColor =  theme.newsFeedCellBorderColor().CGColor
     }
 }

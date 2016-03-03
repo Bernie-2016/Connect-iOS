@@ -32,6 +32,11 @@ class NewsArticleCollectionViewCell: UICollectionViewCell {
         imageView.contentMode = .ScaleAspectFill
         imageView.clipsToBounds = true
 
+        layer.shadowOffset = CGSize.zero
+        layer.shadowOpacity = 1
+        layer.shadowRadius = 2
+        layer.shadowPath = UIBezierPath(rect: bounds).CGPath
+
         contentView.addSubview(imageView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(excerptLabel)

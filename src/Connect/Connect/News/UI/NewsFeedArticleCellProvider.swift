@@ -23,8 +23,6 @@ class NewsFeedArticleCellProvider: NewsFeedCellProvider {
             return nil
         }
 
-        cell.layer.borderWidth = 1
-        cell.layer.cornerRadius = 2
         applyThemeToNewsCell(cell)
 
         cell.titleLabel.text = newsArticle.title
@@ -66,6 +64,6 @@ class NewsFeedArticleCellProvider: NewsFeedCellProvider {
         cell.excerptLabel.textColor = theme.newsFeedExcerptColor()
         cell.dateLabel.font = theme.newsFeedDateFont()
         cell.dateLabel.textColor = theme.newsFeedDateColor()
-        cell.layer.borderColor = theme.newsFeedCellBorderColor().CGColor
+        cell.layer.shadowColor = theme.newsFeedCellBorderColor().CGColor
     }
 }

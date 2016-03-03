@@ -70,7 +70,7 @@ class NewsFeedArticleCellProviderSpec: QuickSpec {
                     expect(cell.excerptLabel.font) == UIFont.boldSystemFontOfSize(21)
                     expect(cell.dateLabel.font) == UIFont.italicSystemFontOfSize(13)
                     expect(cell.dateLabel.textColor) == UIColor.purpleColor()
-                    expect(UIColor(CGColor: cell.layer.borderColor!)) == UIColor.yellowColor()
+                    expect(UIColor(CGColor: cell.layer.shadowColor!)) == UIColor.yellowColor()
                 }
 
                 context("when the news article has an image URL") {
