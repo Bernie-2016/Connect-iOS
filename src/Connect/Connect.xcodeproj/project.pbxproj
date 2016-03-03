@@ -37,6 +37,7 @@
 		6531730B1C85E87D004E472A /* NewsArticleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6531730A1C85E87D004E472A /* NewsArticleCollectionViewCell.swift */; };
 		6531730D1C86AE50004E472A /* VideoNewsFeedCollectionViewCellPresenterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6531730C1C86AE50004E472A /* VideoNewsFeedCollectionViewCellPresenterSpec.swift */; };
 		6531730F1C86AEF0004E472A /* VideoNewsFeedCollectionViewCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6531730E1C86AEF0004E472A /* VideoNewsFeedCollectionViewCellPresenter.swift */; };
+		653173111C878E4B004E472A /* AlwaysReusingCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653173101C878E4B004E472A /* AlwaysReusingCollectionView.swift */; };
 		65384D131BB2EFB50057F6FF /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = 65384D121BB2EFB50057F6FF /* events.json */; };
 		65384D151BB2F0FF0057F6FF /* dodgy_events.json in Resources */ = {isa = PBXBuildFile; fileRef = 65384D141BB2F0FF0057F6FF /* dodgy_events.json */; };
 		653885101B90F13600DCA808 /* FakeJSONClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6538850F1B90F13600DCA808 /* FakeJSONClient.swift */; };
@@ -360,6 +361,7 @@
 		6531730A1C85E87D004E472A /* NewsArticleCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsArticleCollectionViewCell.swift; sourceTree = "<group>"; };
 		6531730C1C86AE50004E472A /* VideoNewsFeedCollectionViewCellPresenterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoNewsFeedCollectionViewCellPresenterSpec.swift; sourceTree = "<group>"; };
 		6531730E1C86AEF0004E472A /* VideoNewsFeedCollectionViewCellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoNewsFeedCollectionViewCellPresenter.swift; sourceTree = "<group>"; };
+		653173101C878E4B004E472A /* AlwaysReusingCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlwaysReusingCollectionView.swift; sourceTree = "<group>"; };
 		65384D121BB2EFB50057F6FF /* events.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = events.json; sourceTree = "<group>"; };
 		65384D141BB2F0FF0057F6FF /* dodgy_events.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dodgy_events.json; sourceTree = "<group>"; };
 		6538850F1B90F13600DCA808 /* FakeJSONClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeJSONClient.swift; sourceTree = "<group>"; };
@@ -1309,6 +1311,7 @@
 		65F5F6551B89678E0049353C /* Fakes */ = {
 			isa = PBXGroup;
 			children = (
+				653173101C878E4B004E472A /* AlwaysReusingCollectionView.swift */,
 				656BC9671C702BA800CFA4EB /* AlwaysReusingTableView.swift */,
 				650330EE1C60366F006D0752 /* FakeActionAlertControllerProvider.swift */,
 				650330F01C60369C006D0752 /* FakeActionAlertService.swift */,
@@ -1795,6 +1798,7 @@
 				653D101F1C4C53BB004CB8A0 /* AboutControllerSpec.swift in Sources */,
 				654F92811C5ABFBD00C76992 /* ActionAlertControllerSpec.swift in Sources */,
 				653D10021C4C53BB004CB8A0 /* ActionsControllerSpec.swift in Sources */,
+				653173111C878E4B004E472A /* AlwaysReusingCollectionView.swift in Sources */,
 				656BC9681C702BA800CFA4EB /* AlwaysReusingTableView.swift in Sources */,
 				653D10201C4C53BB004CB8A0 /* AnalyticsSettingsControllerSpec.swift in Sources */,
 				651960871C4D8F20004AAC6D /* AppDelegateSpec.swift in Sources */,

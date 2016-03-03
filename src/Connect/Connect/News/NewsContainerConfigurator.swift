@@ -101,7 +101,13 @@ class NewsContainerConfigurator: ContainerConfigurator {
         }
 
         container.register(NewsFeedCollectionViewCellPresenter.self) { resolver in
-            return StockNewsFeedCollectionViewCellPresenter(childPresenters: [NewsArticleNewsFeedCollectionViewCellPresenter()])
+            return StockNewsFeedCollectionViewCellPresenter(childPresenters: [
+                VideoNewsFeedCollectionViewCellPresenter(
+                    imageService: resolver.resolve(ImageService.self)!,
+                    urlProvider:  resolver.resolve(URLProvider.self)!
+                ),
+                NewsArticleNewsFeedCollectionViewCellPresenter(imageService: resolver.resolve(ImageService.self)!)
+            ])
         }
     }
     // swiftlint:enable function_body_length

@@ -20,6 +20,10 @@ class TestUtils {
 
     // MARK: Models
 
+    class func newsArticleWithoutImage() -> NewsArticle {
+        return NewsArticle(title: "Bernie to release new album", date: NSDate(), body: "yeahhh", excerpt: "excerpt A", imageURL: nil, url: NSURL())
+    }
+
     class func newsArticle(date: NSDate = NSDate(timeIntervalSince1970: 0)) -> NewsArticle {
         return NewsArticle(title: "Bernie to release new album", date: date, body: "yeahhh", excerpt: "excerpt A", imageURL: NSURL(string: "http://bs.com")!, url: NSURL())
     }

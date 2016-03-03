@@ -3,6 +3,14 @@ import UIKit
 class VideoNewsFeedCollectionViewCellPresenter: NewsFeedCollectionViewCellPresenter {
     private let kCollectionViewCellName = "NewsFeedCollectionViewCellPresenterCell"
 
+    private let imageService: ImageService
+    private let urlProvider: URLProvider
+
+    init(imageService: ImageService, urlProvider: URLProvider) {
+        self.imageService = imageService
+        self.urlProvider = urlProvider
+    }
+
     func setupCollectionView(collectionView: UICollectionView) {
         collectionView.registerClass(NewsArticleCollectionViewCell.self, forCellWithReuseIdentifier: kCollectionViewCellName)
     }
@@ -14,6 +22,26 @@ class VideoNewsFeedCollectionViewCellPresenter: NewsFeedCollectionViewCellPresen
         }
 
         cell.titleLabel.text = video.title
+
+        cell.imageVisible = true
+
+        let thumbnailURL = urlProvider.youtubeThumbnailURL(video.identifier)
+
+        if cell.tag != thumbnailURL.hashValue {
+            cell.imageView.image = nil
+        }
+
+        cell.tag = thumbnailURL.hashValue
+
+        let imageFuture = imageService.fetchImageWithURL(thumbnailURL)
+        imageFuture.then({ image in
+            if cell.tag == thumbnailURL.hashValue {
+                UIView.transitionWithView(cell.imageView, duration: 0.3, options: .TransitionCrossDissolve, animations: {
+                    cell.imageView.image = image
+                    }, completion: nil)
+            }
+        })
+
 
         return cell
     }

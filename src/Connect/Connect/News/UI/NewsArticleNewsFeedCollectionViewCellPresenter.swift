@@ -3,6 +3,12 @@ import UIKit
 // swiftlint:disable type_name
 class NewsArticleNewsFeedCollectionViewCellPresenter: NewsFeedCollectionViewCellPresenter {
 // swiftlint:enable type_name
+    let imageService: ImageService
+
+    init(imageService: ImageService) {
+        self.imageService = imageService
+    }
+
     private let kCollectionViewCellName = "NewsFeedCollectionViewCellPresenterCell"
 
     func setupCollectionView(collectionView: UICollectionView) {
@@ -16,6 +22,30 @@ class NewsArticleNewsFeedCollectionViewCellPresenter: NewsFeedCollectionViewCell
         }
 
         cell.titleLabel.text = newsArticle.title
+
+        guard let imageURL = newsArticle.imageURL else {
+            cell.imageVisible = false
+            cell.imageView.image = nil
+            cell.tag = 0
+            return cell
+        }
+
+        cell.imageVisible = true
+
+        if cell.tag != imageURL.hashValue {
+            cell.imageView.image = nil
+        }
+
+        cell.tag = imageURL.hashValue
+
+        let imageFuture = imageService.fetchImageWithURL(imageURL)
+        imageFuture.then { image in
+            if cell.tag == imageURL.hashValue {
+                UIView.transitionWithView(cell.imageView, duration: 0.3, options: .TransitionCrossDissolve, animations: {
+                    cell.imageView.image = image
+                    }, completion: nil)
+            }
+        }
 
         return cell
     }
