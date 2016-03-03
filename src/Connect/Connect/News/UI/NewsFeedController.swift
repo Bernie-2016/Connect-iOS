@@ -73,13 +73,14 @@ class NewsFeedController: UIViewController {
         collectionView.autoPinEdgesToSuperviewEdges()
 
         let screen = UIScreen.mainScreen()
-        let width = (screen.bounds.width - 45)/2
+        let width = (screen.bounds.width - 30)/2
 
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            let paddingSize: CGFloat = 10
             layout.itemSize = CGSize(width: width, height: 200)
-            layout.sectionInset = UIEdgeInsetsMake(15, 15, 15, 15)
-            layout.minimumInteritemSpacing = 15.0
-            layout.minimumLineSpacing = 15.0
+            layout.sectionInset = UIEdgeInsets(top: paddingSize, left: paddingSize, bottom: paddingSize, right: paddingSize)
+            layout.minimumInteritemSpacing = paddingSize
+            layout.minimumLineSpacing = paddingSize
         }
 
         newsFeedCellProvider.setupCollectionView(collectionView)
