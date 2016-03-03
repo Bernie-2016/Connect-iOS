@@ -49,7 +49,7 @@ class ActionsControllerSpec: QuickSpec {
                 }
 
                 it("has the correct title") {
-                    expect(subject.title).to(equal("Connect"))
+                    expect(subject.title).to(equal("Act Now"))
                 }
 
                 it("should set the back bar button item title correctly") {
