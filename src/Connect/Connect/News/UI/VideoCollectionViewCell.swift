@@ -12,7 +12,7 @@ class VideoCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         playIconImageView.image = UIImage(named: "Play")
 
         imageView.contentMode = .ScaleAspectFill

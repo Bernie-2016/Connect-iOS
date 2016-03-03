@@ -1,6 +1,6 @@
 @testable import Connect
 
-class FakeNewsFeedCollectionViewCellPresenter: NewsFeedCollectionViewCellPresenter {
+class FakeNewsFeedCellProvider: NewsFeedCellProvider {
 
     var lastSetupCollectionView: UICollectionView!
     func setupCollectionView(collectionView: UICollectionView) {

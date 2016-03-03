@@ -3,14 +3,14 @@ import Nimble
 
 @testable import Connect
 
-class VideoNewsFeedCollectionViewCellPresenterSpec: QuickSpec {
+class NewsFeedVideoCellProviderSpec: QuickSpec {
     override func spec() {
-        describe("VideoNewsFeedCollectionViewCellPresenter") {
-            var subject: VideoNewsFeedCollectionViewCellPresenter!
+        describe("NewsFeedVideoCellProvider") {
+            var subject: NewsFeedVideoCellProvider!
             var urlProvider: NewsFeedVideoFakeURLProvider!
             var imageService: FakeImageService!
             var timeIntervalFormatter: FakeTimeIntervalFormatter!
-            let theme = NewsFeedVideoPresenterFakeTheme()
+            let theme = NewsFeedVideoProviderFakeTheme()
 
             var collectionView: UICollectionView!
             var dataSource: FakeDataSource!
@@ -20,7 +20,7 @@ class VideoNewsFeedCollectionViewCellPresenterSpec: QuickSpec {
                 urlProvider = NewsFeedVideoFakeURLProvider()
                 timeIntervalFormatter = FakeTimeIntervalFormatter()
 
-                subject = VideoNewsFeedCollectionViewCellPresenter(
+                subject = NewsFeedVideoCellProvider(
                     imageService: imageService,
                     urlProvider: urlProvider,
                     timeIntervalFormatter: timeIntervalFormatter,
@@ -163,7 +163,7 @@ private class FakeNewsFeedItem: NewsFeedItem {
     var identifier = ""
 }
 
-private class NewsFeedVideoPresenterFakeTheme : FakeTheme {
+private class NewsFeedVideoProviderFakeTheme : FakeTheme {
     override func newsFeedTitleFont() -> UIFont {
         return UIFont.boldSystemFontOfSize(20)
     }

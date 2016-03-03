@@ -2,7 +2,7 @@ import UIKit
 
 class NewsFeedController: UIViewController {
     private let newsFeedService: NewsFeedService
-    private let newsFeedCollectionViewCellPresenter: NewsFeedCollectionViewCellPresenter
+    private let newsFeedCellProvider: NewsFeedCellProvider
     private let newsFeedItemControllerProvider: NewsFeedItemControllerProvider
     private let analyticsService: AnalyticsService
     private let tabBarItemStylist: TabBarItemStylist
@@ -19,14 +19,14 @@ class NewsFeedController: UIViewController {
 
     init(newsFeedService: NewsFeedService,
          newsFeedItemControllerProvider: NewsFeedItemControllerProvider,
-         newsFeedCollectionViewCellPresenter: NewsFeedCollectionViewCellPresenter,
+         newsFeedCellProvider: NewsFeedCellProvider,
          analyticsService: AnalyticsService,
          tabBarItemStylist: TabBarItemStylist,
          mainQueue: NSOperationQueue,
          theme: Theme) {
             self.newsFeedService = newsFeedService
             self.newsFeedItemControllerProvider = newsFeedItemControllerProvider
-            self.newsFeedCollectionViewCellPresenter = newsFeedCollectionViewCellPresenter
+            self.newsFeedCellProvider = newsFeedCellProvider
             self.analyticsService = analyticsService
             self.tabBarItemStylist = tabBarItemStylist
             self.mainQueue = mainQueue
@@ -83,7 +83,7 @@ class NewsFeedController: UIViewController {
             layout.minimumLineSpacing = 15.0
         }
 
-        newsFeedCollectionViewCellPresenter.setupCollectionView(collectionView)
+        newsFeedCellProvider.setupCollectionView(collectionView)
 
         loadingIndicatorView.startAnimating()
         loadingIndicatorView.hidesWhenStopped = true
@@ -138,7 +138,7 @@ extension NewsFeedController: UICollectionViewDataSource {
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let newsFeedItem = newsFeedItems[indexPath.row]
-        return newsFeedCollectionViewCellPresenter.cellForCollectionView(collectionView, newsFeedItem: newsFeedItem, indexPath: indexPath)!
+        return newsFeedCellProvider.cellForCollectionView(collectionView, newsFeedItem: newsFeedItem, indexPath: indexPath)!
     }
 }
 

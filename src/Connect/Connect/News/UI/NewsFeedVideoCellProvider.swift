@@ -1,6 +1,6 @@
 import UIKit
 
-class VideoNewsFeedCollectionViewCellPresenter: NewsFeedCollectionViewCellPresenter {
+class NewsFeedVideoCellProvider: NewsFeedCellProvider {
     private let kCollectionViewCellName = "VideoCollectionViewCellPresenterCell"
 
     private let imageService: ImageService
@@ -24,7 +24,7 @@ class VideoNewsFeedCollectionViewCellPresenter: NewsFeedCollectionViewCellPresen
         guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(kCollectionViewCellName, forIndexPath: indexPath) as? VideoCollectionViewCell else {
             return nil
         }
-        
+
         applyThemeToVideCell(cell)
 
         cell.titleLabel.text = video.title
@@ -49,7 +49,7 @@ class VideoNewsFeedCollectionViewCellPresenter: NewsFeedCollectionViewCellPresen
 
         return cell
     }
-    
+
       private func applyThemeToVideCell(cell: VideoCollectionViewCell) {
            cell.backgroundColor = theme.contentBackgroundColor()
                cell.titleLabel.font = theme.newsFeedTitleFont()

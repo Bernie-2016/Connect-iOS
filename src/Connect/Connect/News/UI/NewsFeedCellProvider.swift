@@ -1,14 +1,14 @@
 import UIKit
 
-protocol NewsFeedCollectionViewCellPresenter {
+protocol NewsFeedCellProvider {
     func setupCollectionView(collectionView: UICollectionView)
     func cellForCollectionView(collectionView: UICollectionView, newsFeedItem: NewsFeedItem, indexPath: NSIndexPath) -> UICollectionViewCell?
 }
 
-class StockNewsFeedCollectionViewCellPresenter: NewsFeedCollectionViewCellPresenter {
-    let childPresenters: [NewsFeedCollectionViewCellPresenter]
+class StockNewsFeedCellProvider: NewsFeedCellProvider {
+    let childPresenters: [NewsFeedCellProvider]
 
-    init(childPresenters: [NewsFeedCollectionViewCellPresenter]) {
+    init(childPresenters: [NewsFeedCellProvider]) {
         self.childPresenters = childPresenters
     }
 

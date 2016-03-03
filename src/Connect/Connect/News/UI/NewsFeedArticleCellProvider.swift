@@ -1,8 +1,6 @@
 import UIKit
 
-// swiftlint:disable type_name
-class NewsArticleNewsFeedCollectionViewCellPresenter: NewsFeedCollectionViewCellPresenter {
-// swiftlint:enable type_name
+class NewsFeedArticleCellProvider: NewsFeedCellProvider {
     let imageService: ImageService
     let timeIntervalFormatter: TimeIntervalFormatter
     let theme: Theme
@@ -13,7 +11,7 @@ class NewsArticleNewsFeedCollectionViewCellPresenter: NewsFeedCollectionViewCell
         self.theme = theme
     }
 
-    private let kCollectionViewCellName = "NewsFeedCollectionViewCellPresenterCell"
+    private let kCollectionViewCellName = "NewsFeedCellProviderCell"
 
     func setupCollectionView(collectionView: UICollectionView) {
         collectionView.registerClass(NewsArticleCollectionViewCell.self, forCellWithReuseIdentifier: kCollectionViewCellName)

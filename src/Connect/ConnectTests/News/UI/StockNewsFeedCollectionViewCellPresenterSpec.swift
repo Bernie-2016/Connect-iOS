@@ -3,12 +3,12 @@ import Nimble
 
 @testable import Connect
 
-class StockNewsFeedCollectionViewCellPresenterSpec: QuickSpec {
+class StockNewsFeedCellProviderSpec: QuickSpec {
     override func spec() {
-        describe("StockNewsFeedCollectionViewCellPresenter") {
-            var subject: NewsFeedCollectionViewCellPresenter!
-            var childPresenterA: FakeNewsFeedCollectionViewCellPresenter!
-            var childPresenterB: FakeNewsFeedCollectionViewCellPresenter!
+        describe("StockNewsFeedCellProvider") {
+            var subject: NewsFeedCellProvider!
+            var childPresenterA: FakeNewsFeedCellProvider!
+            var childPresenterB: FakeNewsFeedCellProvider!
 
             let layout =  UICollectionViewFlowLayout()
             layout.invalidateLayout()
@@ -18,10 +18,10 @@ class StockNewsFeedCollectionViewCellPresenterSpec: QuickSpec {
 
 
             beforeEach {
-                childPresenterA = FakeNewsFeedCollectionViewCellPresenter()
-                childPresenterB = FakeNewsFeedCollectionViewCellPresenter()
+                childPresenterA = FakeNewsFeedCellProvider()
+                childPresenterB = FakeNewsFeedCellProvider()
 
-                subject = StockNewsFeedCollectionViewCellPresenter(childPresenters: [childPresenterA, childPresenterB])
+                subject = StockNewsFeedCellProvider(childPresenters: [childPresenterA, childPresenterB])
             }
 
             describe("setting up a collection view") {

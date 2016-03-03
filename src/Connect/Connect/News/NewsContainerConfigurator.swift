@@ -60,33 +60,11 @@ class NewsContainerConfigurator: ContainerConfigurator {
                 theme: resolver.resolve(Theme.self)!)
             }.inObjectScope(.Container)
 
-        container.register(NewsFeedTableViewCellPresenter.self, name: "articles") { resolver in
-            return NewsFeedArticlePresenter(
-                timeIntervalFormatter: resolver.resolve(TimeIntervalFormatter.self)!,
-                imageService: resolver.resolve(ImageService.self)!,
-                theme: resolver.resolve(Theme.self)!)
-            }.inObjectScope(.Container)
-
-        container.register(NewsFeedTableViewCellPresenter.self, name: "videos") { resolver in
-            return NewsFeedVideoPresenter(
-                timeIntervalFormatter: resolver.resolve(TimeIntervalFormatter.self)!,
-                urlProvider: resolver.resolve(URLProvider.self)!,
-                imageService: resolver.resolve(ImageService.self)!,
-                theme: resolver.resolve(Theme.self)!)
-            }.inObjectScope(.Container)
-
-        container.register(NewsFeedTableViewCellPresenter.self, name: "feed") { resolver in
-            return ConcreteNewsFeedTableViewCellPresenter(
-                articlePresenter: resolver.resolve(NewsFeedTableViewCellPresenter.self, name: "articles")!,
-                videoPresenter: resolver.resolve(NewsFeedTableViewCellPresenter.self, name: "videos")!
-            )
-            }.inObjectScope(.Container)
-
         container.register(NewsFeedController.self) { resolver in
             return NewsFeedController(
                 newsFeedService: resolver.resolve(NewsFeedService.self)!,
                 newsFeedItemControllerProvider: resolver.resolve(NewsFeedItemControllerProvider.self)!,
-                newsFeedCollectionViewCellPresenter: resolver.resolve(NewsFeedCollectionViewCellPresenter.self)!,
+                newsFeedCellProvider: resolver.resolve(NewsFeedCellProvider.self)!,
                 analyticsService: resolver.resolve(AnalyticsService.self)!,
                 tabBarItemStylist: resolver.resolve(TabBarItemStylist.self)!,
                 mainQueue: resolver.resolve(NSOperationQueue.self, name: "main")!,
@@ -100,15 +78,15 @@ class NewsContainerConfigurator: ContainerConfigurator {
             return navigationController
         }
 
-        container.register(NewsFeedCollectionViewCellPresenter.self) { resolver in
-            return StockNewsFeedCollectionViewCellPresenter(childPresenters: [
-                VideoNewsFeedCollectionViewCellPresenter(
+        container.register(NewsFeedCellProvider.self) { resolver in
+            return StockNewsFeedCellProvider(childPresenters: [
+                NewsFeedVideoCellProvider(
                     imageService: resolver.resolve(ImageService.self)!,
                     urlProvider:  resolver.resolve(URLProvider.self)!,
                     timeIntervalFormatter: resolver.resolve(TimeIntervalFormatter.self)!,
                     theme: resolver.resolve(Theme.self)!
                 ),
-                NewsArticleNewsFeedCollectionViewCellPresenter(
+                NewsFeedArticleCellProvider(
                     imageService: resolver.resolve(ImageService.self)!,
                     timeIntervalFormatter: resolver.resolve(TimeIntervalFormatter.self)!,
                     theme: resolver.resolve(Theme.self)!

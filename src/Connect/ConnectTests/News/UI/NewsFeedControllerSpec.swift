@@ -10,7 +10,7 @@ class NewsFeedControllerSpecs: QuickSpec {
             var subject: NewsFeedController!
             var newsFeedService: FakeNewsFeedService!
             let newsFeedItemControllerProvider = FakeNewsFeedItemControllerProvider()
-            var newsFeedCollectionViewCellPresenter: FakeNewsFeedCollectionViewCellPresenter!
+            var NewsFeedCellProvider: FakeNewsFeedCellProvider!
             var analyticsService: FakeAnalyticsService!
             var tabBarItemStylist: FakeTabBarItemStylist!
             var mainQueue: FakeOperationQueue!
@@ -20,7 +20,7 @@ class NewsFeedControllerSpecs: QuickSpec {
 
             beforeEach {
                 newsFeedService = FakeNewsFeedService()
-                newsFeedCollectionViewCellPresenter = FakeNewsFeedCollectionViewCellPresenter()
+                NewsFeedCellProvider = FakeNewsFeedCellProvider()
                 tabBarItemStylist = FakeTabBarItemStylist()
                 mainQueue = FakeOperationQueue()
                 analyticsService = FakeAnalyticsService()
@@ -28,7 +28,7 @@ class NewsFeedControllerSpecs: QuickSpec {
                 subject = NewsFeedController(
                     newsFeedService: newsFeedService,
                     newsFeedItemControllerProvider: newsFeedItemControllerProvider,
-                    newsFeedCollectionViewCellPresenter: newsFeedCollectionViewCellPresenter,
+                    newsFeedCellProvider: NewsFeedCellProvider,
                     analyticsService: analyticsService,
                     tabBarItemStylist: tabBarItemStylist,
                     mainQueue: mainQueue,
@@ -84,7 +84,7 @@ class NewsFeedControllerSpecs: QuickSpec {
             }
 
             it("sets up the collection view with the presenter") {
-                expect(newsFeedCollectionViewCellPresenter.lastSetupCollectionView).to(beIdenticalTo(subject.collectionView))
+                expect(NewsFeedCellProvider.lastSetupCollectionView).to(beIdenticalTo(subject.collectionView))
             }
 
             describe("when the controller appears") {
@@ -130,17 +130,17 @@ class NewsFeedControllerSpecs: QuickSpec {
 
                             let indexPathA = NSIndexPath(forRow: 0, inSection: 0)
                             let cellA = subject.collectionView.dataSource?.collectionView(subject.collectionView, cellForItemAtIndexPath: indexPathA) as! NewsArticleCollectionViewCell
-                            expect(cellA).to(beIdenticalTo(newsFeedCollectionViewCellPresenter.returnedCells[0]))
-                            expect(newsFeedCollectionViewCellPresenter.receivedCollectionViews[0]).to(beIdenticalTo(subject.collectionView))
-                            expect(newsFeedCollectionViewCellPresenter.receivedNewsFeedItems[0] as? NewsArticle).to(beIdenticalTo(newsArticleA))
-                            expect(newsFeedCollectionViewCellPresenter.receivedIndexPaths[0]).to(equal(indexPathA))
+                            expect(cellA).to(beIdenticalTo(NewsFeedCellProvider.returnedCells[0]))
+                            expect(NewsFeedCellProvider.receivedCollectionViews[0]).to(beIdenticalTo(subject.collectionView))
+                            expect(NewsFeedCellProvider.receivedNewsFeedItems[0] as? NewsArticle).to(beIdenticalTo(newsArticleA))
+                            expect(NewsFeedCellProvider.receivedIndexPaths[0]).to(equal(indexPathA))
 
                             let indexPathB = NSIndexPath(forRow: 1, inSection: 0)
                             let cellB = subject.collectionView.dataSource?.collectionView(subject.collectionView, cellForItemAtIndexPath: indexPathB) as! NewsArticleCollectionViewCell
-                            expect(cellB).to(beIdenticalTo(newsFeedCollectionViewCellPresenter.returnedCells[1]))
-                            expect(newsFeedCollectionViewCellPresenter.receivedCollectionViews[1]).to(beIdenticalTo(subject.collectionView))
-                            expect(newsFeedCollectionViewCellPresenter.receivedNewsFeedItems[1] as? NewsArticle).to(beIdenticalTo(newsArticleB))
-                            expect(newsFeedCollectionViewCellPresenter.receivedIndexPaths[1]).to(equal(indexPathB))
+                            expect(cellB).to(beIdenticalTo(NewsFeedCellProvider.returnedCells[1]))
+                            expect(NewsFeedCellProvider.receivedCollectionViews[1]).to(beIdenticalTo(subject.collectionView))
+                            expect(NewsFeedCellProvider.receivedNewsFeedItems[1] as? NewsArticle).to(beIdenticalTo(newsArticleB))
+                            expect(NewsFeedCellProvider.receivedIndexPaths[1]).to(equal(indexPathB))
                         }
                     }
                 })
@@ -206,14 +206,14 @@ class NewsFeedControllerSpecs: QuickSpec {
                                 expect(subject.collectionView.numberOfItemsInSection(0)).to(equal(2))
 
                                 let cellA = subject.collectionView.dataSource?.collectionView(subject.collectionView, cellForItemAtIndexPath: NSIndexPath(forRow: 0, inSection: 0)) as! NewsArticleCollectionViewCell
-                                expect(cellA).to(beIdenticalTo(newsFeedCollectionViewCellPresenter.returnedCells[0]))
-                                expect(newsFeedCollectionViewCellPresenter.receivedCollectionViews[0]).to(beIdenticalTo(subject.collectionView))
-                                expect(newsFeedCollectionViewCellPresenter.receivedNewsFeedItems[0] as? NewsArticle).to(beIdenticalTo(newsArticleA))
+                                expect(cellA).to(beIdenticalTo(NewsFeedCellProvider.returnedCells[0]))
+                                expect(NewsFeedCellProvider.receivedCollectionViews[0]).to(beIdenticalTo(subject.collectionView))
+                                expect(NewsFeedCellProvider.receivedNewsFeedItems[0] as? NewsArticle).to(beIdenticalTo(newsArticleA))
 
                                 let cellB = subject.collectionView.dataSource?.collectionView(subject.collectionView, cellForItemAtIndexPath: NSIndexPath(forRow: 1, inSection: 0)) as! NewsArticleCollectionViewCell
-                                expect(cellB).to(beIdenticalTo(newsFeedCollectionViewCellPresenter.returnedCells[1]))
-                                expect(newsFeedCollectionViewCellPresenter.receivedCollectionViews[1]).to(beIdenticalTo(subject.collectionView))
-                                expect(newsFeedCollectionViewCellPresenter.receivedNewsFeedItems[1] as? NewsArticle).to(beIdenticalTo(newsArticleB))
+                                expect(cellB).to(beIdenticalTo(NewsFeedCellProvider.returnedCells[1]))
+                                expect(NewsFeedCellProvider.receivedCollectionViews[1]).to(beIdenticalTo(subject.collectionView))
+                                expect(NewsFeedCellProvider.receivedNewsFeedItems[1] as? NewsArticle).to(beIdenticalTo(newsArticleB))
                             }
                         }
                     }

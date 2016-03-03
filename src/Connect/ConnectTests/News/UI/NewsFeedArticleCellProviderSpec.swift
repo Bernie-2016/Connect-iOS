@@ -3,10 +3,10 @@ import Nimble
 
 @testable import Connect
 
-class NewsArticleNewsFeedCollectionViewCellPresenterSpec: QuickSpec {
+class NewsFeedArticleCellProviderSpec: QuickSpec {
     override func spec() {
-        describe("NewsArticleNewsFeedCollectionViewCellPresenter") {
-            var subject: NewsArticleNewsFeedCollectionViewCellPresenter!
+        describe("NewsFeedArticleCellProvider") {
+            var subject: NewsFeedArticleCellProvider!
             var imageService: FakeImageService!
             var timeIntervalFormatter: FakeTimeIntervalFormatter!
             let theme = NewsFeedArticlePresenterFakeTheme()
@@ -18,7 +18,7 @@ class NewsArticleNewsFeedCollectionViewCellPresenterSpec: QuickSpec {
                 imageService = FakeImageService()
                 timeIntervalFormatter = FakeTimeIntervalFormatter()
 
-                subject = NewsArticleNewsFeedCollectionViewCellPresenter(
+                subject = NewsFeedArticleCellProvider(
                     imageService: imageService,
                     timeIntervalFormatter: timeIntervalFormatter,
                     theme: theme
