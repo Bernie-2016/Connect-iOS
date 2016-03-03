@@ -45,6 +45,7 @@ class DefaultTheme: Theme {
     func newsFeedDateFont() -> UIFont { return tinyTextFont() }
     func newsFeedDateColor() -> UIColor { return subHeadingTextColor() }
     func newsFeedVideoOverlayBackgroundColor() -> UIColor { return UIColor(red: 0, green: 0, blue: 0, alpha: 0.7) }
+    func newsFeedCellBorderColor() -> UIColor { return altoColor }
 
     // MARK: News Article screen
 
@@ -184,6 +185,7 @@ class DefaultTheme: Theme {
     let doveGreyColor = UIColor(rgba: "#6d6d6d")
     let galleryColor = UIColor(rgba: "#efefef")
     let denimColor = UIColor(rgba: "#147fd7")
+    let altoColor = UIColor(rgba: "#e0e0e0")
 
     // MARK: font definitions
 

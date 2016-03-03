@@ -25,6 +25,8 @@ class NewsFeedVideoCellProvider: NewsFeedCellProvider {
             return nil
         }
 
+        cell.layer.borderWidth = 1
+        cell.layer.cornerRadius = 2
         applyThemeToVideCell(cell)
 
         cell.titleLabel.text = video.title
@@ -50,11 +52,12 @@ class NewsFeedVideoCellProvider: NewsFeedCellProvider {
         return cell
     }
 
-      private func applyThemeToVideCell(cell: VideoCollectionViewCell) {
-           cell.backgroundColor = theme.contentBackgroundColor()
-               cell.titleLabel.font = theme.newsFeedTitleFont()
-               cell.titleLabel.textColor = theme.newsFeedTitleColor()
-               cell.dateLabel.font = theme.newsFeedDateFont()
-               cell.dateLabel.textColor = theme.newsFeedDateColor()
-          }
+    private func applyThemeToVideCell(cell: VideoCollectionViewCell) {
+        cell.backgroundColor = theme.contentBackgroundColor()
+        cell.titleLabel.font = theme.newsFeedTitleFont()
+        cell.titleLabel.textColor = theme.newsFeedTitleColor()
+        cell.dateLabel.font = theme.newsFeedDateFont()
+        cell.dateLabel.textColor = theme.newsFeedDateColor()
+        cell.layer.borderColor = theme.newsFeedCellBorderColor().CGColor
+    }
 }

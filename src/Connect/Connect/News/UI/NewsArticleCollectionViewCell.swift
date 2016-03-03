@@ -60,7 +60,7 @@ class NewsArticleCollectionViewCell: UICollectionViewCell {
 
         excerptLabel.numberOfLines = 0
         excerptLabel.setContentCompressionResistancePriority(1, forAxis: .Vertical)
-        excerptLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: titleLabel, withOffset: 6)
+        excerptLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: titleLabel, withOffset: 3)
         excerptLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: borderPadding)
         excerptLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: borderPadding)
 

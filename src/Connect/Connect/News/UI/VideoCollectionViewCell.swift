@@ -13,10 +13,13 @@ class VideoCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
+        clipsToBounds = true
+
         playIconImageView.image = UIImage(named: "Play")
 
         imageView.contentMode = .ScaleAspectFill
         imageView.clipsToBounds = true
+        imageView.layer.masksToBounds = true
 
         contentView.addSubview(imageView)
         contentView.addSubview(playIconImageView)
@@ -39,7 +42,7 @@ class VideoCollectionViewCell: UICollectionViewCell {
         titleLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: borderPadding)
 
         dateLabel.numberOfLines = 1
-        dateLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: titleLabel)
+        dateLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: titleLabel, withOffset: 16)
         dateLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: borderPadding)
         dateLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: borderPadding)
         dateLabel.autoPinEdgeToSuperviewEdge(.Bottom, withInset: borderPadding)

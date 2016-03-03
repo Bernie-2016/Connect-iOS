@@ -1,5 +1,7 @@
 import Quick
 import Nimble
+import UIKit
+import QuartzCore
 
 @testable import Connect
 
@@ -71,6 +73,7 @@ class NewsFeedVideoCellProviderSpec: QuickSpec {
                     expect(cell.titleLabel.textColor) == UIColor.magentaColor()
                     expect(cell.titleLabel.font) == UIFont.boldSystemFontOfSize(20)
                     expect(cell.dateLabel.textColor) == UIColor.purpleColor()
+                    expect(UIColor(CGColor: cell.layer.borderColor!)) == UIColor.yellowColor()
                 }
 
                 context("when the image tag does not match the hash of the thumbnail URL") {
@@ -190,6 +193,10 @@ private class NewsFeedVideoProviderFakeTheme : FakeTheme {
 
     private override func contentBackgroundColor() -> UIColor {
         return UIColor.redColor()
+    }
+
+    private override func newsFeedCellBorderColor() -> UIColor {
+        return UIColor.yellowColor()
     }
 }
 
