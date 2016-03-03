@@ -164,23 +164,10 @@ class NewsFeedControllerSpecs: QuickSpec {
                         expect(analyticsService.lastErrorContext).to(equal("Failed to load news feed"))
                     }
 
-                    xit("shows the an error in the collection view") {
-                        let cell = subject.collectionView.cellForItemAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))!
-
-                        expect(subject.collectionView.numberOfSections()).to(equal(1))
-                        expect(subject.collectionView.numberOfItemsInSection(0)).to(equal(1))
-
-//                        expect(cell.textLabel!.text).to(equal("Oops! Sorry, we couldn't load any news."))
-                        // TODO: ERROR HANDLING
+                    it("shows zero cells") {
+                        (subject.collectionView.visibleCells().count) == 0
                     }
 
-                    xit("styles the items in the collection view using the theme") {
-                        let cell = subject.collectionView.cellForItemAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))!
-
-                        // TODO: ERROR HANDLING
-//                        expect(cell.textLabel!.textColor).to(equal(UIColor.magentaColor()))
-//                        expect(cell.textLabel!.font).to(equal(UIFont.boldSystemFontOfSize(20)))
-                    }
 
                     context("and then the user refreshes the news feed") {
                         beforeEach {
