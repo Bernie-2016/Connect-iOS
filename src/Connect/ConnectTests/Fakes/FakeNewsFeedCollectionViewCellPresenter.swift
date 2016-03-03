@@ -8,7 +8,7 @@ class FakeNewsFeedCollectionViewCellPresenter: NewsFeedCollectionViewCellPresent
     }
 
     var returnNil = false
-    var returnedCells = [NewsFeedCollectionViewCell]()
+    var returnedCells = [NewsArticleCollectionViewCell]()
     var receivedCollectionViews = [UICollectionView]()
     var receivedNewsFeedItems = [NewsFeedItem]()
     var receivedIndexPaths = [NSIndexPath]()
@@ -21,7 +21,7 @@ class FakeNewsFeedCollectionViewCellPresenter: NewsFeedCollectionViewCellPresent
             return nil
         }
 
-        let returnedCell = NewsFeedCollectionViewCell()
+        let returnedCell = NewsArticleCollectionViewCell()
         returnedCells.append(returnedCell)
 
         return returnedCell

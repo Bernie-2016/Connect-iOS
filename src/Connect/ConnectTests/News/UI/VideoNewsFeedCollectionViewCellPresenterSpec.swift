@@ -42,13 +42,13 @@ class VideoNewsFeedCollectionViewCellPresenterSpec: QuickSpec {
                 }
 
                 it("sets the title label using the provided news article") {
-                    let cell = subject.cellForCollectionView(collectionView, newsFeedItem: video, indexPath: indexPath) as! NewsArticleCollectionViewCell
+                    let cell = subject.cellForCollectionView(collectionView, newsFeedItem: video, indexPath: indexPath) as! VideoCollectionViewCell
 
                     expect(cell.titleLabel.text) == "Bernie MegaMix"
                 }
 
                 it("sets the date label using the time interval formatter") {
-                    let cell = subject.cellForCollectionView(collectionView, newsFeedItem: video, indexPath: indexPath) as! NewsArticleCollectionViewCell
+                    let cell = subject.cellForCollectionView(collectionView, newsFeedItem: video, indexPath: indexPath) as! VideoCollectionViewCell
 
                     expect(timeIntervalFormatter.lastFormattedDate) === video.date
 
@@ -63,24 +63,24 @@ class VideoNewsFeedCollectionViewCellPresenterSpec: QuickSpec {
                 }
 
                 it("marks the image as visible") {
-                    var cell = subject.cellForCollectionView(collectionView, newsFeedItem: video, indexPath: indexPath) as! NewsArticleCollectionViewCell
+                    var cell = subject.cellForCollectionView(collectionView, newsFeedItem: video, indexPath: indexPath) as! VideoCollectionViewCell
 
                     cell.imageVisible = false
 
-                    cell = subject.cellForCollectionView(collectionView, newsFeedItem: video, indexPath: indexPath) as! NewsArticleCollectionViewCell
+                    cell = subject.cellForCollectionView(collectionView, newsFeedItem: video, indexPath: indexPath) as! VideoCollectionViewCell
 
                     expect(cell.imageVisible) == true
                 }
 
                 context("when the image tag does not match the hash of the thumbnail URL") {
                     it("nils out the thumbnail image") {
-                        var cell = subject.cellForCollectionView(collectionView, newsFeedItem: video, indexPath: indexPath) as! NewsArticleCollectionViewCell
+                        var cell = subject.cellForCollectionView(collectionView, newsFeedItem: video, indexPath: indexPath) as! VideoCollectionViewCell
 
                         let bernieImage = TestUtils.testImageNamed("bernie", type: "jpg")
                         cell.imageView.image = bernieImage
                         cell.tag = 666
 
-                        cell = subject.cellForCollectionView(collectionView, newsFeedItem: video, indexPath: indexPath) as! NewsArticleCollectionViewCell
+                        cell = subject.cellForCollectionView(collectionView, newsFeedItem: video, indexPath: indexPath) as! VideoCollectionViewCell
 
                         expect(cell.imageView.image).to(beNil())
                     }
@@ -88,12 +88,12 @@ class VideoNewsFeedCollectionViewCellPresenterSpec: QuickSpec {
 
                 context("when the image tag hasn't changed") {
                     it("leaves the image alone") {
-                        var cell = subject.cellForCollectionView(collectionView, newsFeedItem: video, indexPath: indexPath) as! NewsArticleCollectionViewCell
+                        var cell = subject.cellForCollectionView(collectionView, newsFeedItem: video, indexPath: indexPath) as! VideoCollectionViewCell
 
                         let bernieImage = TestUtils.testImageNamed("bernie", type: "jpg")
                         cell.imageView.image = bernieImage
 
-                        cell = subject.cellForCollectionView(collectionView, newsFeedItem: video, indexPath: indexPath) as! NewsArticleCollectionViewCell
+                        cell = subject.cellForCollectionView(collectionView, newsFeedItem: video, indexPath: indexPath) as! VideoCollectionViewCell
 
                         expect(cell.imageView.image) === bernieImage
                     }
@@ -102,7 +102,7 @@ class VideoNewsFeedCollectionViewCellPresenterSpec: QuickSpec {
                 context("when the image is loaded succesfully") {
                     context("when the cell tag hasn't changed") {
                         it("sets the image") {
-                            let cell = subject.cellForCollectionView(collectionView, newsFeedItem: video, indexPath: indexPath) as! NewsArticleCollectionViewCell
+                            let cell = subject.cellForCollectionView(collectionView, newsFeedItem: video, indexPath: indexPath) as! VideoCollectionViewCell
 
                             let bernieImage = TestUtils.testImageNamed("bernie", type: "jpg")
 
@@ -116,7 +116,7 @@ class VideoNewsFeedCollectionViewCellPresenterSpec: QuickSpec {
 
                     context("when the cell tag has changed") {
                         it("leaves the image alone") {
-                            let cell = subject.cellForCollectionView(collectionView, newsFeedItem: video, indexPath: indexPath) as! NewsArticleCollectionViewCell
+                            let cell = subject.cellForCollectionView(collectionView, newsFeedItem: video, indexPath: indexPath) as! VideoCollectionViewCell
 
                             let tonyImage = TestUtils.testImageNamed("tonybenn", type: "jpg")
                             cell.tag = 42

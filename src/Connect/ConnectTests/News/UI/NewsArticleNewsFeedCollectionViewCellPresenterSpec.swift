@@ -32,7 +32,7 @@ class NewsArticleNewsFeedCollectionViewCellPresenterSpec: QuickSpec {
             }
 
             describe("presenting a news article") {
-                let newsArticle = NewsArticle(title: "Bernie to release new album", date: NSDate(), body: "yeahhh", excerpt: "excerpt A", imageURL: NSURL(string: "http://bs.com")!, url: NSURL())
+                let newsArticle = NewsArticle(title: "Bernie to release new album", date: NSDate(), body: "yeahhh", excerpt: "yea", imageURL: NSURL(string: "http://bs.com")!, url: NSURL())
 
                 beforeEach {
                     subject.setupCollectionView(collectionView)
@@ -43,6 +43,13 @@ class NewsArticleNewsFeedCollectionViewCellPresenterSpec: QuickSpec {
 
                     expect(cell.titleLabel.text) == "Bernie to release new album"
                 }
+
+                it("sets the excerpt label using the provided news article") {
+                    let cell = subject.cellForCollectionView(collectionView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleCollectionViewCell
+
+                    expect(cell.excerptLabel.text) == "yea"
+                }
+
 
                 it("sets the date label using the time interval formatter") {
                     let cell = subject.cellForCollectionView(collectionView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleCollectionViewCell

@@ -1,7 +1,7 @@
 import UIKit
 
 class VideoNewsFeedCollectionViewCellPresenter: NewsFeedCollectionViewCellPresenter {
-    private let kCollectionViewCellName = "NewsFeedCollectionViewCellPresenterCell"
+    private let kCollectionViewCellName = "VideoCollectionViewCellPresenterCell"
 
     private let imageService: ImageService
     private let urlProvider: URLProvider
@@ -14,12 +14,12 @@ class VideoNewsFeedCollectionViewCellPresenter: NewsFeedCollectionViewCellPresen
     }
 
     func setupCollectionView(collectionView: UICollectionView) {
-        collectionView.registerClass(NewsArticleCollectionViewCell.self, forCellWithReuseIdentifier: kCollectionViewCellName)
+        collectionView.registerClass(VideoCollectionViewCell.self, forCellWithReuseIdentifier: kCollectionViewCellName)
     }
 
     func cellForCollectionView(collectionView: UICollectionView, newsFeedItem: NewsFeedItem, indexPath: NSIndexPath) -> UICollectionViewCell? {
         guard let video = newsFeedItem as? Video else { return nil }
-        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(kCollectionViewCellName, forIndexPath: indexPath) as? NewsArticleCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(kCollectionViewCellName, forIndexPath: indexPath) as? VideoCollectionViewCell else {
             return nil
         }
 

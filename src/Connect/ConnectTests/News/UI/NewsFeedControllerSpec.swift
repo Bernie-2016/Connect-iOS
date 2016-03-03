@@ -129,14 +129,14 @@ class NewsFeedControllerSpecs: QuickSpec {
                             expect(subject.collectionView.numberOfItemsInSection(0)).to(equal(2))
 
                             let indexPathA = NSIndexPath(forRow: 0, inSection: 0)
-                            let cellA = subject.collectionView.dataSource?.collectionView(subject.collectionView, cellForItemAtIndexPath: indexPathA) as! NewsFeedCollectionViewCell
+                            let cellA = subject.collectionView.dataSource?.collectionView(subject.collectionView, cellForItemAtIndexPath: indexPathA) as! NewsArticleCollectionViewCell
                             expect(cellA).to(beIdenticalTo(newsFeedCollectionViewCellPresenter.returnedCells[0]))
                             expect(newsFeedCollectionViewCellPresenter.receivedCollectionViews[0]).to(beIdenticalTo(subject.collectionView))
                             expect(newsFeedCollectionViewCellPresenter.receivedNewsFeedItems[0] as? NewsArticle).to(beIdenticalTo(newsArticleA))
                             expect(newsFeedCollectionViewCellPresenter.receivedIndexPaths[0]).to(equal(indexPathA))
 
                             let indexPathB = NSIndexPath(forRow: 1, inSection: 0)
-                            let cellB = subject.collectionView.dataSource?.collectionView(subject.collectionView, cellForItemAtIndexPath: indexPathB) as! NewsFeedCollectionViewCell
+                            let cellB = subject.collectionView.dataSource?.collectionView(subject.collectionView, cellForItemAtIndexPath: indexPathB) as! NewsArticleCollectionViewCell
                             expect(cellB).to(beIdenticalTo(newsFeedCollectionViewCellPresenter.returnedCells[1]))
                             expect(newsFeedCollectionViewCellPresenter.receivedCollectionViews[1]).to(beIdenticalTo(subject.collectionView))
                             expect(newsFeedCollectionViewCellPresenter.receivedNewsFeedItems[1] as? NewsArticle).to(beIdenticalTo(newsArticleB))
@@ -205,13 +205,12 @@ class NewsFeedControllerSpecs: QuickSpec {
 
                                 expect(subject.collectionView.numberOfItemsInSection(0)).to(equal(2))
 
-                                let cellA = subject.collectionView.dataSource?.collectionView(subject.collectionView, cellForItemAtIndexPath: NSIndexPath(forRow: 0, inSection: 0)) as! NewsFeedCollectionViewCell
+                                let cellA = subject.collectionView.dataSource?.collectionView(subject.collectionView, cellForItemAtIndexPath: NSIndexPath(forRow: 0, inSection: 0)) as! NewsArticleCollectionViewCell
                                 expect(cellA).to(beIdenticalTo(newsFeedCollectionViewCellPresenter.returnedCells[0]))
                                 expect(newsFeedCollectionViewCellPresenter.receivedCollectionViews[0]).to(beIdenticalTo(subject.collectionView))
                                 expect(newsFeedCollectionViewCellPresenter.receivedNewsFeedItems[0] as? NewsArticle).to(beIdenticalTo(newsArticleA))
 
-
-                                let cellB = subject.collectionView.dataSource?.collectionView(subject.collectionView, cellForItemAtIndexPath: NSIndexPath(forRow: 1, inSection: 0)) as! NewsFeedCollectionViewCell
+                                let cellB = subject.collectionView.dataSource?.collectionView(subject.collectionView, cellForItemAtIndexPath: NSIndexPath(forRow: 1, inSection: 0)) as! NewsArticleCollectionViewCell
                                 expect(cellB).to(beIdenticalTo(newsFeedCollectionViewCellPresenter.returnedCells[1]))
                                 expect(newsFeedCollectionViewCellPresenter.receivedCollectionViews[1]).to(beIdenticalTo(subject.collectionView))
                                 expect(newsFeedCollectionViewCellPresenter.receivedNewsFeedItems[1] as? NewsArticle).to(beIdenticalTo(newsArticleB))

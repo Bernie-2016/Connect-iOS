@@ -249,7 +249,6 @@
 		65BF649E1C573C8000B825E7 /* ZipCodeValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BF649D1C573C8000B825E7 /* ZipCodeValidator.swift */; };
 		65BF64A01C573CC200B825E7 /* ZipCodeValidatorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BF649F1C573CC200B825E7 /* ZipCodeValidatorSpec.swift */; };
 		65C1477C1C84E5A400D9B78A /* NewsFeedCollectionViewCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C1477B1C84E5A400D9B78A /* NewsFeedCollectionViewCellPresenter.swift */; };
-		65C1477E1C84E6B300D9B78A /* NewsFeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C1477D1C84E6B300D9B78A /* NewsFeedCollectionViewCell.swift */; };
 		65C246821C5AB282007B2A48 /* ActionAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C246811C5AB282007B2A48 /* ActionAlertController.swift */; };
 		65C246841C5AB29F007B2A48 /* ActionAlertControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C246831C5AB29F007B2A48 /* ActionAlertControllerProvider.swift */; };
 		65CA5E851B86CA930001D870 /* SpecAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CA5E841B86CA930001D870 /* SpecAppDelegate.swift */; };
@@ -269,6 +268,7 @@
 		65D3C5441C5C6B7400317466 /* CMMarkdownConverterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D3C5431C5C6B7400317466 /* CMMarkdownConverterSpec.swift */; };
 		65DA57C71C77F8D200D49826 /* CocoaMarkdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65DA57C51C77F8D200D49826 /* CocoaMarkdown.framework */; };
 		65DA57C91C77F8F000D49826 /* CocoaMarkdown.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 65DA57C61C77F8D200D49826 /* CocoaMarkdown.framework.dSYM */; };
+		65DB15E51C87E1BA00F470D5 /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DB15E41C87E1BA00F470D5 /* VideoCollectionViewCell.swift */; };
 		65DE887E1BE31540001AEDD8 /* FakeTimeIntervalFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DE887D1BE31540001AEDD8 /* FakeTimeIntervalFormatter.swift */; };
 		65E06CAB1BCB30DC00BDDA61 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8233FC151B7C28FB00A5E9ED /* Images.xcassets */; };
 		65E33D801C46EB9A003464D9 /* PushNotificationHandlerDispatcherSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E33D7F1C46EB9A003464D9 /* PushNotificationHandlerDispatcherSpec.swift */; };
@@ -577,7 +577,6 @@
 		65BF649D1C573C8000B825E7 /* ZipCodeValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ZipCodeValidator.swift; path = UI/ZipCodeValidator.swift; sourceTree = "<group>"; };
 		65BF649F1C573CC200B825E7 /* ZipCodeValidatorSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZipCodeValidatorSpec.swift; sourceTree = "<group>"; };
 		65C1477B1C84E5A400D9B78A /* NewsFeedCollectionViewCellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFeedCollectionViewCellPresenter.swift; sourceTree = "<group>"; };
-		65C1477D1C84E6B300D9B78A /* NewsFeedCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFeedCollectionViewCell.swift; sourceTree = "<group>"; };
 		65C246811C5AB282007B2A48 /* ActionAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionAlertController.swift; sourceTree = "<group>"; };
 		65C246831C5AB29F007B2A48 /* ActionAlertControllerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionAlertControllerProvider.swift; sourceTree = "<group>"; };
 		65CA5E841B86CA930001D870 /* SpecAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecAppDelegate.swift; sourceTree = "<group>"; };
@@ -597,6 +596,7 @@
 		65D3C5431C5C6B7400317466 /* CMMarkdownConverterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMMarkdownConverterSpec.swift; sourceTree = "<group>"; };
 		65DA57C51C77F8D200D49826 /* CocoaMarkdown.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaMarkdown.framework; path = Carthage/Build/iOS/CocoaMarkdown.framework; sourceTree = "<group>"; };
 		65DA57C61C77F8D200D49826 /* CocoaMarkdown.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = CocoaMarkdown.framework.dSYM; path = Carthage/Build/iOS/CocoaMarkdown.framework.dSYM; sourceTree = "<group>"; };
+		65DB15E41C87E1BA00F470D5 /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
 		65DE887D1BE31540001AEDD8 /* FakeTimeIntervalFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeTimeIntervalFormatter.swift; sourceTree = "<group>"; };
 		65E33D7F1C46EB9A003464D9 /* PushNotificationHandlerDispatcherSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationHandlerDispatcherSpec.swift; sourceTree = "<group>"; };
 		65E33D811C46EC0D003464D9 /* PushNotificationHandlerDispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationHandlerDispatcher.swift; sourceTree = "<group>"; };
@@ -770,12 +770,12 @@
 				653173081C85E807004E472A /* NewsArticleNewsFeedCollectionViewCellPresenter.swift */,
 				653D0F091C4C2B8B004CB8A0 /* NewsArticleTableViewCell.swift */,
 				653D0F0A1C4C2B8B004CB8A0 /* NewsFeedArticlePresenter.swift */,
-				65C1477D1C84E6B300D9B78A /* NewsFeedCollectionViewCell.swift */,
 				65C1477B1C84E5A400D9B78A /* NewsFeedCollectionViewCellPresenter.swift */,
 				653D0F0B1C4C2B8B004CB8A0 /* NewsFeedController.swift */,
 				653D0F0C1C4C2B8B004CB8A0 /* NewsFeedTableViewCellPresenter.swift */,
 				653D0F0D1C4C2B8B004CB8A0 /* NewsFeedVideoPresenter.swift */,
 				653D0F0E1C4C2B8B004CB8A0 /* NewsFeedVideoTableViewCell.swift */,
+				65DB15E41C87E1BA00F470D5 /* VideoCollectionViewCell.swift */,
 				653D0F0F1C4C2B8B004CB8A0 /* VideoController.swift */,
 				6531730E1C86AEF0004E472A /* VideoNewsFeedCollectionViewCellPresenter.swift */,
 			);
@@ -1746,7 +1746,6 @@
 				653D0F181C4C2B8B004CB8A0 /* NewsArticleTableViewCell.swift in Sources */,
 				65979AAA1C4C767D00A312A9 /* NewsContainerConfigurator.swift in Sources */,
 				653D0F191C4C2B8B004CB8A0 /* NewsFeedArticlePresenter.swift in Sources */,
-				65C1477E1C84E6B300D9B78A /* NewsFeedCollectionViewCell.swift in Sources */,
 				65C1477C1C84E5A400D9B78A /* NewsFeedCollectionViewCellPresenter.swift in Sources */,
 				653D0F1A1C4C2B8B004CB8A0 /* NewsFeedController.swift in Sources */,
 				653D0F001C4C2B84004CB8A0 /* NewsFeedItem.swift in Sources */,
@@ -1782,6 +1781,7 @@
 				654948EA1BFB81E700C1ECDB /* UserNotificationRegisterable.swift in Sources */,
 				65A1A2561C4C7B4100C09AB2 /* UserNotificationsContainerConfigurator.swift in Sources */,
 				653D0F011C4C2B84004CB8A0 /* Video.swift in Sources */,
+				65DB15E51C87E1BA00F470D5 /* VideoCollectionViewCell.swift in Sources */,
 				653D0F1E1C4C2B8B004CB8A0 /* VideoController.swift in Sources */,
 				653D0FB71C4C536F004CB8A0 /* VideoDeserializer.swift in Sources */,
 				6531730F1C86AEF0004E472A /* VideoNewsFeedCollectionViewCellPresenter.swift in Sources */,

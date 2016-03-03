@@ -1,9 +1,8 @@
 import UIKit
 
-class NewsArticleCollectionViewCell: UICollectionViewCell {
+class VideoCollectionViewCell: UICollectionViewCell {
     let imageView = UIImageView.newAutoLayoutView()
     let titleLabel = UILabel.newAutoLayoutView()
-    let excerptLabel = UILabel.newAutoLayoutView()
     let dateLabel = UILabel.newAutoLayoutView()
 
     var titleToImageConstaint: NSLayoutConstraint!
@@ -15,7 +14,6 @@ class NewsArticleCollectionViewCell: UICollectionViewCell {
         }
         set {
             self.imageView.hidden = !newValue
-            self.excerptLabel.hidden = newValue
             self.titleToTopConstraint.priority = newValue ? 100 : 999
             self.titleToImageConstaint.priority = newValue ? 999 : 100
             self.layoutSubviews()
@@ -34,7 +32,6 @@ class NewsArticleCollectionViewCell: UICollectionViewCell {
 
         contentView.addSubview(imageView)
         contentView.addSubview(titleLabel)
-        contentView.addSubview(excerptLabel)
         contentView.addSubview(dateLabel)
 
         let borderPadding: CGFloat = 10
@@ -44,6 +41,8 @@ class NewsArticleCollectionViewCell: UICollectionViewCell {
         imageView.autoPinEdgeToSuperviewEdge(.Right)
         imageView.autoPinEdgeToSuperviewEdge(.Left)
 
+        titleLabel.numberOfLines = 4
+
         NSLayoutConstraint.autoSetPriority(999, forConstraints: { () -> Void in
             self.titleToImageConstaint = self.titleLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: self.imageView, withOffset: verticalPadding)
         })
@@ -52,22 +51,11 @@ class NewsArticleCollectionViewCell: UICollectionViewCell {
             self.titleToTopConstraint = self.titleLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: verticalPadding)
         })
 
-        titleLabel.numberOfLines = 4
-        titleLabel.setContentCompressionResistancePriority(1000, forAxis: .Vertical)
-        titleLabel.setContentHuggingPriority(1000, forAxis: .Vertical)
         titleLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: borderPadding)
         titleLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: borderPadding)
 
-        excerptLabel.numberOfLines = 0
-        excerptLabel.setContentCompressionResistancePriority(1, forAxis: .Vertical)
-        excerptLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: titleLabel, withOffset: 6)
-        excerptLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: borderPadding)
-        excerptLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: borderPadding)
-
         dateLabel.numberOfLines = 1
-        dateLabel.setContentCompressionResistancePriority(1000, forAxis: .Vertical)
-        dateLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: titleLabel, withOffset: 16, relation: .GreaterThanOrEqual)
-        dateLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: excerptLabel, withOffset: 16, relation: .GreaterThanOrEqual)
+        dateLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: titleLabel)
         dateLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: borderPadding)
         dateLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: borderPadding)
         dateLabel.autoPinEdgeToSuperviewEdge(.Bottom, withInset: borderPadding)

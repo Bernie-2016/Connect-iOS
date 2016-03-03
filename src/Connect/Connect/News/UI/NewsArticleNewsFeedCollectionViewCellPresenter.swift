@@ -24,6 +24,7 @@ class NewsArticleNewsFeedCollectionViewCellPresenter: NewsFeedCollectionViewCell
         }
 
         cell.titleLabel.text = newsArticle.title
+        cell.excerptLabel.text = newsArticle.excerpt
         cell.dateLabel.text = timeIntervalFormatter.humanDaysSinceDate(newsArticle.date)
 
         guard let imageURL = newsArticle.imageURL else {
