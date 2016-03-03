@@ -105,11 +105,13 @@ class NewsContainerConfigurator: ContainerConfigurator {
                 VideoNewsFeedCollectionViewCellPresenter(
                     imageService: resolver.resolve(ImageService.self)!,
                     urlProvider:  resolver.resolve(URLProvider.self)!,
-                    timeIntervalFormatter: resolver.resolve(TimeIntervalFormatter.self)!
+                    timeIntervalFormatter: resolver.resolve(TimeIntervalFormatter.self)!,
+                    theme: resolver.resolve(Theme.self)!
                 ),
                 NewsArticleNewsFeedCollectionViewCellPresenter(
                     imageService: resolver.resolve(ImageService.self)!,
-                    timeIntervalFormatter: resolver.resolve(TimeIntervalFormatter.self)!
+                    timeIntervalFormatter: resolver.resolve(TimeIntervalFormatter.self)!,
+                    theme: resolver.resolve(Theme.self)!
                 )
             ])
         }

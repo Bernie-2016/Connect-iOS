@@ -43,6 +43,7 @@ class DefaultTheme: Theme {
     func newsFeedExcerptFont() -> UIFont { return subHeadingFont() }
     func newsFeedExcerptColor() -> UIColor {  return subHeadingTextColor() }
     func newsFeedDateFont() -> UIFont { return tinyTextFont() }
+    func newsFeedDateColor() -> UIColor { return subHeadingTextColor() }
     func newsFeedVideoOverlayBackgroundColor() -> UIColor { return UIColor(red: 0, green: 0, blue: 0, alpha: 0.7) }
 
     // MARK: News Article screen

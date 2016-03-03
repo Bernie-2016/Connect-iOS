@@ -5,10 +5,12 @@ class NewsArticleNewsFeedCollectionViewCellPresenter: NewsFeedCollectionViewCell
 // swiftlint:enable type_name
     let imageService: ImageService
     let timeIntervalFormatter: TimeIntervalFormatter
+    let theme: Theme
 
-    init(imageService: ImageService, timeIntervalFormatter: TimeIntervalFormatter) {
+    init(imageService: ImageService, timeIntervalFormatter: TimeIntervalFormatter, theme: Theme) {
         self.imageService = imageService
         self.timeIntervalFormatter = timeIntervalFormatter
+        self.theme = theme
     }
 
     private let kCollectionViewCellName = "NewsFeedCollectionViewCellPresenterCell"
@@ -22,6 +24,8 @@ class NewsArticleNewsFeedCollectionViewCellPresenter: NewsFeedCollectionViewCell
         guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(kCollectionViewCellName, forIndexPath: indexPath) as? NewsArticleCollectionViewCell else {
             return nil
         }
+
+        applyThemeToNewsCell(cell)
 
         cell.titleLabel.text = newsArticle.title
         cell.excerptLabel.text = newsArticle.excerpt
@@ -52,5 +56,15 @@ class NewsArticleNewsFeedCollectionViewCellPresenter: NewsFeedCollectionViewCell
         }
 
         return cell
+    }
+
+    private func applyThemeToNewsCell(cell: NewsArticleCollectionViewCell) {
+        cell.backgroundColor = theme.contentBackgroundColor()
+        cell.titleLabel.font = theme.newsFeedTitleFont()
+        cell.titleLabel.textColor = theme.newsFeedTitleColor()
+        cell.excerptLabel.font = theme.newsFeedExcerptFont()
+        cell.excerptLabel.textColor = theme.newsFeedExcerptColor()
+        cell.dateLabel.font = theme.newsFeedDateFont()
+        cell.dateLabel.textColor = theme.newsFeedDateColor()
     }
 }

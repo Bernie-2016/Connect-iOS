@@ -68,6 +68,5 @@ class NewsFeedArticlePresenter: NewsFeedTableViewCellPresenter {
         cell.titleLabel.textColor = self.theme.newsFeedTitleColor()
         cell.excerptLabel.font = self.theme.newsFeedExcerptFont()
         cell.excerptLabel.textColor = self.theme.newsFeedExcerptColor()
-
     }
 }

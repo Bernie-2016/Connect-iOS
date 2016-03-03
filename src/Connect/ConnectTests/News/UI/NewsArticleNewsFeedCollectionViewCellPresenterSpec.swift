@@ -9,6 +9,7 @@ class NewsArticleNewsFeedCollectionViewCellPresenterSpec: QuickSpec {
             var subject: NewsArticleNewsFeedCollectionViewCellPresenter!
             var imageService: FakeImageService!
             var timeIntervalFormatter: FakeTimeIntervalFormatter!
+            let theme = NewsFeedArticlePresenterFakeTheme()
 
             var collectionView: UICollectionView!
             let indexPath = NSIndexPath(forItem: 0, inSection: 0)
@@ -19,7 +20,8 @@ class NewsArticleNewsFeedCollectionViewCellPresenterSpec: QuickSpec {
 
                 subject = NewsArticleNewsFeedCollectionViewCellPresenter(
                     imageService: imageService,
-                    timeIntervalFormatter: timeIntervalFormatter
+                    timeIntervalFormatter: timeIntervalFormatter,
+                    theme: theme
                 )
 
                 collectionView = AlwaysReusingCollectionView(
@@ -57,6 +59,17 @@ class NewsArticleNewsFeedCollectionViewCellPresenterSpec: QuickSpec {
                     expect(timeIntervalFormatter.lastFormattedDate) === newsArticle.date
 
                     expect(cell.dateLabel.text) == "human date"
+                }
+
+                it("styles the cell using the theme") {
+                    let cell = subject.cellForCollectionView(collectionView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleCollectionViewCell
+
+                    expect(cell.backgroundColor) == UIColor.redColor()
+                    expect(cell.titleLabel.textColor) == UIColor.magentaColor()
+                    expect(cell.titleLabel.font) == UIFont.boldSystemFontOfSize(20)
+                    expect(cell.excerptLabel.font) == UIFont.boldSystemFontOfSize(21)
+                    expect(cell.dateLabel.font) == UIFont.italicSystemFontOfSize(13)
+                    expect(cell.dateLabel.textColor) == UIColor.purpleColor()
                 }
 
                 context("when the news article has an image URL") {
@@ -203,7 +216,7 @@ class NewsArticleNewsFeedCollectionViewCellPresenterSpec: QuickSpec {
                         expect(imageService.lastReceivedURL).to(beNil())
                     }
 
-                    xit("marks the cell as not to display the image") {
+                    it("marks the cell as not to display the image") {
                         var cell = subject.cellForCollectionView(collectionView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleCollectionViewCell
                         cell.imageVisible = true
 
@@ -252,14 +265,15 @@ private class NewsFeedArticlePresenterFakeTheme : FakeTheme {
     }
 
     override func newsFeedDateFont() -> UIFont {
-        return UIFont.italicSystemFontOfSize(13)    }
-
-    override func defaultDisclosureColor() -> UIColor {
-        return UIColor.brownColor()
+        return UIFont.italicSystemFontOfSize(13)
     }
 
-    override func highlightDisclosureColor() -> UIColor {
-        return UIColor.whiteColor()
+    private override func newsFeedDateColor() -> UIColor {
+        return UIColor.purpleColor()
+    }
+
+    private override func contentBackgroundColor() -> UIColor {
+        return UIColor.redColor()
     }
 }
 

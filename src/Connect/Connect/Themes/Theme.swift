@@ -48,6 +48,7 @@ protocol Theme {
     func newsFeedExcerptFont() -> UIFont
     func newsFeedExcerptColor() -> UIColor
     func newsFeedDateFont() -> UIFont
+    func newsFeedDateColor() -> UIColor
     func newsFeedVideoOverlayBackgroundColor() -> UIColor
 
     // MARK: News Article detail screen

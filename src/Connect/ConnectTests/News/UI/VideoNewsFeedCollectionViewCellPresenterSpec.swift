@@ -10,6 +10,7 @@ class VideoNewsFeedCollectionViewCellPresenterSpec: QuickSpec {
             var urlProvider: NewsFeedVideoFakeURLProvider!
             var imageService: FakeImageService!
             var timeIntervalFormatter: FakeTimeIntervalFormatter!
+            let theme = NewsFeedVideoPresenterFakeTheme()
 
             var collectionView: UICollectionView!
             var dataSource: FakeDataSource!
@@ -22,7 +23,8 @@ class VideoNewsFeedCollectionViewCellPresenterSpec: QuickSpec {
                 subject = VideoNewsFeedCollectionViewCellPresenter(
                     imageService: imageService,
                     urlProvider: urlProvider,
-                    timeIntervalFormatter: timeIntervalFormatter
+                    timeIntervalFormatter: timeIntervalFormatter,
+                    theme: theme
                 )
 
                 collectionView = AlwaysReusingCollectionView(
@@ -70,6 +72,15 @@ class VideoNewsFeedCollectionViewCellPresenterSpec: QuickSpec {
                     cell = subject.cellForCollectionView(collectionView, newsFeedItem: video, indexPath: indexPath) as! VideoCollectionViewCell
 
                     expect(cell.imageVisible) == true
+                }
+
+                it("styles the cell using the theme") {
+                    let cell = subject.cellForCollectionView(collectionView, newsFeedItem: video, indexPath: indexPath) as! VideoCollectionViewCell
+
+                    expect(cell.backgroundColor) == UIColor.redColor()
+                    expect(cell.titleLabel.textColor) == UIColor.magentaColor()
+                    expect(cell.titleLabel.font) == UIFont.boldSystemFontOfSize(20)
+                    expect(cell.dateLabel.textColor) == UIColor.purpleColor()
                 }
 
                 context("when the image tag does not match the hash of the thumbnail URL") {
@@ -162,7 +173,7 @@ private class FakeNewsFeedItem: NewsFeedItem {
     var identifier = ""
 }
 
-private class NewsFeedArticlePresenterFakeTheme : FakeTheme {
+private class NewsFeedVideoPresenterFakeTheme : FakeTheme {
     override func newsFeedTitleFont() -> UIFont {
         return UIFont.boldSystemFontOfSize(20)
     }
@@ -180,16 +191,18 @@ private class NewsFeedArticlePresenterFakeTheme : FakeTheme {
     }
 
     override func newsFeedDateFont() -> UIFont {
-        return UIFont.italicSystemFontOfSize(13)    }
-
-    override func defaultDisclosureColor() -> UIColor {
-        return UIColor.brownColor()
+        return UIFont.italicSystemFontOfSize(13)
     }
 
-    override func highlightDisclosureColor() -> UIColor {
-        return UIColor.whiteColor()
+    private override func newsFeedDateColor() -> UIColor {
+        return UIColor.purpleColor()
+    }
+
+    private override func contentBackgroundColor() -> UIColor {
+        return UIColor.redColor()
     }
 }
+
 
 private class FakeDataSource: NSObject, UICollectionViewDataSource {
     @objc func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

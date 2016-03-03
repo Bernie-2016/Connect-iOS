@@ -173,4 +173,5 @@ class FakeTheme: Theme {
     func defaultButtonBorderColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func defaultBodyTextLineHeight() -> CGFloat { fatalError("FakeTheme used without being overridden in spec!") }
     func attributionButtonBackgroundColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func newsFeedDateColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
 }
