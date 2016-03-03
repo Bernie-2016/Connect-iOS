@@ -1,8 +1,9 @@
 import UIKit
 
 class NewsArticleCollectionViewCell: UICollectionViewCell {
-    let titleLabel = UILabel.newAutoLayoutView()
     let imageView = UIImageView.newAutoLayoutView()
+    let dateLabel = UILabel.newAutoLayoutView()
+    let titleLabel = UILabel.newAutoLayoutView()
     var imageVisible = false
 
     required init?(coder aDecoder: NSCoder) {
@@ -12,16 +13,22 @@ class NewsArticleCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        contentView.addSubview(titleLabel)
         contentView.addSubview(imageView)
+        contentView.addSubview(dateLabel)
+        contentView.addSubview(titleLabel)
 
         imageView.autoPinEdgeToSuperviewEdge(.Top)
         imageView.autoPinEdgeToSuperviewEdge(.Right)
         imageView.autoPinEdgeToSuperviewEdge(.Left)
         imageView.autoSetDimension(.Height, toSize: 50)
 
+        dateLabel.numberOfLines = 1
+        dateLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: imageView)
+        dateLabel.autoPinEdgeToSuperviewEdge(.Right)
+        dateLabel.autoPinEdgeToSuperviewEdge(.Left)
+
         titleLabel.numberOfLines = 0
-        titleLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: imageView)
+        titleLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: dateLabel)
         titleLabel.autoPinEdgeToSuperviewEdge(.Right)
         titleLabel.autoPinEdgeToSuperviewEdge(.Left)
         titleLabel.autoPinEdgeToSuperviewEdge(.Bottom)

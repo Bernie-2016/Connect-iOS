@@ -104,9 +104,13 @@ class NewsContainerConfigurator: ContainerConfigurator {
             return StockNewsFeedCollectionViewCellPresenter(childPresenters: [
                 VideoNewsFeedCollectionViewCellPresenter(
                     imageService: resolver.resolve(ImageService.self)!,
-                    urlProvider:  resolver.resolve(URLProvider.self)!
+                    urlProvider:  resolver.resolve(URLProvider.self)!,
+                    timeIntervalFormatter: resolver.resolve(TimeIntervalFormatter.self)!
                 ),
-                NewsArticleNewsFeedCollectionViewCellPresenter(imageService: resolver.resolve(ImageService.self)!)
+                NewsArticleNewsFeedCollectionViewCellPresenter(
+                    imageService: resolver.resolve(ImageService.self)!,
+                    timeIntervalFormatter: resolver.resolve(TimeIntervalFormatter.self)!
+                )
             ])
         }
     }

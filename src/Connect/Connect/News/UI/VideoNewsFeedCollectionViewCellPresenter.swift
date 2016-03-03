@@ -5,10 +5,12 @@ class VideoNewsFeedCollectionViewCellPresenter: NewsFeedCollectionViewCellPresen
 
     private let imageService: ImageService
     private let urlProvider: URLProvider
+    private let timeIntervalFormatter: TimeIntervalFormatter
 
-    init(imageService: ImageService, urlProvider: URLProvider) {
+    init(imageService: ImageService, urlProvider: URLProvider, timeIntervalFormatter: TimeIntervalFormatter) {
         self.imageService = imageService
         self.urlProvider = urlProvider
+        self.timeIntervalFormatter = timeIntervalFormatter
     }
 
     func setupCollectionView(collectionView: UICollectionView) {
@@ -22,6 +24,7 @@ class VideoNewsFeedCollectionViewCellPresenter: NewsFeedCollectionViewCellPresen
         }
 
         cell.titleLabel.text = video.title
+        cell.dateLabel.text = timeIntervalFormatter.humanDaysSinceDate(video.date)
 
         cell.imageVisible = true
 

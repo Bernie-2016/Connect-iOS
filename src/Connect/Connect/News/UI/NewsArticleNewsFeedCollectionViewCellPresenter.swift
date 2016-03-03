@@ -4,9 +4,11 @@ import UIKit
 class NewsArticleNewsFeedCollectionViewCellPresenter: NewsFeedCollectionViewCellPresenter {
 // swiftlint:enable type_name
     let imageService: ImageService
+    let timeIntervalFormatter: TimeIntervalFormatter
 
-    init(imageService: ImageService) {
+    init(imageService: ImageService, timeIntervalFormatter: TimeIntervalFormatter) {
         self.imageService = imageService
+        self.timeIntervalFormatter = timeIntervalFormatter
     }
 
     private let kCollectionViewCellName = "NewsFeedCollectionViewCellPresenterCell"
@@ -22,6 +24,7 @@ class NewsArticleNewsFeedCollectionViewCellPresenter: NewsFeedCollectionViewCell
         }
 
         cell.titleLabel.text = newsArticle.title
+        cell.dateLabel.text = timeIntervalFormatter.humanDaysSinceDate(newsArticle.date)
 
         guard let imageURL = newsArticle.imageURL else {
             cell.imageVisible = false

@@ -8,15 +8,18 @@ class NewsArticleNewsFeedCollectionViewCellPresenterSpec: QuickSpec {
         describe("NewsArticleNewsFeedCollectionViewCellPresenter") {
             var subject: NewsArticleNewsFeedCollectionViewCellPresenter!
             var imageService: FakeImageService!
+            var timeIntervalFormatter: FakeTimeIntervalFormatter!
 
             var collectionView: UICollectionView!
             let indexPath = NSIndexPath(forItem: 0, inSection: 0)
             var dataSource: UICollectionViewDataSource!
             beforeEach {
                 imageService = FakeImageService()
+                timeIntervalFormatter = FakeTimeIntervalFormatter()
 
                 subject = NewsArticleNewsFeedCollectionViewCellPresenter(
-                    imageService: imageService
+                    imageService: imageService,
+                    timeIntervalFormatter: timeIntervalFormatter
                 )
 
                 collectionView = AlwaysReusingCollectionView(
@@ -39,6 +42,14 @@ class NewsArticleNewsFeedCollectionViewCellPresenterSpec: QuickSpec {
                     let cell = subject.cellForCollectionView(collectionView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleCollectionViewCell
 
                     expect(cell.titleLabel.text) == "Bernie to release new album"
+                }
+
+                it("sets the date label using the time interval formatter") {
+                    let cell = subject.cellForCollectionView(collectionView, newsFeedItem: newsArticle, indexPath: indexPath) as! NewsArticleCollectionViewCell
+
+                    expect(timeIntervalFormatter.lastFormattedDate) === newsArticle.date
+
+                    expect(cell.dateLabel.text) == "human date"
                 }
 
                 context("when the news article has an image URL") {

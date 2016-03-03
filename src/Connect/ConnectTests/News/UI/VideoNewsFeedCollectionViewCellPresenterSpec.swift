@@ -9,6 +9,7 @@ class VideoNewsFeedCollectionViewCellPresenterSpec: QuickSpec {
             var subject: VideoNewsFeedCollectionViewCellPresenter!
             var urlProvider: NewsFeedVideoFakeURLProvider!
             var imageService: FakeImageService!
+            var timeIntervalFormatter: FakeTimeIntervalFormatter!
 
             var collectionView: UICollectionView!
             var dataSource: FakeDataSource!
@@ -16,10 +17,12 @@ class VideoNewsFeedCollectionViewCellPresenterSpec: QuickSpec {
             beforeEach {
                 imageService = FakeImageService()
                 urlProvider = NewsFeedVideoFakeURLProvider()
+                timeIntervalFormatter = FakeTimeIntervalFormatter()
 
                 subject = VideoNewsFeedCollectionViewCellPresenter(
                     imageService: imageService,
-                    urlProvider: urlProvider
+                    urlProvider: urlProvider,
+                    timeIntervalFormatter: timeIntervalFormatter
                 )
 
                 collectionView = AlwaysReusingCollectionView(
@@ -42,6 +45,14 @@ class VideoNewsFeedCollectionViewCellPresenterSpec: QuickSpec {
                     let cell = subject.cellForCollectionView(collectionView, newsFeedItem: video, indexPath: indexPath) as! NewsArticleCollectionViewCell
 
                     expect(cell.titleLabel.text) == "Bernie MegaMix"
+                }
+
+                it("sets the date label using the time interval formatter") {
+                    let cell = subject.cellForCollectionView(collectionView, newsFeedItem: video, indexPath: indexPath) as! NewsArticleCollectionViewCell
+
+                    expect(timeIntervalFormatter.lastFormattedDate) === video.date
+
+                    expect(cell.dateLabel.text) == "human date"
                 }
 
                 it("asks the image repository to fetch the URL from the provider") {
