@@ -52,7 +52,7 @@ class NewsArticleCollectionViewCell: UICollectionViewCell {
             self.titleToTopConstraint = self.titleLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: verticalPadding)
         })
 
-        titleLabel.numberOfLines = 4
+        titleLabel.numberOfLines = 5
         titleLabel.setContentCompressionResistancePriority(1000, forAxis: .Vertical)
         titleLabel.setContentHuggingPriority(1000, forAxis: .Vertical)
         titleLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: borderPadding)
