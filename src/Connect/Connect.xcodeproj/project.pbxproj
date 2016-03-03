@@ -259,6 +259,8 @@
 		65DA57C71C77F8D200D49826 /* CocoaMarkdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65DA57C51C77F8D200D49826 /* CocoaMarkdown.framework */; };
 		65DA57C91C77F8F000D49826 /* CocoaMarkdown.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 65DA57C61C77F8D200D49826 /* CocoaMarkdown.framework.dSYM */; };
 		65DB15E51C87E1BA00F470D5 /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DB15E41C87E1BA00F470D5 /* VideoCollectionViewCell.swift */; };
+		65DB15E91C88064800F470D5 /* DateTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65DB15E71C88064800F470D5 /* DateTools.framework */; };
+		65DB15EA1C88065900F470D5 /* DateTools.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 65DB15E61C88064800F470D5 /* DateTools.framework.dSYM */; };
 		65DE887E1BE31540001AEDD8 /* FakeTimeIntervalFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DE887D1BE31540001AEDD8 /* FakeTimeIntervalFormatter.swift */; };
 		65E06CAB1BCB30DC00BDDA61 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8233FC151B7C28FB00A5E9ED /* Images.xcassets */; };
 		65E33D801C46EB9A003464D9 /* PushNotificationHandlerDispatcherSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E33D7F1C46EB9A003464D9 /* PushNotificationHandlerDispatcherSpec.swift */; };
@@ -298,6 +300,7 @@
 				654D12961C3E0F4D000A2982 /* Bolts.framework.dSYM in Copy symbolication files */,
 				65937D231C4058DC003A1EFA /* CBGPromise.framework.dSYM in Copy symbolication files */,
 				65DA57C91C77F8F000D49826 /* CocoaMarkdown.framework.dSYM in Copy symbolication files */,
+				65DB15EA1C88065900F470D5 /* DateTools.framework.dSYM in Copy symbolication files */,
 				654D12971C3E0F4F000A2982 /* Parse.framework.dSYM in Copy symbolication files */,
 				65B165561B9747350052EF8D /* PureLayout.framework.dSYM in Copy symbolication files */,
 				65B7815C1C4C58D90087699B /* Swinject.framework.dSYM in Copy symbolication files */,
@@ -577,6 +580,8 @@
 		65DA57C51C77F8D200D49826 /* CocoaMarkdown.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaMarkdown.framework; path = Carthage/Build/iOS/CocoaMarkdown.framework; sourceTree = "<group>"; };
 		65DA57C61C77F8D200D49826 /* CocoaMarkdown.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = CocoaMarkdown.framework.dSYM; path = Carthage/Build/iOS/CocoaMarkdown.framework.dSYM; sourceTree = "<group>"; };
 		65DB15E41C87E1BA00F470D5 /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
+		65DB15E61C88064800F470D5 /* DateTools.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = DateTools.framework.dSYM; path = Carthage/Build/iOS/DateTools.framework.dSYM; sourceTree = "<group>"; };
+		65DB15E71C88064800F470D5 /* DateTools.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DateTools.framework; path = Carthage/Build/iOS/DateTools.framework; sourceTree = "<group>"; };
 		65DE887D1BE31540001AEDD8 /* FakeTimeIntervalFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeTimeIntervalFormatter.swift; sourceTree = "<group>"; };
 		65E33D7F1C46EB9A003464D9 /* PushNotificationHandlerDispatcherSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationHandlerDispatcherSpec.swift; sourceTree = "<group>"; };
 		65E33D811C46EC0D003464D9 /* PushNotificationHandlerDispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationHandlerDispatcher.swift; sourceTree = "<group>"; };
@@ -605,6 +610,7 @@
 				65937D211C4058AE003A1EFA /* CBGPromise.framework in Frameworks */,
 				65DA57C71C77F8D200D49826 /* CocoaMarkdown.framework in Frameworks */,
 				65A5C0FC1BA29F2200D46500 /* Crashlytics.framework in Frameworks */,
+				65DB15E91C88064800F470D5 /* DateTools.framework in Frameworks */,
 				65A5C0FA1BA2978600D46500 /* Fabric.framework in Frameworks */,
 				654948DB1BFAFAE300C1ECDB /* libFlurry_7.3.0.a in Frameworks */,
 				65494C601BFB8EC100C1ECDB /* libsqlite3.tbd in Frameworks */,
@@ -1250,6 +1256,8 @@
 				65937D201C4058AE003A1EFA /* CBGPromise.framework.dSYM */,
 				65DA57C51C77F8D200D49826 /* CocoaMarkdown.framework */,
 				65DA57C61C77F8D200D49826 /* CocoaMarkdown.framework.dSYM */,
+				65DB15E71C88064800F470D5 /* DateTools.framework */,
+				65DB15E61C88064800F470D5 /* DateTools.framework.dSYM */,
 				65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */,
 				654D12901C3E0F28000A2982 /* Parse.framework */,
 				654D12911C3E0F28000A2982 /* Parse.framework.dSYM */,
@@ -1613,6 +1621,7 @@
 				"$(PROJECT_DIR)/Carthage/Build/iOS/CBGPromise.framework",
 				"$(PROJECT_DIR)/Carthage/Build/iOS/Swinject.framework",
 				"$(PROJECT_DIR)/Carthage/Build/iOS/CocoaMarkdown.framework",
+				"$(PROJECT_DIR)/Carthage/Build/iOS/DateTools.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (

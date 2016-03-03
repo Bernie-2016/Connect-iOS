@@ -1,4 +1,5 @@
 import Foundation
+import DateTools
 
 class ConcreteTimeIntervalFormatter: TimeIntervalFormatter {
     private let dateProvider: DateProvider
@@ -9,13 +10,7 @@ class ConcreteTimeIntervalFormatter: TimeIntervalFormatter {
     }
 
     func humanDaysSinceDate(date: NSDate) -> String {
-        let numberOfDays = self.numberOfDaysSinceDate(date)
-
-        if numberOfDays == 0 {
-            return NSLocalizedString("TimeInterval_today", comment: "")
-        } else {
-            return NSString.localizedStringWithFormat(NSLocalizedString("TimeInterval_daysAgo %d", comment: ""),  numberOfDays) as String
-        }
+        return date.timeAgoSinceNow()
     }
 
     func numberOfDaysSinceDate(date: NSDate) -> Int {

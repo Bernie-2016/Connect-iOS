@@ -24,7 +24,7 @@ public class Future<T, ET: ErrorType> {
         if let value = value {
             callback(value)
         }
-        
+
         return self
     }
 
