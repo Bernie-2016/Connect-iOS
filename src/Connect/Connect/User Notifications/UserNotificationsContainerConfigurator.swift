@@ -13,7 +13,8 @@ class UserNotificationContainerConfigurator: ContainerConfigurator {
                 interstitialController: resolver.resolve(UIViewController.self, name: "interstitial")!,
                 tabBarController: resolver.resolve(TabBarController.self)!,
                 newsFeedItemControllerProvider: resolver.resolve(NewsFeedItemControllerProvider.self)!,
-                newsArticleService: resolver.resolve(NewsArticleService.self)!)
+                newsArticleService: resolver.resolve(NewsArticleService.self)!
+            )
 
             let parseAnalyticsHandler = ParseAnalyticsNotificationHandler(pfAnalyticsProxy: resolver.resolve(PFAnalyticsProxy.self)!)
 
@@ -25,8 +26,17 @@ class UserNotificationContainerConfigurator: ContainerConfigurator {
                 actionAlertService: resolver.resolve(ActionAlertService.self)!
             )
 
+            let videoHandler = OpenVideoNotificationHandler(
+                newsNavigationController: resolver.resolve(NavigationController.self, name: "news")!,
+                interstitialController: resolver.resolve(UIViewController.self, name: "interstitial")!,
+                tabBarController: resolver.resolve(TabBarController.self)!,
+                newsFeedItemControllerProvider: resolver.resolve(NewsFeedItemControllerProvider.self)!,
+                videoService: resolver.resolve(VideoService.self)!
+            )
+
             let handlers: [UserNotificationHandler] = [
                 newsHandler,
+                videoHandler,
                 actionAlertHandler,
                 parseAnalyticsHandler
             ]

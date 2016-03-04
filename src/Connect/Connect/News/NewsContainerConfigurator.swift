@@ -38,6 +38,14 @@ class NewsContainerConfigurator: ContainerConfigurator {
             )
             }.inObjectScope(.Container)
 
+        container.register(VideoService.self) { resolver in
+            return BackgroundVideoService(
+                videoRepository: resolver.resolve(VideoRepository.self)!,
+                workerQueue: resolver.resolve(NSOperationQueue.self, name: "work")!,
+                resultQueue: resolver.resolve(NSOperationQueue.self, name: "main")!
+            )
+        }.inObjectScope(.Container)
+
         container.register(NewsFeedService.self) { resolver in
             return BackgroundNewsFeedService(
                 newsArticleRepository: resolver.resolve(NewsArticleRepository.self)!,
@@ -91,7 +99,7 @@ class NewsContainerConfigurator: ContainerConfigurator {
                     timeIntervalFormatter: resolver.resolve(TimeIntervalFormatter.self)!,
                     theme: resolver.resolve(Theme.self)!
                 )
-            ])
+                ])
         }
     }
     // swiftlint:enable function_body_length

@@ -14,6 +14,8 @@
 		6505C9531BB9FF3F008DD278 /* FakeURLOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6505C9521BB9FF3F008DD278 /* FakeURLOpener.swift */; };
 		6507631E1B8B720E00BA0659 /* FakeURLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6507631D1B8B720E00BA0659 /* FakeURLProvider.swift */; };
 		650CF4231C602E3400991CFE /* ActionAlertTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650CF4221C602E3400991CFE /* ActionAlertTableViewCell.swift */; };
+		650DB95E1C892F5E00C06859 /* BackgroundVideoServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650DB95D1C892F5E00C06859 /* BackgroundVideoServiceSpec.swift */; };
+		650DB9601C89324300C06859 /* FakeVideoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650DB95F1C89324300C06859 /* FakeVideoRepository.swift */; };
 		6513E4781C59B29E00CA51BD /* ActionAlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6513E4771C59B29E00CA51BD /* ActionAlertService.swift */; };
 		6513E47B1C59B2E200CA51BD /* ActionAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6513E47A1C59B2E200CA51BD /* ActionAlert.swift */; };
 		6518CBAD1BC1C5A2000C238C /* terms_and_conditions.html in Resources */ = {isa = PBXBuildFile; fileRef = 6518CBAC1BC1C5A2000C238C /* terms_and_conditions.html */; };
@@ -261,6 +263,9 @@
 		65DB15E51C87E1BA00F470D5 /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DB15E41C87E1BA00F470D5 /* VideoCollectionViewCell.swift */; };
 		65DB15E91C88064800F470D5 /* DateTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65DB15E71C88064800F470D5 /* DateTools.framework */; };
 		65DB15EA1C88065900F470D5 /* DateTools.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 65DB15E61C88064800F470D5 /* DateTools.framework.dSYM */; };
+		65DB15EC1C89264500F470D5 /* OpenVideoNotificationHandlerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DB15EB1C89264500F470D5 /* OpenVideoNotificationHandlerSpec.swift */; };
+		65DB15EE1C89267300F470D5 /* OpenVideoNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DB15ED1C89267300F470D5 /* OpenVideoNotificationHandler.swift */; };
+		65DB15F01C8926BF00F470D5 /* VideoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DB15EF1C8926BF00F470D5 /* VideoService.swift */; };
 		65DE887E1BE31540001AEDD8 /* FakeTimeIntervalFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DE887D1BE31540001AEDD8 /* FakeTimeIntervalFormatter.swift */; };
 		65E06CAB1BCB30DC00BDDA61 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8233FC151B7C28FB00A5E9ED /* Images.xcassets */; };
 		65E33D801C46EB9A003464D9 /* PushNotificationHandlerDispatcherSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E33D7F1C46EB9A003464D9 /* PushNotificationHandlerDispatcherSpec.swift */; };
@@ -331,6 +336,8 @@
 		6505C9521BB9FF3F008DD278 /* FakeURLOpener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeURLOpener.swift; sourceTree = "<group>"; };
 		6507631D1B8B720E00BA0659 /* FakeURLProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeURLProvider.swift; sourceTree = "<group>"; };
 		650CF4221C602E3400991CFE /* ActionAlertTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionAlertTableViewCell.swift; sourceTree = "<group>"; };
+		650DB95D1C892F5E00C06859 /* BackgroundVideoServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundVideoServiceSpec.swift; sourceTree = "<group>"; };
+		650DB95F1C89324300C06859 /* FakeVideoRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeVideoRepository.swift; sourceTree = "<group>"; };
 		6513E4771C59B29E00CA51BD /* ActionAlertService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionAlertService.swift; sourceTree = "<group>"; };
 		6513E47A1C59B2E200CA51BD /* ActionAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionAlert.swift; sourceTree = "<group>"; };
 		6518CBAC1BC1C5A2000C238C /* terms_and_conditions.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = terms_and_conditions.html; sourceTree = "<group>"; };
@@ -582,6 +589,9 @@
 		65DB15E41C87E1BA00F470D5 /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
 		65DB15E61C88064800F470D5 /* DateTools.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = DateTools.framework.dSYM; path = Carthage/Build/iOS/DateTools.framework.dSYM; sourceTree = "<group>"; };
 		65DB15E71C88064800F470D5 /* DateTools.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DateTools.framework; path = Carthage/Build/iOS/DateTools.framework; sourceTree = "<group>"; };
+		65DB15EB1C89264500F470D5 /* OpenVideoNotificationHandlerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenVideoNotificationHandlerSpec.swift; sourceTree = "<group>"; };
+		65DB15ED1C89267300F470D5 /* OpenVideoNotificationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenVideoNotificationHandler.swift; sourceTree = "<group>"; };
+		65DB15EF1C8926BF00F470D5 /* VideoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoService.swift; sourceTree = "<group>"; };
 		65DE887D1BE31540001AEDD8 /* FakeTimeIntervalFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeTimeIntervalFormatter.swift; sourceTree = "<group>"; };
 		65E33D7F1C46EB9A003464D9 /* PushNotificationHandlerDispatcherSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationHandlerDispatcherSpec.swift; sourceTree = "<group>"; };
 		65E33D811C46EC0D003464D9 /* PushNotificationHandlerDispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationHandlerDispatcher.swift; sourceTree = "<group>"; };
@@ -787,6 +797,7 @@
 				653D0EF21C4C2B7D004CB8A0 /* NewsFeedService.swift */,
 				653D0FB31C4C536F004CB8A0 /* VideoDeserializer.swift */,
 				653D0EF31C4C2B7D004CB8A0 /* VideoRepository.swift */,
+				65DB15EF1C8926BF00F470D5 /* VideoService.swift */,
 			);
 			path = DataAccess;
 			sourceTree = "<group>";
@@ -1080,6 +1091,7 @@
 			children = (
 				653D0FF01C4C53BB004CB8A0 /* BackgroundNewsArticleServiceSpec.swift */,
 				653D0FF11C4C53BB004CB8A0 /* BackgroundNewsFeedServiceSpec.swift */,
+				650DB95D1C892F5E00C06859 /* BackgroundVideoServiceSpec.swift */,
 				653D0FF21C4C53BB004CB8A0 /* ConcreteNewsArticleDeserializerSpec.swift */,
 				653D0FF31C4C53BB004CB8A0 /* ConcreteNewsArticleRepositorySpec.swift */,
 				653D0FF41C4C53BB004CB8A0 /* ConcreteVideoDeserializerSpec.swift */,
@@ -1135,6 +1147,7 @@
 				654948DF1BFB7D5400C1ECDB /* Protocols */,
 				650330F21C6038FD006D0752 /* OpenActionAlertNotificationHandler.swift */,
 				652AE5E31C46EE9E00EE7B70 /* OpenNewsArticleNotificationHandler.swift */,
+				65DB15ED1C89267300F470D5 /* OpenVideoNotificationHandler.swift */,
 				652AE5F31C475D3700EE7B70 /* ParseAnalyticsNotificationHandler.swift */,
 				654948E71BFB807600C1ECDB /* ParsePushNotificationRegistrar.swift */,
 				65E33D811C46EC0D003464D9 /* PushNotificationHandlerDispatcher.swift */,
@@ -1158,6 +1171,7 @@
 			children = (
 				650330EC1C603643006D0752 /* OpenActionAlertNotificationHandlerSpec.swift */,
 				652AE5E51C46EEBB00EE7B70 /* OpenNewsArticleNotificationHandlerSpec.swift */,
+				65DB15EB1C89264500F470D5 /* OpenVideoNotificationHandlerSpec.swift */,
 				652AE5F51C475D5300EE7B70 /* ParseAnalyticsNotificationHandlerSpec.swift */,
 				654948E51BFB800A00C1ECDB /* ParsePushNotificationRegistrarSpec.swift */,
 				65E33D7F1C46EB9A003464D9 /* PushNotificationHandlerDispatcherSpec.swift */,
@@ -1321,6 +1335,7 @@
 				6505C9521BB9FF3F008DD278 /* FakeURLOpener.swift */,
 				6507631D1B8B720E00BA0659 /* FakeURLProvider.swift */,
 				651960881C4D9429004AAC6D /* FakeUserNotificationHandler.swift */,
+				650DB95F1C89324300C06859 /* FakeVideoRepository.swift */,
 			);
 			path = Fakes;
 			sourceTree = "<group>";
@@ -1732,6 +1747,7 @@
 				653D0F8C1C4C2FF7004CB8A0 /* OnboardingWorkflow.swift in Sources */,
 				650330F31C6038FD006D0752 /* OpenActionAlertNotificationHandler.swift in Sources */,
 				652AE5E41C46EE9E00EE7B70 /* OpenNewsArticleNotificationHandler.swift in Sources */,
+				65DB15EE1C89267300F470D5 /* OpenVideoNotificationHandler.swift in Sources */,
 				652AE5F41C475D3700EE7B70 /* ParseAnalyticsNotificationHandler.swift in Sources */,
 				654948E81BFB807600C1ECDB /* ParsePushNotificationRegistrar.swift in Sources */,
 				653D0F861C4C2F68004CB8A0 /* PFAnalyticsProxy.swift in Sources */,
@@ -1759,6 +1775,7 @@
 				653D0F1E1C4C2B8B004CB8A0 /* VideoController.swift in Sources */,
 				653D0FB71C4C536F004CB8A0 /* VideoDeserializer.swift in Sources */,
 				653D0EFB1C4C2B7D004CB8A0 /* VideoRepository.swift in Sources */,
+				65DB15F01C8926BF00F470D5 /* VideoService.swift in Sources */,
 				653D0F8D1C4C2FF7004CB8A0 /* WelcomeController.swift in Sources */,
 				65BF649E1C573C8000B825E7 /* ZipCodeValidator.swift in Sources */,
 			);
@@ -1780,6 +1797,7 @@
 				653D10141C4C53BB004CB8A0 /* BackgroundImageServiceSpec.swift in Sources */,
 				653D10261C4C53BB004CB8A0 /* BackgroundNewsArticleServiceSpec.swift in Sources */,
 				653D10271C4C53BB004CB8A0 /* BackgroundNewsFeedServiceSpec.swift in Sources */,
+				650DB95E1C892F5E00C06859 /* BackgroundVideoServiceSpec.swift in Sources */,
 				65D3C5441C5C6B7400317466 /* CMMarkdownConverterSpec.swift in Sources */,
 				653D10151C4C53BB004CB8A0 /* ConcreteApplicationSettingsRepositorySpec.swift in Sources */,
 				653D10071C4C53BB004CB8A0 /* ConcreteEventControllerProviderSpec.swift in Sources */,
@@ -1832,6 +1850,7 @@
 				6505C9531BB9FF3F008DD278 /* FakeURLOpener.swift in Sources */,
 				6507631E1B8B720E00BA0659 /* FakeURLProvider.swift in Sources */,
 				651960891C4D9429004AAC6D /* FakeUserNotificationHandler.swift in Sources */,
+				650DB9601C89324300C06859 /* FakeVideoRepository.swift in Sources */,
 				653D10211C4C53BB004CB8A0 /* FeedbackControllerSpec.swift in Sources */,
 				653D10221C4C53BB004CB8A0 /* FLOSSControllerSpec.swift in Sources */,
 				653D10121C4C53BB004CB8A0 /* NavigationControllerSpec.swift in Sources */,
@@ -1842,6 +1861,7 @@
 				653D10331C4C53BB004CB8A0 /* OnboardingWorkflowSpec.swift in Sources */,
 				650330ED1C603643006D0752 /* OpenActionAlertNotificationHandlerSpec.swift in Sources */,
 				652AE5E61C46EEBB00EE7B70 /* OpenNewsArticleNotificationHandlerSpec.swift in Sources */,
+				65DB15EC1C89264500F470D5 /* OpenVideoNotificationHandlerSpec.swift in Sources */,
 				652AE5F61C475D5300EE7B70 /* ParseAnalyticsNotificationHandlerSpec.swift in Sources */,
 				654948E61BFB800A00C1ECDB /* ParsePushNotificationRegistrarSpec.swift in Sources */,
 				653D10231C4C53BB004CB8A0 /* PrivacyPolicyControllerSpec.swift in Sources */,

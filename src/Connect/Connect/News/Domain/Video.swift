@@ -1,12 +1,14 @@
 import Foundation
 
+typealias VideoIdentifier = String
+
 class Video: NewsFeedItem {
     let title: String
     let date: NSDate
-    let identifier: String
+    let identifier: VideoIdentifier
     let description: String
 
-    init(title: String, date: NSDate, identifier: String, description: String) {
+    init(title: String, date: NSDate, identifier: VideoIdentifier, description: String) {
         self.title = title
         self.date = date
         self.identifier = identifier

@@ -16,6 +16,7 @@ class ConcreteVideoDeserializer: VideoDeserializer {
         guard let videoDictionaries = hitsDictionary["hits"] as? Array<NSDictionary> else { return videos }
 
         for videoDictionary: NSDictionary in videoDictionaries {
+
             guard let sourceDictionary = videoDictionary["_source"] as? NSDictionary else { continue }
             guard let title = sourceDictionary["title"] as? String else { continue }
             guard let description = sourceDictionary["description"] as? String else { continue }
