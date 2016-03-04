@@ -21,7 +21,7 @@ class ConcreteVideoRepositorySpec : QuickSpec {
             )
 
             describe(".fetchVideos") {
-                var videosFuture: VideoFuture!
+                var videosFuture: VideosFuture!
 
                 beforeEach {
                     videosFuture = self.subject.fetchVideos()

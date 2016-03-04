@@ -5,9 +5,9 @@ enum VideoRepositoryError: ErrorType {
     case ErrorInJSONClient(error: JSONClientError)
 }
 
-typealias VideoFuture = Future<Array<Video>, VideoRepositoryError>
-typealias VideoPromise = Promise<Array<Video>, VideoRepositoryError>
+typealias VideosFuture = Future<Array<Video>, VideoRepositoryError>
+typealias VideosPromise = Promise<Array<Video>, VideoRepositoryError>
 
 protocol VideoRepository {
-    func fetchVideos() -> VideoFuture
+    func fetchVideos() -> VideosFuture
 }

@@ -15,8 +15,8 @@ class ConcreteVideoRepository: VideoRepository {
             self.videoDeserializer = videoDeserializer
     }
 
-    func fetchVideos() -> VideoFuture {
-        let promise = VideoPromise()
+    func fetchVideos() -> VideosFuture {
+        let promise = VideosPromise()
 
         let videoJSONFuture = self.jsonClient.JSONPromiseWithURL(self.urlProvider.videoURL(), method: "POST", bodyDictionary: HTTPBodyDictionary())
 

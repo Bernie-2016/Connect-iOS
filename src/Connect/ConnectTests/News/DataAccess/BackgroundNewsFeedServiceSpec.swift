@@ -204,11 +204,11 @@ class BackgroundNewsFeedServiceSpec: QuickSpec {
 
 private class FakeVideoRepository: VideoRepository {
     var fetchVideosCalled: Bool = false
-    var lastPromise: VideoPromise!
+    var lastPromise: VideosPromise!
 
-    func fetchVideos() -> VideoFuture {
+    func fetchVideos() -> VideosFuture {
         self.fetchVideosCalled = true
-        self.lastPromise = VideoPromise()
+        self.lastPromise = VideosPromise()
         return self.lastPromise.future
     }
 }
