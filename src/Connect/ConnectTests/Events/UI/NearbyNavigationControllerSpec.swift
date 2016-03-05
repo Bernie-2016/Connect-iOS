@@ -30,6 +30,13 @@ class NearbyNavigationControllerSpec: QuickSpec {
                     expect(subject.topViewController) === interstitialController
                 }
 
+                it("adds itself as an observer of the LocationPermissionUseCase") {
+                    subject.view.layoutSubviews()
+
+                    expect(locationPermissionUseCase.observers.count) == 1
+                    expect(locationPermissionUseCase.observers.first as? NearbyNavigationController) === subject
+                }
+
                 it("asks the LocationPermissionUseCase for permission for the current location") {
                     subject.view.layoutSubviews()
 
@@ -53,7 +60,7 @@ class NearbyNavigationControllerSpec: QuickSpec {
 
                 describe("when permission is rejected") {
                     it("swaps the interstitial controller for the events controller") {
-                        subject.locationPermissionUseCaseDidRejectPermission(locationPermissionUseCase)
+                        subject.locationPermissionUseCaseDidDenyPermission(locationPermissionUseCase)
 
                         expect(subject.topViewController) === eventsController
                         expect(subject.viewControllers.count) == 1
@@ -65,8 +72,12 @@ class NearbyNavigationControllerSpec: QuickSpec {
 }
 
 private class MockLocationPermissionUseCase: LocationPermissionUseCase {
-    var hasBeenAskedForPermission = false
+    var observers = [LocationPermissionUseCaseObserver]()
+    private func addObserver(observer: LocationPermissionUseCaseObserver) {
+        observers.append(observer)
+    }
 
+    var hasBeenAskedForPermission = false
     private func askPermission() {
         hasBeenAskedForPermission = true
     }

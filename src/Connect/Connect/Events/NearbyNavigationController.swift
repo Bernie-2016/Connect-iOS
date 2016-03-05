@@ -23,6 +23,7 @@ class NearbyNavigationController: UINavigationController {
     override func viewDidLoad() {
         pushViewController(interstitialController, animated: false)
 
+        locationPermissionUseCase.addObserver(self)
         locationPermissionUseCase.askPermission()
     }
 }
@@ -32,6 +33,6 @@ extension NearbyNavigationController: LocationPermissionUseCaseObserver {
         setViewControllers([eventsController], animated: true)
     }
 
-    func locationPermissionUseCaseDidRejectPermission(useCase: LocationPermissionUseCase) {
+    func locationPermissionUseCaseDidDenyPermission(useCase: LocationPermissionUseCase) {
         setViewControllers([eventsController], animated: true)    }
 }
