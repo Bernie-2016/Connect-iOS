@@ -187,6 +187,7 @@
 		65494C621BFB8EDD00C1ECDB /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 65494C5B1BFB87AA00C1ECDB /* libsqlite3.tbd */; };
 		6549DC231C8B46E00057D74C /* NearbyNavigationControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6549DC221C8B46E00057D74C /* NearbyNavigationControllerSpec.swift */; };
 		6549DC251C8B4D170057D74C /* NearbyNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6549DC241C8B4D170057D74C /* NearbyNavigationController.swift */; };
+		6549DC271C8B4F4B0057D74C /* LocationPermissionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6549DC261C8B4F4B0057D74C /* LocationPermissionUseCase.swift */; };
 		654A4DD71BCD865200FC523F /* FakeTabBarItemStylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654A4DD61BCD865200FC523F /* FakeTabBarItemStylist.swift */; };
 		654D12921C3E0F28000A2982 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654D128E1C3E0F28000A2982 /* Bolts.framework */; };
 		654D12941C3E0F28000A2982 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654D12901C3E0F28000A2982 /* Parse.framework */; };
@@ -512,6 +513,7 @@
 		65494C5D1BFB87B200C1ECDB /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		6549DC221C8B46E00057D74C /* NearbyNavigationControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearbyNavigationControllerSpec.swift; sourceTree = "<group>"; };
 		6549DC241C8B4D170057D74C /* NearbyNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearbyNavigationController.swift; sourceTree = "<group>"; };
+		6549DC261C8B4F4B0057D74C /* LocationPermissionUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationPermissionUseCase.swift; sourceTree = "<group>"; };
 		654A4DD61BCD865200FC523F /* FakeTabBarItemStylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeTabBarItemStylist.swift; sourceTree = "<group>"; };
 		654D128E1C3E0F28000A2982 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = Carthage/Build/iOS/Bolts.framework; sourceTree = "<group>"; };
 		654D128F1C3E0F28000A2982 /* Bolts.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Bolts.framework.dSYM; path = Carthage/Build/iOS/Bolts.framework.dSYM; sourceTree = "<group>"; };
@@ -732,6 +734,7 @@
 			children = (
 				653D0ED31C4C2938004CB8A0 /* Event.swift */,
 				653D0ED41C4C2938004CB8A0 /* EventSearchResult.swift */,
+				6549DC261C8B4F4B0057D74C /* LocationPermissionUseCase.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -1730,6 +1733,7 @@
 				65979AA01C4C65DD00A312A9 /* InfrastructureContainerConfigurator.swift in Sources */,
 				653D0FA01C4C35C0004CB8A0 /* InterstitialController.swift in Sources */,
 				653D0F7C1C4C2F68004CB8A0 /* JSONClient.swift in Sources */,
+				6549DC271C8B4F4B0057D74C /* LocationPermissionUseCase.swift in Sources */,
 				65CA5E871B86CAAF0001D870 /* main.swift in Sources */,
 				65D3C5401C5C507800317466 /* MarkdownConverter.swift in Sources */,
 				65979AA81C4C741200A312A9 /* MoreContainerConfigurator.swift in Sources */,
