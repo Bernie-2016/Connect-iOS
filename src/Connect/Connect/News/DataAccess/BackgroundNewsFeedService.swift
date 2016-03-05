@@ -62,17 +62,6 @@ class BackgroundNewsFeedService: NewsFeedService {
     }
 
     private func sortNewsItems(videos: Array<NewsFeedItem>, newsArticles: Array<NewsFeedItem>) -> Array<NewsFeedItem> {
-        var sortedNewsItems = Array<NewsFeedItem>()
-
-        let videosSortedByDate = videos.sort { $0.date.compare($1.date) == NSComparisonResult.OrderedDescending}
-        var sortedRemainingItems: Array<NewsFeedItem>!
-        if videosSortedByDate.count > 0 {
-            sortedNewsItems.append(videosSortedByDate[0])
-            sortedRemainingItems = [Array(videosSortedByDate[1..<videos.count]), newsArticles].flatMap({$0}).sort { $0.date.compare($1.date) == NSComparisonResult.OrderedDescending}
-        } else {
-            sortedRemainingItems = newsArticles.sort { $0.date.compare($1.date) == NSComparisonResult.OrderedDescending}
-        }
-
-        return sortedNewsItems + sortedRemainingItems
+        return [videos, newsArticles].flatMap({$0}).sort { $0.date.compare($1.date) == NSComparisonResult.OrderedDescending}
     }
 }

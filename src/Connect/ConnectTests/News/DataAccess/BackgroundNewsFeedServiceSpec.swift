@@ -52,13 +52,13 @@ class BackgroundNewsFeedServiceSpec: QuickSpec {
                 describe("when both the news article repo and video repo returns some objects") {
                     beforeEach { workerQueue.lastReceivedBlock() }
 
-                    it("calls the completion handler with the news feed items, with the most recent video first and the rest of the news feed items sorted by date") {
-                        let newsArticleA = TestUtils.newsArticle(NSDate(timeIntervalSince1970: 5))
-                        let newsArticleB = TestUtils.newsArticle(NSDate(timeIntervalSince1970: 4))
-                        let newsArticleC = TestUtils.newsArticle(NSDate(timeIntervalSince1970: 2))
+                    it("calls the completion handler with the news feed items, sorted most recent first") {
+                        let newsArticleA = TestUtils.newsArticle(NSDate(timeIntervalSince1970: 4))
+                        let newsArticleB = TestUtils.newsArticle(NSDate(timeIntervalSince1970: 3))
+                        let newsArticleC = TestUtils.newsArticle(NSDate(timeIntervalSince1970: 1))
 
-                        let videoA  = TestUtils.video(NSDate(timeIntervalSince1970: 4))
-                        let videoB  = TestUtils.video(NSDate(timeIntervalSince1970: 3))
+                        let videoA  = TestUtils.video(NSDate(timeIntervalSince1970: 5))
+                        let videoB  = TestUtils.video(NSDate(timeIntervalSince1970: 2))
 
                         newsArticleRepository.lastPromise.resolve([newsArticleC, newsArticleA, newsArticleB])
                         videoRepository.lastPromise.resolve([videoB, videoA])
