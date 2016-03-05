@@ -66,7 +66,7 @@ class OnboardingWorkflowSpec: QuickSpec {
                 }
             }
 
-            describe("when a controller notifies the router that the user agreed to terms and conditions") {
+            describe("when a controller notifies the workflow that the user agreed to terms and conditions") {
                 it("presents the post onboarding controller") {
                     self.subject.controllerDidFinishOnboarding(self.onboardingController)
 
