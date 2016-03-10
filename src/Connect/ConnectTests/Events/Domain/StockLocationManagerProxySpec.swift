@@ -50,6 +50,42 @@ class StockLocationManagerProxySpec: QuickSpec {
                     expect(observerB.lastUpdatedStatus) == .AuthorizedAlways
                 }
             }
+
+            describe("when the location manager updates locations") {
+                it("notifies its observers") {
+                    let locationA = CLLocation(latitude: 1, longitude: 2)
+                    let locationB = CLLocation(latitude: 3, longitude: 4)
+                    let expectedLocations = [locationA, locationB]
+                    locationManager.delegate?.locationManager!(locationManager, didUpdateLocations: expectedLocations)
+
+                    expect(observerA.lastUpdatedLocationProxy as? StockLocationManagerProxy) === subject as? StockLocationManagerProxy
+                    expect(observerA.lastUpdatedLocationLocations) == expectedLocations
+
+                    expect(observerB.lastUpdatedLocationProxy as? StockLocationManagerProxy) === subject as? StockLocationManagerProxy
+                    expect(observerB.lastUpdatedLocationLocations) == expectedLocations
+                }
+            }
+
+            describe("when the location manager fails to update locations") {
+                it("notifies its observers") {
+                    let expectedError = NSError(domain: "bad", code: 42, userInfo: nil)
+                    locationManager.delegate?.locationManager!(locationManager, didFailWithError: expectedError)
+
+                    expect(observerA.lastErroredProxy as? StockLocationManagerProxy) === subject as? StockLocationManagerProxy
+                    expect(observerA.lastError) == expectedError
+
+                    expect(observerB.lastErroredProxy as? StockLocationManagerProxy) === subject as? StockLocationManagerProxy
+                    expect(observerB.lastError) == expectedError
+                }
+            }
+
+            describe("requesting the current location") {
+                it("proxies through to the correct method on the location manager") {
+                    subject.startUpdatingLocations()
+
+                    expect(locationManager.didStartUpdatingLocations) == true
+                }
+            }
         }
     }
 }
@@ -58,6 +94,16 @@ private class MockLocationManager: CLLocationManager {
     var didRequestAlwaysAuthorization = false
     private override func requestAlwaysAuthorization() {
         didRequestAlwaysAuthorization = true
+    }
+
+    var didRequestLocation = false
+    private override func requestLocation() {
+        didRequestLocation = true
+    }
+
+    var didStartUpdatingLocations = false
+    private override func startUpdatingLocation() {
+        didStartUpdatingLocations = true
     }
 }
 
@@ -68,5 +114,19 @@ private class MockLocationManagerProxyObserver: LocationManagerProxyObserver {
     private func locationManagerProxy(locationManagerProxy: LocationManagerProxy, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         lastUpdatedStatusProxy = locationManagerProxy
         lastUpdatedStatus = status
+    }
+
+    private var lastUpdatedLocationProxy: LocationManagerProxy?
+    private var lastUpdatedLocationLocations: [CLLocation]?
+    private func locationManagerProxy(locationManagerProxy: LocationManagerProxy, didUpdateLocations locations: [CLLocation]) {
+        lastUpdatedLocationProxy = locationManagerProxy
+        lastUpdatedLocationLocations = locations
+    }
+
+    private var lastErroredProxy: LocationManagerProxy?
+    private var lastError: NSError?
+    private func locationManagerProxy(locationManagerProxy: LocationManagerProxy, didFailWithError error: NSError) {
+            lastErroredProxy = locationManagerProxy
+            lastError = error
     }
 }

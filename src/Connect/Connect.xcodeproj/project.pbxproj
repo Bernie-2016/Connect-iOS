@@ -204,6 +204,8 @@
 		654D12971C3E0F4F000A2982 /* Parse.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 654D12911C3E0F28000A2982 /* Parse.framework.dSYM */; };
 		654E27C11C18DB22005B6D2D /* videos.json in Resources */ = {isa = PBXBuildFile; fileRef = 654E27C01C18DB22005B6D2D /* videos.json */; };
 		654E27C31C18FF0B005B6D2D /* video_nasties.json in Resources */ = {isa = PBXBuildFile; fileRef = 654E27C21C18FF0B005B6D2D /* video_nasties.json */; };
+		654EE1591C8BAA4B00E44B9F /* StockCurrentLocationUseCaseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654EE1581C8BAA4B00E44B9F /* StockCurrentLocationUseCaseSpec.swift */; };
+		654EE15B1C8E20F400E44B9F /* MockLocationManagerProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654EE15A1C8E20F400E44B9F /* MockLocationManagerProxy.swift */; };
 		654F92811C5ABFBD00C76992 /* ActionAlertControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654F92801C5ABFBD00C76992 /* ActionAlertControllerSpec.swift */; };
 		654FDBBB1BC1862800A082CF /* cssInjection.js in Resources */ = {isa = PBXBuildFile; fileRef = 654FDBBA1BC1862800A082CF /* cssInjection.js */; };
 		654FDBBD1BC1867F00A082CF /* feedbackGoogleFormOverrides.css in Resources */ = {isa = PBXBuildFile; fileRef = 654FDBBC1BC1867F00A082CF /* feedbackGoogleFormOverrides.css */; };
@@ -540,6 +542,8 @@
 		654D12911C3E0F28000A2982 /* Parse.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Parse.framework.dSYM; path = Carthage/Build/iOS/Parse.framework.dSYM; sourceTree = "<group>"; };
 		654E27C01C18DB22005B6D2D /* videos.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = videos.json; sourceTree = "<group>"; };
 		654E27C21C18FF0B005B6D2D /* video_nasties.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = video_nasties.json; sourceTree = "<group>"; };
+		654EE1581C8BAA4B00E44B9F /* StockCurrentLocationUseCaseSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockCurrentLocationUseCaseSpec.swift; sourceTree = "<group>"; };
+		654EE15A1C8E20F400E44B9F /* MockLocationManagerProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockLocationManagerProxy.swift; sourceTree = "<group>"; };
 		654F92801C5ABFBD00C76992 /* ActionAlertControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionAlertControllerSpec.swift; sourceTree = "<group>"; };
 		654FDBBA1BC1862800A082CF /* cssInjection.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = cssInjection.js; sourceTree = "<group>"; };
 		654FDBBC1BC1867F00A082CF /* feedbackGoogleFormOverrides.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = feedbackGoogleFormOverrides.css; sourceTree = "<group>"; };
@@ -1035,6 +1039,7 @@
 			isa = PBXGroup;
 			children = (
 				653D0FC51C4C53BB004CB8A0 /* EventSearchResultsSpec.swift */,
+				654EE1581C8BAA4B00E44B9F /* StockCurrentLocationUseCaseSpec.swift */,
 				6549DC2C1C8B82740057D74C /* StockLocationManagerProxySpec.swift */,
 				6549DC281C8B52FF0057D74C /* StockLocationPermissionUseCaseSpec.swift */,
 			);
@@ -1374,6 +1379,7 @@
 				6507631D1B8B720E00BA0659 /* FakeURLProvider.swift */,
 				651960881C4D9429004AAC6D /* FakeUserNotificationHandler.swift */,
 				650DB95F1C89324300C06859 /* FakeVideoRepository.swift */,
+				654EE15A1C8E20F400E44B9F /* MockLocationManagerProxy.swift */,
 				6549DC301C8B88AF0057D74C /* MockLocationPermissionUseCase.swift */,
 			);
 			path = Fakes;
@@ -1899,6 +1905,7 @@
 				650DB9601C89324300C06859 /* FakeVideoRepository.swift in Sources */,
 				653D10211C4C53BB004CB8A0 /* FeedbackControllerSpec.swift in Sources */,
 				653D10221C4C53BB004CB8A0 /* FLOSSControllerSpec.swift in Sources */,
+				654EE15B1C8E20F400E44B9F /* MockLocationManagerProxy.swift in Sources */,
 				6549DC311C8B88AF0057D74C /* MockLocationPermissionUseCase.swift in Sources */,
 				653D10121C4C53BB004CB8A0 /* NavigationControllerSpec.swift in Sources */,
 				6549DC231C8B46E00057D74C /* NearbyNavigationControllerSpec.swift in Sources */,
@@ -1922,6 +1929,7 @@
 				65E856D21C61916600F4849C /* StockActionsTableViewCellPresenterSpec.swift in Sources */,
 				6519608D1C4DCDCF004AAC6D /* StockAppBootstrapperSpec.swift in Sources */,
 				65444BCC1C8B959200CC8AC8 /* StockChildControllerBuddySpec.swift in Sources */,
+				654EE1591C8BAA4B00E44B9F /* StockCurrentLocationUseCaseSpec.swift in Sources */,
 				6549DC2D1C8B82740057D74C /* StockLocationManagerProxySpec.swift in Sources */,
 				6549DC291C8B52FF0057D74C /* StockLocationPermissionUseCaseSpec.swift in Sources */,
 				65F935071C8536F800E809A4 /* StockNewsFeedCollectionViewCellPresenterSpec.swift in Sources */,

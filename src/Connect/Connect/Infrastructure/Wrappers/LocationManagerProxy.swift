@@ -1,13 +1,17 @@
 import CoreLocation
 
 protocol LocationManagerProxy {
+    func addObserver(observer: LocationManagerProxyObserver)
     func authorizationStatus() -> CLAuthorizationStatus
     func requestAlwaysAuthorization()
-    func addObserver(observer: LocationManagerProxyObserver)
+    func startUpdatingLocations()
 }
 
 protocol LocationManagerProxyObserver :class {
     func locationManagerProxy(locationManagerProxy: LocationManagerProxy, didChangeAuthorizationStatus status: CLAuthorizationStatus)
+    func locationManagerProxy(locationManagerProxy: LocationManagerProxy, didUpdateLocations locations: [CLLocation])
+
+    func locationManagerProxy(locationManagerProxy: LocationManagerProxy, didFailWithError error: NSError)
 }
 
 class StockLocationManagerProxy: NSObject, LocationManagerProxy {
@@ -37,12 +41,28 @@ class StockLocationManagerProxy: NSObject, LocationManagerProxy {
     func requestAlwaysAuthorization() {
         locationManager.requestAlwaysAuthorization()
     }
+
+    func startUpdatingLocations() {
+        locationManager.startUpdatingLocation()
+    }
 }
 
 extension StockLocationManagerProxy: CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         for observer in observers {
             observer.locationManagerProxy(self, didChangeAuthorizationStatus: status)
+        }
+    }
+
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        for observer in observers {
+            observer.locationManagerProxy(self, didUpdateLocations: locations)
+        }
+    }
+
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        for observer in observers {
+            observer.locationManagerProxy(self, didFailWithError: error)
         }
     }
 }
