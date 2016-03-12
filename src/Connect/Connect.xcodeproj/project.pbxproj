@@ -26,7 +26,7 @@
 		6519608B1C4DCA85004AAC6D /* FakePushNotificationRegistrar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6519608A1C4DCA85004AAC6D /* FakePushNotificationRegistrar.swift */; };
 		6519608D1C4DCDCF004AAC6D /* StockAppBootstrapperSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6519608C1C4DCDCF004AAC6D /* StockAppBootstrapperSpec.swift */; };
 		651C466D1C4340F50075F5DE /* FakeImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C466C1C4340F50075F5DE /* FakeImageService.swift */; };
-		651F80F71C40B211004E7FDA /* FakeEventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651F80F61C40B211004E7FDA /* FakeEventRepository.swift */; };
+		651F80F71C40B211004E7FDA /* MockEventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651F80F61C40B211004E7FDA /* MockEventRepository.swift */; };
 		65205F321BC098DF005A55F2 /* FakeURLAttributionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65205F311BC098DF005A55F2 /* FakeURLAttributionPresenter.swift */; };
 		652AE5E41C46EE9E00EE7B70 /* OpenNewsArticleNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652AE5E31C46EE9E00EE7B70 /* OpenNewsArticleNotificationHandler.swift */; };
 		652AE5E61C46EEBB00EE7B70 /* OpenNewsArticleNotificationHandlerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652AE5E51C46EEBB00EE7B70 /* OpenNewsArticleNotificationHandlerSpec.swift */; };
@@ -214,6 +214,7 @@
 		655A3DB81BBCCE7400E08051 /* floss_licenses.html in Resources */ = {isa = PBXBuildFile; fileRef = 655A3DB71BBCCE7400E08051 /* floss_licenses.html */; };
 		656BC9661C70260D00CFA4EB /* tonybenn.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 656BC9651C70260D00CFA4EB /* tonybenn.jpg */; };
 		656BC9681C702BA800CFA4EB /* AlwaysReusingTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656BC9671C702BA800CFA4EB /* AlwaysReusingTableView.swift */; };
+		656BFBD01C94801F004DB9F1 /* StockNearbyEventsUseCaseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656BFBCF1C94801F004DB9F1 /* StockNearbyEventsUseCaseSpec.swift */; };
 		65713DE11C5DAA0F00E6E4FC /* action_alert_with_invalid_sharing_urls.json in Resources */ = {isa = PBXBuildFile; fileRef = 65713DE01C5DAA0F00E6E4FC /* action_alert_with_invalid_sharing_urls.json */; };
 		657C13EF1C615CFF00EC1569 /* BaseURLs.plist in Resources */ = {isa = PBXBuildFile; fileRef = 657C13EE1C615CFF00EC1569 /* BaseURLs.plist */; };
 		657C13F31C615E1400EC1569 /* BaseURLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657C13F21C615E1400EC1569 /* BaseURLProvider.swift */; };
@@ -363,7 +364,7 @@
 		6519608A1C4DCA85004AAC6D /* FakePushNotificationRegistrar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakePushNotificationRegistrar.swift; sourceTree = "<group>"; };
 		6519608C1C4DCDCF004AAC6D /* StockAppBootstrapperSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockAppBootstrapperSpec.swift; sourceTree = "<group>"; };
 		651C466C1C4340F50075F5DE /* FakeImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeImageService.swift; sourceTree = "<group>"; };
-		651F80F61C40B211004E7FDA /* FakeEventRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeEventRepository.swift; sourceTree = "<group>"; };
+		651F80F61C40B211004E7FDA /* MockEventRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockEventRepository.swift; sourceTree = "<group>"; };
 		65205F311BC098DF005A55F2 /* FakeURLAttributionPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeURLAttributionPresenter.swift; sourceTree = "<group>"; };
 		652AE5E31C46EE9E00EE7B70 /* OpenNewsArticleNotificationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenNewsArticleNotificationHandler.swift; sourceTree = "<group>"; };
 		652AE5E51C46EEBB00EE7B70 /* OpenNewsArticleNotificationHandlerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenNewsArticleNotificationHandlerSpec.swift; sourceTree = "<group>"; };
@@ -553,6 +554,7 @@
 		655A3DB71BBCCE7400E08051 /* floss_licenses.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = floss_licenses.html; sourceTree = "<group>"; };
 		656BC9651C70260D00CFA4EB /* tonybenn.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tonybenn.jpg; sourceTree = "<group>"; };
 		656BC9671C702BA800CFA4EB /* AlwaysReusingTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlwaysReusingTableView.swift; sourceTree = "<group>"; };
+		656BFBCF1C94801F004DB9F1 /* StockNearbyEventsUseCaseSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockNearbyEventsUseCaseSpec.swift; sourceTree = "<group>"; };
 		65713DE01C5DAA0F00E6E4FC /* action_alert_with_invalid_sharing_urls.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = action_alert_with_invalid_sharing_urls.json; sourceTree = "<group>"; };
 		657C13EE1C615CFF00EC1569 /* BaseURLs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BaseURLs.plist; sourceTree = "<group>"; };
 		657C13F21C615E1400EC1569 /* BaseURLProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseURLProvider.swift; sourceTree = "<group>"; };
@@ -1040,6 +1042,7 @@
 				654EE1581C8BAA4B00E44B9F /* StockCurrentLocationUseCaseSpec.swift */,
 				6549DC2C1C8B82740057D74C /* StockLocationManagerProxySpec.swift */,
 				6549DC281C8B52FF0057D74C /* StockLocationPermissionUseCaseSpec.swift */,
+				656BFBCF1C94801F004DB9F1 /* StockNearbyEventsUseCaseSpec.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -1353,7 +1356,6 @@
 				655906F31BC4607100D7B0BA /* FakeApplicationSettingsRepository.swift */,
 				65EA2F281BB9B648001D8FD5 /* FakeDateFormatter.swift */,
 				65A337001BB88FFA0012877F /* FakeEventPresenter.swift */,
-				651F80F61C40B211004E7FDA /* FakeEventRepository.swift */,
 				65D0ECE61BBAD9940063B1D0 /* FakeEventRSVPControllerProvider.swift */,
 				659F0E1F1B95F0180049FA12 /* FakeImageRepository.swift */,
 				651C466C1C4340F50075F5DE /* FakeImageService.swift */,
@@ -1376,6 +1378,7 @@
 				6507631D1B8B720E00BA0659 /* FakeURLProvider.swift */,
 				651960881C4D9429004AAC6D /* FakeUserNotificationHandler.swift */,
 				650DB95F1C89324300C06859 /* FakeVideoRepository.swift */,
+				651F80F61C40B211004E7FDA /* MockEventRepository.swift */,
 				654EE15A1C8E20F400E44B9F /* MockLocationManagerProxy.swift */,
 				6549DC301C8B88AF0057D74C /* MockLocationPermissionUseCase.swift */,
 			);
@@ -1878,7 +1881,6 @@
 				655906F41BC4607100D7B0BA /* FakeApplicationSettingsRepository.swift in Sources */,
 				65EA2F291BB9B648001D8FD5 /* FakeDateFormatter.swift in Sources */,
 				65A337011BB88FFA0012877F /* FakeEventPresenter.swift in Sources */,
-				651F80F71C40B211004E7FDA /* FakeEventRepository.swift in Sources */,
 				65D0ECE71BBAD9940063B1D0 /* FakeEventRSVPControllerProvider.swift in Sources */,
 				659F0E201B95F0180049FA12 /* FakeImageRepository.swift in Sources */,
 				651C466D1C4340F50075F5DE /* FakeImageService.swift in Sources */,
@@ -1902,6 +1904,7 @@
 				650DB9601C89324300C06859 /* FakeVideoRepository.swift in Sources */,
 				653D10211C4C53BB004CB8A0 /* FeedbackControllerSpec.swift in Sources */,
 				653D10221C4C53BB004CB8A0 /* FLOSSControllerSpec.swift in Sources */,
+				651F80F71C40B211004E7FDA /* MockEventRepository.swift in Sources */,
 				654EE15B1C8E20F400E44B9F /* MockLocationManagerProxy.swift in Sources */,
 				6549DC311C8B88AF0057D74C /* MockLocationPermissionUseCase.swift in Sources */,
 				653D10121C4C53BB004CB8A0 /* NavigationControllerSpec.swift in Sources */,
@@ -1928,6 +1931,7 @@
 				654EE1591C8BAA4B00E44B9F /* StockCurrentLocationUseCaseSpec.swift in Sources */,
 				6549DC2D1C8B82740057D74C /* StockLocationManagerProxySpec.swift in Sources */,
 				6549DC291C8B52FF0057D74C /* StockLocationPermissionUseCaseSpec.swift in Sources */,
+				656BFBD01C94801F004DB9F1 /* StockNearbyEventsUseCaseSpec.swift in Sources */,
 				65F935071C8536F800E809A4 /* StockNewsFeedCollectionViewCellPresenterSpec.swift in Sources */,
 				653D10131C4C53BB004CB8A0 /* TabBarControllerSpec.swift in Sources */,
 				653D10251C4C53BB004CB8A0 /* TermsAndConditionsControllerSpec.swift in Sources */,

@@ -623,13 +623,13 @@ class EventsControllerSpec : QuickSpec {
 
                                     let cellA = subject.resultsTableView.dataSource!.tableView(subject.resultsTableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0)) as! EventListTableViewCell
 
-                                    expect(eventPresenter.lastReceivedEvent).to(beIdenticalTo(eventA))
+                                    expect(eventPresenter.lastReceivedEvent) == eventA
                                     expect(eventPresenter.lastSearchCentroid).to(beIdenticalTo(expectedSearchCentroid))
                                     expect(eventPresenter.lastReceivedCell).to(beIdenticalTo(cellA))
 
                                     let cellB = subject.resultsTableView.dataSource!.tableView(subject.resultsTableView, cellForRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0)) as! EventListTableViewCell
 
-                                    expect(eventPresenter.lastReceivedEvent).to(beIdenticalTo(eventB))
+                                    expect(eventPresenter.lastReceivedEvent) == eventB
                                     expect(eventPresenter.lastSearchCentroid).to(beIdenticalTo(expectedSearchCentroid))
                                     expect(eventPresenter.lastReceivedCell).to(beIdenticalTo(cellB))
                                 }
@@ -638,7 +638,7 @@ class EventsControllerSpec : QuickSpec {
                                     let cell = subject.resultsTableView.dataSource!.tableView(subject.resultsTableView, cellForRowAtIndexPath:NSIndexPath(forRow: 0, inSection: 0)) as! EventListTableViewCell
 
                                     expect(eventListTableViewCellStylist.lastStyledCell).to(beIdenticalTo(cell))
-                                    expect(eventListTableViewCellStylist.lastReceivedEvent).to(beIdenticalTo(eventA))
+                                    expect(eventListTableViewCellStylist.lastReceivedEvent) == eventA
                                 }
 
                                 it("styles the section headers with the theme") {
@@ -661,7 +661,7 @@ class EventsControllerSpec : QuickSpec {
                                     }
 
                                     it("should push a correctly configured news item view controller onto the nav stack") {
-                                        expect(eventControllerProvider.lastEvent).to(beIdenticalTo(eventB))
+                                        expect(eventControllerProvider.lastEvent) == eventB
                                         expect(subject.navigationController!.topViewController).to(beIdenticalTo(eventControllerProvider.controller))
                                     }
 

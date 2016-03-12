@@ -182,7 +182,7 @@ class EventControllerSpec: QuickSpec {
                 }
 
                 it("uses the presenter to display the start date/time") {
-                    expect(self.eventPresenter.lastEventWithPresentedDateTime).to(beIdenticalTo(self.event))
+                    expect(self.eventPresenter.lastEventWithPresentedDateTime) == self.event
                     expect(self.subject.dateLabel.text).to(equal("PRESENTED DATETIME!"))
                 }
 
@@ -203,7 +203,7 @@ class EventControllerSpec: QuickSpec {
                 }
 
                 it("has an RSVP button with text from the presenter") {
-                    expect(self.eventPresenter.lastEventWithPresentedRSVPText).to(beIdenticalTo(self.event))
+                    expect(self.eventPresenter.lastEventWithPresentedRSVPText) == self.event
                     expect(self.subject.rsvpButton.titleForState(.Normal)).to(equal("LOTS OF PEOPLE!"))
                 }
 
@@ -213,7 +213,7 @@ class EventControllerSpec: QuickSpec {
                     }
 
                     it("pushes an rsvp controller") {
-                        expect(self.eventRSVPControllerProvider.lastReceivedEvent).to(beIdenticalTo(self.event))
+                        expect(self.eventRSVPControllerProvider.lastReceivedEvent) == self.event
                         expect(self.subject.navigationController!.topViewController).to(beAKindOf(EventRSVPController.self))
                     }
 
@@ -226,7 +226,7 @@ class EventControllerSpec: QuickSpec {
 
                 it("has a directions button with the correct title and subtitle") {
                     expect(self.subject.directionsButton.title.text).to(equal("Get Directions"))
-                    expect(self.eventPresenter.lastEventWithPresentedAddress).to(beIdenticalTo(self.event))
+                    expect(self.eventPresenter.lastEventWithPresentedAddress) == self.event
                     expect(self.subject.directionsButton.subTitle.text).to(equal("SOME COOL ADDRESS!"))
                 }
 
@@ -236,7 +236,7 @@ class EventControllerSpec: QuickSpec {
                     }
 
                     it("opens maps with the correct arugments") {
-                        expect(self.urlProvider.lastReceivedEvent).to(beIdenticalTo(self.event))
+                        expect(self.urlProvider.lastReceivedEvent) == self.event
                         expect(self.urlOpener.lastOpenedURL).to(equal(NSURL(string: "http://example.com/mapz")))
                     }
 

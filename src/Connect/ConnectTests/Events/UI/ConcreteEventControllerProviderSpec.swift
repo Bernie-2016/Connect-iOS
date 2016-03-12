@@ -35,7 +35,7 @@ class ConcreteEventControllerProviderSpec : QuickSpec {
                 let controller = self.subject.provideInstanceWithEvent(event)
 
                 expect(controller).to(beAnInstanceOf(EventController.self))
-                expect(controller.event).to(beIdenticalTo(event))
+                expect(controller.event) == event
                 expect(controller.eventPresenter).to(beIdenticalTo(self.eventPresenter))
                 expect(controller.urlProvider as? FakeURLProvider).to(beIdenticalTo(self.urlProvider))
                 expect(controller.urlOpener).to(beIdenticalTo(self.urlOpener))

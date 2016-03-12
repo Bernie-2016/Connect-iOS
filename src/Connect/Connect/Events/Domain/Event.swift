@@ -1,7 +1,7 @@
 import Foundation
 import CoreLocation
 
-class Event {
+struct Event {
     let name: String
     let startDate: NSDate
     let timeZone: NSTimeZone
@@ -31,4 +31,22 @@ class Event {
         self.url = url
         self.eventTypeName = eventTypeName
     }
+}
+
+extension Event: Equatable {}
+
+func == (lhs: Event, rhs: Event) -> Bool {
+    return lhs.name == rhs.name
+    && lhs.startDate == rhs.startDate
+    && lhs.timeZone == rhs.timeZone
+    && lhs.attendeeCapacity == rhs.attendeeCapacity
+    && lhs.attendeeCount == rhs.attendeeCount
+    && lhs.streetAddress == rhs.streetAddress
+    && lhs.city == rhs.city
+    && lhs.state == rhs.state
+    && lhs.zip == rhs.zip
+    && lhs.location == rhs.location
+    && lhs.description == rhs.description
+    && lhs.url == rhs.url
+    && lhs.eventTypeName == rhs.eventTypeName
 }

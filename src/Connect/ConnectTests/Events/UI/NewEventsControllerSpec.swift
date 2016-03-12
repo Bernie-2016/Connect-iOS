@@ -48,10 +48,12 @@ class NewEventsControllerSpec: QuickSpec {
                     expect(childControllerBuddy.lastAddedContainerView) === subject.resultsView
                 }
 
-                it("asks the nearby events use case to fetch events") {
+                it("asks the nearby events use case to fetch events within the correct radius") {
                     subject.view.layoutSubviews()
 
-                    expect(nearbyEventsUseCase.didFetchNearbyEvents) == true
+                    // TODO find some way of setting this default radius across both
+                    // the UI in the search bar and here
+                    expect(nearbyEventsUseCase.didFetchNearbyEventsWithinRadius) == 10
                 }
             }
 
@@ -63,7 +65,8 @@ class NewEventsControllerSpec: QuickSpec {
                 context("when the use case finds nearby events") {
                     it("swaps the interstitial controller for the results controller") {
                         let event = TestUtils.eventWithName("nearby event")
-                        nearbyEventsUseCase.simulateFindingEvents([event])
+                        let eventSearchResult = EventSearchResult(searchCentroid: CLLocation(latitude: 1, longitude: 3), events: [event])
+                        nearbyEventsUseCase.simulateFindingEvents(eventSearchResult)
 
                         expect(childControllerBuddy.lastOldSwappedController) === interstitialController
                         expect(childControllerBuddy.lastNewSwappedController) === resultsController
@@ -135,14 +138,14 @@ private class MockNearbyEventsUseCase: NearbyEventsUseCase {
         observers.append(observer)
     }
 
-    var didFetchNearbyEvents = false
-    func fetchNearbyEvents() {
-        didFetchNearbyEvents = true
+    var didFetchNearbyEventsWithinRadius: Float?
+    func fetchNearbyEventsWithinRadiusMiles(radiusMiles: Float) {
+        didFetchNearbyEventsWithinRadius = radiusMiles
     }
 
-    func simulateFindingEvents(events: [Event]) {
+    func simulateFindingEvents(eventSearchResult: EventSearchResult) {
         for observer in observers {
-            observer.nearbyEventsUseCase(self, didFetchEvents: events)
+            observer.nearbyEventsUseCase(self, didFetchEventSearchResult: eventSearchResult)
         }
     }
 

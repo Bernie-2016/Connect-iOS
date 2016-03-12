@@ -40,12 +40,12 @@ class NewEventsController: UIViewController {
         nearbyEventsUseCase.addObserver(self)
 
         childControllerBuddy.add(interstitialController, to: self, containIn: resultsView)
-        nearbyEventsUseCase.fetchNearbyEvents()
+        nearbyEventsUseCase.fetchNearbyEventsWithinRadiusMiles(10.0) // let's kill this magic number
     }
 }
 
 extension NewEventsController: NearbyEventsUseCaseObserver {
-    func nearbyEventsUseCase(useCase: NearbyEventsUseCase, didFetchEvents: [Event]) {
+    func nearbyEventsUseCase(useCase: NearbyEventsUseCase, didFetchEventSearchResult: EventSearchResult) {
         childControllerBuddy.swap(interstitialController, new: resultsController, parent: self) {}
     }
     func nearbyEventsUseCaseFoundNoNearbyEvents(useCase: NearbyEventsUseCase) {

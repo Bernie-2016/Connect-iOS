@@ -41,13 +41,13 @@ class EventSearchResultsSpec: QuickSpec {
                 it("returns the events that are within that day index") {
                     let mondayEvents = self.subject.eventsWithDayIndex(0)
                     expect(mondayEvents.count).to(equal(3))
-                    expect(mondayEvents[0]).to(beIdenticalTo(self.mondayEventA))
-                    expect(mondayEvents[1]).to(beIdenticalTo(self.mondayEventB))
-                    expect(mondayEvents[2]).to(beIdenticalTo(self.mondayEventC))
+                    expect(mondayEvents[0]) == self.mondayEventA
+                    expect(mondayEvents[1]) == self.mondayEventB
+                    expect(mondayEvents[2]) == self.mondayEventC
 
                     let wednesdayEvents = self.subject.eventsWithDayIndex(1)
                     expect(wednesdayEvents.count).to(equal(1))
-                    expect(wednesdayEvents.first).to(beIdenticalTo(self.wednesdayEvent))
+                    expect(wednesdayEvents.first) == self.wednesdayEvent
                 }
             }
         }

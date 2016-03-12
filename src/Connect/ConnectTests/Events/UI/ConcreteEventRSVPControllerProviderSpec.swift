@@ -24,7 +24,7 @@ class ConcreteEventRSVPControllerProviderSpec : QuickSpec {
 
                 expect(controller).to(beAnInstanceOf(EventRSVPController.self))
                 expect(controller.analyticsService as? FakeAnalyticsService).to(beIdenticalTo(self.analyticsService))
-                expect(controller.event).to(beIdenticalTo(event))
+                expect(controller.event) == event
                 expect(controller.theme as? FakeTheme).to(beIdenticalTo(self.theme))
             }
         }

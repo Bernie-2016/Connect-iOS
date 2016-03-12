@@ -8,13 +8,13 @@ class BackgroundEventServiceSpec: QuickSpec {
     override func spec() {
         describe("BackgroundEventService") {
             var subject: EventService!
-            var eventRepository: FakeEventRepository!
+            var eventRepository: MockEventRepository!
             var workerQueue: FakeOperationQueue!
             var resultQueue: FakeOperationQueue!
 
 
             beforeEach {
-                eventRepository = FakeEventRepository()
+                eventRepository = MockEventRepository()
                 workerQueue = FakeOperationQueue()
                 resultQueue = FakeOperationQueue()
 

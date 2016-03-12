@@ -60,6 +60,12 @@ class ConcreteEventRepository: EventRepository {
         return promise.future
     }
 
+    func fetchEventsAroundLocation(location: CLLocation, radiusMiles: Float) -> EventSearchResultFuture {
+        let promise = EventSearchResultPromise()
+
+        return promise.future
+    }
+
     // MARK: Private
 
     func HTTPBodyDictionaryWithLatitude(latitude: CLLocationDegrees, longitude: CLLocationDegrees, radiusMiles: Float) -> NSDictionary {

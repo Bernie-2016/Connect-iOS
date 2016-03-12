@@ -165,7 +165,7 @@ class ConcreteEventRepositorySpec : QuickSpec {
                             let receivedEventSearchResult = eventsFuture.value!
                             expect(receivedEventSearchResult.searchCentroid).to(equal(expectedLocation))
                             expect(receivedEventSearchResult.events.count).to(equal(1))
-                            expect(receivedEventSearchResult.events.first!).to(beIdenticalTo(expectedEvents.first!))
+                            expect(receivedEventSearchResult.events.first!) == expectedEvents.first!
                         }
                     }
 
