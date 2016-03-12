@@ -2045,7 +2045,7 @@
 				PRODUCT_MODULE_NAME = Connect;
 				PRODUCT_NAME = ConnectQA;
 				PROVISIONING_PROFILE = "";
-				SHARKNADO_BASE_URL = "https://elasticsearch.movementapp.io";
+				SHARKNADO_BASE_URL = "https://sharknado-staging.berniesanders.com";
 				SWIFT_OBJC_BRIDGING_HEADER = "Connect/Connect-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -2211,7 +2211,7 @@
 				PRODUCT_MODULE_NAME = Connect;
 				PRODUCT_NAME = Connect;
 				PROVISIONING_PROFILE = "";
-				SHARKNADO_BASE_URL = "https://elasticsearch.movementapp.io";
+				SHARKNADO_BASE_URL = "https://sharknado-staging.berniesanders.com";
 				SWIFT_OBJC_BRIDGING_HEADER = "Connect/Connect-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2259,7 +2259,7 @@
 				PRODUCT_MODULE_NAME = Connect;
 				PRODUCT_NAME = Connect;
 				PROVISIONING_PROFILE = "";
-				SHARKNADO_BASE_URL = "https://elasticsearch.movementapp.io";
+				SHARKNADO_BASE_URL = "https://sharknado.berniesanders.com";
 				SWIFT_OBJC_BRIDGING_HEADER = "Connect/Connect-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
