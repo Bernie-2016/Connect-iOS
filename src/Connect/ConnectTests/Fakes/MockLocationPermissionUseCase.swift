@@ -4,10 +4,6 @@ import Nimble
 @testable import Connect
 
 class MockLocationPermissionUseCase: LocationPermissionUseCase {
-    var observers = [LocationPermissionUseCaseObserver]()
-    func addObserver(observer: LocationPermissionUseCaseObserver) {
-        observers.append(observer)
-    }
 
     var hasBeenAskedForPermission = false
     func askPermission() {
@@ -24,20 +20,12 @@ class MockLocationPermissionUseCase: LocationPermissionUseCase {
     }
 
     func grantPermission() {
-        for observer in observers {
-            observer.locationPermissionUseCaseDidGrantPermission(self)
-        }
-
         for handler in permissionGrantedHandlers {
             handler()
         }
     }
 
     func denyPermission() {
-        for observer in observers {
-            observer.locationPermissionUseCaseDidDenyPermission(self)
-        }
-
         for handler in permissionErrorHandlers {
             handler()
         }

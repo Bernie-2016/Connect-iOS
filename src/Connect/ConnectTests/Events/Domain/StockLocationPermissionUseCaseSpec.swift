@@ -10,21 +10,12 @@ class StockLocationPermissionUseCaseSpec: QuickSpec {
             var subject: LocationPermissionUseCase!
             var locationManagerProxy: MockLocationManagerProxy!
 
-            var observerA: MockLocationPermissionUseCaseObserver!
-            var observerB: MockLocationPermissionUseCaseObserver!
-
             beforeEach {
                 locationManagerProxy = MockLocationManagerProxy()
 
                 subject = StockLocationPermissionUseCase(
                     locationManagerProxy: locationManagerProxy
                 )
-
-                observerA = MockLocationPermissionUseCaseObserver()
-                observerB = MockLocationPermissionUseCaseObserver()
-
-                subject.addObserver(observerA)
-                subject.addObserver(observerB)
             }
 
             it("adds itself as an observer of the location manager proxy") {
@@ -33,15 +24,17 @@ class StockLocationPermissionUseCaseSpec: QuickSpec {
             }
 
             describe("asking for permission") {
+                it("asks the proxy for permission") {
+                    subject.askPermission({ () -> Void in
+
+                        }, errorHandler: { () -> Void in
+
+                    })
+
+                    expect(locationManagerProxy.didRequestAlwaysAuthorized) == true
+                }
+
                 context("when permission is not determined") {
-                    it("asks the location manager for always permission") {
-                        locationManagerProxy.returnedAuthorizationStatus = .NotDetermined
-
-                        subject.askPermission()
-
-                        expect(locationManagerProxy.didRequestAlwaysAuthorized) == true
-                    }
-
                     describe("when the location manager proxy informs the use case that always permission was granted") {
                         it("calls all granted callbacks (once, and only once)") {
                             var permissionGrantedHandlerCalledA = false
@@ -72,13 +65,6 @@ class StockLocationPermissionUseCaseSpec: QuickSpec {
 
                             expect(permissionGrantedHandlerCalledA) == false
                             expect(permissionGrantedHandlerCalledB) == false
-                        }
-
-                        it("notifies its observers that we got permission") {
-                            locationManagerProxy.notifyObserversOfChangedAuthorizationStatus(.AuthorizedAlways)
-
-                            expect(observerA.permissionGrantedForUseCase as? StockLocationPermissionUseCase) === subject as? StockLocationPermissionUseCase
-                            expect(observerB.permissionGrantedForUseCase as? StockLocationPermissionUseCase) === subject as? StockLocationPermissionUseCase
                         }
                     }
 
@@ -172,39 +158,6 @@ class StockLocationPermissionUseCaseSpec: QuickSpec {
                             expect(deniedGrantedHandlerCalledB) == false
                         }
 
-                        it("notifies its observers that we were denied permission") {
-                            locationManagerProxy.notifyObserversOfChangedAuthorizationStatus(.AuthorizedWhenInUse)
-
-                            expect(observerA.permissionRejectedForUseCase as? StockLocationPermissionUseCase) === subject as? StockLocationPermissionUseCase
-                            expect(observerB.permissionRejectedForUseCase as? StockLocationPermissionUseCase) === subject as? StockLocationPermissionUseCase
-
-                            observerA.reset()
-                            observerB.reset()
-
-                            locationManagerProxy.notifyObserversOfChangedAuthorizationStatus(.Denied)
-
-                            expect(observerA.permissionRejectedForUseCase as? StockLocationPermissionUseCase) === subject as? StockLocationPermissionUseCase
-                            expect(observerB.permissionRejectedForUseCase as? StockLocationPermissionUseCase) === subject as? StockLocationPermissionUseCase
-
-                            observerA.reset()
-                            observerB.reset()
-
-                            locationManagerProxy.notifyObserversOfChangedAuthorizationStatus(.NotDetermined)
-
-                            expect(observerA.permissionRejectedForUseCase as? StockLocationPermissionUseCase) === subject as? StockLocationPermissionUseCase
-                            expect(observerB.permissionRejectedForUseCase as? StockLocationPermissionUseCase) === subject as? StockLocationPermissionUseCase
-
-                            observerA.reset()
-                            observerB.reset()
-
-                            locationManagerProxy.notifyObserversOfChangedAuthorizationStatus(.Restricted)
-
-                            expect(observerA.permissionRejectedForUseCase as? StockLocationPermissionUseCase) === subject as? StockLocationPermissionUseCase
-                            expect(observerB.permissionRejectedForUseCase as? StockLocationPermissionUseCase) === subject as? StockLocationPermissionUseCase
-
-                            observerA.reset()
-                            observerB.reset()
-                        }
                     }
                 }
 
@@ -223,15 +176,6 @@ class StockLocationPermissionUseCaseSpec: QuickSpec {
 
                         expect(deniedGrantedHandlerCalled) == true
                     }
-
-                    it("immediately notifies observers that permission was denied") {
-                        locationManagerProxy.returnedAuthorizationStatus = .Denied
-
-                        subject.askPermission()
-
-                        expect(observerA.permissionRejectedForUseCase as? StockLocationPermissionUseCase) === subject as? StockLocationPermissionUseCase
-                        expect(observerB.permissionRejectedForUseCase as? StockLocationPermissionUseCase) === subject as? StockLocationPermissionUseCase
-                    }
                 }
 
                 context("when permission has been restricted") {
@@ -249,15 +193,6 @@ class StockLocationPermissionUseCaseSpec: QuickSpec {
 
                         expect(deniedGrantedHandlerCalled) == true
                     }
-
-                    it("immediately notifies observers that permission was denied") {
-                        locationManagerProxy.returnedAuthorizationStatus = .Restricted
-
-                        subject.askPermission()
-
-                        expect(observerA.permissionRejectedForUseCase as? StockLocationPermissionUseCase) === subject as? StockLocationPermissionUseCase
-                        expect(observerB.permissionRejectedForUseCase as? StockLocationPermissionUseCase) === subject as? StockLocationPermissionUseCase
-                    }
                 }
 
                 context("when permission has previously been granted as always") {
@@ -274,40 +209,11 @@ class StockLocationPermissionUseCaseSpec: QuickSpec {
 
                         expect(permissionGrantedHandlerCalled) == true
                     }
-
-                    it("immediately notifies observers that permission was granted") {
-                        locationManagerProxy.returnedAuthorizationStatus = .AuthorizedAlways
-
-                        subject.askPermission()
-
-                        expect(observerA.permissionGrantedForUseCase as? StockLocationPermissionUseCase) === subject as? StockLocationPermissionUseCase
-                        expect(observerB.permissionGrantedForUseCase as? StockLocationPermissionUseCase) === subject as? StockLocationPermissionUseCase
-
-                        expect(observerA.permissionRejectedForUseCase).to(beNil())
-                        expect(observerB.permissionRejectedForUseCase).to(beNil())
-                    }
                 }
             }
         }
     }
 }
 
-private class MockLocationPermissionUseCaseObserver: LocationPermissionUseCaseObserver {
-    func reset() {
-        permissionGrantedForUseCase = nil
-        permissionRejectedForUseCase = nil
-    }
-
-    var permissionRejectedForUseCase: LocationPermissionUseCase?
-    private func locationPermissionUseCaseDidDenyPermission(useCase: LocationPermissionUseCase) {
-        permissionRejectedForUseCase = useCase
-    }
-
-
-    var permissionGrantedForUseCase: LocationPermissionUseCase?
-    private func locationPermissionUseCaseDidGrantPermission(useCase: LocationPermissionUseCase) {
-        permissionGrantedForUseCase = useCase
-    }
-}
 
 
