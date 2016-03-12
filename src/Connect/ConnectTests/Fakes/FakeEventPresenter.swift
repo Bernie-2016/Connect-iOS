@@ -4,6 +4,15 @@ import CoreLocation
 @testable import Connect
 
 class FakeEventPresenter : EventPresenter {
+    convenience init() {
+        self.init(
+            sameTimeZoneDateFormatter: FakeDateFormatter(),
+            differentTimeZoneDateFormatter: FakeDateFormatter(),
+            sameTimeZoneFullDateFormatter: FakeDateFormatter(),
+            differentTimeZoneFullDateFormatter: FakeDateFormatter()
+        )
+    }
+
     var lastReceivedEvent: Event?
     var lastReceivedCell: EventListTableViewCell?
     var lastEventWithPresentedAddress : Event!

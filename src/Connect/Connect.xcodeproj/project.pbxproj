@@ -274,6 +274,9 @@
 		65D3C5441C5C6B7400317466 /* CMMarkdownConverterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D3C5431C5C6B7400317466 /* CMMarkdownConverterSpec.swift */; };
 		65DA57C71C77F8D200D49826 /* CocoaMarkdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65DA57C51C77F8D200D49826 /* CocoaMarkdown.framework */; };
 		65DA57C91C77F8F000D49826 /* CocoaMarkdown.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 65DA57C61C77F8D200D49826 /* CocoaMarkdown.framework.dSYM */; };
+		65DA97EC1C94984A00B4C0AA /* EventsResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DA97EB1C94984A00B4C0AA /* EventsResultsController.swift */; };
+		65DA97EE1C9498B600B4C0AA /* EventsResultsControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DA97ED1C9498B600B4C0AA /* EventsResultsControllerSpec.swift */; };
+		65DA97F01C94990F00B4C0AA /* MockNearbyEventsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DA97EF1C94990F00B4C0AA /* MockNearbyEventsUseCase.swift */; };
 		65DB15E51C87E1BA00F470D5 /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DB15E41C87E1BA00F470D5 /* VideoCollectionViewCell.swift */; };
 		65DB15E91C88064800F470D5 /* DateTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65DB15E71C88064800F470D5 /* DateTools.framework */; };
 		65DB15EA1C88065900F470D5 /* DateTools.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 65DB15E61C88064800F470D5 /* DateTools.framework.dSYM */; };
@@ -615,6 +618,9 @@
 		65D3C5431C5C6B7400317466 /* CMMarkdownConverterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMMarkdownConverterSpec.swift; sourceTree = "<group>"; };
 		65DA57C51C77F8D200D49826 /* CocoaMarkdown.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaMarkdown.framework; path = Carthage/Build/iOS/CocoaMarkdown.framework; sourceTree = "<group>"; };
 		65DA57C61C77F8D200D49826 /* CocoaMarkdown.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = CocoaMarkdown.framework.dSYM; path = Carthage/Build/iOS/CocoaMarkdown.framework.dSYM; sourceTree = "<group>"; };
+		65DA97EB1C94984A00B4C0AA /* EventsResultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsResultsController.swift; sourceTree = "<group>"; };
+		65DA97ED1C9498B600B4C0AA /* EventsResultsControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsResultsControllerSpec.swift; sourceTree = "<group>"; };
+		65DA97EF1C94990F00B4C0AA /* MockNearbyEventsUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockNearbyEventsUseCase.swift; sourceTree = "<group>"; };
 		65DB15E41C87E1BA00F470D5 /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
 		65DB15E61C88064800F470D5 /* DateTools.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = DateTools.framework.dSYM; path = Carthage/Build/iOS/DateTools.framework.dSYM; sourceTree = "<group>"; };
 		65DB15E71C88064800F470D5 /* DateTools.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DateTools.framework; path = Carthage/Build/iOS/DateTools.framework; sourceTree = "<group>"; };
@@ -746,6 +752,7 @@
 				653D0EB41C4C28C0004CB8A0 /* EventRSVPControllerProvider.swift */,
 				653D0EB51C4C28C0004CB8A0 /* EventsController.swift */,
 				653D0EB61C4C28C0004CB8A0 /* EventSectionHeaderPresenter.swift */,
+				65DA97EB1C94984A00B4C0AA /* EventsResultsController.swift */,
 				653D0EB71C4C28C0004CB8A0 /* EventsSectionHeaderView.swift */,
 				6549DC321C8B892C0057D74C /* NewEventsController.swift */,
 				65BF649D1C573C8000B825E7 /* ZipCodeValidator.swift */,
@@ -1058,6 +1065,7 @@
 				653D0FCC1C4C53BB004CB8A0 /* EventRSVPControllerSpec.swift */,
 				653D0FCD1C4C53BB004CB8A0 /* EventsControllerSpec.swift */,
 				653D0FCE1C4C53BB004CB8A0 /* EventSectionHeaderPresenterSpec.swift */,
+				65DA97ED1C9498B600B4C0AA /* EventsResultsControllerSpec.swift */,
 				6549DC2E1C8B86950057D74C /* NewEventsControllerSpec.swift */,
 				65BF649F1C573CC200B825E7 /* ZipCodeValidatorSpec.swift */,
 			);
@@ -1381,6 +1389,7 @@
 				651F80F61C40B211004E7FDA /* MockEventRepository.swift */,
 				654EE15A1C8E20F400E44B9F /* MockLocationManagerProxy.swift */,
 				6549DC301C8B88AF0057D74C /* MockLocationPermissionUseCase.swift */,
+				65DA97EF1C94990F00B4C0AA /* MockNearbyEventsUseCase.swift */,
 			);
 			path = Fakes;
 			sourceTree = "<group>";
@@ -1762,6 +1771,7 @@
 				653D0ED61C4C2938004CB8A0 /* EventSearchResult.swift in Sources */,
 				653D0EC31C4C28C0004CB8A0 /* EventSectionHeaderPresenter.swift in Sources */,
 				653D0ED21C4C292D004CB8A0 /* EventService.swift in Sources */,
+				65DA97EC1C94984A00B4C0AA /* EventsResultsController.swift in Sources */,
 				653D0EC41C4C28C0004CB8A0 /* EventsSectionHeaderView.swift in Sources */,
 				653D0F4F1C4C2DE2004CB8A0 /* FeedbackController.swift in Sources */,
 				65E9C5181C8BA1660092029D /* FetchEventsUseCase.swift in Sources */,
@@ -1874,6 +1884,7 @@
 				653D100D1C4C53BB004CB8A0 /* EventsControllerSpec.swift in Sources */,
 				653D10061C4C53BB004CB8A0 /* EventSearchResultsSpec.swift in Sources */,
 				653D100E1C4C53BB004CB8A0 /* EventSectionHeaderPresenterSpec.swift in Sources */,
+				65DA97EE1C9498B600B4C0AA /* EventsResultsControllerSpec.swift in Sources */,
 				650330EF1C60366F006D0752 /* FakeActionAlertControllerProvider.swift in Sources */,
 				650330F11C60369C006D0752 /* FakeActionAlertService.swift in Sources */,
 				6559D70F1BBDC37000CBC7EE /* FakeAnalyticsService.swift in Sources */,
@@ -1907,6 +1918,7 @@
 				651F80F71C40B211004E7FDA /* MockEventRepository.swift in Sources */,
 				654EE15B1C8E20F400E44B9F /* MockLocationManagerProxy.swift in Sources */,
 				6549DC311C8B88AF0057D74C /* MockLocationPermissionUseCase.swift in Sources */,
+				65DA97F01C94990F00B4C0AA /* MockNearbyEventsUseCase.swift in Sources */,
 				653D10121C4C53BB004CB8A0 /* NavigationControllerSpec.swift in Sources */,
 				6549DC2F1C8B86950057D74C /* NewEventsControllerSpec.swift in Sources */,
 				653D102E1C4C53BB004CB8A0 /* NewsArticleControllerSpec.swift in Sources */,
