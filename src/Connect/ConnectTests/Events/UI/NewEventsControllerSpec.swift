@@ -96,38 +96,6 @@ class NewEventsControllerSpec: QuickSpec {
     }
 }
 
-//private class MockCurrentLocationUseCase: CurrentLocationUseCase {
-//    var observers = [CurrentLocationUseCaseObserver]()
-//
-//    private func addObserver(observer: CurrentLocationUseCaseObserver) {
-//        observers.append(observer)
-//    }
-//
-//
-//    var successHandlers: [(CLLocation) -> ()] = []
-//    var errorHandlers: [(CurrentLocationUseCaseError) -> ()] = []
-//    var didFetchCurrentLocation = false
-//    private func fetchCurrentLocation(successHandler: (CLLocation) -> (), errorHandler: (CurrentLocationUseCaseError) -> ()) {
-//        didFetchCurrentLocation = true
-//        successHandler.append(successHandler)
-//        errorHandlers.append(errorHandlers)
-//    }
-//
-//    private func simulateFoundLocation(location: CLLocation) {
-//        for handler in successHandlers {
-//            handler(location)
-//        }
-//        handlers.removeAll()
-//    }
-//
-//    private func simulateFailure() {
-//        for handler in errorHandlers {
-//            handler(.PermissionsError)
-//        }
-//        handlers.removeAll()
-//    }
-//}
-
 private class MockChildControllerBuddy: ChildControllerBuddy {
     var lastOldSwappedController: UIViewController!
     var lastNewSwappedController: UIViewController!

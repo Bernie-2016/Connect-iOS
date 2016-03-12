@@ -21,14 +21,7 @@ func == (lhs: CurrentLocationUseCaseError, rhs: CurrentLocationUseCaseError) -> 
 }
 
 protocol CurrentLocationUseCase {
-    func addObserver(observer: CurrentLocationUseCaseObserver)
-    func fetchCurrentLocation()
     func fetchCurrentLocation(successHandler: (CLLocation) -> (), errorHandler: (CurrentLocationUseCaseError) -> ())
-}
-
-protocol CurrentLocationUseCaseObserver :class {
-    func currentLocationUseCase(useCase: CurrentLocationUseCase, didFetchCurrentLocation  location: CLLocation)
-    func currentLocationUseCaseFailedToFetchLocation(useCase: CurrentLocationUseCase)
 }
 
 class StockCurrentLocationUseCase: CurrentLocationUseCase {
@@ -46,15 +39,6 @@ class StockCurrentLocationUseCase: CurrentLocationUseCase {
         self.locationPermissionUseCase = locationPermissionUseCase
 
         locationManagerProxy.addObserver(self)
-    }
-
-
-    func addObserver(observer: CurrentLocationUseCaseObserver) {
-
-    }
-
-    func fetchCurrentLocation() {
-
     }
 
     func fetchCurrentLocation(successHandler: (CLLocation) -> (), errorHandler: (CurrentLocationUseCaseError) -> ()) {

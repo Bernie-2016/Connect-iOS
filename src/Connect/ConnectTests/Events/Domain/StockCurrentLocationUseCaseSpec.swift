@@ -19,7 +19,6 @@ class StockCurrentLocationUseCaseSpec: QuickSpec {
                     locationManagerProxy: locationManagerProxy,
                     locationPermissionUseCase: locationPermissionUseCase
                 )
-
             }
 
             it("adds itself as an observer of the location manager proxy") {
@@ -206,18 +205,3 @@ class StockCurrentLocationUseCaseSpec: QuickSpec {
         }
     }
 }
-
-private class MockCurrentLocationUseCaseObserver: CurrentLocationUseCaseObserver {
-    var receivedFailedUseCase: CurrentLocationUseCase!
-    private func currentLocationUseCaseFailedToFetchLocation(useCase: CurrentLocationUseCase) {
-        receivedFailedUseCase = useCase
-    }
-
-    var receivedSuccessfulUseCase: CurrentLocationUseCase!
-    var receivedLocation: CLLocation!
-    private func currentLocationUseCase(useCase: CurrentLocationUseCase, didFetchCurrentLocation location: CLLocation) {
-        receivedSuccessfulUseCase = useCase
-        receivedLocation = location
-    }
-}
-
