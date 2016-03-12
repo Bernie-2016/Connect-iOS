@@ -3,8 +3,9 @@ import CoreLocation
 
 class NewEventsController: UIViewController {
     private let interstitialController: UIViewController
-    private let instructionsController: UIViewController
+    private let resultsController: UIViewController
     private let errorController: UIViewController
+    private let nearbyEventsUseCase: NearbyEventsUseCase
     private let fetchEventsUseCase: FetchEventsUseCase
     private let childControllerBuddy: ChildControllerBuddy
 
@@ -12,13 +13,15 @@ class NewEventsController: UIViewController {
 
     init(
         interstitialController: UIViewController,
-        instructionsController: UIViewController,
+        resultsController: UIViewController,
         errorController: UIViewController,
+        nearbyEventsUseCase: NearbyEventsUseCase,
         fetchEventsUseCase: FetchEventsUseCase,
         childControllerBuddy: ChildControllerBuddy) {
             self.interstitialController = interstitialController
-            self.instructionsController = instructionsController
+            self.resultsController = resultsController
             self.errorController = errorController
+            self.nearbyEventsUseCase = nearbyEventsUseCase
             self.fetchEventsUseCase = fetchEventsUseCase
             self.childControllerBuddy = childControllerBuddy
 
@@ -34,6 +37,22 @@ class NewEventsController: UIViewController {
 
         view.addSubview(resultsView)
 
+        nearbyEventsUseCase.addObserver(self)
+
         childControllerBuddy.add(interstitialController, to: self, containIn: resultsView)
+        nearbyEventsUseCase.fetchNearbyEvents()
+    }
+}
+
+extension NewEventsController: NearbyEventsUseCaseObserver {
+    func nearbyEventsUseCase(useCase: NearbyEventsUseCase, didFetchEvents: [Event]) {
+        childControllerBuddy.swap(interstitialController, new: resultsController, parent: self) {}
+    }
+    func nearbyEventsUseCaseFoundNoNearbyEvents(useCase: NearbyEventsUseCase) {
+        childControllerBuddy.swap(interstitialController, new: resultsController, parent: self) {}
+    }
+
+    func nearbyEventsUseCase(useCase: NearbyEventsUseCase, didFailFetchEvents: NearbyEventsUseCaseError) {
+        childControllerBuddy.swap(interstitialController, new: errorController, parent: self) {}
     }
 }
