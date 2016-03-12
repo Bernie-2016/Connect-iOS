@@ -47,7 +47,7 @@ class ConcreteEventRepository: EventRepository {
                 }
 
                 let parsedEvents = self.eventDeserializer.deserializeEvents(jsonDictionary)
-                let eventSearchResult = EventSearchResult(searchCentroid: location, events: parsedEvents)
+                let eventSearchResult = EventSearchResult(events: parsedEvents)
                 promise.resolve(eventSearchResult)
             }
 

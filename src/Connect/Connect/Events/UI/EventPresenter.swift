@@ -18,7 +18,7 @@ class EventPresenter {
             self.differentTimeZoneFullDateFormatter = differentTimeZoneFullDateFormatter
     }
 
-    func presentEventListCell(event: Event, searchCentroid: CLLocation, cell: EventListTableViewCell) -> EventListTableViewCell {
+    func presentEventListCell(event: Event, cell: EventListTableViewCell) -> EventListTableViewCell {
         cell.nameLabel.text = event.name
         cell.dateLabel.text = self.presentTimeForEvent(event)
 

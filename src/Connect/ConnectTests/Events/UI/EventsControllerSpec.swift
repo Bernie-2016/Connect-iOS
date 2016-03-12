@@ -479,10 +479,9 @@ class EventsControllerSpec : QuickSpec {
 
                     context("when the search completes succesfully") {
                         context("with no results") {
-                            let expectedSearchCentroid = CLLocation(latitude: 37.8271868, longitude: -122.4240794)
 
                             beforeEach {
-                                let eventSearchResult = EventSearchResult(searchCentroid: expectedSearchCentroid, events: [])
+                                let eventSearchResult = EventSearchResult(events: [])
                                 eventService.lastReturnedPromise!.resolve(eventSearchResult)
                             }
 
@@ -556,9 +555,8 @@ class EventsControllerSpec : QuickSpec {
                         context("with some results") {
                             let eventA = TestUtils.eventWithName("Bigtime Bernie BBQ")
                             let eventB = TestUtils.eventWithName("Slammin' Sanders Salsa Serenade")
-                            let expectedSearchCentroid = CLLocation(latitude: 37.8271868, longitude: -122.4240794)
                             let events : Array<Event> = [eventA, eventB]
-                            let eventSearchResult = FakeEventSearchResult(searchCentroid: expectedSearchCentroid, events: events)
+                            let eventSearchResult = FakeEventSearchResult(events: events)
 
                             beforeEach {
                                 eventSearchResult.uniqueDays = [NSDate()]
@@ -624,13 +622,11 @@ class EventsControllerSpec : QuickSpec {
                                     let cellA = subject.resultsTableView.dataSource!.tableView(subject.resultsTableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0)) as! EventListTableViewCell
 
                                     expect(eventPresenter.lastReceivedEvent) == eventA
-                                    expect(eventPresenter.lastSearchCentroid).to(beIdenticalTo(expectedSearchCentroid))
                                     expect(eventPresenter.lastReceivedCell).to(beIdenticalTo(cellA))
 
                                     let cellB = subject.resultsTableView.dataSource!.tableView(subject.resultsTableView, cellForRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0)) as! EventListTableViewCell
 
                                     expect(eventPresenter.lastReceivedEvent) == eventB
-                                    expect(eventPresenter.lastSearchCentroid).to(beIdenticalTo(expectedSearchCentroid))
                                     expect(eventPresenter.lastReceivedCell).to(beIdenticalTo(cellB))
                                 }
 

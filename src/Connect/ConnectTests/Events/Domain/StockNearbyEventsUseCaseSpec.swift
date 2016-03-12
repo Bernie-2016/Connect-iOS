@@ -58,7 +58,7 @@ class StockNearbyEventsUseCaseSpec: QuickSpec {
 
                         it("notifies its observers with those locations") {
                             let events = [TestUtils.eventWithName("event b"), TestUtils.eventWithName("event b")]
-                            let expectedEventSearchResult = EventSearchResult(searchCentroid: location, events: events)
+                            let expectedEventSearchResult = EventSearchResult(events: events)
 
                             eventRepository.lastReturnedPromise.resolve(expectedEventSearchResult)
 

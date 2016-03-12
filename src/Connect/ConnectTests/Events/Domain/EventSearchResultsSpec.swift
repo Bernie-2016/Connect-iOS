@@ -15,7 +15,7 @@ class EventSearchResultsSpec: QuickSpec {
     override func spec() {
         describe("EventSearchResults") {
             beforeEach {
-                self.subject = EventSearchResult(searchCentroid: CLLocation(), events: [self.wednesdayEvent, self.mondayEventA, self.mondayEventC, self.mondayEventB])
+                self.subject = EventSearchResult(events: [self.wednesdayEvent, self.mondayEventA, self.mondayEventC, self.mondayEventB])
             }
 
             describe("getting the unique days in a search result") {

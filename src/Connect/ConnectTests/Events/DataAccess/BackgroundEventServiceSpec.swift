@@ -38,7 +38,7 @@ class BackgroundEventServiceSpec: QuickSpec {
                         let future = subject.fetchEventsWithZipCode("12345", radiusMiles: 42.0)
                         workerQueue.lastReceivedBlock()
 
-                        let expectedSearchResult = EventSearchResult(searchCentroid: CLLocation(latitude: 12, longitude: 34), events: [])
+                        let expectedSearchResult = EventSearchResult(events: [])
                         eventRepository.lastReturnedPromise.resolve(expectedSearchResult)
 
                         expect(future.value).to(beNil())

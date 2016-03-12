@@ -5,7 +5,6 @@ import CoreLocation
 
 class FakeEventPresenter : EventPresenter {
     var lastReceivedEvent: Event?
-    var lastSearchCentroid: CLLocation?
     var lastReceivedCell: EventListTableViewCell?
     var lastEventWithPresentedAddress : Event!
     var lastEventWithPresentedRSVPText : Event!
@@ -22,9 +21,8 @@ class FakeEventPresenter : EventPresenter {
         return "LOTS OF PEOPLE!"
     }
 
-    override func presentEventListCell(event: Event, searchCentroid: CLLocation, cell: EventListTableViewCell) -> EventListTableViewCell {
+    override func presentEventListCell(event: Event, cell: EventListTableViewCell) -> EventListTableViewCell {
         lastReceivedEvent = event
-        lastSearchCentroid = searchCentroid
         lastReceivedCell = cell
         return cell
     }

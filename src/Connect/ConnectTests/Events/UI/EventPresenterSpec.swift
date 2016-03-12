@@ -82,8 +82,7 @@ class EventPresenterSpec : QuickSpec {
 
                 beforeEach {
                     cell = EventListTableViewCell(style: .Default, reuseIdentifier: "fake-identifier")
-                    let searchCentroid = CLLocation(latitude: 37.8271868, longitude: -122.4240794)
-                    self.subject.presentEventListCell(event, searchCentroid: searchCentroid, cell: cell)
+                    self.subject.presentEventListCell(event, cell: cell)
                 }
 
                 it("sets up the name label correctly") {

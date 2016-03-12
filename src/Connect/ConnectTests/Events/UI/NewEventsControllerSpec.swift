@@ -65,7 +65,7 @@ class NewEventsControllerSpec: QuickSpec {
                 context("when the use case finds nearby events") {
                     it("swaps the interstitial controller for the results controller") {
                         let event = TestUtils.eventWithName("nearby event")
-                        let eventSearchResult = EventSearchResult(searchCentroid: CLLocation(latitude: 1, longitude: 3), events: [event])
+                        let eventSearchResult = EventSearchResult(events: [event])
                         nearbyEventsUseCase.simulateFindingEvents(eventSearchResult)
 
                         expect(childControllerBuddy.lastOldSwappedController) === interstitialController

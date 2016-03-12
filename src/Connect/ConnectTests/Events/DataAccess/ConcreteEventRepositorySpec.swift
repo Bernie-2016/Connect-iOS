@@ -66,12 +66,9 @@ class ConcreteEventRepositorySpec : QuickSpec {
                 }
 
                 context("when geocoding succeeds") {
-                    var expectedLocation: CLLocation!
-
                     beforeEach {
                         let coordinate = CLLocationCoordinate2DMake(12.34, 23.45)
                         let placemark = MKPlacemark(coordinate: coordinate, addressDictionary: nil)
-                        expectedLocation = placemark.location
 
                         let otherCoordinate = CLLocationCoordinate2DMake(11.11, 11.11)
                         let otherPlacemark = MKPlacemark(coordinate: otherCoordinate, addressDictionary: nil)
@@ -163,9 +160,7 @@ class ConcreteEventRepositorySpec : QuickSpec {
 
                         it("calls the completion handler with an event search object containing the deserialized value objects on the operation queue") {
                             let receivedEventSearchResult = eventsFuture.value!
-                            expect(receivedEventSearchResult.searchCentroid).to(equal(expectedLocation))
-                            expect(receivedEventSearchResult.events.count).to(equal(1))
-                            expect(receivedEventSearchResult.events.first!) == expectedEvents.first!
+                            expect(receivedEventSearchResult.events) == expectedEvents
                         }
                     }
 
