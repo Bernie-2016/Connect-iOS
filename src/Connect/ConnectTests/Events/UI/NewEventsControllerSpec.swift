@@ -151,13 +151,11 @@ private class MockChildControllerBuddy: ChildControllerBuddy {
     var lastOldSwappedController: UIViewController!
     var lastNewSwappedController: UIViewController!
     var lastParentSwappedController: UIViewController!
-    var lastCompletionHandler: ChildControllerBuddySwapCompletionHandler!
 
-    func swap(old: UIViewController, new: UIViewController, parent: UIViewController, completionHandler: ChildControllerBuddySwapCompletionHandler) {
+    func swap(old: UIViewController, new: UIViewController, parent: UIViewController) {
         lastOldSwappedController = old
         lastNewSwappedController = new
         lastParentSwappedController = parent
-        lastCompletionHandler = completionHandler
     }
 
     var lastAddedViewController: UIViewController?

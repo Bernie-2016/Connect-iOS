@@ -1,9 +1,10 @@
 import Foundation
 
 typealias ChildControllerBuddySwapCompletionHandler = Void -> Void
+
 protocol ChildControllerBuddy {
     func add(new: UIViewController, to parent: UIViewController, containIn: UIView)
-    func swap(old: UIViewController, new: UIViewController, parent: UIViewController, completionHandler: ChildControllerBuddySwapCompletionHandler)
+    func swap(old: UIViewController, new: UIViewController, parent: UIViewController)
 }
 
 struct StockChildControllerBuddy: ChildControllerBuddy {
@@ -19,14 +20,13 @@ struct StockChildControllerBuddy: ChildControllerBuddy {
         }
     }
 
-    func swap(old: UIViewController, new: UIViewController, parent: UIViewController, completionHandler: ChildControllerBuddySwapCompletionHandler) {
+    func swap(old: UIViewController, new: UIViewController, parent: UIViewController) {
         parent.addChildViewController(new)
         old.willMoveToParentViewController(nil)
 
         parent.transitionFromViewController(old, toViewController: new, duration: 0, options: .TransitionNone, animations: {}, completion: { completed in
             new.didMoveToParentViewController(parent)
             old.removeFromParentViewController()
-            completionHandler()
         })
     }
 }

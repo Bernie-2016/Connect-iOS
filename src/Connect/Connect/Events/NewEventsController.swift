@@ -76,18 +76,18 @@ class NewEventsController: UIViewController {
 extension NewEventsController: NearbyEventsUseCaseObserver {
     func nearbyEventsUseCase(useCase: NearbyEventsUseCase, didFetchEventSearchResult: EventSearchResult) {
         resultQueue.addOperationWithBlock {
-            self.childControllerBuddy.swap(self.interstitialController, new: self.resultsController, parent: self) {}
+            self.childControllerBuddy.swap(self.interstitialController, new: self.resultsController, parent: self)
         }
     }
     func nearbyEventsUseCaseFoundNoNearbyEvents(useCase: NearbyEventsUseCase) {
         resultQueue.addOperationWithBlock {
-            self.childControllerBuddy.swap(self.interstitialController, new: self.resultsController, parent: self) {}
+            self.childControllerBuddy.swap(self.interstitialController, new: self.resultsController, parent: self)
         }
     }
 
     func nearbyEventsUseCase(useCase: NearbyEventsUseCase, didFailFetchEvents: NearbyEventsUseCaseError) {
         resultQueue.addOperationWithBlock {
-            self.childControllerBuddy.swap(self.interstitialController, new: self.errorController, parent: self) {}
+            self.childControllerBuddy.swap(self.interstitialController, new: self.errorController, parent: self)
         }
     }
 }

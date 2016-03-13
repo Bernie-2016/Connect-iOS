@@ -66,31 +66,27 @@ class StockChildControllerBuddySpec: QuickSpec {
                 }
 
                 it("add the new view controller as a child view controller") {
-                    subject.swap(old, new: new, parent: parent) {}
+                    subject.swap(old, new: new, parent: parent)
 
                     expect(parent.childViewControllers).to(contain(new))
                 }
 
                 it("tells the old view controller that it will move to a nil parent") {
-                    subject.swap(old, new: new, parent: parent) {}
+                    subject.swap(old, new: new, parent: parent)
 
                     expect(old.willMoveToParentViewController).to(beNil())
                 }
 
                 it("transitions from the old view controller to the new one") {
-                    subject.swap(old, new: new, parent: parent) {}
+                    subject.swap(old, new: new, parent: parent)
 
                     expect(parent.transitionedFrom).to(beIdenticalTo(old))
                     expect(parent.transitionedTo).to(beIdenticalTo(new))
                 }
 
                 context("when the transition is complete") {
-                    var completionHandlerCalled = false
-
                     beforeEach {
-                        subject.swap(old, new: new, parent: parent) {
-                            completionHandlerCalled = true
-                        }
+                        subject.swap(old, new: new, parent: parent)
                         parent.transitionCompletion(true)
                     }
 
@@ -100,10 +96,6 @@ class StockChildControllerBuddySpec: QuickSpec {
 
                     it("removes the old controller from the parent's child view controllers") {
                         expect(parent.childViewControllers).toNot(contain(old))
-                    }
-
-                    it("executes the completion handler") {
-                        expect(completionHandlerCalled) == true
                     }
                 }
             }
