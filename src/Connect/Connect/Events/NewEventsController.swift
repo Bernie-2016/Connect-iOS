@@ -8,6 +8,9 @@ class NewEventsController: UIViewController {
     private let nearbyEventsUseCase: NearbyEventsUseCase
     private let childControllerBuddy: ChildControllerBuddy
     private let tabBarItemStylist: TabBarItemStylist
+    private let workerQueue: NSOperationQueue
+    private let resultQueue: NSOperationQueue
+
 
     let resultsView = UIView.newAutoLayoutView()
 
@@ -17,13 +20,17 @@ class NewEventsController: UIViewController {
         errorController: UIViewController,
         nearbyEventsUseCase: NearbyEventsUseCase,
         childControllerBuddy: ChildControllerBuddy,
-        tabBarItemStylist: TabBarItemStylist) {
+        tabBarItemStylist: TabBarItemStylist,
+        workerQueue: NSOperationQueue,
+        resultQueue: NSOperationQueue) {
             self.interstitialController = interstitialController
             self.resultsController = resultsController
             self.errorController = errorController
             self.nearbyEventsUseCase = nearbyEventsUseCase
             self.childControllerBuddy = childControllerBuddy
             self.tabBarItemStylist = tabBarItemStylist
+            self.workerQueue = workerQueue
+            self.resultQueue = resultQueue
 
             super.init(nibName: nil, bundle: nil)
 
@@ -53,7 +60,10 @@ class NewEventsController: UIViewController {
         nearbyEventsUseCase.addObserver(self)
 
         childControllerBuddy.add(interstitialController, to: self, containIn: resultsView)
-        nearbyEventsUseCase.fetchNearbyEventsWithinRadiusMiles(10.0) // let's kill this magic number
+
+        workerQueue.addOperationWithBlock {
+            self.nearbyEventsUseCase.fetchNearbyEventsWithinRadiusMiles(10.0) // let's kill this magic number
+        }
 
         setupConstraints()
     }
@@ -65,13 +75,19 @@ class NewEventsController: UIViewController {
 
 extension NewEventsController: NearbyEventsUseCaseObserver {
     func nearbyEventsUseCase(useCase: NearbyEventsUseCase, didFetchEventSearchResult: EventSearchResult) {
-        childControllerBuddy.swap(interstitialController, new: resultsController, parent: self) {}
+        resultQueue.addOperationWithBlock {
+            self.childControllerBuddy.swap(self.interstitialController, new: self.resultsController, parent: self) {}
+        }
     }
     func nearbyEventsUseCaseFoundNoNearbyEvents(useCase: NearbyEventsUseCase) {
-        childControllerBuddy.swap(interstitialController, new: resultsController, parent: self) {}
+        resultQueue.addOperationWithBlock {
+            self.childControllerBuddy.swap(self.interstitialController, new: self.resultsController, parent: self) {}
+        }
     }
 
     func nearbyEventsUseCase(useCase: NearbyEventsUseCase, didFailFetchEvents: NearbyEventsUseCaseError) {
-        childControllerBuddy.swap(interstitialController, new: errorController, parent: self) {}
+        resultQueue.addOperationWithBlock {
+            self.childControllerBuddy.swap(self.interstitialController, new: self.errorController, parent: self) {}
+        }
     }
 }

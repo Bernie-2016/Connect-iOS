@@ -17,7 +17,6 @@ class EventsResultsController: UIViewController {
         eventSectionHeaderPresenter: EventSectionHeaderPresenter,
         eventListTableViewCellStylist: EventListTableViewCellStylist,
         theme: Theme) {
-
             self.nearbyEventsUseCase = nearbyEventsUseCase
             self.eventPresenter = eventPresenter
             self.eventSectionHeaderPresenter = eventSectionHeaderPresenter
@@ -25,6 +24,8 @@ class EventsResultsController: UIViewController {
             self.theme = theme
 
             super.init(nibName: nil, bundle: nil)
+
+            nearbyEventsUseCase.addObserver(self)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -38,9 +39,13 @@ class EventsResultsController: UIViewController {
         tableView.registerClass(EventListTableViewCell.self, forCellReuseIdentifier: "eventCell")
         tableView.registerClass(EventsSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: "header")
 
-        nearbyEventsUseCase.addObserver(self)
-
         setupConstraints()
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        tableView.reloadData()
     }
 
     private func setupConstraints() {

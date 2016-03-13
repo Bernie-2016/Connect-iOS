@@ -14,6 +14,9 @@ class NewEventsControllerSpec: QuickSpec {
             var nearbyEventsUseCase: MockNearbyEventsUseCase!
             var childControllerBuddy: MockChildControllerBuddy!
             var tabBarItemStylist: FakeTabBarItemStylist!
+            var workerQueue: FakeOperationQueue!
+            var resultQueue: FakeOperationQueue!
+
 
             beforeEach {
                 interstitialController = UIViewController()
@@ -22,6 +25,9 @@ class NewEventsControllerSpec: QuickSpec {
                 nearbyEventsUseCase = MockNearbyEventsUseCase()
                 childControllerBuddy = MockChildControllerBuddy()
                 tabBarItemStylist = FakeTabBarItemStylist()
+                workerQueue = FakeOperationQueue()
+                resultQueue = FakeOperationQueue()
+
 
                 subject = NewEventsController(
                     interstitialController: interstitialController,
@@ -29,7 +35,9 @@ class NewEventsControllerSpec: QuickSpec {
                     errorController: errorController,
                     nearbyEventsUseCase: nearbyEventsUseCase,
                     childControllerBuddy: childControllerBuddy,
-                    tabBarItemStylist: tabBarItemStylist
+                    tabBarItemStylist: tabBarItemStylist,
+                    workerQueue: workerQueue,
+                    resultQueue: resultQueue
                 )
             }
 
@@ -72,8 +80,12 @@ class NewEventsControllerSpec: QuickSpec {
                     expect(childControllerBuddy.lastAddedContainerView) === subject.resultsView
                 }
 
-                it("asks the nearby events use case to fetch events within the correct radius") {
+                it("asks the nearby events use case to fetch events within the correct radius on the worker queue") {
                     subject.view.layoutSubviews()
+
+                    expect(nearbyEventsUseCase.didFetchNearbyEventsWithinRadius).to(beNil())
+
+                    workerQueue.lastReceivedBlock()
 
                     // TODO find some way of setting this default radius across both
                     // the UI in the search bar and here
@@ -87,10 +99,14 @@ class NewEventsControllerSpec: QuickSpec {
                 }
 
                 context("when the use case finds nearby events") {
-                    it("swaps the interstitial controller for the results controller") {
+                    it("swaps the interstitial controller for the results controller on the results queue") {
                         let event = TestUtils.eventWithName("nearby event")
                         let eventSearchResult = EventSearchResult(events: [event])
                         nearbyEventsUseCase.simulateFindingEvents(eventSearchResult)
+
+                        expect(childControllerBuddy.lastOldSwappedController).to(beNil())
+
+                        resultQueue.lastReceivedBlock()
 
                         expect(childControllerBuddy.lastOldSwappedController) === interstitialController
                         expect(childControllerBuddy.lastNewSwappedController) === resultsController
@@ -99,8 +115,12 @@ class NewEventsControllerSpec: QuickSpec {
                 }
 
                 context("when the use case finds no nearby events") {
-                    it("swaps the interstitial controller for the results controller") {
+                    it("swaps the interstitial controller for the results controller on the results queue") {
                         nearbyEventsUseCase.simulateFindingNoEvents()
+
+                        expect(childControllerBuddy.lastOldSwappedController).to(beNil())
+
+                        resultQueue.lastReceivedBlock()
 
                         expect(childControllerBuddy.lastOldSwappedController) === interstitialController
                         expect(childControllerBuddy.lastNewSwappedController) === resultsController
@@ -109,9 +129,13 @@ class NewEventsControllerSpec: QuickSpec {
                 }
 
                 context("when the use case encounters an error") {
-                    it("swaps the interstitial controller for the error controller") {
+                    it("swaps the interstitial controller for the error controller on the results queue") {
                         let error = NearbyEventsUseCaseError.FindingLocationError(.PermissionsError)
                         nearbyEventsUseCase.simulateFailingToFindEvents(error)
+
+                        expect(childControllerBuddy.lastOldSwappedController).to(beNil())
+
+                        resultQueue.lastReceivedBlock()
 
                         expect(childControllerBuddy.lastOldSwappedController) === interstitialController
                         expect(childControllerBuddy.lastNewSwappedController) === errorController

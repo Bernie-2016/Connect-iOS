@@ -63,6 +63,32 @@ class ConcreteEventRepository: EventRepository {
     func fetchEventsAroundLocation(location: CLLocation, radiusMiles: Float) -> EventSearchResultFuture {
         let promise = EventSearchResultPromise()
 
+        let url = self.urlProvider.eventsURL()
+
+        let HTTPBodyDictionary = self.HTTPBodyDictionaryWithLatitude(
+            location.coordinate.latitude,
+            longitude: location.coordinate.longitude,
+            radiusMiles: radiusMiles)
+
+        let eventsJSONFuture = self.jsonClient.JSONPromiseWithURL(url, method: "POST", bodyDictionary: HTTPBodyDictionary)
+
+        eventsJSONFuture.then { deserializedObject in
+            guard let jsonDictionary = deserializedObject as? NSDictionary else {
+                let invalidJSONError = EventRepositoryError.InvalidJSONError(jsonObject: deserializedObject)
+                promise.reject(invalidJSONError)
+                return
+            }
+
+            let parsedEvents = self.eventDeserializer.deserializeEvents(jsonDictionary)
+            let eventSearchResult = EventSearchResult(events: parsedEvents)
+            promise.resolve(eventSearchResult)
+        }
+
+        eventsJSONFuture.error { receivedError in
+            let jsonClientError = EventRepositoryError.ErrorInJSONClient(error: receivedError)
+            promise.reject(jsonClientError)
+        }
+
         return promise.future
     }
 

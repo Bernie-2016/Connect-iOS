@@ -120,7 +120,9 @@ class EventsContainerConfigurator: ContainerConfigurator {
                 errorController: UIViewController(),
                 nearbyEventsUseCase: resolver.resolve(NearbyEventsUseCase.self)!,
                 childControllerBuddy: resolver.resolve(ChildControllerBuddy.self)!,
-                tabBarItemStylist: resolver.resolve(TabBarItemStylist.self)!
+                tabBarItemStylist: resolver.resolve(TabBarItemStylist.self)!,
+                workerQueue: resolver.resolve(NSOperationQueue.self, name: "work")!,
+                resultQueue: resolver.resolve(NSOperationQueue.self, name: "main")!
             )
             }.inObjectScope(.Container)
 

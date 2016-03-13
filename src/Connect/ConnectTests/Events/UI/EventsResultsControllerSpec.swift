@@ -27,6 +27,10 @@ class EventsResultsControllerSpec: QuickSpec {
                 )
             }
 
+            it("adds itself as an observer of the nearby events use case") {
+                expect(nearbyEventsUseCase.observers.first as? EventsResultsController) === subject
+            }
+
             describe("when the view loads") {
                 it("adds its views as subviews") {
                     subject.view.layoutSubviews()
