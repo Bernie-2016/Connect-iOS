@@ -49,6 +49,18 @@ class EventSearchBarControllerSpec: QuickSpec {
                         expect(subject.searchBar.text) == "Current Location"
                     }
                 }
+
+                context("when the use case found no nearby events") {
+                    it("sets the search bar text to Current Location, on the result queue") {
+                        subject.nearbyEventsUseCaseFoundNoNearbyEvents(nearbyEventsUseCase)
+
+                        expect(subject.searchBar.text) != "Current Location"
+
+                        resultQueue.lastReceivedBlock()
+
+                        expect(subject.searchBar.text) == "Current Location"
+                    }
+                }
             }
         }
     }

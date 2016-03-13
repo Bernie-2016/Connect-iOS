@@ -28,7 +28,7 @@ class EventSearchBarController: UIViewController {
     }
 
     private func setupConstraints() {
-        searchBar.autoPinEdgesToSuperviewMargins()
+        searchBar.autoPinEdgesToSuperviewEdges()
     }
 }
 
@@ -38,12 +38,16 @@ extension EventSearchBarController: NearbyEventsUseCaseObserver {
     }
 
     func nearbyEventsUseCase(useCase: NearbyEventsUseCase, didFetchEventSearchResult: EventSearchResult) {
-        resultQueue.addOperationWithBlock {
-            self.searchBar.text = NSLocalizedString("EventsSearchBar_currentLocation", comment: "")
-        }
+        setTextToCurrentLocation()
     }
 
     func nearbyEventsUseCaseFoundNoNearbyEvents(useCase: NearbyEventsUseCase) {
+        setTextToCurrentLocation()
+    }
 
+    private func setTextToCurrentLocation() {
+        resultQueue.addOperationWithBlock {
+            self.searchBar.text = NSLocalizedString("EventsSearchBar_currentLocation", comment: "")
+        }
     }
 }
