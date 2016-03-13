@@ -29,6 +29,10 @@ class EventsContainerConfigurator: ContainerConfigurator {
                 currentLocationUseCase: resolver.resolve(CurrentLocationUseCase.self)!,
                 eventRepository: resolver.resolve(EventRepository.self)!)
         }.inObjectScope(.Container)
+
+        container.register(EventsNearAddressUseCase.self) { resolver in
+            return StockEventsNearAddressUseCase()
+        }.inObjectScope(.Container)
     }
 
     private static func configureDataAccess(container: Container) {
@@ -130,6 +134,7 @@ class EventsContainerConfigurator: ContainerConfigurator {
         container.register(EventSearchBarController.self) { resolver in
             return EventSearchBarController(
                 nearbyEventsUseCase: resolver.resolve(NearbyEventsUseCase.self)!,
+                eventsNearAddressUseCase: resolver.resolve(EventsNearAddressUseCase.self)!,
                 resultQueue: resolver.resolve(NSOperationQueue.self, name: "main")!
             )
         }.inObjectScope(.Container)
