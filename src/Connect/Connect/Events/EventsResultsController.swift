@@ -35,6 +35,8 @@ class EventsResultsController: UIViewController {
         view.addSubview(tableView)
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.registerClass(EventListTableViewCell.self, forCellReuseIdentifier: "eventCell")
+        tableView.registerClass(EventsSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: "header")
 
         nearbyEventsUseCase.addObserver(self)
 
@@ -48,16 +50,20 @@ class EventsResultsController: UIViewController {
 
 extension EventsResultsController: NearbyEventsUseCaseObserver {
     func nearbyEventsUseCase(useCase: NearbyEventsUseCase, didFetchEventSearchResult eventSearchResult: EventSearchResult) {
-        self.eventSearchResult = eventSearchResult
-        tableView.reloadData()
+        updateTableWithSearchResult(eventSearchResult)
     }
 
     func nearbyEventsUseCase(useCase: NearbyEventsUseCase, didFailFetchEvents: NearbyEventsUseCaseError) {
-
+        updateTableWithSearchResult(nil)
     }
 
     func nearbyEventsUseCaseFoundNoNearbyEvents(useCase: NearbyEventsUseCase) {
+        updateTableWithSearchResult(nil)
+    }
 
+    private func updateTableWithSearchResult(searchResult: EventSearchResult?) {
+        eventSearchResult = searchResult
+        tableView.reloadData()
     }
 }
 

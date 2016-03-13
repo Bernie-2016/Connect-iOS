@@ -36,6 +36,7 @@ class StockNearbyEventsUseCase: NearbyEventsUseCase {
     private var observers: [NearbyEventsUseCaseObserver] {
         return _observers.allObjects.flatMap { $0 as? NearbyEventsUseCaseObserver }
     }
+
     init(currentLocationUseCase: CurrentLocationUseCase, eventRepository: EventRepository) {
         self.currentLocationUseCase = currentLocationUseCase
         self.eventRepository = eventRepository

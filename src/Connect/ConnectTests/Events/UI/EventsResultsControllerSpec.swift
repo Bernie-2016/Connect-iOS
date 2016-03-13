@@ -63,7 +63,7 @@ class EventsResultsControllerSpec: QuickSpec {
                         expect(subject.tableView.numberOfSections) == 1
                     }
 
-                    pending("uses the events section header presenter for the header title") {
+                    it("uses the events section header presenter for the header title") {
                         let tableView = subject.tableView
                         let dateForSection = NSDate()
 
@@ -73,11 +73,14 @@ class EventsResultsControllerSpec: QuickSpec {
                         nearbyEventsUseCase.simulateFindingEvents(eventSearchResult)
 
                         let header = subject.tableView.delegate?.tableView!(tableView, viewForHeaderInSection: 0) as? EventsSectionHeaderView
-                        expect(header!.textLabel!.text) == "Section header"
+
+                        expect(header?.textLabel?.text) == "Section header"
                         expect(Int(eventSectionHeaderPresenter.lastPresentedDate.timeIntervalSinceReferenceDate)) == Int(dateForSection.timeIntervalSinceReferenceDate)
                     }
 
                     it("displays a cell per event in each day section") {
+                        eventSearchResult.uniqueDays = [NSDate()]
+
                         eventSearchResult.eventsByDay = [events]
                         nearbyEventsUseCase.simulateFindingEvents(eventSearchResult)
 
@@ -88,40 +91,65 @@ class EventsResultsControllerSpec: QuickSpec {
 
                         expect(subject.tableView.dataSource?.tableView(subject.tableView, numberOfRowsInSection: 0)) == 1
                     }
+                }
 
-                    it("uses the presenter to set up the returned cells from the search results") {
-                        eventSearchResult.eventsByDay = [events]
+                context("when the use case notifies it that no events have been found") {
+                    beforeEach {
+                        let eventSearchResult = FakeEventSearchResult(events: [])
+                        eventSearchResult.eventsByDay = [[TestUtils.eventWithName("A")], [TestUtils.eventWithName("B")]]
+                        eventSearchResult.uniqueDays = [NSDate(), NSDate()]
+
                         nearbyEventsUseCase.simulateFindingEvents(eventSearchResult)
-
-                        let cellA = subject.tableView.dataSource?.tableView(subject.tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0)) as? EventListTableViewCell
-
-                        expect(eventPresenter.lastReceivedEvent) == eventA
-                        expect(eventPresenter.lastReceivedCell) === cellA
-
-                        let cellB = subject.tableView.dataSource?.tableView(subject.tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0)) as? EventListTableViewCell
-
-                        expect(eventPresenter.lastReceivedEvent) == eventB
-                        expect(eventPresenter.lastReceivedCell) == cellB
                     }
 
-                    it("styles the cells with the stylist") {
-                        nearbyEventsUseCase.simulateFindingEvents(eventSearchResult)
+                    it("has one section") {
+                        nearbyEventsUseCase.simulateFindingNoEvents()
 
-                        let cell = subject.tableView.dataSource?.tableView(subject.tableView, cellForRowAtIndexPath:NSIndexPath(forRow: 0, inSection: 0)) as? EventListTableViewCell
-
-                        expect(eventListTableViewCellStylist.lastStyledCell) === cell
-                        expect(eventListTableViewCellStylist.lastReceivedEvent) == eventA
+                        expect(subject.tableView.numberOfSections) == 1
                     }
 
-                    it("styles the section headers with the theme") {
+                    it("returns nil for the header view") {
+                        nearbyEventsUseCase.simulateFindingNoEvents()
+                        let header = subject.tableView.delegate?.tableView!(subject.tableView, viewForHeaderInSection: 0) as? EventsSectionHeaderView
+
+                        expect(header).to(beNil())
+                    }
+
+
+                    it("displays zero cells") {
+                        nearbyEventsUseCase.simulateFindingNoEvents()
+
+                        expect(subject.tableView.dataSource?.tableView(subject.tableView, numberOfRowsInSection: 0)) == 0
+                    }
+                }
+
+                context("when the use case notifies it that it failed when fetching events") {
+                    beforeEach {
+                        let eventSearchResult = FakeEventSearchResult(events: [])
+                        eventSearchResult.eventsByDay = [[TestUtils.eventWithName("A")], [TestUtils.eventWithName("B")]]
+                        eventSearchResult.uniqueDays = [NSDate(), NSDate()]
+
                         nearbyEventsUseCase.simulateFindingEvents(eventSearchResult)
-                        let sectionHeader = UITableViewHeaderFooterView()
+                    }
 
-                        subject.tableView.delegate?.tableView!(subject.tableView, willDisplayHeaderView: sectionHeader, forSection: 0)
+                    it("has one section") {
+                        nearbyEventsUseCase.simulateFailingToFindEvents(.FindingLocationError(.PermissionsError))
 
-                        expect(sectionHeader.contentView.backgroundColor) == UIColor.darkGrayColor()
-                        expect(sectionHeader.textLabel!.textColor) == UIColor.lightGrayColor()
-                        expect(sectionHeader.textLabel!.font) == UIFont.italicSystemFontOfSize(999)
+                        expect(subject.tableView.numberOfSections) == 1
+                    }
+
+                    it("returns nil for the header view") {
+                        nearbyEventsUseCase.simulateFailingToFindEvents(.FindingLocationError(.PermissionsError))
+                        let header = subject.tableView.delegate?.tableView!(subject.tableView, viewForHeaderInSection: 0) as? EventsSectionHeaderView
+
+                        expect(header).to(beNil())
+                    }
+
+
+                    it("displays zero cells") {
+                        nearbyEventsUseCase.simulateFailingToFindEvents(.FindingLocationError(.PermissionsError))
+
+                        expect(subject.tableView.dataSource?.tableView(subject.tableView, numberOfRowsInSection: 0)) == 0
                     }
                 }
             }
