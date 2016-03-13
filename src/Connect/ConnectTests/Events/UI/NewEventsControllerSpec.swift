@@ -75,9 +75,10 @@ class NewEventsControllerSpec: QuickSpec {
                 it("initially adds the interstitial controller as a child controller in the results view") {
                     subject.view.layoutSubviews()
 
-                    expect(childControllerBuddy.lastAddedViewController) === interstitialController
-                    expect(childControllerBuddy.lastAddedParentViewController) === subject
-                    expect(childControllerBuddy.lastAddedContainerView) === subject.resultsView
+                    let addCall = childControllerBuddy.addCalls.last!
+                    expect(addCall.addController) === interstitialController
+                    expect(addCall.parentController) === subject
+                    expect(addCall.containerView) === subject.resultsView
                 }
 
                 it("asks the nearby events use case to fetch events within the correct radius on the worker queue") {
@@ -158,13 +159,15 @@ private class MockChildControllerBuddy: ChildControllerBuddy {
         lastParentSwappedController = parent
     }
 
-    var lastAddedViewController: UIViewController?
-    var lastAddedParentViewController: UIViewController?
-    var lastAddedContainerView: UIView?
+    struct AddCall {
+        let addController: UIViewController
+        let parentController: UIViewController
+        let containerView: UIView
+    }
+
+    var addCalls: [AddCall] = []
     func add(new: UIViewController, to parent: UIViewController, containIn: UIView) {
-        lastAddedViewController = new
-        lastAddedParentViewController = parent
-        lastAddedContainerView = containIn
+        addCalls.append(AddCall(addController: new, parentController: parent, containerView: containIn))
     }
 }
 
