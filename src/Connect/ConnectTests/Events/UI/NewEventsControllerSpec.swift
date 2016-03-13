@@ -18,6 +18,8 @@ class NewEventsControllerSpec: QuickSpec {
             var workerQueue: FakeOperationQueue!
             var resultQueue: FakeOperationQueue!
 
+            var navigationController: UINavigationController!
+
 
             beforeEach {
                 searchBarController = UIViewController()
@@ -42,6 +44,8 @@ class NewEventsControllerSpec: QuickSpec {
                     workerQueue: workerQueue,
                     resultQueue: resultQueue
                 )
+
+                navigationController = UINavigationController(rootViewController: subject)
             }
 
 
@@ -54,6 +58,14 @@ class NewEventsControllerSpec: QuickSpec {
 
                 expect(tabBarItemStylist.lastReceivedTabBarImage).to(equal(UIImage(named: "eventsTabBarIconInactive")))
                 expect(tabBarItemStylist.lastReceivedTabBarSelectedImage).to(equal(UIImage(named: "eventsTabBarIcon")))
+            }
+
+            describe("when the view appears") {
+                it("hides the nav bar") {
+                    subject.viewWillAppear(false)
+
+                    expect(navigationController.navigationBarHidden) == true
+                }
             }
 
             describe("when the view loads") {
