@@ -95,6 +95,14 @@ extension EventsResultsController: UITableViewDataSource {
 }
 
 extension EventsResultsController: UITableViewDelegate {
+    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 75
+    }
+
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 38
+    }
+
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let header = tableView.dequeueReusableHeaderFooterViewWithIdentifier("header") else {
             return nil
