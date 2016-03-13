@@ -150,6 +150,18 @@ class StockCurrentLocationUseCaseSpec: QuickSpec {
 
                             expect(receivedLocation) === expectedLocation
                         }
+
+                        it("does not buffer error handlers") {
+                            subject.fetchCurrentLocation({ (location) -> () in
+                                }, errorHandler: { (error) -> () in
+                                    fail("Should not have called error handler")
+                            })
+
+                            locationPermissionUseCase.grantPermission()
+                            locationManagerProxy.notifyObserversOfNewLocations([CLLocation(latitude: 3, longitude: 4)])
+                            let underlyingError = NSError(domain: "wat", code: 42, userInfo: nil)
+                            locationManagerProxy.notifyObserversOfError(underlyingError)
+                        }
                     }
 
                     describe("when the current location proxy has most recently reported an error") {
@@ -175,6 +187,19 @@ class StockCurrentLocationUseCaseSpec: QuickSpec {
 
 
                             expect(receivedError) == CurrentLocationUseCaseError.CoreLocationError(underlyingError)
+                        }
+
+                        it("does not buffer completion handlers") {
+                            subject.fetchCurrentLocation({ (location) -> () in
+                                fail("Should not have called completion handler")
+                                }, errorHandler: { (error) -> () in
+
+                            })
+
+                            locationPermissionUseCase.grantPermission()
+                            let underlyingError = NSError(domain: "wat", code: 42, userInfo: nil)
+                            locationManagerProxy.notifyObserversOfError(underlyingError)
+                            locationManagerProxy.notifyObserversOfNewLocations([CLLocation(latitude: 3, longitude: 4)])
                         }
                     }
                 }

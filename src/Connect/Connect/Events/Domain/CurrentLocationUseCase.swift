@@ -65,6 +65,7 @@ extension StockCurrentLocationUseCase: LocationManagerProxyObserver {
             handler(.CoreLocationError(error))
         }
         errorHandlers.removeAll()
+        successHandlers.removeAll()
 
         lastReceivedLocation = nil
         lastReceivedError = error
@@ -79,6 +80,7 @@ extension StockCurrentLocationUseCase: LocationManagerProxyObserver {
             handler(locations.last!)
         }
         successHandlers.removeAll()
+        errorHandlers.removeAll()
 
         lastReceivedLocation = locations.last
         lastReceivedError = nil
