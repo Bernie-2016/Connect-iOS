@@ -31,6 +31,8 @@
 "Events_createEventCTAText" = "Try another search or {0}";
 "Events_organizeText" = "be the first to organize.";
 
+"EventsSearchBar_currentLocation" = "Current Location";
+
 "Events_zipCodeAccessibilityLabel" = "ZIP Code";
 "Events_zipCodeTextBoxPlaceholder" = "ZIP Code";
 "Events_eventSearchButtonTitle" = "Search";

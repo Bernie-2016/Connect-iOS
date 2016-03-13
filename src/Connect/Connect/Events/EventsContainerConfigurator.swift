@@ -11,24 +11,24 @@ class EventsContainerConfigurator: ContainerConfigurator {
     private static func configureUseCases(container: Container) {
         container.register(LocationManagerProxy.self) { resolver in
             return StockLocationManagerProxy(locationManager: resolver.resolve(CLLocationManager.self)!)
-        }
+        }.inObjectScope(.Container)
 
         container.register(LocationPermissionUseCase.self) { resolver in
             return StockLocationPermissionUseCase(locationManagerProxy: resolver.resolve(LocationManagerProxy.self)!)
-        }
+        }.inObjectScope(.Container)
 
         container.register(CurrentLocationUseCase.self) { resolver in
             return StockCurrentLocationUseCase(
                 locationManagerProxy: resolver.resolve(LocationManagerProxy.self)!,
                 locationPermissionUseCase: resolver.resolve(LocationPermissionUseCase.self)!
             )
-        }
+        }.inObjectScope(.Container)
 
         container.register(NearbyEventsUseCase.self) { resolver in
             return StockNearbyEventsUseCase(
                 currentLocationUseCase: resolver.resolve(CurrentLocationUseCase.self)!,
                 eventRepository: resolver.resolve(EventRepository.self)!)
-        }
+        }.inObjectScope(.Container)
     }
 
     private static func configureDataAccess(container: Container) {
@@ -128,7 +128,10 @@ class EventsContainerConfigurator: ContainerConfigurator {
             }.inObjectScope(.Container)
 
         container.register(EventSearchBarController.self) { resolver in
-            return EventSearchBarController()
+            return EventSearchBarController(
+                nearbyEventsUseCase: resolver.resolve(NearbyEventsUseCase.self)!,
+                resultQueue: resolver.resolve(NSOperationQueue.self, name: "main")!
+            )
         }.inObjectScope(.Container)
 
         container.register(EventsResultsController.self) { resolver in

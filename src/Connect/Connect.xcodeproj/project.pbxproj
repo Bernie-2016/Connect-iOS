@@ -288,6 +288,7 @@
 		65E06CAB1BCB30DC00BDDA61 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8233FC151B7C28FB00A5E9ED /* Images.xcassets */; };
 		65E33D801C46EB9A003464D9 /* PushNotificationHandlerDispatcherSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E33D7F1C46EB9A003464D9 /* PushNotificationHandlerDispatcherSpec.swift */; };
 		65E33D821C46EC0D003464D9 /* PushNotificationHandlerDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E33D811C46EC0D003464D9 /* PushNotificationHandlerDispatcher.swift */; };
+		65E3FDA11C95CCC800603DF6 /* EventSearchBarControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E3FDA01C95CCC800603DF6 /* EventSearchBarControllerSpec.swift */; };
 		65E4A4FC1BC6DA050027501D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8233FC151B7C28FB00A5E9ED /* Images.xcassets */; };
 		65E856D21C61916600F4849C /* StockActionsTableViewCellPresenterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E856D11C61916600F4849C /* StockActionsTableViewCellPresenterSpec.swift */; };
 		65EA2F291BB9B648001D8FD5 /* FakeDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EA2F281BB9B648001D8FD5 /* FakeDateFormatter.swift */; };
@@ -631,6 +632,7 @@
 		65DE887D1BE31540001AEDD8 /* FakeTimeIntervalFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeTimeIntervalFormatter.swift; sourceTree = "<group>"; };
 		65E33D7F1C46EB9A003464D9 /* PushNotificationHandlerDispatcherSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationHandlerDispatcherSpec.swift; sourceTree = "<group>"; };
 		65E33D811C46EC0D003464D9 /* PushNotificationHandlerDispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationHandlerDispatcher.swift; sourceTree = "<group>"; };
+		65E3FDA01C95CCC800603DF6 /* EventSearchBarControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSearchBarControllerSpec.swift; sourceTree = "<group>"; };
 		65E856D11C61916600F4849C /* StockActionsTableViewCellPresenterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockActionsTableViewCellPresenterSpec.swift; sourceTree = "<group>"; };
 		65EA2F281BB9B648001D8FD5 /* FakeDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeDateFormatter.swift; sourceTree = "<group>"; };
 		65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
@@ -1064,6 +1066,7 @@
 				653D0FCB1C4C53BB004CB8A0 /* EventPresenterSpec.swift */,
 				653D0FCC1C4C53BB004CB8A0 /* EventRSVPControllerSpec.swift */,
 				653D0FCD1C4C53BB004CB8A0 /* EventsControllerSpec.swift */,
+				65E3FDA01C95CCC800603DF6 /* EventSearchBarControllerSpec.swift */,
 				653D0FCE1C4C53BB004CB8A0 /* EventSectionHeaderPresenterSpec.swift */,
 				65DA97ED1C9498B600B4C0AA /* EventsResultsControllerSpec.swift */,
 				6549DC2E1C8B86950057D74C /* NewEventsControllerSpec.swift */,
@@ -1882,6 +1885,7 @@
 				653D100B1C4C53BB004CB8A0 /* EventPresenterSpec.swift in Sources */,
 				653D100C1C4C53BB004CB8A0 /* EventRSVPControllerSpec.swift in Sources */,
 				653D100D1C4C53BB004CB8A0 /* EventsControllerSpec.swift in Sources */,
+				65E3FDA11C95CCC800603DF6 /* EventSearchBarControllerSpec.swift in Sources */,
 				653D10061C4C53BB004CB8A0 /* EventSearchResultsSpec.swift in Sources */,
 				653D100E1C4C53BB004CB8A0 /* EventSectionHeaderPresenterSpec.swift in Sources */,
 				65DA97EE1C9498B600B4C0AA /* EventsResultsControllerSpec.swift in Sources */,
