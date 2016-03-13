@@ -8,6 +8,7 @@ class NewEventsControllerSpec: QuickSpec {
     override func spec() {
         describe("NewEventsController") {
             var subject: NewEventsController!
+            var searchBarController: UIViewController!
             var interstitialController: UIViewController!
             var resultsController: UIViewController!
             var errorController: UIViewController!
@@ -19,6 +20,7 @@ class NewEventsControllerSpec: QuickSpec {
 
 
             beforeEach {
+                searchBarController = UIViewController()
                 interstitialController = UIViewController()
                 resultsController = UIViewController()
                 errorController = UIViewController()
@@ -30,6 +32,7 @@ class NewEventsControllerSpec: QuickSpec {
 
 
                 subject = NewEventsController(
+                    searchBarController: searchBarController,
                     interstitialController: interstitialController,
                     resultsController: resultsController,
                     errorController: errorController,
@@ -60,6 +63,12 @@ class NewEventsControllerSpec: QuickSpec {
                     expect(subject.view.subviews).to(contain(subject.resultsView))
                 }
 
+                it("adds the search bar view as a subview") {
+                    subject.view.layoutSubviews()
+
+                    expect(subject.view.subviews).to(contain(subject.searchBarView))
+                }
+
                 it("has the correct navigation item title") {
                     subject.view.layoutSubviews()
 
@@ -70,6 +79,15 @@ class NewEventsControllerSpec: QuickSpec {
                     subject.view.layoutSubviews()
 
                     expect(subject.navigationItem.backBarButtonItem?.title) == ""
+                }
+
+                it("adds the search bar controller as a child controller in the search bar view") {
+                    subject.view.layoutSubviews()
+
+                    let addCall = childControllerBuddy.addCalls.first!
+                    expect(addCall.addController) === searchBarController
+                    expect(addCall.parentController) === subject
+                    expect(addCall.containerView) === subject.searchBarView
                 }
 
                 it("initially adds the interstitial controller as a child controller in the results view") {

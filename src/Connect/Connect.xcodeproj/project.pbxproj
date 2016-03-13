@@ -41,6 +41,7 @@
 		6531730D1C86AE50004E472A /* NewsFeedVideoCellProviderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6531730C1C86AE50004E472A /* NewsFeedVideoCellProviderSpec.swift */; };
 		6531730F1C86AEF0004E472A /* NewsFeedVideoCellProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6531730E1C86AEF0004E472A /* NewsFeedVideoCellProvider.swift */; };
 		653173111C878E4B004E472A /* AlwaysReusingCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653173101C878E4B004E472A /* AlwaysReusingCollectionView.swift */; };
+		653774381C94F90500B9BDD1 /* EventSearchBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653774371C94F90500B9BDD1 /* EventSearchBarController.swift */; };
 		65384D131BB2EFB50057F6FF /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = 65384D121BB2EFB50057F6FF /* events.json */; };
 		65384D151BB2F0FF0057F6FF /* dodgy_events.json in Resources */ = {isa = PBXBuildFile; fileRef = 65384D141BB2F0FF0057F6FF /* dodgy_events.json */; };
 		653885101B90F13600DCA808 /* FakeJSONClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6538850F1B90F13600DCA808 /* FakeJSONClient.swift */; };
@@ -380,6 +381,7 @@
 		6531730C1C86AE50004E472A /* NewsFeedVideoCellProviderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFeedVideoCellProviderSpec.swift; sourceTree = "<group>"; };
 		6531730E1C86AEF0004E472A /* NewsFeedVideoCellProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFeedVideoCellProvider.swift; sourceTree = "<group>"; };
 		653173101C878E4B004E472A /* AlwaysReusingCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlwaysReusingCollectionView.swift; sourceTree = "<group>"; };
+		653774371C94F90500B9BDD1 /* EventSearchBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSearchBarController.swift; sourceTree = "<group>"; };
 		65384D121BB2EFB50057F6FF /* events.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = events.json; sourceTree = "<group>"; };
 		65384D141BB2F0FF0057F6FF /* dodgy_events.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dodgy_events.json; sourceTree = "<group>"; };
 		6538850F1B90F13600DCA808 /* FakeJSONClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeJSONClient.swift; sourceTree = "<group>"; };
@@ -749,6 +751,7 @@
 				653D0EB31C4C28C0004CB8A0 /* EventRSVPController.swift */,
 				653D0EB41C4C28C0004CB8A0 /* EventRSVPControllerProvider.swift */,
 				653D0EB51C4C28C0004CB8A0 /* EventsController.swift */,
+				653774371C94F90500B9BDD1 /* EventSearchBarController.swift */,
 				653D0EB61C4C28C0004CB8A0 /* EventSectionHeaderPresenter.swift */,
 				65DA97EB1C94984A00B4C0AA /* EventsResultsController.swift */,
 				653D0EB71C4C28C0004CB8A0 /* EventsSectionHeaderView.swift */,
@@ -1765,6 +1768,7 @@
 				653D0EC11C4C28C0004CB8A0 /* EventRSVPControllerProvider.swift in Sources */,
 				65979AA41C4C685100A312A9 /* EventsContainerConfigurator.swift in Sources */,
 				653D0EC21C4C28C0004CB8A0 /* EventsController.swift in Sources */,
+				653774381C94F90500B9BDD1 /* EventSearchBarController.swift in Sources */,
 				653D0ED61C4C2938004CB8A0 /* EventSearchResult.swift in Sources */,
 				653D0EC31C4C28C0004CB8A0 /* EventSectionHeaderPresenter.swift in Sources */,
 				653D0ED21C4C292D004CB8A0 /* EventService.swift in Sources */,

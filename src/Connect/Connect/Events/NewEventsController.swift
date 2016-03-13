@@ -2,6 +2,7 @@ import UIKit
 import CoreLocation
 
 class NewEventsController: UIViewController {
+    private let searchBarController: UIViewController
     private let interstitialController: UIViewController
     private let resultsController: UIViewController
     private let errorController: UIViewController
@@ -12,9 +13,11 @@ class NewEventsController: UIViewController {
     private let resultQueue: NSOperationQueue
 
 
+    let searchBarView = UIView.newAutoLayoutView()
     let resultsView = UIView.newAutoLayoutView()
 
     init(
+        searchBarController: UIViewController,
         interstitialController: UIViewController,
         resultsController: UIViewController,
         errorController: UIViewController,
@@ -23,6 +26,7 @@ class NewEventsController: UIViewController {
         tabBarItemStylist: TabBarItemStylist,
         workerQueue: NSOperationQueue,
         resultQueue: NSOperationQueue) {
+            self.searchBarController = searchBarController
             self.interstitialController = interstitialController
             self.resultsController = resultsController
             self.errorController = errorController
@@ -47,6 +51,7 @@ class NewEventsController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.addSubview(searchBarView)
         view.addSubview(resultsView)
 
         navigationItem.title = NSLocalizedString("Events_navigationTitle", comment: "")
@@ -59,6 +64,7 @@ class NewEventsController: UIViewController {
 
         nearbyEventsUseCase.addObserver(self)
 
+        childControllerBuddy.add(searchBarController, to: self, containIn: searchBarView)
         childControllerBuddy.add(interstitialController, to: self, containIn: resultsView)
 
         workerQueue.addOperationWithBlock {
@@ -69,7 +75,15 @@ class NewEventsController: UIViewController {
     }
 
     private func setupConstraints() {
-        resultsView.autoPinEdgesToSuperviewEdges()
+        searchBarView.autoPinEdgeToSuperviewEdge(.Top)
+        searchBarView.autoPinEdgeToSuperviewEdge(.Left)
+        searchBarView.autoPinEdgeToSuperviewEdge(.Right)
+        searchBarView.autoSetDimension(.Height, toSize: 44 + 20)
+
+        resultsView.autoPinEdge(.Top, toEdge: .Bottom, ofView: searchBarView)
+        resultsView.autoPinEdgeToSuperviewEdge(.Left)
+        resultsView.autoPinEdgeToSuperviewEdge(.Right)
+        resultsView.autoPinEdgeToSuperviewEdge(.Bottom)
     }
 }
 

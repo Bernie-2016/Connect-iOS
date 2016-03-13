@@ -115,6 +115,7 @@ class EventsContainerConfigurator: ContainerConfigurator {
 
         container.register(NewEventsController.self) { resolver in
             return NewEventsController(
+                searchBarController: resolver.resolve(EventSearchBarController.self)!,
                 interstitialController: resolver.resolve(UIViewController.self, name: "interstitial")!,
                 resultsController: resolver.resolve(EventsResultsController.self)!,
                 errorController: UIViewController(),
@@ -125,6 +126,10 @@ class EventsContainerConfigurator: ContainerConfigurator {
                 resultQueue: resolver.resolve(NSOperationQueue.self, name: "main")!
             )
             }.inObjectScope(.Container)
+
+        container.register(EventSearchBarController.self) { resolver in
+            return EventSearchBarController()
+        }.inObjectScope(.Container)
 
         container.register(EventsResultsController.self) { resolver in
             return EventsResultsController(
