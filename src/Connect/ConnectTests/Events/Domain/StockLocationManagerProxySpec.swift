@@ -33,7 +33,7 @@ class StockLocationManagerProxySpec: QuickSpec {
 
             describe("requesting always authorization") {
                 it("proxies to the location manager") {
-                    subject.requestAlwaysAuthorization()
+                    subject.requestWhenInUseAuthorization()
 
                     expect(locationManager.didRequestAlwaysAuthorization) == true
                 }
@@ -41,13 +41,13 @@ class StockLocationManagerProxySpec: QuickSpec {
 
             describe("when the location manager changes authorization status") {
                 it("notifies its observers") {
-                    locationManager.delegate?.locationManager!(locationManager, didChangeAuthorizationStatus: .AuthorizedAlways)
+                    locationManager.delegate?.locationManager!(locationManager, didChangeAuthorizationStatus: .AuthorizedWhenInUse)
 
                     expect(observerA.lastUpdatedStatusProxy as? StockLocationManagerProxy) === subject as? StockLocationManagerProxy
-                    expect(observerA.lastUpdatedStatus) == .AuthorizedAlways
+                    expect(observerA.lastUpdatedStatus) == .AuthorizedWhenInUse
 
                     expect(observerB.lastUpdatedStatusProxy as? StockLocationManagerProxy) === subject as? StockLocationManagerProxy
-                    expect(observerB.lastUpdatedStatus) == .AuthorizedAlways
+                    expect(observerB.lastUpdatedStatus) == .AuthorizedWhenInUse
                 }
             }
 
@@ -92,7 +92,7 @@ class StockLocationManagerProxySpec: QuickSpec {
 
 private class MockLocationManager: CLLocationManager {
     var didRequestAlwaysAuthorization = false
-    private override func requestAlwaysAuthorization() {
+    private override func requestWhenInUseAuthorization() {
         didRequestAlwaysAuthorization = true
     }
 

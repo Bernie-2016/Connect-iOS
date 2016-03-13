@@ -3,8 +3,32 @@ import CoreLocation
 
 class EventsContainerConfigurator: ContainerConfigurator {
     static func configureContainer(container: Container) {
+        configureUseCases(container)
         configureDataAccess(container)
         configureUI(container)
+    }
+
+    private static func configureUseCases(container: Container) {
+        container.register(LocationManagerProxy.self) { resolver in
+            return StockLocationManagerProxy(locationManager: resolver.resolve(CLLocationManager.self)!)
+        }
+
+        container.register(LocationPermissionUseCase.self) { resolver in
+            return StockLocationPermissionUseCase(locationManagerProxy: resolver.resolve(LocationManagerProxy.self)!)
+        }
+
+        container.register(CurrentLocationUseCase.self) { resolver in
+            return StockCurrentLocationUseCase(
+                locationManagerProxy: resolver.resolve(LocationManagerProxy.self)!,
+                locationPermissionUseCase: resolver.resolve(LocationPermissionUseCase.self)!
+            )
+        }
+
+        container.register(NearbyEventsUseCase.self) { resolver in
+            return StockNearbyEventsUseCase(
+                currentLocationUseCase: resolver.resolve(CurrentLocationUseCase.self)!,
+                eventRepository: resolver.resolve(EventRepository.self)!)
+        }
     }
 
     private static func configureDataAccess(container: Container) {
@@ -62,17 +86,17 @@ class EventsContainerConfigurator: ContainerConfigurator {
                 currentWeekDateFormatter: resolver.resolve(NSDateFormatter.self, name: "day")!,
                 nonCurrentWeekDateFormatter: resolver.resolve(NSDateFormatter.self, name: "shortDate")!,
                 dateProvider: resolver.resolve(DateProvider.self)!)
-        }.inObjectScope(.Container)
+            }.inObjectScope(.Container)
 
         container.register(EventListTableViewCellStylist.self) { resolver in
             return ConcreteEventListTableViewCellStylist(
                 dateProvider: resolver.resolve(DateProvider.self)!,
                 theme: resolver.resolve(Theme.self)!)
-        }.inObjectScope(.Container)
+            }.inObjectScope(.Container)
 
         container.register(ZipCodeValidator.self) { resolver in
             return StockZipCodeValidator()
-        }.inObjectScope(.Container)
+            }.inObjectScope(.Container)
 
         container.register(EventsController.self) { resolver in
             return EventsController(
@@ -87,14 +111,34 @@ class EventsContainerConfigurator: ContainerConfigurator {
                 eventListTableViewCellStylist: resolver.resolve(EventListTableViewCellStylist.self)!,
                 zipCodeValidator: resolver.resolve(ZipCodeValidator.self)!,
                 theme: resolver.resolve(Theme.self)!)
-        }
+            }.inObjectScope(.Container)
+
+        container.register(NewEventsController.self) { resolver in
+            return NewEventsController(
+                interstitialController: resolver.resolve(UIViewController.self, name: "interstitial")!,
+                resultsController: resolver.resolve(EventsResultsController.self)!,
+                errorController: UIViewController(),
+                nearbyEventsUseCase: resolver.resolve(NearbyEventsUseCase.self)!,
+                childControllerBuddy: resolver.resolve(ChildControllerBuddy.self)!,
+                tabBarItemStylist: resolver.resolve(TabBarItemStylist.self)!
+            )
+            }.inObjectScope(.Container)
+
+        container.register(EventsResultsController.self) { resolver in
+            return EventsResultsController(
+                nearbyEventsUseCase: resolver.resolve(NearbyEventsUseCase.self)!,
+                eventPresenter: resolver.resolve(EventPresenter.self)!,
+                eventSectionHeaderPresenter: resolver.resolve(EventSectionHeaderPresenter.self)!,
+                eventListTableViewCellStylist: resolver.resolve(EventListTableViewCellStylist.self)!,
+                theme: resolver.resolve(Theme.self)!)
+            }.inObjectScope(.Container)
 
         container.register(NavigationController.self, name: "events") { resolver in
             let navigationController = resolver.resolve(NavigationController.self)!
-            let newsFeedController = resolver.resolve(EventsController.self)!
-            navigationController.pushViewController(newsFeedController, animated: false)
+            let eventsController = resolver.resolve(NewEventsController.self)!
+            navigationController.pushViewController(eventsController, animated: false)
             return navigationController
         }
     }
-        // swiftlint:enable function_body_length
+    // swiftlint:enable function_body_length
 }

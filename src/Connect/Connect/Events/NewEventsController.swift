@@ -6,8 +6,8 @@ class NewEventsController: UIViewController {
     private let resultsController: UIViewController
     private let errorController: UIViewController
     private let nearbyEventsUseCase: NearbyEventsUseCase
-    private let fetchEventsUseCase: FetchEventsUseCase
     private let childControllerBuddy: ChildControllerBuddy
+    private let tabBarItemStylist: TabBarItemStylist
 
     let resultsView = UIView.newAutoLayoutView()
 
@@ -16,16 +16,21 @@ class NewEventsController: UIViewController {
         resultsController: UIViewController,
         errorController: UIViewController,
         nearbyEventsUseCase: NearbyEventsUseCase,
-        fetchEventsUseCase: FetchEventsUseCase,
-        childControllerBuddy: ChildControllerBuddy) {
+        childControllerBuddy: ChildControllerBuddy,
+        tabBarItemStylist: TabBarItemStylist) {
             self.interstitialController = interstitialController
             self.resultsController = resultsController
             self.errorController = errorController
             self.nearbyEventsUseCase = nearbyEventsUseCase
-            self.fetchEventsUseCase = fetchEventsUseCase
             self.childControllerBuddy = childControllerBuddy
+            self.tabBarItemStylist = tabBarItemStylist
 
             super.init(nibName: nil, bundle: nil)
+
+            tabBarItemStylist.applyThemeToBarBarItem(tabBarItem,
+                image: UIImage(named: "eventsTabBarIconInactive")!,
+                selectedImage: UIImage(named: "eventsTabBarIcon")!)
+            title = NSLocalizedString("Events_tabBarTitle", comment: "")
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -37,10 +42,24 @@ class NewEventsController: UIViewController {
 
         view.addSubview(resultsView)
 
+        navigationItem.title = NSLocalizedString("Events_navigationTitle", comment: "")
+        let backBarButtonItem = UIBarButtonItem(
+            title: NSLocalizedString("Events_backButtonTitle", comment: ""),
+            style: .Plain,
+            target: nil, action: nil)
+
+        navigationItem.backBarButtonItem = backBarButtonItem
+
         nearbyEventsUseCase.addObserver(self)
 
         childControllerBuddy.add(interstitialController, to: self, containIn: resultsView)
         nearbyEventsUseCase.fetchNearbyEventsWithinRadiusMiles(10.0) // let's kill this magic number
+
+        setupConstraints()
+    }
+
+    private func setupConstraints() {
+        resultsView.autoPinEdgesToSuperviewEdges()
     }
 }
 

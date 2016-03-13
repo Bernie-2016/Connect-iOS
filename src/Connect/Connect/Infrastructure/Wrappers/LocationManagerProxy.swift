@@ -3,7 +3,7 @@ import CoreLocation
 protocol LocationManagerProxy {
     func addObserver(observer: LocationManagerProxyObserver)
     func authorizationStatus() -> CLAuthorizationStatus
-    func requestAlwaysAuthorization()
+    func requestWhenInUseAuthorization()
     func startUpdatingLocations()
 }
 
@@ -38,8 +38,8 @@ class StockLocationManagerProxy: NSObject, LocationManagerProxy {
         return CLLocationManager.authorizationStatus()
     }
 
-    func requestAlwaysAuthorization() {
-        locationManager.requestAlwaysAuthorization()
+    func requestWhenInUseAuthorization() {
+        locationManager.requestWhenInUseAuthorization()
     }
 
     func startUpdatingLocations() {

@@ -26,8 +26,8 @@ class StockLocationPermissionUseCase: NSObject, LocationPermissionUseCase {
             grantedHandlers.append(grantedHandler)
             deniedHandlers.append(deniedHandler)
 
-            locationManagerProxy.requestAlwaysAuthorization()
-        case .AuthorizedAlways:
+            locationManagerProxy.requestWhenInUseAuthorization()
+        case .AuthorizedWhenInUse:
             grantedHandler()
         default:
             deniedHandler()
@@ -37,13 +37,13 @@ class StockLocationPermissionUseCase: NSObject, LocationPermissionUseCase {
 
 extension StockLocationPermissionUseCase: LocationManagerProxyObserver {
     func locationManagerProxy(locationManagerProxy: LocationManagerProxy, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        if status == .AuthorizedAlways {
+        switch status {
+        case .AuthorizedWhenInUse:
             for handler in grantedHandlers {
                 handler()
             }
             grantedHandlers.removeAll()
-
-        } else {
+        default:
             for handler in deniedHandlers {
                 handler()
             }
@@ -51,11 +51,7 @@ extension StockLocationPermissionUseCase: LocationManagerProxyObserver {
         }
     }
 
-    func locationManagerProxy(locationManagerProxy: LocationManagerProxy, didUpdateLocations locations: [CLLocation]) {
+    func locationManagerProxy(locationManagerProxy: LocationManagerProxy, didUpdateLocations locations: [CLLocation]) {}
 
-    }
-
-    func locationManagerProxy(locationManagerProxy: LocationManagerProxy, didFailWithError error: NSError) {
-
-    }
+    func locationManagerProxy(locationManagerProxy: LocationManagerProxy, didFailWithError error: NSError) {}
 }

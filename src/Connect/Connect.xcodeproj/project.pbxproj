@@ -289,7 +289,6 @@
 		65E33D821C46EC0D003464D9 /* PushNotificationHandlerDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E33D811C46EC0D003464D9 /* PushNotificationHandlerDispatcher.swift */; };
 		65E4A4FC1BC6DA050027501D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8233FC151B7C28FB00A5E9ED /* Images.xcassets */; };
 		65E856D21C61916600F4849C /* StockActionsTableViewCellPresenterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E856D11C61916600F4849C /* StockActionsTableViewCellPresenterSpec.swift */; };
-		65E9C5181C8BA1660092029D /* FetchEventsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E9C5171C8BA1660092029D /* FetchEventsUseCase.swift */; };
 		65EA2F291BB9B648001D8FD5 /* FakeDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EA2F281BB9B648001D8FD5 /* FakeDateFormatter.swift */; };
 		65EC4CEC1B842A0B00DD4C83 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */; };
 		65EC4CEE1B842A1900DD4C83 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65EC4CED1B842A1900DD4C83 /* Quick.framework */; };
@@ -631,7 +630,6 @@
 		65E33D7F1C46EB9A003464D9 /* PushNotificationHandlerDispatcherSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationHandlerDispatcherSpec.swift; sourceTree = "<group>"; };
 		65E33D811C46EC0D003464D9 /* PushNotificationHandlerDispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationHandlerDispatcher.swift; sourceTree = "<group>"; };
 		65E856D11C61916600F4849C /* StockActionsTableViewCellPresenterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockActionsTableViewCellPresenterSpec.swift; sourceTree = "<group>"; };
-		65E9C5171C8BA1660092029D /* FetchEventsUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchEventsUseCase.swift; sourceTree = "<group>"; };
 		65EA2F281BB9B648001D8FD5 /* FakeDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeDateFormatter.swift; sourceTree = "<group>"; };
 		65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		65EC4CED1B842A1900DD4C83 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
@@ -766,7 +764,6 @@
 				6549DC341C8B89820057D74C /* CurrentLocationUseCase.swift */,
 				653D0ED31C4C2938004CB8A0 /* Event.swift */,
 				653D0ED41C4C2938004CB8A0 /* EventSearchResult.swift */,
-				65E9C5171C8BA1660092029D /* FetchEventsUseCase.swift */,
 				6549DC261C8B4F4B0057D74C /* LocationPermissionUseCase.swift */,
 				651529D21C9214C600714E81 /* NearbyEventsUseCase.swift */,
 			);
@@ -1774,7 +1771,6 @@
 				65DA97EC1C94984A00B4C0AA /* EventsResultsController.swift in Sources */,
 				653D0EC41C4C28C0004CB8A0 /* EventsSectionHeaderView.swift in Sources */,
 				653D0F4F1C4C2DE2004CB8A0 /* FeedbackController.swift in Sources */,
-				65E9C5181C8BA1660092029D /* FetchEventsUseCase.swift in Sources */,
 				653D0F501C4C2DE2004CB8A0 /* FLOSSController.swift in Sources */,
 				65979AA21C4C67AF00A312A9 /* GlobalUIContainerConfigurator.swift in Sources */,
 				653D0F7A1C4C2F68004CB8A0 /* ImageRepository.swift in Sources */,

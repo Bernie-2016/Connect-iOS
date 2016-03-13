@@ -4,23 +4,27 @@ class GlobalUIContainerConfigurator: ContainerConfigurator {
     static func configureContainer(container: Container) {
         container.register(TabBarItemStylist.self) { resolver in
             return ConcreteTabBarItemStylist(theme: resolver.resolve(Theme.self)!)
-        }.inObjectScope(.Container)
+            }.inObjectScope(.Container)
 
         container.register(TimeIntervalFormatter.self) { resolver in
-                return ConcreteTimeIntervalFormatter(dateProvider: resolver.resolve(DateProvider.self)!)
-        }.inObjectScope(.Container)
+            return ConcreteTimeIntervalFormatter(dateProvider: resolver.resolve(DateProvider.self)!)
+            }.inObjectScope(.Container)
+
+        container.register(ChildControllerBuddy.self) { resolver in
+            return StockChildControllerBuddy()
+        }
 
         container.register(UIViewController.self, name: "interstitial") { resolver in
-                return InterstitialController(theme: resolver.resolve(Theme.self)!)
-        }.inObjectScope(.Container)
+            return InterstitialController(theme: resolver.resolve(Theme.self)!)
+            }.inObjectScope(.Container)
 
         container.register(URLAttributionPresenter.self) { _ in
-                return ConcreteURLAttributionPresenter()
-        }.inObjectScope(.Container)
+            return ConcreteURLAttributionPresenter()
+            }.inObjectScope(.Container)
 
         container.register(NavigationController.self) { resolver in
             return NavigationController(theme: resolver.resolve(Theme.self)!)
-        }.inObjectScope(.None)
+            }.inObjectScope(.None)
 
         container.register([UIViewController].self, name: "tabBarControllers") { resolver in
             let controllers = [
@@ -34,18 +38,18 @@ class GlobalUIContainerConfigurator: ContainerConfigurator {
         }
 
         container.register(TabBarController.self) { resolver in
-                return TabBarController(
-                    viewControllers: resolver.resolve([UIViewController].self, name: "tabBarControllers")!,
-                    analyticsService: resolver.resolve(AnalyticsService.self)!,
-                    theme: resolver.resolve(Theme.self)!)
-        }.inObjectScope(.Container)
+            return TabBarController(
+                viewControllers: resolver.resolve([UIViewController].self, name: "tabBarControllers")!,
+                analyticsService: resolver.resolve(AnalyticsService.self)!,
+                theme: resolver.resolve(Theme.self)!)
+            }.inObjectScope(.Container)
 
         container.register(TimeIntervalFormatter.self) { resolver in
             return ConcreteTimeIntervalFormatter(dateProvider: resolver.resolve(DateProvider.self)!)
-        }.inObjectScope(.Container)
+            }.inObjectScope(.Container)
 
         container.register(MarkdownConverter.self) { resolver in
             return CMMarkdownConverter(theme: resolver.resolve(Theme.self)!)
-        }.inObjectScope(.None)
+            }.inObjectScope(.None)
     }
 }

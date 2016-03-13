@@ -31,11 +31,11 @@ class StockLocationPermissionUseCaseSpec: QuickSpec {
 
                     })
 
-                    expect(locationManagerProxy.didRequestAlwaysAuthorized) == true
+                    expect(locationManagerProxy.didRequestInUseAuthorization) == true
                 }
 
                 context("when permission is not determined") {
-                    describe("when the location manager proxy informs the use case that always permission was granted") {
+                    describe("when the location manager proxy informs the use case that in use permission was granted") {
                         it("calls all granted callbacks (once, and only once)") {
                             var permissionGrantedHandlerCalledA = false
 
@@ -53,7 +53,7 @@ class StockLocationPermissionUseCaseSpec: QuickSpec {
                             })
 
 
-                            locationManagerProxy.notifyObserversOfChangedAuthorizationStatus(.AuthorizedAlways)
+                            locationManagerProxy.notifyObserversOfChangedAuthorizationStatus(.AuthorizedWhenInUse)
 
                             expect(permissionGrantedHandlerCalledA) == true
                             expect(permissionGrantedHandlerCalledB) == true
@@ -61,7 +61,7 @@ class StockLocationPermissionUseCaseSpec: QuickSpec {
                             permissionGrantedHandlerCalledA = false
                             permissionGrantedHandlerCalledB = false
 
-                            locationManagerProxy.notifyObserversOfChangedAuthorizationStatus(.AuthorizedAlways)
+                            locationManagerProxy.notifyObserversOfChangedAuthorizationStatus(.AuthorizedWhenInUse)
 
                             expect(permissionGrantedHandlerCalledA) == false
                             expect(permissionGrantedHandlerCalledB) == false
@@ -79,7 +79,7 @@ class StockLocationPermissionUseCaseSpec: QuickSpec {
 
                             })
 
-                            locationManagerProxy.notifyObserversOfChangedAuthorizationStatus(.AuthorizedWhenInUse)
+                            locationManagerProxy.notifyObserversOfChangedAuthorizationStatus(.AuthorizedAlways)
 
                             expect(deniedGrantedHandlerCalledA) == true
 
@@ -195,9 +195,9 @@ class StockLocationPermissionUseCaseSpec: QuickSpec {
                     }
                 }
 
-                context("when permission has previously been granted as always") {
+                context("when permission has previously been granted") {
                     it("calls the granted callback") {
-                        locationManagerProxy.returnedAuthorizationStatus = .AuthorizedAlways
+                        locationManagerProxy.returnedAuthorizationStatus = .AuthorizedWhenInUse
 
                         var permissionGrantedHandlerCalled = false
 

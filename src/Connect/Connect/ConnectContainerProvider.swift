@@ -19,6 +19,8 @@ class ConnectContainerProvider {
 
         container.register(UserNotificationRegisterable.self) { _ in application }.inObjectScope(.Container)
 
+        container.register(CLLocationManager.self) { _ in CLLocationManager() }.inObjectScope(.Container)
+
         container.register(PFInstallation.self) { resolver in
             let apiKeyProvider = resolver.resolve(APIKeyProvider.self)!
             Parse.setApplicationId(

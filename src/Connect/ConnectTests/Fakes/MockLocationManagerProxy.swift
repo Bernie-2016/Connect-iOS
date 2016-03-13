@@ -14,9 +14,9 @@ class MockLocationManagerProxy: LocationManagerProxy {
         return returnedAuthorizationStatus
     }
 
-    var didRequestAlwaysAuthorized = false
-    func requestAlwaysAuthorization() {
-        didRequestAlwaysAuthorized = true
+    var didRequestInUseAuthorization = false
+    func requestWhenInUseAuthorization() {
+        didRequestInUseAuthorization = true
     }
 
     func notifyObserversOfChangedAuthorizationStatus(status: CLAuthorizationStatus) {

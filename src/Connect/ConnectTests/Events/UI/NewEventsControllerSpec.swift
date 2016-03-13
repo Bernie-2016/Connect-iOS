@@ -12,32 +12,56 @@ class NewEventsControllerSpec: QuickSpec {
             var resultsController: UIViewController!
             var errorController: UIViewController!
             var nearbyEventsUseCase: MockNearbyEventsUseCase!
-            var fetchEventsUseCase: MockFetchEventsUseCase!
             var childControllerBuddy: MockChildControllerBuddy!
+            var tabBarItemStylist: FakeTabBarItemStylist!
 
             beforeEach {
                 interstitialController = UIViewController()
                 resultsController = UIViewController()
                 errorController = UIViewController()
                 nearbyEventsUseCase = MockNearbyEventsUseCase()
-                fetchEventsUseCase = MockFetchEventsUseCase()
                 childControllerBuddy = MockChildControllerBuddy()
+                tabBarItemStylist = FakeTabBarItemStylist()
 
                 subject = NewEventsController(
                     interstitialController: interstitialController,
                     resultsController: resultsController,
                     errorController: errorController,
                     nearbyEventsUseCase: nearbyEventsUseCase,
-                    fetchEventsUseCase: fetchEventsUseCase,
-                    childControllerBuddy: childControllerBuddy
+                    childControllerBuddy: childControllerBuddy,
+                    tabBarItemStylist: tabBarItemStylist
                 )
             }
 
+
+            it("has the correct tab bar title") {
+                expect(subject.title).to(equal("Nearby"))
+            }
+
+            it("uses the tab bar item stylist to style its tab bar item") {
+                expect(tabBarItemStylist.lastReceivedTabBarItem).to(beIdenticalTo(subject.tabBarItem))
+
+                expect(tabBarItemStylist.lastReceivedTabBarImage).to(equal(UIImage(named: "eventsTabBarIconInactive")))
+                expect(tabBarItemStylist.lastReceivedTabBarSelectedImage).to(equal(UIImage(named: "eventsTabBarIcon")))
+            }
+
             describe("when the view loads") {
-                it("adds the results view as a subview") {
+                it("adds the results container view as a subview") {
                     subject.view.layoutSubviews()
 
                     expect(subject.view.subviews).to(contain(subject.resultsView))
+                }
+
+                it("has the correct navigation item title") {
+                    subject.view.layoutSubviews()
+
+                    expect(subject.navigationItem.title).to(equal("Events Near Me"))
+                }
+
+                it("should set the back bar button item title correctly") {
+                    subject.view.layoutSubviews()
+
+                    expect(subject.navigationItem.backBarButtonItem?.title) == ""
                 }
 
                 it("initially adds the interstitial controller as a child controller in the results view") {
@@ -122,11 +146,3 @@ private class MockChildControllerBuddy: ChildControllerBuddy {
     }
 }
 
-private class MockFetchEventsUseCase: FetchEventsUseCase {
-    var lastFetchedLocation: CLLocation?
-    var lastFetchedRadiusMiles: Float?
-    private func fetchEventsAroundLocation(location: CLLocation, radiusMiles: Float) {
-        lastFetchedLocation = location
-        lastFetchedRadiusMiles = radiusMiles
-    }
-}
