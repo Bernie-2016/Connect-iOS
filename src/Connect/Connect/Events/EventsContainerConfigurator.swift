@@ -149,10 +149,12 @@ class EventsContainerConfigurator: ContainerConfigurator {
             return EventsResultsController(
                 nearbyEventsUseCase: resolver.resolve(NearbyEventsUseCase.self)!,
                 eventsNearAddressUseCase: resolver.resolve(EventsNearAddressUseCase.self)!,
+                eventControllerProvider: resolver.resolve(EventControllerProvider.self)!,
                 eventPresenter: resolver.resolve(EventPresenter.self)!,
                 eventSectionHeaderPresenter: resolver.resolve(EventSectionHeaderPresenter.self)!,
                 eventListTableViewCellStylist: resolver.resolve(EventListTableViewCellStylist.self)!,
                 resultQueue: resolver.resolve(NSOperationQueue.self, name: "main")!,
+                analyticsService: resolver.resolve(AnalyticsService.self)!,
                 theme: resolver.resolve(Theme.self)!)
             }.inObjectScope(.Container)
 

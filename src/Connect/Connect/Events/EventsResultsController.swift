@@ -3,10 +3,12 @@ import UIKit
 class EventsResultsController: UIViewController {
     private let nearbyEventsUseCase: NearbyEventsUseCase
     private let eventsNearAddressUseCase: EventsNearAddressUseCase
+    private let eventControllerProvider: EventControllerProvider
     private let eventPresenter: EventPresenter
     private let eventSectionHeaderPresenter: EventSectionHeaderPresenter
     private let eventListTableViewCellStylist: EventListTableViewCellStylist
     private let resultQueue: NSOperationQueue
+    private let analyticsService: AnalyticsService
     private let theme: Theme
 
     let tableView = UITableView.newAutoLayoutView()
@@ -16,17 +18,21 @@ class EventsResultsController: UIViewController {
     init(
         nearbyEventsUseCase: NearbyEventsUseCase,
         eventsNearAddressUseCase: EventsNearAddressUseCase,
+        eventControllerProvider: EventControllerProvider,
         eventPresenter: EventPresenter,
         eventSectionHeaderPresenter: EventSectionHeaderPresenter,
         eventListTableViewCellStylist: EventListTableViewCellStylist,
         resultQueue: NSOperationQueue,
+        analyticsService: AnalyticsService,
         theme: Theme) {
             self.nearbyEventsUseCase = nearbyEventsUseCase
             self.eventsNearAddressUseCase = eventsNearAddressUseCase
+            self.eventControllerProvider = eventControllerProvider
             self.eventPresenter = eventPresenter
             self.eventSectionHeaderPresenter = eventSectionHeaderPresenter
             self.eventListTableViewCellStylist = eventListTableViewCellStylist
             self.resultQueue = resultQueue
+            self.analyticsService = analyticsService
             self.theme = theme
 
             super.init(nibName: nil, bundle: nil)
@@ -147,5 +153,13 @@ extension EventsResultsController: UITableViewDelegate {
         headerView.contentView.backgroundColor = theme.defaultTableSectionHeaderBackgroundColor()
         headerView.textLabel?.textColor = theme.defaultTableSectionHeaderTextColor()
         headerView.textLabel?.font = theme.defaultTableSectionHeaderFont()
+    }
+
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let eventsForDay = eventSearchResult.eventsWithDayIndex(indexPath.section)
+        let event = eventsForDay[indexPath.row]
+        let controller = self.eventControllerProvider.provideInstanceWithEvent(event)
+        self.analyticsService.trackContentViewWithName(event.name, type: .Event, identifier: event.url.absoluteString)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
 }

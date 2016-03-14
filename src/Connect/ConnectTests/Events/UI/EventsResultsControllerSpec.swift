@@ -9,30 +9,39 @@ class EventsResultsControllerSpec: QuickSpec {
             var subject: EventsResultsController!
             var nearbyEventsUseCase: MockNearbyEventsUseCase!
             var eventsNearAddressUseCase: MockEventsNearAddressUseCase!
+            var eventControllerProvider: FakeEventControllerProvider!
             var eventPresenter: FakeEventPresenter!
             var eventSectionHeaderPresenter: FakeEventSectionHeaderPresenter!
             var eventListTableViewCellStylist: FakeEventListTableViewCellStylist!
             var resultQueue: FakeOperationQueue!
-
+            var analyticsService: FakeAnalyticsService!
             let theme = EventsResultsFakeTheme()
+
+            var navigationController: UINavigationController!
 
             beforeEach {
                 nearbyEventsUseCase = MockNearbyEventsUseCase()
                 eventsNearAddressUseCase = MockEventsNearAddressUseCase()
+                eventControllerProvider = FakeEventControllerProvider()
                 eventPresenter = FakeEventPresenter()
                 eventSectionHeaderPresenter = FakeEventSectionHeaderPresenter()
                 eventListTableViewCellStylist = FakeEventListTableViewCellStylist()
                 resultQueue = FakeOperationQueue()
+                analyticsService = FakeAnalyticsService()
 
                 subject = EventsResultsController(
                     nearbyEventsUseCase: nearbyEventsUseCase,
                     eventsNearAddressUseCase: eventsNearAddressUseCase,
+                    eventControllerProvider: eventControllerProvider,
                     eventPresenter: eventPresenter,
                     eventSectionHeaderPresenter: eventSectionHeaderPresenter,
                     eventListTableViewCellStylist: eventListTableViewCellStylist,
                     resultQueue: resultQueue,
+                    analyticsService: analyticsService,
                     theme: theme
                 )
+
+                navigationController = UINavigationController(rootViewController: subject)
             }
 
             it("adds itself as an observer of the nearby events use case") {
@@ -111,6 +120,40 @@ class EventsResultsControllerSpec: QuickSpec {
                         resultQueue.lastReceivedBlock()
 
                         expect(subject.tableView.dataSource?.tableView(subject.tableView, numberOfRowsInSection: 0)) == 1
+                    }
+
+                    describe("tapping on an event") {
+                        beforeEach {
+                            eventSearchResult.uniqueDays = [NSDate()]
+                            eventSearchResult.eventsByDay = [[eventB]]
+                            nearbyEventsUseCase.simulateFindingEvents(eventSearchResult)
+                            resultQueue.lastReceivedBlock()
+
+                            let tableView = subject.tableView
+                            tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+                        }
+
+                        it("should push a correctly configured news item view controller onto the nav stack") {
+                            expect(eventControllerProvider.lastEvent) == eventB
+                            expect(navigationController!.topViewController).to(beIdenticalTo(eventControllerProvider.controller))
+                        }
+
+                        it("tracks the content view with the analytics service") {
+                            expect(analyticsService.lastContentViewName).to(equal(eventB.name))
+                            expect(analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.Event))
+                            expect(analyticsService.lastContentViewID).to(equal(eventB.url.absoluteString))
+                        }
+
+                        describe("and the view is shown again") {
+                            it("deselects the selected table row") {
+                                subject.tableView.reloadData()
+
+                                subject.tableView.selectRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: false, scrollPosition: .Middle)
+                                subject.viewWillAppear(false)
+
+                                expect(subject.tableView.indexPathForSelectedRow).to(beNil())
+                            }
+                        }
                     }
                 }
 
@@ -245,6 +288,40 @@ class EventsResultsControllerSpec: QuickSpec {
 
                         expect(subject.tableView.dataSource?.tableView(subject.tableView, numberOfRowsInSection: 0)) == 1
                     }
+
+                    describe("tapping on an event") {
+                        beforeEach {
+                            eventSearchResult.uniqueDays = [NSDate()]
+                            eventSearchResult.eventsByDay = [[eventB]]
+                            eventsNearAddressUseCase.simulateFindingEvents(eventSearchResult)
+                            resultQueue.lastReceivedBlock()
+
+                            let tableView = subject.tableView
+                            tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+                        }
+
+                        it("should push a correctly configured news item view controller onto the nav stack") {
+                            expect(eventControllerProvider.lastEvent) == eventB
+                            expect(navigationController!.topViewController).to(beIdenticalTo(eventControllerProvider.controller))
+                        }
+
+                        it("tracks the content view with the analytics service") {
+                            expect(analyticsService.lastContentViewName).to(equal(eventB.name))
+                            expect(analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.Event))
+                            expect(analyticsService.lastContentViewID).to(equal(eventB.url.absoluteString))
+                        }
+
+                        describe("and the view is shown again") {
+                            it("deselects the selected table row") {
+                                subject.tableView.reloadData()
+
+                                subject.tableView.selectRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: false, scrollPosition: .Middle)
+                                subject.viewWillAppear(false)
+
+                                expect(subject.tableView.indexPathForSelectedRow).to(beNil())
+                            }
+                        }
+                    }
                 }
 
                 context("when the use case notifies it that no events have been found") {
@@ -370,5 +447,28 @@ private class EventsResultsFakeTheme : FakeTheme {
 
     private override func defaultTableSectionHeaderFont() -> UIFont {
         return UIFont.italicSystemFontOfSize(999)
+    }
+}
+
+private class FakeEventControllerProvider: EventControllerProvider {
+    let controller = EventController(
+        event: TestUtils.eventWithName("some event"),
+        eventPresenter: FakeEventPresenter(
+            sameTimeZoneDateFormatter: FakeDateFormatter(),
+            differentTimeZoneDateFormatter: FakeDateFormatter(),
+            sameTimeZoneFullDateFormatter: FakeDateFormatter(),
+            differentTimeZoneFullDateFormatter: FakeDateFormatter()),
+        eventRSVPControllerProvider: FakeEventRSVPControllerProvider(),
+        urlProvider: FakeURLProvider(),
+        urlOpener: FakeURLOpener(),
+        analyticsService: FakeAnalyticsService(),
+        theme: FakeTheme())
+    var lastEvent: Event?
+
+    init() {}
+
+    func provideInstanceWithEvent(event: Event) -> EventController {
+        self.lastEvent = event
+        return self.controller
     }
 }
