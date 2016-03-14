@@ -235,6 +235,33 @@ class SearchBarSharedExamplesConfiguration: QuickConfiguration {
                     searchBar.becomeFirstResponder()
                 }
 
+                describe("and then the user cancels") {
+                    beforeEach {
+                        searchBar.text = "9021"
+                        zipCodeValidator.returnedValidationResult = true
+                        let range = NSRange(location: 3, length: 0)
+                        searchBar.delegate?.searchBar!(searchBar, shouldChangeTextInRange: range, replacementText: "1")
+                    }
+
+                    it("resigns first responder") {
+                        subject.cancelButton.tap()
+
+                        expect(searchBar.isFirstResponder()) == false
+                    }
+
+                    it("resets the placeholder text") {
+                        subject.cancelButton.tap()
+
+                        expect(searchBar.placeholder) == "Current Location"
+                    }
+
+                    it("sets the text to empty") {
+                        subject.cancelButton.tap()
+
+                        expect(searchBar.text) == ""
+                    }
+                }
+
                 context("and the updated zipcode is determined to be valid by the validator") {
                     it("enables the search button") {
                         searchBar.text = "9021"

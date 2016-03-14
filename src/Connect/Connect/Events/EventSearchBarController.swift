@@ -142,6 +142,7 @@ extension EventSearchBarController {
     func didTapCancelButton() {
         searchBar.resignFirstResponder()
         searchBar.placeholder = preEditPlaceholder
+        searchBar.text = nil
     }
 
     func didTapSubmitButton() {
