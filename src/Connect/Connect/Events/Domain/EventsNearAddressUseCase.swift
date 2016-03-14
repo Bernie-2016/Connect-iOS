@@ -19,11 +19,18 @@ protocol EventsNearAddressUseCaseObserver :class {
 }
 
 class StockEventsNearAddressUseCase: EventsNearAddressUseCase {
-    func addObserver(observer: EventsNearAddressUseCaseObserver) {
+    private let _observers = NSHashTable.weakObjectsHashTable()
+    private var observers: [EventsNearAddressUseCaseObserver] {
+        return _observers.allObjects.flatMap { $0 as? EventsNearAddressUseCaseObserver }
+    }
 
+    func addObserver(observer: EventsNearAddressUseCaseObserver) {
+        _observers.addObject(observer)
     }
 
     func fetchEventsNearAddress(address: Address, radiusMiles: Float) {
-
+        for observer in observers {
+            observer.eventsNearAddressUseCaseDidStartFetchingEvents(self)
+        }
     }
 }
