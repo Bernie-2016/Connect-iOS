@@ -23,6 +23,10 @@ struct StockChildControllerBuddy: ChildControllerBuddy {
     }
 
     func swap(old: UIViewController, new: UIViewController, parent: UIViewController) -> UIViewController {
+        if old === new {
+            return old
+        }
+
         parent.addChildViewController(new)
         old.willMoveToParentViewController(nil)
 

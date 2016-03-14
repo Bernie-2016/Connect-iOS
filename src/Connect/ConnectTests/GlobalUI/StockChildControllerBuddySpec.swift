@@ -92,7 +92,7 @@ class StockChildControllerBuddySpec: QuickSpec {
                     expect(subject.swap(old, new: new, parent: parent)) === new
                 }
 
-                context("when the transition is complete") {
+                describe("when the transition is complete") {
                     beforeEach {
                         subject.swap(old, new: new, parent: parent)
                         parent.transitionCompletion(true)
@@ -104,6 +104,33 @@ class StockChildControllerBuddySpec: QuickSpec {
 
                     it("removes the old controller from the parent's child view controllers") {
                         expect(parent.childViewControllers).toNot(contain(old))
+                    }
+                }
+
+                context("when called with identical new/old controllers") {
+                    it("leaves the old view controller as a child view controller") {
+                        subject.swap(old, new: old, parent: parent)
+
+                        expect(parent.childViewControllers).to(contain(old))
+                    }
+
+                    it("tells the old view controller that it will move to a nil parent") {
+                        old.willMoveToParentViewControllerCalled = false
+
+                        subject.swap(old, new: old, parent: parent)
+
+                        expect(old.willMoveToParentViewControllerCalled) == false
+                    }
+
+                    it("does not transition from the old view controller to the new one") {
+                        subject.swap(old, new: old, parent: parent)
+
+                        expect(parent.transitionedFrom).to(beNil())
+                        expect(parent.transitionedTo).to(beNil())
+                    }
+
+                    it("returns the old controller") {
+                        expect(subject.swap(old, new: old, parent: parent)) === old
                     }
                 }
             }
@@ -133,7 +160,9 @@ private class ParentViewControllerSpy: UIViewController {
 
 private class ViewControllerSpy: UIViewController {
     var willMoveToParentViewController: UIViewController!
+    var willMoveToParentViewControllerCalled = false
     private override func willMoveToParentViewController(parent: UIViewController?) {
+        willMoveToParentViewControllerCalled = true
         willMoveToParentViewController = parent
         super.willMoveToParentViewController(parent)
     }
