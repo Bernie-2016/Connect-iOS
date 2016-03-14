@@ -58,10 +58,22 @@ class EventSearchBarControllerSpec: QuickSpec {
                     subject.view.layoutSubviews()
                 }
 
+                context("when the use case has started finding events, on the result queue") {
+                    it("sets the search bar text to Locating") {
+                        nearbyEventsUseCase.fetchNearbyEventsWithinRadiusMiles(666)
+
+                        expect(subject.searchBar.placeholder).to(beNil())
+
+                        resultQueue.lastReceivedBlock()
+
+                        expect(subject.searchBar.placeholder) == "Locating..."
+                    }
+                }
+
                 context("when the use case has found nearby events") {
                     it("sets the search bar text to Current Location, on the result queue") {
                         let searchResult = EventSearchResult(events: [])
-                        subject.nearbyEventsUseCase(nearbyEventsUseCase, didFetchEventSearchResult: searchResult)
+                        nearbyEventsUseCase.simulateFindingEvents(searchResult)
 
                         expect(subject.searchBar.placeholder).to(beNil())
 
@@ -73,7 +85,8 @@ class EventSearchBarControllerSpec: QuickSpec {
                     describe("and then the user edits the location") {
                         beforeEach {
                             let searchResult = EventSearchResult(events: [])
-                            subject.nearbyEventsUseCase(nearbyEventsUseCase, didFetchEventSearchResult: searchResult)
+                            nearbyEventsUseCase.simulateFindingEvents(searchResult)
+
                             resultQueue.lastReceivedBlock()
                         }
 
@@ -88,7 +101,7 @@ class EventSearchBarControllerSpec: QuickSpec {
 
                 context("when the use case found no nearby events") {
                     it("sets the search bar placeholder text to Current Location, on the result queue") {
-                        subject.nearbyEventsUseCaseFoundNoNearbyEvents(nearbyEventsUseCase)
+                        nearbyEventsUseCase.simulateFindingNoEvents()
 
                         expect(subject.searchBar.placeholder).to(beNil())
 
@@ -99,7 +112,7 @@ class EventSearchBarControllerSpec: QuickSpec {
 
                     describe("and then the user edits the location") {
                         beforeEach {
-                            subject.nearbyEventsUseCaseFoundNoNearbyEvents(nearbyEventsUseCase)
+                            nearbyEventsUseCase.simulateFindingNoEvents()
                             resultQueue.lastReceivedBlock()
                         }
 

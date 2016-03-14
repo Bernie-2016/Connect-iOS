@@ -10,6 +10,10 @@ class MockNearbyEventsUseCase: NearbyEventsUseCase {
     var didFetchNearbyEventsWithinRadius: Float?
     func fetchNearbyEventsWithinRadiusMiles(radiusMiles: Float) {
         didFetchNearbyEventsWithinRadius = radiusMiles
+
+        for observer in observers {
+            observer.nearbyEventsUseCaseDidStartFetchingEvents(self)
+        }
     }
 
     func simulateFindingEvents(eventSearchResult: EventSearchResult) {

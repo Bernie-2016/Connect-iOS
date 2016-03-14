@@ -128,6 +128,8 @@ extension NewEventsController: NearbyEventsUseCaseObserver {
     func nearbyEventsUseCase(useCase: NearbyEventsUseCase, didFailFetchEvents: NearbyEventsUseCaseError) {
         showErrors()
     }
+
+    func nearbyEventsUseCaseDidStartFetchingEvents(useCase: NearbyEventsUseCase) {}
 }
 
 extension NewEventsController: EventsNearAddressUseCaseObserver {

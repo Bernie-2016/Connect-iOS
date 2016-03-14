@@ -70,6 +70,8 @@ extension EventsResultsController: NearbyEventsUseCaseObserver {
         eventSearchResult = searchResult
         tableView.reloadData()
     }
+
+    func nearbyEventsUseCaseDidStartFetchingEvents(useCase: NearbyEventsUseCase) {}
 }
 
 extension EventsResultsController: UITableViewDataSource {

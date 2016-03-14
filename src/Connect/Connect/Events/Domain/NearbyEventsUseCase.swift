@@ -25,6 +25,7 @@ protocol NearbyEventsUseCaseObserver :class {
     func nearbyEventsUseCase(useCase: NearbyEventsUseCase, didFetchEventSearchResult: EventSearchResult)
     func nearbyEventsUseCaseFoundNoNearbyEvents(useCase: NearbyEventsUseCase)
     func nearbyEventsUseCase(useCase: NearbyEventsUseCase, didFailFetchEvents: NearbyEventsUseCaseError)
+    func nearbyEventsUseCaseDidStartFetchingEvents(useCase: NearbyEventsUseCase)
 }
 
 
@@ -47,6 +48,10 @@ class StockNearbyEventsUseCase: NearbyEventsUseCase {
     }
 
     func fetchNearbyEventsWithinRadiusMiles(radiusMiles: Float) {
+        for observer in observers {
+            observer.nearbyEventsUseCaseDidStartFetchingEvents(self)
+        }
+
         currentLocationUseCase.fetchCurrentLocation({ (location) -> () in
             let future = self.eventRepository.fetchEventsAroundLocation(location, radiusMiles: radiusMiles)
             future.then({ (searchResult) -> () in

@@ -56,10 +56,6 @@ class EventSearchBarController: UIViewController {
 }
 
 extension EventSearchBarController: NearbyEventsUseCaseObserver {
-    func nearbyEventsUseCase(useCase: NearbyEventsUseCase, didFailFetchEvents: NearbyEventsUseCaseError) {
-
-    }
-
     func nearbyEventsUseCase(useCase: NearbyEventsUseCase, didFetchEventSearchResult: EventSearchResult) {
         setPlaceholderToCurrentLocation()
     }
@@ -68,9 +64,17 @@ extension EventSearchBarController: NearbyEventsUseCaseObserver {
         setPlaceholderToCurrentLocation()
     }
 
+    func nearbyEventsUseCaseDidStartFetchingEvents(useCase: NearbyEventsUseCase) {
+        resultQueue.addOperationWithBlock {
+            self.searchBar.placeholder = NSLocalizedString("EventsSearchBar_loadingNearbyEvents", comment: "")
+        }
+    }
+
+    func nearbyEventsUseCase(useCase: NearbyEventsUseCase, didFailFetchEvents: NearbyEventsUseCaseError) {}
+
     private func setPlaceholderToCurrentLocation() {
         resultQueue.addOperationWithBlock {
-            self.searchBar.placeholder = NSLocalizedString("EventsSearchBar_currentLocation", comment: "")
+            self.searchBar.placeholder = NSLocalizedString("EventsSearchBar_foundNearbyResults", comment: "")
         }
     }
 }

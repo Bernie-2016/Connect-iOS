@@ -36,6 +36,13 @@ class StockNearbyEventsUseCaseSpec: QuickSpec {
                     expect(currentLocationUseCase.didFetchCurrentLocation) == true
                 }
 
+                it("informs its observers that it has started fetching locations") {
+                    subject.fetchNearbyEventsWithinRadiusMiles(42.0)
+
+                    expect(observerA.didStartFetchingEventsWithUseCase) === subject as? StockNearbyEventsUseCase
+                    expect(observerB.didStartFetchingEventsWithUseCase) === subject as? StockNearbyEventsUseCase
+                }
+
                 context("when the current location use case calls the success handler with a location") {
                     beforeEach {
                         subject.fetchNearbyEventsWithinRadiusMiles(42.0)
@@ -156,4 +163,10 @@ private class MockNearbyEventsUseCaseObserver: NearbyEventsUseCaseObserver {
     private func nearbyEventsUseCaseFoundNoNearbyEvents(useCase: NearbyEventsUseCase) {
         didFindNoEventsWithUseCase = useCase as? StockNearbyEventsUseCase
     }
+
+    var didStartFetchingEventsWithUseCase: StockNearbyEventsUseCase?
+    private func nearbyEventsUseCaseDidStartFetchingEvents(useCase: NearbyEventsUseCase) {
+        didStartFetchingEventsWithUseCase = useCase as? StockNearbyEventsUseCase
+    }
+
 }

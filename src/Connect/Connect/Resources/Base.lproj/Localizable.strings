@@ -31,7 +31,8 @@
 "Events_createEventCTAText" = "Try another search or {0}";
 "Events_organizeText" = "be the first to organize.";
 
-"EventsSearchBar_currentLocation" = "Current Location";
+"EventsSearchBar_loadingNearbyEvents" = "Locating...";
+"EventsSearchBar_foundNearbyResults" = "Current Location";
 "EventsSearchBar_searchBarPlaceholder" = "ZIP Code";
 
 "Events_zipCodeAccessibilityLabel" = "ZIP Code";
