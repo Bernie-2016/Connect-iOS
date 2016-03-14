@@ -86,6 +86,10 @@ class NewEventsController: UIViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
 
+    override func prefersStatusBarHidden() -> Bool {
+        return false
+    }
+
     private func setupConstraints() {
         searchBarView.autoPinEdgeToSuperviewEdge(.Top)
         searchBarView.autoPinEdgeToSuperviewEdge(.Left)
