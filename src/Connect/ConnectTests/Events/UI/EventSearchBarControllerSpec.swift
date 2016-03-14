@@ -11,6 +11,7 @@ class EventSearchBarControllerSpec: QuickSpec {
             var eventsNearAddressUseCase: MockEventsNearAddressUseCase!
             var resultQueue: FakeOperationQueue!
             let theme = EventsSearchBarFakeTheme()
+            var zipCodeValidator: FakeZipCodeValidator!
 
             var window : UIWindow!
 
@@ -18,13 +19,14 @@ class EventSearchBarControllerSpec: QuickSpec {
                 nearbyEventsUseCase = MockNearbyEventsUseCase()
                 eventsNearAddressUseCase = MockEventsNearAddressUseCase()
                 resultQueue = FakeOperationQueue()
+                zipCodeValidator = FakeZipCodeValidator()
 
                 subject = EventSearchBarController(
                     nearbyEventsUseCase: nearbyEventsUseCase,
                     eventsNearAddressUseCase: eventsNearAddressUseCase,
                     resultQueue: resultQueue,
-                    theme: theme
-                )
+                    zipCodeValidator: zipCodeValidator,
+                    theme: theme)
 
                 window = UIWindow()
                 window.addSubview(subject.view)
@@ -52,6 +54,10 @@ class EventSearchBarControllerSpec: QuickSpec {
                     subject.view.layoutSubviews()
 
                     expect(subject.view.subviews).to(contain(subject.searchButton))
+                }
+
+                it("initially disables the search button") {
+                    expect(subject.searchButton.enabled).to(beFalse())
                 }
 
                 it("has the correct text for the search button for the zip code entry field") {
@@ -103,8 +109,7 @@ class EventSearchBarControllerSpec: QuickSpec {
                     it("sets the search bar text to Locating") {
                         nearbyEventsUseCase.fetchNearbyEventsWithinRadiusMiles(666)
 
-                        expect(subject.searchBar.placeholder).to(beNil())
-
+                        expect(subject.searchBar.placeholder) != "Locating..."
                         resultQueue.lastReceivedBlock()
 
                         expect(subject.searchBar.placeholder) == "Locating..."
@@ -116,7 +121,7 @@ class EventSearchBarControllerSpec: QuickSpec {
                         let searchResult = EventSearchResult(events: [])
                         nearbyEventsUseCase.simulateFindingEvents(searchResult)
 
-                        expect(subject.searchBar.placeholder).to(beNil())
+                        expect(subject.searchBar.placeholder) != "Current Location"
 
                         resultQueue.lastReceivedBlock()
 
@@ -134,7 +139,8 @@ class EventSearchBarControllerSpec: QuickSpec {
                         itBehavesLike("the standard search bar editing behavior") {
                             [
                                 "subject": subject,
-                                "eventsNearAddressUseCase":  eventsNearAddressUseCase
+                                "eventsNearAddressUseCase":  eventsNearAddressUseCase,
+                                "zipCodeValidator": zipCodeValidator
                             ]
                         }
                     }
@@ -144,7 +150,7 @@ class EventSearchBarControllerSpec: QuickSpec {
                     it("sets the search bar placeholder text to Current Location, on the result queue") {
                         nearbyEventsUseCase.simulateFindingNoEvents()
 
-                        expect(subject.searchBar.placeholder).to(beNil())
+                        expect(subject.searchBar.placeholder) != "Current Location"
 
                         resultQueue.lastReceivedBlock()
 
@@ -157,10 +163,19 @@ class EventSearchBarControllerSpec: QuickSpec {
                             resultQueue.lastReceivedBlock()
                         }
 
+                        it("sets the text to blank on entry") {
+                            let searchBar = subject.searchBar
+
+                            searchBar.becomeFirstResponder()
+
+                            expect(searchBar.text) == ""
+                        }
+
                         itBehavesLike("the standard search bar editing behavior") {
                             [
                                 "subject": subject,
-                                "eventsNearAddressUseCase":  eventsNearAddressUseCase
+                                "eventsNearAddressUseCase":  eventsNearAddressUseCase,
+                                "zipCodeValidator": zipCodeValidator
                             ]
                         }
                     }
@@ -174,52 +189,70 @@ class SearchBarSharedExamplesConfiguration: QuickConfiguration {
     override class func configure(configuration: Configuration) {
         sharedExamples("the standard search bar editing behavior") { (sharedExampleContext: SharedExampleContext) in
             var subject: EventSearchBarController!
+            var searchBar: UISearchBar!
+            var zipCodeValidator: FakeZipCodeValidator!
             var eventsNearAddressUseCase: MockEventsNearAddressUseCase!
 
             beforeEach {
                 subject = sharedExampleContext()["subject"] as! EventSearchBarController
+                searchBar = subject.searchBar
+                zipCodeValidator = sharedExampleContext()["zipCodeValidator"] as! FakeZipCodeValidator
                 eventsNearAddressUseCase = sharedExampleContext()["eventsNearAddressUseCase"] as! MockEventsNearAddressUseCase
             }
 
             it("updates the placeholder text") {
-                subject.searchBar.becomeFirstResponder()
+                searchBar.becomeFirstResponder()
 
-                expect(subject.searchBar.placeholder) == "ZIP Code"
+                expect(searchBar.placeholder) == "ZIP Code"
             }
 
             it("allows the search bar to be first responder") {
-                subject.searchBar.becomeFirstResponder()
+                searchBar.becomeFirstResponder()
 
-                expect(subject.searchBar.isFirstResponder()) == true
+                expect(searchBar.isFirstResponder()) == true
             }
 
             describe("and then the user cancels") {
                 beforeEach {
-                    subject.searchBar.becomeFirstResponder()
+                    searchBar.becomeFirstResponder()
                 }
 
                 it("resigns first responder") {
                     subject.cancelButton.tap()
 
-                    expect(subject.searchBar.isFirstResponder()) == false
+                    expect(searchBar.isFirstResponder()) == false
                 }
 
                 it("resets the placeholder text") {
                     subject.cancelButton.tap()
 
-                    expect(subject.searchBar.placeholder) == "Current Location"
+                    expect(searchBar.placeholder) == "Current Location"
                 }
             }
 
             describe("and then the user enters a zipcode") {
                 beforeEach {
-                    subject.searchBar.becomeFirstResponder()
+                    searchBar.becomeFirstResponder()
                 }
 
-                context("that is valid") {
+                context("and the updated zipcode is determined to be valid by the validator") {
+                    it("enables the search button") {
+                        searchBar.text = "9021"
+                        zipCodeValidator.returnedValidationResult = true
+                        let range = NSRange(location: 3, length: 0)
+                        searchBar.delegate?.searchBar!(searchBar, shouldChangeTextInRange: range, replacementText: "1")
+
+                        expect(zipCodeValidator.lastReceivedZipCode).to(equal("90211"))
+                        expect(subject.searchButton.enabled).to(beTrue())
+                    }
+
                     describe("and the user taps search") {
                         beforeEach {
-                            subject.searchBar.text = "90210"
+                            searchBar.text = "9021"
+                            zipCodeValidator.returnedValidationResult = true
+                            let range = NSRange(location: 3, length: 0)
+                            searchBar.delegate?.searchBar!(searchBar, shouldChangeTextInRange: range, replacementText: "0")
+                            searchBar.text = "90210"
                         }
 
                         it("calls the find events near address use case with a default radius") {
@@ -247,6 +280,47 @@ class SearchBarSharedExamplesConfiguration: QuickConfiguration {
                             expect(subject.searchBar.text) == ""
                         }
                     }
+
+                    context("and the updated zipcode is invalid") {
+                        it("disables the search button") {
+                            searchBar.text = "9021"
+                            zipCodeValidator.returnedValidationResult = false
+                            let range = NSRange(location: 3, length: 0)
+                            searchBar.delegate?.searchBar!(searchBar, shouldChangeTextInRange: range, replacementText: "1")
+
+                            expect(zipCodeValidator.lastReceivedZipCode).to(equal("90211"))
+                            expect(subject.searchButton.enabled).to(beFalse())
+                        }
+                    }
+
+                    context("and user tries to enter a zipcode more than 5 characters in length") {
+                        it("prevents the user from entering more characters") {
+                            searchBar.text = "9021"
+                            zipCodeValidator.returnedValidationResult = true
+                            let range = NSRange(location: 3, length: 0)
+
+                            let shouldChange = searchBar.delegate?.searchBar!(searchBar, shouldChangeTextInRange: range, replacementText: "12")
+
+                            expect(shouldChange).to(beFalse())
+                        }
+
+                        it("leaves the search button enabled if the existing text was valid") {
+                            let range = NSRange(location: 4, length: 0)
+
+                            searchBar.text = "9021"
+
+                            zipCodeValidator.returnedValidationResult = true
+
+                            searchBar.delegate?.searchBar!(searchBar, shouldChangeTextInRange: range, replacementText: "1")
+
+                            searchBar.text = "90211"
+                            zipCodeValidator.returnedValidationResult = false
+
+                            searchBar.delegate?.searchBar!(searchBar, shouldChangeTextInRange: range, replacementText: "1")
+
+                            expect(subject.searchButton.enabled).to(beTrue())
+                        }
+                    }
                 }
             }
         }
@@ -264,5 +338,19 @@ private class EventsSearchBarFakeTheme: FakeTheme {
     override func eventsZipCodeCornerRadius() -> CGFloat { return 100.0 }
     override func eventsZipCodeBorderWidth() -> CGFloat { return 200.0 }
     override func eventsZipCodePlaceholderTextColor() -> UIColor { return UIColor(rgba: "#222222") } // not explicitly tested
+}
+
+private class FakeZipCodeValidator: ZipCodeValidator {
+    var lastReceivedZipCode: NSString!
+    var returnedValidationResult = true
+
+    func reset() {
+        lastReceivedZipCode = nil
+    }
+
+    private func validate(zip: String) -> Bool {
+        lastReceivedZipCode = zip
+        return returnedValidationResult
+    }
 }
 

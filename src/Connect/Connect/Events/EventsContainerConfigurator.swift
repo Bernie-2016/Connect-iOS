@@ -140,6 +140,7 @@ class EventsContainerConfigurator: ContainerConfigurator {
                 nearbyEventsUseCase: resolver.resolve(NearbyEventsUseCase.self)!,
                 eventsNearAddressUseCase: resolver.resolve(EventsNearAddressUseCase.self)!,
                 resultQueue: resolver.resolve(NSOperationQueue.self, name: "main")!,
+                zipCodeValidator: resolver.resolve(ZipCodeValidator.self)!,
                 theme: resolver.resolve(Theme.self)!
             )
         }.inObjectScope(.Container)

@@ -4,6 +4,7 @@ class EventSearchBarController: UIViewController {
     private let nearbyEventsUseCase: NearbyEventsUseCase
     private let eventsNearAddressUseCase: EventsNearAddressUseCase
     private let resultQueue: NSOperationQueue
+    private let zipCodeValidator: ZipCodeValidator
     private let theme: Theme
 
     let searchBar = UISearchBar.newAutoLayoutView()
@@ -16,10 +17,12 @@ class EventSearchBarController: UIViewController {
         nearbyEventsUseCase: NearbyEventsUseCase,
         eventsNearAddressUseCase: EventsNearAddressUseCase,
         resultQueue: NSOperationQueue,
+        zipCodeValidator: ZipCodeValidator,
         theme: Theme) {
             self.nearbyEventsUseCase = nearbyEventsUseCase
             self.eventsNearAddressUseCase = eventsNearAddressUseCase
             self.resultQueue = resultQueue
+            self.zipCodeValidator = zipCodeValidator
             self.theme = theme
 
             super.init(nibName: nil, bundle: nil)
@@ -44,6 +47,7 @@ class EventSearchBarController: UIViewController {
 
         searchButton.addTarget(self, action: "didTapSubmitButton", forControlEvents: .TouchUpInside)
         searchButton.setTitle(NSLocalizedString("EventsSearchBar_searchButtonTitle", comment: ""), forState: .Normal)
+        searchButton.enabled = false
 
         setupConstraints()
         applyTheme()
@@ -113,8 +117,24 @@ extension EventSearchBarController: NearbyEventsUseCaseObserver {
 extension EventSearchBarController: UISearchBarDelegate {
     func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
         preEditPlaceholder = searchBar.placeholder
+        if preEditPlaceholder == NSLocalizedString("EventsSearchBar_foundNearbyResults", comment: "") {
+            searchBar.text = ""
+        } else {
+            searchBar.text = preEditPlaceholder
+        }
+
         searchBar.placeholder = NSLocalizedString("EventsSearchBar_searchBarPlaceholder", comment: "")
         return true
+    }
+
+    func searchBar(searchBar: UISearchBar, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        let updatedZipCode = (searchBar.text! as NSString).stringByReplacingCharactersInRange(range, withString: text)
+
+        if updatedZipCode.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) < 6 {
+            searchButton.enabled = zipCodeValidator.validate(updatedZipCode)
+        }
+
+        return updatedZipCode.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) <= 5
     }
 }
 
