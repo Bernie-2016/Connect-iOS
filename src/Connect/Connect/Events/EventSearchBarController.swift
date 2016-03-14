@@ -47,6 +47,7 @@ class EventSearchBarController: UIViewController {
         searchBar.delegate = self
         searchBar.keyboardType = .NumberPad
         searchBar.accessibilityLabel = NSLocalizedString("EventsSearchBar_searchBarAccessibilityLabel", comment: "")
+        searchBar.setImage(UIImage(named: "searchMagnifyingGlass"), forSearchBarIcon: .Search, state: .Normal)
 
         cancelButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
         cancelButton.setTitle(NSLocalizedString("EventsSearchBar_cancelButtonTitle", comment: ""), forState: .Normal)
@@ -196,21 +197,23 @@ extension EventSearchBarController: UISearchBarDelegate {
 extension EventSearchBarController {
     func didTapCancelButton() {
         searchBar.resignFirstResponder()
+
         searchBar.placeholder = preEditPlaceholder
-        searchBar.text = nil
-
-        searchButtonSearchBarConstraint.active = false
-        cancelButtonSearchBarConstraint.active = false
-        cancelButton.hidden = true
-        searchButton.hidden = true
-
         searchButton.enabled = zipCodeValidator.validate(preEditPlaceholder!)
+
+        stopEditingAddress()
     }
 
     func didTapSearchButton() {
         searchBar.resignFirstResponder()
-        eventsNearAddressUseCase.fetchEventsNearAddress(searchBar.text!, radiusMiles: 10.0)
+
         searchBar.placeholder = searchBar.text
+        eventsNearAddressUseCase.fetchEventsNearAddress(searchBar.text!, radiusMiles: 10.0)
+
+        stopEditingAddress()
+    }
+
+    private func stopEditingAddress() {
         searchBar.text = nil
 
         searchButtonSearchBarConstraint.active = false
