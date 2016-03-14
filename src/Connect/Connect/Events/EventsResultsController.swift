@@ -2,6 +2,7 @@ import UIKit
 
 class EventsResultsController: UIViewController {
     private let nearbyEventsUseCase: NearbyEventsUseCase
+    private let eventsNearAddressUseCase: EventsNearAddressUseCase
     private let eventPresenter: EventPresenter
     private let eventSectionHeaderPresenter: EventSectionHeaderPresenter
     private let eventListTableViewCellStylist: EventListTableViewCellStylist
@@ -13,11 +14,13 @@ class EventsResultsController: UIViewController {
 
     init(
         nearbyEventsUseCase: NearbyEventsUseCase,
+        eventsNearAddressUseCase: EventsNearAddressUseCase,
         eventPresenter: EventPresenter,
         eventSectionHeaderPresenter: EventSectionHeaderPresenter,
         eventListTableViewCellStylist: EventListTableViewCellStylist,
         theme: Theme) {
             self.nearbyEventsUseCase = nearbyEventsUseCase
+            self.eventsNearAddressUseCase = eventsNearAddressUseCase
             self.eventPresenter = eventPresenter
             self.eventSectionHeaderPresenter = eventSectionHeaderPresenter
             self.eventListTableViewCellStylist = eventListTableViewCellStylist
@@ -26,6 +29,7 @@ class EventsResultsController: UIViewController {
             super.init(nibName: nil, bundle: nil)
 
             nearbyEventsUseCase.addObserver(self)
+            eventsNearAddressUseCase.addObserver(self)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -51,6 +55,27 @@ class EventsResultsController: UIViewController {
     private func setupConstraints() {
         tableView.autoPinEdgesToSuperviewEdges()
     }
+
+    private func updateTableWithSearchResult(searchResult: EventSearchResult?) {
+        eventSearchResult = searchResult
+        tableView.reloadData()
+    }
+}
+
+extension EventsResultsController: EventsNearAddressUseCaseObserver {
+    func eventsNearAddressUseCase(useCase: EventsNearAddressUseCase, didFetchEventSearchResult eventSearchResult: EventSearchResult) {
+        updateTableWithSearchResult(eventSearchResult)
+    }
+
+    func eventsNearAddressUseCase(useCase: EventsNearAddressUseCase, didFailFetchEvents: EventsNearAddressUseCaseError) {
+        updateTableWithSearchResult(nil)
+    }
+
+    func eventsNearAddressUseCaseFoundNoEvents(useCase: EventsNearAddressUseCase) {
+        updateTableWithSearchResult(nil)
+    }
+
+    func eventsNearAddressUseCaseDidStartFetchingEvents(useCase: EventsNearAddressUseCase) {}
 }
 
 extension EventsResultsController: NearbyEventsUseCaseObserver {
@@ -64,11 +89,6 @@ extension EventsResultsController: NearbyEventsUseCaseObserver {
 
     func nearbyEventsUseCaseFoundNoNearbyEvents(useCase: NearbyEventsUseCase) {
         updateTableWithSearchResult(nil)
-    }
-
-    private func updateTableWithSearchResult(searchResult: EventSearchResult?) {
-        eventSearchResult = searchResult
-        tableView.reloadData()
     }
 
     func nearbyEventsUseCaseDidStartFetchingEvents(useCase: NearbyEventsUseCase) {}

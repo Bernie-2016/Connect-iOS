@@ -28,9 +28,9 @@ protocol EventsNearAddressUseCase {
 
 protocol EventsNearAddressUseCaseObserver :class {
     func eventsNearAddressUseCaseDidStartFetchingEvents(useCase: EventsNearAddressUseCase)
-    func eventsNearAddressUseCase(useCase: EventsNearAddressUseCase, didFetchEventSearchResult: EventSearchResult)
+    func eventsNearAddressUseCase(useCase: EventsNearAddressUseCase, didFetchEventSearchResult eventSearchResult: EventSearchResult)
     func eventsNearAddressUseCaseFoundNoEvents(useCase: EventsNearAddressUseCase)
-    func eventsNearAddressUseCase(useCase: EventsNearAddressUseCase, didFailFetchEvents: EventsNearAddressUseCaseError)
+    func eventsNearAddressUseCase(useCase: EventsNearAddressUseCase, didFailFetchEvents error: EventsNearAddressUseCaseError)
 }
 
 class StockEventsNearAddressUseCase: EventsNearAddressUseCase {

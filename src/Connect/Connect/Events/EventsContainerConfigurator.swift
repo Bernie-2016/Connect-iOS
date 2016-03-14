@@ -146,6 +146,7 @@ class EventsContainerConfigurator: ContainerConfigurator {
         container.register(EventsResultsController.self) { resolver in
             return EventsResultsController(
                 nearbyEventsUseCase: resolver.resolve(NearbyEventsUseCase.self)!,
+                eventsNearAddressUseCase: resolver.resolve(EventsNearAddressUseCase.self)!,
                 eventPresenter: resolver.resolve(EventPresenter.self)!,
                 eventSectionHeaderPresenter: resolver.resolve(EventSectionHeaderPresenter.self)!,
                 eventListTableViewCellStylist: resolver.resolve(EventListTableViewCellStylist.self)!,
