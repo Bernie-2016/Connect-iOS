@@ -2,3 +2,5 @@ disabled_rules: # rule identifiers to exclude from running
   - line_length
 included: # paths to include during linting. `--path` is ignored if present. takes precendence over `excluded`.
   - src/Connect/Connect
+excluded:
+  - src/Connect/Connect/Infrastructure/Extensions/NBUIKitMainThreadGuard.swift
