@@ -6,6 +6,7 @@ class EventsResultsController: UIViewController {
     private let eventPresenter: EventPresenter
     private let eventSectionHeaderPresenter: EventSectionHeaderPresenter
     private let eventListTableViewCellStylist: EventListTableViewCellStylist
+    private let resultQueue: NSOperationQueue
     private let theme: Theme
 
     let tableView = UITableView.newAutoLayoutView()
@@ -18,12 +19,14 @@ class EventsResultsController: UIViewController {
         eventPresenter: EventPresenter,
         eventSectionHeaderPresenter: EventSectionHeaderPresenter,
         eventListTableViewCellStylist: EventListTableViewCellStylist,
+        resultQueue: NSOperationQueue,
         theme: Theme) {
             self.nearbyEventsUseCase = nearbyEventsUseCase
             self.eventsNearAddressUseCase = eventsNearAddressUseCase
             self.eventPresenter = eventPresenter
             self.eventSectionHeaderPresenter = eventSectionHeaderPresenter
             self.eventListTableViewCellStylist = eventListTableViewCellStylist
+            self.resultQueue = resultQueue
             self.theme = theme
 
             super.init(nibName: nil, bundle: nil)
@@ -57,8 +60,10 @@ class EventsResultsController: UIViewController {
     }
 
     private func updateTableWithSearchResult(searchResult: EventSearchResult?) {
-        eventSearchResult = searchResult
-        tableView.reloadData()
+        resultQueue.addOperationWithBlock {
+            self.eventSearchResult = searchResult
+            self.tableView.reloadData()
+        }
     }
 }
 

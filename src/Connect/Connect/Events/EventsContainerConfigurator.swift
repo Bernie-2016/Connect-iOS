@@ -152,6 +152,7 @@ class EventsContainerConfigurator: ContainerConfigurator {
                 eventPresenter: resolver.resolve(EventPresenter.self)!,
                 eventSectionHeaderPresenter: resolver.resolve(EventSectionHeaderPresenter.self)!,
                 eventListTableViewCellStylist: resolver.resolve(EventListTableViewCellStylist.self)!,
+                resultQueue: resolver.resolve(NSOperationQueue.self, name: "main")!,
                 theme: resolver.resolve(Theme.self)!)
             }.inObjectScope(.Container)
 
@@ -160,7 +161,7 @@ class EventsContainerConfigurator: ContainerConfigurator {
             let eventsController = resolver.resolve(NewEventsController.self)!
             navigationController.pushViewController(eventsController, animated: false)
             return navigationController
-        }
+        }.inObjectScope(.Container)
     }
     // swiftlint:enable function_body_length
 }

@@ -12,6 +12,8 @@ class EventsResultsControllerSpec: QuickSpec {
             var eventPresenter: FakeEventPresenter!
             var eventSectionHeaderPresenter: FakeEventSectionHeaderPresenter!
             var eventListTableViewCellStylist: FakeEventListTableViewCellStylist!
+            var resultQueue: FakeOperationQueue!
+
             let theme = EventsResultsFakeTheme()
 
             beforeEach {
@@ -20,6 +22,7 @@ class EventsResultsControllerSpec: QuickSpec {
                 eventPresenter = FakeEventPresenter()
                 eventSectionHeaderPresenter = FakeEventSectionHeaderPresenter()
                 eventListTableViewCellStylist = FakeEventListTableViewCellStylist()
+                resultQueue = FakeOperationQueue()
 
                 subject = EventsResultsController(
                     nearbyEventsUseCase: nearbyEventsUseCase,
@@ -27,6 +30,7 @@ class EventsResultsControllerSpec: QuickSpec {
                     eventPresenter: eventPresenter,
                     eventSectionHeaderPresenter: eventSectionHeaderPresenter,
                     eventListTableViewCellStylist: eventListTableViewCellStylist,
+                    resultQueue: resultQueue,
                     theme: theme
                 )
             }
@@ -59,11 +63,12 @@ class EventsResultsControllerSpec: QuickSpec {
                     let events : Array<Event> = [eventA, eventB]
                     let eventSearchResult = FakeEventSearchResult(events: events)
 
-                    it("has a section per unique day in the search results") {
+                    it("has a section per unique day in the search results, on the result queue") {
                         eventSearchResult.eventsByDay = [[eventA],[eventB]]
                         eventSearchResult.uniqueDays = [NSDate(), NSDate()]
 
                         nearbyEventsUseCase.simulateFindingEvents(eventSearchResult)
+                        resultQueue.lastReceivedBlock()
 
                         expect(subject.tableView.numberOfSections) == 2
 
@@ -71,11 +76,12 @@ class EventsResultsControllerSpec: QuickSpec {
                         eventSearchResult.uniqueDays = [NSDate()]
 
                         nearbyEventsUseCase.simulateFindingEvents(eventSearchResult)
+                        resultQueue.lastReceivedBlock()
 
                         expect(subject.tableView.numberOfSections) == 1
                     }
 
-                    it("uses the events section header presenter for the header title") {
+                    it("uses the events section header presenter for the header title, on the result queue") {
                         let tableView = subject.tableView
                         let dateForSection = NSDate()
 
@@ -83,6 +89,7 @@ class EventsResultsControllerSpec: QuickSpec {
                         eventSearchResult.eventsByDay = [[eventA], [eventB]]
 
                         nearbyEventsUseCase.simulateFindingEvents(eventSearchResult)
+                        resultQueue.lastReceivedBlock()
 
                         let header = subject.tableView.delegate?.tableView!(tableView, viewForHeaderInSection: 0) as? EventsSectionHeaderView
 
@@ -90,16 +97,18 @@ class EventsResultsControllerSpec: QuickSpec {
                         expect(Int(eventSectionHeaderPresenter.lastPresentedDate.timeIntervalSinceReferenceDate)) == Int(dateForSection.timeIntervalSinceReferenceDate)
                     }
 
-                    it("displays a cell per event in each day section") {
+                    it("displays a cell per event in each day section, on the result queue") {
                         eventSearchResult.uniqueDays = [NSDate()]
 
                         eventSearchResult.eventsByDay = [events]
                         nearbyEventsUseCase.simulateFindingEvents(eventSearchResult)
+                        resultQueue.lastReceivedBlock()
 
                         expect(subject.tableView.dataSource?.tableView(subject.tableView, numberOfRowsInSection: 0)) == 2
 
                         eventSearchResult.eventsByDay = [[eventA]]
                         nearbyEventsUseCase.simulateFindingEvents(eventSearchResult)
+                        resultQueue.lastReceivedBlock()
 
                         expect(subject.tableView.dataSource?.tableView(subject.tableView, numberOfRowsInSection: 0)) == 1
                     }
@@ -116,12 +125,15 @@ class EventsResultsControllerSpec: QuickSpec {
 
                     it("has one section") {
                         nearbyEventsUseCase.simulateFindingNoEvents()
+                        resultQueue.lastReceivedBlock()
 
                         expect(subject.tableView.numberOfSections) == 1
                     }
 
                     it("returns nil for the header view") {
                         nearbyEventsUseCase.simulateFindingNoEvents()
+                        resultQueue.lastReceivedBlock()
+
                         let header = subject.tableView.delegate?.tableView!(subject.tableView, viewForHeaderInSection: 0) as? EventsSectionHeaderView
 
                         expect(header).to(beNil())
@@ -130,6 +142,7 @@ class EventsResultsControllerSpec: QuickSpec {
 
                     it("displays zero cells") {
                         nearbyEventsUseCase.simulateFindingNoEvents()
+                        resultQueue.lastReceivedBlock()
 
                         expect(subject.tableView.dataSource?.tableView(subject.tableView, numberOfRowsInSection: 0)) == 0
                     }
@@ -142,16 +155,21 @@ class EventsResultsControllerSpec: QuickSpec {
                         eventSearchResult.uniqueDays = [NSDate(), NSDate()]
 
                         nearbyEventsUseCase.simulateFindingEvents(eventSearchResult)
+                        resultQueue.lastReceivedBlock()
+
                     }
 
                     it("has one section") {
                         nearbyEventsUseCase.simulateFailingToFindEvents(.FindingLocationError(.PermissionsError))
+                        resultQueue.lastReceivedBlock()
 
                         expect(subject.tableView.numberOfSections) == 1
                     }
 
                     it("returns nil for the header view") {
                         nearbyEventsUseCase.simulateFailingToFindEvents(.FindingLocationError(.PermissionsError))
+                        resultQueue.lastReceivedBlock()
+
                         let header = subject.tableView.delegate?.tableView!(subject.tableView, viewForHeaderInSection: 0) as? EventsSectionHeaderView
 
                         expect(header).to(beNil())
@@ -160,6 +178,7 @@ class EventsResultsControllerSpec: QuickSpec {
 
                     it("displays zero cells") {
                         nearbyEventsUseCase.simulateFailingToFindEvents(.FindingLocationError(.PermissionsError))
+                        resultQueue.lastReceivedBlock()
 
                         expect(subject.tableView.dataSource?.tableView(subject.tableView, numberOfRowsInSection: 0)) == 0
                     }
@@ -182,6 +201,7 @@ class EventsResultsControllerSpec: QuickSpec {
                         eventSearchResult.uniqueDays = [NSDate(), NSDate()]
 
                         eventsNearAddressUseCase.simulateFindingEvents(eventSearchResult)
+                        resultQueue.lastReceivedBlock()
 
                         expect(subject.tableView.numberOfSections) == 2
 
@@ -189,6 +209,7 @@ class EventsResultsControllerSpec: QuickSpec {
                         eventSearchResult.uniqueDays = [NSDate()]
 
                         eventsNearAddressUseCase.simulateFindingEvents(eventSearchResult)
+                        resultQueue.lastReceivedBlock()
 
                         expect(subject.tableView.numberOfSections) == 1
                     }
@@ -201,6 +222,7 @@ class EventsResultsControllerSpec: QuickSpec {
                         eventSearchResult.eventsByDay = [[eventA], [eventB]]
 
                         eventsNearAddressUseCase.simulateFindingEvents(eventSearchResult)
+                        resultQueue.lastReceivedBlock()
 
                         let header = subject.tableView.delegate?.tableView!(tableView, viewForHeaderInSection: 0) as? EventsSectionHeaderView
 
@@ -213,11 +235,13 @@ class EventsResultsControllerSpec: QuickSpec {
 
                         eventSearchResult.eventsByDay = [events]
                         eventsNearAddressUseCase.simulateFindingEvents(eventSearchResult)
+                        resultQueue.lastReceivedBlock()
 
                         expect(subject.tableView.dataSource?.tableView(subject.tableView, numberOfRowsInSection: 0)) == 2
 
                         eventSearchResult.eventsByDay = [[eventA]]
                         eventsNearAddressUseCase.simulateFindingEvents(eventSearchResult)
+                        resultQueue.lastReceivedBlock()
 
                         expect(subject.tableView.dataSource?.tableView(subject.tableView, numberOfRowsInSection: 0)) == 1
                     }
@@ -230,16 +254,19 @@ class EventsResultsControllerSpec: QuickSpec {
                         eventSearchResult.uniqueDays = [NSDate(), NSDate()]
 
                         eventsNearAddressUseCase.simulateFindingEvents(eventSearchResult)
+                        resultQueue.lastReceivedBlock()
                     }
 
                     it("has one section") {
                         eventsNearAddressUseCase.simulateFindingNoEvents()
+                        resultQueue.lastReceivedBlock()
 
                         expect(subject.tableView.numberOfSections) == 1
                     }
 
                     it("returns nil for the header view") {
                         eventsNearAddressUseCase.simulateFindingNoEvents()
+                        resultQueue.lastReceivedBlock()
 
                         let header = subject.tableView.delegate?.tableView!(subject.tableView, viewForHeaderInSection: 0) as? EventsSectionHeaderView
 
@@ -249,6 +276,7 @@ class EventsResultsControllerSpec: QuickSpec {
 
                     it("displays zero cells") {
                         eventsNearAddressUseCase.simulateFindingNoEvents()
+                        resultQueue.lastReceivedBlock()
 
                         expect(subject.tableView.dataSource?.tableView(subject.tableView, numberOfRowsInSection: 0)) == 0
                     }
@@ -261,16 +289,19 @@ class EventsResultsControllerSpec: QuickSpec {
                         eventSearchResult.uniqueDays = [NSDate(), NSDate()]
 
                         eventsNearAddressUseCase.simulateFindingEvents(eventSearchResult)
+                        resultQueue.lastReceivedBlock()
                     }
 
                     it("has one section") {
                         eventsNearAddressUseCase.simulateFailingToFindEvents(.FetchingEventsError(.InvalidJSONError(jsonObject: [])))
+                        resultQueue.lastReceivedBlock()
 
                         expect(subject.tableView.numberOfSections) == 1
                     }
 
                     it("returns nil for the header view") {
                         eventsNearAddressUseCase.simulateFailingToFindEvents(.FetchingEventsError(.InvalidJSONError(jsonObject: [])))
+                        resultQueue.lastReceivedBlock()
 
                         let header = subject.tableView.delegate?.tableView!(subject.tableView, viewForHeaderInSection: 0) as? EventsSectionHeaderView
 
@@ -280,6 +311,7 @@ class EventsResultsControllerSpec: QuickSpec {
 
                     it("displays zero cells") {
                         eventsNearAddressUseCase.simulateFailingToFindEvents(.FetchingEventsError(.InvalidJSONError(jsonObject: [])))
+                        resultQueue.lastReceivedBlock()
 
                         expect(subject.tableView.dataSource?.tableView(subject.tableView, numberOfRowsInSection: 0)) == 0
                     }
