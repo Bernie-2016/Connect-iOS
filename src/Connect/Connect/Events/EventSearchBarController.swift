@@ -4,6 +4,7 @@ class EventSearchBarController: UIViewController {
     private let nearbyEventsUseCase: NearbyEventsUseCase
     private let eventsNearAddressUseCase: EventsNearAddressUseCase
     private let resultQueue: NSOperationQueue
+    private let theme: Theme
 
     let searchBar = UISearchBar.newAutoLayoutView()
     let cancelButton = UIButton.newAutoLayoutView()
@@ -14,10 +15,12 @@ class EventSearchBarController: UIViewController {
     init(
         nearbyEventsUseCase: NearbyEventsUseCase,
         eventsNearAddressUseCase: EventsNearAddressUseCase,
-        resultQueue: NSOperationQueue) {
+        resultQueue: NSOperationQueue,
+        theme: Theme) {
             self.nearbyEventsUseCase = nearbyEventsUseCase
             self.eventsNearAddressUseCase = eventsNearAddressUseCase
             self.resultQueue = resultQueue
+            self.theme = theme
 
             super.init(nibName: nil, bundle: nil)
 
@@ -33,12 +36,17 @@ class EventSearchBarController: UIViewController {
         view.addSubview(cancelButton)
         view.addSubview(searchButton)
 
+        searchBar.searchBarStyle = .Minimal
         searchBar.delegate = self
 
         cancelButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
+        cancelButton.setTitle(NSLocalizedString("EventsSearchBar_cancelButtonTitle", comment: ""), forState: .Normal)
+
         searchButton.addTarget(self, action: "didTapSubmitButton", forControlEvents: .TouchUpInside)
+        searchButton.setTitle(NSLocalizedString("EventsSearchBar_searchButtonTitle", comment: ""), forState: .Normal)
 
         setupConstraints()
+        applyTheme()
     }
 
     private func setupConstraints() {
@@ -52,6 +60,29 @@ class EventSearchBarController: UIViewController {
         searchBar.autoPinEdge(.Left, toEdge: .Right, ofView: cancelButton)
         searchBar.autoPinEdge(.Right, toEdge: .Left, ofView: searchButton)
         searchBar.autoPinEdgeToSuperviewEdge(.Bottom)
+    }
+
+    private func applyTheme() {
+        view.backgroundColor = theme.eventsSearchBarBackgroundColor()
+
+        searchButton.setTitleColor(theme.defaultButtonDisabledTextColor(), forState: .Disabled)
+        searchButton.setTitleColor(theme.navigationBarButtonTextColor(), forState: .Normal)
+        searchButton.titleLabel!.font = self.theme.eventsSearchBarFont()
+
+        cancelButton.setTitleColor(theme.defaultButtonDisabledTextColor(), forState: .Disabled)
+        cancelButton.setTitleColor(theme.navigationBarButtonTextColor(), forState: .Normal)
+        cancelButton.titleLabel!.font = self.theme.eventsSearchBarFont()
+
+        if let textField = searchBar.valueForKey("searchField") as? UITextField {
+            textField.textColor = self.theme.eventsZipCodeTextColor()
+            textField.font = self.theme.eventsSearchBarFont()
+            textField.backgroundColor = self.theme.eventsZipCodeBackgroundColor()
+            textField.layer.borderColor = self.theme.eventsZipCodeBorderColor().CGColor
+            textField.layer.borderWidth = self.theme.eventsZipCodeBorderWidth()
+            textField.layer.cornerRadius = self.theme.eventsZipCodeCornerRadius()
+            textField.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("Events_zipCodeTextBoxPlaceholder",  comment: ""),
+                attributes:[NSForegroundColorAttributeName: self.theme.eventsZipCodePlaceholderTextColor()])
+        }
     }
 }
 

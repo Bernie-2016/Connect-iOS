@@ -10,6 +10,7 @@ class EventSearchBarControllerSpec: QuickSpec {
             var nearbyEventsUseCase: MockNearbyEventsUseCase!
             var eventsNearAddressUseCase: MockEventsNearAddressUseCase!
             var resultQueue: FakeOperationQueue!
+            let theme = EventsSearchBarFakeTheme()
 
             var window : UIWindow!
 
@@ -21,7 +22,8 @@ class EventSearchBarControllerSpec: QuickSpec {
                 subject = EventSearchBarController(
                     nearbyEventsUseCase: nearbyEventsUseCase,
                     eventsNearAddressUseCase: eventsNearAddressUseCase,
-                    resultQueue: resultQueue
+                    resultQueue: resultQueue,
+                    theme: theme
                 )
 
                 window = UIWindow()
@@ -50,6 +52,45 @@ class EventSearchBarControllerSpec: QuickSpec {
                     subject.view.layoutSubviews()
 
                     expect(subject.view.subviews).to(contain(subject.searchButton))
+                }
+
+                it("has the correct text for the search button for the zip code entry field") {
+                    subject.view.layoutSubviews()
+
+                    expect(subject.searchButton.titleForState(.Normal)).to(equal("Search"))
+                }
+
+                it("has the correct text for the cancel button") {
+                    subject.view.layoutSubviews()
+
+                    expect(subject.cancelButton.titleForState(.Normal)).to(equal("Cancel"))
+                }
+
+                it("styles the page components with the theme") {
+                    subject.view.layoutSubviews()
+
+                    expect(subject.view.backgroundColor).to(equal(UIColor.greenColor()))
+
+                    var searchBarTextFieldTested = false
+                    if let textField = subject.searchBar.valueForKey("searchField") as? UITextField {                               searchBarTextFieldTested = true
+                        expect(textField.backgroundColor) == UIColor.brownColor()
+                        expect(textField.font).to(equal(UIFont.boldSystemFontOfSize(4444)))
+                        expect(textField.textColor).to(equal(UIColor.redColor()))
+                        expect(textField.layer.cornerRadius).to(equal(100.0))
+                        expect(textField.layer.borderWidth).to(equal(200.0))
+
+                        let borderColor = UIColor(CGColor: textField.layer.borderColor!)
+                        expect(borderColor).to(equal(UIColor.orangeColor()))
+                    }
+                    expect(searchBarTextFieldTested) == true
+
+                    expect(subject.searchButton.titleColorForState(.Normal)).to(equal(UIColor(rgba: "#111111")))
+                    expect(subject.searchButton.titleColorForState(.Disabled)).to(equal(UIColor(rgba: "#abcdef")))
+                    expect(subject.searchButton.titleLabel!.font).to(equal(UIFont.boldSystemFontOfSize(4444)))
+
+                    expect(subject.cancelButton.titleColorForState(.Normal)).to(equal(UIColor(rgba: "#111111")))
+                    expect(subject.cancelButton.titleColorForState(.Disabled)).to(equal(UIColor(rgba: "#abcdef")))
+                    expect(subject.cancelButton.titleLabel!.font).to(equal(UIFont.boldSystemFontOfSize(4444)))
                 }
             }
 
@@ -212,4 +253,16 @@ class SearchBarSharedExamplesConfiguration: QuickConfiguration {
     }
 }
 
+private class EventsSearchBarFakeTheme: FakeTheme {
+    override func eventsSearchBarBackgroundColor() -> UIColor { return UIColor.greenColor() }
+    override func eventsSearchBarFont() -> UIFont { return UIFont.boldSystemFontOfSize(4444) }
+    override func defaultButtonDisabledTextColor() -> UIColor { return UIColor(rgba: "#abcdef") }
+    override func navigationBarButtonTextColor()  -> UIColor { return UIColor(rgba: "#111111") }
+    override func eventsZipCodeTextColor() -> UIColor { return UIColor.redColor() }
+    override func eventsZipCodeBackgroundColor() -> UIColor { return UIColor.brownColor() }
+    override func eventsZipCodeBorderColor() -> UIColor { return UIColor.orangeColor() }
+    override func eventsZipCodeCornerRadius() -> CGFloat { return 100.0 }
+    override func eventsZipCodeBorderWidth() -> CGFloat { return 200.0 }
+    override func eventsZipCodePlaceholderTextColor() -> UIColor { return UIColor(rgba: "#222222") } // not explicitly tested
+}
 

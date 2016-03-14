@@ -34,6 +34,8 @@
 "EventsSearchBar_loadingNearbyEvents" = "Locating...";
 "EventsSearchBar_foundNearbyResults" = "Current Location";
 "EventsSearchBar_searchBarPlaceholder" = "ZIP Code";
+"EventsSearchBar_cancelButtonTitle" = "Cancel";
+"EventsSearchBar_searchButtonTitle" = "Search";
 
 "Events_zipCodeAccessibilityLabel" = "ZIP Code";
 "Events_zipCodeTextBoxPlaceholder" = "ZIP Code";

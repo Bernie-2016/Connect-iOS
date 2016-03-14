@@ -139,7 +139,8 @@ class EventsContainerConfigurator: ContainerConfigurator {
             return EventSearchBarController(
                 nearbyEventsUseCase: resolver.resolve(NearbyEventsUseCase.self)!,
                 eventsNearAddressUseCase: resolver.resolve(EventsNearAddressUseCase.self)!,
-                resultQueue: resolver.resolve(NSOperationQueue.self, name: "main")!
+                resultQueue: resolver.resolve(NSOperationQueue.self, name: "main")!,
+                theme: resolver.resolve(Theme.self)!
             )
         }.inObjectScope(.Container)
 
