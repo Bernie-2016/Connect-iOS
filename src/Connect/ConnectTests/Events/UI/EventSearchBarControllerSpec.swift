@@ -121,14 +121,30 @@ class EventSearchBarControllerSpec: QuickSpec {
                     subject.view.layoutSubviews()
                 }
 
-                context("when the use case has started finding events, on the result queue") {
-                    it("sets the search bar text to Locating") {
+                context("when the use case has started finding events") {
+                    it("sets the search bar placeholder to Locating, on the result queue") {
                         nearbyEventsUseCase.fetchNearbyEventsWithinRadiusMiles(666)
 
                         expect(subject.searchBar.placeholder) != "Locating..."
                         resultQueue.lastReceivedBlock()
 
                         expect(subject.searchBar.placeholder) == "Locating..."
+                    }
+                }
+
+                context("when the use case has an error finding nearby events") {
+                    beforeEach {
+                        nearbyEventsUseCase.fetchNearbyEventsWithinRadiusMiles(666)
+                        resultQueue.lastReceivedBlock()
+                    }
+
+                    it("sets the search bar placeholder to zip code, on the result queue") {
+                        nearbyEventsUseCase.simulateFailingToFindEvents(.FindingLocationError(.PermissionsError))
+
+                        expect(subject.searchBar.placeholder) != "ZIP Code"
+                        resultQueue.lastReceivedBlock()
+
+                        expect(subject.searchBar.placeholder) == "ZIP Code"
                     }
                 }
 

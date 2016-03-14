@@ -154,7 +154,11 @@ extension EventSearchBarController: NearbyEventsUseCaseObserver {
         }
     }
 
-    func nearbyEventsUseCase(useCase: NearbyEventsUseCase, didFailFetchEvents: NearbyEventsUseCaseError) {}
+    func nearbyEventsUseCase(useCase: NearbyEventsUseCase, didFailFetchEvents: NearbyEventsUseCaseError) {
+        resultQueue.addOperationWithBlock {
+            self.searchBar.placeholder = NSLocalizedString("EventsSearchBar_searchBarPlaceholder", comment: "")
+        }
+    }
 
     private func setPlaceholderToCurrentLocation() {
         resultQueue.addOperationWithBlock {
