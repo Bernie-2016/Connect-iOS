@@ -56,6 +56,14 @@ class EventSearchBarControllerSpec: QuickSpec {
                     expect(subject.view.subviews).to(contain(subject.searchButton))
                 }
 
+                it("configures the search bar keyboard to be a number pad") {
+                    expect(subject.searchBar.keyboardType).to(equal(UIKeyboardType.NumberPad))
+                }
+
+                it("configures the accessibility label for the search bar") {
+                    expect(subject.searchBar.accessibilityLabel).to(equal("ZIP Code"))
+                }
+
                 it("should hide the search button by default") {
                     expect(subject.searchButton.hidden) == true
                 }

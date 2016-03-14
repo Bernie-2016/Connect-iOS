@@ -45,6 +45,8 @@ class EventSearchBarController: UIViewController {
 
         searchBar.searchBarStyle = .Minimal
         searchBar.delegate = self
+        searchBar.keyboardType = .NumberPad
+        searchBar.accessibilityLabel = NSLocalizedString("EventsSearchBar_searchBarAccessibilityLabel", comment: "")
 
         cancelButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
         cancelButton.setTitle(NSLocalizedString("EventsSearchBar_cancelButtonTitle", comment: ""), forState: .Normal)
