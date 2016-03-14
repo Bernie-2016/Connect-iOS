@@ -150,20 +150,33 @@ extension EventSearchBarController: NearbyEventsUseCaseObserver {
 
     func nearbyEventsUseCaseDidStartFetchingEvents(useCase: NearbyEventsUseCase) {
         resultQueue.addOperationWithBlock {
+            self.disableSearchBar()
             self.searchBar.placeholder = NSLocalizedString("EventsSearchBar_loadingNearbyEvents", comment: "")
         }
     }
 
     func nearbyEventsUseCase(useCase: NearbyEventsUseCase, didFailFetchEvents: NearbyEventsUseCaseError) {
         resultQueue.addOperationWithBlock {
+            self.enableSearchBar()
             self.searchBar.placeholder = NSLocalizedString("EventsSearchBar_searchBarPlaceholder", comment: "")
         }
     }
 
     private func setPlaceholderToCurrentLocation() {
         resultQueue.addOperationWithBlock {
+            self.enableSearchBar()
             self.searchBar.placeholder = NSLocalizedString("EventsSearchBar_foundNearbyResults", comment: "")
         }
+    }
+
+    private func disableSearchBar() {
+        self.searchBar.alpha = 0.5
+        self.searchBar.userInteractionEnabled = false
+    }
+
+    private func enableSearchBar() {
+        self.searchBar.alpha = 1
+        self.searchBar.userInteractionEnabled = true
     }
 }
 

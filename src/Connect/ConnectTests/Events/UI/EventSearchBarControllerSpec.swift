@@ -130,6 +130,20 @@ class EventSearchBarControllerSpec: QuickSpec {
 
                         expect(subject.searchBar.placeholder) == "Locating..."
                     }
+
+                    it("disables user interaction") {
+                        nearbyEventsUseCase.fetchNearbyEventsWithinRadiusMiles(666)
+                        resultQueue.lastReceivedBlock()
+
+                        expect(subject.searchBar.userInteractionEnabled) == false
+                    }
+
+                    it("makes the search bar transparent") {
+                        nearbyEventsUseCase.fetchNearbyEventsWithinRadiusMiles(666)
+                        resultQueue.lastReceivedBlock()
+
+                        expect(subject.searchBar.alpha) < 1.0
+                    }
                 }
 
                 context("when the use case has an error finding nearby events") {
@@ -146,9 +160,28 @@ class EventSearchBarControllerSpec: QuickSpec {
 
                         expect(subject.searchBar.placeholder) == "ZIP Code"
                     }
+
+                    it("enables user interaction") {
+                        nearbyEventsUseCase.simulateFailingToFindEvents(.FindingLocationError(.PermissionsError))
+                        resultQueue.lastReceivedBlock()
+
+                        expect(subject.searchBar.userInteractionEnabled) == true
+                    }
+
+                    it("makes the search bar transparent") {
+                        nearbyEventsUseCase.simulateFailingToFindEvents(.FindingLocationError(.PermissionsError))
+                        resultQueue.lastReceivedBlock()
+
+                        expect(subject.searchBar.alpha) == 1.0
+                    }
                 }
 
                 context("when the use case has found nearby events") {
+                    beforeEach {
+                        nearbyEventsUseCase.fetchNearbyEventsWithinRadiusMiles(666)
+                        resultQueue.lastReceivedBlock()
+                    }
+
                     it("sets the search bar text to Current Location, on the result queue") {
                         let searchResult = EventSearchResult(events: [])
                         nearbyEventsUseCase.simulateFindingEvents(searchResult)
@@ -158,6 +191,22 @@ class EventSearchBarControllerSpec: QuickSpec {
                         resultQueue.lastReceivedBlock()
 
                         expect(subject.searchBar.placeholder) == "Current Location"
+                    }
+
+                    it("enables user interaction") {
+                        let searchResult = EventSearchResult(events: [])
+                        nearbyEventsUseCase.simulateFindingEvents(searchResult)
+                        resultQueue.lastReceivedBlock()
+
+                        expect(subject.searchBar.userInteractionEnabled) == true
+                    }
+
+                    it("makes the search bar transparent") {
+                        let searchResult = EventSearchResult(events: [])
+                        nearbyEventsUseCase.simulateFindingEvents(searchResult)
+                        resultQueue.lastReceivedBlock()
+
+                        expect(subject.searchBar.alpha) == 1.0
                     }
 
                     describe("and then the user edits the location") {
@@ -179,6 +228,11 @@ class EventSearchBarControllerSpec: QuickSpec {
                 }
 
                 context("when the use case found no nearby events") {
+                    beforeEach {
+                        nearbyEventsUseCase.fetchNearbyEventsWithinRadiusMiles(666)
+                        resultQueue.lastReceivedBlock()
+                    }
+
                     it("sets the search bar placeholder text to Current Location, on the result queue") {
                         nearbyEventsUseCase.simulateFindingNoEvents()
 
@@ -187,6 +241,20 @@ class EventSearchBarControllerSpec: QuickSpec {
                         resultQueue.lastReceivedBlock()
 
                         expect(subject.searchBar.placeholder) == "Current Location"
+                    }
+
+                    it("enables user interaction") {
+                        nearbyEventsUseCase.simulateFindingNoEvents()
+                        resultQueue.lastReceivedBlock()
+
+                        expect(subject.searchBar.userInteractionEnabled) == true
+                    }
+
+                    it("makes the search bar transparent") {
+                        nearbyEventsUseCase.simulateFindingNoEvents()
+                        resultQueue.lastReceivedBlock()
+
+                        expect(subject.searchBar.alpha) == 1.0
                     }
 
                     describe("and then the user edits the location") {
