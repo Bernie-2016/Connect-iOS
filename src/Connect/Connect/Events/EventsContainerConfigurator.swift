@@ -124,6 +124,7 @@ class EventsContainerConfigurator: ContainerConfigurator {
                 resultsController: resolver.resolve(EventsResultsController.self)!,
                 errorController: UIViewController(),
                 nearbyEventsUseCase: resolver.resolve(NearbyEventsUseCase.self)!,
+                eventsNearAddressUseCase: resolver.resolve(EventsNearAddressUseCase.self)!,
                 childControllerBuddy: resolver.resolve(ChildControllerBuddy.self)!,
                 tabBarItemStylist: resolver.resolve(TabBarItemStylist.self)!,
                 workerQueue: resolver.resolve(NSOperationQueue.self, name: "work")!,

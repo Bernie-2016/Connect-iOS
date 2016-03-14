@@ -200,11 +200,3 @@ class SearchBarSharedExamplesConfiguration: QuickConfiguration {
 }
 
 
-private class MockEventsNearAddressUseCase: EventsNearAddressUseCase {
-    var lastSearchedAddress: String?
-    var lastSearchedRadius: Float?
-    func fetchEventsNearAddress(address: Address, radiusMiles: Float) {
-        lastSearchedAddress = address
-        lastSearchedRadius = radiusMiles
-    }
-}

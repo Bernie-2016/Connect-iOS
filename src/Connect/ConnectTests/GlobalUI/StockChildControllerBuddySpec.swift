@@ -43,6 +43,10 @@ class StockChildControllerBuddySpec: QuickSpec {
                     expect(parent.view.constraints).to(haveCount(4))
                 }
 
+                it("returns the new controller") {
+                    expect(subject.add(new, to: parent, containIn: parent.view)) === new
+                }
+
                 context("when adding the same controller again") {
                     beforeEach {
                         subject.add(new, to: parent, containIn: parent.view)
@@ -82,6 +86,10 @@ class StockChildControllerBuddySpec: QuickSpec {
 
                     expect(parent.transitionedFrom).to(beIdenticalTo(old))
                     expect(parent.transitionedTo).to(beIdenticalTo(new))
+                }
+
+                it("returns the new controller") {
+                    expect(subject.swap(old, new: new, parent: parent)) === new
                 }
 
                 context("when the transition is complete") {

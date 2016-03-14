@@ -7,6 +7,7 @@ class NewEventsController: UIViewController {
     private let resultsController: UIViewController
     private let errorController: UIViewController
     private let nearbyEventsUseCase: NearbyEventsUseCase
+    private let eventsNearAddressUseCase: EventsNearAddressUseCase
     private let childControllerBuddy: ChildControllerBuddy
     private let tabBarItemStylist: TabBarItemStylist
     private let workerQueue: NSOperationQueue
@@ -16,12 +17,15 @@ class NewEventsController: UIViewController {
     let searchBarView = UIView.newAutoLayoutView()
     let resultsView = UIView.newAutoLayoutView()
 
+    private var currentResultsViewController: UIViewController?
+
     init(
         searchBarController: UIViewController,
         interstitialController: UIViewController,
         resultsController: UIViewController,
         errorController: UIViewController,
         nearbyEventsUseCase: NearbyEventsUseCase,
+        eventsNearAddressUseCase: EventsNearAddressUseCase,
         childControllerBuddy: ChildControllerBuddy,
         tabBarItemStylist: TabBarItemStylist,
         workerQueue: NSOperationQueue,
@@ -31,6 +35,7 @@ class NewEventsController: UIViewController {
             self.resultsController = resultsController
             self.errorController = errorController
             self.nearbyEventsUseCase = nearbyEventsUseCase
+            self.eventsNearAddressUseCase = eventsNearAddressUseCase
             self.childControllerBuddy = childControllerBuddy
             self.tabBarItemStylist = tabBarItemStylist
             self.workerQueue = workerQueue
@@ -63,9 +68,10 @@ class NewEventsController: UIViewController {
         navigationItem.backBarButtonItem = backBarButtonItem
 
         nearbyEventsUseCase.addObserver(self)
+        eventsNearAddressUseCase.addObserver(self)
 
         childControllerBuddy.add(searchBarController, to: self, containIn: searchBarView)
-        childControllerBuddy.add(interstitialController, to: self, containIn: resultsView)
+        currentResultsViewController = childControllerBuddy.add(interstitialController, to: self, containIn: resultsView)
 
         workerQueue.addOperationWithBlock {
             self.nearbyEventsUseCase.fetchNearbyEventsWithinRadiusMiles(10.0) // let's kill this magic number
@@ -91,23 +97,53 @@ class NewEventsController: UIViewController {
         resultsView.autoPinEdgeToSuperviewEdge(.Right)
         resultsView.autoPinEdgeToSuperviewEdge(.Bottom)
     }
+
+    private func showResults() {
+        resultQueue.addOperationWithBlock {
+            self.currentResultsViewController = self.childControllerBuddy.swap(self.currentResultsViewController!, new: self.resultsController, parent: self)
+        }
+    }
+
+    private func showErrors() {
+        resultQueue.addOperationWithBlock {
+            self.currentResultsViewController = self.childControllerBuddy.swap(self.currentResultsViewController!, new: self.errorController, parent: self)
+        }
+    }
+
+    private func showInterstitial() {
+        resultQueue.addOperationWithBlock {
+            self.currentResultsViewController = self.childControllerBuddy.swap(self.currentResultsViewController!, new: self.interstitialController, parent: self)
+        }
+    }
 }
 
 extension NewEventsController: NearbyEventsUseCaseObserver {
     func nearbyEventsUseCase(useCase: NearbyEventsUseCase, didFetchEventSearchResult: EventSearchResult) {
-        resultQueue.addOperationWithBlock {
-            self.childControllerBuddy.swap(self.interstitialController, new: self.resultsController, parent: self)
-        }
+        showResults()
     }
     func nearbyEventsUseCaseFoundNoNearbyEvents(useCase: NearbyEventsUseCase) {
-        resultQueue.addOperationWithBlock {
-            self.childControllerBuddy.swap(self.interstitialController, new: self.resultsController, parent: self)
-        }
+        showResults()
     }
 
     func nearbyEventsUseCase(useCase: NearbyEventsUseCase, didFailFetchEvents: NearbyEventsUseCaseError) {
-        resultQueue.addOperationWithBlock {
-            self.childControllerBuddy.swap(self.interstitialController, new: self.errorController, parent: self)
-        }
+        showErrors()
+    }
+}
+
+extension NewEventsController: EventsNearAddressUseCaseObserver {
+    func eventsNearAddressUseCase(useCase: EventsNearAddressUseCase, didFailFetchEvents: EventsNearAddressUseCaseError) {
+        showErrors()
+    }
+
+    func eventsNearAddressUseCase(useCase: EventsNearAddressUseCase, didFetchEventSearchResult: EventSearchResult) {
+        showResults()
+    }
+
+    func eventsNearAddressUseCaseDidStartFetchingEvents(useCase: EventsNearAddressUseCase) {
+        showInterstitial()
+    }
+
+    func eventsNearAddressUseCaseFoundNoEvents(useCase: EventsNearAddressUseCase) {
+        showResults()
     }
 }

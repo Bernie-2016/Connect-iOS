@@ -13,6 +13,7 @@ class NewEventsControllerSpec: QuickSpec {
             var resultsController: UIViewController!
             var errorController: UIViewController!
             var nearbyEventsUseCase: MockNearbyEventsUseCase!
+            var eventsNearAddressUseCase: MockEventsNearAddressUseCase!
             var childControllerBuddy: MockChildControllerBuddy!
             var tabBarItemStylist: FakeTabBarItemStylist!
             var workerQueue: FakeOperationQueue!
@@ -27,6 +28,7 @@ class NewEventsControllerSpec: QuickSpec {
                 resultsController = UIViewController()
                 errorController = UIViewController()
                 nearbyEventsUseCase = MockNearbyEventsUseCase()
+                eventsNearAddressUseCase = MockEventsNearAddressUseCase()
                 childControllerBuddy = MockChildControllerBuddy()
                 tabBarItemStylist = FakeTabBarItemStylist()
                 workerQueue = FakeOperationQueue()
@@ -39,6 +41,7 @@ class NewEventsControllerSpec: QuickSpec {
                     resultsController: resultsController,
                     errorController: errorController,
                     nearbyEventsUseCase: nearbyEventsUseCase,
+                    eventsNearAddressUseCase: eventsNearAddressUseCase,
                     childControllerBuddy: childControllerBuddy,
                     tabBarItemStylist: tabBarItemStylist,
                     workerQueue: workerQueue,
@@ -174,6 +177,83 @@ class NewEventsControllerSpec: QuickSpec {
                     }
                 }
             }
+
+            describe("as an events near address use case observer") {
+                beforeEach {
+                    subject.view.layoutSubviews()
+                }
+
+                context("when the use case begins fetching events") {
+                    beforeEach {
+                        childControllerBuddy.reset()
+
+                        let error = NearbyEventsUseCaseError.FindingLocationError(.PermissionsError)
+                        nearbyEventsUseCase.simulateFailingToFindEvents(error)
+                        resultQueue.lastReceivedBlock()
+                    }
+
+                    it("swaps that controller for the interstitial controller") {
+                        eventsNearAddressUseCase.simulateStartOfFetch()
+
+                        expect(childControllerBuddy.lastOldSwappedController) === interstitialController
+                        expect(childControllerBuddy.lastNewSwappedController) === errorController
+                        expect(childControllerBuddy.lastParentSwappedController) === subject
+
+                    }
+                }
+
+                context("when the use case finds events") {
+                    beforeEach {
+                        childControllerBuddy.reset()
+
+                        let error = NearbyEventsUseCaseError.FindingLocationError(.PermissionsError)
+                        nearbyEventsUseCase.simulateFailingToFindEvents(error)
+                        resultQueue.lastReceivedBlock()
+                    }
+
+                    it("swaps the currently shown results view for the results controller on the results queue") {
+                        let event = TestUtils.eventWithName("nearby event")
+                        let eventSearchResult = EventSearchResult(events: [event])
+                        eventsNearAddressUseCase.simulateFindingEvents(eventSearchResult)
+
+                        resultQueue.lastReceivedBlock()
+
+                        expect(childControllerBuddy.lastOldSwappedController) === errorController
+                        expect(childControllerBuddy.lastNewSwappedController) === resultsController
+                        expect(childControllerBuddy.lastParentSwappedController) === subject
+                    }
+                }
+
+                context("when the use case finds no events near an address") {
+                    it("swaps the currently shown results view for the results controller on the results queue") {
+                        eventsNearAddressUseCase.simulateFindingNoEvents()
+
+                        expect(childControllerBuddy.lastOldSwappedController).to(beNil())
+
+                        resultQueue.lastReceivedBlock()
+
+                        expect(childControllerBuddy.lastOldSwappedController) === interstitialController
+                        expect(childControllerBuddy.lastNewSwappedController) === resultsController
+                        expect(childControllerBuddy.lastParentSwappedController) === subject
+                    }
+                }
+
+                context("when the use case encounters an error") {
+                    it("swaps the currently shown results view controller for the error controller on the results queue") {
+                        let underlyingError = EventRepositoryError.InvalidJSONError(jsonObject: [])
+                        let error = EventsNearAddressUseCaseError.FetchingEventsError(underlyingError)
+                        eventsNearAddressUseCase.simulateFailingToFindEvents(error)
+
+                        expect(childControllerBuddy.lastOldSwappedController).to(beNil())
+
+                        resultQueue.lastReceivedBlock()
+
+                        expect(childControllerBuddy.lastOldSwappedController) === interstitialController
+                        expect(childControllerBuddy.lastNewSwappedController) === errorController
+                        expect(childControllerBuddy.lastParentSwappedController) === subject
+                    }
+                }
+            }
         }
     }
 }
@@ -183,10 +263,12 @@ private class MockChildControllerBuddy: ChildControllerBuddy {
     var lastNewSwappedController: UIViewController!
     var lastParentSwappedController: UIViewController!
 
-    func swap(old: UIViewController, new: UIViewController, parent: UIViewController) {
+    func swap(old: UIViewController, new: UIViewController, parent: UIViewController) -> UIViewController {
         lastOldSwappedController = old
         lastNewSwappedController = new
         lastParentSwappedController = parent
+
+        return new
     }
 
     struct AddCall {
@@ -196,8 +278,17 @@ private class MockChildControllerBuddy: ChildControllerBuddy {
     }
 
     var addCalls: [AddCall] = []
-    func add(new: UIViewController, to parent: UIViewController, containIn: UIView) {
+    func add(new: UIViewController, to parent: UIViewController, containIn: UIView) -> UIViewController {
         addCalls.append(AddCall(addController: new, parentController: parent, containerView: containIn))
+
+        return new
+    }
+
+    func reset() {
+        addCalls.removeAll()
+
+        lastOldSwappedController = nil
+        lastNewSwappedController = nil
+        lastParentSwappedController = nil
     }
 }
-
