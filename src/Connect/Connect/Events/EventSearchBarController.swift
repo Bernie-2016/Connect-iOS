@@ -13,6 +13,10 @@ class EventSearchBarController: UIViewController {
 
     private var preEditPlaceholder: String?
 
+    private var searchButtonSearchBarConstraint: NSLayoutConstraint!
+    private var cancelButtonSearchBarConstraint: NSLayoutConstraint!
+    private var textFieldHeightConstraint: NSLayoutConstraint!
+
     init(
         nearbyEventsUseCase: NearbyEventsUseCase,
         eventsNearAddressUseCase: EventsNearAddressUseCase,
@@ -56,16 +60,56 @@ class EventSearchBarController: UIViewController {
     }
 
     private func setupConstraints() {
-        cancelButton.autoPinEdgeToSuperviewEdge(.Left)
-        cancelButton.autoAlignAxis(.Horizontal, toSameAxisOfView: searchBar)
+        let buttonWidth: CGFloat = 60
+        let verticalShift: CGFloat = 8
+        let horizontalPadding: CGFloat = 15
+        let searchBarHeight: CGFloat = 34
 
-        searchButton.autoPinEdgeToSuperviewEdge(.Right)
-        searchButton.autoAlignAxis(.Horizontal, toSameAxisOfView: searchBar)
+        cancelButton.autoPinEdgeToSuperviewEdge(.Left, withInset: horizontalPadding)
+        cancelButton.autoAlignAxis(.Horizontal, toSameAxisOfView: searchBar, withOffset: verticalShift)
+        cancelButton.autoSetDimension(.Width, toSize: buttonWidth)
 
-        searchBar.autoPinEdgeToSuperviewEdge(.Top)
-        searchBar.autoPinEdge(.Left, toEdge: .Right, ofView: cancelButton)
-        searchBar.autoPinEdge(.Right, toEdge: .Left, ofView: searchButton)
-        searchBar.autoPinEdgeToSuperviewEdge(.Bottom)
+        searchButton.autoPinEdgeToSuperviewEdge(.Right, withInset: horizontalPadding)
+        searchButton.autoAlignAxis(.Horizontal, toSameAxisOfView: searchBar, withOffset: verticalShift)
+        searchButton.autoSetDimension(.Width, toSize: buttonWidth)
+
+        searchBar.autoCenterInSuperview()
+
+        NSLayoutConstraint.autoSetPriority(800) {
+            self.searchBar.autoPinEdgeToSuperviewEdge(.Left, withInset: -horizontalPadding)
+            self.searchBar.autoPinEdgeToSuperviewEdge(.Right, withInset: -horizontalPadding)
+        }
+
+        NSLayoutConstraint.autoSetPriority(900) {
+            self.searchButtonSearchBarConstraint = self.searchButton.autoPinEdge(.Left, toEdge: .Right, ofView: self.searchBar, withOffset: -horizontalPadding)
+        }
+        self.searchButtonSearchBarConstraint.active = false
+
+        NSLayoutConstraint.autoSetPriority(900) {
+            self.cancelButtonSearchBarConstraint = self.cancelButton.autoPinEdge(.Right, toEdge: .Left, ofView: self.searchBar, withOffset: -horizontalPadding)
+        }
+        self.cancelButtonSearchBarConstraint.active = false
+
+        if let searchBarContainer = searchBar.subviews.first {
+                searchBarContainer.autoAlignAxis(.Horizontal, toSameAxisOfView: self.searchBar, withOffset: verticalShift)
+                searchBarContainer.autoPinEdgeToSuperviewEdge(.Left, withInset: horizontalPadding)
+                searchBarContainer.autoPinEdgeToSuperviewEdge(.Right, withInset: horizontalPadding)
+                searchBarContainer.autoSetDimension(.Height, toSize: searchBarHeight)
+        }
+        if let textField = searchBar.valueForKey("searchField") as? UITextField {
+                textField.autoAlignAxis(.Horizontal, toSameAxisOfView: self.searchBar, withOffset: verticalShift)
+                textField.autoPinEdgeToSuperviewEdge(.Left, withInset: horizontalPadding)
+                textField.autoPinEdgeToSuperviewEdge(.Right, withInset: horizontalPadding)
+
+                self.textFieldHeightConstraint = textField.autoSetDimension(.Height, toSize: searchBarHeight)
+        }
+
+        if let background = searchBar.valueForKey("background") as? UIView {
+                background.autoAlignAxis(.Horizontal, toSameAxisOfView: self.searchBar, withOffset: verticalShift)
+                background.autoPinEdgeToSuperviewEdge(.Left)
+                background.autoPinEdgeToSuperviewEdge(.Right)
+                background.autoSetDimension(.Height, toSize: searchBarHeight)
+        }
     }
 
     private func applyTheme() {
@@ -118,6 +162,9 @@ extension EventSearchBarController: NearbyEventsUseCaseObserver {
 
 extension EventSearchBarController: UISearchBarDelegate {
     func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
+        searchButtonSearchBarConstraint.active = true
+        cancelButtonSearchBarConstraint.active = true
+
         preEditPlaceholder = searchBar.placeholder
         if preEditPlaceholder == NSLocalizedString("EventsSearchBar_foundNearbyResults", comment: "") {
             searchBar.text = ""
@@ -150,6 +197,8 @@ extension EventSearchBarController {
         searchBar.placeholder = preEditPlaceholder
         searchBar.text = nil
 
+        searchButtonSearchBarConstraint.active = false
+        cancelButtonSearchBarConstraint.active = false
         cancelButton.hidden = true
         searchButton.hidden = true
 
@@ -161,6 +210,9 @@ extension EventSearchBarController {
         eventsNearAddressUseCase.fetchEventsNearAddress(searchBar.text!, radiusMiles: 10.0)
         searchBar.placeholder = searchBar.text
         searchBar.text = nil
+
+        searchButtonSearchBarConstraint.active = false
+        cancelButtonSearchBarConstraint.active = false
 
         cancelButton.hidden = true
         searchButton.hidden = true
