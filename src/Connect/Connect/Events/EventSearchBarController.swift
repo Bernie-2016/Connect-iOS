@@ -44,10 +44,12 @@ class EventSearchBarController: UIViewController {
 
         cancelButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
         cancelButton.setTitle(NSLocalizedString("EventsSearchBar_cancelButtonTitle", comment: ""), forState: .Normal)
+        cancelButton.hidden = true
 
-        searchButton.addTarget(self, action: "didTapSubmitButton", forControlEvents: .TouchUpInside)
+        searchButton.addTarget(self, action: "didTapSearchButton", forControlEvents: .TouchUpInside)
         searchButton.setTitle(NSLocalizedString("EventsSearchBar_searchButtonTitle", comment: ""), forState: .Normal)
         searchButton.enabled = false
+        searchButton.hidden = true
 
         setupConstraints()
         applyTheme()
@@ -124,6 +126,10 @@ extension EventSearchBarController: UISearchBarDelegate {
         }
 
         searchBar.placeholder = NSLocalizedString("EventsSearchBar_searchBarPlaceholder", comment: "")
+
+        searchButton.hidden = false
+        cancelButton.hidden = false
+
         return true
     }
 
@@ -143,12 +149,20 @@ extension EventSearchBarController {
         searchBar.resignFirstResponder()
         searchBar.placeholder = preEditPlaceholder
         searchBar.text = nil
+
+        cancelButton.hidden = true
+        searchButton.hidden = true
+
+        searchButton.enabled = zipCodeValidator.validate(preEditPlaceholder!)
     }
 
-    func didTapSubmitButton() {
+    func didTapSearchButton() {
         searchBar.resignFirstResponder()
         eventsNearAddressUseCase.fetchEventsNearAddress(searchBar.text!, radiusMiles: 10.0)
         searchBar.placeholder = searchBar.text
         searchBar.text = nil
+
+        cancelButton.hidden = true
+        searchButton.hidden = true
     }
 }

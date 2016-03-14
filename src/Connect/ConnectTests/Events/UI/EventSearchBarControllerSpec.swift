@@ -56,47 +56,55 @@ class EventSearchBarControllerSpec: QuickSpec {
                     expect(subject.view.subviews).to(contain(subject.searchButton))
                 }
 
+                it("should hide the search button by default") {
+                    expect(subject.searchButton.hidden) == true
+                }
+
+                it("should hide the cancel button by default") {
+                    expect(subject.cancelButton.hidden) == true
+                }
+
                 it("initially disables the search button") {
-                    expect(subject.searchButton.enabled).to(beFalse())
+                    expect(subject.searchButton.enabled) == false
                 }
 
                 it("has the correct text for the search button for the zip code entry field") {
                     subject.view.layoutSubviews()
 
-                    expect(subject.searchButton.titleForState(.Normal)).to(equal("Search"))
+                    expect(subject.searchButton.titleForState(.Normal)) == "Search"
                 }
 
                 it("has the correct text for the cancel button") {
                     subject.view.layoutSubviews()
 
-                    expect(subject.cancelButton.titleForState(.Normal)).to(equal("Cancel"))
+                    expect(subject.cancelButton.titleForState(.Normal)) == "Cancel"
                 }
 
                 it("styles the page components with the theme") {
                     subject.view.layoutSubviews()
 
-                    expect(subject.view.backgroundColor).to(equal(UIColor.greenColor()))
+                    expect(subject.view.backgroundColor) == UIColor.greenColor()
 
                     var searchBarTextFieldTested = false
                     if let textField = subject.searchBar.valueForKey("searchField") as? UITextField {                               searchBarTextFieldTested = true
                         expect(textField.backgroundColor) == UIColor.brownColor()
-                        expect(textField.font).to(equal(UIFont.boldSystemFontOfSize(4444)))
-                        expect(textField.textColor).to(equal(UIColor.redColor()))
-                        expect(textField.layer.cornerRadius).to(equal(100.0))
-                        expect(textField.layer.borderWidth).to(equal(200.0))
+                        expect(textField.font) == UIFont.boldSystemFontOfSize(4444)
+                        expect(textField.textColor) == UIColor.redColor()
+                        expect(textField.layer.cornerRadius) == 100.0
+                        expect(textField.layer.borderWidth) == 200.0
 
                         let borderColor = UIColor(CGColor: textField.layer.borderColor!)
-                        expect(borderColor).to(equal(UIColor.orangeColor()))
+                        expect(borderColor) == UIColor.orangeColor()
                     }
                     expect(searchBarTextFieldTested) == true
 
-                    expect(subject.searchButton.titleColorForState(.Normal)).to(equal(UIColor(rgba: "#111111")))
-                    expect(subject.searchButton.titleColorForState(.Disabled)).to(equal(UIColor(rgba: "#abcdef")))
-                    expect(subject.searchButton.titleLabel!.font).to(equal(UIFont.boldSystemFontOfSize(4444)))
+                    expect(subject.searchButton.titleColorForState(.Normal)) == UIColor(rgba: "#111111")
+                    expect(subject.searchButton.titleColorForState(.Disabled)) == UIColor(rgba: "#abcdef")
+                    expect(subject.searchButton.titleLabel!.font) == UIFont.boldSystemFontOfSize(4444)
 
-                    expect(subject.cancelButton.titleColorForState(.Normal)).to(equal(UIColor(rgba: "#111111")))
-                    expect(subject.cancelButton.titleColorForState(.Disabled)).to(equal(UIColor(rgba: "#abcdef")))
-                    expect(subject.cancelButton.titleLabel!.font).to(equal(UIFont.boldSystemFontOfSize(4444)))
+                    expect(subject.cancelButton.titleColorForState(.Normal)) == UIColor(rgba: "#111111")
+                    expect(subject.cancelButton.titleColorForState(.Disabled)) == UIColor(rgba: "#abcdef")
+                    expect(subject.cancelButton.titleLabel!.font) == UIFont.boldSystemFontOfSize(4444)
                 }
             }
 
@@ -260,6 +268,27 @@ class SearchBarSharedExamplesConfiguration: QuickConfiguration {
 
                         expect(searchBar.text) == ""
                     }
+
+                    it("should hide the search button") {
+                        subject.cancelButton.tap()
+
+                        expect(subject.searchButton.hidden) == true
+                    }
+
+                    it("should hide the cancel button") {
+                        subject.cancelButton.tap()
+
+                        expect(subject.cancelButton.hidden) == true
+                    }
+
+                    it("should re-validate the original address content and use the validation result on the text field") {
+                        zipCodeValidator.returnedValidationResult = true
+
+                        subject.cancelButton.tap()
+
+                        expect(zipCodeValidator.lastReceivedZipCode) == "Current Location"
+                        expect(subject.searchButton.enabled) == true
+                    }
                 }
 
                 context("and the updated zipcode is determined to be valid by the validator") {
@@ -269,8 +298,8 @@ class SearchBarSharedExamplesConfiguration: QuickConfiguration {
                         let range = NSRange(location: 3, length: 0)
                         searchBar.delegate?.searchBar!(searchBar, shouldChangeTextInRange: range, replacementText: "1")
 
-                        expect(zipCodeValidator.lastReceivedZipCode).to(equal("90211"))
-                        expect(subject.searchButton.enabled).to(beTrue())
+                        expect(zipCodeValidator.lastReceivedZipCode) == "90211"
+                        expect(subject.searchButton.enabled) == true
                     }
 
                     describe("and the user taps search") {
@@ -306,6 +335,18 @@ class SearchBarSharedExamplesConfiguration: QuickConfiguration {
 
                             expect(subject.searchBar.text) == ""
                         }
+
+                        it("should hide the search button") {
+                            subject.searchButton.tap()
+
+                            expect(subject.searchButton.hidden) == true
+                        }
+
+                        it("should hide the cancel button") {
+                            subject.searchButton.tap()
+
+                            expect(subject.cancelButton.hidden) == true
+                        }
                     }
 
                     context("and the updated zipcode is invalid") {
@@ -315,8 +356,8 @@ class SearchBarSharedExamplesConfiguration: QuickConfiguration {
                             let range = NSRange(location: 3, length: 0)
                             searchBar.delegate?.searchBar!(searchBar, shouldChangeTextInRange: range, replacementText: "1")
 
-                            expect(zipCodeValidator.lastReceivedZipCode).to(equal("90211"))
-                            expect(subject.searchButton.enabled).to(beFalse())
+                            expect(zipCodeValidator.lastReceivedZipCode) == "90211"
+                            expect(subject.searchButton.enabled) == false
                         }
                     }
 
@@ -328,7 +369,7 @@ class SearchBarSharedExamplesConfiguration: QuickConfiguration {
 
                             let shouldChange = searchBar.delegate?.searchBar!(searchBar, shouldChangeTextInRange: range, replacementText: "12")
 
-                            expect(shouldChange).to(beFalse())
+                            expect(shouldChange) == false
                         }
 
                         it("leaves the search button enabled if the existing text was valid") {
@@ -345,7 +386,7 @@ class SearchBarSharedExamplesConfiguration: QuickConfiguration {
 
                             searchBar.delegate?.searchBar!(searchBar, shouldChangeTextInRange: range, replacementText: "1")
 
-                            expect(subject.searchButton.enabled).to(beTrue())
+                            expect(subject.searchButton.enabled) == true
                         }
                     }
                 }
