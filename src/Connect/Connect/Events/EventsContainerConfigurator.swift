@@ -31,7 +31,10 @@ class EventsContainerConfigurator: ContainerConfigurator {
         }.inObjectScope(.Container)
 
         container.register(EventsNearAddressUseCase.self) { resolver in
-            return StockEventsNearAddressUseCase()
+            return StockEventsNearAddressUseCase(
+                geocoder: resolver.resolve(CLGeocoder.self)!,
+                eventRepository: resolver.resolve(EventRepository.self)!
+            )
         }.inObjectScope(.Container)
     }
 
