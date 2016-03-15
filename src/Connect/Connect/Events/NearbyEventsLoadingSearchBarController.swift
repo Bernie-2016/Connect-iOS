@@ -24,6 +24,8 @@ class NearbyEventsLoadingSearchBarController: UIViewController {
 
         searchBar.userInteractionEnabled = false
         searchBar.placeholder = NSLocalizedString("EventsSearchBar_loadingNearbyEvents",  comment: "")
+
+        view.alpha = 0.75
     }
 
     private func setupConstraints() {
@@ -31,6 +33,7 @@ class NearbyEventsLoadingSearchBarController: UIViewController {
         let horizontalPadding: CGFloat = 15
         let searchBarHeight: CGFloat = 34
 
+        searchBar.autoCenterInSuperview()
         searchBar.autoPinEdgeToSuperviewEdge(.Left, withInset: -horizontalPadding)
         searchBar.autoPinEdgeToSuperviewEdge(.Right, withInset: -horizontalPadding)
 
