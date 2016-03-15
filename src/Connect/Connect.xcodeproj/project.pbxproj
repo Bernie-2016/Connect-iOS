@@ -160,6 +160,7 @@
 		653D10331C4C53BB004CB8A0 /* OnboardingWorkflowSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D10001C4C53BB004CB8A0 /* OnboardingWorkflowSpec.swift */; };
 		653D10341C4C53BB004CB8A0 /* WelcomeControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D10011C4C53BB004CB8A0 /* WelcomeControllerSpec.swift */; };
 		653F6BAB1C989917009D42A0 /* FakeZipCodeValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F6BAA1C989917009D42A0 /* FakeZipCodeValidator.swift */; };
+		653F6BAD1C98A261009D42A0 /* EventsNearAddressSearchBarControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F6BAC1C98A261009D42A0 /* EventsNearAddressSearchBarControllerSpec.swift */; };
 		65444BCC1C8B959200CC8AC8 /* StockChildControllerBuddySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65444BCB1C8B959200CC8AC8 /* StockChildControllerBuddySpec.swift */; };
 		65444BCE1C8B95F700CC8AC8 /* ChildControllerBuddy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65444BCD1C8B95F700CC8AC8 /* ChildControllerBuddy.swift */; };
 		654948D41BFADBD500C1ECDB /* ApiKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 654948D31BFADBD500C1ECDB /* ApiKeys.plist */; };
@@ -524,6 +525,7 @@
 		653D10001C4C53BB004CB8A0 /* OnboardingWorkflowSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingWorkflowSpec.swift; sourceTree = "<group>"; };
 		653D10011C4C53BB004CB8A0 /* WelcomeControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeControllerSpec.swift; sourceTree = "<group>"; };
 		653F6BAA1C989917009D42A0 /* FakeZipCodeValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeZipCodeValidator.swift; sourceTree = "<group>"; };
+		653F6BAC1C98A261009D42A0 /* EventsNearAddressSearchBarControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsNearAddressSearchBarControllerSpec.swift; sourceTree = "<group>"; };
 		65444BCB1C8B959200CC8AC8 /* StockChildControllerBuddySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockChildControllerBuddySpec.swift; sourceTree = "<group>"; };
 		65444BCD1C8B95F700CC8AC8 /* ChildControllerBuddy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChildControllerBuddy.swift; sourceTree = "<group>"; };
 		654948CF1BFA797E00C1ECDB /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
@@ -1396,6 +1398,7 @@
 				65F2C5091C988F7B008A3AA6 /* EditAddressSearchBarControllerSpec.swift */,
 				65DAF34A1C986363000E604F /* EventSearchBarContainerControllerSpec.swift */,
 				65DAF3341C98626B000E604F /* EventSearchBarControllerSpec.swift */,
+				653F6BAC1C98A261009D42A0 /* EventsNearAddressSearchBarControllerSpec.swift */,
 				65F2C4F91C9881A9008A3AA6 /* NearbyEventsLoadingSearchBarControllerSpec.swift */,
 				65F2C5051C988863008A3AA6 /* NearbyEventsSearchBarControllerSpec.swift */,
 				65F2C5071C9888E6008A3AA6 /* SearchBarStylistSharedExamples.swift */,
@@ -2016,6 +2019,7 @@
 				65DAF33F1C98626B000E604F /* EventSearchBarControllerSpec.swift in Sources */,
 				653D10061C4C53BB004CB8A0 /* EventSearchResultsSpec.swift in Sources */,
 				65DAF3431C98626B000E604F /* EventSectionHeaderPresenterSpec.swift in Sources */,
+				653F6BAD1C98A261009D42A0 /* EventsNearAddressSearchBarControllerSpec.swift in Sources */,
 				65DAF3441C98626B000E604F /* EventsResultsControllerSpec.swift in Sources */,
 				65F2C4FC1C9881FD008A3AA6 /* EventsSearchBarFakeTheme.swift in Sources */,
 				650330EF1C60366F006D0752 /* FakeActionAlertControllerProvider.swift in Sources */,

@@ -370,6 +370,18 @@ class MockNearbyEventsSearchBarController: NearbyEventsSearchBarController {
 }
 
 class MockEventsNearAddressSearchBarController: EventsNearAddressSearchBarController {
+    init() {
+        super.init(
+            searchBarStylist: MockSearchBarStylist(),
+            eventsNearAddressUseCase: MockEventsNearAddressUseCase(),
+            resultQueue: FakeOperationQueue()
+        )
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     func simulateEdit() {
         delegate!.eventsNearAddressSearchBarControllerDidBeginEditing(self)
     }
