@@ -80,6 +80,7 @@ class EditAddressSearchBarController: UIViewController {
     }
 
     private func setupConstraints() {
+        let searchBarBottomPadding: CGFloat = 10
         let buttonWidth: CGFloat = 60
         let verticalShift: CGFloat = 8
         let horizontalPadding: CGFloat = 15
@@ -93,9 +94,9 @@ class EditAddressSearchBarController: UIViewController {
         searchButton.autoAlignAxis(.Horizontal, toSameAxisOfView: searchBar, withOffset: verticalShift)
         searchButton.autoSetDimension(.Width, toSize: buttonWidth)
 
-        searchBar.autoAlignAxis(.Horizontal, toSameAxisOfView: view)
-        self.searchButton.autoPinEdge(.Left, toEdge: .Right, ofView: self.searchBar, withOffset: -horizontalPadding)
-        self.cancelButton.autoPinEdge(.Right, toEdge: .Left, ofView: self.searchBar, withOffset: -horizontalPadding)
+        searchBar.autoPinEdgeToSuperviewEdge(.Top, withInset: searchBarBottomPadding)
+        searchButton.autoPinEdge(.Left, toEdge: .Right, ofView: self.searchBar, withOffset: -horizontalPadding)
+        cancelButton.autoPinEdge(.Right, toEdge: .Left, ofView: self.searchBar, withOffset: -horizontalPadding)
 
         if let searchBarContainer = searchBar.subviews.first {
             searchBarContainer.autoAlignAxis(.Horizontal, toSameAxisOfView: self.searchBar, withOffset: verticalShift)

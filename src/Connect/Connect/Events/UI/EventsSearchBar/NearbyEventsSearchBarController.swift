@@ -37,11 +37,12 @@ class NearbyEventsSearchBarController: UIViewController {
     }
 
     private func setupConstraints() {
+        let searchBarBottomPadding: CGFloat = 10
         let verticalShift: CGFloat = 8
         let horizontalPadding: CGFloat = 15
         let searchBarHeight: CGFloat = 34
 
-        searchBar.autoCenterInSuperview()
+        searchBar.autoPinEdgeToSuperviewEdge(.Top, withInset: searchBarBottomPadding)
         searchBar.autoPinEdgeToSuperviewEdge(.Left, withInset: -horizontalPadding)
         searchBar.autoPinEdgeToSuperviewEdge(.Right, withInset: -horizontalPadding)
 

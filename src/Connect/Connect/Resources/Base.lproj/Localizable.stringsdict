@@ -30,5 +30,21 @@
                 <string>%.dd</string>
             </dict>
         </dict>
+        <key>EventsSearchBar_loadingFilterLabel %d</key>
+        <dict>
+            <key>NSStringLocalizedFormatKey</key>
+            <string>Fetching events within %#@miles@</string>
+            <key>miles</key>
+            <dict>
+                <key>NSStringFormatSpecTypeKey</key>
+                <string>NSStringPluralRuleType</string>
+                <key>NSStringFormatValueTypeKey</key>
+                <string>d</string>
+                <key>one</key>
+                <string>one mile</string>
+                <key>other</key>
+                <string>%.d miles</string>
+            </dict>
+        </dict>
     </dict>
 </plist>

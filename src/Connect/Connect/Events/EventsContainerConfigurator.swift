@@ -156,9 +156,15 @@ class EventsContainerConfigurator: ContainerConfigurator {
             )
         }
 
+        container.register(RadiusDataSource.self) { resolver in
+            return StockRadiusDataSource()
+        }
+
         container.register(NearbyEventsLoadingSearchBarController.self) { resolver in
             return NearbyEventsLoadingSearchBarController(
-                searchBarStylist: resolver.resolve(SearchBarStylist.self)!
+                searchBarStylist: resolver.resolve(SearchBarStylist.self)!,
+                radiusDataSource: resolver.resolve(RadiusDataSource.self)!,
+                theme: resolver.resolve(Theme.self)!
             )
         }
 

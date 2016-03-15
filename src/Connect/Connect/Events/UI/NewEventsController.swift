@@ -94,7 +94,7 @@ class NewEventsController: UIViewController {
         searchBarView.autoPinEdgeToSuperviewEdge(.Top)
         searchBarView.autoPinEdgeToSuperviewEdge(.Left)
         searchBarView.autoPinEdgeToSuperviewEdge(.Right)
-        searchBarView.autoSetDimension(.Height, toSize: 44 + 20)
+        searchBarView.autoSetDimension(.Height, toSize: 64 + 20)
 
         resultsView.autoPinEdge(.Top, toEdge: .Bottom, ofView: searchBarView)
         resultsView.autoPinEdgeToSuperviewEdge(.Left)

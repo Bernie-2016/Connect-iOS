@@ -90,6 +90,9 @@ protocol Theme {
     func eventsCreateEventCTAFont() -> UIFont
     func eventsInstructionsFont() -> UIFont
     func eventsSubInstructionsFont() -> UIFont
+    func eventsFilterLabelFont() -> UIFont
+    func eventsFilterLabelTextColor() -> UIColor
+    func eventsFilterButtonTextColor() -> UIColor
 
     // MARK: Event screen
 

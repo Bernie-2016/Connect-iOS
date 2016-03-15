@@ -2,11 +2,16 @@ import UIKit
 
 class NearbyEventsLoadingSearchBarController: UIViewController {
     private let searchBarStylist: SearchBarStylist
+    private let radiusDataSource: RadiusDataSource
+    private let theme: Theme
 
     let searchBar = UISearchBar.newAutoLayoutView()
+    let filterLabel = UILabel.newAutoLayoutView()
 
-    init(searchBarStylist: SearchBarStylist) {
+    init(searchBarStylist: SearchBarStylist, radiusDataSource: RadiusDataSource, theme: Theme) {
         self.searchBarStylist = searchBarStylist
+        self.radiusDataSource = radiusDataSource
+        self.theme = theme
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -18,21 +23,28 @@ class NearbyEventsLoadingSearchBarController: UIViewController {
     override func viewDidLoad() {
         view.clipsToBounds = true
         view.addSubview(searchBar)
+        view.addSubview(filterLabel)
 
         setupConstraints()
+        applyTheme()
         searchBarStylist.applyThemeToBackground(view)
         searchBarStylist.applyThemeToSearchBar(searchBar)
+
+        let currentRadiusMilesInteger = Int(radiusDataSource.currentMilesValue)
+        filterLabel.text = NSString.localizedStringWithFormat(NSLocalizedString("EventsSearchBar_loadingFilterLabel %d", comment: ""), currentRadiusMilesInteger) as String
 
         searchBar.userInteractionEnabled = false
         searchBar.placeholder = NSLocalizedString("EventsSearchBar_loadingNearbyEvents",  comment: "")
     }
 
     private func setupConstraints() {
+        let searchBarTopPadding: CGFloat = 4
         let verticalShift: CGFloat = 8
         let horizontalPadding: CGFloat = 15
-        let searchBarHeight: CGFloat = 34
+        let searchBarHeight: CGFloat = 30
+        let filterLabelBottomPadding: CGFloat = 11
 
-        searchBar.autoCenterInSuperview()
+        searchBar.autoPinEdgeToSuperviewEdge(.Top, withInset: searchBarTopPadding)
         searchBar.autoPinEdgeToSuperviewEdge(.Left, withInset: -horizontalPadding)
         searchBar.autoPinEdgeToSuperviewEdge(.Right, withInset: -horizontalPadding)
 
@@ -56,5 +68,13 @@ class NearbyEventsLoadingSearchBarController: UIViewController {
             background.autoPinEdgeToSuperviewEdge(.Right)
             background.autoSetDimension(.Height, toSize: searchBarHeight)
         }
+
+        filterLabel.autoPinEdgeToSuperviewEdge(.Bottom, withInset: filterLabelBottomPadding)
+        filterLabel.autoAlignAxis(.Vertical, toSameAxisOfView: searchBar)
+    }
+
+    private func applyTheme() {
+        filterLabel.textColor = theme.eventsFilterLabelTextColor()
+        filterLabel.font = theme.eventsFilterLabelFont()
     }
 }

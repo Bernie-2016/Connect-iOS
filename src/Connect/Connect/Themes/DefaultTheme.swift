@@ -100,6 +100,11 @@ class DefaultTheme: Theme {
     func eventsInstructionsFont() -> UIFont { return UIFont.systemFontOfSize(21)  }
     func eventsSubInstructionsFont() -> UIFont { return UIFont.systemFontOfSize(13)  }
 
+
+    func eventsFilterLabelFont() -> UIFont { return UIFont.systemFontOfSize(13) }
+    func eventsFilterLabelTextColor() -> UIColor { return grayChateauColor }
+    func eventsFilterButtonTextColor() -> UIColor { return denimColor }
+
     // MARK: Event screen
 
     func eventNameFont() -> UIFont { return h1HeaderFont() }
