@@ -27,10 +27,10 @@ protocol EventsNearAddressUseCase {
 }
 
 protocol EventsNearAddressUseCaseObserver :class {
-    func eventsNearAddressUseCaseDidStartFetchingEvents(useCase: EventsNearAddressUseCase)
-    func eventsNearAddressUseCase(useCase: EventsNearAddressUseCase, didFetchEventSearchResult eventSearchResult: EventSearchResult)
-    func eventsNearAddressUseCaseFoundNoEvents(useCase: EventsNearAddressUseCase)
-    func eventsNearAddressUseCase(useCase: EventsNearAddressUseCase, didFailFetchEvents error: EventsNearAddressUseCaseError)
+    func eventsNearAddressUseCaseDidStartFetchingEvents(useCase: EventsNearAddressUseCase, address: Address)
+    func eventsNearAddressUseCase(useCase: EventsNearAddressUseCase, didFetchEventSearchResult eventSearchResult: EventSearchResult, address: Address)
+    func eventsNearAddressUseCaseFoundNoEvents(useCase: EventsNearAddressUseCase, address: Address)
+    func eventsNearAddressUseCase(useCase: EventsNearAddressUseCase, didFailFetchEvents error: EventsNearAddressUseCaseError, address: Address)
 }
 
 class StockEventsNearAddressUseCase: EventsNearAddressUseCase {
@@ -56,12 +56,12 @@ class StockEventsNearAddressUseCase: EventsNearAddressUseCase {
 
     func fetchEventsNearAddress(address: Address, radiusMiles: Float) {
         for observer in observers {
-            observer.eventsNearAddressUseCaseDidStartFetchingEvents(self)
+            observer.eventsNearAddressUseCaseDidStartFetchingEvents(self, address: address)
         }
 
         geocoder.geocodeAddressString(address) { placemarks, error in
             if let error = error {
-                self.notifyObserversOfFailure(.GeocodingError(error))
+                self.notifyObserversOfFailure(.GeocodingError(error), address: address)
                 return
             }
 
@@ -70,33 +70,33 @@ class StockEventsNearAddressUseCase: EventsNearAddressUseCase {
 
             eventsFuture.then { searchResult in
                 if searchResult.events.count == 0 {
-                    self.notifyObserversOfNoResults()
+                    self.notifyObserversOfNoResults(address)
                 } else {
-                    self.notifyObserversWithSearchResult(searchResult)
+                    self.notifyObserversWithSearchResult(searchResult, address: address)
                 }
             }
 
             eventsFuture.error { error in
-                self.notifyObserversOfFailure(.FetchingEventsError(error))
+                self.notifyObserversOfFailure(.FetchingEventsError(error), address: address)
             }
         }
     }
 
-    private func notifyObserversOfFailure(error: EventsNearAddressUseCaseError) {
+    private func notifyObserversOfFailure(error: EventsNearAddressUseCaseError, address: Address) {
         for observer in observers {
-            observer.eventsNearAddressUseCase(self, didFailFetchEvents: error)
+            observer.eventsNearAddressUseCase(self, didFailFetchEvents: error, address: address)
         }
     }
 
-    private func notifyObserversOfNoResults() {
+    private func notifyObserversOfNoResults(address: Address) {
         for observer in observers {
-            observer.eventsNearAddressUseCaseFoundNoEvents(self)
+            observer.eventsNearAddressUseCaseFoundNoEvents(self, address: address)
         }
     }
 
-    private func notifyObserversWithSearchResult(searchResult: EventSearchResult) {
+    private func notifyObserversWithSearchResult(searchResult: EventSearchResult, address: Address) {
         for observer in observers {
-            observer.eventsNearAddressUseCase(self, didFetchEventSearchResult: searchResult)
+            observer.eventsNearAddressUseCase(self, didFetchEventSearchResult: searchResult, address: address)
         }
     }
 }

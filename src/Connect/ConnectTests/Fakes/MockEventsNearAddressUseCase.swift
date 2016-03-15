@@ -15,25 +15,25 @@ class MockEventsNearAddressUseCase: EventsNearAddressUseCase {
 
     func simulateStartOfFetch() {
         for observer in observers {
-            observer.eventsNearAddressUseCaseDidStartFetchingEvents(self)
+            observer.eventsNearAddressUseCaseDidStartFetchingEvents(self, address: "")
         }
     }
 
     func simulateFindingEvents(eventSearchResult: EventSearchResult) {
         for observer in observers {
-            observer.eventsNearAddressUseCase(self, didFetchEventSearchResult: eventSearchResult)
+            observer.eventsNearAddressUseCase(self, didFetchEventSearchResult: eventSearchResult, address: "")
         }
     }
 
     func simulateFindingNoEvents() {
         for observer in observers {
-            observer.eventsNearAddressUseCaseFoundNoEvents(self)
+            observer.eventsNearAddressUseCaseFoundNoEvents(self, address: "")
         }
     }
 
     func simulateFailingToFindEvents(error: EventsNearAddressUseCaseError) {
         for observer in observers {
-            observer.eventsNearAddressUseCase(self, didFailFetchEvents: error)
+            observer.eventsNearAddressUseCase(self, didFailFetchEvents: error, address: "")
         }
     }
 }

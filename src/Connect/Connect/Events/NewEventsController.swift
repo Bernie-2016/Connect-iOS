@@ -137,19 +137,19 @@ extension NewEventsController: NearbyEventsUseCaseObserver {
 }
 
 extension NewEventsController: EventsNearAddressUseCaseObserver {
-    func eventsNearAddressUseCase(useCase: EventsNearAddressUseCase, didFailFetchEvents: EventsNearAddressUseCaseError) {
+    func eventsNearAddressUseCase(useCase: EventsNearAddressUseCase, didFailFetchEvents: EventsNearAddressUseCaseError, address: Address) {
         showErrors()
     }
 
-    func eventsNearAddressUseCase(useCase: EventsNearAddressUseCase, didFetchEventSearchResult: EventSearchResult) {
+    func eventsNearAddressUseCase(useCase: EventsNearAddressUseCase, didFetchEventSearchResult: EventSearchResult, address: Address) {
         showResults()
     }
 
-    func eventsNearAddressUseCaseDidStartFetchingEvents(useCase: EventsNearAddressUseCase) {
+    func eventsNearAddressUseCaseDidStartFetchingEvents(useCase: EventsNearAddressUseCase, address: Address) {
         showInterstitial()
     }
 
-    func eventsNearAddressUseCaseFoundNoEvents(useCase: EventsNearAddressUseCase) {
+    func eventsNearAddressUseCaseFoundNoEvents(useCase: EventsNearAddressUseCase, address: Address) {
         showResults()
     }
 }

@@ -36,7 +36,9 @@ class StockEventsNearAddressUseCaseSpec: QuickSpec {
                     subject.fetchEventsNearAddress("cool town", radiusMiles: 10.0)
 
                     expect(observerA.didStartFetchingEventsWithUseCase) === subject as? StockEventsNearAddressUseCase
+                    expect(observerA.didStartFetchingEventsWithAddress) == "cool town"
                     expect(observerB.didStartFetchingEventsWithUseCase) === subject as? StockEventsNearAddressUseCase
+                    expect(observerB.didStartFetchingEventsWithAddress) == "cool town"
                 }
 
                 it("asks the geocoder to geocode the address string") {
@@ -81,9 +83,11 @@ class StockEventsNearAddressUseCaseSpec: QuickSpec {
                                 eventRepository.lastReturnedPromise!.resolve(expectedSearchResult)
 
                                 expect(observerA.didFindEventsWithUseCase) === subject as? StockEventsNearAddressUseCase
+                                expect(observerA.didFindEventsWithAddress)  == "cool town"
                                 expect(observerA.didFindEvents) === expectedSearchResult
 
                                 expect(observerB.didFindEventsWithUseCase) === subject as? StockEventsNearAddressUseCase
+                                expect(observerB.didFindEventsWithAddress)  == "cool town"
                                 expect(observerB.didFindEvents) === expectedSearchResult
                             }
                         }
@@ -95,7 +99,9 @@ class StockEventsNearAddressUseCaseSpec: QuickSpec {
                                 eventRepository.lastReturnedPromise!.resolve(searchResult)
 
                                 expect(observerA.didFindNoEventsWithUseCase) === subject as? StockEventsNearAddressUseCase
+                                expect(observerA.didFindNoEventsWithAddress)  == "cool town"
                                 expect(observerB.didFindNoEventsWithUseCase) === subject as? StockEventsNearAddressUseCase
+                                expect(observerB.didFindNoEventsWithAddress)  == "cool town"
                             }
                         }
                     }
@@ -114,9 +120,11 @@ class StockEventsNearAddressUseCaseSpec: QuickSpec {
                             eventRepository.lastReturnedPromise.reject(underlyingError)
 
                             expect(observerA.didFailWithUseCase) === subject as? StockEventsNearAddressUseCase
+                            expect(observerA.didFailWithAddress)  == "cool town"
                             expect(observerA.didFailWithError) == EventsNearAddressUseCaseError.FetchingEventsError(underlyingError)
 
                             expect(observerB.didFailWithUseCase) === subject as? StockEventsNearAddressUseCase
+                            expect(observerB.didFailWithAddress)  == "cool town"
                             expect(observerB.didFailWithError) == EventsNearAddressUseCaseError.FetchingEventsError(underlyingError)
                         }
                     }
@@ -132,9 +140,11 @@ class StockEventsNearAddressUseCaseSpec: QuickSpec {
                         geocoder.lastReceivedCompletionHandler(nil, underlyingError)
 
                         expect(observerA.didFailWithUseCase) === subject as? StockEventsNearAddressUseCase
+                        expect(observerA.didFailWithAddress)  == "cool town"
                         expect(observerA.didFailWithError) == EventsNearAddressUseCaseError.GeocodingError(underlyingError)
 
                         expect(observerB.didFailWithUseCase) === subject as? StockEventsNearAddressUseCase
+                        expect(observerB.didFailWithAddress)  == "cool town"
                         expect(observerB.didFailWithError) == EventsNearAddressUseCaseError.GeocodingError(underlyingError)
                     }
                 }
@@ -145,26 +155,34 @@ class StockEventsNearAddressUseCaseSpec: QuickSpec {
 
 private class MockEventsNearAddressUseCaseObserver: EventsNearAddressUseCaseObserver {
     var didFindNoEventsWithUseCase: StockEventsNearAddressUseCase?
-    private func eventsNearAddressUseCaseFoundNoEvents(useCase: EventsNearAddressUseCase) {
+    var didFindNoEventsWithAddress: Address?
+    private func eventsNearAddressUseCaseFoundNoEvents(useCase: EventsNearAddressUseCase, address: Address) {
         didFindNoEventsWithUseCase = useCase as? StockEventsNearAddressUseCase
+        didFindNoEventsWithAddress = address
     }
 
     var didStartFetchingEventsWithUseCase: StockEventsNearAddressUseCase?
-    private func eventsNearAddressUseCaseDidStartFetchingEvents(useCase: EventsNearAddressUseCase) {
+    var didStartFetchingEventsWithAddress: Address?
+    private func eventsNearAddressUseCaseDidStartFetchingEvents(useCase: EventsNearAddressUseCase, address: Address) {
         didStartFetchingEventsWithUseCase = useCase as? StockEventsNearAddressUseCase
+        didStartFetchingEventsWithAddress = address
     }
 
     var didFindEventsWithUseCase: StockEventsNearAddressUseCase?
     var didFindEvents: EventSearchResult?
-    private func eventsNearAddressUseCase(useCase: EventsNearAddressUseCase, didFetchEventSearchResult searchResult: EventSearchResult) {
+    var didFindEventsWithAddress: Address?
+    private func eventsNearAddressUseCase(useCase: EventsNearAddressUseCase, didFetchEventSearchResult searchResult: EventSearchResult, address: Address) {
         didFindEventsWithUseCase = useCase as? StockEventsNearAddressUseCase
         didFindEvents = searchResult
+        didFindEventsWithAddress = address
     }
 
     var didFailWithUseCase: StockEventsNearAddressUseCase?
     var didFailWithError: EventsNearAddressUseCaseError?
-    private func eventsNearAddressUseCase(useCase: EventsNearAddressUseCase, didFailFetchEvents error: EventsNearAddressUseCaseError) {
+    var didFailWithAddress: Address?
+    private func eventsNearAddressUseCase(useCase: EventsNearAddressUseCase, didFailFetchEvents error: EventsNearAddressUseCaseError, address: Address) {
         didFailWithUseCase = useCase as? StockEventsNearAddressUseCase
         didFailWithError = error
+        didFailWithAddress = address
     }
 }
