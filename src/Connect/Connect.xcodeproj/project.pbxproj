@@ -309,6 +309,12 @@
 		65EC4CF01B842A3000DD4C83 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65EC4CED1B842A1900DD4C83 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		65EC4CF11B842A3000DD4C83 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		65F290C21C612BD400C60807 /* action_alert.json in Resources */ = {isa = PBXBuildFile; fileRef = 65F290C11C612BD400C60807 /* action_alert.json */; };
+		65F2C4F81C987EDA008A3AA6 /* NearbyEventsLoadingSearchBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F2C4F71C987EDA008A3AA6 /* NearbyEventsLoadingSearchBarController.swift */; };
+		65F2C4FA1C9881A9008A3AA6 /* NearbyEventsLoadingSearchBarControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F2C4F91C9881A9008A3AA6 /* NearbyEventsLoadingSearchBarControllerSpec.swift */; };
+		65F2C4FC1C9881FD008A3AA6 /* EventsSearchBarFakeTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F2C4FB1C9881FD008A3AA6 /* EventsSearchBarFakeTheme.swift */; };
+		65F2C5001C9882A1008A3AA6 /* MockSearchBarStylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F2C4FF1C9882A1008A3AA6 /* MockSearchBarStylist.swift */; };
+		65F2C5021C9883B9008A3AA6 /* SearchBarStylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F2C5011C9883B9008A3AA6 /* SearchBarStylist.swift */; };
+		65F2C5041C98842F008A3AA6 /* StockSearchBarStylistSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F2C5031C98842F008A3AA6 /* StockSearchBarStylistSpec.swift */; };
 		65F5F6571B8967AD0049353C /* FakeTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F5F6561B8967AD0049353C /* FakeTheme.swift */; };
 		65F5F6611B8A3CB00049353C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65F5F6631B8A3CB00049353C /* Localizable.strings */; };
 		65F935071C8536F800E809A4 /* StockNewsFeedCollectionViewCellPresenterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F935061C8536F800E809A4 /* StockNewsFeedCollectionViewCellPresenterSpec.swift */; };
@@ -662,6 +668,12 @@
 		65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		65EC4CED1B842A1900DD4C83 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		65F290C11C612BD400C60807 /* action_alert.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = action_alert.json; sourceTree = "<group>"; };
+		65F2C4F71C987EDA008A3AA6 /* NearbyEventsLoadingSearchBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearbyEventsLoadingSearchBarController.swift; sourceTree = "<group>"; };
+		65F2C4F91C9881A9008A3AA6 /* NearbyEventsLoadingSearchBarControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearbyEventsLoadingSearchBarControllerSpec.swift; sourceTree = "<group>"; };
+		65F2C4FB1C9881FD008A3AA6 /* EventsSearchBarFakeTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsSearchBarFakeTheme.swift; sourceTree = "<group>"; };
+		65F2C4FF1C9882A1008A3AA6 /* MockSearchBarStylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSearchBarStylist.swift; sourceTree = "<group>"; };
+		65F2C5011C9883B9008A3AA6 /* SearchBarStylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchBarStylist.swift; path = UI/EventsSearchBar/SearchBarStylist.swift; sourceTree = "<group>"; };
+		65F2C5031C98842F008A3AA6 /* StockSearchBarStylistSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockSearchBarStylistSpec.swift; sourceTree = "<group>"; };
 		65F5F6561B8967AD0049353C /* FakeTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeTheme.swift; sourceTree = "<group>"; };
 		65F5F6621B8A3CB00049353C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		65F935061C8536F800E809A4 /* StockNewsFeedCollectionViewCellPresenterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockNewsFeedCollectionViewCellPresenterSpec.swift; sourceTree = "<group>"; };
@@ -1334,7 +1346,9 @@
 				65DAF35D1C986A4F000E604F /* EventsNearAddressFilterController.swift */,
 				65DAF35C1C986A4F000E604F /* EventsNearAddressSearchBarController.swift */,
 				65DAF35B1C986A4F000E604F /* NearbyEventsFilterController.swift */,
+				65F2C4F71C987EDA008A3AA6 /* NearbyEventsLoadingSearchBarController.swift */,
 				65DAF35A1C986A4F000E604F /* NearbyEventsSearchBarController.swift */,
+				65F2C5011C9883B9008A3AA6 /* SearchBarStylist.swift */,
 				65DAF3481C986291000E604F /* ZipCodeValidator.swift */,
 			);
 			name = EventsSearchBar;
@@ -1373,6 +1387,8 @@
 			children = (
 				65DAF34A1C986363000E604F /* EventSearchBarContainerControllerSpec.swift */,
 				65DAF3341C98626B000E604F /* EventSearchBarControllerSpec.swift */,
+				65F2C4F91C9881A9008A3AA6 /* NearbyEventsLoadingSearchBarControllerSpec.swift */,
+				65F2C5031C98842F008A3AA6 /* StockSearchBarStylistSpec.swift */,
 				65DAF3351C98626B000E604F /* ZipCodeValidatorSpec.swift */,
 			);
 			path = EventSearchBar;
@@ -1444,6 +1460,7 @@
 			children = (
 				653173101C878E4B004E472A /* AlwaysReusingCollectionView.swift */,
 				656BC9671C702BA800CFA4EB /* AlwaysReusingTableView.swift */,
+				65F2C4FB1C9881FD008A3AA6 /* EventsSearchBarFakeTheme.swift */,
 				650330EE1C60366F006D0752 /* FakeActionAlertControllerProvider.swift */,
 				650330F01C60369C006D0752 /* FakeActionAlertService.swift */,
 				6559D70E1BBDC37000CBC7EE /* FakeAnalyticsService.swift */,
@@ -1479,6 +1496,7 @@
 				654EE15A1C8E20F400E44B9F /* MockLocationManagerProxy.swift */,
 				6549DC301C8B88AF0057D74C /* MockLocationPermissionUseCase.swift */,
 				65DA97EF1C94990F00B4C0AA /* MockNearbyEventsUseCase.swift */,
+				65F2C4FF1C9882A1008A3AA6 /* MockSearchBarStylist.swift */,
 			);
 			path = Fakes;
 			sourceTree = "<group>";
@@ -1884,6 +1902,7 @@
 				653D0FA11C4C35C0004CB8A0 /* NavigationController.swift in Sources */,
 				65D43F041C9770EA00185AB5 /* NBUIKitMainThreadGuard.swift in Sources */,
 				65DAF3601C986A4F000E604F /* NearbyEventsFilterController.swift in Sources */,
+				65F2C4F81C987EDA008A3AA6 /* NearbyEventsLoadingSearchBarController.swift in Sources */,
 				65DAF35F1C986A4F000E604F /* NearbyEventsSearchBarController.swift in Sources */,
 				651529D31C9214C600714E81 /* NearbyEventsUseCase.swift in Sources */,
 				65DAF3161C98615E000E604F /* NewEventsController.swift in Sources */,
@@ -1914,6 +1933,7 @@
 				65E33D821C46EC0D003464D9 /* PushNotificationHandlerDispatcher.swift in Sources */,
 				654948E11BFB7D8100C1ECDB /* PushNotificationRegistrar.swift in Sources */,
 				653D0FA21C4C35C0004CB8A0 /* ResponderButton.swift in Sources */,
+				65F2C5021C9883B9008A3AA6 /* SearchBarStylist.swift in Sources */,
 				653D0F521C4C2DE2004CB8A0 /* SettingsController.swift in Sources */,
 				6538B2A91C6AF4D50012E33C /* SimpleTableViewCell.swift in Sources */,
 				65CA5E881B86CABB0001D870 /* SpecAppDelegate.swift in Sources */,
@@ -1984,6 +2004,7 @@
 				653D10061C4C53BB004CB8A0 /* EventSearchResultsSpec.swift in Sources */,
 				65DAF3431C98626B000E604F /* EventSectionHeaderPresenterSpec.swift in Sources */,
 				65DAF3441C98626B000E604F /* EventsResultsControllerSpec.swift in Sources */,
+				65F2C4FC1C9881FD008A3AA6 /* EventsSearchBarFakeTheme.swift in Sources */,
 				650330EF1C60366F006D0752 /* FakeActionAlertControllerProvider.swift in Sources */,
 				650330F11C60369C006D0752 /* FakeActionAlertService.swift in Sources */,
 				6559D70F1BBDC37000CBC7EE /* FakeAnalyticsService.swift in Sources */,
@@ -2020,7 +2041,9 @@
 				654EE15B1C8E20F400E44B9F /* MockLocationManagerProxy.swift in Sources */,
 				6549DC311C8B88AF0057D74C /* MockLocationPermissionUseCase.swift in Sources */,
 				65DA97F01C94990F00B4C0AA /* MockNearbyEventsUseCase.swift in Sources */,
+				65F2C5001C9882A1008A3AA6 /* MockSearchBarStylist.swift in Sources */,
 				653D10121C4C53BB004CB8A0 /* NavigationControllerSpec.swift in Sources */,
+				65F2C4FA1C9881A9008A3AA6 /* NearbyEventsLoadingSearchBarControllerSpec.swift in Sources */,
 				6549DC2F1C8B86950057D74C /* NewEventsControllerSpec.swift in Sources */,
 				653D102E1C4C53BB004CB8A0 /* NewsArticleControllerSpec.swift in Sources */,
 				653173071C856A9D004E472A /* NewsFeedArticleCellProviderSpec.swift in Sources */,
@@ -2047,6 +2070,7 @@
 				6549DC291C8B52FF0057D74C /* StockLocationPermissionUseCaseSpec.swift in Sources */,
 				656BFBD01C94801F004DB9F1 /* StockNearbyEventsUseCaseSpec.swift in Sources */,
 				65F935071C8536F800E809A4 /* StockNewsFeedCollectionViewCellPresenterSpec.swift in Sources */,
+				65F2C5041C98842F008A3AA6 /* StockSearchBarStylistSpec.swift in Sources */,
 				653D10131C4C53BB004CB8A0 /* TabBarControllerSpec.swift in Sources */,
 				653D10251C4C53BB004CB8A0 /* TermsAndConditionsControllerSpec.swift in Sources */,
 				65AD23B21B968D6800C32A02 /* TestUtils.swift in Sources */,

@@ -147,6 +147,7 @@ extension EventSearchBarContainerController: EventsNearAddressFilterControllerDe
     }
 }
 
+// MARK: EditAddressSearchBarControllerDelegate
 extension EventSearchBarContainerController: EditAddressSearchBarControllerDelegate {
     func editAddressSearchBarControllerDidCancel(controller: EditAddressSearchBarController) {
         swapIn(previousSearchBarController)

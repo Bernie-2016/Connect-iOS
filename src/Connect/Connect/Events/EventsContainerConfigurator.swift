@@ -1,6 +1,7 @@
 import Swinject
 import CoreLocation
 
+// swiftlint:disable type_body_length
 class EventsContainerConfigurator: ContainerConfigurator {
     static func configureContainer(container: Container) {
         configureUseCases(container)
@@ -122,7 +123,7 @@ class EventsContainerConfigurator: ContainerConfigurator {
 
         container.register(NewEventsController.self) { resolver in
             return NewEventsController(
-                searchBarController: resolver.resolve(EventSearchBarController.self)!,
+                searchBarController: resolver.resolve(EventSearchBarContainerController.self)!,
                 interstitialController: resolver.resolve(UIViewController.self, name: "interstitial")!,
                 resultsController: resolver.resolve(EventsResultsController.self)!,
                 errorController: UIViewController(),
@@ -135,15 +136,51 @@ class EventsContainerConfigurator: ContainerConfigurator {
             )
             }.inObjectScope(.Container)
 
-        container.register(EventSearchBarController.self) { resolver in
-            return EventSearchBarController(
+        container.register(EventSearchBarContainerController.self) { resolver in
+            return EventSearchBarContainerController(
                 nearbyEventsUseCase: resolver.resolve(NearbyEventsUseCase.self)!,
                 eventsNearAddressUseCase: resolver.resolve(EventsNearAddressUseCase.self)!,
-                resultQueue: resolver.resolve(NSOperationQueue.self, name: "main")!,
-                zipCodeValidator: resolver.resolve(ZipCodeValidator.self)!,
+                nearbyEventsLoadingSearchBarController: resolver.resolve(NearbyEventsLoadingSearchBarController.self)!,
+                nearbyEventsSearchBarController: resolver.resolve(NearbyEventsSearchBarController.self)!,
+                eventsNearAddressSearchBarController: resolver.resolve(EventsNearAddressSearchBarController.self)!,
+                editAddressSearchBarController: resolver.resolve(EditAddressSearchBarController.self)!,
+                nearbyEventsFilterController: resolver.resolve(NearbyEventsFilterController.self)!,
+                eventsNearAddressFilterController: resolver.resolve(EventsNearAddressFilterController.self)!,
+                childControllerBuddy: resolver.resolve(ChildControllerBuddy.self)!,
+                resultQueue: resolver.resolve(NSOperationQueue.self, name: "main")!)
+        }
+
+        container.register(SearchBarStylist.self) { resolver in
+            return StockSearchBarStylist(
                 theme: resolver.resolve(Theme.self)!
             )
-        }.inObjectScope(.Container)
+        }
+
+        container.register(NearbyEventsLoadingSearchBarController.self) { resolver in
+            return NearbyEventsLoadingSearchBarController(
+                searchBarStylist: resolver.resolve(SearchBarStylist.self)!
+            )
+        }
+
+        container.register(NearbyEventsSearchBarController.self) { resolver in
+            return NearbyEventsSearchBarController()
+        }
+
+        container.register(EventsNearAddressSearchBarController.self) { resolver in
+            return EventsNearAddressSearchBarController()
+        }
+
+        container.register(EditAddressSearchBarController.self) { resolver in
+            return EditAddressSearchBarController()
+        }
+
+        container.register(NearbyEventsFilterController.self) { resolver in
+            return NearbyEventsFilterController()
+        }
+
+        container.register(EventsNearAddressFilterController.self) { resolver in
+            return EventsNearAddressFilterController()
+        }
 
         container.register(EventsResultsController.self) { resolver in
             return EventsResultsController(
@@ -167,3 +204,4 @@ class EventsContainerConfigurator: ContainerConfigurator {
     }
     // swiftlint:enable function_body_length
 }
+// swiftlint:enable type_body_length

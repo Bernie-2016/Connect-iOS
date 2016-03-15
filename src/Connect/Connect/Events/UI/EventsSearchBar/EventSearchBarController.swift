@@ -133,7 +133,7 @@ class EventSearchBarController: UIViewController {
             textField.layer.borderColor = self.theme.eventsZipCodeBorderColor().CGColor
             textField.layer.borderWidth = self.theme.eventsZipCodeBorderWidth()
             textField.layer.cornerRadius = self.theme.eventsZipCodeCornerRadius()
-            textField.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("Events_zipCodeTextBoxPlaceholder",  comment: ""),
+            textField.attributedPlaceholder = NSAttributedString(string: "",
                 attributes:[NSForegroundColorAttributeName: self.theme.eventsZipCodePlaceholderTextColor()])
         }
     }
