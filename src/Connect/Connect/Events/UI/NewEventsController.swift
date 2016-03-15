@@ -70,14 +70,14 @@ class NewEventsController: UIViewController {
         nearbyEventsUseCase.addObserver(self)
         eventsNearAddressUseCase.addObserver(self)
 
+        setupConstraints()
+
         childControllerBuddy.add(searchBarController, to: self, containIn: searchBarView)
         currentResultsViewController = childControllerBuddy.add(interstitialController, to: self, containIn: resultsView)
 
         workerQueue.addOperationWithBlock {
             self.nearbyEventsUseCase.fetchNearbyEventsWithinRadiusMiles(10.0) // let's kill this magic number
         }
-
-        setupConstraints()
     }
 
     override func viewWillAppear(animated: Bool) {

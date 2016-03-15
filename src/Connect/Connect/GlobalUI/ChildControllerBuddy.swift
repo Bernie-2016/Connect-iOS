@@ -10,6 +10,8 @@ protocol ChildControllerBuddy {
 struct StockChildControllerBuddy: ChildControllerBuddy {
     func add(new: UIViewController, to parent: UIViewController, containIn containerView: UIView) -> UIViewController {
         if !parent.childViewControllers.contains(new) {
+            new.view.frame = containerView.bounds
+
             containerView.addSubview(new.view)
             new.view.translatesAutoresizingMaskIntoConstraints = false
             containerView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[view]|", options: [], metrics: nil, views: ["view": new.view]))
@@ -28,6 +30,8 @@ struct StockChildControllerBuddy: ChildControllerBuddy {
         if old === new {
             return old
         }
+
+        new.view.frame = containerView.bounds
 
         parent.addChildViewController(new)
         old.willMoveToParentViewController(nil)
