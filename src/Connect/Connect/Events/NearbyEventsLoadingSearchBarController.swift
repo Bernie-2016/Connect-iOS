@@ -25,8 +25,6 @@ class NearbyEventsLoadingSearchBarController: UIViewController {
 
         searchBar.userInteractionEnabled = false
         searchBar.placeholder = NSLocalizedString("EventsSearchBar_loadingNearbyEvents",  comment: "")
-
-        view.alpha = 0.75
     }
 
     private func setupConstraints() {

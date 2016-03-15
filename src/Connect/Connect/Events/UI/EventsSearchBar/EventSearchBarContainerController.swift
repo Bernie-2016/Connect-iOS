@@ -50,6 +50,13 @@ class EventSearchBarContainerController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        nearbyEventsLoadingSearchBarController.view.layoutSubviews()
+        nearbyEventsSearchBarController.view.layoutSubviews()
+        eventsNearAddressSearchBarController.view.layoutSubviews()
+        editAddressSearchBarController.view.layoutSubviews()
+        nearbyEventsFilterController.view.layoutSubviews()
+        eventsNearAddressFilterController.view.layoutSubviews()
+
         currentViewController = self.childControllerBuddy.add(nearbyEventsLoadingSearchBarController, to: self, containIn: self.view)
 
         nearbyEventsUseCase.addObserver(self)

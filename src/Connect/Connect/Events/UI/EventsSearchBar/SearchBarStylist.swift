@@ -17,6 +17,8 @@ class StockSearchBarStylist: SearchBarStylist {
     }
 
     func applyThemeToSearchBar(searchBar: UISearchBar) {
+        searchBar.searchBarStyle = .Minimal
+
         if let textField = searchBar.valueForKey("searchField") as? UITextField {
             textField.textColor = self.theme.eventsZipCodeTextColor()
             textField.font = self.theme.eventsSearchBarFont()

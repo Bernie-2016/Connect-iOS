@@ -93,7 +93,7 @@ class EditAddressSearchBarController: UIViewController {
         searchButton.autoAlignAxis(.Horizontal, toSameAxisOfView: searchBar, withOffset: verticalShift)
         searchButton.autoSetDimension(.Width, toSize: buttonWidth)
 
-        searchBar.autoAlignAxis(.Horizontal, toSameAxisOfView: view, withOffset: verticalShift)
+        searchBar.autoAlignAxis(.Horizontal, toSameAxisOfView: view)
         self.searchButton.autoPinEdge(.Left, toEdge: .Right, ofView: self.searchBar, withOffset: -horizontalPadding)
         self.cancelButton.autoPinEdge(.Right, toEdge: .Left, ofView: self.searchBar, withOffset: -horizontalPadding)
 

@@ -10,13 +10,13 @@ protocol ChildControllerBuddy {
 struct StockChildControllerBuddy: ChildControllerBuddy {
     func add(new: UIViewController, to parent: UIViewController, containIn containerView: UIView) -> UIViewController {
         if !parent.childViewControllers.contains(new) {
-            parent.addChildViewController(new)
             containerView.addSubview(new.view)
-            new.didMoveToParentViewController(parent)
-
             new.view.translatesAutoresizingMaskIntoConstraints = false
             containerView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[view]|", options: [], metrics: nil, views: ["view": new.view]))
             containerView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[view]|", options: [], metrics: nil, views: ["view": new.view]))
+
+            parent.addChildViewController(new)
+            new.didMoveToParentViewController(parent)
         }
 
         return new
@@ -33,14 +33,14 @@ struct StockChildControllerBuddy: ChildControllerBuddy {
         old.willMoveToParentViewController(nil)
 
         parent.transitionFromViewController(old, toViewController: new, duration: 0, options: .TransitionNone, animations: {}, completion: { completed in
-            new.didMoveToParentViewController(parent)
-            old.removeFromParentViewController()
-
             containerView.addSubview(new.view)
-
             new.view.translatesAutoresizingMaskIntoConstraints = false
+
             containerView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[view]|", options: [], metrics: nil, views: ["view": new.view]))
             containerView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[view]|", options: [], metrics: nil, views: ["view": new.view]))
+
+            new.didMoveToParentViewController(parent)
+            old.removeFromParentViewController()
         })
 
         return new
