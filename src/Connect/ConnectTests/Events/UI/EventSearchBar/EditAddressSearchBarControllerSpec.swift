@@ -5,13 +5,14 @@ import Nimble
 
 class EditAddressSearchBarControllerSpec: QuickSpec {
     override func spec() {
-        describe("EditAddressSearchBarController") {
+       describe("EditAddressSearchBarController") {
             var subject: EditAddressSearchBarController!
             var nearbyEventsUseCase: MockNearbyEventsUseCase!
             var eventsNearAddressUseCase: MockEventsNearAddressUseCase!
             var zipCodeValidator: FakeZipCodeValidator!
             var searchBarStylist: MockSearchBarStylist!
             var resultQueue: FakeOperationQueue!
+            var workerQueue: FakeOperationQueue!
 
             var window: UIWindow!
             var delegate: MockEditAddressSearchBarControllerDelegate!
@@ -22,6 +23,7 @@ class EditAddressSearchBarControllerSpec: QuickSpec {
                 zipCodeValidator = FakeZipCodeValidator()
                 searchBarStylist = MockSearchBarStylist()
                 resultQueue = FakeOperationQueue()
+                workerQueue = FakeOperationQueue()
 
                 subject = EditAddressSearchBarController(
                     nearbyEventsUseCase: nearbyEventsUseCase,
@@ -29,6 +31,7 @@ class EditAddressSearchBarControllerSpec: QuickSpec {
                     zipCodeValidator: zipCodeValidator,
                     searchBarStylist: searchBarStylist,
                     resultQueue: resultQueue,
+                    workerQueue: workerQueue,
                     theme: EventsSearchBarFakeTheme()
                 )
 
@@ -141,6 +144,8 @@ class EditAddressSearchBarControllerSpec: QuickSpec {
                     subject.searchBar.text = "nice place"
 
                     subject.searchButton.tap()
+
+                    workerQueue.lastReceivedBlock()
 
                     expect(eventsNearAddressUseCase.lastSearchedAddress) == "nice place"
                     expect(eventsNearAddressUseCase.lastSearchedRadius) == 10.0 // hard coded for now

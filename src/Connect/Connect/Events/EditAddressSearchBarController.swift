@@ -10,6 +10,7 @@ class EditAddressSearchBarController: UIViewController {
     private let zipCodeValidator: ZipCodeValidator
     private let searchBarStylist: SearchBarStylist
     private let resultQueue: NSOperationQueue
+    private let workerQueue: NSOperationQueue
     private let theme: Theme
 
     let searchBar = UISearchBar.newAutoLayoutView()
@@ -26,6 +27,7 @@ class EditAddressSearchBarController: UIViewController {
         zipCodeValidator: ZipCodeValidator,
         searchBarStylist: SearchBarStylist,
         resultQueue: NSOperationQueue,
+        workerQueue: NSOperationQueue,
         theme: Theme
         ) {
             self.nearbyEventsUseCase = nearbyEventsUseCase
@@ -33,6 +35,7 @@ class EditAddressSearchBarController: UIViewController {
             self.zipCodeValidator = zipCodeValidator
             self.searchBarStylist = searchBarStylist
             self.resultQueue = resultQueue
+            self.workerQueue = workerQueue
             self.theme = theme
 
             super.init(nibName: nil, bundle: nil)
@@ -136,7 +139,9 @@ extension EditAddressSearchBarController {
     }
 
     func didTapSearchButton() {
-        eventsNearAddressUseCase.fetchEventsNearAddress(searchBar.text!, radiusMiles: 10.0)
+        workerQueue.addOperationWithBlock {
+            self.eventsNearAddressUseCase.fetchEventsNearAddress(self.searchBar.text!, radiusMiles: 10.0)
+        }
     }
 }
 

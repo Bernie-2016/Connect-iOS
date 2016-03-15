@@ -24,8 +24,6 @@ class StockSearchBarStylist: SearchBarStylist {
             textField.layer.borderColor = self.theme.eventsZipCodeBorderColor().CGColor
             textField.layer.borderWidth = self.theme.eventsZipCodeBorderWidth()
             textField.layer.cornerRadius = self.theme.eventsZipCodeCornerRadius()
-            textField.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("Events_zipCodeTextBoxPlaceholder",  comment: ""),
-                attributes:[NSForegroundColorAttributeName: self.theme.eventsZipCodePlaceholderTextColor()])
         }
     }
 }

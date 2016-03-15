@@ -183,6 +183,7 @@ class EventsContainerConfigurator: ContainerConfigurator {
                 zipCodeValidator: resolver.resolve(ZipCodeValidator.self)!,
                 searchBarStylist: resolver.resolve(SearchBarStylist.self)!,
                 resultQueue: resolver.resolve(NSOperationQueue.self, name: "main")!,
+                workerQueue: resolver.resolve(NSOperationQueue.self, name: "work")!,
                 theme: resolver.resolve(Theme.self)!
             )
         }

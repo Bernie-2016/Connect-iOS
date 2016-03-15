@@ -36,7 +36,7 @@ class EventsNearAddressSearchBarControllerSpec: QuickSpec {
             }
 
             it("adds itself as an observer of the use case upon initialization") {
-                expect(eventsNearAddressUseCase.observers.first as! EventsNearAddressSearchBarController) === subject
+                expect(eventsNearAddressUseCase.observers.first as? EventsNearAddressSearchBarController) === subject
             }
 
             describe("when the view loads") {

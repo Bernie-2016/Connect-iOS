@@ -412,6 +412,7 @@ class MockEditAddressSearchBarController: EditAddressSearchBarController {
             zipCodeValidator: FakeZipCodeValidator(),
             searchBarStylist: MockSearchBarStylist(),
             resultQueue: FakeOperationQueue(),
+            workerQueue: FakeOperationQueue(),
             theme: FakeTheme()
 
         )
