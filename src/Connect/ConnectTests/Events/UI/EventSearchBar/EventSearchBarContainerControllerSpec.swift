@@ -393,6 +393,22 @@ class MockEventsNearAddressFilterController: EventsNearAddressFilterController {
 }
 
 class MockEditAddressSearchBarController: EditAddressSearchBarController {
+    init() {
+        super.init(
+            nearbyEventsUseCase: MockNearbyEventsUseCase(),
+            eventsNearAddressUseCase: MockEventsNearAddressUseCase(),
+            zipCodeValidator: FakeZipCodeValidator(),
+            searchBarStylist: MockSearchBarStylist(),
+            resultQueue: FakeOperationQueue(),
+            theme: FakeTheme()
+
+        )
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     func simulateCancel() {
         delegate!.editAddressSearchBarControllerDidCancel(self)
     }

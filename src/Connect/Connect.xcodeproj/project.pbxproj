@@ -159,6 +159,7 @@
 		653D10321C4C53BB004CB8A0 /* VideoControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0FFD1C4C53BB004CB8A0 /* VideoControllerSpec.swift */; };
 		653D10331C4C53BB004CB8A0 /* OnboardingWorkflowSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D10001C4C53BB004CB8A0 /* OnboardingWorkflowSpec.swift */; };
 		653D10341C4C53BB004CB8A0 /* WelcomeControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D10011C4C53BB004CB8A0 /* WelcomeControllerSpec.swift */; };
+		653F6BAB1C989917009D42A0 /* FakeZipCodeValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F6BAA1C989917009D42A0 /* FakeZipCodeValidator.swift */; };
 		65444BCC1C8B959200CC8AC8 /* StockChildControllerBuddySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65444BCB1C8B959200CC8AC8 /* StockChildControllerBuddySpec.swift */; };
 		65444BCE1C8B95F700CC8AC8 /* ChildControllerBuddy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65444BCD1C8B95F700CC8AC8 /* ChildControllerBuddy.swift */; };
 		654948D41BFADBD500C1ECDB /* ApiKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 654948D31BFADBD500C1ECDB /* ApiKeys.plist */; };
@@ -317,6 +318,7 @@
 		65F2C5041C98842F008A3AA6 /* StockSearchBarStylistSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F2C5031C98842F008A3AA6 /* StockSearchBarStylistSpec.swift */; };
 		65F2C5061C988863008A3AA6 /* NearbyEventsSearchBarControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F2C5051C988863008A3AA6 /* NearbyEventsSearchBarControllerSpec.swift */; };
 		65F2C5081C9888E6008A3AA6 /* SearchBarStylistSharedExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F2C5071C9888E6008A3AA6 /* SearchBarStylistSharedExamples.swift */; };
+		65F2C50A1C988F7B008A3AA6 /* EditAddressSearchBarControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F2C5091C988F7B008A3AA6 /* EditAddressSearchBarControllerSpec.swift */; };
 		65F5F6571B8967AD0049353C /* FakeTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F5F6561B8967AD0049353C /* FakeTheme.swift */; };
 		65F5F6611B8A3CB00049353C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65F5F6631B8A3CB00049353C /* Localizable.strings */; };
 		65F935071C8536F800E809A4 /* StockNewsFeedCollectionViewCellPresenterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F935061C8536F800E809A4 /* StockNewsFeedCollectionViewCellPresenterSpec.swift */; };
@@ -521,6 +523,7 @@
 		653D0FFD1C4C53BB004CB8A0 /* VideoControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoControllerSpec.swift; sourceTree = "<group>"; };
 		653D10001C4C53BB004CB8A0 /* OnboardingWorkflowSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingWorkflowSpec.swift; sourceTree = "<group>"; };
 		653D10011C4C53BB004CB8A0 /* WelcomeControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeControllerSpec.swift; sourceTree = "<group>"; };
+		653F6BAA1C989917009D42A0 /* FakeZipCodeValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeZipCodeValidator.swift; sourceTree = "<group>"; };
 		65444BCB1C8B959200CC8AC8 /* StockChildControllerBuddySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockChildControllerBuddySpec.swift; sourceTree = "<group>"; };
 		65444BCD1C8B95F700CC8AC8 /* ChildControllerBuddy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChildControllerBuddy.swift; sourceTree = "<group>"; };
 		654948CF1BFA797E00C1ECDB /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
@@ -678,6 +681,7 @@
 		65F2C5031C98842F008A3AA6 /* StockSearchBarStylistSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockSearchBarStylistSpec.swift; sourceTree = "<group>"; };
 		65F2C5051C988863008A3AA6 /* NearbyEventsSearchBarControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearbyEventsSearchBarControllerSpec.swift; sourceTree = "<group>"; };
 		65F2C5071C9888E6008A3AA6 /* SearchBarStylistSharedExamples.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarStylistSharedExamples.swift; sourceTree = "<group>"; };
+		65F2C5091C988F7B008A3AA6 /* EditAddressSearchBarControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAddressSearchBarControllerSpec.swift; sourceTree = "<group>"; };
 		65F5F6561B8967AD0049353C /* FakeTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeTheme.swift; sourceTree = "<group>"; };
 		65F5F6621B8A3CB00049353C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		65F935061C8536F800E809A4 /* StockNewsFeedCollectionViewCellPresenterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockNewsFeedCollectionViewCellPresenterSpec.swift; sourceTree = "<group>"; };
@@ -1389,6 +1393,7 @@
 		65DAF3331C98626B000E604F /* EventSearchBar */ = {
 			isa = PBXGroup;
 			children = (
+				65F2C5091C988F7B008A3AA6 /* EditAddressSearchBarControllerSpec.swift */,
 				65DAF34A1C986363000E604F /* EventSearchBarContainerControllerSpec.swift */,
 				65DAF3341C98626B000E604F /* EventSearchBarControllerSpec.swift */,
 				65F2C4F91C9881A9008A3AA6 /* NearbyEventsLoadingSearchBarControllerSpec.swift */,
@@ -1496,6 +1501,7 @@
 				6507631D1B8B720E00BA0659 /* FakeURLProvider.swift */,
 				651960881C4D9429004AAC6D /* FakeUserNotificationHandler.swift */,
 				650DB95F1C89324300C06859 /* FakeVideoRepository.swift */,
+				653F6BAA1C989917009D42A0 /* FakeZipCodeValidator.swift */,
 				65DAF34E1C9866EE000E604F /* MockChildControllerBuddy.swift */,
 				651F80F61C40B211004E7FDA /* MockEventRepository.swift */,
 				6513FC2B1C96343300EDB635 /* MockEventsNearAddressUseCase.swift */,
@@ -2001,6 +2007,7 @@
 				653D10181C4C53BB004CB8A0 /* ConcreteURLProviderSpec.swift in Sources */,
 				653D102A1C4C53BB004CB8A0 /* ConcreteVideoDeserializerSpec.swift in Sources */,
 				653D102B1C4C53BB004CB8A0 /* ConcreteVideoRepositorySpec.swift in Sources */,
+				65F2C50A1C988F7B008A3AA6 /* EditAddressSearchBarControllerSpec.swift in Sources */,
 				65DAF3461C98626B000E604F /* EventControllerSpec.swift in Sources */,
 				653D100B1C4C53BB004CB8A0 /* EventPresenterSpec.swift in Sources */,
 				65DAF3471C98626B000E604F /* EventRSVPControllerSpec.swift in Sources */,
@@ -2039,6 +2046,7 @@
 				6507631E1B8B720E00BA0659 /* FakeURLProvider.swift in Sources */,
 				651960891C4D9429004AAC6D /* FakeUserNotificationHandler.swift in Sources */,
 				650DB9601C89324300C06859 /* FakeVideoRepository.swift in Sources */,
+				653F6BAB1C989917009D42A0 /* FakeZipCodeValidator.swift in Sources */,
 				653D10211C4C53BB004CB8A0 /* FeedbackControllerSpec.swift in Sources */,
 				653D10221C4C53BB004CB8A0 /* FLOSSControllerSpec.swift in Sources */,
 				65DAF34F1C9866EE000E604F /* MockChildControllerBuddy.swift in Sources */,

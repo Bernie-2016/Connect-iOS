@@ -5,7 +5,7 @@ import Nimble
 
 class EventSearchBarControllerSpec: QuickSpec {
     override func spec() {
-        describe("EventSearchBarController") {
+        pending("EventSearchBarController") {
             var subject: EventSearchBarController!
             var nearbyEventsUseCase: MockNearbyEventsUseCase!
             var eventsNearAddressUseCase: MockEventsNearAddressUseCase!
@@ -486,18 +486,3 @@ class SearchBarSharedExamplesConfiguration: QuickConfiguration {
         }
     }
 }
-
-private class FakeZipCodeValidator: ZipCodeValidator {
-    var lastReceivedZipCode: NSString!
-    var returnedValidationResult = true
-
-    func reset() {
-        lastReceivedZipCode = nil
-    }
-
-    private func validate(zip: String) -> Bool {
-        lastReceivedZipCode = zip
-        return returnedValidationResult
-    }
-}
-

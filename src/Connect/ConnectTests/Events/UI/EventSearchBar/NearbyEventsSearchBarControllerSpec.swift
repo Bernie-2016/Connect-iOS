@@ -40,6 +40,12 @@ class NearbyEventsSearchBarControllerSpec: QuickSpec {
                     expect(subject.searchBar.placeholder) == "Current Location"
                 }
 
+                it("sets the accessibility label on the searh bar") {
+                    subject.view.layoutSubviews()
+
+                    expect(subject.searchBar.accessibilityLabel) == "ZIP Code"
+                }
+
                 describe("using the search bar stylist") {
                     beforeEach {
                         subject.view.layoutSubviews()

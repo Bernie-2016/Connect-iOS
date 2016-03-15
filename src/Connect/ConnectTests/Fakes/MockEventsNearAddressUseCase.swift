@@ -15,7 +15,7 @@ class MockEventsNearAddressUseCase: EventsNearAddressUseCase {
 
     func simulateStartOfFetch() {
         for observer in observers {
-            observer.eventsNearAddressUseCaseDidStartFetchingEvents(self, address: "")
+            observer.eventsNearAddressUseCaseDidStartFetchingEvents(self, address: "simulated address")
         }
     }
 

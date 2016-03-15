@@ -1,5 +1,10 @@
 import UIKit
 
+protocol NearbyEventsSearchBarControllerDelegate {
+    func nearbyEventsSearchBarControllerDidBeginEditing(controller: NearbyEventsSearchBarController)
+    func nearbyEventsSearchBarControllerDidBeginFiltering(controller: NearbyEventsSearchBarController)
+}
+
 class NearbyEventsSearchBarController: UIViewController {
     private let searchBarStylist: SearchBarStylist
 
@@ -18,12 +23,14 @@ class NearbyEventsSearchBarController: UIViewController {
     }
 
     override func viewDidLoad() {
+        view.clipsToBounds = true
         view.addSubview(searchBar)
 
         searchBarStylist.applyThemeToSearchBar(searchBar)
         searchBarStylist.applyThemeToBackground(view)
 
         searchBar.placeholder = NSLocalizedString("EventsSearchBar_foundNearbyResults", comment: "")
+        searchBar.accessibilityLabel = NSLocalizedString("EventsSearchBar_searchBarAccessibilityLabel",  comment: "")
         searchBar.delegate = self
 
         setupConstraints()
@@ -67,9 +74,4 @@ extension NearbyEventsSearchBarController: UISearchBarDelegate {
 
         return false
     }
-}
-
-protocol NearbyEventsSearchBarControllerDelegate {
-    func nearbyEventsSearchBarControllerDidBeginEditing(controller: NearbyEventsSearchBarController)
-    func nearbyEventsSearchBarControllerDidBeginFiltering(controller: NearbyEventsSearchBarController)
 }

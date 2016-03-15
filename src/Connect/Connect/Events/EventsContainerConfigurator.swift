@@ -173,7 +173,14 @@ class EventsContainerConfigurator: ContainerConfigurator {
         }
 
         container.register(EditAddressSearchBarController.self) { resolver in
-            return EditAddressSearchBarController()
+            return EditAddressSearchBarController(
+                nearbyEventsUseCase: resolver.resolve(NearbyEventsUseCase.self)!,
+                eventsNearAddressUseCase: resolver.resolve(EventsNearAddressUseCase.self)!,
+                zipCodeValidator: resolver.resolve(ZipCodeValidator.self)!,
+                searchBarStylist: resolver.resolve(SearchBarStylist.self)!,
+                resultQueue: resolver.resolve(NSOperationQueue.self, name: "main")!,
+                theme: resolver.resolve(Theme.self)!
+            )
         }
 
         container.register(NearbyEventsFilterController.self) { resolver in

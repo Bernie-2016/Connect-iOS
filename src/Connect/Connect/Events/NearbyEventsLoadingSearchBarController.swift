@@ -16,6 +16,7 @@ class NearbyEventsLoadingSearchBarController: UIViewController {
     }
 
     override func viewDidLoad() {
+        view.clipsToBounds = true
         view.addSubview(searchBar)
 
         setupConstraints()
