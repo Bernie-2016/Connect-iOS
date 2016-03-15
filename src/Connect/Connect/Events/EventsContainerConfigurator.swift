@@ -163,7 +163,9 @@ class EventsContainerConfigurator: ContainerConfigurator {
         }
 
         container.register(NearbyEventsSearchBarController.self) { resolver in
-            return NearbyEventsSearchBarController()
+            return NearbyEventsSearchBarController(
+                searchBarStylist: resolver.resolve(SearchBarStylist.self)!
+            )
         }
 
         container.register(EventsNearAddressSearchBarController.self) { resolver in

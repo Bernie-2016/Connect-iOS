@@ -352,6 +352,14 @@ class EventSearchBarContainerControllerSpec: QuickSpec {
 
 
 class MockNearbyEventsSearchBarController: NearbyEventsSearchBarController {
+    init() {
+        super.init(searchBarStylist: MockSearchBarStylist())
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     func simulateEdit() {
         delegate!.nearbyEventsSearchBarControllerDidBeginEditing(self)
     }
