@@ -10,6 +10,7 @@ class NewEventsController: UIViewController {
     private let eventsNearAddressUseCase: EventsNearAddressUseCase
     private let childControllerBuddy: ChildControllerBuddy
     private let tabBarItemStylist: TabBarItemStylist
+    private let radiusDataSource: RadiusDataSource
     private let workerQueue: NSOperationQueue
     private let resultQueue: NSOperationQueue
 
@@ -28,6 +29,7 @@ class NewEventsController: UIViewController {
         eventsNearAddressUseCase: EventsNearAddressUseCase,
         childControllerBuddy: ChildControllerBuddy,
         tabBarItemStylist: TabBarItemStylist,
+        radiusDataSource: RadiusDataSource,
         workerQueue: NSOperationQueue,
         resultQueue: NSOperationQueue) {
             self.searchBarController = searchBarController
@@ -38,6 +40,7 @@ class NewEventsController: UIViewController {
             self.eventsNearAddressUseCase = eventsNearAddressUseCase
             self.childControllerBuddy = childControllerBuddy
             self.tabBarItemStylist = tabBarItemStylist
+            self.radiusDataSource = radiusDataSource
             self.workerQueue = workerQueue
             self.resultQueue = resultQueue
 
@@ -76,7 +79,7 @@ class NewEventsController: UIViewController {
         currentResultsViewController = childControllerBuddy.add(interstitialController, to: self, containIn: resultsView)
 
         workerQueue.addOperationWithBlock {
-            self.nearbyEventsUseCase.fetchNearbyEventsWithinRadiusMiles(10.0) // let's kill this magic number
+            self.nearbyEventsUseCase.fetchNearbyEventsWithinRadiusMiles(self.radiusDataSource.currentMilesValue)
         }
     }
 

@@ -131,6 +131,7 @@ class EventsContainerConfigurator: ContainerConfigurator {
                 eventsNearAddressUseCase: resolver.resolve(EventsNearAddressUseCase.self)!,
                 childControllerBuddy: resolver.resolve(ChildControllerBuddy.self)!,
                 tabBarItemStylist: resolver.resolve(TabBarItemStylist.self)!,
+                radiusDataSource: resolver.resolve(RadiusDataSource.self)!,
                 workerQueue: resolver.resolve(NSOperationQueue.self, name: "work")!,
                 resultQueue: resolver.resolve(NSOperationQueue.self, name: "main")!
             )

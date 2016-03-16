@@ -16,6 +16,7 @@ class NewEventsControllerSpec: QuickSpec {
             var eventsNearAddressUseCase: MockEventsNearAddressUseCase!
             var childControllerBuddy: MockChildControllerBuddy!
             var tabBarItemStylist: FakeTabBarItemStylist!
+            var radiusDataSource: MockRadiusDataSource!
             var workerQueue: FakeOperationQueue!
             var resultQueue: FakeOperationQueue!
 
@@ -30,6 +31,7 @@ class NewEventsControllerSpec: QuickSpec {
                 eventsNearAddressUseCase = MockEventsNearAddressUseCase()
                 childControllerBuddy = MockChildControllerBuddy()
                 tabBarItemStylist = FakeTabBarItemStylist()
+                radiusDataSource = MockRadiusDataSource()
                 workerQueue = FakeOperationQueue()
                 resultQueue = FakeOperationQueue()
 
@@ -42,6 +44,7 @@ class NewEventsControllerSpec: QuickSpec {
                     eventsNearAddressUseCase: eventsNearAddressUseCase,
                     childControllerBuddy: childControllerBuddy,
                     tabBarItemStylist: tabBarItemStylist,
+                    radiusDataSource: radiusDataSource,
                     workerQueue: workerQueue,
                     resultQueue: resultQueue
                 )
@@ -112,16 +115,16 @@ class NewEventsControllerSpec: QuickSpec {
                     expect(addCall.containerView) === subject.resultsView
                 }
 
-                it("asks the nearby events use case to fetch events within the correct radius on the worker queue") {
+                it("asks the nearby events use case to fetch events within the radius from the radius data source on the worker queue") {
                     subject.view.layoutSubviews()
 
                     expect(nearbyEventsUseCase.didFetchNearbyEventsWithinRadius).to(beNil())
 
+                    radiusDataSource.returnedCurrentMilesValue = 42
+
                     workerQueue.lastReceivedBlock()
 
-                    // TODO find some way of setting this default radius across both
-                    // the UI in the search bar and here
-                    expect(nearbyEventsUseCase.didFetchNearbyEventsWithinRadius) == 10
+                    expect(nearbyEventsUseCase.didFetchNearbyEventsWithinRadius) == 42
                 }
             }
 
