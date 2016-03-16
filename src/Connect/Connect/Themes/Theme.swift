@@ -93,6 +93,9 @@ protocol Theme {
     func eventsFilterLabelFont() -> UIFont
     func eventsFilterLabelTextColor() -> UIColor
     func eventsFilterButtonTextColor() -> UIColor
+    func eventsErrorTextColor() -> UIColor
+    func eventsErrorHeadingFont() -> UIFont
+    func eventsErrorDetailFont() -> UIFont
 
     func eventSearchBarSearchBarTopPadding() -> CGFloat
     func eventSearchBarVerticalShift() -> CGFloat

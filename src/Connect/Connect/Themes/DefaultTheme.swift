@@ -109,6 +109,10 @@ class DefaultTheme: Theme {
     func eventSearchBarHorizontalPadding() -> CGFloat { return 15 }
     func eventSearchBarSearchBarHeight() -> CGFloat { return 30 }
     func eventSearchBarFilterLabelBottomPadding() -> CGFloat { return 11 }
+    func eventsErrorTextColor() -> UIColor { return silverChaliceColor }
+    func eventsErrorHeadingFont() -> UIFont { return UIFont.systemFontOfSize(21) }
+    func eventsErrorDetailFont() -> UIFont { return UIFont.systemFontOfSize(13) }
+
 
     // MARK: Event screen
 
@@ -196,6 +200,7 @@ class DefaultTheme: Theme {
     let galleryColor = UIColor(rgba: "#efefef")
     let denimColor = UIColor(rgba: "#147fd7")
     let altoColor = UIColor(rgba: "#e0e0e0")
+    let silverChaliceColor = UIColor(rgba: "#a5a5a5")
 
     // MARK: font definitions
 

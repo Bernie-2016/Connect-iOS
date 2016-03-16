@@ -39,6 +39,10 @@
 "EventsSearchBar_searchBarAccessibilityLabel" = "ZIP Code";
 "EventsSearchBar_filterLabel" = "Showing events within";
 
+"EventsErrors_permissionsHeading" = "Tap the search box to begin";
+"EventsErrors_genericHeading" = "Something went wrong";
+"EventsErrors_genericDetail" = "Please try your search again";
+
 "Events_zipCodeAccessibilityLabel" = "ZIP Code";
 "Events_zipCodeTextBoxPlaceholder" = "ZIP Code";
 "Events_eventSearchButtonTitle" = "Search";

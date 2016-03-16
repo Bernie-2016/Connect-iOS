@@ -121,12 +121,20 @@ class EventsContainerConfigurator: ContainerConfigurator {
                 theme: resolver.resolve(Theme.self)!)
             }.inObjectScope(.Container)
 
+        container.register(EventsErrorController.self) { resolver in
+                return EventsErrorController(
+                    nearbyEventsUseCase: resolver.resolve(NearbyEventsUseCase.self)!,
+                    eventsNearAddressUseCase: resolver.resolve(EventsNearAddressUseCase.self)!,
+                    resultQueue: resolver.resolve(NSOperationQueue.self, name: "main")!,
+                    theme: resolver.resolve(Theme.self)!)
+        }
+
         container.register(NewEventsController.self) { resolver in
             return NewEventsController(
                 searchBarController: resolver.resolve(EventSearchBarContainerController.self)!,
                 interstitialController: resolver.resolve(UIViewController.self, name: "interstitial")!,
                 resultsController: resolver.resolve(EventsResultsController.self)!,
-                errorController: UIViewController(),
+                errorController: resolver.resolve(EventsErrorController.self)!,
                 nearbyEventsUseCase: resolver.resolve(NearbyEventsUseCase.self)!,
                 eventsNearAddressUseCase: resolver.resolve(EventsNearAddressUseCase.self)!,
                 childControllerBuddy: resolver.resolve(ChildControllerBuddy.self)!,
