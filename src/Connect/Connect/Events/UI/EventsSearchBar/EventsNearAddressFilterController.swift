@@ -47,6 +47,8 @@ class EventsNearAddressFilterController: UIViewController {
 
         pickerView.dataSource = radiusDataSource
         pickerView.delegate = radiusDataSource
+        pickerView.showsSelectionIndicator = true
+        pickerView.selectRow(radiusDataSource.confirmedSelectedIndex, inComponent: 0, animated: false) // bad hack :/
 
         searchButton.buttonInputView = pickerView
         searchButton.enabled = false

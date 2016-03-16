@@ -8,6 +8,11 @@ class MockRadiusDataSource: NSObject, RadiusDataSource {
             return returnedCurrentMilesValue
         }
     }
+    var confirmedSelectedIndex: Int {
+        get {
+            return 0
+        }
+    }
 
     var didConfirmSelection = false
     func confirmSelection() {

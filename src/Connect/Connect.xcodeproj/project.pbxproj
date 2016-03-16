@@ -199,6 +199,7 @@
 		654FDBBB1BC1862800A082CF /* cssInjection.js in Resources */ = {isa = PBXBuildFile; fileRef = 654FDBBA1BC1862800A082CF /* cssInjection.js */; };
 		654FDBBD1BC1867F00A082CF /* feedbackGoogleFormOverrides.css in Resources */ = {isa = PBXBuildFile; fileRef = 654FDBBC1BC1867F00A082CF /* feedbackGoogleFormOverrides.css */; };
 		6554BDAC1C98FDEB00A99F2B /* EventsNearAddressFilterControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6554BDAB1C98FDEB00A99F2B /* EventsNearAddressFilterControllerSpec.swift */; };
+		6554BDAE1C990C9000A99F2B /* StockRadiusDataSourceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6554BDAD1C990C9000A99F2B /* StockRadiusDataSourceSpec.swift */; };
 		655906F41BC4607100D7B0BA /* FakeApplicationSettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655906F31BC4607100D7B0BA /* FakeApplicationSettingsRepository.swift */; };
 		6559D70F1BBDC37000CBC7EE /* FakeAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6559D70E1BBDC37000CBC7EE /* FakeAnalyticsService.swift */; };
 		655A3AD01B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655A3ACF1B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework */; };
@@ -569,6 +570,7 @@
 		654FDBBA1BC1862800A082CF /* cssInjection.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = cssInjection.js; sourceTree = "<group>"; };
 		654FDBBC1BC1867F00A082CF /* feedbackGoogleFormOverrides.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = feedbackGoogleFormOverrides.css; sourceTree = "<group>"; };
 		6554BDAB1C98FDEB00A99F2B /* EventsNearAddressFilterControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsNearAddressFilterControllerSpec.swift; sourceTree = "<group>"; };
+		6554BDAD1C990C9000A99F2B /* StockRadiusDataSourceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockRadiusDataSourceSpec.swift; sourceTree = "<group>"; };
 		655598041BFC2FFB00BCE1AB /* Connect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Connect.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		655598051BFC2FFB00BCE1AB /* ConnectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ConnectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		655906F31BC4607100D7B0BA /* FakeApplicationSettingsRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeApplicationSettingsRepository.swift; sourceTree = "<group>"; };
@@ -1415,6 +1417,7 @@
 				65F2C4F91C9881A9008A3AA6 /* NearbyEventsLoadingSearchBarControllerSpec.swift */,
 				65F2C5051C988863008A3AA6 /* NearbyEventsSearchBarControllerSpec.swift */,
 				65F2C5071C9888E6008A3AA6 /* SearchBarStylistSharedExamples.swift */,
+				6554BDAD1C990C9000A99F2B /* StockRadiusDataSourceSpec.swift */,
 				65F2C5031C98842F008A3AA6 /* StockSearchBarStylistSpec.swift */,
 				65DAF3351C98626B000E604F /* ZipCodeValidatorSpec.swift */,
 			);
@@ -2110,6 +2113,7 @@
 				6549DC291C8B52FF0057D74C /* StockLocationPermissionUseCaseSpec.swift in Sources */,
 				656BFBD01C94801F004DB9F1 /* StockNearbyEventsUseCaseSpec.swift in Sources */,
 				65F935071C8536F800E809A4 /* StockNewsFeedCollectionViewCellPresenterSpec.swift in Sources */,
+				6554BDAE1C990C9000A99F2B /* StockRadiusDataSourceSpec.swift in Sources */,
 				65F2C5041C98842F008A3AA6 /* StockSearchBarStylistSpec.swift in Sources */,
 				653D10131C4C53BB004CB8A0 /* TabBarControllerSpec.swift in Sources */,
 				653D10251C4C53BB004CB8A0 /* TermsAndConditionsControllerSpec.swift in Sources */,
