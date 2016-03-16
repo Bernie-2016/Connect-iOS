@@ -3,6 +3,11 @@ import Foundation
 protocol RadiusDataSource: UIPickerViewDataSource, UIPickerViewDelegate {
     var currentMilesValue: Float { get }
     func confirmSelection()
+    func addObserver(observer: RadiusDataSourceObserver)
+}
+
+protocol RadiusDataSourceObserver {
+    func radiusDataSourceDidUpdateRadiusMiles(radiusMiles: Float)
 }
 
 class StockRadiusDataSource: NSObject, RadiusDataSource {
@@ -13,6 +18,10 @@ class StockRadiusDataSource: NSObject, RadiusDataSource {
     }
 
     func confirmSelection() {
+
+    }
+
+    func addObserver(observer: RadiusDataSourceObserver) {
 
     }
 

@@ -353,7 +353,11 @@ class EventSearchBarContainerControllerSpec: QuickSpec {
 
 class MockNearbyEventsSearchBarController: NearbyEventsSearchBarController {
     init() {
-        super.init(searchBarStylist: MockSearchBarStylist(), radiusDataSource: MockRadiusDataSource(), theme: SearchBarFakeTheme())
+        super.init(
+            searchBarStylist: MockSearchBarStylist(),
+            radiusDataSource: MockRadiusDataSource(),
+            resultQueue: FakeOperationQueue(),
+            theme: SearchBarFakeTheme())
     }
 
     required init?(coder aDecoder: NSCoder) {

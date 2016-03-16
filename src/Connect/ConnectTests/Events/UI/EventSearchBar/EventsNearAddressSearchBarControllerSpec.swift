@@ -131,6 +131,18 @@ class EventsNearAddressSearchBarControllerSpec: QuickSpec {
                 }
             }
 
+
+            describe("as a radius data source observer") {
+                describe("when the selected radius is updated") {
+                    it("updates the filter button text") {
+                        radiusDataSource.simulateConfirmingSelection(123)
+                        resultQueue.lastReceivedBlock()
+
+                        expect(subject.filterButton.titleForState(.Normal)) == "123 miles"
+                    }
+                }
+            }
+
             describe("as an events near address use case observer") {
                 beforeEach {
                     subject.view.layoutSubviews()

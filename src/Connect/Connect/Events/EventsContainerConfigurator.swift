@@ -164,6 +164,7 @@ class EventsContainerConfigurator: ContainerConfigurator {
             return NearbyEventsLoadingSearchBarController(
                 searchBarStylist: resolver.resolve(SearchBarStylist.self)!,
                 radiusDataSource: resolver.resolve(RadiusDataSource.self)!,
+                resultQueue: resolver.resolve(NSOperationQueue.self, name: "main")!,
                 theme: resolver.resolve(Theme.self)!
             )
         }
@@ -172,6 +173,7 @@ class EventsContainerConfigurator: ContainerConfigurator {
             return NearbyEventsSearchBarController(
                 searchBarStylist: resolver.resolve(SearchBarStylist.self)!,
                 radiusDataSource: resolver.resolve(RadiusDataSource.self)!,
+                resultQueue: resolver.resolve(NSOperationQueue.self, name: "main")!,
                 theme: resolver.resolve(Theme.self)!
             )
         }

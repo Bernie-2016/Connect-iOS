@@ -8,6 +8,7 @@ protocol NearbyEventsSearchBarControllerDelegate {
 class NearbyEventsSearchBarController: UIViewController {
     private let searchBarStylist: SearchBarStylist
     private let radiusDataSource: RadiusDataSource
+    private let resultQueue: NSOperationQueue
     private let theme: Theme
 
     let searchBar = UISearchBar.newAutoLayoutView()
@@ -20,12 +21,15 @@ class NearbyEventsSearchBarController: UIViewController {
 
     var delegate: NearbyEventsSearchBarControllerDelegate?
 
-    init(searchBarStylist: SearchBarStylist, radiusDataSource: RadiusDataSource, theme: Theme) {
+    init(searchBarStylist: SearchBarStylist, radiusDataSource: RadiusDataSource, resultQueue: NSOperationQueue, theme: Theme) {
         self.searchBarStylist = searchBarStylist
         self.radiusDataSource = radiusDataSource
+        self.resultQueue = resultQueue
         self.theme = theme
 
         super.init(nibName: nil, bundle: nil)
+
+        radiusDataSource.addObserver(self)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -128,5 +132,15 @@ extension NearbyEventsSearchBarController: UISearchBarDelegate {
         delegate?.nearbyEventsSearchBarControllerDidBeginEditing(self)
 
         return false
+    }
+}
+
+// MARK RadiusDataSourceObserver
+extension NearbyEventsSearchBarController: RadiusDataSourceObserver {
+    func radiusDataSourceDidUpdateRadiusMiles(radiusMiles: Float) {
+        resultQueue.addOperationWithBlock {
+            let currentRadiusMilesInteger = Int(radiusMiles)
+            self.filterButton.setTitle(NSString.localizedStringWithFormat(NSLocalizedString("EventsSearchBar_filterButton %d", comment: ""), currentRadiusMilesInteger) as String, forState: .Normal)
+        }
     }
 }

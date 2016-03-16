@@ -10,6 +10,7 @@ class NearbyEventsSearchBarControllerSpec: QuickSpec {
             var searchBarStylist: MockSearchBarStylist!
             var delegate: MockNearbyEventsSearchBarControllerDelegate!
             var radiusDataSource: MockRadiusDataSource!
+            var resultQueue: FakeOperationQueue!
             let theme = SearchBarFakeTheme()
 
             var window: UIWindow!
@@ -17,10 +18,12 @@ class NearbyEventsSearchBarControllerSpec: QuickSpec {
             beforeEach {
                 searchBarStylist = MockSearchBarStylist()
                 radiusDataSource = MockRadiusDataSource()
+                resultQueue = FakeOperationQueue()
 
                 subject = NearbyEventsSearchBarController(
                     searchBarStylist: searchBarStylist,
                     radiusDataSource: radiusDataSource,
+                    resultQueue: resultQueue,
                     theme: theme
                 )
 
@@ -96,6 +99,17 @@ class NearbyEventsSearchBarControllerSpec: QuickSpec {
                         "containerView": subject.view,
                         "searchBarStylist": searchBarStylist
                         ] }
+                }
+            }
+
+            describe("as a radius data source observer") {
+                describe("when the selected radius is updated") {
+                    it("updates the filter button text") {
+                        radiusDataSource.simulateConfirmingSelection(123)
+                        resultQueue.lastReceivedBlock()
+
+                        expect(subject.filterButton.titleForState(.Normal)) == "123 miles"
+                    }
                 }
             }
 

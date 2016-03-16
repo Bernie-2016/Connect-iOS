@@ -32,6 +32,7 @@ class EventsNearAddressSearchBarController: UIViewController {
         super.init(nibName: nil, bundle: nil)
 
         eventsNearAddressUseCase.addObserver(self)
+        radiusDataSource.addObserver(self)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -153,5 +154,15 @@ extension EventsNearAddressSearchBarController: EventsNearAddressUseCaseObserver
 
     func eventsNearAddressUseCase(useCase: EventsNearAddressUseCase, didFailFetchEvents error: EventsNearAddressUseCaseError, address: Address) {
 
+    }
+}
+
+// MARK RadiusDataSourceObserver
+extension EventsNearAddressSearchBarController: RadiusDataSourceObserver {
+    func radiusDataSourceDidUpdateRadiusMiles(radiusMiles: Float) {
+        resultQueue.addOperationWithBlock {
+            let currentRadiusMilesInteger = Int(radiusMiles)
+            self.filterButton.setTitle(NSString.localizedStringWithFormat(NSLocalizedString("EventsSearchBar_filterButton %d", comment: ""), currentRadiusMilesInteger) as String, forState: .Normal)
+        }
     }
 }

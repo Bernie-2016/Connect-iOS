@@ -14,6 +14,11 @@ class MockRadiusDataSource: NSObject, RadiusDataSource {
         didConfirmSelection = true
     }
 
+    var observers: [RadiusDataSourceObserver] = []
+    func addObserver(observer: RadiusDataSourceObserver) {
+        observers.append(observer)
+    }
+
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -28,5 +33,11 @@ class MockRadiusDataSource: NSObject, RadiusDataSource {
 
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
 
+    }
+
+    func simulateConfirmingSelection(radiusMiles: Float) {
+        for observer in observers {
+            observer.radiusDataSourceDidUpdateRadiusMiles(radiusMiles)
+        }
     }
 }

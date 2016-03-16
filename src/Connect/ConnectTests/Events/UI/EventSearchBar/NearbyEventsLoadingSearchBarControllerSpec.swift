@@ -9,15 +9,18 @@ class NearbyEventsLoadingSearchBarControllerSpec: QuickSpec {
             var subject: NearbyEventsLoadingSearchBarController!
             var searchBarStylist: MockSearchBarStylist!
             var radiusDataSource: MockRadiusDataSource!
+            var resultQueue: FakeOperationQueue!
             let theme = SearchBarFakeTheme()
 
             beforeEach {
                 searchBarStylist = MockSearchBarStylist()
                 radiusDataSource = MockRadiusDataSource()
+                resultQueue = FakeOperationQueue()
 
                 subject = NearbyEventsLoadingSearchBarController(
                     searchBarStylist: searchBarStylist,
                     radiusDataSource: radiusDataSource,
+                    resultQueue: resultQueue,
                     theme: theme
                 )
             }
@@ -61,6 +64,18 @@ class NearbyEventsLoadingSearchBarControllerSpec: QuickSpec {
                     expect(subject.filterLabel.textColor) == UIColor.blueColor()
                     expect(subject.filterLabel.font) == UIFont.systemFontOfSize(111)
                 }
+
+                describe("as a radius data source observer") {
+                    describe("when the selected radius is updated") {
+                        it("updates the filter label text") {
+                            radiusDataSource.simulateConfirmingSelection(123)
+                            resultQueue.lastReceivedBlock()
+
+                            expect(subject.filterLabel.text) == "Fetching events within 123 miles"
+                        }
+                    }
+                }
+
 
                 describe("using the search bar stylist") {
                     beforeEach {

@@ -3,6 +3,7 @@ import UIKit
 class NearbyEventsLoadingSearchBarController: UIViewController {
     private let searchBarStylist: SearchBarStylist
     private let radiusDataSource: RadiusDataSource
+    private let resultQueue: NSOperationQueue
     private let theme: Theme
 
     let searchBar = UISearchBar.newAutoLayoutView()
@@ -13,12 +14,15 @@ class NearbyEventsLoadingSearchBarController: UIViewController {
     private let leftFilterSpacerView = UIView.newAutoLayoutView()
     private let rightFilterSpacerView = UIView.newAutoLayoutView()
 
-    init(searchBarStylist: SearchBarStylist, radiusDataSource: RadiusDataSource, theme: Theme) {
+    init(searchBarStylist: SearchBarStylist, radiusDataSource: RadiusDataSource, resultQueue: NSOperationQueue, theme: Theme) {
         self.searchBarStylist = searchBarStylist
         self.radiusDataSource = radiusDataSource
+        self.resultQueue = resultQueue
         self.theme = theme
 
         super.init(nibName: nil, bundle: nil)
+
+        radiusDataSource.addObserver(self)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -80,5 +84,15 @@ class NearbyEventsLoadingSearchBarController: UIViewController {
     private func applyTheme() {
         filterLabel.textColor = theme.eventsFilterLabelTextColor()
         filterLabel.font = theme.eventsFilterLabelFont()
+    }
+}
+
+// MARK RadiusDataSourceObserver
+extension NearbyEventsLoadingSearchBarController: RadiusDataSourceObserver {
+    func radiusDataSourceDidUpdateRadiusMiles(radiusMiles: Float) {
+        resultQueue.addOperationWithBlock {
+            let currentRadiusMilesInteger = Int(radiusMiles)
+            self.filterLabel.text = NSString.localizedStringWithFormat(NSLocalizedString("EventsSearchBar_loadingFilterLabel %d", comment: ""), currentRadiusMilesInteger) as String
+        }
     }
 }
