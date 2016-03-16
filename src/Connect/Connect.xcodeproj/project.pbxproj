@@ -198,6 +198,7 @@
 		654F92811C5ABFBD00C76992 /* ActionAlertControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654F92801C5ABFBD00C76992 /* ActionAlertControllerSpec.swift */; };
 		654FDBBB1BC1862800A082CF /* cssInjection.js in Resources */ = {isa = PBXBuildFile; fileRef = 654FDBBA1BC1862800A082CF /* cssInjection.js */; };
 		654FDBBD1BC1867F00A082CF /* feedbackGoogleFormOverrides.css in Resources */ = {isa = PBXBuildFile; fileRef = 654FDBBC1BC1867F00A082CF /* feedbackGoogleFormOverrides.css */; };
+		6554BDAC1C98FDEB00A99F2B /* EventsNearAddressFilterControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6554BDAB1C98FDEB00A99F2B /* EventsNearAddressFilterControllerSpec.swift */; };
 		655906F41BC4607100D7B0BA /* FakeApplicationSettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655906F31BC4607100D7B0BA /* FakeApplicationSettingsRepository.swift */; };
 		6559D70F1BBDC37000CBC7EE /* FakeAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6559D70E1BBDC37000CBC7EE /* FakeAnalyticsService.swift */; };
 		655A3AD01B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655A3ACF1B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework */; };
@@ -567,6 +568,7 @@
 		654F92801C5ABFBD00C76992 /* ActionAlertControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionAlertControllerSpec.swift; sourceTree = "<group>"; };
 		654FDBBA1BC1862800A082CF /* cssInjection.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = cssInjection.js; sourceTree = "<group>"; };
 		654FDBBC1BC1867F00A082CF /* feedbackGoogleFormOverrides.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = feedbackGoogleFormOverrides.css; sourceTree = "<group>"; };
+		6554BDAB1C98FDEB00A99F2B /* EventsNearAddressFilterControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsNearAddressFilterControllerSpec.swift; sourceTree = "<group>"; };
 		655598041BFC2FFB00BCE1AB /* Connect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Connect.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		655598051BFC2FFB00BCE1AB /* ConnectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ConnectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		655906F31BC4607100D7B0BA /* FakeApplicationSettingsRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeApplicationSettingsRepository.swift; sourceTree = "<group>"; };
@@ -1407,6 +1409,7 @@
 				65F2C5091C988F7B008A3AA6 /* EditAddressSearchBarControllerSpec.swift */,
 				65DAF34A1C986363000E604F /* EventSearchBarContainerControllerSpec.swift */,
 				65DAF3341C98626B000E604F /* EventSearchBarControllerSpec.swift */,
+				6554BDAB1C98FDEB00A99F2B /* EventsNearAddressFilterControllerSpec.swift */,
 				653F6BAC1C98A261009D42A0 /* EventsNearAddressSearchBarControllerSpec.swift */,
 				651A3BB21C98F1BD007D5E0D /* NearbyEventsFilterControllerSpec.swift */,
 				65F2C4F91C9881A9008A3AA6 /* NearbyEventsLoadingSearchBarControllerSpec.swift */,
@@ -2032,6 +2035,7 @@
 				65DAF33F1C98626B000E604F /* EventSearchBarControllerSpec.swift in Sources */,
 				653D10061C4C53BB004CB8A0 /* EventSearchResultsSpec.swift in Sources */,
 				65DAF3431C98626B000E604F /* EventSectionHeaderPresenterSpec.swift in Sources */,
+				6554BDAC1C98FDEB00A99F2B /* EventsNearAddressFilterControllerSpec.swift in Sources */,
 				653F6BAD1C98A261009D42A0 /* EventsNearAddressSearchBarControllerSpec.swift in Sources */,
 				65DAF3441C98626B000E604F /* EventsResultsControllerSpec.swift in Sources */,
 				65F2C4FC1C9881FD008A3AA6 /* EventsSearchBarFakeTheme.swift in Sources */,

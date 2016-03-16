@@ -208,7 +208,13 @@ class EventsContainerConfigurator: ContainerConfigurator {
         }
 
         container.register(EventsNearAddressFilterController.self) { resolver in
-            return EventsNearAddressFilterController()
+            return EventsNearAddressFilterController(
+                eventsNearAddressUseCase: resolver.resolve(EventsNearAddressUseCase.self)!,
+                radiusDataSource: resolver.resolve(RadiusDataSource.self)!,
+                workerQueue: resolver.resolve(NSOperationQueue.self, name: "work")!,
+                resultQueue: resolver.resolve(NSOperationQueue.self, name: "main")!,
+                theme: resolver.resolve(Theme.self)!
+            )
         }
 
         container.register(EventsResultsController.self) { resolver in

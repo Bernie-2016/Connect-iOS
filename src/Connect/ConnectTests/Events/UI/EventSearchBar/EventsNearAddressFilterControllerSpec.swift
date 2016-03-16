@@ -3,28 +3,31 @@ import Nimble
 
 @testable import Connect
 
-class NearbyEventsFilterControllerSpec: QuickSpec {
+class EventsNearAddressFilterControllerSpec: QuickSpec {
     override func spec() {
-        describe("NearbyEventsFilterController") {
-            var subject: NearbyEventsFilterController!
-            var nearbyEventsUseCase: MockNearbyEventsUseCase!
+        describe("EventsNearAddressFilterController") {
+            var subject: EventsNearAddressFilterController!
+            var eventsNearAddressUseCase: MockEventsNearAddressUseCase!
             var radiusDataSource: MockRadiusDataSource!
             var workerQueue: FakeOperationQueue!
+            var resultQueue: FakeOperationQueue!
             let theme = SearchBarFakeTheme()
 
-            var delegate: MockNearbyEventsFilterControllerDelegate!
+            var delegate: MockEventsNearAddressFilterControllerDelegate!
 
             var window: UIWindow!
 
             beforeEach {
-                nearbyEventsUseCase = MockNearbyEventsUseCase()
+                eventsNearAddressUseCase = MockEventsNearAddressUseCase()
                 radiusDataSource = MockRadiusDataSource()
                 workerQueue = FakeOperationQueue()
+                resultQueue = FakeOperationQueue()
 
-                subject = NearbyEventsFilterController(
-                    nearbyEventsUseCase: nearbyEventsUseCase,
+                subject = EventsNearAddressFilterController(
+                    eventsNearAddressUseCase: eventsNearAddressUseCase,
                     radiusDataSource: radiusDataSource,
                     workerQueue: workerQueue,
+                    resultQueue: resultQueue,
                     theme: theme
                 )
 
@@ -32,7 +35,7 @@ class NearbyEventsFilterControllerSpec: QuickSpec {
                 window.addSubview(subject.view)
                 window.makeKeyAndVisible()
 
-                delegate = MockNearbyEventsFilterControllerDelegate()
+                delegate = MockEventsNearAddressFilterControllerDelegate()
                 subject.delegate = delegate
             }
 
@@ -59,6 +62,12 @@ class NearbyEventsFilterControllerSpec: QuickSpec {
                     subject.view.layoutSubviews()
 
                     expect(subject.cancelButton.titleForState(.Normal)) == "Cancel"
+                }
+
+                it("initially disables the search button") {
+                    subject.view.layoutSubviews()
+
+                    expect(subject.searchButton.enabled) == false
                 }
 
                 it("applies the theme to the view components") {
@@ -101,9 +110,26 @@ class NearbyEventsFilterControllerSpec: QuickSpec {
                 }
             }
 
+            describe("as an events near address use case observer") {
+                beforeEach {
+                    subject.view.layoutSubviews()
+                }
+
+                describe("when a search is initiated") {
+                    it("enables the search button") {
+                        eventsNearAddressUseCase.simulateStartOfFetch()
+                        resultQueue.lastReceivedBlock()
+
+                        expect(subject.searchButton.enabled) == true
+                    }
+                }
+            }
+
             describe("when search is tapped") {
                 beforeEach {
                     subject.view.layoutSubviews()
+                    eventsNearAddressUseCase.simulateStartOfFetch()
+                    resultQueue.lastReceivedBlock()
                 }
 
                 it("confirms the selection on the radius data source") {
@@ -119,7 +145,8 @@ class NearbyEventsFilterControllerSpec: QuickSpec {
 
                     workerQueue.lastReceivedBlock()
 
-                    expect(nearbyEventsUseCase.didFetchNearbyEventsWithinRadius) == 666
+                    expect(eventsNearAddressUseCase.lastSearchedAddress) == "simulated address"
+                    expect(eventsNearAddressUseCase.lastSearchedRadius) == 666
                 }
             }
 
@@ -134,15 +161,14 @@ class NearbyEventsFilterControllerSpec: QuickSpec {
                     expect(delegate.didCancelWithController) === subject
                 }
             }
-
         }
     }
 }
 
-private class MockNearbyEventsFilterControllerDelegate: NearbyEventsFilterControllerDelegate {
-    var didCancelWithController: NearbyEventsFilterController?
-
-    private func nearbyEventsFilterControllerDidCancel(controller: NearbyEventsFilterController) {
+class MockEventsNearAddressFilterControllerDelegate: EventsNearAddressFilterControllerDelegate {
+    var didCancelWithController: EventsNearAddressFilterController?
+    func eventsNearAddressFilterControllerDidCancel(controller: EventsNearAddressFilterController) {
         didCancelWithController = controller
     }
 }
+

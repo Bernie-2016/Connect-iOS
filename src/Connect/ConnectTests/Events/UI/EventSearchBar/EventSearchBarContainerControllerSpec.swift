@@ -353,7 +353,7 @@ class EventSearchBarContainerControllerSpec: QuickSpec {
 
 class MockNearbyEventsSearchBarController: NearbyEventsSearchBarController {
     init() {
-        super.init(searchBarStylist: MockSearchBarStylist(), radiusDataSource: MockRadiusDataSource(), theme: FakeTheme())
+        super.init(searchBarStylist: MockSearchBarStylist(), radiusDataSource: MockRadiusDataSource(), theme: SearchBarFakeTheme())
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -376,7 +376,7 @@ class MockEventsNearAddressSearchBarController: EventsNearAddressSearchBarContro
             eventsNearAddressUseCase: MockEventsNearAddressUseCase(),
             resultQueue: FakeOperationQueue(),
             radiusDataSource: MockRadiusDataSource(),
-            theme: FakeTheme()
+            theme: SearchBarFakeTheme()
         )
     }
 
@@ -400,7 +400,7 @@ class MockNearbyEventsFilterController: NearbyEventsFilterController {
             nearbyEventsUseCase: MockNearbyEventsUseCase(),
             radiusDataSource: MockRadiusDataSource(),
             workerQueue: FakeOperationQueue(),
-            theme: FakeTheme()
+            theme: SearchBarFakeTheme()
         )
     }
 
@@ -414,6 +414,20 @@ class MockNearbyEventsFilterController: NearbyEventsFilterController {
 }
 
 class MockEventsNearAddressFilterController: EventsNearAddressFilterController {
+    init() {
+        super.init(
+            eventsNearAddressUseCase: MockEventsNearAddressUseCase(),
+            radiusDataSource: MockRadiusDataSource(),
+            workerQueue: FakeOperationQueue(),
+            resultQueue: FakeOperationQueue(),
+            theme: SearchBarFakeTheme()
+        )
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     func simulateCancel() {
         delegate!.eventsNearAddressFilterControllerDidCancel(self)
     }
@@ -428,7 +442,7 @@ class MockEditAddressSearchBarController: EditAddressSearchBarController {
             searchBarStylist: MockSearchBarStylist(),
             resultQueue: FakeOperationQueue(),
             workerQueue: FakeOperationQueue(),
-            theme: FakeTheme()
+            theme: SearchBarFakeTheme()
         )
     }
 
