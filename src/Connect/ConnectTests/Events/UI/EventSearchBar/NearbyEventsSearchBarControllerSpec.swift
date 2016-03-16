@@ -112,6 +112,14 @@ class NearbyEventsSearchBarControllerSpec: QuickSpec {
                     expect(delegate.didBeginEditingWithController) === subject
                 }
             }
+
+            describe("when tapping on the filter button") {
+                it("notifies its delegate that filtering has begun") {
+                    subject.filterButton.tap()
+
+                    expect(delegate.didBeginFilteringWithController) === subject
+                }
+            }
         }
     }
 }

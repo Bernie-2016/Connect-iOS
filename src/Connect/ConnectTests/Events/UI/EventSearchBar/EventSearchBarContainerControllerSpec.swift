@@ -395,6 +395,19 @@ class MockEventsNearAddressSearchBarController: EventsNearAddressSearchBarContro
 }
 
 class MockNearbyEventsFilterController: NearbyEventsFilterController {
+    init() {
+        super.init(
+            nearbyEventsUseCase: MockNearbyEventsUseCase(),
+            radiusDataSource: MockRadiusDataSource(),
+            workerQueue: FakeOperationQueue(),
+            theme: FakeTheme()
+        )
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     func simulateCancel() {
         delegate!.nearbyEventsFilterControllerDidCancel(self)
     }

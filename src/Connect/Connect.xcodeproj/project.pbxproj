@@ -27,6 +27,7 @@
 		651960891C4D9429004AAC6D /* FakeUserNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651960881C4D9429004AAC6D /* FakeUserNotificationHandler.swift */; };
 		6519608B1C4DCA85004AAC6D /* FakePushNotificationRegistrar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6519608A1C4DCA85004AAC6D /* FakePushNotificationRegistrar.swift */; };
 		6519608D1C4DCDCF004AAC6D /* StockAppBootstrapperSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6519608C1C4DCDCF004AAC6D /* StockAppBootstrapperSpec.swift */; };
+		651A3BB31C98F1BD007D5E0D /* NearbyEventsFilterControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651A3BB21C98F1BD007D5E0D /* NearbyEventsFilterControllerSpec.swift */; };
 		651C466D1C4340F50075F5DE /* FakeImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C466C1C4340F50075F5DE /* FakeImageService.swift */; };
 		651F80F71C40B211004E7FDA /* MockEventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651F80F61C40B211004E7FDA /* MockEventRepository.swift */; };
 		65205F321BC098DF005A55F2 /* FakeURLAttributionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65205F311BC098DF005A55F2 /* FakeURLAttributionPresenter.swift */; };
@@ -395,6 +396,7 @@
 		651960881C4D9429004AAC6D /* FakeUserNotificationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeUserNotificationHandler.swift; sourceTree = "<group>"; };
 		6519608A1C4DCA85004AAC6D /* FakePushNotificationRegistrar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakePushNotificationRegistrar.swift; sourceTree = "<group>"; };
 		6519608C1C4DCDCF004AAC6D /* StockAppBootstrapperSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockAppBootstrapperSpec.swift; sourceTree = "<group>"; };
+		651A3BB21C98F1BD007D5E0D /* NearbyEventsFilterControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearbyEventsFilterControllerSpec.swift; sourceTree = "<group>"; };
 		651C466C1C4340F50075F5DE /* FakeImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeImageService.swift; sourceTree = "<group>"; };
 		651F80F61C40B211004E7FDA /* MockEventRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockEventRepository.swift; sourceTree = "<group>"; };
 		65205F311BC098DF005A55F2 /* FakeURLAttributionPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeURLAttributionPresenter.swift; sourceTree = "<group>"; };
@@ -1406,6 +1408,7 @@
 				65DAF34A1C986363000E604F /* EventSearchBarContainerControllerSpec.swift */,
 				65DAF3341C98626B000E604F /* EventSearchBarControllerSpec.swift */,
 				653F6BAC1C98A261009D42A0 /* EventsNearAddressSearchBarControllerSpec.swift */,
+				651A3BB21C98F1BD007D5E0D /* NearbyEventsFilterControllerSpec.swift */,
 				65F2C4F91C9881A9008A3AA6 /* NearbyEventsLoadingSearchBarControllerSpec.swift */,
 				65F2C5051C988863008A3AA6 /* NearbyEventsSearchBarControllerSpec.swift */,
 				65F2C5071C9888E6008A3AA6 /* SearchBarStylistSharedExamples.swift */,
@@ -2072,6 +2075,7 @@
 				6535256D1C98C4AA00320EDB /* MockRadiusDataSource.swift in Sources */,
 				65F2C5001C9882A1008A3AA6 /* MockSearchBarStylist.swift in Sources */,
 				653D10121C4C53BB004CB8A0 /* NavigationControllerSpec.swift in Sources */,
+				651A3BB31C98F1BD007D5E0D /* NearbyEventsFilterControllerSpec.swift in Sources */,
 				65F2C4FA1C9881A9008A3AA6 /* NearbyEventsLoadingSearchBarControllerSpec.swift in Sources */,
 				65F2C5061C988863008A3AA6 /* NearbyEventsSearchBarControllerSpec.swift in Sources */,
 				6549DC2F1C8B86950057D74C /* NewEventsControllerSpec.swift in Sources */,

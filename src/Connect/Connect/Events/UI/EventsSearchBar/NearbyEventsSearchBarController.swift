@@ -54,6 +54,7 @@ class NearbyEventsSearchBarController: UIViewController {
 
         let currentRadiusMilesInteger = Int(radiusDataSource.currentMilesValue)
         filterButton.setTitle(NSString.localizedStringWithFormat(NSLocalizedString("EventsSearchBar_filterButton %d", comment: ""), currentRadiusMilesInteger) as String, forState: .Normal)
+        filterButton.addTarget(self, action: "didTapFilterButton", forControlEvents: .TouchUpInside)
 
         applyTheme()
         setupConstraints()
@@ -112,6 +113,16 @@ class NearbyEventsSearchBarController: UIViewController {
     }
 }
 
+
+// MARK: Actions
+
+extension NearbyEventsSearchBarController {
+    func didTapFilterButton() {
+        delegate?.nearbyEventsSearchBarControllerDidBeginFiltering(self)
+    }
+}
+
+// MARK: UISearchBarDelegate
 extension NearbyEventsSearchBarController: UISearchBarDelegate {
     func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
         delegate?.nearbyEventsSearchBarControllerDidBeginEditing(self)

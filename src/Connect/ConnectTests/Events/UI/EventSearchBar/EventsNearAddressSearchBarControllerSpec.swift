@@ -105,6 +105,14 @@ class EventsNearAddressSearchBarControllerSpec: QuickSpec {
                 }
             }
 
+            describe("when tapping on the filter button") {
+                it("notifies its delegate that filtering has begun") {
+                    subject.filterButton.tap()
+
+                    expect(delegate.didBeginFilteringWithController) === subject
+                }
+            }
+
             describe("when tapping on the search bar") {
                 beforeEach {
                     subject.view.layoutSubviews()

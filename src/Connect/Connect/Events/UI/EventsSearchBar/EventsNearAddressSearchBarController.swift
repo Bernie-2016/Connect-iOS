@@ -59,6 +59,7 @@ class EventsNearAddressSearchBarController: UIViewController {
 
         let currentRadiusMilesInteger = Int(radiusDataSource.currentMilesValue)
         filterButton.setTitle(NSString.localizedStringWithFormat(NSLocalizedString("EventsSearchBar_filterButton %d", comment: ""), currentRadiusMilesInteger) as String, forState: .Normal)
+        filterButton.addTarget(self, action: "didTapFilterButton", forControlEvents: .TouchUpInside)
 
         applyTheme()
         setupConstraints()
@@ -114,6 +115,14 @@ class EventsNearAddressSearchBarController: UIViewController {
         filterButton.titleLabel!.font = theme.eventsFilterLabelFont()
         filterLabel.textColor = theme.eventsFilterLabelTextColor()
         filterLabel.font = theme.eventsFilterLabelFont()
+    }
+}
+
+// MARK: Actions
+
+extension EventsNearAddressSearchBarController {
+    func didTapFilterButton() {
+        delegate?.eventsNearAddressSearchBarControllerDidBeginFiltering(self)
     }
 }
 
