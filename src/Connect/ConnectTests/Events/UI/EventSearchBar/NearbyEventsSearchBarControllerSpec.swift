@@ -9,14 +9,19 @@ class NearbyEventsSearchBarControllerSpec: QuickSpec {
             var subject: NearbyEventsSearchBarController!
             var searchBarStylist: MockSearchBarStylist!
             var delegate: MockNearbyEventsSearchBarControllerDelegate!
+            var radiusDataSource: MockRadiusDataSource!
+            let theme = SearchBarFakeTheme()
 
             var window: UIWindow!
 
             beforeEach {
                 searchBarStylist = MockSearchBarStylist()
+                radiusDataSource = MockRadiusDataSource()
 
                 subject = NearbyEventsSearchBarController(
-                    searchBarStylist: searchBarStylist
+                    searchBarStylist: searchBarStylist,
+                    radiusDataSource: radiusDataSource,
+                    theme: theme
                 )
 
                 delegate = MockNearbyEventsSearchBarControllerDelegate()
@@ -34,6 +39,20 @@ class NearbyEventsSearchBarControllerSpec: QuickSpec {
                     expect(subject.view.subviews).to(contain(subject.searchBar))
                 }
 
+                it("has the filter components as subviews of the controller") {
+                    subject.view.layoutSubviews()
+
+                    expect(subject.view.subviews).to(contain(subject.filterLabel))
+                    expect(subject.view.subviews).to(contain(subject.filterButton))
+                    expect(subject.view.subviews).to(contain(subject.filterDownArrow))
+                }
+
+                it("shows the correct image for the down arrow") {
+                    subject.view.layoutSubviews()
+
+                    expect(subject.filterDownArrow.image) == UIImage(named: "downArrow")
+                }
+
                 it("sets the placeholder text") {
                     subject.view.layoutSubviews()
 
@@ -44,6 +63,27 @@ class NearbyEventsSearchBarControllerSpec: QuickSpec {
                     subject.view.layoutSubviews()
 
                     expect(subject.searchBar.accessibilityLabel) == "ZIP Code"
+                }
+
+                it("styles the filter label and button with the theme") {
+                    subject.view.layoutSubviews()
+
+                    expect(subject.filterLabel.textColor) == UIColor.blueColor()
+                    expect(subject.filterLabel.font) == UIFont.systemFontOfSize(111)
+                    expect(subject.filterButton.titleColorForState(.Normal)) == UIColor.greenColor()
+                    expect(subject.filterButton.titleLabel!.font) == UIFont.systemFontOfSize(111)
+                }
+
+                it("sets the filter label text correctly") {
+                    subject.view.layoutSubviews()
+
+                    expect(subject.filterLabel.text) == "Showing events within"
+                }
+
+                it("sets the filter button text using the radius data source") {
+                    subject.view.layoutSubviews()
+
+                    expect(subject.filterButton.titleForState(.Normal)) == "42 miles"
                 }
 
                 describe("using the search bar stylist") {

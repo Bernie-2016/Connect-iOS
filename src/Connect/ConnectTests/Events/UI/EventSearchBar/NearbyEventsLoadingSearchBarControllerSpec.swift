@@ -77,8 +77,3 @@ class NearbyEventsLoadingSearchBarControllerSpec: QuickSpec {
         }
     }
 }
-
-class SearchBarFakeTheme: FakeTheme {
-    override func eventsFilterLabelFont() -> UIFont { return UIFont.systemFontOfSize(111) }
-    override func eventsFilterLabelTextColor() -> UIColor { return UIColor.blueColor() }
-}

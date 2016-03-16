@@ -37,6 +37,7 @@
 "EventsSearchBar_cancelButtonTitle" = "Cancel";
 "EventsSearchBar_searchButtonTitle" = "Search";
 "EventsSearchBar_searchBarAccessibilityLabel" = "ZIP Code";
+"EventsSearchBar_filterLabel" = "Showing events within";
 
 "Events_zipCodeAccessibilityLabel" = "ZIP Code";
 "Events_zipCodeTextBoxPlaceholder" = "ZIP Code";

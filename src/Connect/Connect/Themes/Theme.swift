@@ -94,6 +94,12 @@ protocol Theme {
     func eventsFilterLabelTextColor() -> UIColor
     func eventsFilterButtonTextColor() -> UIColor
 
+    func eventSearchBarSearchBarTopPadding() -> CGFloat
+    func eventSearchBarVerticalShift() -> CGFloat
+    func eventSearchBarHorizontalPadding() -> CGFloat
+    func eventSearchBarSearchBarHeight() -> CGFloat
+    func eventSearchBarFilterLabelBottomPadding() -> CGFloat
+
     // MARK: Event screen
 
     func eventDirectionsButtonBackgroundColor() -> UIColor

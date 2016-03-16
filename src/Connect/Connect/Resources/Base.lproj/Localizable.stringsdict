@@ -46,5 +46,21 @@
                 <string>%.d miles</string>
             </dict>
         </dict>
+        <key>EventsSearchBar_filterButton %d</key>
+        <dict>
+            <key>NSStringLocalizedFormatKey</key>
+            <string>%#@miles@</string>
+            <key>miles</key>
+            <dict>
+                <key>NSStringFormatSpecTypeKey</key>
+                <string>NSStringPluralRuleType</string>
+                <key>NSStringFormatValueTypeKey</key>
+                <string>d</string>
+                <key>one mile</key>
+                <string>one mile</string>
+                <key>other</key>
+                <string>%.d miles</string>
+            </dict>
+        </dict>
     </dict>
 </plist>

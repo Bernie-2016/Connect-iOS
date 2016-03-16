@@ -10,6 +10,8 @@ class EventsNearAddressSearchBarControllerSpec: QuickSpec {
             var searchBarStylist: MockSearchBarStylist!
             var eventsNearAddressUseCase: MockEventsNearAddressUseCase!
             var resultQueue: FakeOperationQueue!
+            var radiusDataSource: MockRadiusDataSource!
+            let theme = SearchBarFakeTheme()
 
             var delegate: MockEventsNearAddressSearchBarControllerDelegate!
 
@@ -20,11 +22,14 @@ class EventsNearAddressSearchBarControllerSpec: QuickSpec {
                 searchBarStylist = MockSearchBarStylist()
                 eventsNearAddressUseCase = MockEventsNearAddressUseCase()
                 resultQueue = FakeOperationQueue()
+                radiusDataSource = MockRadiusDataSource()
 
                 subject = EventsNearAddressSearchBarController(
                     searchBarStylist: searchBarStylist,
                     eventsNearAddressUseCase: eventsNearAddressUseCase,
-                    resultQueue: resultQueue
+                    resultQueue: resultQueue,
+                    radiusDataSource: radiusDataSource,
+                    theme: theme
                 )
 
                 delegate = MockEventsNearAddressSearchBarControllerDelegate()
@@ -50,6 +55,41 @@ class EventsNearAddressSearchBarControllerSpec: QuickSpec {
                     subject.view.layoutSubviews()
 
                     expect(subject.searchBar.accessibilityLabel) == "ZIP Code"
+                }
+
+                it("has the filter components as subviews of the controller") {
+                    subject.view.layoutSubviews()
+
+                    expect(subject.view.subviews).to(contain(subject.filterLabel))
+                    expect(subject.view.subviews).to(contain(subject.filterButton))
+                    expect(subject.view.subviews).to(contain(subject.filterDownArrow))
+                }
+
+                it("shows the correct image for the down arrow") {
+                    subject.view.layoutSubviews()
+
+                    expect(subject.filterDownArrow.image) == UIImage(named: "downArrow")
+                }
+
+                it("styles the filter label and button with the theme") {
+                    subject.view.layoutSubviews()
+
+                    expect(subject.filterLabel.textColor) == UIColor.blueColor()
+                    expect(subject.filterLabel.font) == UIFont.systemFontOfSize(111)
+                    expect(subject.filterButton.titleColorForState(.Normal)) == UIColor.greenColor()
+                    expect(subject.filterButton.titleLabel!.font) == UIFont.systemFontOfSize(111)
+                }
+
+                it("sets the filter label text correctly") {
+                    subject.view.layoutSubviews()
+
+                    expect(subject.filterLabel.text) == "Showing events within"
+                }
+
+                it("sets the filter button text using the radius data source") {
+                    subject.view.layoutSubviews()
+
+                    expect(subject.filterButton.titleForState(.Normal)) == "42 miles"
                 }
 
                 describe("using the search bar stylist") {

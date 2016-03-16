@@ -104,6 +104,11 @@ class DefaultTheme: Theme {
     func eventsFilterLabelFont() -> UIFont { return UIFont.systemFontOfSize(13) }
     func eventsFilterLabelTextColor() -> UIColor { return grayChateauColor }
     func eventsFilterButtonTextColor() -> UIColor { return denimColor }
+    func eventSearchBarSearchBarTopPadding() -> CGFloat { return  4 }
+    func eventSearchBarVerticalShift() -> CGFloat { return 8 }
+    func eventSearchBarHorizontalPadding() -> CGFloat { return 15 }
+    func eventSearchBarSearchBarHeight() -> CGFloat { return 30 }
+    func eventSearchBarFilterLabelBottomPadding() -> CGFloat { return 11 }
 
     // MARK: Event screen
 

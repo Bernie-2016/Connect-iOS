@@ -178,4 +178,9 @@ class FakeTheme: Theme {
     func eventsFilterLabelFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
     func eventsFilterLabelTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func eventsFilterButtonTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func eventSearchBarSearchBarTopPadding() -> CGFloat { fatalError("FakeTheme used without being overridden in spec!") }
+    func eventSearchBarVerticalShift() -> CGFloat { fatalError("FakeTheme used without being overridden in spec!") }
+    func eventSearchBarHorizontalPadding() -> CGFloat { fatalError("FakeTheme used without being overridden in spec!") }
+    func eventSearchBarSearchBarHeight() -> CGFloat { fatalError("FakeTheme used without being overridden in spec!") }
+    func eventSearchBarFilterLabelBottomPadding() -> CGFloat { fatalError("FakeTheme used without being overridden in spec!") }
 }
