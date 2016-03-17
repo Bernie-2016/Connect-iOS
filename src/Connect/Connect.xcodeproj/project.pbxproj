@@ -44,7 +44,6 @@
 		6531730D1C86AE50004E472A /* NewsFeedVideoCellProviderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6531730C1C86AE50004E472A /* NewsFeedVideoCellProviderSpec.swift */; };
 		6531730F1C86AEF0004E472A /* NewsFeedVideoCellProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6531730E1C86AEF0004E472A /* NewsFeedVideoCellProvider.swift */; };
 		653173111C878E4B004E472A /* AlwaysReusingCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653173101C878E4B004E472A /* AlwaysReusingCollectionView.swift */; };
-		6535256B1C98C42100320EDB /* RadiusDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6535256A1C98C42100320EDB /* RadiusDataSource.swift */; };
 		6535256D1C98C4AA00320EDB /* MockRadiusDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6535256C1C98C4AA00320EDB /* MockRadiusDataSource.swift */; };
 		6535256F1C98D19900320EDB /* SearchBarFakeTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6535256E1C98D19900320EDB /* SearchBarFakeTheme.swift */; };
 		65363C021C9A3A490004A3A2 /* EventsNoResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65363C011C9A3A490004A3A2 /* EventsNoResultsController.swift */; };
@@ -198,14 +197,17 @@
 		654F92811C5ABFBD00C76992 /* ActionAlertControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654F92801C5ABFBD00C76992 /* ActionAlertControllerSpec.swift */; };
 		654FDBBB1BC1862800A082CF /* cssInjection.js in Resources */ = {isa = PBXBuildFile; fileRef = 654FDBBA1BC1862800A082CF /* cssInjection.js */; };
 		654FDBBD1BC1867F00A082CF /* feedbackGoogleFormOverrides.css in Resources */ = {isa = PBXBuildFile; fileRef = 654FDBBC1BC1867F00A082CF /* feedbackGoogleFormOverrides.css */; };
-		6550B6131C99ED9B005922FE /* EventsErrorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6550B6121C99ED9B005922FE /* EventsErrorController.swift */; };
-		6550B6151C99EDB8005922FE /* EventsErrorControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6550B6141C99EDB8005922FE /* EventsErrorControllerSpec.swift */; };
 		6554BDAC1C98FDEB00A99F2B /* EventsNearAddressFilterControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6554BDAB1C98FDEB00A99F2B /* EventsNearAddressFilterControllerSpec.swift */; };
 		6554BDAE1C990C9000A99F2B /* StockRadiusDataSourceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6554BDAD1C990C9000A99F2B /* StockRadiusDataSourceSpec.swift */; };
 		655906F41BC4607100D7B0BA /* FakeApplicationSettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655906F31BC4607100D7B0BA /* FakeApplicationSettingsRepository.swift */; };
 		6559D70F1BBDC37000CBC7EE /* FakeAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6559D70E1BBDC37000CBC7EE /* FakeAnalyticsService.swift */; };
 		655A3AD01B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 655A3ACF1B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework */; };
 		655A3DB81BBCCE7400E08051 /* floss_licenses.html in Resources */ = {isa = PBXBuildFile; fileRef = 655A3DB71BBCCE7400E08051 /* floss_licenses.html */; };
+		655B6ACF1C9B45C300153AD9 /* NearbyEventsLoadingSearchBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B6ACD1C9B45C300153AD9 /* NearbyEventsLoadingSearchBarController.swift */; };
+		655B6AD01C9B45C300153AD9 /* EditAddressSearchBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B6ACE1C9B45C300153AD9 /* EditAddressSearchBarController.swift */; };
+		655B6AD21C9B45C900153AD9 /* EventsErrorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B6AD11C9B45C900153AD9 /* EventsErrorController.swift */; };
+		655B6AD41C9B45CE00153AD9 /* RadiusDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B6AD31C9B45CE00153AD9 /* RadiusDataSource.swift */; };
+		655B6AD61C9B45ED00153AD9 /* EventsErrorControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B6AD51C9B45ED00153AD9 /* EventsErrorControllerSpec.swift */; };
 		656BC9661C70260D00CFA4EB /* tonybenn.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 656BC9651C70260D00CFA4EB /* tonybenn.jpg */; };
 		656BC9681C702BA800CFA4EB /* AlwaysReusingTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656BC9671C702BA800CFA4EB /* AlwaysReusingTableView.swift */; };
 		656BFBD01C94801F004DB9F1 /* StockNearbyEventsUseCaseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656BFBCF1C94801F004DB9F1 /* StockNearbyEventsUseCaseSpec.swift */; };
@@ -234,7 +236,6 @@
 		65A337011BB88FFA0012877F /* FakeEventPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A337001BB88FFA0012877F /* FakeEventPresenter.swift */; };
 		65A5C0FA1BA2978600D46500 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A5C0F91BA2978600D46500 /* Fabric.framework */; };
 		65A5C0FC1BA29F2200D46500 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A5C0FB1BA29F2200D46500 /* Crashlytics.framework */; };
-		65ACD73D1C9872D5003DBD40 /* EditAddressSearchBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65ACD73C1C9872D5003DBD40 /* EditAddressSearchBarController.swift */; };
 		65AD23AF1B96413200C32A02 /* WebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65AD23AE1B96413200C32A02 /* WebImage.framework */; };
 		65AD23B21B968D6800C32A02 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AD23B11B968D6800C32A02 /* TestUtils.swift */; };
 		65B023591C59C5570082E211 /* BackgroundActionAlertServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B023581C59C5570082E211 /* BackgroundActionAlertServiceSpec.swift */; };
@@ -319,7 +320,6 @@
 		65EC4CF01B842A3000DD4C83 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65EC4CED1B842A1900DD4C83 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		65EC4CF11B842A3000DD4C83 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		65F290C21C612BD400C60807 /* action_alert.json in Resources */ = {isa = PBXBuildFile; fileRef = 65F290C11C612BD400C60807 /* action_alert.json */; };
-		65F2C4F81C987EDA008A3AA6 /* NearbyEventsLoadingSearchBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F2C4F71C987EDA008A3AA6 /* NearbyEventsLoadingSearchBarController.swift */; };
 		65F2C4FA1C9881A9008A3AA6 /* NearbyEventsLoadingSearchBarControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F2C4F91C9881A9008A3AA6 /* NearbyEventsLoadingSearchBarControllerSpec.swift */; };
 		65F2C4FC1C9881FD008A3AA6 /* EventsSearchBarFakeTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F2C4FB1C9881FD008A3AA6 /* EventsSearchBarFakeTheme.swift */; };
 		65F2C5001C9882A1008A3AA6 /* MockSearchBarStylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F2C4FF1C9882A1008A3AA6 /* MockSearchBarStylist.swift */; };
@@ -416,7 +416,6 @@
 		6531730C1C86AE50004E472A /* NewsFeedVideoCellProviderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFeedVideoCellProviderSpec.swift; sourceTree = "<group>"; };
 		6531730E1C86AEF0004E472A /* NewsFeedVideoCellProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFeedVideoCellProvider.swift; sourceTree = "<group>"; };
 		653173101C878E4B004E472A /* AlwaysReusingCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlwaysReusingCollectionView.swift; sourceTree = "<group>"; };
-		6535256A1C98C42100320EDB /* RadiusDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadiusDataSource.swift; sourceTree = "<group>"; };
 		6535256C1C98C4AA00320EDB /* MockRadiusDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockRadiusDataSource.swift; sourceTree = "<group>"; };
 		6535256E1C98D19900320EDB /* SearchBarFakeTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarFakeTheme.swift; sourceTree = "<group>"; };
 		65363C011C9A3A490004A3A2 /* EventsNoResultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsNoResultsController.swift; sourceTree = "<group>"; };
@@ -571,8 +570,6 @@
 		654F92801C5ABFBD00C76992 /* ActionAlertControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionAlertControllerSpec.swift; sourceTree = "<group>"; };
 		654FDBBA1BC1862800A082CF /* cssInjection.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = cssInjection.js; sourceTree = "<group>"; };
 		654FDBBC1BC1867F00A082CF /* feedbackGoogleFormOverrides.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = feedbackGoogleFormOverrides.css; sourceTree = "<group>"; };
-		6550B6121C99ED9B005922FE /* EventsErrorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsErrorController.swift; sourceTree = "<group>"; };
-		6550B6141C99EDB8005922FE /* EventsErrorControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsErrorControllerSpec.swift; sourceTree = "<group>"; };
 		6554BDAB1C98FDEB00A99F2B /* EventsNearAddressFilterControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsNearAddressFilterControllerSpec.swift; sourceTree = "<group>"; };
 		6554BDAD1C990C9000A99F2B /* StockRadiusDataSourceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockRadiusDataSourceSpec.swift; sourceTree = "<group>"; };
 		655598041BFC2FFB00BCE1AB /* Connect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Connect.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -581,6 +578,11 @@
 		6559D70E1BBDC37000CBC7EE /* FakeAnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeAnalyticsService.swift; sourceTree = "<group>"; };
 		655A3ACF1B9FEB39004EB2AD /* UIKit+PivotalSpecHelper-iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "UIKit+PivotalSpecHelper-iOS.framework"; sourceTree = "<group>"; };
 		655A3DB71BBCCE7400E08051 /* floss_licenses.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = floss_licenses.html; sourceTree = "<group>"; };
+		655B6ACD1C9B45C300153AD9 /* NearbyEventsLoadingSearchBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NearbyEventsLoadingSearchBarController.swift; path = UI/EventsSearchBar/NearbyEventsLoadingSearchBarController.swift; sourceTree = "<group>"; };
+		655B6ACE1C9B45C300153AD9 /* EditAddressSearchBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditAddressSearchBarController.swift; path = UI/EventsSearchBar/EditAddressSearchBarController.swift; sourceTree = "<group>"; };
+		655B6AD11C9B45C900153AD9 /* EventsErrorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsErrorController.swift; sourceTree = "<group>"; };
+		655B6AD31C9B45CE00153AD9 /* RadiusDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RadiusDataSource.swift; path = UI/RadiusDataSource.swift; sourceTree = "<group>"; };
+		655B6AD51C9B45ED00153AD9 /* EventsErrorControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsErrorControllerSpec.swift; sourceTree = "<group>"; };
 		656BC9651C70260D00CFA4EB /* tonybenn.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tonybenn.jpg; sourceTree = "<group>"; };
 		656BC9671C702BA800CFA4EB /* AlwaysReusingTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlwaysReusingTableView.swift; sourceTree = "<group>"; };
 		656BFBCF1C94801F004DB9F1 /* StockNearbyEventsUseCaseSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockNearbyEventsUseCaseSpec.swift; sourceTree = "<group>"; };
@@ -610,7 +612,6 @@
 		65A337001BB88FFA0012877F /* FakeEventPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeEventPresenter.swift; sourceTree = "<group>"; };
 		65A5C0F91BA2978600D46500 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		65A5C0FB1BA29F2200D46500 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
-		65ACD73C1C9872D5003DBD40 /* EditAddressSearchBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAddressSearchBarController.swift; sourceTree = "<group>"; };
 		65AD23AE1B96413200C32A02 /* WebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebImage.framework; path = Carthage/Build/iOS/WebImage.framework; sourceTree = "<group>"; };
 		65AD23B11B968D6800C32A02 /* TestUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
 		65B023581C59C5570082E211 /* BackgroundActionAlertServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundActionAlertServiceSpec.swift; sourceTree = "<group>"; };
@@ -691,7 +692,6 @@
 		65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		65EC4CED1B842A1900DD4C83 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		65F290C11C612BD400C60807 /* action_alert.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = action_alert.json; sourceTree = "<group>"; };
-		65F2C4F71C987EDA008A3AA6 /* NearbyEventsLoadingSearchBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearbyEventsLoadingSearchBarController.swift; sourceTree = "<group>"; };
 		65F2C4F91C9881A9008A3AA6 /* NearbyEventsLoadingSearchBarControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearbyEventsLoadingSearchBarControllerSpec.swift; sourceTree = "<group>"; };
 		65F2C4FB1C9881FD008A3AA6 /* EventsSearchBarFakeTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsSearchBarFakeTheme.swift; sourceTree = "<group>"; };
 		65F2C4FF1C9882A1008A3AA6 /* MockSearchBarStylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSearchBarStylist.swift; sourceTree = "<group>"; };
@@ -809,7 +809,7 @@
 				65DAF3111C9860E3000E604F /* EventsSearchBar */,
 				653D0EB21C4C28C0004CB8A0 /* EventPresenter.swift */,
 				65DAF3141C98615E000E604F /* EventsController.swift */,
-				6550B6121C99ED9B005922FE /* EventsErrorController.swift */,
+				655B6AD31C9B45CE00153AD9 /* RadiusDataSource.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -1118,7 +1118,6 @@
 				65DAF3331C98626B000E604F /* EventSearchBar */,
 				653D0FCB1C4C53BB004CB8A0 /* EventPresenterSpec.swift */,
 				6549DC2E1C8B86950057D74C /* EventsControllerSpec.swift */,
-				6550B6141C99EDB8005922FE /* EventsErrorControllerSpec.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1366,15 +1365,14 @@
 		65DAF3111C9860E3000E604F /* EventsSearchBar */ = {
 			isa = PBXGroup;
 			children = (
-				65ACD73C1C9872D5003DBD40 /* EditAddressSearchBarController.swift */,
+				655B6ACE1C9B45C300153AD9 /* EditAddressSearchBarController.swift */,
 				65DAF35E1C986A4F000E604F /* EventSearchBarContainerController.swift */,
 				65DAF3121C986152000E604F /* EventSearchBarController.swift */,
 				65DAF35D1C986A4F000E604F /* EventsNearAddressFilterController.swift */,
 				65DAF35C1C986A4F000E604F /* EventsNearAddressSearchBarController.swift */,
 				65DAF35B1C986A4F000E604F /* NearbyEventsFilterController.swift */,
-				65F2C4F71C987EDA008A3AA6 /* NearbyEventsLoadingSearchBarController.swift */,
+				655B6ACD1C9B45C300153AD9 /* NearbyEventsLoadingSearchBarController.swift */,
 				65DAF35A1C986A4F000E604F /* NearbyEventsSearchBarController.swift */,
-				6535256A1C98C42100320EDB /* RadiusDataSource.swift */,
 				65F2C5011C9883B9008A3AA6 /* SearchBarStylist.swift */,
 				65DAF3481C986291000E604F /* ZipCodeValidator.swift */,
 			);
@@ -1390,6 +1388,7 @@
 				65DAF31C1C9861D7000E604F /* EventListTableViewCell.swift */,
 				65DAF31D1C9861D7000E604F /* EventListTableViewCellStylist.swift */,
 				65DAF31E1C9861D7000E604F /* EventSectionHeaderPresenter.swift */,
+				655B6AD11C9B45C900153AD9 /* EventsErrorController.swift */,
 				65363C011C9A3A490004A3A2 /* EventsNoResultsController.swift */,
 				65DAF31F1C9861D7000E604F /* EventsResultsController.swift */,
 				65DAF3201C9861D7000E604F /* EventsSectionHeaderView.swift */,
@@ -1435,6 +1434,7 @@
 				65DAF3371C98626B000E604F /* ConcreteEventControllerProviderSpec.swift */,
 				65DAF3381C98626B000E604F /* ConcreteEventListTableViewCellStylistSpec.swift */,
 				65DAF3391C98626B000E604F /* EventSectionHeaderPresenterSpec.swift */,
+				655B6AD51C9B45ED00153AD9 /* EventsErrorControllerSpec.swift */,
 				65363C031C9A3A5E0004A3A2 /* EventsNoResultsControllerSpec.swift */,
 				65DAF33A1C98626B000E604F /* EventsResultsControllerSpec.swift */,
 			);
@@ -1902,7 +1902,7 @@
 				65CA5E931B86E4A00001D870 /* DefaultTheme.swift in Sources */,
 				653D0F9E1C4C35C0004CB8A0 /* DisclosureButton.swift in Sources */,
 				653D0F9F1C4C35C0004CB8A0 /* DisclosureIndicatorView.swift in Sources */,
-				65ACD73D1C9872D5003DBD40 /* EditAddressSearchBarController.swift in Sources */,
+				655B6AD01C9B45C300153AD9 /* EditAddressSearchBarController.swift in Sources */,
 				653D0ED51C4C2938004CB8A0 /* Event.swift in Sources */,
 				65DAF32F1C9861D7000E604F /* EventController.swift in Sources */,
 				65DAF3281C9861D7000E604F /* EventControllerProvider.swift in Sources */,
@@ -1919,7 +1919,7 @@
 				65DAF3131C986152000E604F /* EventSearchBarController.swift in Sources */,
 				653D0ED61C4C2938004CB8A0 /* EventSearchResult.swift in Sources */,
 				65DAF32B1C9861D7000E604F /* EventSectionHeaderPresenter.swift in Sources */,
-				6550B6131C99ED9B005922FE /* EventsErrorController.swift in Sources */,
+				655B6AD21C9B45C900153AD9 /* EventsErrorController.swift in Sources */,
 				653D0ED21C4C292D004CB8A0 /* EventService.swift in Sources */,
 				65DAF3621C986A4F000E604F /* EventsNearAddressFilterController.swift in Sources */,
 				65DAF3611C986A4F000E604F /* EventsNearAddressSearchBarController.swift in Sources */,
@@ -1943,7 +1943,7 @@
 				653D0FA11C4C35C0004CB8A0 /* NavigationController.swift in Sources */,
 				65D43F041C9770EA00185AB5 /* NBUIKitMainThreadGuard.swift in Sources */,
 				65DAF3601C986A4F000E604F /* NearbyEventsFilterController.swift in Sources */,
-				65F2C4F81C987EDA008A3AA6 /* NearbyEventsLoadingSearchBarController.swift in Sources */,
+				655B6ACF1C9B45C300153AD9 /* NearbyEventsLoadingSearchBarController.swift in Sources */,
 				65DAF35F1C986A4F000E604F /* NearbyEventsSearchBarController.swift in Sources */,
 				651529D31C9214C600714E81 /* NearbyEventsUseCase.swift in Sources */,
 				653D0EFF1C4C2B84004CB8A0 /* NewsArticle.swift in Sources */,
@@ -1972,7 +1972,7 @@
 				653D0F511C4C2DE2004CB8A0 /* PrivacyPolicyController.swift in Sources */,
 				65E33D821C46EC0D003464D9 /* PushNotificationHandlerDispatcher.swift in Sources */,
 				654948E11BFB7D8100C1ECDB /* PushNotificationRegistrar.swift in Sources */,
-				6535256B1C98C42100320EDB /* RadiusDataSource.swift in Sources */,
+				655B6AD41C9B45CE00153AD9 /* RadiusDataSource.swift in Sources */,
 				653D0FA21C4C35C0004CB8A0 /* ResponderButton.swift in Sources */,
 				65F2C5021C9883B9008A3AA6 /* SearchBarStylist.swift in Sources */,
 				653D0F521C4C2DE2004CB8A0 /* SettingsController.swift in Sources */,
@@ -2045,7 +2045,7 @@
 				65DAF33F1C98626B000E604F /* EventSearchBarControllerSpec.swift in Sources */,
 				653D10061C4C53BB004CB8A0 /* EventSearchResultsSpec.swift in Sources */,
 				65DAF3431C98626B000E604F /* EventSectionHeaderPresenterSpec.swift in Sources */,
-				6550B6151C99EDB8005922FE /* EventsErrorControllerSpec.swift in Sources */,
+				655B6AD61C9B45ED00153AD9 /* EventsErrorControllerSpec.swift in Sources */,
 				6554BDAC1C98FDEB00A99F2B /* EventsNearAddressFilterControllerSpec.swift in Sources */,
 				653F6BAD1C98A261009D42A0 /* EventsNearAddressSearchBarControllerSpec.swift in Sources */,
 				65363C041C9A3A5E0004A3A2 /* EventsNoResultsControllerSpec.swift in Sources */,
