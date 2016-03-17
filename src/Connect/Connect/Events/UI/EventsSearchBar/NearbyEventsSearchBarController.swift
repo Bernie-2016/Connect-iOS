@@ -9,6 +9,7 @@ class NearbyEventsSearchBarController: UIViewController {
     private let searchBarStylist: SearchBarStylist
     private let radiusDataSource: RadiusDataSource
     private let resultQueue: NSOperationQueue
+    private let analyticsService: AnalyticsService
     private let theme: Theme
 
     let searchBar = UISearchBar.newAutoLayoutView()
@@ -21,10 +22,11 @@ class NearbyEventsSearchBarController: UIViewController {
 
     var delegate: NearbyEventsSearchBarControllerDelegate?
 
-    init(searchBarStylist: SearchBarStylist, radiusDataSource: RadiusDataSource, resultQueue: NSOperationQueue, theme: Theme) {
+    init(searchBarStylist: SearchBarStylist, radiusDataSource: RadiusDataSource, resultQueue: NSOperationQueue, analyticsService: AnalyticsService, theme: Theme) {
         self.searchBarStylist = searchBarStylist
         self.radiusDataSource = radiusDataSource
         self.resultQueue = resultQueue
+        self.analyticsService = analyticsService
         self.theme = theme
 
         super.init(nibName: nil, bundle: nil)
@@ -129,6 +131,8 @@ extension NearbyEventsSearchBarController {
 // MARK: UISearchBarDelegate
 extension NearbyEventsSearchBarController: UISearchBarDelegate {
     func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
+            analyticsService.trackCustomEventWithName("Tapped on address search bar on Nearby Events", customAttributes: nil)
+
         delegate?.nearbyEventsSearchBarControllerDidBeginEditing(self)
 
         return false

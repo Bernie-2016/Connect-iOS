@@ -11,6 +11,7 @@ class NearbyEventsSearchBarControllerSpec: QuickSpec {
             var delegate: MockNearbyEventsSearchBarControllerDelegate!
             var radiusDataSource: MockRadiusDataSource!
             var resultQueue: FakeOperationQueue!
+            var analyticsService: FakeAnalyticsService!
             let theme = SearchBarFakeTheme()
 
             var window: UIWindow!
@@ -19,11 +20,13 @@ class NearbyEventsSearchBarControllerSpec: QuickSpec {
                 searchBarStylist = MockSearchBarStylist()
                 radiusDataSource = MockRadiusDataSource()
                 resultQueue = FakeOperationQueue()
+                analyticsService = FakeAnalyticsService()
 
                 subject = NearbyEventsSearchBarController(
                     searchBarStylist: searchBarStylist,
                     radiusDataSource: radiusDataSource,
                     resultQueue: resultQueue,
+                    analyticsService: analyticsService,
                     theme: theme
                 )
 
@@ -124,6 +127,13 @@ class NearbyEventsSearchBarControllerSpec: QuickSpec {
                     subject.searchBar.becomeFirstResponder()
 
                     expect(delegate.didBeginEditingWithController) === subject
+                }
+
+                it("should log an event via the analytics service") {
+                    subject.searchBar.becomeFirstResponder()
+
+                    expect(analyticsService.lastCustomEventName).to(equal("Tapped on address search bar on Nearby Events"))
+                    expect(analyticsService.lastCustomEventAttributes).to(beNil())
                 }
             }
 

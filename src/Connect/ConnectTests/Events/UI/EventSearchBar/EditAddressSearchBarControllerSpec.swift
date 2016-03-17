@@ -13,6 +13,7 @@ class EditAddressSearchBarControllerSpec: QuickSpec {
             var searchBarStylist: MockSearchBarStylist!
             var resultQueue: FakeOperationQueue!
             var workerQueue: FakeOperationQueue!
+            var analyticsService: FakeAnalyticsService!
 
             var window: UIWindow!
             var delegate: MockEditAddressSearchBarControllerDelegate!
@@ -24,6 +25,7 @@ class EditAddressSearchBarControllerSpec: QuickSpec {
                 searchBarStylist = MockSearchBarStylist()
                 resultQueue = FakeOperationQueue()
                 workerQueue = FakeOperationQueue()
+                analyticsService = FakeAnalyticsService()
 
                 subject = EditAddressSearchBarController(
                     nearbyEventsUseCase: nearbyEventsUseCase,
@@ -32,6 +34,7 @@ class EditAddressSearchBarControllerSpec: QuickSpec {
                     searchBarStylist: searchBarStylist,
                     resultQueue: resultQueue,
                     workerQueue: workerQueue,
+                    analyticsService: analyticsService,
                     theme: EventsSearchBarFakeTheme()
                 )
 
@@ -150,6 +153,16 @@ class EditAddressSearchBarControllerSpec: QuickSpec {
                     expect(eventsNearAddressUseCase.lastSearchedAddress) == "nice place"
                     expect(eventsNearAddressUseCase.lastSearchedRadius) == 10.0 // hard coded for now
                 }
+
+                it("should log an event via the analytics service") {
+                    subject.searchBar.text = "track me"
+
+                    subject.searchButton.tap()
+                    workerQueue.lastReceivedBlock()
+
+                    expect(analyticsService.lastSearchQuery).to(equal("track me"))
+                    expect(analyticsService.lastSearchContext).to(equal(AnalyticsSearchContext.Events))
+                }
             }
 
             describe("tapping the cancel button") {
@@ -161,6 +174,12 @@ class EditAddressSearchBarControllerSpec: QuickSpec {
                     subject.cancelButton.tap()
 
                     expect(delegate.didCancelWithController) === subject
+                }
+
+                it("should log an event via the analytics service") {
+                    subject.cancelButton.tap()
+
+                    expect(analyticsService.lastCustomEventName).to(equal("Cancelled edit address on Events"))
                 }
 
                 context("after having began editing an existing search") {

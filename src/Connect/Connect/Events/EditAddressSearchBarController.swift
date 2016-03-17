@@ -11,6 +11,7 @@ class EditAddressSearchBarController: UIViewController {
     private let searchBarStylist: SearchBarStylist
     private let resultQueue: NSOperationQueue
     private let workerQueue: NSOperationQueue
+    private let analyticsService: AnalyticsService
     private let theme: Theme
 
     let searchBar = UISearchBar.newAutoLayoutView()
@@ -28,6 +29,7 @@ class EditAddressSearchBarController: UIViewController {
         searchBarStylist: SearchBarStylist,
         resultQueue: NSOperationQueue,
         workerQueue: NSOperationQueue,
+        analyticsService: AnalyticsService,
         theme: Theme
         ) {
             self.nearbyEventsUseCase = nearbyEventsUseCase
@@ -36,6 +38,7 @@ class EditAddressSearchBarController: UIViewController {
             self.searchBarStylist = searchBarStylist
             self.resultQueue = resultQueue
             self.workerQueue = workerQueue
+            self.analyticsService = analyticsService
             self.theme = theme
 
             super.init(nibName: nil, bundle: nil)
@@ -135,13 +138,18 @@ class EditAddressSearchBarController: UIViewController {
 
 extension EditAddressSearchBarController {
     func didTapCancelButton() {
+        analyticsService.trackCustomEventWithName("Cancelled edit address on Events", customAttributes: nil)
+
         searchBar.text = currentSearchText
         delegate?.editAddressSearchBarControllerDidCancel(self)
     }
 
     func didTapSearchButton() {
         workerQueue.addOperationWithBlock {
-            self.eventsNearAddressUseCase.fetchEventsNearAddress(self.searchBar.text!, radiusMiles: 10.0)
+            let searchQuery = self.searchBar.text!
+            self.analyticsService.trackSearchWithQuery(searchQuery, context: .Events)
+
+            self.eventsNearAddressUseCase.fetchEventsNearAddress(searchQuery, radiusMiles: 10.0)
         }
     }
 }

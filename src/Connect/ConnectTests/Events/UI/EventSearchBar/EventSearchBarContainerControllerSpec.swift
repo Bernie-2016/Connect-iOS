@@ -357,6 +357,7 @@ class MockNearbyEventsSearchBarController: NearbyEventsSearchBarController {
             searchBarStylist: MockSearchBarStylist(),
             radiusDataSource: MockRadiusDataSource(),
             resultQueue: FakeOperationQueue(),
+            analyticsService: FakeAnalyticsService(),
             theme: SearchBarFakeTheme())
     }
 
@@ -446,6 +447,7 @@ class MockEditAddressSearchBarController: EditAddressSearchBarController {
             searchBarStylist: MockSearchBarStylist(),
             resultQueue: FakeOperationQueue(),
             workerQueue: FakeOperationQueue(),
+            analyticsService: FakeAnalyticsService(),
             theme: SearchBarFakeTheme()
         )
     }

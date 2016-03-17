@@ -193,6 +193,7 @@ class EventsContainerConfigurator: ContainerConfigurator {
                 searchBarStylist: resolver.resolve(SearchBarStylist.self)!,
                 radiusDataSource: resolver.resolve(RadiusDataSource.self)!,
                 resultQueue: resolver.resolve(NSOperationQueue.self, name: "main")!,
+                analyticsService: resolver.resolve(AnalyticsService.self)!,
                 theme: resolver.resolve(Theme.self)!
             )
         }
@@ -215,6 +216,7 @@ class EventsContainerConfigurator: ContainerConfigurator {
                 searchBarStylist: resolver.resolve(SearchBarStylist.self)!,
                 resultQueue: resolver.resolve(NSOperationQueue.self, name: "main")!,
                 workerQueue: resolver.resolve(NSOperationQueue.self, name: "work")!,
+                analyticsService: resolver.resolve(AnalyticsService.self)!,
                 theme: resolver.resolve(Theme.self)!
             )
         }
