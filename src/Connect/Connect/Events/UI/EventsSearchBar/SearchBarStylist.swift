@@ -20,12 +20,12 @@ class StockSearchBarStylist: SearchBarStylist {
         searchBar.searchBarStyle = .Minimal
 
         if let textField = searchBar.valueForKey("searchField") as? UITextField {
-            textField.textColor = self.theme.eventsZipCodeTextColor()
+            textField.textColor = self.theme.eventsAddressTextColor()
             textField.font = self.theme.eventsSearchBarFont()
-            textField.backgroundColor = self.theme.eventsZipCodeBackgroundColor()
-            textField.layer.borderColor = self.theme.eventsZipCodeBorderColor().CGColor
-            textField.layer.borderWidth = self.theme.eventsZipCodeBorderWidth()
-            textField.layer.cornerRadius = self.theme.eventsZipCodeCornerRadius()
+            textField.backgroundColor = self.theme.eventsAddressBackgroundColor()
+            textField.layer.borderColor = self.theme.eventsAddressBorderColor().CGColor
+            textField.layer.borderWidth = self.theme.eventsAddressBorderWidth()
+            textField.layer.cornerRadius = self.theme.eventsAddressCornerRadius()
         }
     }
 }

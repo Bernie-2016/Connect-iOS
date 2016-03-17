@@ -330,7 +330,7 @@ class SearchBarSharedExamplesConfiguration: QuickConfiguration {
                 }
             }
 
-            describe("and then the user enters a zipcode") {
+            describe("and then the user enters some text") {
                 beforeEach {
                     searchBar.becomeFirstResponder()
                 }
@@ -383,7 +383,7 @@ class SearchBarSharedExamplesConfiguration: QuickConfiguration {
                     }
                 }
 
-                context("and the updated zipcode is determined to be valid by the validator") {
+                context("and the updated address is determined to be valid by the validator") {
                     it("enables the search button") {
                         searchBar.text = "9021"
                         zipCodeValidator.returnedValidationResult = true
@@ -441,7 +441,7 @@ class SearchBarSharedExamplesConfiguration: QuickConfiguration {
                         }
                     }
 
-                    context("and the updated zipcode is invalid") {
+                    context("and the updated address is invalid") {
                         it("disables the search button") {
                             searchBar.text = "9021"
                             zipCodeValidator.returnedValidationResult = false
@@ -453,7 +453,7 @@ class SearchBarSharedExamplesConfiguration: QuickConfiguration {
                         }
                     }
 
-                    context("and user tries to enter a zipcode more than 5 characters in length") {
+                    context("and user tries to enter text more than 5 characters in length") {
                         it("prevents the user from entering more characters") {
                             searchBar.text = "9021"
                             zipCodeValidator.returnedValidationResult = true

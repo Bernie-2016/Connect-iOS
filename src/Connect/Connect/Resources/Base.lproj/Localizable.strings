@@ -43,14 +43,7 @@
 "EventsErrors_genericHeading" = "Something went wrong";
 "EventsErrors_genericDetail" = "Please try your search again";
 
-"Events_zipCodeAccessibilityLabel" = "ZIP Code";
-"Events_zipCodeTextBoxPlaceholder" = "ZIP Code";
-"Events_eventSearchButtonTitle" = "Search";
-"Events_eventCancelButtonTitle" = "Cancel";
-"Events_subInstructions" = "Event listings are gathered from the Bernie 2016 campaign website.";
 "Events_todayHeader" = "TODAY";
-"Events_radiusMiles" = "< %d Miles";
-"Events_locate" = "Find Events Near Me";
 
 // Event
 

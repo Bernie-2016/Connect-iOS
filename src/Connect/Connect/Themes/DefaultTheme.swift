@@ -85,14 +85,14 @@ class DefaultTheme: Theme {
     func eventsListDateFont() -> UIFont { return tinyTextFont() }
     func eventsListDateColor() -> UIColor { return tinyTextColor() }
     func eventsSearchBarBackgroundColor() -> UIColor { return navigationBarBackgroundColor() }
-    func eventsZipCodeTextColor() -> UIColor { return grayChateauColor }
-    func eventsZipCodePlaceholderTextColor() -> UIColor { return grayChateauColor }
-    func eventsZipCodeBackgroundColor() -> UIColor { return defaultBackgroundColor() }
-    func eventsZipCodeBorderColor() -> UIColor { return defaultBackgroundColor() }
+    func eventsAddressTextColor() -> UIColor { return grayChateauColor }
+    func eventsAddressPlaceholderTextColor() -> UIColor { return grayChateauColor }
+    func eventsAddressBackgroundColor() -> UIColor { return defaultBackgroundColor() }
+    func eventsAddressBorderColor() -> UIColor { return defaultBackgroundColor() }
     func eventsSearchBarFont() -> UIFont { return h3HeaderFont() }
-    func eventsZipCodeCornerRadius() -> CGFloat { return self.defaultCornerRadius() }
-    func eventsZipCodeBorderWidth() -> CGFloat { return self.defaultBorderWidth() }
-    func eventsZipCodeTextOffset() -> CATransform3D { return CATransform3DMakeTranslation(14, 0, 0); }
+    func eventsAddressCornerRadius() -> CGFloat { return self.defaultCornerRadius() }
+    func eventsAddressBorderWidth() -> CGFloat { return self.defaultBorderWidth() }
+    func eventsAddressTextOffset() -> CATransform3D { return CATransform3DMakeTranslation(14, 0, 0); }
     func eventsGoButtonCornerRadius() -> CGFloat { return self.defaultCornerRadius() }
     func eventsInformationTextColor() -> UIColor { return defaultBodyTextColor() }
     func eventsNoResultsFont() -> UIFont { return UIFont.systemFontOfSize(21) }

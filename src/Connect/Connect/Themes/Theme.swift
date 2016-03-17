@@ -77,14 +77,14 @@ protocol Theme {
     func eventsListDateFont() -> UIFont
     func eventsListDateColor() -> UIColor
     func eventsSearchBarBackgroundColor() -> UIColor
-    func eventsZipCodeTextColor() -> UIColor
-    func eventsZipCodePlaceholderTextColor() -> UIColor
-    func eventsZipCodeBackgroundColor() -> UIColor
-    func eventsZipCodeBorderColor() -> UIColor
+    func eventsAddressTextColor() -> UIColor
+    func eventsAddressPlaceholderTextColor() -> UIColor
+    func eventsAddressBackgroundColor() -> UIColor
+    func eventsAddressBorderColor() -> UIColor
     func eventsSearchBarFont() -> UIFont
-    func eventsZipCodeCornerRadius() -> CGFloat
-    func eventsZipCodeBorderWidth() -> CGFloat
-    func eventsZipCodeTextOffset() -> CATransform3D
+    func eventsAddressCornerRadius() -> CGFloat
+    func eventsAddressBorderWidth() -> CGFloat
+    func eventsAddressTextOffset() -> CATransform3D
     func eventsInformationTextColor() -> UIColor
     func eventsNoResultsFont() -> UIFont
     func eventsCreateEventCTAFont() -> UIFont
