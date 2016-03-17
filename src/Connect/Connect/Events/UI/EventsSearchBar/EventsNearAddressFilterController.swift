@@ -9,6 +9,7 @@ class EventsNearAddressFilterController: UIViewController {
     private let radiusDataSource: RadiusDataSource
     private let workerQueue: NSOperationQueue
     private let resultQueue: NSOperationQueue
+    private let analyticsService: AnalyticsService
     private let theme: Theme
 
     let searchButton = ResponderButton.newAutoLayoutView()
@@ -22,11 +23,13 @@ class EventsNearAddressFilterController: UIViewController {
         radiusDataSource: RadiusDataSource,
         workerQueue: NSOperationQueue,
         resultQueue: NSOperationQueue,
+        analyticsService: AnalyticsService,
         theme: Theme) {
             self.eventsNearAddressUseCase = eventsNearAddressUseCase
             self.radiusDataSource = radiusDataSource
             self.workerQueue = workerQueue
             self.resultQueue = resultQueue
+            self.analyticsService = analyticsService
             self.theme = theme
 
             super.init(nibName: nil, bundle: nil)
@@ -102,11 +105,15 @@ extension EventsNearAddressFilterController {
 
         workerQueue.addOperationWithBlock {
             let radiusMiles = self.radiusDataSource.currentMilesValue
+            let loggedSearchQuery = "\(self.currentAddress)|\(radiusMiles)"
+
+            self.analyticsService.trackSearchWithQuery(loggedSearchQuery, context: .Events)
             self.eventsNearAddressUseCase.fetchEventsNearAddress(self.currentAddress, radiusMiles: radiusMiles)
         }
     }
 
     func didTapCancelButton() {
+        analyticsService.trackCustomEventWithName("Tapped cancel on Events Near Address Filter", customAttributes: nil)
         delegate?.eventsNearAddressFilterControllerDidCancel(self)
     }
 }

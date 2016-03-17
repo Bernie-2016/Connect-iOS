@@ -150,9 +150,11 @@ extension EditAddressSearchBarController {
     func didTapSearchButton() {
         workerQueue.addOperationWithBlock {
             let searchQuery = self.searchBar.text!
-            self.analyticsService.trackSearchWithQuery(searchQuery, context: .Events)
+            let radiusMiles = self.radiusDataSource.currentMilesValue
+            let loggedSearchQuery = "\(searchQuery)|\(radiusMiles)"
 
-            self.eventsNearAddressUseCase.fetchEventsNearAddress(searchQuery, radiusMiles: self.radiusDataSource.currentMilesValue)
+            self.analyticsService.trackSearchWithQuery(loggedSearchQuery, context: .Events)
+            self.eventsNearAddressUseCase.fetchEventsNearAddress(searchQuery, radiusMiles: radiusMiles)
         }
     }
 }

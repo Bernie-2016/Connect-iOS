@@ -160,11 +160,12 @@ class EditAddressSearchBarControllerSpec: QuickSpec {
 
                 it("should log an event via the analytics service") {
                     subject.searchBar.text = "track me"
+                    radiusDataSource.returnedCurrentMilesValue = 42
 
                     subject.searchButton.tap()
                     workerQueue.lastReceivedBlock()
 
-                    expect(analyticsService.lastSearchQuery).to(equal("track me"))
+                    expect(analyticsService.lastSearchQuery).to(equal("track me|42.0"))
                     expect(analyticsService.lastSearchContext).to(equal(AnalyticsSearchContext.Events))
                 }
             }

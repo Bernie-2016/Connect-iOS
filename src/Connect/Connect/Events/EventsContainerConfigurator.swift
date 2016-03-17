@@ -228,6 +228,7 @@ class EventsContainerConfigurator: ContainerConfigurator {
                 nearbyEventsUseCase: resolver.resolve(NearbyEventsUseCase.self)!,
                 radiusDataSource: resolver.resolve(RadiusDataSource.self)!,
                 workerQueue: resolver.resolve(NSOperationQueue.self, name: "main")!,
+                analyticsService: resolver.resolve(AnalyticsService.self)!,
                 theme: resolver.resolve(Theme.self)!
             )
         }
@@ -238,6 +239,7 @@ class EventsContainerConfigurator: ContainerConfigurator {
                 radiusDataSource: resolver.resolve(RadiusDataSource.self)!,
                 workerQueue: resolver.resolve(NSOperationQueue.self, name: "work")!,
                 resultQueue: resolver.resolve(NSOperationQueue.self, name: "main")!,
+                analyticsService: resolver.resolve(AnalyticsService.self)!,
                 theme: resolver.resolve(Theme.self)!
             )
         }

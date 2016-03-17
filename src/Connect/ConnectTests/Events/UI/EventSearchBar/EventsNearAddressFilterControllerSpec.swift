@@ -11,6 +11,7 @@ class EventsNearAddressFilterControllerSpec: QuickSpec {
             var radiusDataSource: MockRadiusDataSource!
             var workerQueue: FakeOperationQueue!
             var resultQueue: FakeOperationQueue!
+            var analyticsService: FakeAnalyticsService!
             let theme = SearchBarFakeTheme()
 
             var delegate: MockEventsNearAddressFilterControllerDelegate!
@@ -22,12 +23,14 @@ class EventsNearAddressFilterControllerSpec: QuickSpec {
                 radiusDataSource = MockRadiusDataSource()
                 workerQueue = FakeOperationQueue()
                 resultQueue = FakeOperationQueue()
+                analyticsService = FakeAnalyticsService()
 
                 subject = EventsNearAddressFilterController(
                     eventsNearAddressUseCase: eventsNearAddressUseCase,
                     radiusDataSource: radiusDataSource,
                     workerQueue: workerQueue,
                     resultQueue: resultQueue,
+                    analyticsService: analyticsService,
                     theme: theme
                 )
 
@@ -148,6 +151,16 @@ class EventsNearAddressFilterControllerSpec: QuickSpec {
                     expect(eventsNearAddressUseCase.lastSearchedAddress) == "simulated address"
                     expect(eventsNearAddressUseCase.lastSearchedRadius) == 666
                 }
+
+                it("should log an event via the analytics service") {
+                    radiusDataSource.returnedCurrentMilesValue = 42
+
+                    subject.searchButton.tap()
+                    workerQueue.lastReceivedBlock()
+
+                    expect(analyticsService.lastSearchQuery).to(equal("simulated address|42.0"))
+                    expect(analyticsService.lastSearchContext).to(equal(AnalyticsSearchContext.Events))
+                }
             }
 
             describe("when cancel is tapped") {
@@ -159,6 +172,13 @@ class EventsNearAddressFilterControllerSpec: QuickSpec {
                     subject.cancelButton.tap()
 
                     expect(delegate.didCancelWithController) === subject
+                }
+
+                it("should log an event via the analytics service") {
+                    subject.cancelButton.tap()
+
+                    expect(analyticsService.lastCustomEventName).to(equal("Tapped cancel on Events Near Address Filter"))
+                    expect(analyticsService.lastCustomEventAttributes).to(beNil())
                 }
             }
         }

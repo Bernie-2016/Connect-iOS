@@ -9,6 +9,7 @@ class NearbyEventsFilterController: UIViewController {
     private let nearbyEventsUseCase: NearbyEventsUseCase
     private let radiusDataSource: RadiusDataSource
     private let workerQueue: NSOperationQueue
+    private let analyticsService: AnalyticsService
     private let theme: Theme
 
     let searchButton = ResponderButton.newAutoLayoutView()
@@ -17,10 +18,11 @@ class NearbyEventsFilterController: UIViewController {
 
     var delegate: NearbyEventsFilterControllerDelegate?
 
-    init(nearbyEventsUseCase: NearbyEventsUseCase, radiusDataSource: RadiusDataSource, workerQueue: NSOperationQueue, theme: Theme) {
+    init(nearbyEventsUseCase: NearbyEventsUseCase, radiusDataSource: RadiusDataSource, workerQueue: NSOperationQueue, analyticsService: AnalyticsService, theme: Theme) {
         self.nearbyEventsUseCase = nearbyEventsUseCase
         self.radiusDataSource = radiusDataSource
         self.workerQueue = workerQueue
+        self.analyticsService = analyticsService
         self.theme = theme
 
         super.init(nibName: nil, bundle: nil)
@@ -91,11 +93,15 @@ extension NearbyEventsFilterController {
 
         workerQueue.addOperationWithBlock {
             let radiusMiles = self.radiusDataSource.currentMilesValue
+            let loggedSearchQuery = "NEARBY|\(radiusMiles)"
+
+            self.analyticsService.trackSearchWithQuery(loggedSearchQuery, context: .Events)
             self.nearbyEventsUseCase.fetchNearbyEventsWithinRadiusMiles(radiusMiles)
         }
     }
 
     func didTapCancelButton() {
+        analyticsService.trackCustomEventWithName("Tapped cancel on Nearby Events Filter", customAttributes: nil)
         delegate?.nearbyEventsFilterControllerDidCancel(self)
     }
 }

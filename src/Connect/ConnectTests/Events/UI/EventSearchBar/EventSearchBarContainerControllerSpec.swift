@@ -406,6 +406,7 @@ class MockNearbyEventsFilterController: NearbyEventsFilterController {
             nearbyEventsUseCase: MockNearbyEventsUseCase(),
             radiusDataSource: MockRadiusDataSource(),
             workerQueue: FakeOperationQueue(),
+            analyticsService: FakeAnalyticsService(),
             theme: SearchBarFakeTheme()
         )
     }
@@ -426,6 +427,7 @@ class MockEventsNearAddressFilterController: EventsNearAddressFilterController {
             radiusDataSource: MockRadiusDataSource(),
             workerQueue: FakeOperationQueue(),
             resultQueue: FakeOperationQueue(),
+            analyticsService: FakeAnalyticsService(),
             theme: SearchBarFakeTheme()
         )
     }
