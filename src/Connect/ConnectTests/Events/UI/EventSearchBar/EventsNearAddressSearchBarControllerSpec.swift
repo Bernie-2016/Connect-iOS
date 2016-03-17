@@ -11,6 +11,7 @@ class EventsNearAddressSearchBarControllerSpec: QuickSpec {
             var eventsNearAddressUseCase: MockEventsNearAddressUseCase!
             var resultQueue: FakeOperationQueue!
             var radiusDataSource: MockRadiusDataSource!
+            var analyticsService: FakeAnalyticsService!
             let theme = SearchBarFakeTheme()
 
             var delegate: MockEventsNearAddressSearchBarControllerDelegate!
@@ -23,12 +24,14 @@ class EventsNearAddressSearchBarControllerSpec: QuickSpec {
                 eventsNearAddressUseCase = MockEventsNearAddressUseCase()
                 resultQueue = FakeOperationQueue()
                 radiusDataSource = MockRadiusDataSource()
+                analyticsService = FakeAnalyticsService()
 
                 subject = EventsNearAddressSearchBarController(
                     searchBarStylist: searchBarStylist,
                     eventsNearAddressUseCase: eventsNearAddressUseCase,
                     resultQueue: resultQueue,
                     radiusDataSource: radiusDataSource,
+                    analyticsService: analyticsService,
                     theme: theme
                 )
 
@@ -111,6 +114,13 @@ class EventsNearAddressSearchBarControllerSpec: QuickSpec {
 
                     expect(delegate.didBeginFilteringWithController) === subject
                 }
+
+                it("should log an event via the analytics service") {
+                    subject.filterButton.tap()
+
+                    expect(analyticsService.lastCustomEventName).to(equal("Tapped on filter button on Events Near Address"))
+                    expect(analyticsService.lastCustomEventAttributes).to(beNil())
+                }
             }
 
             describe("when tapping on the search bar") {
@@ -128,6 +138,13 @@ class EventsNearAddressSearchBarControllerSpec: QuickSpec {
                     subject.searchBar.becomeFirstResponder()
 
                     expect(delegate.didBeginEditingWithController) === subject
+                }
+
+                it("should log an event via the analytics service") {
+                    subject.searchBar.becomeFirstResponder()
+
+                    expect(analyticsService.lastCustomEventName).to(equal("Tapped on address search bar on Events Near Address"))
+                    expect(analyticsService.lastCustomEventAttributes).to(beNil())
                 }
             }
 

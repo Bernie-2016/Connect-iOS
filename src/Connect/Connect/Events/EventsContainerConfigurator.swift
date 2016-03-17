@@ -204,6 +204,7 @@ class EventsContainerConfigurator: ContainerConfigurator {
                 eventsNearAddressUseCase: resolver.resolve(EventsNearAddressUseCase.self)!,
                 resultQueue: resolver.resolve(NSOperationQueue.self, name: "main")!,
                 radiusDataSource: resolver.resolve(RadiusDataSource.self)!,
+                analyticsService: resolver.resolve(AnalyticsService.self)!,
                 theme: resolver.resolve(Theme.self)!
             )
         }

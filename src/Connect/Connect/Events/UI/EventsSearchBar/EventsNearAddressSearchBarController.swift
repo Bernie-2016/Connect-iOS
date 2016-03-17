@@ -10,6 +10,7 @@ class EventsNearAddressSearchBarController: UIViewController {
     private let eventsNearAddressUseCase: EventsNearAddressUseCase
     private let resultQueue: NSOperationQueue
     private let radiusDataSource: RadiusDataSource
+    private let analyticsService: AnalyticsService
     private let theme: Theme
 
     let searchBar = UISearchBar.newAutoLayoutView()
@@ -22,11 +23,17 @@ class EventsNearAddressSearchBarController: UIViewController {
 
     var delegate: EventsNearAddressSearchBarControllerDelegate?
 
-    init(searchBarStylist: SearchBarStylist, eventsNearAddressUseCase: EventsNearAddressUseCase, resultQueue: NSOperationQueue, radiusDataSource: RadiusDataSource, theme: Theme) {
+    init(searchBarStylist: SearchBarStylist,
+        eventsNearAddressUseCase: EventsNearAddressUseCase,
+        resultQueue: NSOperationQueue,
+        radiusDataSource: RadiusDataSource,
+        analyticsService: AnalyticsService,
+        theme: Theme) {
         self.searchBarStylist = searchBarStylist
         self.eventsNearAddressUseCase = eventsNearAddressUseCase
         self.resultQueue = resultQueue
         self.radiusDataSource = radiusDataSource
+        self.analyticsService = analyticsService
         self.theme = theme
 
         super.init(nibName: nil, bundle: nil)
@@ -123,6 +130,7 @@ class EventsNearAddressSearchBarController: UIViewController {
 
 extension EventsNearAddressSearchBarController {
     func didTapFilterButton() {
+        analyticsService.trackCustomEventWithName("Tapped on filter button on Events Near Address", customAttributes: nil)
         delegate?.eventsNearAddressSearchBarControllerDidBeginFiltering(self)
     }
 }
@@ -130,6 +138,7 @@ extension EventsNearAddressSearchBarController {
 // MARK: UISearchBarDelegate
 extension EventsNearAddressSearchBarController: UISearchBarDelegate {
     func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
+        analyticsService.trackCustomEventWithName("Tapped on address search bar on Events Near Address", customAttributes: nil)
         delegate?.eventsNearAddressSearchBarControllerDidBeginEditing(self)
 
         return false

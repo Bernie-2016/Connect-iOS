@@ -124,6 +124,8 @@ class NearbyEventsSearchBarController: UIViewController {
 
 extension NearbyEventsSearchBarController {
     func didTapFilterButton() {
+        analyticsService.trackCustomEventWithName("Tapped on filter button on Nearby Events", customAttributes: nil)
+
         delegate?.nearbyEventsSearchBarControllerDidBeginFiltering(self)
     }
 }
@@ -131,7 +133,7 @@ extension NearbyEventsSearchBarController {
 // MARK: UISearchBarDelegate
 extension NearbyEventsSearchBarController: UISearchBarDelegate {
     func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
-            analyticsService.trackCustomEventWithName("Tapped on address search bar on Nearby Events", customAttributes: nil)
+        analyticsService.trackCustomEventWithName("Tapped on address search bar on Nearby Events", customAttributes: nil)
 
         delegate?.nearbyEventsSearchBarControllerDidBeginEditing(self)
 

@@ -381,6 +381,7 @@ class MockEventsNearAddressSearchBarController: EventsNearAddressSearchBarContro
             eventsNearAddressUseCase: MockEventsNearAddressUseCase(),
             resultQueue: FakeOperationQueue(),
             radiusDataSource: MockRadiusDataSource(),
+            analyticsService: FakeAnalyticsService(),
             theme: SearchBarFakeTheme()
         )
     }

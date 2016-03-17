@@ -143,6 +143,13 @@ class NearbyEventsSearchBarControllerSpec: QuickSpec {
 
                     expect(delegate.didBeginFilteringWithController) === subject
                 }
+
+                it("should log an event via the analytics service") {
+                    subject.filterButton.tap()
+
+                    expect(analyticsService.lastCustomEventName).to(equal("Tapped on filter button on Nearby Events"))
+                    expect(analyticsService.lastCustomEventAttributes).to(beNil())
+                }
             }
         }
     }
