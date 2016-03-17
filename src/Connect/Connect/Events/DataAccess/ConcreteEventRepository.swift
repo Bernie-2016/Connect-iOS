@@ -17,49 +17,6 @@ class ConcreteEventRepository: EventRepository {
             self.eventDeserializer = eventDeserializer
     }
 
-    func fetchEventsWithZipCode(zipCode: String, radiusMiles: Float) -> EventSearchResultFuture {
-        let promise = EventSearchResultPromise()
-
-        self.geocoder.geocodeAddressString(zipCode, completionHandler: { (placemarks, geocodingError) -> Void in
-            if geocodingError != nil {
-                let wrappedError = EventRepositoryError.GeocodingError(error: geocodingError!)
-                promise.reject(wrappedError)
-                return
-            }
-
-            let placemark = placemarks!.first!
-            let location = placemark.location!
-
-            let url = self.urlProvider.eventsURL()
-
-            let HTTPBodyDictionary = self.HTTPBodyDictionaryWithLatitude(
-                location.coordinate.latitude,
-                longitude: location.coordinate.longitude,
-                radiusMiles: radiusMiles)
-
-            let eventsJSONFuture = self.jsonClient.JSONPromiseWithURL(url, method: "POST", bodyDictionary: HTTPBodyDictionary)
-
-            eventsJSONFuture.then { deserializedObject in
-                guard let jsonDictionary = deserializedObject as? NSDictionary else {
-                    let invalidJSONError = EventRepositoryError.InvalidJSONError(jsonObject: deserializedObject)
-                    promise.reject(invalidJSONError)
-                    return
-                }
-
-                let parsedEvents = self.eventDeserializer.deserializeEvents(jsonDictionary)
-                let eventSearchResult = EventSearchResult(events: parsedEvents)
-                promise.resolve(eventSearchResult)
-            }
-
-            eventsJSONFuture.error { receivedError in
-                let jsonClientError = EventRepositoryError.ErrorInJSONClient(error: receivedError)
-                promise.reject(jsonClientError)
-            }
-        })
-
-        return promise.future
-    }
-
     func fetchEventsAroundLocation(location: CLLocation, radiusMiles: Float) -> EventSearchResultFuture {
         let promise = EventSearchResultPromise()
 

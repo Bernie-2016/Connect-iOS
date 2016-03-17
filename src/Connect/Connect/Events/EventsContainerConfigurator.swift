@@ -52,14 +52,6 @@ class EventsContainerConfigurator: ContainerConfigurator {
                 eventDeserializer: resolver.resolve(EventDeserializer.self)!
             )
             }.inObjectScope(.Container)
-
-        container.register(EventService.self) { resolver in
-            return BackgroundEventService(
-                eventRepository: resolver.resolve(EventRepository.self)!,
-                workerQueue: resolver.resolve(NSOperationQueue.self, name: "work")!,
-                resultQueue: resolver.resolve(NSOperationQueue.self, name: "main")!
-            )
-            }.inObjectScope(.Container)
     }
 
     // swiftlint:disable function_body_length
@@ -104,21 +96,6 @@ class EventsContainerConfigurator: ContainerConfigurator {
 
         container.register(ZipCodeValidator.self) { resolver in
             return StockZipCodeValidator()
-            }.inObjectScope(.Container)
-
-        container.register(EventsController.self) { resolver in
-            return EventsController(
-                eventService: resolver.resolve(EventService.self)!,
-                eventPresenter: resolver.resolve(EventPresenter.self)!,
-                eventControllerProvider: resolver.resolve(EventControllerProvider.self)!,
-                eventSectionHeaderPresenter: resolver.resolve(EventSectionHeaderPresenter.self)!,
-                urlProvider: resolver.resolve(URLProvider.self)!,
-                urlOpener: resolver.resolve(URLOpener.self)!,
-                analyticsService: resolver.resolve(AnalyticsService.self)!,
-                tabBarItemStylist: resolver.resolve(TabBarItemStylist.self)!,
-                eventListTableViewCellStylist: resolver.resolve(EventListTableViewCellStylist.self)!,
-                zipCodeValidator: resolver.resolve(ZipCodeValidator.self)!,
-                theme: resolver.resolve(Theme.self)!)
             }.inObjectScope(.Container)
 
         container.register(EventsErrorController.self) { resolver in

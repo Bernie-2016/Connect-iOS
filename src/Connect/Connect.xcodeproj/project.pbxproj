@@ -57,12 +57,10 @@
 		6538B2A71C6AE82F0012E33C /* ActionsTableViewCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6538B2A61C6AE82F0012E33C /* ActionsTableViewCellPresenter.swift */; };
 		6538B2A91C6AF4D50012E33C /* SimpleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6538B2A81C6AF4D50012E33C /* SimpleTableViewCell.swift */; };
 		653D0EBF1C4C28C0004CB8A0 /* EventPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0EB21C4C28C0004CB8A0 /* EventPresenter.swift */; };
-		653D0ECD1C4C292D004CB8A0 /* BackgroundEventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0EC71C4C292D004CB8A0 /* BackgroundEventService.swift */; };
 		653D0ECE1C4C292D004CB8A0 /* ConcreteEventDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0EC81C4C292D004CB8A0 /* ConcreteEventDeserializer.swift */; };
 		653D0ECF1C4C292D004CB8A0 /* ConcreteEventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0EC91C4C292D004CB8A0 /* ConcreteEventRepository.swift */; };
 		653D0ED01C4C292D004CB8A0 /* EventDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0ECA1C4C292D004CB8A0 /* EventDeserializer.swift */; };
 		653D0ED11C4C292D004CB8A0 /* EventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0ECB1C4C292D004CB8A0 /* EventRepository.swift */; };
-		653D0ED21C4C292D004CB8A0 /* EventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0ECC1C4C292D004CB8A0 /* EventService.swift */; };
 		653D0ED51C4C2938004CB8A0 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0ED31C4C2938004CB8A0 /* Event.swift */; };
 		653D0ED61C4C2938004CB8A0 /* EventSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0ED41C4C2938004CB8A0 /* EventSearchResult.swift */; };
 		653D0EF41C4C2B7D004CB8A0 /* BackgroundNewsArticleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0EEC1C4C2B7D004CB8A0 /* BackgroundNewsArticleService.swift */; };
@@ -128,7 +126,6 @@
 		653D0FBA1C4C539A004CB8A0 /* ConcreteURLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0FB81C4C539A004CB8A0 /* ConcreteURLProvider.swift */; };
 		653D0FBB1C4C539A004CB8A0 /* URLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0FB91C4C539A004CB8A0 /* URLProvider.swift */; };
 		653D10021C4C53BB004CB8A0 /* ActionsControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0FBE1C4C53BB004CB8A0 /* ActionsControllerSpec.swift */; };
-		653D10031C4C53BB004CB8A0 /* BackgroundEventServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0FC11C4C53BB004CB8A0 /* BackgroundEventServiceSpec.swift */; };
 		653D10041C4C53BB004CB8A0 /* ConcreteEventDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0FC21C4C53BB004CB8A0 /* ConcreteEventDeserializerSpec.swift */; };
 		653D10051C4C53BB004CB8A0 /* ConcreteEventRepositorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0FC31C4C53BB004CB8A0 /* ConcreteEventRepositorySpec.swift */; };
 		653D10061C4C53BB004CB8A0 /* EventSearchResultsSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0FC51C4C53BB004CB8A0 /* EventSearchResultsSpec.swift */; };
@@ -429,12 +426,10 @@
 		6538B2A61C6AE82F0012E33C /* ActionsTableViewCellPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionsTableViewCellPresenter.swift; sourceTree = "<group>"; };
 		6538B2A81C6AF4D50012E33C /* SimpleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleTableViewCell.swift; sourceTree = "<group>"; };
 		653D0EB21C4C28C0004CB8A0 /* EventPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventPresenter.swift; path = UI/EventPresenter.swift; sourceTree = "<group>"; };
-		653D0EC71C4C292D004CB8A0 /* BackgroundEventService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundEventService.swift; sourceTree = "<group>"; };
 		653D0EC81C4C292D004CB8A0 /* ConcreteEventDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteEventDeserializer.swift; sourceTree = "<group>"; };
 		653D0EC91C4C292D004CB8A0 /* ConcreteEventRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteEventRepository.swift; sourceTree = "<group>"; };
 		653D0ECA1C4C292D004CB8A0 /* EventDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDeserializer.swift; sourceTree = "<group>"; };
 		653D0ECB1C4C292D004CB8A0 /* EventRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventRepository.swift; sourceTree = "<group>"; };
-		653D0ECC1C4C292D004CB8A0 /* EventService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventService.swift; sourceTree = "<group>"; };
 		653D0ED31C4C2938004CB8A0 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		653D0ED41C4C2938004CB8A0 /* EventSearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSearchResult.swift; sourceTree = "<group>"; };
 		653D0EEC1C4C2B7D004CB8A0 /* BackgroundNewsArticleService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundNewsArticleService.swift; sourceTree = "<group>"; };
@@ -501,7 +496,6 @@
 		653D0FB81C4C539A004CB8A0 /* ConcreteURLProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteURLProvider.swift; sourceTree = "<group>"; };
 		653D0FB91C4C539A004CB8A0 /* URLProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLProvider.swift; sourceTree = "<group>"; };
 		653D0FBE1C4C53BB004CB8A0 /* ActionsControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionsControllerSpec.swift; sourceTree = "<group>"; };
-		653D0FC11C4C53BB004CB8A0 /* BackgroundEventServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundEventServiceSpec.swift; sourceTree = "<group>"; };
 		653D0FC21C4C53BB004CB8A0 /* ConcreteEventDeserializerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteEventDeserializerSpec.swift; sourceTree = "<group>"; };
 		653D0FC31C4C53BB004CB8A0 /* ConcreteEventRepositorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteEventRepositorySpec.swift; sourceTree = "<group>"; };
 		653D0FC51C4C53BB004CB8A0 /* EventSearchResultsSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSearchResultsSpec.swift; sourceTree = "<group>"; };
@@ -830,12 +824,10 @@
 		653D0EC61C4C28E4004CB8A0 /* DataAccess */ = {
 			isa = PBXGroup;
 			children = (
-				653D0EC71C4C292D004CB8A0 /* BackgroundEventService.swift */,
 				653D0EC81C4C292D004CB8A0 /* ConcreteEventDeserializer.swift */,
 				653D0EC91C4C292D004CB8A0 /* ConcreteEventRepository.swift */,
 				653D0ECA1C4C292D004CB8A0 /* EventDeserializer.swift */,
 				653D0ECB1C4C292D004CB8A0 /* EventRepository.swift */,
-				653D0ECC1C4C292D004CB8A0 /* EventService.swift */,
 			);
 			path = DataAccess;
 			sourceTree = "<group>";
@@ -1090,7 +1082,6 @@
 		653D0FC01C4C53BB004CB8A0 /* DataAccess */ = {
 			isa = PBXGroup;
 			children = (
-				653D0FC11C4C53BB004CB8A0 /* BackgroundEventServiceSpec.swift */,
 				653D0FC21C4C53BB004CB8A0 /* ConcreteEventDeserializerSpec.swift */,
 				653D0FC31C4C53BB004CB8A0 /* ConcreteEventRepositorySpec.swift */,
 			);
@@ -1870,7 +1861,6 @@
 				659011161C4D8ADB005489C4 /* AppBootstrapper.swift in Sources */,
 				8233FC0D1B7C28FB00A5E9ED /* AppDelegate.swift in Sources */,
 				653D0F751C4C2F68004CB8A0 /* ApplicationSettingsRepository.swift in Sources */,
-				653D0ECD1C4C292D004CB8A0 /* BackgroundEventService.swift in Sources */,
 				653D0F761C4C2F68004CB8A0 /* BackgroundImageService.swift in Sources */,
 				653D0EF41C4C2B7D004CB8A0 /* BackgroundNewsArticleService.swift in Sources */,
 				653D0EF51C4C2B7D004CB8A0 /* BackgroundNewsFeedService.swift in Sources */,
@@ -1920,7 +1910,6 @@
 				653D0ED61C4C2938004CB8A0 /* EventSearchResult.swift in Sources */,
 				65DAF32B1C9861D7000E604F /* EventSectionHeaderPresenter.swift in Sources */,
 				655B6AD21C9B45C900153AD9 /* EventsErrorController.swift in Sources */,
-				653D0ED21C4C292D004CB8A0 /* EventService.swift in Sources */,
 				65DAF3621C986A4F000E604F /* EventsNearAddressFilterController.swift in Sources */,
 				65DAF3611C986A4F000E604F /* EventsNearAddressSearchBarController.swift in Sources */,
 				6513FC2A1C96206600EDB635 /* EventsNearAddressUseCase.swift in Sources */,
@@ -2013,7 +2002,6 @@
 				653D10201C4C53BB004CB8A0 /* AnalyticsSettingsControllerSpec.swift in Sources */,
 				651960871C4D8F20004AAC6D /* AppDelegateSpec.swift in Sources */,
 				65B023591C59C5570082E211 /* BackgroundActionAlertServiceSpec.swift in Sources */,
-				653D10031C4C53BB004CB8A0 /* BackgroundEventServiceSpec.swift in Sources */,
 				653D10141C4C53BB004CB8A0 /* BackgroundImageServiceSpec.swift in Sources */,
 				653D10261C4C53BB004CB8A0 /* BackgroundNewsArticleServiceSpec.swift in Sources */,
 				653D10271C4C53BB004CB8A0 /* BackgroundNewsFeedServiceSpec.swift in Sources */,
