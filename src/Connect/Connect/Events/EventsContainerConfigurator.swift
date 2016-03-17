@@ -134,6 +134,7 @@ class EventsContainerConfigurator: ContainerConfigurator {
                 searchBarController: resolver.resolve(EventSearchBarContainerController.self)!,
                 interstitialController: resolver.resolve(UIViewController.self, name: "interstitial")!,
                 resultsController: resolver.resolve(EventsResultsController.self)!,
+                noResultsController: UIViewController(),
                 errorController: resolver.resolve(EventsErrorController.self)!,
                 nearbyEventsUseCase: resolver.resolve(NearbyEventsUseCase.self)!,
                 eventsNearAddressUseCase: resolver.resolve(EventsNearAddressUseCase.self)!,

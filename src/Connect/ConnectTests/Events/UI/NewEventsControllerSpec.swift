@@ -11,6 +11,7 @@ class NewEventsControllerSpec: QuickSpec {
             var searchBarController: UIViewController!
             var interstitialController: UIViewController!
             var resultsController: UIViewController!
+            var noResultsController: UIViewController!
             var errorController: UIViewController!
             var nearbyEventsUseCase: MockNearbyEventsUseCase!
             var eventsNearAddressUseCase: MockEventsNearAddressUseCase!
@@ -26,6 +27,7 @@ class NewEventsControllerSpec: QuickSpec {
                 searchBarController = UIViewController()
                 interstitialController = UIViewController()
                 resultsController = UIViewController()
+                noResultsController = UIViewController()
                 errorController = UIViewController()
                 nearbyEventsUseCase = MockNearbyEventsUseCase()
                 eventsNearAddressUseCase = MockEventsNearAddressUseCase()
@@ -39,6 +41,7 @@ class NewEventsControllerSpec: QuickSpec {
                     searchBarController: searchBarController,
                     interstitialController: interstitialController,
                     resultsController: resultsController,
+                    noResultsController: noResultsController,
                     errorController: errorController,
                     nearbyEventsUseCase: nearbyEventsUseCase,
                     eventsNearAddressUseCase: eventsNearAddressUseCase,
@@ -158,7 +161,7 @@ class NewEventsControllerSpec: QuickSpec {
                         resultQueue.lastReceivedBlock()
 
                         expect(childControllerBuddy.lastOldSwappedController) === interstitialController
-                        expect(childControllerBuddy.lastNewSwappedController) === resultsController
+                        expect(childControllerBuddy.lastNewSwappedController) === noResultsController
                         expect(childControllerBuddy.lastParentSwappedController) === subject
                     }
                 }
@@ -234,7 +237,7 @@ class NewEventsControllerSpec: QuickSpec {
                         resultQueue.lastReceivedBlock()
 
                         expect(childControllerBuddy.lastOldSwappedController) === interstitialController
-                        expect(childControllerBuddy.lastNewSwappedController) === resultsController
+                        expect(childControllerBuddy.lastNewSwappedController) === noResultsController
                         expect(childControllerBuddy.lastParentSwappedController) === subject
                     }
                 }

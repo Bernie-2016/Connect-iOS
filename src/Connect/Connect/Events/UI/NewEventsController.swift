@@ -4,6 +4,7 @@ import CoreLocation
 class NewEventsController: UIViewController {
     private let searchBarController: UIViewController
     private let interstitialController: UIViewController
+    private let noResultsController: UIViewController
     private let resultsController: UIViewController
     private let errorController: UIViewController
     private let nearbyEventsUseCase: NearbyEventsUseCase
@@ -24,6 +25,7 @@ class NewEventsController: UIViewController {
         searchBarController: UIViewController,
         interstitialController: UIViewController,
         resultsController: UIViewController,
+        noResultsController: UIViewController,
         errorController: UIViewController,
         nearbyEventsUseCase: NearbyEventsUseCase,
         eventsNearAddressUseCase: EventsNearAddressUseCase,
@@ -35,6 +37,7 @@ class NewEventsController: UIViewController {
             self.searchBarController = searchBarController
             self.interstitialController = interstitialController
             self.resultsController = resultsController
+            self.noResultsController = noResultsController
             self.errorController = errorController
             self.nearbyEventsUseCase = nearbyEventsUseCase
             self.eventsNearAddressUseCase = eventsNearAddressUseCase
@@ -111,6 +114,12 @@ class NewEventsController: UIViewController {
         }
     }
 
+    private func showNoResults() {
+        resultQueue.addOperationWithBlock {
+            self.currentResultsViewController = self.childControllerBuddy.swap(self.currentResultsViewController!, new: self.noResultsController, parent: self)
+        }
+    }
+
     private func showErrors() {
         resultQueue.addOperationWithBlock {
             self.currentResultsViewController = self.childControllerBuddy.swap(self.currentResultsViewController!, new: self.errorController, parent: self)
@@ -129,7 +138,7 @@ extension NewEventsController: NearbyEventsUseCaseObserver {
         showResults()
     }
     func nearbyEventsUseCaseFoundNoNearbyEvents(useCase: NearbyEventsUseCase) {
-        showResults()
+        showNoResults()
     }
 
     func nearbyEventsUseCase(useCase: NearbyEventsUseCase, didFailFetchEvents: NearbyEventsUseCaseError) {
@@ -153,6 +162,6 @@ extension NewEventsController: EventsNearAddressUseCaseObserver {
     }
 
     func eventsNearAddressUseCaseFoundNoEvents(useCase: EventsNearAddressUseCase, address: Address) {
-        showResults()
+        showNoResults()
     }
 }
