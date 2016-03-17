@@ -202,4 +202,10 @@ extension EditAddressSearchBarController: UISearchBarDelegate {
 
         return updatedZipCode.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) <= 5
     }
+
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText == "" {
+            searchButton.enabled = false
+        }
+    }
 }

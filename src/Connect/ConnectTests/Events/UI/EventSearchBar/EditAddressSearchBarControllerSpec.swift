@@ -248,6 +248,7 @@ class EditAddressSearchBarControllerSpec: QuickSpec {
                         zipCodeValidator.returnedValidationResult = true
 
                         searchBar.delegate?.searchBar!(searchBar, shouldChangeTextInRange: range, replacementText: "1")
+                        searchBar.delegate?.searchBar!(searchBar, textDidChange: "90211")
 
                         searchBar.text = "90211"
                         zipCodeValidator.returnedValidationResult = false
@@ -255,6 +256,16 @@ class EditAddressSearchBarControllerSpec: QuickSpec {
                         searchBar.delegate?.searchBar!(searchBar, shouldChangeTextInRange: range, replacementText: "1")
 
                         expect(subject.searchButton.enabled) == true
+                    }
+                }
+
+                context("and the user clears the text field") {
+                    it("disables the search button") {
+                        subject.searchButton.enabled = true
+
+                        searchBar.delegate?.searchBar!(searchBar, textDidChange: "")
+
+                        expect(subject.searchButton.enabled) == false
                     }
                 }
             }
