@@ -7,6 +7,7 @@ protocol EditAddressSearchBarControllerDelegate {
 class EditAddressSearchBarController: UIViewController {
     private let nearbyEventsUseCase: NearbyEventsUseCase
     private let eventsNearAddressUseCase: EventsNearAddressUseCase!
+    private let radiusDataSource: RadiusDataSource!
     private let zipCodeValidator: ZipCodeValidator
     private let searchBarStylist: SearchBarStylist
     private let resultQueue: NSOperationQueue
@@ -25,6 +26,7 @@ class EditAddressSearchBarController: UIViewController {
     init(
         nearbyEventsUseCase: NearbyEventsUseCase,
         eventsNearAddressUseCase: EventsNearAddressUseCase,
+        radiusDataSource: RadiusDataSource,
         zipCodeValidator: ZipCodeValidator,
         searchBarStylist: SearchBarStylist,
         resultQueue: NSOperationQueue,
@@ -34,6 +36,7 @@ class EditAddressSearchBarController: UIViewController {
         ) {
             self.nearbyEventsUseCase = nearbyEventsUseCase
             self.eventsNearAddressUseCase = eventsNearAddressUseCase
+            self.radiusDataSource = radiusDataSource
             self.zipCodeValidator = zipCodeValidator
             self.searchBarStylist = searchBarStylist
             self.resultQueue = resultQueue
@@ -149,7 +152,7 @@ extension EditAddressSearchBarController {
             let searchQuery = self.searchBar.text!
             self.analyticsService.trackSearchWithQuery(searchQuery, context: .Events)
 
-            self.eventsNearAddressUseCase.fetchEventsNearAddress(searchQuery, radiusMiles: 10.0)
+            self.eventsNearAddressUseCase.fetchEventsNearAddress(searchQuery, radiusMiles: self.radiusDataSource.currentMilesValue)
         }
     }
 }

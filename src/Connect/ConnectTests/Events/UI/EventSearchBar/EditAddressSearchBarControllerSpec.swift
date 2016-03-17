@@ -9,6 +9,7 @@ class EditAddressSearchBarControllerSpec: QuickSpec {
             var subject: EditAddressSearchBarController!
             var nearbyEventsUseCase: MockNearbyEventsUseCase!
             var eventsNearAddressUseCase: MockEventsNearAddressUseCase!
+            var radiusDataSource: MockRadiusDataSource!
             var zipCodeValidator: FakeZipCodeValidator!
             var searchBarStylist: MockSearchBarStylist!
             var resultQueue: FakeOperationQueue!
@@ -21,6 +22,7 @@ class EditAddressSearchBarControllerSpec: QuickSpec {
             beforeEach {
                 nearbyEventsUseCase = MockNearbyEventsUseCase()
                 eventsNearAddressUseCase = MockEventsNearAddressUseCase()
+                radiusDataSource = MockRadiusDataSource()
                 zipCodeValidator = FakeZipCodeValidator()
                 searchBarStylist = MockSearchBarStylist()
                 resultQueue = FakeOperationQueue()
@@ -30,6 +32,7 @@ class EditAddressSearchBarControllerSpec: QuickSpec {
                 subject = EditAddressSearchBarController(
                     nearbyEventsUseCase: nearbyEventsUseCase,
                     eventsNearAddressUseCase: eventsNearAddressUseCase,
+                    radiusDataSource: radiusDataSource,
                     zipCodeValidator: zipCodeValidator,
                     searchBarStylist: searchBarStylist,
                     resultQueue: resultQueue,
@@ -143,7 +146,8 @@ class EditAddressSearchBarControllerSpec: QuickSpec {
                     subject.searchButton.enabled = true
                 }
 
-                it("tells the events near address use case to start a new search") {
+                it("tells the events near address use case to start a new search with the radius from the data source") {
+                    radiusDataSource.returnedCurrentMilesValue = 42.1
                     subject.searchBar.text = "nice place"
 
                     subject.searchButton.tap()
@@ -151,7 +155,7 @@ class EditAddressSearchBarControllerSpec: QuickSpec {
                     workerQueue.lastReceivedBlock()
 
                     expect(eventsNearAddressUseCase.lastSearchedAddress) == "nice place"
-                    expect(eventsNearAddressUseCase.lastSearchedRadius) == 10.0 // hard coded for now
+                    expect(eventsNearAddressUseCase.lastSearchedRadius) == 42.1
                 }
 
                 it("should log an event via the analytics service") {

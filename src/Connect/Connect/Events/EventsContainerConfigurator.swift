@@ -212,6 +212,7 @@ class EventsContainerConfigurator: ContainerConfigurator {
             return EditAddressSearchBarController(
                 nearbyEventsUseCase: resolver.resolve(NearbyEventsUseCase.self)!,
                 eventsNearAddressUseCase: resolver.resolve(EventsNearAddressUseCase.self)!,
+                radiusDataSource: resolver.resolve(RadiusDataSource.self)!,
                 zipCodeValidator: resolver.resolve(ZipCodeValidator.self)!,
                 searchBarStylist: resolver.resolve(SearchBarStylist.self)!,
                 resultQueue: resolver.resolve(NSOperationQueue.self, name: "main")!,

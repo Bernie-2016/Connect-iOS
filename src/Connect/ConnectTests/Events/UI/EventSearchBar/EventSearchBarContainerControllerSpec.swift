@@ -443,6 +443,7 @@ class MockEditAddressSearchBarController: EditAddressSearchBarController {
         super.init(
             nearbyEventsUseCase: MockNearbyEventsUseCase(),
             eventsNearAddressUseCase: MockEventsNearAddressUseCase(),
+            radiusDataSource: MockRadiusDataSource(),
             zipCodeValidator: FakeZipCodeValidator(),
             searchBarStylist: MockSearchBarStylist(),
             resultQueue: FakeOperationQueue(),
