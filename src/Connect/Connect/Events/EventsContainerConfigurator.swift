@@ -129,12 +129,21 @@ class EventsContainerConfigurator: ContainerConfigurator {
                     theme: resolver.resolve(Theme.self)!)
         }
 
+        container.register(EventsNoResultsController.self) { resolver in
+                return EventsNoResultsController(
+                    urlOpener: resolver.resolve(URLOpener.self)!,
+                    urlProvider: resolver.resolve(URLProvider.self)!,
+                    analyticsService: resolver.resolve(AnalyticsService.self)!,
+                    theme: resolver.resolve(Theme.self)!
+            )
+        }
+
         container.register(NewEventsController.self) { resolver in
             return NewEventsController(
                 searchBarController: resolver.resolve(EventSearchBarContainerController.self)!,
                 interstitialController: resolver.resolve(UIViewController.self, name: "interstitial")!,
                 resultsController: resolver.resolve(EventsResultsController.self)!,
-                noResultsController: UIViewController(),
+                noResultsController: resolver.resolve(EventsNoResultsController.self)!,
                 errorController: resolver.resolve(EventsErrorController.self)!,
                 nearbyEventsUseCase: resolver.resolve(NearbyEventsUseCase.self)!,
                 eventsNearAddressUseCase: resolver.resolve(EventsNearAddressUseCase.self)!,
