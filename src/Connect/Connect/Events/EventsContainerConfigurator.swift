@@ -138,8 +138,8 @@ class EventsContainerConfigurator: ContainerConfigurator {
             )
         }
 
-        container.register(NewEventsController.self) { resolver in
-            return NewEventsController(
+        container.register(EventsController.self) { resolver in
+            return EventsController(
                 searchBarController: resolver.resolve(EventSearchBarContainerController.self)!,
                 interstitialController: resolver.resolve(UIViewController.self, name: "interstitial")!,
                 resultsController: resolver.resolve(EventsResultsController.self)!,
@@ -259,7 +259,7 @@ class EventsContainerConfigurator: ContainerConfigurator {
 
         container.register(NavigationController.self, name: "events") { resolver in
             let navigationController = resolver.resolve(NavigationController.self)!
-            let eventsController = resolver.resolve(NewEventsController.self)!
+            let eventsController = resolver.resolve(EventsController.self)!
             navigationController.pushViewController(eventsController, animated: false)
             return navigationController
         }.inObjectScope(.Container)
