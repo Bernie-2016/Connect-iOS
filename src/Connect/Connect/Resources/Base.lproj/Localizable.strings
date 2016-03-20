@@ -47,7 +47,6 @@
 
 // Event
 
-"Event_navigationTitle" = "Event Details";
 "Event_backButtonTitle" = "";
 "Event_directionsButtonTitle" = "Get Directions";
 "Event_descriptionHeading" = "Description";

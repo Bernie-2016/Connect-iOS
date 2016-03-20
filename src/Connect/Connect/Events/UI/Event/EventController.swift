@@ -68,7 +68,7 @@ class EventController: UIViewController {
         mapView.addAnnotation(eventPin)
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "navBarShareButton"), style: .Plain, target: self, action: "share")
-        navigationItem.title = NSLocalizedString("Event_navigationTitle", comment: "")
+        navigationItem.title = event.eventTypeName
 
         directionsButton.addTarget(self, action: "didTapDirections", forControlEvents: .TouchUpInside)
         rsvpButton.addTarget(self, action: "didTapRSVP", forControlEvents: .TouchUpInside)
