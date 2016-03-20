@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "NearbyIcon.png",
+      "filename" : "EventsIcon.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "NearbyIcon@2x.png",
+      "filename" : "EventsIcon@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "NearbyIcon@3x.png",
+      "filename" : "EventsIcon@3x.png",
       "scale" : "3x"
     }
   ],

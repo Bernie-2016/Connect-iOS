@@ -5,13 +5,11 @@ import PureLayout
 class SettingsController: UITableViewController {
     private let tappableControllers: [UIViewController]
     private let analyticsService: AnalyticsService
-    private let tabBarItemStylist: TabBarItemStylist
     private let theme: Theme
 
-    init(tappableControllers: [UIViewController], analyticsService: AnalyticsService, tabBarItemStylist: TabBarItemStylist, theme: Theme) {
+    init(tappableControllers: [UIViewController], analyticsService: AnalyticsService, theme: Theme) {
         self.tappableControllers = tappableControllers
         self.analyticsService = analyticsService
-        self.tabBarItemStylist = tabBarItemStylist
         self.theme = theme
 
         super.init(nibName: nil, bundle: nil)
@@ -21,10 +19,6 @@ class SettingsController: UITableViewController {
             target: nil, action: nil)
 
         navigationItem.backBarButtonItem = backBarButtonItem
-
-        tabBarItemStylist.applyThemeToBarBarItem(self.tabBarItem,
-            image: UIImage(named: "moreTabBarIconInactive")!,
-            selectedImage: UIImage(named: "moreTabBarIcon")!)
 
         title = NSLocalizedString("Settings_navigationTitle", comment: "")
     }

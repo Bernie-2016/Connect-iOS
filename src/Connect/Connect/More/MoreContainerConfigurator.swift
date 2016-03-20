@@ -57,7 +57,6 @@ class MoreContainerConfigurator: ContainerConfigurator {
             return SettingsController(
                 tappableControllers: resolver.resolve([UIViewController].self, name: "settingsControllers")!,
                 analyticsService: resolver.resolve(AnalyticsService.self)!,
-                tabBarItemStylist: resolver.resolve(TabBarItemStylist.self)!,
                 theme: resolver.resolve(Theme.self)!
             )
             }.inObjectScope(.Container)

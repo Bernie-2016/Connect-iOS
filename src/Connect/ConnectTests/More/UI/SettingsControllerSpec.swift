@@ -8,7 +8,6 @@ class SettingsControllerSpec : QuickSpec {
         describe("SettingsController") {
             var subject: SettingsController!
             var analyticsService: FakeAnalyticsService!
-            var tabBarItemStylist: FakeTabBarItemStylist!
             let theme = SettingsFakeTheme()
 
             let regularController = FakeSettingsController(title: "Regular Controller")
@@ -17,13 +16,12 @@ class SettingsControllerSpec : QuickSpec {
 
             beforeEach {
                 analyticsService = FakeAnalyticsService()
-                tabBarItemStylist = FakeTabBarItemStylist()
 
-                subject = SettingsController(tappableControllers: [
-                    regularController
+                subject = SettingsController(
+                    tappableControllers: [
+                        regularController
                     ],
                     analyticsService: analyticsService,
-                    tabBarItemStylist: tabBarItemStylist,
                     theme: theme)
 
                 navigationController = UINavigationController()
@@ -48,13 +46,6 @@ class SettingsControllerSpec : QuickSpec {
             describe("when the view loads") {
                 beforeEach {
                     subject.view.layoutSubviews()
-                }
-
-                it("uses the tab bar item stylist to style its tab bar item") {
-                    expect(tabBarItemStylist.lastReceivedTabBarItem).to(beIdenticalTo(subject.tabBarItem))
-
-                    expect(tabBarItemStylist.lastReceivedTabBarImage).to(equal(UIImage(named: "moreTabBarIconInactive")))
-                    expect(tabBarItemStylist.lastReceivedTabBarSelectedImage).to(equal(UIImage(named: "moreTabBarIcon")))
                 }
 
                 it("styles the views according to the theme") {
