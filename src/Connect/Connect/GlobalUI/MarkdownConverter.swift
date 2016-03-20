@@ -14,22 +14,22 @@ class CMMarkdownConverter: MarkdownConverter {
         paragraphStyle.minimumLineHeight = theme.defaultBodyTextLineHeight()
 
         attributes.textAttributes = [
-            NSFontAttributeName: theme.actionAlertBodyFont(),
-            NSForegroundColorAttributeName: theme.actionAlertBodyTextColor(),
+            NSFontAttributeName: theme.markdownBodyFont(),
+            NSForegroundColorAttributeName: theme.markdownBodyTextColor(),
             NSParagraphStyleAttributeName: paragraphStyle
         ]
 
         attributes.linkAttributes = [
             NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue,
-            NSForegroundColorAttributeName: theme.actionAlertBodyLinkTextColor()
+            NSForegroundColorAttributeName: theme.markdownBodyLinkTextColor()
         ]
 
-        attributes.h1Attributes = [ NSFontAttributeName: theme.actionAlertH1Font() ]
-        attributes.h2Attributes = [ NSFontAttributeName: theme.actionAlertH2Font() ]
-        attributes.h3Attributes = [ NSFontAttributeName: theme.actionAlertH3Font() ]
-        attributes.h4Attributes = [ NSFontAttributeName: theme.actionAlertH4Font() ]
-        attributes.h5Attributes = [ NSFontAttributeName: theme.actionAlertH5Font() ]
-        attributes.h6Attributes = [ NSFontAttributeName: theme.actionAlertH6Font() ]
+        attributes.h1Attributes = [ NSFontAttributeName: theme.markdownH1Font() ]
+        attributes.h2Attributes = [ NSFontAttributeName: theme.markdownH2Font() ]
+        attributes.h3Attributes = [ NSFontAttributeName: theme.markdownH3Font() ]
+        attributes.h4Attributes = [ NSFontAttributeName: theme.markdownH4Font() ]
+        attributes.h5Attributes = [ NSFontAttributeName: theme.markdownH5Font() ]
+        attributes.h6Attributes = [ NSFontAttributeName: theme.markdownH6Font() ]
     }
 
     func convertToAttributedString(markdown: String) -> NSAttributedString {

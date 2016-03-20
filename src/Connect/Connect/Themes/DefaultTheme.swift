@@ -165,29 +165,20 @@ class DefaultTheme: Theme {
 
     // MARK: Markdown
 
-    func actionAlertDateFont() -> UIFont { return h2HeaderFont() }
-    func actionAlertDateTextColor() -> UIColor { return thunderbirdColor }
-    func actionAlertTitleFont() -> UIFont { return h1HeaderFont() }
-    func actionAlertTitleTextColor() -> UIColor { return h1HeaderTextColor() }
-    func actionAlertH1Font() -> UIFont { return h1HeaderFont() }
-    func actionAlertH2Font() -> UIFont { return h2HeaderFont() }
-    func actionAlertH3Font() -> UIFont { return h3HeaderFont() }
-    func actionAlertH4Font() -> UIFont { return h4HeaderFont() }
-    func actionAlertH5Font() -> UIFont { return h5HeaderFont() }
-    func actionAlertH6Font() -> UIFont { return h6HeaderFont() }
-    func actionAlertBodyFont() -> UIFont { return defaultBodyTextFont() }
-    func actionAlertBodyTextColor() -> UIColor { return defaultBodyTextColor() }
-    func actionAlertBodyLinkTextColor() -> UIColor { return denimColor }
-    func actionAlertShareButtonFont() -> UIFont { return defaultButtonFont() }
-    func actionAlertShareButtonTextColor() -> UIColor { return defaultButtonTextColor() }
-    func actionAlertShareButtonBorderColor() -> UIColor { return defaultButtonTextColor() }
-    func actionAlertShareButtonBackgroundColor() -> UIColor { return contentBackgroundColor() }
+    func markdownH1Font() -> UIFont { return h1HeaderFont() }
+    func markdownH2Font() -> UIFont { return h2HeaderFont() }
+    func markdownH3Font() -> UIFont { return h3HeaderFont() }
+    func markdownH4Font() -> UIFont { return h4HeaderFont() }
+    func markdownH5Font() -> UIFont { return h5HeaderFont() }
+    func markdownH6Font() -> UIFont { return h6HeaderFont() }
+    func markdownBodyFont() -> UIFont { return defaultBodyTextFont() }
+    func markdownBodyTextColor() -> UIColor { return defaultBodyTextColor() }
+    func markdownBodyLinkTextColor() -> UIColor { return denimColor }
 
     // MARK: default dimensions
 
     func defaultCornerRadius() -> CGFloat { return 5.0 }
     func defaultBorderWidth() -> CGFloat { return 1.0 }
-
 
     // new colors
     let codGrayColor = UIColor(rgba: "#0F0F0F")

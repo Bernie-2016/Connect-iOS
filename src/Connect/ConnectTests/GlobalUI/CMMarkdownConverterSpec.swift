@@ -90,14 +90,14 @@ class CMMarkdownConverterSpec: QuickSpec {
 }
 
 private class FakeCMMarkdownTheme: FakeTheme {
-    private override func actionAlertBodyFont() -> UIFont { return UIFont.systemFontOfSize(666) }
-    private override func actionAlertBodyTextColor() -> UIColor { return UIColor.magentaColor() }
-    private override func actionAlertBodyLinkTextColor() -> UIColor { return UIColor.purpleColor() }
-    private override func actionAlertH1Font() -> UIFont { return UIFont.systemFontOfSize(1) }
-    private override func actionAlertH2Font() -> UIFont { return UIFont.systemFontOfSize(2) }
-    private override func actionAlertH3Font() -> UIFont { return UIFont.systemFontOfSize(3) }
-    private override func actionAlertH4Font() -> UIFont { return UIFont.systemFontOfSize(4) }
-    private override func actionAlertH5Font() -> UIFont { return UIFont.systemFontOfSize(5) }
-    private override func actionAlertH6Font() -> UIFont { return UIFont.systemFontOfSize(6) }
+    private override func markdownBodyFont() -> UIFont { return UIFont.systemFontOfSize(666) }
+    private override func markdownBodyTextColor() -> UIColor { return UIColor.magentaColor() }
+    private override func markdownBodyLinkTextColor() -> UIColor { return UIColor.purpleColor() }
+    private override func markdownH1Font() -> UIFont { return UIFont.systemFontOfSize(1) }
+    private override func markdownH2Font() -> UIFont { return UIFont.systemFontOfSize(2) }
+    private override func markdownH3Font() -> UIFont { return UIFont.systemFontOfSize(3) }
+    private override func markdownH4Font() -> UIFont { return UIFont.systemFontOfSize(4) }
+    private override func markdownH5Font() -> UIFont { return UIFont.systemFontOfSize(5) }
+    private override func markdownH6Font() -> UIFont { return UIFont.systemFontOfSize(6) }
     private override func defaultBodyTextLineHeight() -> CGFloat { return 666.0 }
 }
