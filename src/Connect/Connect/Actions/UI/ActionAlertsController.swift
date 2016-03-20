@@ -19,6 +19,12 @@ class ActionAlertsController: UIViewController {
 
     private let kCollectionViewCellName = "ActionAlertsCollectionViewCell"
     private let kHorizontalSectionInset: CGFloat = 15
+
+    private let kFBShareURLPrefix = "https://m.facebook.com/sharer.php"
+    private let kTweetURLPrefix = "https://twitter.com/intent/tweet"
+    private let kRetweetURLPrefix = "https://twitter.com/intent/retweet"
+    private let kLikeTweetURLPrefix = "https://twitter.com/intent/like"
+
     init(
         actionAlertService: ActionAlertService,
         actionAlertWebViewProvider: ActionAlertWebViewProvider,
@@ -224,8 +230,40 @@ extension ActionAlertsController: UIWebViewDelegate {
             return false
         }
 
+        trackLinkClick(url)
+
         urlOpener.openURL(url)
 
         return false
+    }
+
+    private func trackLinkClick(url: NSURL) {
+        let actionAlert = actionAlerts[pageControl.currentPage]
+
+        var attributes = [
+            AnalyticsServiceConstants.contentIDKey: actionAlert.identifier,
+            AnalyticsServiceConstants.contentNameKey: actionAlert.title,
+        ]
+
+
+        switch url.absoluteString {
+        case let s where s.hasPrefix(kFBShareURLPrefix):
+            attributes[AnalyticsServiceConstants.contentTypeKey] = "Action Alert - Facebook"
+            break
+        case let s where s.hasPrefix(kTweetURLPrefix):
+            attributes[AnalyticsServiceConstants.contentTypeKey] = "Action Alert - Tweet"
+            break
+        case let s where s.hasPrefix(kRetweetURLPrefix):
+            attributes[AnalyticsServiceConstants.contentTypeKey] = "Action Alert - Retweet"
+            break
+        case let s where s.hasPrefix(kLikeTweetURLPrefix):
+            attributes[AnalyticsServiceConstants.contentTypeKey] = "Action Alert - Like Tweet"
+            break
+        default:
+            attributes[AnalyticsServiceConstants.contentTypeKey] = "Action Alert - Followed Other Link"
+            attributes[AnalyticsServiceConstants.contentURLKey] = url.absoluteString
+        }
+
+        analyticsService.trackCustomEventWithName("Began Share", customAttributes: attributes)
     }
 }

@@ -14,6 +14,7 @@ struct AnalyticsServiceConstants {
     static let contentIDKey = "id"
     static let contentNameKey = "name"
     static let contentTypeKey = "type"
+    static let contentURLKey = "url"
 }
 
 enum AnalyticsServiceContentType: String, CustomStringConvertible {

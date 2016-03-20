@@ -318,6 +318,8 @@ class ActionAlertsControllerSpec: QuickSpec {
                     subject.view.layoutSubviews()
                     subject.viewWillAppear(false)
                     actionAlertService.lastReturnedActionAlertsPromise.resolve([actionAlert])
+
+                    subject.pageControl.currentPage = 0 // laziness strikes
                 }
 
                 describe("tapping a link") {
@@ -335,6 +337,97 @@ class ActionAlertsControllerSpec: QuickSpec {
                         let result = webView.delegate?.webView!(webView, shouldStartLoadWithRequest: urlRequest, navigationType: .LinkClicked)
 
                         expect(result) == false
+                    }
+
+                    context("when that link is to share on facebook") {
+                        it("tracks the share via the analytics service") {
+                            let fbShareRequest = NSURLRequest(URL: NSURL(string: "https://m.facebook.com/sharer.php?fs=0&sid=1004277179627286&locale2=en_US")!)
+                            let webView = actionAlertWebViewProvider.returnedWebViews[0]
+
+                            webView.delegate?.webView!(webView, shouldStartLoadWithRequest: fbShareRequest, navigationType: .LinkClicked)
+
+
+                            expect(analyticsService.lastCustomEventName).to(equal("Began Share"))
+                            let expectedAttributes = [
+                                AnalyticsServiceConstants.contentIDKey: actionAlert.identifier,
+                                AnalyticsServiceConstants.contentNameKey: actionAlert.title,
+                                AnalyticsServiceConstants.contentTypeKey: "Action Alert - Facebook",
+                            ]
+                            expect(analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
+                        }
+                    }
+
+                    context("when that link is to tweet on twitter") {
+                        it("tracks the share via the analytics service") {
+                            let tweetRequest = NSURLRequest(URL: NSURL(string: "https://twitter.com/intent/tweet?in_reply_to=700796414750695424&ref_src=twsrc%5Etfw&original_referer=https%3A%2F%2Fsanders-connect-staging.herokuapp.com%2F&tw_i=700796414750695424&tw_p=tweetembed")!)
+                            let webView = actionAlertWebViewProvider.returnedWebViews[0]
+
+                            webView.delegate?.webView!(webView, shouldStartLoadWithRequest: tweetRequest, navigationType: .LinkClicked)
+
+
+                            expect(analyticsService.lastCustomEventName).to(equal("Began Share"))
+                            let expectedAttributes = [
+                                AnalyticsServiceConstants.contentIDKey: actionAlert.identifier,
+                                AnalyticsServiceConstants.contentNameKey: actionAlert.title,
+                                AnalyticsServiceConstants.contentTypeKey: "Action Alert - Tweet"
+                            ]
+                            expect(analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
+                        }
+                    }
+
+                    context("when that link is to retweet on twitter") {
+                        it("tracks the share via the analytics service") {
+                            let retweetRequest = NSURLRequest(URL: NSURL(string: "https://twitter.com/intent/retweet?tweet_id=700796414750695424&ref_src=twsrc%5Etfw&original_referer=https%3A%2F%2Fsanders-connect-staging.herokuapp.com%2F&tw_i=700796414750695424&tw_p=tweetembedd")!)
+                            let webView = actionAlertWebViewProvider.returnedWebViews[0]
+
+                            webView.delegate?.webView!(webView, shouldStartLoadWithRequest: retweetRequest, navigationType: .LinkClicked)
+
+
+                            expect(analyticsService.lastCustomEventName).to(equal("Began Share"))
+                            let expectedAttributes = [
+                                AnalyticsServiceConstants.contentIDKey: actionAlert.identifier,
+                                AnalyticsServiceConstants.contentNameKey: actionAlert.title,
+                                AnalyticsServiceConstants.contentTypeKey: "Action Alert - Retweet"
+                            ]
+                            expect(analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
+                        }
+                    }
+
+                    context("when that link is to link on twitter") {
+                        it("tracks the share via the analytics service") {
+                            let retweetRequest = NSURLRequest(URL: NSURL(string: "https://twitter.com/intent/like?tweet_id=700796414750695424&ref_src=twsrc%5Etfw&original_referer=https%3A%2F%2Fsanders-connect-staging.herokuapp.com%2F&tw_i=700796414750695424&tw_p=tweetembed")!)
+                            let webView = actionAlertWebViewProvider.returnedWebViews[0]
+
+                            webView.delegate?.webView!(webView, shouldStartLoadWithRequest: retweetRequest, navigationType: .LinkClicked)
+
+
+                            expect(analyticsService.lastCustomEventName).to(equal("Began Share"))
+                            let expectedAttributes = [
+                                AnalyticsServiceConstants.contentIDKey: actionAlert.identifier,
+                                AnalyticsServiceConstants.contentNameKey: actionAlert.title,
+                                AnalyticsServiceConstants.contentTypeKey: "Action Alert - Like Tweet"
+                            ]
+                            expect(analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
+                        }
+                    }
+
+                    context("when that link is to anywhere else") {
+                        it("tracks the share via the analytics service") {
+                            let retweetRequest = NSURLRequest(URL: NSURL(string: "https://berniesanders.com")!)
+                            let webView = actionAlertWebViewProvider.returnedWebViews[0]
+
+                            webView.delegate?.webView!(webView, shouldStartLoadWithRequest: retweetRequest, navigationType: .LinkClicked)
+
+
+                            expect(analyticsService.lastCustomEventName).to(equal("Began Share"))
+                            let expectedAttributes = [
+                                AnalyticsServiceConstants.contentIDKey: actionAlert.identifier,
+                                AnalyticsServiceConstants.contentNameKey: actionAlert.title,
+                                AnalyticsServiceConstants.contentTypeKey: "Action Alert - Followed Other Link",
+                                AnalyticsServiceConstants.contentURLKey: retweetRequest.URL!.absoluteString
+                            ]
+                            expect(analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
+                        }
                     }
                 }
 
