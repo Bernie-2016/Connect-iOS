@@ -8,7 +8,7 @@
              "title": "This is another alert",
              "date": "Thursday alert!",
              "body_html": "I wouldn't say I buy it Liz, let's just say I'm window shopping.\n\n\n\nAnd right now, there's a half price sale on '_weird_'",
-             "short_body": "",
+             "short_description": "Monkeys were created by God to entertain us. That's all we know Rick.",
              "target_url": "https://www.youtube.com/watch?v=cr6ufGzlcwk",
              "twitter_url": "https://www.youtube.com/watch?v=oNSPOYH510w",
              "tweet_id": "677935459260096513"
@@ -21,7 +21,7 @@
              "title": "Empty string sharing URLs",
              "date": "This Minute",
              "body_html": "Vote Bernie 2016",
-             "short_body": "Vote Bernie now!",
+             "short_description": "Vote Bernie now!",
              "target_url": "",
              "twitter_url": "",
              "tweet_id": ""
@@ -34,7 +34,7 @@
              "title": "Missing sharing URLs",
              "date": "This Minute",
              "body_html": "Vote Bernie 2016",
-             "short_body": "Vote Bernie now!",
+             "short_description": "Vote Bernie now!",
              }
              }
              ],

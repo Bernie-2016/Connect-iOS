@@ -127,10 +127,11 @@ class StockActionAlertDeserializerSpec: QuickSpec {
                 it("deserializes a valid action alert correctly") {
                     let actionAlert = try! subject.deserializeActionAlert(jsonDictionary)
 
-                    expect(actionAlert.identifier).to(equal("13"))
-                    expect(actionAlert.title).to(equal("This is another alert"))
-                    expect(actionAlert.body).to(equal("I wouldn't say I buy it Liz, let's just say I'm window shopping.\n\n\n\nAnd right now, there's a half price sale on '_weird_'"))
-                    expect(actionAlert.date).to(equal("Thursday alert!"))
+                    expect(actionAlert.identifier) == "13"
+                    expect(actionAlert.title) == "This is another alert"
+                    expect(actionAlert.body) == "I wouldn't say I buy it Liz, let's just say I'm window shopping.\n\n\n\nAnd right now, there's a half price sale on '_weird_'"
+                    expect(actionAlert.shortDescription) == "Monkeys were created by God to entertain us. That's all we know Rick."
+                    expect(actionAlert.date) == "Thursday alert!"
                 }
 
                 describe("sharing URLs") {
@@ -238,6 +239,12 @@ class StockActionAlertDeserializerSpec: QuickSpec {
                     let invalidJSONDictionary = removeAttribute("date", jsonDictionaryToAlter: jsonDictionary)
 
                     expect { try subject.deserializeActionAlert(invalidJSONDictionary) }.to(throwError(ActionAlertDeserializerError.MissingAttribute("date")))
+                }
+
+                it("throws a missing attribute error when short description is missing") {
+                    let invalidJSONDictionary = removeAttribute("short_description", jsonDictionaryToAlter: jsonDictionary)
+
+                    expect { try subject.deserializeActionAlert(invalidJSONDictionary) }.to(throwError(ActionAlertDeserializerError.MissingAttribute("short_description")))
                 }
             }
         }

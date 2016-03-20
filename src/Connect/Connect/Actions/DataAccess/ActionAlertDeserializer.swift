@@ -50,6 +50,7 @@ class StockActionAlertDeserializer: ActionAlertDeserializer {
         guard let id = actionAlertDictionary["id"] as? String else { throw ActionAlertDeserializerError.MissingAttribute("id") }
         guard let title = attributesDictionary["title"] as? String else { throw ActionAlertDeserializerError.MissingAttribute("title") }
         guard let body = attributesDictionary["body_html"] as? String else { throw ActionAlertDeserializerError.MissingAttribute("body_html") }
+        guard let shortDescription = attributesDictionary["short_description"] as? String else { throw ActionAlertDeserializerError.MissingAttribute("short_description") }
         guard let date = attributesDictionary["date"] as? String else { throw ActionAlertDeserializerError.MissingAttribute("date") }
 
         let targetURL = extractURLWithAttributeName("target_url", attributesDictionary: attributesDictionary)
@@ -57,7 +58,7 @@ class StockActionAlertDeserializer: ActionAlertDeserializer {
         var tweetID = attributesDictionary["tweet_id"] as? String
         tweetID = tweetID?.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) > 0 ? tweetID : nil
 
-        let actionAlert = ActionAlert(identifier: id, title: title, body: body, date: date, targetURL: targetURL, twitterURL: twitterURL, tweetID: tweetID)
+        let actionAlert = ActionAlert(identifier: id, title: title, body: body, shortDescription: shortDescription, date: date, targetURL: targetURL, twitterURL: twitterURL, tweetID: tweetID)
 
         return actionAlert
     }

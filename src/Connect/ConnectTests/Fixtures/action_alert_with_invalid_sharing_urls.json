@@ -7,7 +7,7 @@
              "title": "This is an alert with bad sharing URLs",
              "date": "Thursday alert!",
              "body_html": "I wouldn't say I buy it Liz, let's just say I'm window shopping.\n\n\n\nAnd right now, there's a half price sale on '_weird_'",
-             "short_body": "",
+             "short_description": "",
              "target_url": "lkasdkfa/12#!@#",
              "twitter_url": "lkasdkfa/12#!@#",
              "tweet_id": [1,2,4,5]
