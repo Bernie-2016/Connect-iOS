@@ -27,7 +27,8 @@ class ActionAlertCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        titleLabel.numberOfLines = 3
+        titleLabel.numberOfLines = 2
+        // shortbody label show be 3
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.clipsToBounds = true
