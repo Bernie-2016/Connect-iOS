@@ -63,7 +63,7 @@ class StockEventsNearAddressUseCaseSpec: QuickSpec {
 
                         expect(eventRepository.didFetchEventsAroundLocation?.coordinate.latitude) == 12.34
                         expect(eventRepository.didFetchEventsAroundLocation?.coordinate.longitude) == 23.45
-                        expect(eventRepository.didFetchEventsWithRadiusMiles = 10.0)
+                        expect(eventRepository.didFetchEventsWithRadiusMiles) == 10.0
                     }
 
                     describe("when the event repository resolves its promise with some results") {
