@@ -22,40 +22,30 @@ class ActionsContainerConfigurator: ContainerConfigurator {
             )
         }.inObjectScope(.Container)
 
-        container.register(ActionsController.self) { resolver in
-            return ActionsController(
-                urlProvider: resolver.resolve(URLProvider.self)!,
-                urlOpener: resolver.resolve(URLOpener.self)!,
+        container.register(ActionAlertLoadingMonitor.self) { resolver in
+            return StockActionAlertLoadingMonitor()
+        }
+
+        container.register(ActionAlertWebViewProvider.self) { resolver in
+            return StockActionAlertWebViewProvider(urlProvider: resolver.resolve(BaseURLProvider.self)!)
+        }
+
+        container.register(ActionAlertsController.self) { resolver in
+            return ActionAlertsController(
                 actionAlertService: resolver.resolve(ActionAlertService.self)!,
-                actionAlertControllerProvider: container,
-                actionsTableViewCellPresenter: resolver.resolve(ActionsTableViewCellPresenter.self)!,
+                actionAlertWebViewProvider: resolver.resolve(ActionAlertWebViewProvider.self)!,
+                actionAlertLoadingMonitor: resolver.resolve(ActionAlertLoadingMonitor.self)!,
+                urlOpener: resolver.resolve(URLOpener.self)!,
                 analyticsService: resolver.resolve(AnalyticsService.self)!,
                 tabBarItemStylist: resolver.resolve(TabBarItemStylist.self)!,
                 theme: resolver.resolve(Theme.self)!)
-        }.inObjectScope(.Container)
-
-        container.register(ActionsTableViewCellPresenter.self) { resolver in
-            return StockActionsTableViewCellPresenter(theme: resolver.resolve(Theme.self)!)
         }
 
         container.register(NavigationController.self, name: "actions") { resolver in
             let navigationController = resolver.resolve(NavigationController.self)!
-            let newsFeedController = resolver.resolve(ActionsController.self)!
-            navigationController.pushViewController(newsFeedController, animated: false)
+            let actionsController = resolver.resolve(ActionAlertsController.self)!
+            navigationController.pushViewController(actionsController, animated: false)
             return navigationController
         }
-    }
-}
-
-extension Container: ActionAlertControllerProvider {
-    func provideInstanceWithActionAlert(actionAlert: ActionAlert) -> ActionAlertController {
-        return ActionAlertController(
-            actionAlert: actionAlert,
-            markdownConverter: resolve(MarkdownConverter.self)!,
-            urlOpener: resolve(URLOpener.self)!,
-            urlProvider: resolve(URLProvider.self)!,
-            analyticsService: resolve(AnalyticsService.self)!,
-            theme: resolve(Theme.self)!
-        )
     }
 }

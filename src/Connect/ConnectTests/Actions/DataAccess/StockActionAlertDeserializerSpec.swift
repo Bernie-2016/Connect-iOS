@@ -227,10 +227,10 @@ class StockActionAlertDeserializerSpec: QuickSpec {
                 }
 
 
-                it("throws a missing attribute error when body is missing") {
-                    let invalidJSONDictionary = removeAttribute("body", jsonDictionaryToAlter: jsonDictionary)
+                it("throws a missing attribute error when body_html is missing") {
+                    let invalidJSONDictionary = removeAttribute("body_html", jsonDictionaryToAlter: jsonDictionary)
 
-                    expect { try subject.deserializeActionAlert(invalidJSONDictionary) }.to(throwError(ActionAlertDeserializerError.MissingAttribute("body")))
+                    expect { try subject.deserializeActionAlert(invalidJSONDictionary) }.to(throwError(ActionAlertDeserializerError.MissingAttribute("body_html")))
                 }
 
 

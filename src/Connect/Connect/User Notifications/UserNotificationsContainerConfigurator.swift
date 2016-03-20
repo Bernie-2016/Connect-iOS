@@ -20,10 +20,7 @@ class UserNotificationContainerConfigurator: ContainerConfigurator {
 
             let actionAlertHandler = OpenActionAlertNotificationHandler(
                 actionsNavigationController: resolver.resolve(NavigationController.self, name: "actions")!,
-                interstitialController: resolver.resolve(UIViewController.self, name: "interstitial")!,
-                tabBarController: resolver.resolve(TabBarController.self)!,
-                actionAlertControllerProvider: container,
-                actionAlertService: resolver.resolve(ActionAlertService.self)!
+                tabBarController: resolver.resolve(TabBarController.self)!
             )
 
             let videoHandler = OpenVideoNotificationHandler(

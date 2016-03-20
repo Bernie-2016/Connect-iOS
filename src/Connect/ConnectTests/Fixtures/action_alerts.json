@@ -7,7 +7,7 @@
              "attributes": {
              "title": "This is another alert",
              "date": "Thursday alert!",
-             "body": "I wouldn't say I buy it Liz, let's just say I'm window shopping.\n\n\n\nAnd right now, there's a half price sale on '_weird_'",
+             "body_html": "I wouldn't say I buy it Liz, let's just say I'm window shopping.\n\n\n\nAnd right now, there's a half price sale on '_weird_'",
              "short_body": "",
              "target_url": "https://www.youtube.com/watch?v=cr6ufGzlcwk",
              "twitter_url": "https://www.youtube.com/watch?v=oNSPOYH510w",
@@ -20,7 +20,7 @@
              "attributes": {
              "title": "Empty string sharing URLs",
              "date": "This Minute",
-             "body": "Vote Bernie 2016",
+             "body_html": "Vote Bernie 2016",
              "short_body": "Vote Bernie now!",
              "target_url": "",
              "twitter_url": "",
@@ -33,7 +33,7 @@
              "attributes": {
              "title": "Missing sharing URLs",
              "date": "This Minute",
-             "body": "Vote Bernie 2016",
+             "body_html": "Vote Bernie 2016",
              "short_body": "Vote Bernie now!",
              }
              }

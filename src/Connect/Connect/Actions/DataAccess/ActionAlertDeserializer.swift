@@ -49,7 +49,7 @@ class StockActionAlertDeserializer: ActionAlertDeserializer {
         guard let attributesDictionary = actionAlertDictionary["attributes"] as? Dictionary<String, AnyObject> else { throw ActionAlertDeserializerError.MissingAttribute("attributes") }
         guard let id = actionAlertDictionary["id"] as? String else { throw ActionAlertDeserializerError.MissingAttribute("id") }
         guard let title = attributesDictionary["title"] as? String else { throw ActionAlertDeserializerError.MissingAttribute("title") }
-        guard let body = attributesDictionary["body"] as? String else { throw ActionAlertDeserializerError.MissingAttribute("body") }
+        guard let body = attributesDictionary["body_html"] as? String else { throw ActionAlertDeserializerError.MissingAttribute("body_html") }
         guard let date = attributesDictionary["date"] as? String else { throw ActionAlertDeserializerError.MissingAttribute("date") }
 
         let targetURL = extractURLWithAttributeName("target_url", attributesDictionary: attributesDictionary)

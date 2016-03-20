@@ -61,6 +61,18 @@ class TestUtils {
             tweetID: tweetID)
     }
 
+    class func actionAlert(title: String, body: String) -> ActionAlert {
+        return ActionAlert(
+            identifier: "some-identifier",
+            title: title,
+            body: body,
+            date: "fixture-date",
+            targetURL: NSURL(string: "https://fixture.target.url")!,
+            twitterURL: NSURL(string: "https://fixture.twitter.url")!,
+            tweetID: "fixture-tweet-id"
+        )
+    }
+
     // MARK: Controllers
 
     class func settingsController() -> SettingsController {
@@ -81,10 +93,5 @@ class TestUtils {
 
     class func welcomeController() -> WelcomeController {
         return WelcomeController(applicationSettingsRepository: FakeApplicationSettingsRepository(), termsAndConditionsController: self.termsAndConditionsController(), privacyPolicyController: self.privacyPolicyController(), analyticsService: FakeAnalyticsService(), theme: FakeTheme())
-    }
-
-    class func actionAlertController() -> ActionAlertController {
-        let actionAlert = self.actionAlert()
-        return ActionAlertController(actionAlert: actionAlert, markdownConverter: FakeMarkdownConverter(), urlOpener: FakeURLOpener(), urlProvider: FakeURLProvider(), analyticsService: FakeAnalyticsService(), theme: FakeTheme())
     }
 }

@@ -147,8 +147,11 @@ class FakeTheme: Theme {
     func videoTitleColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func videoDescriptionFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
     func videoDescriptionColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func actionsBackgroundColor() -> UIColor  { fatalError("FakeTheme used without being overridden in spec!") }
     func actionsTitleFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
     func actionsTitleTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func actionsShortBodyFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
+    func actionsShortBodyTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func contentBackgroundColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func defaultTableCellBackgroundColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func navigationBarButtonFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }

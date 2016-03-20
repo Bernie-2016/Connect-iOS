@@ -29,7 +29,9 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     }
 
     func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
-        let title = viewController.tabBarItem.title!
+        guard let title = viewController.tabBarItem.title else {
+            return
+        }
         self.analyticsService.trackContentViewWithName(title, type: .TabBar, identifier: title)
     }
 }

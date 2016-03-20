@@ -60,7 +60,7 @@ class PrivacyPolicyControllerSpec : QuickSpec {
                         self.subject.viewWillAppear(false)
                     }
 
-                    it("ensures that the navigation bar is visible") {
+                    it("ensures that the navigation bar is hidden") {
                         expect(self.subject.navigationController!.navigationBarHidden).to(beFalse())
                     }
                 }

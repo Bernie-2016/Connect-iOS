@@ -5,13 +5,17 @@ class InfrastructureContainerConfigurator: ContainerConfigurator {
     // swiftlint:disable function_body_length
     static func configureContainer(container: Container) {
         container.register(URLProvider.self) { resolver in
-            let urlProvider = BaseURLProvider()
+            let urlProvider = resolver.resolve(BaseURLProvider.self)!
 
             return ConcreteURLProvider(
                 sharknadoBaseURL: urlProvider.sharknadoBaseURL(),
                 connectBaseURL: urlProvider.connectBaseURL()
             )
         }.inObjectScope(.Container)
+
+        container.register(BaseURLProvider.self) { resolver in
+            return BaseURLProvider()
+        }
 
         container.register(URLOpener.self) { resolver in
             return URLOpener()

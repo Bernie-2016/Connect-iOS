@@ -149,7 +149,7 @@ class DefaultTheme: Theme {
         return UIFont.systemFontOfSize(35, weight: UIFontWeightLight)
     } else {
         return UIFont.systemFontOfSize(35)
-    } }
+        } }
     func viewPolicyBackgroundColor() -> UIColor { return silverColor }
     func agreeToTermsLabelFont() -> UIFont { return UIFont.systemFontOfSize(11) }
     func welcomeBackgroundColor() -> UIColor { return codGrayColor }
@@ -157,10 +157,13 @@ class DefaultTheme: Theme {
 
     // MARK: Actions
 
-    func actionsTitleFont() -> UIFont { return h3HeaderFont() }
-    func actionsTitleTextColor() -> UIColor { return h3HeaderTextColor() }
+    func actionsBackgroundColor() -> UIColor { return codGrayColor }
+    func actionsTitleFont() -> UIFont { return lightSystemFontOfSize(24) }
+    func actionsTitleTextColor() -> UIColor { return UIColor.whiteColor() }
+    func actionsShortBodyFont() -> UIFont { return lightSystemFontOfSize(15) }
+    func actionsShortBodyTextColor() -> UIColor { return UIColor.whiteColor() }
 
-    // MARK: Action Alerts
+    // MARK: Markdown
 
     func actionAlertDateFont() -> UIFont { return h2HeaderFont() }
     func actionAlertDateTextColor() -> UIColor { return thunderbirdColor }
@@ -240,6 +243,14 @@ class DefaultTheme: Theme {
     func semiBoldSystemFontOfSize(size: CGFloat) -> UIFont {
         if #available(iOS 8.2, *) {
             return UIFont.systemFontOfSize(size, weight: UIFontWeightSemibold)
+        } else {
+            return UIFont.systemFontOfSize(size)
+        }
+    }
+
+    func lightSystemFontOfSize(size: CGFloat) -> UIFont {
+        if #available(iOS 8.2, *) {
+            return UIFont.systemFontOfSize(size, weight: UIFontWeightLight)
         } else {
             return UIFont.systemFontOfSize(size)
         }
