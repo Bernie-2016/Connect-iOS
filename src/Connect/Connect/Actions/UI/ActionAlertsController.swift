@@ -61,7 +61,6 @@ class ActionAlertsController: UIViewController {
         view.addSubview(collectionView)
         view.addSubview(loadingIndicatorView)
 
-        collectionView.decelerationRate = UIScrollViewDecelerationRateFast
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.clipsToBounds = false
         collectionView.hidden = true
@@ -116,7 +115,6 @@ class ActionAlertsController: UIViewController {
 
 
                 self.view.addSubview(webView)
-
                 self.webViews.append(webView)
             }
 
