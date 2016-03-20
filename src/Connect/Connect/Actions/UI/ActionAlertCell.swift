@@ -34,7 +34,7 @@ class ActionAlertCell: UICollectionViewCell {
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.clipsToBounds = true
-        scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 15, right: 0)
+        scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 
         contentView.addSubview(scrollView)
 
@@ -81,6 +81,7 @@ class ActionAlertCell: UICollectionViewCell {
         spacerView.autoPinEdge(.Top, toEdge: .Bottom, ofView: webviewContainer)
         spacerView.autoPinEdgeToSuperviewEdge(.Left)
         spacerView.autoMatchDimension(.Width, toDimension: .Width, ofView: scrollView)
+        spacerView.autoSetDimension(.Height, toSize: 65, relation: .GreaterThanOrEqual)
         spacerView.autoPinEdgeToSuperviewEdge(.Bottom)
     }
 }
