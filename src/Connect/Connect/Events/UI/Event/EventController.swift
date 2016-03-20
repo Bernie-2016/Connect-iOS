@@ -92,6 +92,15 @@ class EventController: UIViewController {
         }
     }
 
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        if let navigationController = self.navigationController as? ScrollingNavigationController {
+            navigationController.showNavbar(animated: true)
+        }
+    }
+
+
     override func didMoveToParentViewController(parent: UIViewController?) {
         if parent == nil {
             self.analyticsService.trackBackButtonTapOnScreen("Event", customAttributes: [AnalyticsServiceConstants.contentIDKey: self.event.url.absoluteString])

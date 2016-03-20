@@ -1,4 +1,5 @@
 import UIKit
+import AMScrollingNavbar
 
 class EventRSVPController: UIViewController, UIWebViewDelegate {
     let event: Event
@@ -45,6 +46,15 @@ class EventRSVPController: UIViewController, UIWebViewDelegate {
         loadingIndicatorView.autoCenterInSuperviewMargins()
         webView.autoPinEdgesToSuperviewEdges()
     }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if let navigationController = self.navigationController as? ScrollingNavigationController {
+            navigationController.followScrollView(webView, delay: 50.0)
+        }
+    }
+
 
     override func didMoveToParentViewController(parent: UIViewController?) {
         if parent == nil {

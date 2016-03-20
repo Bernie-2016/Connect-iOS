@@ -111,6 +111,15 @@ class NewsFeedController: UIViewController {
         loadNewsFeed()
     }
 
+
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        if let navigationController = self.navigationController as? ScrollingNavigationController {
+            navigationController.showNavbar(animated: true)
+        }
+    }
+
     func loadNewsFeed() {
         newsFeedService.fetchNewsFeed().then { newsFeedItems in
             self.mainQueue.addOperationWithBlock { self.refreshControl.endRefreshing() }
