@@ -173,7 +173,13 @@ extension ActionAlertsController: UICollectionViewDataSource {
         cell.webviewContainer.addSubview(webView)
         webView.autoPinEdgesToSuperviewEdges()
         webView.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 15, right: 0)
-
+        webView.scrollView.scrollEnabled = false
+        
+        let heightString = webView.stringByEvaluatingJavaScriptFromString("Math.max( document.documentElement.scrollHeight, document.documentElement.offsetHeight, document.documentElement.clientHeight);");
+        let heightFloat = CGFloat(Float(heightString!)!)
+        
+        cell.webViewHeight = heightFloat
+        
         cell.titleLabel.font = theme.actionsTitleFont()
         cell.titleLabel.textColor = theme.actionsTitleTextColor()
 
@@ -185,7 +191,7 @@ extension ActionAlertsController: UICollectionViewDelegateFlowLayout {
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         var s = collectionView.bounds.size
         s.width = s.width - (2 * kHorizontalSectionInset)
-        s.height = s.height - 40
+        s.height = s.height - 53
         return s
     }
 }
