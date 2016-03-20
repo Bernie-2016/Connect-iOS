@@ -168,7 +168,7 @@ class ActionAlertsController: UIViewController {
 
 extension ActionAlertsController: UICollectionViewDataSource {
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return actionAlerts.count
+        return webViews.count
     }
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
