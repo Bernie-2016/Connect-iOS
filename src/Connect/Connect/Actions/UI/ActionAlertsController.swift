@@ -121,8 +121,7 @@ class ActionAlertsController: UIViewController {
                 // such that we work around its margins
                 let webViewWidth = UIScreen.mainScreen().bounds.width - 10
                 webView.autoSetDimension(.Width, toSize: webViewWidth)
-                webView.autoSetDimension(.Height, toSize: 1)
-
+                webView.autoSetDimension(.Height, toSize: 220)
 
                 self.view.addSubview(webView)
                 self.webViews.append(webView)
