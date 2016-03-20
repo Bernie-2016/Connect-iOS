@@ -4,6 +4,7 @@ class NewsFeedController: UIViewController {
     private let newsFeedService: NewsFeedService
     private let newsFeedCellProvider: NewsFeedCellProvider
     private let newsFeedItemControllerProvider: NewsFeedItemControllerProvider
+    private let moreController: UIViewController
     private let analyticsService: AnalyticsService
     private let tabBarItemStylist: TabBarItemStylist
     private let mainQueue: NSOperationQueue
@@ -20,6 +21,7 @@ class NewsFeedController: UIViewController {
     init(newsFeedService: NewsFeedService,
          newsFeedItemControllerProvider: NewsFeedItemControllerProvider,
          newsFeedCellProvider: NewsFeedCellProvider,
+         moreController: UIViewController,
          analyticsService: AnalyticsService,
          tabBarItemStylist: TabBarItemStylist,
          mainQueue: NSOperationQueue,
@@ -27,6 +29,7 @@ class NewsFeedController: UIViewController {
             self.newsFeedService = newsFeedService
             self.newsFeedItemControllerProvider = newsFeedItemControllerProvider
             self.newsFeedCellProvider = newsFeedCellProvider
+            self.moreController = moreController
             self.analyticsService = analyticsService
             self.tabBarItemStylist = tabBarItemStylist
             self.mainQueue = mainQueue
@@ -59,6 +62,11 @@ class NewsFeedController: UIViewController {
             target: nil, action: nil)
 
         navigationItem.backBarButtonItem = backBarButtonItem
+
+        let infoButtonImage = UIImage(named: "infoButton")!
+        let infoBarButtonItem = UIBarButtonItem(image: infoButtonImage, style: .Plain, target: self, action: "didTapInfoButton")
+
+        navigationItem.rightBarButtonItem = infoBarButtonItem
 
         refreshControl.addTarget(self, action:"refresh", forControlEvents:.ValueChanged)
         collectionView.addSubview(refreshControl)
@@ -149,5 +157,13 @@ extension NewsFeedController: UICollectionViewDelegate {
 
         let controller = newsFeedItemControllerProvider.provideInstanceWithNewsFeedItem(newsFeedItem)
         navigationController?.pushViewController(controller, animated: true)
+    }
+}
+
+// MARK: Actions
+
+extension NewsFeedController {
+    func didTapInfoButton() {
+        navigationController?.pushViewController(moreController, animated: true)
     }
 }

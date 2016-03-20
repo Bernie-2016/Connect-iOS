@@ -16,8 +16,6 @@ class SettingsController: UITableViewController {
 
         super.init(nibName: nil, bundle: nil)
 
-        navigationItem.title = NSLocalizedString("Settings_navigationTitle", comment: "")
-
         let backBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Settings_backButtonTitle", comment: ""),
             style: UIBarButtonItemStyle.Plain,
             target: nil, action: nil)
@@ -28,7 +26,7 @@ class SettingsController: UITableViewController {
             image: UIImage(named: "moreTabBarIconInactive")!,
             selectedImage: UIImage(named: "moreTabBarIcon")!)
 
-        title = NSLocalizedString("Settings_tabBarTitle", comment: "")
+        title = NSLocalizedString("Settings_navigationTitle", comment: "")
     }
 
     required init(coder aDecoder: NSCoder) {

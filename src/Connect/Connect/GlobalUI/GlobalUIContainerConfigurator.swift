@@ -30,8 +30,7 @@ class GlobalUIContainerConfigurator: ContainerConfigurator {
             let controllers = [
                 resolver.resolve(NavigationController.self, name: "actions")!,
                 resolver.resolve(NavigationController.self, name: "news")!,
-                resolver.resolve(NavigationController.self, name: "events")!,
-                resolver.resolve(NavigationController.self, name: "more")!,
+                resolver.resolve(NavigationController.self, name: "events")!
             ]
 
             return controllers

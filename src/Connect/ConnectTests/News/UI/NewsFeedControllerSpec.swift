@@ -10,7 +10,8 @@ class NewsFeedControllerSpecs: QuickSpec {
             var subject: NewsFeedController!
             var newsFeedService: FakeNewsFeedService!
             let newsFeedItemControllerProvider = FakeNewsFeedItemControllerProvider()
-            var NewsFeedCellProvider: FakeNewsFeedCellProvider!
+            var newsFeedCellProvider: FakeNewsFeedCellProvider!
+            var moreController: UIViewController!
             var analyticsService: FakeAnalyticsService!
             var tabBarItemStylist: FakeTabBarItemStylist!
             var mainQueue: FakeOperationQueue!
@@ -20,7 +21,8 @@ class NewsFeedControllerSpecs: QuickSpec {
 
             beforeEach {
                 newsFeedService = FakeNewsFeedService()
-                NewsFeedCellProvider = FakeNewsFeedCellProvider()
+                newsFeedCellProvider = FakeNewsFeedCellProvider()
+                moreController = UIViewController()
                 tabBarItemStylist = FakeTabBarItemStylist()
                 mainQueue = FakeOperationQueue()
                 analyticsService = FakeAnalyticsService()
@@ -28,7 +30,8 @@ class NewsFeedControllerSpecs: QuickSpec {
                 subject = NewsFeedController(
                     newsFeedService: newsFeedService,
                     newsFeedItemControllerProvider: newsFeedItemControllerProvider,
-                    newsFeedCellProvider: NewsFeedCellProvider,
+                    newsFeedCellProvider: newsFeedCellProvider,
+                    moreController: moreController,
                     analyticsService: analyticsService,
                     tabBarItemStylist: tabBarItemStylist,
                     mainQueue: mainQueue,
@@ -50,6 +53,15 @@ class NewsFeedControllerSpecs: QuickSpec {
 
             it("should set the back bar button item title correctly") {
                 expect(subject.navigationItem.backBarButtonItem?.title) == ""
+            }
+
+            it("has a right bar button item") {
+                guard let barButtonItem = subject.navigationItem.rightBarButtonItem else {
+                    fail("No bar button item found")
+                    return
+                }
+
+                expect(barButtonItem.image) == UIImage(named: "infoButton")
             }
 
             it("uses the tab bar item stylist to style its tab bar item") {
@@ -84,7 +96,7 @@ class NewsFeedControllerSpecs: QuickSpec {
             }
 
             it("sets up the collection view with the presenter") {
-                expect(NewsFeedCellProvider.lastSetupCollectionView).to(beIdenticalTo(subject.collectionView))
+                expect(newsFeedCellProvider.lastSetupCollectionView).to(beIdenticalTo(subject.collectionView))
             }
 
             describe("when the controller appears") {
@@ -130,17 +142,17 @@ class NewsFeedControllerSpecs: QuickSpec {
 
                             let indexPathA = NSIndexPath(forRow: 0, inSection: 0)
                             let cellA = subject.collectionView.dataSource?.collectionView(subject.collectionView, cellForItemAtIndexPath: indexPathA) as! NewsArticleCollectionViewCell
-                            expect(cellA).to(beIdenticalTo(NewsFeedCellProvider.returnedCells[0]))
-                            expect(NewsFeedCellProvider.receivedCollectionViews[0]).to(beIdenticalTo(subject.collectionView))
-                            expect(NewsFeedCellProvider.receivedNewsFeedItems[0] as? NewsArticle).to(beIdenticalTo(newsArticleA))
-                            expect(NewsFeedCellProvider.receivedIndexPaths[0]).to(equal(indexPathA))
+                            expect(cellA).to(beIdenticalTo(newsFeedCellProvider.returnedCells[0]))
+                            expect(newsFeedCellProvider.receivedCollectionViews[0]).to(beIdenticalTo(subject.collectionView))
+                            expect(newsFeedCellProvider.receivedNewsFeedItems[0] as? NewsArticle).to(beIdenticalTo(newsArticleA))
+                            expect(newsFeedCellProvider.receivedIndexPaths[0]).to(equal(indexPathA))
 
                             let indexPathB = NSIndexPath(forRow: 1, inSection: 0)
                             let cellB = subject.collectionView.dataSource?.collectionView(subject.collectionView, cellForItemAtIndexPath: indexPathB) as! NewsArticleCollectionViewCell
-                            expect(cellB).to(beIdenticalTo(NewsFeedCellProvider.returnedCells[1]))
-                            expect(NewsFeedCellProvider.receivedCollectionViews[1]).to(beIdenticalTo(subject.collectionView))
-                            expect(NewsFeedCellProvider.receivedNewsFeedItems[1] as? NewsArticle).to(beIdenticalTo(newsArticleB))
-                            expect(NewsFeedCellProvider.receivedIndexPaths[1]).to(equal(indexPathB))
+                            expect(cellB).to(beIdenticalTo(newsFeedCellProvider.returnedCells[1]))
+                            expect(newsFeedCellProvider.receivedCollectionViews[1]).to(beIdenticalTo(subject.collectionView))
+                            expect(newsFeedCellProvider.receivedNewsFeedItems[1] as? NewsArticle).to(beIdenticalTo(newsArticleB))
+                            expect(newsFeedCellProvider.receivedIndexPaths[1]).to(equal(indexPathB))
                         }
                     }
                 })
@@ -193,14 +205,14 @@ class NewsFeedControllerSpecs: QuickSpec {
                                 expect(subject.collectionView.numberOfItemsInSection(0)).to(equal(2))
 
                                 let cellA = subject.collectionView.dataSource?.collectionView(subject.collectionView, cellForItemAtIndexPath: NSIndexPath(forRow: 0, inSection: 0)) as! NewsArticleCollectionViewCell
-                                expect(cellA).to(beIdenticalTo(NewsFeedCellProvider.returnedCells[0]))
-                                expect(NewsFeedCellProvider.receivedCollectionViews[0]).to(beIdenticalTo(subject.collectionView))
-                                expect(NewsFeedCellProvider.receivedNewsFeedItems[0] as? NewsArticle).to(beIdenticalTo(newsArticleA))
+                                expect(cellA).to(beIdenticalTo(newsFeedCellProvider.returnedCells[0]))
+                                expect(newsFeedCellProvider.receivedCollectionViews[0]).to(beIdenticalTo(subject.collectionView))
+                                expect(newsFeedCellProvider.receivedNewsFeedItems[0] as? NewsArticle).to(beIdenticalTo(newsArticleA))
 
                                 let cellB = subject.collectionView.dataSource?.collectionView(subject.collectionView, cellForItemAtIndexPath: NSIndexPath(forRow: 1, inSection: 0)) as! NewsArticleCollectionViewCell
-                                expect(cellB).to(beIdenticalTo(NewsFeedCellProvider.returnedCells[1]))
-                                expect(NewsFeedCellProvider.receivedCollectionViews[1]).to(beIdenticalTo(subject.collectionView))
-                                expect(NewsFeedCellProvider.receivedNewsFeedItems[1] as? NewsArticle).to(beIdenticalTo(newsArticleB))
+                                expect(cellB).to(beIdenticalTo(newsFeedCellProvider.returnedCells[1]))
+                                expect(newsFeedCellProvider.receivedCollectionViews[1]).to(beIdenticalTo(subject.collectionView))
+                                expect(newsFeedCellProvider.receivedNewsFeedItems[1] as? NewsArticle).to(beIdenticalTo(newsArticleB))
                             }
                         }
                     }
@@ -277,6 +289,14 @@ class NewsFeedControllerSpecs: QuickSpec {
                     expect(analyticsService.lastContentViewName).to(equal(expectedNewsItemB.title))
                     expect(analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.NewsArticle))
                     expect(analyticsService.lastContentViewID).to(equal(expectedNewsItemB.identifier))
+                }
+            }
+
+            describe("tapping the right bar button item") {
+                it("pushes the more view controller") {
+                    subject.navigationItem.rightBarButtonItem!.tap()
+
+                    expect(navigationController.topViewController) === moreController
                 }
             }
         }

@@ -61,13 +61,6 @@ class MoreContainerConfigurator: ContainerConfigurator {
                 theme: resolver.resolve(Theme.self)!
             )
             }.inObjectScope(.Container)
-
-        container.register(NavigationController.self, name: "more") { resolver in
-            let navigationController = resolver.resolve(NavigationController.self)!
-            let newsFeedController = resolver.resolve(SettingsController.self)!
-            navigationController.pushViewController(newsFeedController, animated: false)
-            return navigationController
-        }
     }
     // swiftlint:enable function_body_length
 }

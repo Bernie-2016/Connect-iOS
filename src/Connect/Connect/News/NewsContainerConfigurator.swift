@@ -73,6 +73,7 @@ class NewsContainerConfigurator: ContainerConfigurator {
                 newsFeedService: resolver.resolve(NewsFeedService.self)!,
                 newsFeedItemControllerProvider: resolver.resolve(NewsFeedItemControllerProvider.self)!,
                 newsFeedCellProvider: resolver.resolve(NewsFeedCellProvider.self)!,
+                moreController: resolver.resolve(SettingsController.self)!,
                 analyticsService: resolver.resolve(AnalyticsService.self)!,
                 tabBarItemStylist: resolver.resolve(TabBarItemStylist.self)!,
                 mainQueue: resolver.resolve(NSOperationQueue.self, name: "main")!,

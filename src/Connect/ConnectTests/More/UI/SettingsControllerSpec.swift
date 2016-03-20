@@ -34,10 +34,6 @@ class SettingsControllerSpec : QuickSpec {
                 expect(subject.navigationItem.title).to(equal("More"))
             }
 
-            it("has the correct tab bar title") {
-                expect(subject.title).to(equal("More"))
-            }
-
             it("should set the back bar button item title correctly") {
                 expect(subject.navigationItem.backBarButtonItem?.title) == ""
             }
