@@ -94,10 +94,6 @@ class TestUtils {
         return SettingsController(tappableControllers: [self.privacyPolicyController()], analyticsService: FakeAnalyticsService(), theme: FakeTheme())
     }
 
-    class func termsAndConditionsController() -> TermsAndConditionsController {
-        return TermsAndConditionsController(analyticsService: FakeAnalyticsService())
-    }
-
     class func privacyPolicyController() -> PrivacyPolicyController {
         return PrivacyPolicyController(urlProvider: FakeURLProvider(), analyticsService: FakeAnalyticsService())
     }
@@ -107,6 +103,6 @@ class TestUtils {
     }
 
     class func welcomeController() -> WelcomeController {
-        return WelcomeController(applicationSettingsRepository: FakeApplicationSettingsRepository(), termsAndConditionsController: self.termsAndConditionsController(), privacyPolicyController: self.privacyPolicyController(), analyticsService: FakeAnalyticsService(), theme: FakeTheme())
+        return WelcomeController(applicationSettingsRepository: FakeApplicationSettingsRepository(), privacyPolicyController: self.privacyPolicyController(), analyticsService: FakeAnalyticsService(), theme: FakeTheme())
     }
 }

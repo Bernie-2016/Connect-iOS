@@ -44,7 +44,6 @@ class WelcomeControllerSpec: QuickSpec {
     var subject: WelcomeController!
     var onboardingWorkflow: FakeOnboardingWorkflow!
     var applicationSettingsRepository: FakeApplicationSettingsRepository!
-    let termsAndConditionsController = TestUtils.termsAndConditionsController()
     let privacyPolicyController = TestUtils.privacyPolicyController()
     var analyticsService: FakeAnalyticsService!
     let theme = WelcomeFakeTheme()
@@ -60,7 +59,6 @@ class WelcomeControllerSpec: QuickSpec {
 
                 self.subject = WelcomeController(
                     applicationSettingsRepository: self.applicationSettingsRepository,
-                    termsAndConditionsController: self.termsAndConditionsController,
                     privacyPolicyController: self.privacyPolicyController,
                     analyticsService: self.analyticsService,
                     theme: self.theme
@@ -116,24 +114,8 @@ class WelcomeControllerSpec: QuickSpec {
                     }
                 }
 
-                xdescribe("tapping on the view terms text") {
-                    beforeEach {
-                        // TODO: figure out a way to test this.
-                    }
-
-                    it("should push a correctly configured news item view controller onto the nav stack") {
-                        expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.termsAndConditionsController))
-                    }
-
-                    it("should log a content view with the analytics service") {
-                        expect(self.analyticsService.lastContentViewName).to(equal("Terms and Conditions"))
-                        expect(self.analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.Onboarding))
-                        expect(self.analyticsService.lastContentViewID).to(equal("Terms and Conditions"))
-                    }
-                }
-
                 it("has a label informing the user to agree to the terms to continue") {
-                    expect(self.subject.agreeToTermsNoticeTextView.text).to(equal("By tapping Continue, you are agreeing to the Terms and Conditions and Privacy Policy. This app is not affiliated with or authorized by Bernie 2016."))
+                    expect(self.subject.agreeToTermsNoticeTextView.text).to(equal("By tapping Continue, you are agreeing to the Privacy Policy."))
                 }
 
                 it("has a button for agreeing to the terms and conditions") {

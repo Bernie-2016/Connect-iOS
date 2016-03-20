@@ -2,7 +2,6 @@ import UIKit
 
 class WelcomeController: UIViewController {
     private let analyticsService: AnalyticsService
-    private let termsAndConditionsController: TermsAndConditionsController
     private let privacyPolicyController: PrivacyPolicyController
     private let applicationSettingsRepository: ApplicationSettingsRepository
     private let theme: Theme
@@ -17,13 +16,11 @@ class WelcomeController: UIViewController {
 
     init(
         applicationSettingsRepository: ApplicationSettingsRepository,
-        termsAndConditionsController: TermsAndConditionsController,
         privacyPolicyController: PrivacyPolicyController,
         analyticsService: AnalyticsService,
         theme: Theme) {
 
         self.applicationSettingsRepository = applicationSettingsRepository
-        self.termsAndConditionsController = termsAndConditionsController
         self.privacyPolicyController = privacyPolicyController
         self.analyticsService = analyticsService
         self.theme = theme
@@ -84,13 +81,7 @@ class WelcomeController: UIViewController {
         let characterIndex = layoutManager.characterIndexForPoint(location, inTextContainer: textView.textContainer, fractionOfDistanceBetweenInsertionPoints: nil)
 
         if characterIndex < textView.textStorage.length {
-            let termsValue = textView.textStorage.attribute("terms", atIndex: characterIndex, effectiveRange: nil)
             let privacyPolicyValue = textView.textStorage.attribute("privacy", atIndex: characterIndex, effectiveRange: nil)
-
-            if termsValue != nil {
-                didTapViewTerms()
-                return
-            }
 
             if privacyPolicyValue != nil {
                 didTapViewPrivacyPolicy()
@@ -106,12 +97,7 @@ class WelcomeController: UIViewController {
         }
     }
 
-    func didTapViewTerms() {
-        self.analyticsService.trackContentViewWithName("Terms and Conditions", type: .Onboarding, identifier: "Terms and Conditions")
-        self.navigationController!.pushViewController(self.termsAndConditionsController, animated: true)
-    }
-
-    func didTapViewPrivacyPolicy() {
+       func didTapViewPrivacyPolicy() {
         self.analyticsService.trackContentViewWithName("Privacy Policy", type: .Onboarding, identifier: "Privacy Policy")
         self.navigationController!.pushViewController(self.privacyPolicyController, animated: true)
     }
@@ -131,12 +117,9 @@ class WelcomeController: UIViewController {
         }
 
         let fullText = NSMutableAttributedString(string: NSLocalizedString("Welcome_agreeToTermsNoticeText", comment: ""), attributes: fullTextAttributes)
-        let termsAndConditions = NSAttributedString(string: NSLocalizedString("Welcome_termsAndConditions", comment: ""), attributes: [NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue, "terms": true])
-
         let privacyPolicy = NSAttributedString(string: NSLocalizedString("Welcome_privacyPolicy", comment: ""), attributes: [NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue, "privacy": true])
 
-        fullText.replaceCharactersInRange((fullText.string as NSString).rangeOfString("{0}"), withAttributedString: termsAndConditions)
-        fullText.replaceCharactersInRange((fullText.string as NSString).rangeOfString("{1}"), withAttributedString: privacyPolicy)
+        fullText.replaceCharactersInRange((fullText.string as NSString).rangeOfString("{0}"), withAttributedString: privacyPolicy)
         agreeToTermsNoticeTextView.attributedText = fullText
 
         let tapTermsNoticeRecognizer = UITapGestureRecognizer(target: self, action: "didTapAgreeToTermsLabel:")
@@ -174,6 +157,5 @@ class WelcomeController: UIViewController {
         agreeToTermsNoticeTextView.autoPinEdgeToSuperviewMargin(.Left)
         agreeToTermsNoticeTextView.autoPinEdgeToSuperviewMargin(.Right)
         agreeToTermsNoticeTextView.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 25)
-
     }
 }

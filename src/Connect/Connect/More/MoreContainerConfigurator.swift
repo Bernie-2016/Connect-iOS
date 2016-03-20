@@ -38,16 +38,11 @@ class MoreContainerConfigurator: ContainerConfigurator {
             )
             }.inObjectScope(.Container)
 
-        container.register(TermsAndConditionsController.self) { resolver in
-            return TermsAndConditionsController(analyticsService: resolver.resolve(AnalyticsService.self)!)
-            }.inObjectScope(.Container)
-
         container.register([UIViewController].self, name: "settingsControllers") { resolver in
             return [
                 resolver.resolve(AboutController.self)!,
                 resolver.resolve(FeedbackController.self)!,
                 resolver.resolve(AnalyticsSettingsController.self)!,
-                resolver.resolve(TermsAndConditionsController.self)!,
                 resolver.resolve(PrivacyPolicyController.self)!,
                 resolver.resolve(FLOSSController.self)!
             ]

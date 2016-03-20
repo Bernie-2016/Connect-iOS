@@ -104,9 +104,8 @@
 "Welcome_agreeToTermsButtonTitle" = "CONTINUE";
 "Welcome_viewTermsTitle" = "Terms and Conditions";
 "Welcome_viewPrivacyPolicyTitle" = "Privacy Policy";
-"Welcome_termsAndConditions" = "Terms and Conditions";
 "Welcome_privacyPolicy" = "Privacy Policy";
-"Welcome_agreeToTermsNoticeText" = "By tapping Continue, you are agreeing to the {0} and {1}. This app is not affiliated with or authorized by Bernie 2016.";
+"Welcome_agreeToTermsNoticeText" = "By tapping Continue, you are agreeing to the {0}.";
 
 // Time intervals
 

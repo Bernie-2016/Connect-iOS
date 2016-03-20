@@ -5,7 +5,6 @@ class OnboardingControllerConfigurator: ContainerConfigurator {
         container.register(WelcomeController.self) { resolver in
             return WelcomeController(
                 applicationSettingsRepository: resolver.resolve(ApplicationSettingsRepository.self)!,
-                termsAndConditionsController: resolver.resolve(TermsAndConditionsController.self)!,
                 privacyPolicyController: resolver.resolve(PrivacyPolicyController.self)!,
                 analyticsService: resolver.resolve(AnalyticsService.self)!,
                 theme: resolver.resolve(Theme.self)!
