@@ -70,7 +70,6 @@ class ActionAlertsController: UIViewController {
         view.addSubview(pageControl)
 
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.decelerationRate = UIScrollViewDecelerationRateFast
         collectionView.clipsToBounds = false
         collectionView.hidden = true
         collectionView.delegate = self
