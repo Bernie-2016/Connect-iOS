@@ -241,8 +241,8 @@ class ActionAlertsControllerSpec: QuickSpec {
             }
 
             describe("the collection view") {
-                let actionAlertA = TestUtils.actionAlert("Alert A", body: "Alert Body A")
-                let actionAlertB = TestUtils.actionAlert("Alert B", body: "Alert Body B")
+                let actionAlertA = TestUtils.actionAlert("Alert A", shortDescription: "Short Desc A")
+                let actionAlertB = TestUtils.actionAlert("Alert B", shortDescription: "")
 
                 beforeEach {
                     subject.view.layoutSubviews()
@@ -272,6 +272,18 @@ class ActionAlertsControllerSpec: QuickSpec {
 
                     expect(cell.titleLabel.text) == "Alert A"
                 }
+
+                it("sets the short description") {
+                    actionAlertLoadingMonitor.lastCompletionHandler!()
+
+                    guard let cell = subject.collectionView.dataSource?.collectionView(subject.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 0)) as? ActionAlertCell else {
+                        fail("Unable to get cell")
+                        return
+                    }
+
+                    expect(cell.shortDescriptionLabel.text) == "Short Desc A"
+                }
+
 
                 it("shows the web view as adds it as a subview of the cell") {
                     actionAlertLoadingMonitor.lastCompletionHandler!()
@@ -305,6 +317,8 @@ class ActionAlertsControllerSpec: QuickSpec {
 
                     expect(cell.titleLabel.font) == UIFont.systemFontOfSize(111)
                     expect(cell.titleLabel.textColor) == UIColor.magentaColor()
+                    expect(cell.shortDescriptionLabel.font) == UIFont.systemFontOfSize(222)
+                    expect(cell.shortDescriptionLabel.textColor) == UIColor.orangeColor()
                 }
             }
 
@@ -455,8 +469,8 @@ private class ActionAlertsControllerFakeTheme: FakeTheme {
     override func actionsBackgroundColor() -> UIColor { return UIColor.yellowColor() }
     override func actionsTitleFont() -> UIFont { return UIFont.systemFontOfSize(111) }
     override func actionsTitleTextColor() -> UIColor { return UIColor.magentaColor() }
-    override func actionsShortBodyFont() -> UIFont { return UIFont.systemFontOfSize(222) }
-    override func actionsShortBodyTextColor() -> UIColor { return UIColor.orangeColor() }
+    override func actionsShortDescriptionFont() -> UIFont { return UIFont.systemFontOfSize(222) }
+    override func actionsShortDescriptionTextColor() -> UIColor { return UIColor.orangeColor() }
 }
 
 private class FakeActionAlertWebViewProvider: ActionAlertWebViewProvider {

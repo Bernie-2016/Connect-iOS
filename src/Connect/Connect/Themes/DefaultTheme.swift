@@ -160,8 +160,8 @@ class DefaultTheme: Theme {
     func actionsBackgroundColor() -> UIColor { return codGrayColor }
     func actionsTitleFont() -> UIFont { return lightSystemFontOfSize(24) }
     func actionsTitleTextColor() -> UIColor { return UIColor.whiteColor() }
-    func actionsShortBodyFont() -> UIFont { return lightSystemFontOfSize(15) }
-    func actionsShortBodyTextColor() -> UIColor { return UIColor.whiteColor() }
+    func actionsShortDescriptionFont() -> UIFont { return lightSystemFontOfSize(15) }
+    func actionsShortDescriptionTextColor() -> UIColor { return UIColor.whiteColor() }
 
     // MARK: Markdown
 

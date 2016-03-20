@@ -75,6 +75,19 @@ class TestUtils {
         )
     }
 
+    class func actionAlert(title: String, shortDescription: String) -> ActionAlert {
+        return ActionAlert(
+            identifier: "some-identifier",
+            title: title,
+            body: "fixture body",
+            shortDescription: shortDescription,
+            date: "fixture-date",
+            targetURL: NSURL(string: "https://fixture.target.url")!,
+            twitterURL: NSURL(string: "https://fixture.twitter.url")!,
+            tweetID: "fixture-tweet-id"
+        )
+    }
+
     // MARK: Controllers
 
     class func settingsController() -> SettingsController {

@@ -185,6 +185,8 @@ extension ActionAlertsController: UICollectionViewDataSource {
         webView.hidden = false
 
         cell.titleLabel.text = actionAlerts[indexPath.item].title
+        cell.shortDescriptionLabel.text = actionAlerts[indexPath.item].shortDescription
+
         cell.webviewContainer.addSubview(webView)
         webView.autoPinEdgesToSuperviewEdges()
 
@@ -197,6 +199,8 @@ extension ActionAlertsController: UICollectionViewDataSource {
 
         cell.titleLabel.font = theme.actionsTitleFont()
         cell.titleLabel.textColor = theme.actionsTitleTextColor()
+        cell.shortDescriptionLabel.font = theme.actionsShortDescriptionFont()
+        cell.shortDescriptionLabel.textColor = theme.actionsShortDescriptionTextColor()
 
         return cell
     }
