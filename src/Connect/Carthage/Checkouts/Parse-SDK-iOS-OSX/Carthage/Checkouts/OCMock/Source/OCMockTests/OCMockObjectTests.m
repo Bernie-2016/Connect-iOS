@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2004-2015 Erik Doernenburg and contributors
+ *  Copyright (c) 2004-2016 Erik Doernenburg and contributors
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may
  *  not use these files except in compliance with the License. You may obtain
@@ -86,6 +86,41 @@ TestOpaque myOpaque;
 @implementation TestClassWithProperty
 
 @synthesize title;
+
+@end
+
+
+@interface TestClassWithBlockArgMethod : NSObject
+
+- (void)doStuffWithBlock:(void (^)())block andString:(id)aString;
+
+@end
+
+@implementation TestClassWithBlockArgMethod
+
+- (void)doStuffWithBlock:(void (^)())block andString:(id)aString;
+{
+    // stubbed out anyway
+}
+
+@end
+
+
+@interface TestClassWithByReferenceMethod : NSObject
+
+- (void)returnValuesInObjectPointer:(id *)objectPointer booleanPointer:(BOOL *)booleanPointer;
+
+@end
+
+@implementation TestClassWithByReferenceMethod
+
+- (void)returnValuesInObjectPointer:(id *)objectPointer booleanPointer:(BOOL *)booleanPointer
+{
+    if(objectPointer != NULL)
+        *objectPointer = [[NSObject alloc] init];
+    if(booleanPointer != NULL)
+        *booleanPointer = NO;
+}
 
 @end
 
@@ -187,8 +222,8 @@ static NSString *TestNotification = @"TestNotification";
 
 - (void)testAcceptsStubbedMethodWithNilArgument
 {
-	[[mock stub] hasSuffix:nil];
-	[mock hasSuffix:nil];
+	[[mock stub] uppercaseStringWithLocale:nil];
+	[mock uppercaseStringWithLocale:nil];
 }
 
 - (void)testRaisesExceptionWhenMethodWithWrongArgumentIsCalled
@@ -381,6 +416,16 @@ static NSString *TestNotification = @"TestNotification";
 {
     [[[mock stub] ignoringNonObjectArgs] rangeOfString:@"foo" options:0];
     XCTAssertThrows([mock rangeOfString:@"bar" options:NSRegularExpressionSearch], @"Should have raised an exception.");
+}
+
+- (void)testBlocksAreNotConsideredNonObjectArguments
+{
+    [[[mock stub] ignoringNonObjectArgs] enumerateLinesUsingBlock:[OCMArg invokeBlock]];
+    __block BOOL blockWasInvoked = NO;
+    [mock enumerateLinesUsingBlock:^(NSString * _Nonnull line, BOOL * _Nonnull stop) {
+        blockWasInvoked = YES;
+    }];
+    XCTAssertTrue(blockWasInvoked, @"Should not have ignored the block argument.");
 }
 
 
@@ -611,6 +656,15 @@ static NSString *TestNotification = @"TestNotification";
 }
 
 
+- (void)testReturnsValuesInNullPassByReferenceArguments
+{
+    mock = OCMClassMock([TestClassWithByReferenceMethod class]);
+    OCMStub([mock returnValuesInObjectPointer:[OCMArg setTo:nil] booleanPointer:[OCMArg setToValue:@NO]]);
+    [mock returnValuesInObjectPointer:NULL booleanPointer:NULL];
+    OCMVerify([mock returnValuesInObjectPointer:NULL booleanPointer:NULL]);
+}
+
+
 // --------------------------------------------------------------------------------------
 //	invoking block arguments
 // --------------------------------------------------------------------------------------
@@ -710,6 +764,15 @@ static NSString *TestNotification = @"TestNotification";
     XCTAssertEqual(secondParam, NULL, @"Second param does not default to NULL");
 }
 
+- (void)testOnlyInvokesBlockWhenInvocationMatches
+{
+    mock = [OCMockObject mockForClass:[TestClassWithBlockArgMethod class]];
+    [[mock stub] doStuffWithBlock:[OCMArg invokeBlock] andString:@"foo"];
+    [[mock stub] doStuffWithBlock:[OCMArg any] andString:@"bar"];
+    __block BOOL blockWasInvoked = NO;
+    [mock doStuffWithBlock:^() { blockWasInvoked = YES; } andString:@"bar"];
+    XCTAssertFalse(blockWasInvoked, @"Should not have invoked block.");
+}
 
 // --------------------------------------------------------------------------------------
 //	accepting expected methods
@@ -862,6 +925,7 @@ static NSString *TestNotification = @"TestNotification";
 	[[mock expect] lowercaseString];
 	XCTAssertThrows([mock verifyWithDelay:0.1], @"Should have raised an exception because method was not called.");
 }
+
 
 // --------------------------------------------------------------------------------------
 //	ordered expectations

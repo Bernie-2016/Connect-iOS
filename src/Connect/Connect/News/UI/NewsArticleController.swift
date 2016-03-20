@@ -1,6 +1,7 @@
 import UIKit
 import PureLayout
 import CBGPromise
+import AMScrollingNavbar
 
 // swiftlint:disable type_body_length
 class NewsArticleController: UIViewController {
@@ -24,26 +25,26 @@ class NewsArticleController: UIViewController {
     let viewOriginalButton = UIButton.newAutoLayoutView()
 
     init(newsArticle: NewsArticle,
-         markdownConverter: MarkdownConverter,
-         imageService: ImageService,
-         timeIntervalFormatter: TimeIntervalFormatter,
-         analyticsService: AnalyticsService,
-         urlOpener: URLOpener,
-         urlAttributionPresenter: URLAttributionPresenter,
-         theme: Theme) {
+        markdownConverter: MarkdownConverter,
+        imageService: ImageService,
+        timeIntervalFormatter: TimeIntervalFormatter,
+        analyticsService: AnalyticsService,
+        urlOpener: URLOpener,
+        urlAttributionPresenter: URLAttributionPresenter,
+        theme: Theme) {
 
-        self.newsArticle = newsArticle
-        self.imageService = imageService
-        self.markdownConverter = markdownConverter
-        self.timeIntervalFormatter = timeIntervalFormatter
-        self.analyticsService = analyticsService
-        self.urlOpener = urlOpener
-        self.urlAttributionPresenter = urlAttributionPresenter
-        self.theme = theme
+            self.newsArticle = newsArticle
+            self.imageService = imageService
+            self.markdownConverter = markdownConverter
+            self.timeIntervalFormatter = timeIntervalFormatter
+            self.analyticsService = analyticsService
+            self.urlOpener = urlOpener
+            self.urlAttributionPresenter = urlAttributionPresenter
+            self.theme = theme
 
-        super.init(nibName: nil, bundle: nil)
+            super.init(nibName: nil, bundle: nil)
 
-        self.hidesBottomBarWhenPushed = true
+            self.hidesBottomBarWhenPushed = true
     }
 
     // MARK: UIViewController
@@ -63,6 +64,8 @@ class NewsArticleController: UIViewController {
         containerView.addSubview(bodyTextView)
         containerView.addSubview(attributionLabel)
         containerView.addSubview(viewOriginalButton)
+
+        scrollView.delegate = self
 
         dateLabel.text = timeIntervalFormatter.humanDaysSinceDate(self.newsArticle.date)
         titleLabel.text = newsArticle.title
@@ -91,6 +94,14 @@ class NewsArticleController: UIViewController {
             UIView.transitionWithView(self.storyImageView, duration: 0.3, options: .TransitionCrossDissolve, animations: {
                 self.storyImageView.removeFromSuperview()
                 }, completion: nil)
+        }
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if let navigationController = self.navigationController as? ScrollingNavigationController {
+            navigationController.followScrollView(scrollView, delay: 50.0)
         }
     }
 
@@ -218,6 +229,15 @@ class NewsArticleController: UIViewController {
         viewOriginalButton.layer.borderWidth = 1.0
         viewOriginalButton.layer.cornerRadius = 3.0
         viewOriginalButton.backgroundColor = theme.attributionButtonBackgroundColor()
+    }
+}
+
+extension NewsArticleController: UIScrollViewDelegate {
+    func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
+        if let navigationController = self.navigationController as? ScrollingNavigationController {
+            navigationController.showNavbar(animated: true)
+        }
+        return true
     }
 }
 // swiftlint:enable type_body_length

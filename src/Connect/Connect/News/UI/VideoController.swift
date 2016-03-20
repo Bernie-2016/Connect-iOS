@@ -1,6 +1,8 @@
 import UIKit
 import XCDYouTubeKit
+import AMScrollingNavbar
 
+// swiftlint:disable type_body_length
 class VideoController: UIViewController {
     let video: Video
     let timeIntervalFormatter: TimeIntervalFormatter
@@ -59,6 +61,8 @@ class VideoController: UIViewController {
         containerView.addSubview(attributionLabel)
         containerView.addSubview(viewOriginalButton)
 
+        scrollView.delegate = self
+
         titleLabel.text = video.title
         dateLabel.text = timeIntervalFormatter.humanDaysSinceDate(video.date)
         descriptionTextView.text = video.description
@@ -74,6 +78,14 @@ class VideoController: UIViewController {
 
         applyThemeToViews()
         setupConstraints()
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if let navigationController = self.navigationController as? ScrollingNavigationController {
+            navigationController.followScrollView(scrollView, delay: 50.0)
+        }
     }
 
     override func viewWillDisappear(animated: Bool) {
@@ -202,3 +214,13 @@ class VideoController: UIViewController {
         descriptionTextView.autoPinEdgeToSuperviewMargin(.Right)
     }
 }
+
+extension VideoController: UIScrollViewDelegate {
+    func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
+        if let navigationController = self.navigationController as? ScrollingNavigationController {
+            navigationController.showNavbar(animated: true)
+        }
+        return true
+    }
+}
+// swiftlint:enable type_body_length

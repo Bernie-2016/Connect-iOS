@@ -239,6 +239,8 @@
 		65B70F9A1BA7BBD5007BF72C /* dodgy_news_feed.json in Resources */ = {isa = PBXBuildFile; fileRef = 65B70F991BA7BBD5007BF72C /* dodgy_news_feed.json */; };
 		65B7815A1C4C58B90087699B /* Swinject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B781581C4C58B90087699B /* Swinject.framework */; };
 		65B7815C1C4C58D90087699B /* Swinject.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 65B781591C4C58B90087699B /* Swinject.framework.dSYM */; };
+		65B868C61C9F378C00B9A7B9 /* AMScrollingNavbar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B868C41C9F378C00B9A7B9 /* AMScrollingNavbar.framework */; };
+		65B868C71C9F37A300B9A7B9 /* AMScrollingNavbar.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 65B868C31C9F378C00B9A7B9 /* AMScrollingNavbar.framework.dSYM */; };
 		65B97D571C459C9800F2F6B3 /* UserNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B97D561C459C9800F2F6B3 /* UserNotificationHandler.swift */; };
 		65C0D9441C9640C3009581C8 /* StockEventsNearAddressUseCaseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C0D9431C9640C3009581C8 /* StockEventsNearAddressUseCaseSpec.swift */; };
 		65C1477C1C84E5A400D9B78A /* NewsFeedCellProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C1477B1C84E5A400D9B78A /* NewsFeedCellProvider.swift */; };
@@ -342,6 +344,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				65B868C71C9F37A300B9A7B9 /* AMScrollingNavbar.framework.dSYM in Copy symbolication files */,
 				654D12961C3E0F4D000A2982 /* Bolts.framework.dSYM in Copy symbolication files */,
 				65937D231C4058DC003A1EFA /* CBGPromise.framework.dSYM in Copy symbolication files */,
 				65DA57C91C77F8F000D49826 /* CocoaMarkdown.framework.dSYM in Copy symbolication files */,
@@ -605,6 +608,8 @@
 		65B70F991BA7BBD5007BF72C /* dodgy_news_feed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dodgy_news_feed.json; sourceTree = "<group>"; };
 		65B781581C4C58B90087699B /* Swinject.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Swinject.framework; path = Carthage/Build/iOS/Swinject.framework; sourceTree = "<group>"; };
 		65B781591C4C58B90087699B /* Swinject.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Swinject.framework.dSYM; path = Carthage/Build/iOS/Swinject.framework.dSYM; sourceTree = "<group>"; };
+		65B868C31C9F378C00B9A7B9 /* AMScrollingNavbar.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = AMScrollingNavbar.framework.dSYM; path = Carthage/Build/iOS/AMScrollingNavbar.framework.dSYM; sourceTree = "<group>"; };
+		65B868C41C9F378C00B9A7B9 /* AMScrollingNavbar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AMScrollingNavbar.framework; path = Carthage/Build/iOS/AMScrollingNavbar.framework; sourceTree = "<group>"; };
 		65B97D561C459C9800F2F6B3 /* UserNotificationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserNotificationHandler.swift; sourceTree = "<group>"; };
 		65C0D9431C9640C3009581C8 /* StockEventsNearAddressUseCaseSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockEventsNearAddressUseCaseSpec.swift; sourceTree = "<group>"; };
 		65C1477B1C84E5A400D9B78A /* NewsFeedCellProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFeedCellProvider.swift; sourceTree = "<group>"; };
@@ -695,6 +700,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65B868C61C9F378C00B9A7B9 /* AMScrollingNavbar.framework in Frameworks */,
 				65494C5F1BFB8EBB00C1ECDB /* AudioToolbox.framework in Frameworks */,
 				654D12921C3E0F28000A2982 /* Bolts.framework in Frameworks */,
 				65937D211C4058AE003A1EFA /* CBGPromise.framework in Frameworks */,
@@ -1425,6 +1431,8 @@
 		65EC4CF21B842A3D00DD4C83 /* Carthage */ = {
 			isa = PBXGroup;
 			children = (
+				65B868C41C9F378C00B9A7B9 /* AMScrollingNavbar.framework */,
+				65B868C31C9F378C00B9A7B9 /* AMScrollingNavbar.framework.dSYM */,
 				654D128E1C3E0F28000A2982 /* Bolts.framework */,
 				654D128F1C3E0F28000A2982 /* Bolts.framework.dSYM */,
 				65937D1F1C4058AE003A1EFA /* CBGPromise.framework */,
@@ -1806,6 +1814,7 @@
 				"$(PROJECT_DIR)/Carthage/Build/iOS/Swinject.framework",
 				"$(PROJECT_DIR)/Carthage/Build/iOS/CocoaMarkdown.framework",
 				"$(PROJECT_DIR)/Carthage/Build/iOS/DateTools.framework",
+				"$(PROJECT_DIR)/Carthage/Build/iOS/AMScrollingNavbar.framework",
 			);
 			name = "Copy Carthage frameworks";
 			outputPaths = (

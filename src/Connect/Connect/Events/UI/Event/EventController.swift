@@ -1,6 +1,7 @@
 import UIKit
 import CoreLocation
 import MapKit
+import AMScrollingNavbar
 
 // swiftlint:disable type_body_length
 class EventController: UIViewController {
@@ -73,6 +74,8 @@ class EventController: UIViewController {
         directionsButton.addTarget(self, action: "didTapDirections", forControlEvents: .TouchUpInside)
         rsvpButton.addTarget(self, action: "didTapRSVP", forControlEvents: .TouchUpInside)
 
+        scrollView.delegate = self
+
         setupLabels()
         applyTheme()
         addSubviews()
@@ -83,6 +86,10 @@ class EventController: UIViewController {
         super.viewWillAppear(animated)
 
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
+
+        if let navigationController = self.navigationController as? ScrollingNavigationController {
+            navigationController.followScrollView(scrollView, delay: 50.0)
+        }
     }
 
     override func didMoveToParentViewController(parent: UIViewController?) {
@@ -264,5 +271,14 @@ class EventController: UIViewController {
         bottomRubberBandingArea.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Top)
     }
     // swiftlint:enable function_body_length
+}
+
+extension EventController: UIScrollViewDelegate {
+    func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
+        if let navigationController = self.navigationController as? ScrollingNavigationController {
+            navigationController.showNavbar(animated: true)
+        }
+        return true
+    }
 }
 // swiftlint:enable type_body_length

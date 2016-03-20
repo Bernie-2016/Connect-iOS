@@ -1,4 +1,5 @@
 import UIKit
+import AMScrollingNavbar
 
 class NewsFeedController: UIViewController {
     private let newsFeedService: NewsFeedService
@@ -103,6 +104,10 @@ class NewsFeedController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
+        if let navigationController = self.navigationController as? ScrollingNavigationController {
+            navigationController.followScrollView(collectionView, delay: 50.0)
+        }
+
         loadNewsFeed()
     }
 
@@ -157,6 +162,13 @@ extension NewsFeedController: UICollectionViewDelegate {
 
         let controller = newsFeedItemControllerProvider.provideInstanceWithNewsFeedItem(newsFeedItem)
         navigationController?.pushViewController(controller, animated: true)
+    }
+
+    func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
+        if let navigationController = self.navigationController as? ScrollingNavigationController {
+            navigationController.showNavbar(animated: true)
+        }
+        return true
     }
 }
 

@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2014-2015 Erik Doernenburg and contributors
+ *  Copyright (c) 2014-2016 Erik Doernenburg and contributors
  *
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may
  *  not use these files except in compliance with the License. You may obtain
@@ -214,5 +214,18 @@ typedef NSString TypedefString;
     OCMVerify([mockDelegate go]);
     XCTAssertNotNil(object.delegate, @"Should still have delegate");
 }
+
+
+- (void)testDynamicSubclassesShouldBeDisposed
+{
+    int numClassesBefore = objc_getClassList(NULL, 0);
+
+    id mock = [OCMockObject mockForClass:[TestDelegate class]];
+    [mock stopMocking];
+
+    int numClassesAfter = objc_getClassList(NULL, 0);
+    XCTAssertEqual(numClassesBefore, numClassesAfter, @"Should have disposed dynamically generated classes.");
+}
+
 
 @end

@@ -1,6 +1,7 @@
 import UIKit
+import AMScrollingNavbar
 
-class NavigationController: UINavigationController {
+class NavigationController: ScrollingNavigationController {
     private let theme: Theme
 
     init(theme: Theme) {

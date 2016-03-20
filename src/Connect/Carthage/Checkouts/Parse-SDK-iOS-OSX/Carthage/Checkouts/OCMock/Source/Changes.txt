@@ -1,6 +1,21 @@
 Listing of notable changes by release. More detail is usually found in the Git 
 commit messages and/or the pull requests.
 
+
+OCMock 3.2.2 (2016-01-20)
+
+* Fixed recently introduced bug that caused crashes when using NULL pointers
+  with the pass-by-ref argument setter (Ian Anderson)
+
+
+OCMock 3.2.1 (2016-01-13)
+
+* Added support for tvOS (Nikita Lutsenko)
+* Disposing dynamically generated subclasses after use (David Stites)
+* Build script now signs frameworks in releases. The signing identity can
+  be changed in the script.
+
+
 OCMock 3.2 (2015-10-03)
 
 * Can mock dynamic properties (imhuntingwabbits)
