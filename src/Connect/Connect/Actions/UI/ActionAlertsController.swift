@@ -94,6 +94,7 @@ class ActionAlertsController: UIViewController {
         pageControl.hidden = true
         loadingIndicatorView.hidden = false
         collectionView.hidden = true
+
         let webViewWidth = UIScreen.mainScreen().bounds.width - 10
 
         let future = actionAlertService.fetchActionAlerts()
@@ -118,7 +119,7 @@ class ActionAlertsController: UIViewController {
 
                 // this is because the facebook embed code isn't responsive - we need to render it with the correct width
                 // such that we work around its margins
-                let webViewWidth = UIScreen.mainScreen().bounds.width - 20
+                let webViewWidth = UIScreen.mainScreen().bounds.width - 10
                 webView.autoSetDimension(.Width, toSize: webViewWidth)
                 webView.autoSetDimension(.Height, toSize: 1)
 
