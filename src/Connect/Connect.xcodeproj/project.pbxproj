@@ -27,7 +27,6 @@
 		651A3BB31C98F1BD007D5E0D /* NearbyEventsFilterControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651A3BB21C98F1BD007D5E0D /* NearbyEventsFilterControllerSpec.swift */; };
 		651C466D1C4340F50075F5DE /* FakeImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C466C1C4340F50075F5DE /* FakeImageService.swift */; };
 		651F80F71C40B211004E7FDA /* MockEventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651F80F61C40B211004E7FDA /* MockEventRepository.swift */; };
-		65205F321BC098DF005A55F2 /* FakeURLAttributionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65205F311BC098DF005A55F2 /* FakeURLAttributionPresenter.swift */; };
 		652AE5E41C46EE9E00EE7B70 /* OpenNewsArticleNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652AE5E31C46EE9E00EE7B70 /* OpenNewsArticleNotificationHandler.swift */; };
 		652AE5E61C46EEBB00EE7B70 /* OpenNewsArticleNotificationHandlerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652AE5E51C46EEBB00EE7B70 /* OpenNewsArticleNotificationHandlerSpec.swift */; };
 		652AE5E81C46EF5800EE7B70 /* FakeNewsFeedItemControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652AE5E71C46EF5800EE7B70 /* FakeNewsFeedItemControllerProvider.swift */; };
@@ -102,7 +101,6 @@
 		653D0F8D1C4C2FF7004CB8A0 /* WelcomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0F8B1C4C2FF7004CB8A0 /* WelcomeController.swift */; };
 		653D0F9B1C4C35C0004CB8A0 /* ConcreteTabBarItemStylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0F8F1C4C35C0004CB8A0 /* ConcreteTabBarItemStylist.swift */; };
 		653D0F9C1C4C35C0004CB8A0 /* ConcreteTimeIntervalFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0F901C4C35C0004CB8A0 /* ConcreteTimeIntervalFormatter.swift */; };
-		653D0F9D1C4C35C0004CB8A0 /* ConcreteURLAttributionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0F911C4C35C0004CB8A0 /* ConcreteURLAttributionPresenter.swift */; };
 		653D0F9E1C4C35C0004CB8A0 /* DisclosureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0F921C4C35C0004CB8A0 /* DisclosureButton.swift */; };
 		653D0F9F1C4C35C0004CB8A0 /* DisclosureIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0F931C4C35C0004CB8A0 /* DisclosureIndicatorView.swift */; };
 		653D0FA01C4C35C0004CB8A0 /* InterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0F941C4C35C0004CB8A0 /* InterstitialController.swift */; };
@@ -111,7 +109,6 @@
 		653D0FA31C4C35C0004CB8A0 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0F971C4C35C0004CB8A0 /* TabBarController.swift */; };
 		653D0FA41C4C35C0004CB8A0 /* TabBarItemStylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0F981C4C35C0004CB8A0 /* TabBarItemStylist.swift */; };
 		653D0FA51C4C35C0004CB8A0 /* TimeIntervalFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0F991C4C35C0004CB8A0 /* TimeIntervalFormatter.swift */; };
-		653D0FA61C4C35C0004CB8A0 /* URLAttributionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0F9A1C4C35C0004CB8A0 /* URLAttributionPresenter.swift */; };
 		653D0FAA1C4C360D004CB8A0 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0FA91C4C360D004CB8A0 /* UIColorExtension.swift */; };
 		653D0FB41C4C536F004CB8A0 /* ConcreteNewsArticleDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0FB01C4C536F004CB8A0 /* ConcreteNewsArticleDeserializer.swift */; };
 		653D0FB51C4C536F004CB8A0 /* ConcreteVideoDeserializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0FB11C4C536F004CB8A0 /* ConcreteVideoDeserializer.swift */; };
@@ -125,7 +122,6 @@
 		653D100B1C4C53BB004CB8A0 /* EventPresenterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0FCB1C4C53BB004CB8A0 /* EventPresenterSpec.swift */; };
 		653D100F1C4C53BB004CB8A0 /* ConcreteTabBarItemStylistSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0FD01C4C53BB004CB8A0 /* ConcreteTabBarItemStylistSpec.swift */; };
 		653D10101C4C53BB004CB8A0 /* ConcreteTimeIntervalFormatterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0FD11C4C53BB004CB8A0 /* ConcreteTimeIntervalFormatterSpec.swift */; };
-		653D10111C4C53BB004CB8A0 /* ConcreteURLAttributionPresenterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0FD21C4C53BB004CB8A0 /* ConcreteURLAttributionPresenterSpec.swift */; };
 		653D10121C4C53BB004CB8A0 /* NavigationControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0FD31C4C53BB004CB8A0 /* NavigationControllerSpec.swift */; };
 		653D10131C4C53BB004CB8A0 /* TabBarControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0FD41C4C53BB004CB8A0 /* TabBarControllerSpec.swift */; };
 		653D10141C4C53BB004CB8A0 /* BackgroundImageServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0FD71C4C53BB004CB8A0 /* BackgroundImageServiceSpec.swift */; };
@@ -393,7 +389,6 @@
 		651A3BB21C98F1BD007D5E0D /* NearbyEventsFilterControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearbyEventsFilterControllerSpec.swift; sourceTree = "<group>"; };
 		651C466C1C4340F50075F5DE /* FakeImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeImageService.swift; sourceTree = "<group>"; };
 		651F80F61C40B211004E7FDA /* MockEventRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockEventRepository.swift; sourceTree = "<group>"; };
-		65205F311BC098DF005A55F2 /* FakeURLAttributionPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeURLAttributionPresenter.swift; sourceTree = "<group>"; };
 		652AE5E31C46EE9E00EE7B70 /* OpenNewsArticleNotificationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenNewsArticleNotificationHandler.swift; sourceTree = "<group>"; };
 		652AE5E51C46EEBB00EE7B70 /* OpenNewsArticleNotificationHandlerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenNewsArticleNotificationHandlerSpec.swift; sourceTree = "<group>"; };
 		652AE5E71C46EF5800EE7B70 /* FakeNewsFeedItemControllerProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeNewsFeedItemControllerProvider.swift; sourceTree = "<group>"; };
@@ -467,7 +462,6 @@
 		653D0F8B1C4C2FF7004CB8A0 /* WelcomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeController.swift; sourceTree = "<group>"; };
 		653D0F8F1C4C35C0004CB8A0 /* ConcreteTabBarItemStylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteTabBarItemStylist.swift; sourceTree = "<group>"; };
 		653D0F901C4C35C0004CB8A0 /* ConcreteTimeIntervalFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteTimeIntervalFormatter.swift; sourceTree = "<group>"; };
-		653D0F911C4C35C0004CB8A0 /* ConcreteURLAttributionPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteURLAttributionPresenter.swift; sourceTree = "<group>"; };
 		653D0F921C4C35C0004CB8A0 /* DisclosureButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisclosureButton.swift; sourceTree = "<group>"; };
 		653D0F931C4C35C0004CB8A0 /* DisclosureIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisclosureIndicatorView.swift; sourceTree = "<group>"; };
 		653D0F941C4C35C0004CB8A0 /* InterstitialController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterstitialController.swift; sourceTree = "<group>"; };
@@ -476,7 +470,6 @@
 		653D0F971C4C35C0004CB8A0 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		653D0F981C4C35C0004CB8A0 /* TabBarItemStylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarItemStylist.swift; sourceTree = "<group>"; };
 		653D0F991C4C35C0004CB8A0 /* TimeIntervalFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeIntervalFormatter.swift; sourceTree = "<group>"; };
-		653D0F9A1C4C35C0004CB8A0 /* URLAttributionPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLAttributionPresenter.swift; sourceTree = "<group>"; };
 		653D0FA71C4C3604004CB8A0 /* Connect-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Connect-Bridging-Header.h"; sourceTree = "<group>"; };
 		653D0FA91C4C360D004CB8A0 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		653D0FB01C4C536F004CB8A0 /* ConcreteNewsArticleDeserializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteNewsArticleDeserializer.swift; sourceTree = "<group>"; };
@@ -491,7 +484,6 @@
 		653D0FCB1C4C53BB004CB8A0 /* EventPresenterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventPresenterSpec.swift; sourceTree = "<group>"; };
 		653D0FD01C4C53BB004CB8A0 /* ConcreteTabBarItemStylistSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteTabBarItemStylistSpec.swift; sourceTree = "<group>"; };
 		653D0FD11C4C53BB004CB8A0 /* ConcreteTimeIntervalFormatterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteTimeIntervalFormatterSpec.swift; sourceTree = "<group>"; };
-		653D0FD21C4C53BB004CB8A0 /* ConcreteURLAttributionPresenterSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteURLAttributionPresenterSpec.swift; sourceTree = "<group>"; };
 		653D0FD31C4C53BB004CB8A0 /* NavigationControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationControllerSpec.swift; sourceTree = "<group>"; };
 		653D0FD41C4C53BB004CB8A0 /* TabBarControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarControllerSpec.swift; sourceTree = "<group>"; };
 		653D0FD71C4C53BB004CB8A0 /* BackgroundImageServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundImageServiceSpec.swift; sourceTree = "<group>"; };
@@ -1001,7 +993,6 @@
 				65444BCD1C8B95F700CC8AC8 /* ChildControllerBuddy.swift */,
 				653D0F8F1C4C35C0004CB8A0 /* ConcreteTabBarItemStylist.swift */,
 				653D0F901C4C35C0004CB8A0 /* ConcreteTimeIntervalFormatter.swift */,
-				653D0F911C4C35C0004CB8A0 /* ConcreteURLAttributionPresenter.swift */,
 				653D0F921C4C35C0004CB8A0 /* DisclosureButton.swift */,
 				653D0F931C4C35C0004CB8A0 /* DisclosureIndicatorView.swift */,
 				65979AA11C4C67AF00A312A9 /* GlobalUIContainerConfigurator.swift */,
@@ -1013,7 +1004,6 @@
 				653D0F971C4C35C0004CB8A0 /* TabBarController.swift */,
 				653D0F981C4C35C0004CB8A0 /* TabBarItemStylist.swift */,
 				653D0F991C4C35C0004CB8A0 /* TimeIntervalFormatter.swift */,
-				653D0F9A1C4C35C0004CB8A0 /* URLAttributionPresenter.swift */,
 			);
 			path = GlobalUI;
 			sourceTree = "<group>";
@@ -1107,7 +1097,6 @@
 				65D3C5431C5C6B7400317466 /* CMMarkdownConverterSpec.swift */,
 				653D0FD01C4C53BB004CB8A0 /* ConcreteTabBarItemStylistSpec.swift */,
 				653D0FD11C4C53BB004CB8A0 /* ConcreteTimeIntervalFormatterSpec.swift */,
-				653D0FD21C4C53BB004CB8A0 /* ConcreteURLAttributionPresenterSpec.swift */,
 				653D0FD31C4C53BB004CB8A0 /* NavigationControllerSpec.swift */,
 				65444BCB1C8B959200CC8AC8 /* StockChildControllerBuddySpec.swift */,
 				653D0FD41C4C53BB004CB8A0 /* TabBarControllerSpec.swift */,
@@ -1499,7 +1488,6 @@
 				65DE887D1BE31540001AEDD8 /* FakeTimeIntervalFormatter.swift */,
 				651960831C4D8ECB004AAC6D /* FakeUIApplicationProvider.h */,
 				651960841C4D8ECB004AAC6D /* FakeUIApplicationProvider.m */,
-				65205F311BC098DF005A55F2 /* FakeURLAttributionPresenter.swift */,
 				6505C9521BB9FF3F008DD278 /* FakeURLOpener.swift */,
 				6507631D1B8B720E00BA0659 /* FakeURLProvider.swift */,
 				651960881C4D9429004AAC6D /* FakeUserNotificationHandler.swift */,
@@ -1867,7 +1855,6 @@
 				653D0F111C4C2B8B004CB8A0 /* ConcreteNewsFeedItemControllerProvider.swift in Sources */,
 				653D0F9B1C4C35C0004CB8A0 /* ConcreteTabBarItemStylist.swift in Sources */,
 				653D0F9C1C4C35C0004CB8A0 /* ConcreteTimeIntervalFormatter.swift in Sources */,
-				653D0F9D1C4C35C0004CB8A0 /* ConcreteURLAttributionPresenter.swift in Sources */,
 				653D0FBA1C4C539A004CB8A0 /* ConcreteURLProvider.swift in Sources */,
 				653D0FB51C4C536F004CB8A0 /* ConcreteVideoDeserializer.swift in Sources */,
 				653D0EF71C4C2B7D004CB8A0 /* ConcreteVideoRepository.swift in Sources */,
@@ -1958,7 +1945,6 @@
 				65CA5E911B86E3D00001D870 /* Theme.swift in Sources */,
 				653D0FA51C4C35C0004CB8A0 /* TimeIntervalFormatter.swift in Sources */,
 				653D0FAA1C4C360D004CB8A0 /* UIColorExtension.swift in Sources */,
-				653D0FA61C4C35C0004CB8A0 /* URLAttributionPresenter.swift in Sources */,
 				653D0F871C4C2F68004CB8A0 /* URLOpener.swift in Sources */,
 				653D0FBB1C4C539A004CB8A0 /* URLProvider.swift in Sources */,
 				65B97D571C459C9800F2F6B3 /* UserNotificationHandler.swift in Sources */,
@@ -2004,7 +1990,6 @@
 				653D10291C4C53BB004CB8A0 /* ConcreteNewsArticleRepositorySpec.swift in Sources */,
 				653D100F1C4C53BB004CB8A0 /* ConcreteTabBarItemStylistSpec.swift in Sources */,
 				653D10101C4C53BB004CB8A0 /* ConcreteTimeIntervalFormatterSpec.swift in Sources */,
-				653D10111C4C53BB004CB8A0 /* ConcreteURLAttributionPresenterSpec.swift in Sources */,
 				653D10181C4C53BB004CB8A0 /* ConcreteURLProviderSpec.swift in Sources */,
 				653D102A1C4C53BB004CB8A0 /* ConcreteVideoDeserializerSpec.swift in Sources */,
 				653D102B1C4C53BB004CB8A0 /* ConcreteVideoRepositorySpec.swift in Sources */,
@@ -2045,7 +2030,6 @@
 				65F5F6571B8967AD0049353C /* FakeTheme.swift in Sources */,
 				65DE887E1BE31540001AEDD8 /* FakeTimeIntervalFormatter.swift in Sources */,
 				651960851C4D8ECB004AAC6D /* FakeUIApplicationProvider.m in Sources */,
-				65205F321BC098DF005A55F2 /* FakeURLAttributionPresenter.swift in Sources */,
 				6505C9531BB9FF3F008DD278 /* FakeURLOpener.swift in Sources */,
 				6507631E1B8B720E00BA0659 /* FakeURLProvider.swift in Sources */,
 				651960891C4D9429004AAC6D /* FakeUserNotificationHandler.swift in Sources */,

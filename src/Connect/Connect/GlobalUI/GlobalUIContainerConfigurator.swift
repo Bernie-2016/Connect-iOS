@@ -18,10 +18,6 @@ class GlobalUIContainerConfigurator: ContainerConfigurator {
             return InterstitialController(theme: resolver.resolve(Theme.self)!)
             }.inObjectScope(.Container)
 
-        container.register(URLAttributionPresenter.self) { _ in
-            return ConcreteURLAttributionPresenter()
-            }.inObjectScope(.Container)
-
         container.register(NavigationController.self) { resolver in
             return NavigationController(theme: resolver.resolve(Theme.self)!)
             }.inObjectScope(.None)
