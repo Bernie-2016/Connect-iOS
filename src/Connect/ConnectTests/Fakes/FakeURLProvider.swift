@@ -20,19 +20,15 @@ class FakeURLProvider : URLProvider {
         fatalError("override me in spec!")
     }
 
-    func codersForSandersURL() -> NSURL {
+    func githubURL() -> NSURL {
         fatalError("override me in spec!")
     }
 
-    func designersForSandersURL() -> NSURL {
+    func slackURL() -> NSURL {
         fatalError("override me in spec!")
     }
 
     func feedbackFormURL() -> NSURL {
-        fatalError("override me in spec!")
-    }
-
-    func sandersForPresidentURL() -> NSURL {
         fatalError("override me in spec!")
     }
 

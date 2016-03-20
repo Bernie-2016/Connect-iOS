@@ -12,10 +12,9 @@ class AboutController: UIViewController {
 
     let versionLabel = UILabel.newAutoLayoutView()
     let bodyTextLabel = UILabel.newAutoLayoutView()
-    let redditLabel = UILabel.newAutoLayoutView()
-    let codersButton = UIButton.newAutoLayoutView()
-    let designersButton = UIButton.newAutoLayoutView()
-    let sandersForPresidentButton = UIButton.newAutoLayoutView()
+    let contributeLabel = UILabel.newAutoLayoutView()
+    let githubButton = UIButton.newAutoLayoutView()
+    let slackButton = UIButton.newAutoLayoutView()
 
     init(
         analyticsService: AnalyticsService,
@@ -48,10 +47,9 @@ class AboutController: UIViewController {
 
         containerView.addSubview(versionLabel)
         containerView.addSubview(bodyTextLabel)
-        containerView.addSubview(redditLabel)
-        containerView.addSubview(codersButton)
-        containerView.addSubview(designersButton)
-        containerView.addSubview(sandersForPresidentButton)
+        containerView.addSubview(contributeLabel)
+        containerView.addSubview(githubButton)
+        containerView.addSubview(slackButton)
 
         let marketingVersion = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as? String ?? "unknown version"
         let internalBuildNumber  = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleVersion") as? String  ?? "unknown build"
@@ -60,14 +58,12 @@ class AboutController: UIViewController {
         versionLabel.text = versionString
 
         bodyTextLabel.text = NSLocalizedString("About_bodyText", comment: "")
-        redditLabel.text = NSLocalizedString("About_redditText", comment: "")
-        codersButton.setTitle(NSLocalizedString("About_codersForSanders", comment: ""), forState: .Normal)
-        designersButton.setTitle(NSLocalizedString("About_designersForSanders", comment: ""), forState: .Normal)
-        sandersForPresidentButton.setTitle(NSLocalizedString("About_sandersForPresident", comment: ""), forState: .Normal)
+        contributeLabel.text = NSLocalizedString("About_contributeText", comment: "")
+        githubButton.setTitle(NSLocalizedString("About_githubButton", comment: ""), forState: .Normal)
+        slackButton.setTitle(NSLocalizedString("About_slackButton", comment: ""), forState: .Normal)
 
-        codersButton.addTarget(self, action: "didTapCoders", forControlEvents: .TouchUpInside)
-        designersButton.addTarget(self, action: "didTapDesigners", forControlEvents: .TouchUpInside)
-        sandersForPresidentButton.addTarget(self, action: "didTapSandersForPresident", forControlEvents: .TouchUpInside)
+        githubButton.addTarget(self, action: "didTapGithub", forControlEvents: .TouchUpInside)
+        slackButton.addTarget(self, action: "didTapSlack", forControlEvents: .TouchUpInside)
 
         setupConstraintsAndLayout()
         applyTheme()
@@ -89,19 +85,14 @@ class AboutController: UIViewController {
 
     // MARK: Actions
 
-    func didTapCoders() {
-        self.analyticsService.trackContentViewWithName("CodersForSanders", type: .About, identifier: self.urlProvider.codersForSandersURL().absoluteString)
-        self.urlOpener.openURL(self.urlProvider.codersForSandersURL())
+    func didTapGithub() {
+        self.analyticsService.trackContentViewWithName("GitHub", type: .About, identifier: self.urlProvider.githubURL().absoluteString)
+        self.urlOpener.openURL(self.urlProvider.githubURL())
     }
 
-    func didTapDesigners() {
-        self.analyticsService.trackContentViewWithName("DesignersForSanders", type: .About, identifier: self.urlProvider.designersForSandersURL().absoluteString)
-        self.urlOpener.openURL(self.urlProvider.designersForSandersURL())
-    }
-
-    func didTapSandersForPresident() {
-        self.analyticsService.trackContentViewWithName("SandersForPresident", type: .About, identifier: self.urlProvider.sandersForPresidentURL().absoluteString)
-        self.urlOpener.openURL(self.urlProvider.sandersForPresidentURL())
+    func didTapSlack() {
+        self.analyticsService.trackContentViewWithName("Slack", type: .About, identifier: self.urlProvider.slackURL().absoluteString)
+        self.urlOpener.openURL(self.urlProvider.slackURL())
     }
 
     // MARK: Private
@@ -120,24 +111,20 @@ class AboutController: UIViewController {
         bodyTextLabel.autoPinEdgeToSuperviewMargin(.Left)
         bodyTextLabel.autoPinEdgeToSuperviewMargin(.Right)
 
-        redditLabel.numberOfLines = 0
-        redditLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: bodyTextLabel, withOffset: 8)
-        redditLabel.autoPinEdgeToSuperviewMargin(.Left)
-        redditLabel.autoPinEdgeToSuperviewMargin(.Right)
+        contributeLabel.numberOfLines = 0
+        contributeLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: bodyTextLabel, withOffset: 8)
+        contributeLabel.autoPinEdgeToSuperviewMargin(.Left)
+        contributeLabel.autoPinEdgeToSuperviewMargin(.Right)
 
-        codersButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: redditLabel, withOffset: 16)
-        codersButton.autoPinEdgeToSuperviewMargin(.Left)
-        codersButton.autoPinEdgeToSuperviewMargin(.Right)
+        slackButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: contributeLabel, withOffset: 8)
+        slackButton.autoPinEdgeToSuperviewMargin(.Left)
+        slackButton.autoPinEdgeToSuperviewMargin(.Right)
 
-        designersButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: codersButton, withOffset: 8)
-        designersButton.autoPinEdgeToSuperviewMargin(.Left)
-        designersButton.autoPinEdgeToSuperviewMargin(.Right)
+        githubButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: slackButton, withOffset: 16)
+        githubButton.autoPinEdgeToSuperviewMargin(.Left)
+        githubButton.autoPinEdgeToSuperviewMargin(.Right)
 
-        sandersForPresidentButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: designersButton, withOffset: 8)
-        sandersForPresidentButton.autoPinEdgeToSuperviewMargin(.Left)
-        sandersForPresidentButton.autoPinEdgeToSuperviewMargin(.Right)
-
-        versionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: sandersForPresidentButton, withOffset: 8)
+        versionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: githubButton, withOffset: 8)
         versionLabel.autoPinEdgeToSuperviewMargin(.Left)
         versionLabel.autoPinEdgeToSuperviewMargin(.Right)
         versionLabel.autoPinEdgeToSuperviewMargin(.Bottom)
@@ -147,15 +134,12 @@ class AboutController: UIViewController {
         view.backgroundColor = theme.contentBackgroundColor()
         versionLabel.font = theme.aboutBodyTextFont()
         bodyTextLabel.font = theme.aboutBodyTextFont()
-        redditLabel.font = theme.aboutBodyTextFont()
-        codersButton.backgroundColor = theme.aboutButtonBackgroundColor()
-        codersButton.titleLabel!.font = theme.aboutButtonFont()
-        codersButton.setTitleColor(theme.aboutButtonTextColor(), forState: .Normal)
-        designersButton.backgroundColor = theme.aboutButtonBackgroundColor()
-        designersButton.titleLabel!.font = theme.aboutButtonFont()
-        designersButton.setTitleColor(theme.aboutButtonTextColor(), forState: .Normal)
-        sandersForPresidentButton.backgroundColor = theme.aboutButtonBackgroundColor()
-        sandersForPresidentButton.titleLabel!.font = theme.aboutButtonFont()
-        sandersForPresidentButton.setTitleColor(theme.aboutButtonTextColor(), forState: .Normal)
+        contributeLabel.font = theme.aboutBodyTextFont()
+        githubButton.backgroundColor = theme.aboutButtonBackgroundColor()
+        githubButton.titleLabel!.font = theme.aboutButtonFont()
+        githubButton.setTitleColor(theme.aboutButtonTextColor(), forState: .Normal)
+        slackButton.backgroundColor = theme.aboutButtonBackgroundColor()
+        slackButton.titleLabel!.font = theme.aboutButtonFont()
+        slackButton.setTitleColor(theme.aboutButtonTextColor(), forState: .Normal)
     }
 }

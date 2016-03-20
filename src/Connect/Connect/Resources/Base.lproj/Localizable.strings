@@ -87,11 +87,10 @@
 // About
 
 "About_title" = "About";
-"About_bodyText" = "This app is built by a small group of volunteers, functioning independently and without affiliation or endorsement by the official Bernie Sanders Campaign. The purpose of this app is to help raise awareness of Bernie, his work, and the growing political Connect. When registering for an event, you will be registering into the website Events page. If making a donation, you will be making a donation through the official Bernie Sanders campaign site, www.berniesanders.com. We function as a connector and a funnel into the campaign website.";
-"About_redditText" = "If you'd like to find out more about us, look into these sub-reddits:";
-"About_codersForSanders" = "/r/codersforsanders";
-"About_designersForSanders" = "/r/designersforsanders";
-"About_sandersForPresident" = "/r/sandersforpresident";
+"About_bodyText" = "This app is built by a small group of volunteers working with the Bernie 2016 campaign. The purpose of this app is to help raise awareness of Bernie, his work, and the growing political movement. When registering for an event, you will be registering into the website Events page. If making a donation, you will be making a donation through the official Bernie Sanders campaign site, www.berniesanders.com.";
+"About_contributeText" = "If you'd like to contribute towards this project, check out the buttons below:";
+"About_githubButton" = "View code on GitHub";
+"About_slackButton" = "Talk to us on Slack";
 
 // Feedback
 

@@ -36,8 +36,8 @@ class AboutControllerSpec : QuickSpec {
                     expect(subject.bodyTextLabel.text).to(contain("This app is built by a small group of volunteers"))
                 }
 
-                it("has a label instructing the user to look at reddit") {
-                    expect(subject.redditLabel.text).to(contain("look into these sub-reddits:"))
+                it("has a label telling the user how to contribute") {
+                    expect(subject.contributeLabel.text).to(contain("If you'd like to contribute"))
                 }
 
                 it("has a scroll view containing the UI elements") {
@@ -49,16 +49,14 @@ class AboutControllerSpec : QuickSpec {
 
                     let containerView = scrollView.subviews.first!
 
-                    expect(containerView.subviews.count).to(equal(6))
+                    expect(containerView.subviews.count).to(equal(5))
 
                     let containerViewSubViews = containerView.subviews
 
                     expect(containerViewSubViews.contains(subject.versionLabel)).to(beTrue())
                     expect(containerViewSubViews.contains(subject.bodyTextLabel)).to(beTrue())
-                    expect(containerViewSubViews.contains(subject.redditLabel)).to(beTrue())
-                    expect(containerViewSubViews.contains(subject.codersButton)).to(beTrue())
-                    expect(containerViewSubViews.contains(subject.designersButton)).to(beTrue())
-                    expect(containerViewSubViews.contains(subject.sandersForPresidentButton)).to(beTrue())
+                    expect(containerViewSubViews.contains(subject.githubButton)).to(beTrue())
+                    expect(containerViewSubViews.contains(subject.slackButton)).to(beTrue())
                 }
 
                 it("tracks taps on the back button with the analytics service") {
@@ -72,83 +70,45 @@ class AboutControllerSpec : QuickSpec {
                     expect(analyticsService.lastBackButtonTapAttributes).to(beNil())
                 }
 
-                it("has a button for the coders for sanders subreddit") {
-                    expect(subject.codersButton.titleForState(.Normal)).to((equal("/r/codersforsanders")))
+                it("has a button for the github repo") {
+                    expect(subject.githubButton.titleForState(.Normal)) == "View code on GitHub"
                 }
 
-                describe("tapping on the coders button") {
+                describe("tapping on the github button") {
                     beforeEach {
-                        subject.codersButton.tap()
+                        subject.githubButton.tap()
                     }
 
                     it("opens maps with the correct arugments") {
-                        expect(urlOpener.lastOpenedURL).to(equal(NSURL(string: "http://example.com/reddit/coders")))
+                        expect(urlOpener.lastOpenedURL).to(equal(NSURL(string: "http://example.com/github")))
                     }
 
                     it("logs that the user tapped the coders button") {
-                        expect(analyticsService.lastContentViewName).to(equal("CodersForSanders"))
+                        expect(analyticsService.lastContentViewName).to(equal("GitHub"))
                         expect(analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.About))
-                        expect(analyticsService.lastContentViewID).to(equal("http://example.com/reddit/coders"))
+                        expect(analyticsService.lastContentViewID).to(equal("http://example.com/github"))
                     }
                 }
 
-                it("has a button for the designers for sanders subreddit") {
-                    expect(subject.designersButton.titleForState(.Normal)).to((equal("/r/designersforsanders")))
+                it("has a button for the slack invite page") {
+                    expect(subject.slackButton.titleForState(.Normal)) == "Talk to us on Slack"
                 }
 
 
-                describe("tapping on the designers button") {
+                describe("tapping on the slack button") {
                     beforeEach {
-                        subject.designersButton.tap()
+                        subject.slackButton.tap()
                     }
 
                     it("opens maps with the correct arugments") {
-                        expect(urlOpener.lastOpenedURL).to(equal(NSURL(string: "http://example.com/reddit/designers")))
+                        expect(urlOpener.lastOpenedURL).to(equal(NSURL(string: "http://example.com/slack")))
                     }
 
                     it("logs that the user tapped the designers button") {
-                        expect(analyticsService.lastContentViewName).to(equal("DesignersForSanders"))
+                        expect(analyticsService.lastContentViewName).to(equal("Slack"))
                         expect(analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.About))
-                        expect(analyticsService.lastContentViewID).to(equal("http://example.com/reddit/designers"))
+                        expect(analyticsService.lastContentViewID).to(equal("http://example.com/slack"))
                     }
-                }
-
-                it("has a button for the sanders for president subreddit") {
-                    expect(subject.sandersForPresidentButton.titleForState(.Normal)).to((equal("/r/sandersforpresident")))
-                }
-
-
-                describe("tapping on the sanders for president button") {
-                    beforeEach {
-                        subject.sandersForPresidentButton.tap()
-                    }
-
-                    it("opens maps with the correct arguments") {
-                        expect(urlOpener.lastOpenedURL).to(equal(NSURL(string: "http://example.com/reddit/prez")))
-                    }
-
-                    it("logs that the user tapped the sanders for president button") {
-                        expect(analyticsService.lastContentViewName).to(equal("SandersForPresident"))
-                        expect(analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.About))
-                        expect(analyticsService.lastContentViewID).to(equal("http://example.com/reddit/prez"))
-                    }
-                }
-
-
-                it("styles the screen components with the theme") {
-                    expect(subject.view.backgroundColor).to(equal(UIColor.orangeColor()))
-                    expect(subject.versionLabel.font).to(equal(UIFont.italicSystemFontOfSize(222)))
-                    expect(subject.bodyTextLabel.font).to(equal(UIFont.italicSystemFontOfSize(222)))
-                    expect(subject.redditLabel.font).to(equal(UIFont.italicSystemFontOfSize(222)))
-                    expect(subject.codersButton.backgroundColor).to(equal(UIColor.yellowColor()))
-                    expect(subject.codersButton.titleLabel!.font).to(equal(UIFont.italicSystemFontOfSize(111)))
-                    expect(subject.codersButton.titleColorForState(.Normal)).to(equal(UIColor.redColor()))
-                    expect(subject.designersButton.backgroundColor).to(equal(UIColor.yellowColor()))
-                    expect(subject.designersButton.titleLabel!.font).to(equal(UIFont.italicSystemFontOfSize(111)))
-                    expect(subject.designersButton.titleColorForState(.Normal)).to(equal(UIColor.redColor()))
-                    expect(subject.sandersForPresidentButton.backgroundColor).to(equal(UIColor.yellowColor()))
-                    expect(subject.sandersForPresidentButton.titleLabel!.font).to(equal(UIFont.italicSystemFontOfSize(111)))
-                    expect(subject.sandersForPresidentButton.titleColorForState(.Normal)).to(equal(UIColor.redColor()))
                 }
             }
         }
@@ -164,15 +124,11 @@ private class AboutFakeTheme: FakeTheme {
 }
 
 private class AboutFakeURLProvider: FakeURLProvider {
-    override func codersForSandersURL() -> NSURL {
-        return NSURL(string: "http://example.com/reddit/coders")!
+    override func githubURL() -> NSURL {
+        return NSURL(string: "http://example.com/github")!
     }
 
-    override func designersForSandersURL() -> NSURL {
-        return NSURL(string: "http://example.com/reddit/designers")!
-    }
-
-    override func sandersForPresidentURL() -> NSURL {
-        return NSURL(string: "http://example.com/reddit/prez")!
+    override func slackURL() -> NSURL {
+        return NSURL(string: "http://example.com/slack")!
     }
 }

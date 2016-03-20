@@ -36,16 +36,12 @@ class ConcreteURLProvider: URLProvider {
         return NSURL(string: urlString.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())!)!
     }
 
-    func codersForSandersURL() -> NSURL {
-        return NSURL(string: "https://www.reddit.com/r/codersforsanders")!
+    func githubURL() -> NSURL {
+        return NSURL(string: "https://github.com/Bernie-2016/Connect-iOS")!
     }
 
-    func designersForSandersURL() -> NSURL {
-        return NSURL(string: "https://www.reddit.com/r/designersforsanders")!
-    }
-
-    func sandersForPresidentURL() -> NSURL {
-        return NSURL(string: "https://www.reddit.com/r/sandersforpresident")!
+    func slackURL() -> NSURL {
+        return NSURL(string: "https://connectwithbernieslack.herokuapp.com/")!
     }
 
     func feedbackFormURL() -> NSURL {

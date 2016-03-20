@@ -7,9 +7,8 @@ protocol URLProvider {
     func privacyPolicyURL() -> NSURL
     func hostEventFormURL() -> NSURL
     func mapsURLForEvent(event: Event) -> NSURL
-    func codersForSandersURL() -> NSURL
-    func designersForSandersURL() -> NSURL
-    func sandersForPresidentURL() -> NSURL
+    func githubURL() -> NSURL
+    func slackURL() -> NSURL
     func feedbackFormURL() -> NSURL
     func donateFormURL() -> NSURL
     func videoURL() -> NSURL
