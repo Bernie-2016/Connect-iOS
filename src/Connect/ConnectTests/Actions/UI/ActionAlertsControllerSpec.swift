@@ -65,6 +65,12 @@ class ActionAlertsControllerSpec: QuickSpec {
                     expect(subject.view.subviews).to(contain(subject.loadingIndicatorView))
                 }
 
+                it("adds the page control as a subview") {
+                    subject.view.layoutSubviews()
+
+                    expect(subject.view.subviews).to(contain(subject.pageControl))
+                }
+
                 it("styles the spinner with the theme") {
                     subject.view.layoutSubviews()
 
@@ -181,6 +187,12 @@ class ActionAlertsControllerSpec: QuickSpec {
                     describe("when the webviews have all loaded") {
                         beforeEach {
                             actionAlertService.lastReturnedActionAlertsPromise.resolve([actionAlertA, actionAlertB])
+                        }
+
+                        it("sets the page control count") {
+                            actionAlertLoadingMonitor.lastCompletionHandler!()
+
+                            expect(subject.pageControl.numberOfPages) == 2
                         }
 
                         it("hides the spinner") {

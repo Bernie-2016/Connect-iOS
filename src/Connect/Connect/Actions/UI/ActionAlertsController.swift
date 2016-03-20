@@ -11,6 +11,7 @@ class ActionAlertsController: UIViewController {
 
     var collectionView: UICollectionView!
     let loadingIndicatorView = UIActivityIndicatorView()
+    let pageControl = UIPageControl.newAutoLayoutView()
 
     private let layout = CenterCellCollectionViewFlowLayout()
     private var webViews: [UIWebView] = []
@@ -60,6 +61,7 @@ class ActionAlertsController: UIViewController {
 
         view.addSubview(collectionView)
         view.addSubview(loadingIndicatorView)
+        view.addSubview(pageControl)
 
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.clipsToBounds = false
@@ -109,7 +111,7 @@ class ActionAlertsController: UIViewController {
 
                 // this is because the facebook embed code isn't responsive - we need to render it with the correct width
                 // such that we work around its margins
-                let webViewWidth = UIScreen.mainScreen().bounds.width - 10
+                let webViewWidth = UIScreen.mainScreen().bounds.width - 20
                 webView.autoSetDimension(.Width, toSize: webViewWidth)
                 webView.autoSetDimension(.Height, toSize: 1)
 
@@ -127,6 +129,7 @@ class ActionAlertsController: UIViewController {
                 self.collectionView.reloadData()
 
                 UIView.transitionWithView(self.view, duration: 0.3, options: .TransitionCrossDissolve, animations: {
+                    self.pageControl.numberOfPages = self.actionAlerts.count
                     self.collectionView.hidden = false
                     self.loadingIndicatorView.hidden = true
                     }, completion: { completed in })
@@ -148,6 +151,9 @@ class ActionAlertsController: UIViewController {
         collectionView.autoPinEdge(.Bottom, toEdge: .Bottom, ofView: view)
 
         loadingIndicatorView.autoCenterInSuperview()
+
+        pageControl.autoAlignAxisToSuperviewAxis(.Vertical)
+        pageControl.autoPinEdgeToSuperviewEdge(.Bottom, withInset: -10)
     }
 }
 
@@ -192,6 +198,17 @@ extension ActionAlertsController: UICollectionViewDelegateFlowLayout {
         var s = collectionView.bounds.size
         s.width = s.width - (2 * kHorizontalSectionInset)
         return s
+    }
+
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        let pageWidth = UIScreen.mainScreen().bounds.width
+        let currentPage: Float = Float(scrollView.contentOffset.x / pageWidth)
+
+        if (0.0 != fmodf(currentPage, 1.0)) {
+            pageControl.currentPage = Int(currentPage) + 1
+        } else {
+            pageControl.currentPage = Int(currentPage)
+        }
     }
 }
 

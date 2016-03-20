@@ -49,8 +49,8 @@ class ActionAlertCell: UICollectionViewCell {
         scrollView.autoPinEdgeToSuperviewEdge(.Right)
 
         titleLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: 45)
-        titleLabel.autoPinEdgeToSuperviewEdge(.Left)
-        titleLabel.autoMatchDimension(.Width, toDimension: .Width, ofView: scrollView)
+        titleLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 5)
+        titleLabel.autoMatchDimension(.Width, toDimension: .Width, ofView: scrollView, withOffset: 5)
 
         webviewContainer.autoPinEdgeToSuperviewEdge(.Top, withInset: 135)
         webviewContainer.autoPinEdgeToSuperviewEdge(.Left)
