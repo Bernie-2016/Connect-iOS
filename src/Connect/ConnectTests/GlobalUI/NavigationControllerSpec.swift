@@ -48,6 +48,10 @@ class NavigationControllerSpec : QuickSpec {
                     subject.view.layoutIfNeeded()
                 }
 
+                it("hides the bar on swipe") {
+                    expect(subject.hidesBarsOnSwipe) == true
+                }
+
                 it("sets the navigation bar to be opaque") {
                     expect(subject.navigationBar.translucent).to(beFalse())
                 }
