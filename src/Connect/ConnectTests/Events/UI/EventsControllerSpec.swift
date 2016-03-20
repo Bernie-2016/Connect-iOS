@@ -57,7 +57,7 @@ class EventsControllerSpec: QuickSpec {
 
 
             it("has the correct tab bar title") {
-                expect(subject.title).to(equal("Nearby"))
+                expect(subject.title) == "Events"
             }
 
             it("uses the tab bar item stylist to style its tab bar item") {
