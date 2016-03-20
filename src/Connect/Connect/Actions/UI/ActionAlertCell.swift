@@ -29,7 +29,9 @@ class ActionAlertCell: UICollectionViewCell {
         super.init(frame: frame)
 
         titleLabel.numberOfLines = 2
+        titleLabel.layoutMargins = UIEdgeInsetsZero
         shortDescriptionLabel.numberOfLines = 3
+        shortDescriptionLabel.layoutMargins = UIEdgeInsetsZero
 
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
@@ -55,9 +57,9 @@ class ActionAlertCell: UICollectionViewCell {
         scrollView.autoPinEdgeToSuperviewEdge(.Left)
         scrollView.autoPinEdgeToSuperviewEdge(.Right)
 
-        textContainerView.autoPinEdgeToSuperviewEdge(.Top)
+        textContainerView.autoPinEdgeToSuperviewEdge(.Top, withInset: 20)
         textContainerView.autoPinEdgeToSuperviewEdge(.Left)
-        textContainerView.autoSetDimension(.Height, toSize: 175)
+        textContainerView.autoSetDimension(.Height, toSize: 155)
         textContainerView.autoMatchDimension(.Width, toDimension: .Width, ofView: scrollView)
 
         textGroupView.autoPinEdgeToSuperviewEdge(.Left)
