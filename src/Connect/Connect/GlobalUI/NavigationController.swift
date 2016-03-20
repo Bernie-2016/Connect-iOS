@@ -15,8 +15,6 @@ class NavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        hidesBarsOnSwipe = true
-
         view.backgroundColor = theme.defaultBackgroundColor()
 
         setNeedsStatusBarAppearanceUpdate()
