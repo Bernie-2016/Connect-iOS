@@ -7,7 +7,6 @@ class FakeNewsFeedItemControllerProvider: NewsFeedItemControllerProvider {
         timeIntervalFormatter: FakeTimeIntervalFormatter(),
         analyticsService: FakeAnalyticsService(),
         urlOpener: FakeURLOpener(),
-        urlAttributionPresenter: FakeURLAttributionPresenter(),
         theme: FakeTheme())
     var lastNewsFeedItem: NewsFeedItem?
 

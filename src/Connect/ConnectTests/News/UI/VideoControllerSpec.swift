@@ -13,7 +13,6 @@ class VideoControllerSpec: QuickSpec {
             var timeIntervalFormatter: FakeTimeIntervalFormatter!
             var urlProvider: VideoFakeURLProvider!
             var urlOpener: FakeURLOpener!
-            var urlAttributionPresenter: FakeURLAttributionPresenter!
             var analyticsService: FakeAnalyticsService!
             let theme = VideoFakeTheme()
             let videoDate = NSDate(timeIntervalSince1970: 1450806042)
@@ -23,14 +22,12 @@ class VideoControllerSpec: QuickSpec {
                 timeIntervalFormatter = FakeTimeIntervalFormatter()
                 urlProvider = VideoFakeURLProvider()
                 urlOpener = FakeURLOpener()
-                urlAttributionPresenter = FakeURLAttributionPresenter()
                 analyticsService = FakeAnalyticsService()
 
                 subject = VideoController(video: video,
                     timeIntervalFormatter: timeIntervalFormatter,
                     urlProvider: urlProvider,
                     urlOpener: urlOpener,
-                    urlAttributionPresenter: urlAttributionPresenter,
                     analyticsService: analyticsService,
                     theme: theme)
             }
@@ -48,9 +45,6 @@ class VideoControllerSpec: QuickSpec {
                     expect(subject.titleLabel.textColor).to(equal(UIColor.blueColor()))
                     expect(subject.descriptionTextView.font).to(equal(UIFont.systemFontOfSize(333)))
                     expect(subject.descriptionTextView.textColor).to(equal(UIColor.greenColor()))
-                    expect(subject.attributionLabel.font).to(equal(UIFont.systemFontOfSize(444)))
-                    expect(subject.attributionLabel.textColor).to(equal(UIColor.orangeColor()))
-                    expect(subject.viewOriginalButton.backgroundColor).to(equal(UIColor.brownColor()))
                 }
 
                 it("has the view components as sub-views of a scroll view") {
@@ -58,13 +52,11 @@ class VideoControllerSpec: QuickSpec {
 
                     let containerView = subject.view.subviews.first!.subviews.first!
 
-                    expect(containerView.subviews.count).to(equal(6))
+                    expect(containerView.subviews.count).to(equal(4))
                     expect(containerView.subviews).to(contain(subject.titleLabel))
                     expect(containerView.subviews).to(contain(subject.descriptionTextView))
                     expect(containerView.subviews).to(contain(subject.dateLabel))
                     expect(containerView.subviews).to(contain(subject.videoView))
-                    expect(containerView.subviews).to(contain(subject.attributionLabel))
-                    expect(containerView.subviews).to(contain(subject.viewOriginalButton))
                 }
 
                 it("shows the title of the the video") {
@@ -92,34 +84,6 @@ class VideoControllerSpec: QuickSpec {
                 xit("prepares the video player to play") {
                     // can't get this to work under test
                     expect(subject.videoController.moviePlayer.isPreparedToPlay).toEventually(beTrue())
-                }
-
-                it("uses the presenter to get attribution text for the video") {
-                    expect(urlProvider.lastIdentifier).to(equal(video.identifier))
-
-                    expect(urlAttributionPresenter.lastPresentedURL).to(beIdenticalTo(urlProvider.lastReturnedURL))
-                    expect(subject.attributionLabel.text).to(equal(urlAttributionPresenter.returnedText))
-                }
-
-                it("has a button to view the original video") {
-                    expect(subject.viewOriginalButton.imageForState(.Normal)).to(equal(UIImage(named: "ViewOriginal")))
-                }
-
-                describe("tapping on the view original button") {
-                    beforeEach {
-                        subject.viewOriginalButton.tap()
-                    }
-
-                    it("opens the original video in safari") {
-                        expect(urlProvider.lastIdentifier).to(equal(video.identifier))
-                        expect(urlOpener.lastOpenedURL).to(beIdenticalTo(urlProvider.lastReturnedURL))
-                    }
-
-                    it("logs that the user tapped view original") {
-                        expect(analyticsService.lastCustomEventName).to(equal("Tapped 'View Original' on Video"))
-                        let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: video.identifier]
-                        expect(analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
-                    }
                 }
 
                 it("has a share button on the navigation item") {
@@ -217,13 +181,6 @@ private class VideoFakeTheme: FakeTheme {
     override func videoTitleColor() -> UIColor { return UIColor.blueColor() }
     override func videoDescriptionFont() -> UIFont  { return UIFont.systemFontOfSize(333) }
     override func videoDescriptionColor() -> UIColor { return UIColor.greenColor() }
-    override func attributionFont() -> UIFont { return UIFont.systemFontOfSize(444) }
-    override func attributionTextColor() -> UIColor { return UIColor.orangeColor() }
-
-    override func attributionButtonBackgroundColor() -> UIColor { return UIColor.brownColor() }
-    override func defaultButtonTextColor() -> UIColor { return UIColor.lightGrayColor() }
-    override func defaultButtonFont() -> UIFont { return UIFont.systemFontOfSize(555) }
-    override func defaultButtonBorderColor() -> UIColor { return UIColor.magentaColor() }
 }
 
 private class VideoFakeURLProvider: FakeURLProvider {

@@ -7,9 +7,6 @@ protocol Theme {
     func defaultBackgroundColor() -> UIColor
     func contentBackgroundColor() -> UIColor
     func defaultSpinnerColor() -> UIColor
-    func attributionFont() -> UIFont
-    func attributionTextColor() -> UIColor
-    func attributionButtonBackgroundColor() -> UIColor
     func defaultButtonBackgroundColor() -> UIColor
     func defaultButtonTextColor() -> UIColor
     func defaultButtonDisabledTextColor() -> UIColor

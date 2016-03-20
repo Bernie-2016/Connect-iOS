@@ -6,8 +6,6 @@ class DefaultTheme: Theme {
     func defaultBackgroundColor() -> UIColor { return seaShellColor }
     func contentBackgroundColor() -> UIColor { return UIColor.whiteColor() }
     func defaultSpinnerColor() -> UIColor { return silverColor }
-    func attributionFont() -> UIFont { return UIFont.systemFontOfSize(12) }
-    func attributionTextColor() -> UIColor { return silverColor }
     func defaultDisclosureColor() -> UIColor { return doveGreyColor }
     func highlightDisclosureColor() -> UIColor { return thunderbirdColor }
     func defaultTableSectionHeaderFont() -> UIFont { return tableSectionHeaderFont() }
@@ -19,7 +17,6 @@ class DefaultTheme: Theme {
     func defaultTableCellBackgroundColor() -> UIColor { return UIColor.whiteColor() }
     func defaultButtonBorderColor() -> UIColor { return coalMinerColor }
     func defaultBodyTextLineHeight() -> CGFloat { return 24.0 }
-    func attributionButtonBackgroundColor() -> UIColor { return UIColor.whiteColor() }
 
     // MARK: Tab Bar
 

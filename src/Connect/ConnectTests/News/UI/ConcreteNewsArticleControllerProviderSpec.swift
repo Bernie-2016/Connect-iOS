@@ -12,7 +12,6 @@ class ConcreteNewsFeedItemControllerProviderSpec : QuickSpec {
             let markdownConverter = FakeMarkdownConverter()
             let analyticsService = FakeAnalyticsService()
             let urlOpener = FakeURLOpener()
-            let urlAttributionPresenter = FakeURLAttributionPresenter()
             let urlProvider = FakeURLProvider()
             let theme = FakeTheme()
 
@@ -24,7 +23,6 @@ class ConcreteNewsFeedItemControllerProviderSpec : QuickSpec {
                         markdownConverter: markdownConverter,
                         analyticsService: analyticsService,
                         urlOpener: urlOpener,
-                        urlAttributionPresenter: urlAttributionPresenter,
                         urlProvider: urlProvider,
                         theme: theme
                     )
@@ -41,7 +39,6 @@ class ConcreteNewsFeedItemControllerProviderSpec : QuickSpec {
                     expect(controller.timeIntervalFormatter as? FakeTimeIntervalFormatter).to(beIdenticalTo(timeIntervalFormatter))
                     expect(controller.analyticsService as? FakeAnalyticsService).to(beIdenticalTo(analyticsService))
                     expect(controller.urlOpener as? FakeURLOpener).to(beIdenticalTo(urlOpener))
-                    expect(controller.urlAttributionPresenter as? FakeURLAttributionPresenter).to(beIdenticalTo(urlAttributionPresenter))
                     expect(controller.theme as? FakeTheme).to(beIdenticalTo(theme))
                 }
             }
@@ -56,7 +53,6 @@ class ConcreteNewsFeedItemControllerProviderSpec : QuickSpec {
                     expect(controller.timeIntervalFormatter as? FakeTimeIntervalFormatter).to(beIdenticalTo(timeIntervalFormatter))
                     expect(controller.urlProvider as? FakeURLProvider).to(beIdenticalTo(urlProvider))
                     expect(controller.urlOpener as? FakeURLOpener).to(beIdenticalTo(urlOpener))
-                    expect(controller.urlAttributionPresenter as? FakeURLAttributionPresenter).to(beIdenticalTo(urlAttributionPresenter))
                     expect(controller.analyticsService as? FakeAnalyticsService).to(beIdenticalTo(analyticsService))
                     expect(controller.theme as? FakeTheme).to(beIdenticalTo(theme))
                 }

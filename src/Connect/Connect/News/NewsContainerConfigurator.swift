@@ -63,7 +63,6 @@ class NewsContainerConfigurator: ContainerConfigurator {
                 markdownConverter: resolver.resolve(MarkdownConverter.self)!,
                 analyticsService: resolver.resolve(AnalyticsService.self)!,
                 urlOpener: resolver.resolve(URLOpener.self)!,
-                urlAttributionPresenter: resolver.resolve(URLAttributionPresenter.self)!,
                 urlProvider: resolver.resolve(URLProvider.self)!,
                 theme: resolver.resolve(Theme.self)!)
             }.inObjectScope(.Container)

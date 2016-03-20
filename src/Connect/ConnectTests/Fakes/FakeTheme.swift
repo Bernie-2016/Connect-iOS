@@ -130,8 +130,6 @@ class FakeTheme: Theme {
     func aboutButtonTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func aboutButtonFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
     func aboutBodyTextFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
-    func attributionFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
-    func attributionTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func defaultButtonBackgroundColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func defaultButtonTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func defaultButtonFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
@@ -167,7 +165,6 @@ class FakeTheme: Theme {
     func markdownBodyLinkTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func defaultButtonBorderColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func defaultBodyTextLineHeight() -> CGFloat { fatalError("FakeTheme used without being overridden in spec!") }
-    func attributionButtonBackgroundColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func newsFeedDateColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func newsFeedCellBorderColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func eventsFilterLabelFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }

@@ -7,7 +7,6 @@ class ConcreteNewsFeedItemControllerProvider: NewsFeedItemControllerProvider {
     private let imageService: ImageService
     private let analyticsService: AnalyticsService
     private let urlOpener: URLOpener
-    private let urlAttributionPresenter: URLAttributionPresenter
     private let urlProvider: URLProvider
     private let theme: Theme
 
@@ -16,7 +15,6 @@ class ConcreteNewsFeedItemControllerProvider: NewsFeedItemControllerProvider {
         markdownConverter: MarkdownConverter,
         analyticsService: AnalyticsService,
         urlOpener: URLOpener,
-        urlAttributionPresenter: URLAttributionPresenter,
         urlProvider: URLProvider,
         theme: Theme) {
         self.timeIntervalFormatter = timeIntervalFormatter
@@ -25,7 +23,6 @@ class ConcreteNewsFeedItemControllerProvider: NewsFeedItemControllerProvider {
         self.analyticsService = analyticsService
         self.urlOpener = urlOpener
         self.urlProvider = urlProvider
-        self.urlAttributionPresenter = urlAttributionPresenter
         self.theme = theme
     }
 
@@ -40,7 +37,6 @@ class ConcreteNewsFeedItemControllerProvider: NewsFeedItemControllerProvider {
                 timeIntervalFormatter: self.timeIntervalFormatter,
                 analyticsService: self.analyticsService,
                 urlOpener: self.urlOpener,
-                urlAttributionPresenter: self.urlAttributionPresenter,
                 theme: self.theme)
         } else if newsFeedItem is Video {
             let video: Video! = newsFeedItem as? Video
@@ -48,7 +44,6 @@ class ConcreteNewsFeedItemControllerProvider: NewsFeedItemControllerProvider {
                 timeIntervalFormatter: timeIntervalFormatter,
                 urlProvider: urlProvider,
                 urlOpener: urlOpener,
-                urlAttributionPresenter: urlAttributionPresenter,
                 analyticsService: analyticsService,
                 theme: theme)
         }

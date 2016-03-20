@@ -11,7 +11,6 @@ class NewsArticleController: UIViewController {
     let timeIntervalFormatter: TimeIntervalFormatter
     let analyticsService: AnalyticsService
     let urlOpener: URLOpener
-    let urlAttributionPresenter: URLAttributionPresenter
     let theme: Theme
 
     private let containerView = UIView.newAutoLayoutView()
@@ -21,8 +20,6 @@ class NewsArticleController: UIViewController {
     let titleLabel = UILabel.newAutoLayoutView()
     let bodyTextView = UITextView.newAutoLayoutView()
     let storyImageView = UIImageView.newAutoLayoutView()
-    let attributionLabel = UILabel.newAutoLayoutView()
-    let viewOriginalButton = UIButton.newAutoLayoutView()
 
     init(newsArticle: NewsArticle,
         markdownConverter: MarkdownConverter,
@@ -30,7 +27,6 @@ class NewsArticleController: UIViewController {
         timeIntervalFormatter: TimeIntervalFormatter,
         analyticsService: AnalyticsService,
         urlOpener: URLOpener,
-        urlAttributionPresenter: URLAttributionPresenter,
         theme: Theme) {
 
             self.newsArticle = newsArticle
@@ -39,7 +35,6 @@ class NewsArticleController: UIViewController {
             self.timeIntervalFormatter = timeIntervalFormatter
             self.analyticsService = analyticsService
             self.urlOpener = urlOpener
-            self.urlAttributionPresenter = urlAttributionPresenter
             self.theme = theme
 
             super.init(nibName: nil, bundle: nil)
@@ -62,8 +57,6 @@ class NewsArticleController: UIViewController {
         containerView.addSubview(dateLabel)
         containerView.addSubview(titleLabel)
         containerView.addSubview(bodyTextView)
-        containerView.addSubview(attributionLabel)
-        containerView.addSubview(viewOriginalButton)
 
         scrollView.delegate = self
 
@@ -71,10 +64,6 @@ class NewsArticleController: UIViewController {
         titleLabel.text = newsArticle.title
 
         bodyTextView.attributedText = markdownConverter.convertToAttributedString(newsArticle.body)
-
-        attributionLabel.text = self.urlAttributionPresenter.attributionTextForURL(newsArticle.url)
-        viewOriginalButton.setImage(UIImage(named: "ViewOriginal"), forState: .Normal)
-        viewOriginalButton.addTarget(self, action: "didTapViewOriginal:", forControlEvents: .TouchUpInside)
 
         applyThemeToViews()
         setupConstraintsAndLayout()
@@ -149,11 +138,6 @@ class NewsArticleController: UIViewController {
         presentViewController(activityVC, animated: true, completion: nil)
     }
 
-    func didTapViewOriginal(sender: UIButton) {
-        let eventName = sender == self.titleLabel ? "Tapped title on News Item" : "Tapped 'View Original' on News Item"
-        analyticsService.trackCustomEventWithName(eventName, customAttributes: [AnalyticsServiceConstants.contentIDKey: newsArticle.url.absoluteString])
-        self.urlOpener.openURL(self.newsArticle.url)
-    }
 
     // MARK: Private
     // swiftlint:disable function_body_length
@@ -202,17 +186,9 @@ class NewsArticleController: UIViewController {
         bodyTextView.autoPinEdge(.Top, toEdge: .Bottom, ofView: dateLabel, withOffset: defaultVerticalMargin - 14)
         bodyTextView.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
         bodyTextView.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
-
-        viewOriginalButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: bodyTextView, withOffset: 16)
-        viewOriginalButton.autoSetDimension(.Height, toSize: 54)
-        viewOriginalButton.autoPinEdgeToSuperviewEdge(.Left, withInset: defaultHorizontalMargin)
-        viewOriginalButton.autoPinEdgeToSuperviewEdge(.Right, withInset: defaultHorizontalMargin)
-
-        attributionLabel.numberOfLines = 0
-        attributionLabel.textAlignment = .Center
-        attributionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: viewOriginalButton, withOffset: 16)
-        attributionLabel.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsets(top: 0, left: defaultHorizontalMargin, bottom: defaultVerticalMargin, right: defaultHorizontalMargin), excludingEdge: .Top)
+        bodyTextView.autoPinEdgeToSuperviewEdge(.Bottom, withInset: defaultHorizontalMargin)
     }
+
     // swiftlint:enable function_body_length
 
     private func applyThemeToViews() {
@@ -222,13 +198,6 @@ class NewsArticleController: UIViewController {
         titleLabel.textColor = theme.newsArticleTitleColor()
         bodyTextView.font = theme.newsArticleBodyFont()
         bodyTextView.textColor = theme.newsArticleBodyColor()
-        attributionLabel.font = theme.attributionFont()
-        attributionLabel.textColor = theme.attributionTextColor()
-
-        viewOriginalButton.layer.borderColor = theme.defaultButtonBorderColor().CGColor
-        viewOriginalButton.layer.borderWidth = 1.0
-        viewOriginalButton.layer.cornerRadius = 3.0
-        viewOriginalButton.backgroundColor = theme.attributionButtonBackgroundColor()
     }
 }
 

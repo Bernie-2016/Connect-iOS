@@ -17,7 +17,6 @@ class NewsArticleControllerSpec : QuickSpec {
             var timeIntervalFormatter: FakeTimeIntervalFormatter!
             var analyticsService: FakeAnalyticsService!
             var urlOpener: FakeURLOpener!
-            var urlAttributionPresenter: FakeURLAttributionPresenter!
             let theme = NewsArticleFakeTheme()
 
             beforeEach {
@@ -26,7 +25,6 @@ class NewsArticleControllerSpec : QuickSpec {
                 timeIntervalFormatter = FakeTimeIntervalFormatter()
                 analyticsService = FakeAnalyticsService()
                 urlOpener = FakeURLOpener()
-                urlAttributionPresenter = FakeURLAttributionPresenter()
             }
 
             context("with a standard news item") {
@@ -40,7 +38,6 @@ class NewsArticleControllerSpec : QuickSpec {
                         timeIntervalFormatter: timeIntervalFormatter,
                         analyticsService: analyticsService,
                         urlOpener: urlOpener,
-                        urlAttributionPresenter: urlAttributionPresenter,
                         theme: theme
                     )
                 }
@@ -148,7 +145,7 @@ class NewsArticleControllerSpec : QuickSpec {
 
                         let containerView = scrollView.subviews.first!
 
-                        expect(containerView.subviews.count).to(equal(6))
+                        expect(containerView.subviews.count).to(equal(4))
 
                         let containerViewSubViews = containerView.subviews
 
@@ -172,31 +169,6 @@ class NewsArticleControllerSpec : QuickSpec {
                         expect(subject.dateLabel.text).to(equal("human date"))
                     }
 
-                    it("uses the presenter to get attribution text for the news article") {
-                        expect(urlAttributionPresenter.lastPresentedURL).to(beIdenticalTo(newsArticle.url))
-                        expect(subject.attributionLabel.text).to(equal(urlAttributionPresenter.returnedText))
-                    }
-
-                    it("has a button to view the original news article") {
-                        expect(subject.viewOriginalButton.imageForState(.Normal)).to(equal(UIImage(named: "ViewOriginal")))
-                    }
-
-                    describe("tapping on the view original button") {
-                        beforeEach {
-                            subject.viewOriginalButton.tap()
-                        }
-
-                        it("opens the original news article in safari") {
-                            expect(urlOpener.lastOpenedURL).to(beIdenticalTo(newsArticle.url))
-                        }
-
-                        it("logs that the user tapped view original") {
-                            expect(analyticsService.lastCustomEventName).to(equal("Tapped 'View Original' on News Item"))
-                            let expectedAttributes = [ AnalyticsServiceConstants.contentIDKey: newsArticle.url.absoluteString]
-                            expect(analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
-                        }
-                    }
-
                     it("makes a request for the story's image") {
                         expect(imageService.lastReceivedURL).to(beIdenticalTo(newsArticleImageURL))
                     }
@@ -209,9 +181,6 @@ class NewsArticleControllerSpec : QuickSpec {
                         expect(subject.titleLabel.textColor).to(equal(UIColor.brownColor()))
                         expect(subject.bodyTextView.font).to(equal(UIFont.systemFontOfSize(3)))
                         expect(subject.bodyTextView.textColor).to(equal(UIColor.yellowColor()))
-                        expect(subject.attributionLabel.textColor).to(equal(UIColor.greenColor()))
-                        expect(subject.attributionLabel.font).to(equal(UIFont.boldSystemFontOfSize(111)))
-                        expect(subject.viewOriginalButton.backgroundColor).to(equal(UIColor.redColor()))
                     }
 
                     context("when the request for the story's image succeeds") {
@@ -254,7 +223,6 @@ class NewsArticleControllerSpec : QuickSpec {
                         timeIntervalFormatter: timeIntervalFormatter,
                         analyticsService: analyticsService,
                         urlOpener: urlOpener,
-                        urlAttributionPresenter: urlAttributionPresenter,
                         theme: theme
                     )
 
@@ -285,11 +253,5 @@ private class NewsArticleFakeTheme: FakeTheme {
     override func newsArticleBodyFont() -> UIFont { return UIFont.systemFontOfSize(3) }
     override func newsArticleBodyColor() -> UIColor { return UIColor.yellowColor() }
     override func contentBackgroundColor() -> UIColor { return UIColor.orangeColor() }
-    override func attributionFont() -> UIFont { return UIFont.boldSystemFontOfSize(111) }
-    override func attributionTextColor() -> UIColor { return UIColor.greenColor() }
-    override func attributionButtonBackgroundColor() -> UIColor { return UIColor.redColor() }
-    override func defaultButtonTextColor() -> UIColor { return UIColor.blueColor() }
-    override func defaultButtonFont() -> UIFont { return UIFont.boldSystemFontOfSize(222) }
     override func defaultBodyTextLineHeight() -> CGFloat { return 666.0 }
-    override func defaultButtonBorderColor() -> UIColor { return UIColor.whiteColor() }
 }
