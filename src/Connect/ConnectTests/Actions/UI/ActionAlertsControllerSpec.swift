@@ -114,6 +114,14 @@ class ActionAlertsControllerSpec: QuickSpec {
                     expect(subject.collectionView.hidden) == true
                 }
 
+                it("hides the page control") {
+                    subject.pageControl.hidden = false
+
+                    subject.viewWillAppear(false)
+
+                    expect(subject.pageControl.hidden) == true
+                }
+
                 it("shows the spinner") {
                     subject.loadingIndicatorView.hidden = true
 
@@ -193,6 +201,14 @@ class ActionAlertsControllerSpec: QuickSpec {
                             actionAlertLoadingMonitor.lastCompletionHandler!()
 
                             expect(subject.pageControl.numberOfPages) == 2
+                        }
+
+                        it("shows the page control") {
+                            subject.pageControl.hidden = true
+
+                            actionAlertLoadingMonitor.lastCompletionHandler!()
+
+                            expect(subject.pageControl.hidden) == false
                         }
 
                         it("hides the spinner") {

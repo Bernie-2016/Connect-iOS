@@ -85,6 +85,7 @@ class ActionAlertsController: UIViewController {
 
         navigationController?.setNavigationBarHidden(true, animated: false)
 
+        pageControl.hidden = true
         loadingIndicatorView.hidden = false
         collectionView.hidden = true
         let webViewWidth = UIScreen.mainScreen().bounds.width - 10
@@ -130,6 +131,7 @@ class ActionAlertsController: UIViewController {
 
                 UIView.transitionWithView(self.view, duration: 0.3, options: .TransitionCrossDissolve, animations: {
                     self.pageControl.numberOfPages = self.actionAlerts.count
+                    self.pageControl.hidden = false
                     self.collectionView.hidden = false
                     self.loadingIndicatorView.hidden = true
                     }, completion: { completed in })
