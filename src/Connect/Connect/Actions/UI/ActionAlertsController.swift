@@ -17,7 +17,6 @@ class ActionAlertsController: UIViewController {
     private var actionAlerts: [ActionAlert] = []
 
     private let kCollectionViewCellName = "ActionAlertsCollectionViewCell"
-    private let kTopOffset: CGFloat = 170
     private let kHorizontalSectionInset: CGFloat = 15
     init(
         actionAlertService: ActionAlertService,
@@ -52,6 +51,8 @@ class ActionAlertsController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
+
+        automaticallyAdjustsScrollViewInsets = false
 
         layout.scrollDirection = .Horizontal
         layout.sectionInset = UIEdgeInsets(top: 0, left: kHorizontalSectionInset, bottom: 0, right: kHorizontalSectionInset)
@@ -105,6 +106,7 @@ class ActionAlertsController: UIViewController {
                 webView.backgroundColor = UIColor.clearColor()
                 webView.scrollView.showsVerticalScrollIndicator = false
                 webView.delegate = self
+                webView.scrollView.scrollEnabled = false
 
                 // this is because the facebook embed code isn't responsive - we need to render it with the correct width
                 // such that we work around its margins
@@ -172,14 +174,14 @@ extension ActionAlertsController: UICollectionViewDataSource {
         cell.titleLabel.text = actionAlerts[indexPath.item].title
         cell.webviewContainer.addSubview(webView)
         webView.autoPinEdgesToSuperviewEdges()
-        webView.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 15, right: 0)
-        webView.scrollView.scrollEnabled = false
-        
-        let heightString = webView.stringByEvaluatingJavaScriptFromString("Math.max( document.documentElement.scrollHeight, document.documentElement.offsetHeight, document.documentElement.clientHeight);");
-        let heightFloat = CGFloat(Float(heightString!)!)
-        
+
+        let heightString = webView.stringByEvaluatingJavaScriptFromString("Math.max( document.documentElement.scrollHeight, document.documentElement.offsetHeight, document.documentElement.clientHeight);")
+
+        let heightDouble = heightString != nil ? Double(heightString!) : 0.0
+        let heightFloat: CGFloat = heightDouble != nil ? CGFloat(heightDouble!) : 0.0
+
         cell.webViewHeight = heightFloat
-        
+
         cell.titleLabel.font = theme.actionsTitleFont()
         cell.titleLabel.textColor = theme.actionsTitleTextColor()
 
@@ -191,7 +193,6 @@ extension ActionAlertsController: UICollectionViewDelegateFlowLayout {
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         var s = collectionView.bounds.size
         s.width = s.width - (2 * kHorizontalSectionInset)
-        s.height = s.height - 53
         return s
     }
 }
