@@ -156,12 +156,13 @@ class ActionAlertsController: UIViewController {
         collectionView.autoPinEdge(.Right, toEdge: .Right, ofView: view)
         collectionView.autoPinEdge(.Bottom, toEdge: .Bottom, ofView: view)
 
-        loadingIndicatorView.autoCenterInSuperview()
-
+        loadingIndicatorView.autoAlignAxisToSuperviewAxis(.Vertical)
+        loadingIndicatorView.autoAlignAxis(.Horizontal, toSameAxisOfView: view, withOffset: -20)
+        
         pageControl.autoAlignAxisToSuperviewAxis(.Vertical)
         pageControl.autoPinEdgeToSuperviewEdge(.Bottom, withInset: -10)
 
-        loadingMessageLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: loadingIndicatorView, withOffset: 15)
+        loadingMessageLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: loadingIndicatorView, withOffset: 40)
         loadingMessageLabel.autoAlignAxis(.Vertical, toSameAxisOfView: loadingIndicatorView)
     }
 
