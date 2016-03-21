@@ -21,11 +21,11 @@ class StockActionAlertLoadingMonitor: ActionAlertLoadingMonitor {
         }
 
         if webViewsLoaded == webViews.count {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2000000000), dispatch_get_main_queue(), {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2500000000), dispatch_get_main_queue(), {
                 completionHandler()
             })
         } else {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 100000000), dispatch_get_main_queue(), {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 50000000), dispatch_get_main_queue(), {
                 self.checkForLoaded(webViews, completionHandler: completionHandler)
             })
         }
