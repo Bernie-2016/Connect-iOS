@@ -158,7 +158,7 @@ class ActionAlertsController: UIViewController {
 
         loadingIndicatorView.autoAlignAxisToSuperviewAxis(.Vertical)
         loadingIndicatorView.autoAlignAxis(.Horizontal, toSameAxisOfView: view, withOffset: -20)
-        
+
         pageControl.autoAlignAxisToSuperviewAxis(.Vertical)
         pageControl.autoPinEdgeToSuperviewEdge(.Bottom, withInset: -10)
 

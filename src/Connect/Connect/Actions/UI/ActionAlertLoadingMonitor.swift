@@ -11,9 +11,8 @@ class StockActionAlertLoadingMonitor: ActionAlertLoadingMonitor {
 
     private func checkForLoaded(webViews: [UIWebView], completionHandler: () -> ()) {
         var webViewsLoaded = 0
-
         for webView in webViews {
-            let resultString = webView.stringByEvaluatingJavaScriptFromString("if (twttr && twttr.widgets) { twttr.widgets.load() } ; if (window.embedLoaded == undefined && $ != undefined) { window.embedLoaded = false; $(function() { $('iframe').ready(function() {  embedLoaded = true; }) }); } window.embedLoaded || document.documentElement.getElementsByTagName('script').length == 0;")
+            let resultString = webView.stringByEvaluatingJavaScriptFromString("if (window.embedLoaded == undefined && $ != undefined) { window.embedLoaded = false; if (twttr && twttr.widgets) { twttr.widgets.load(); } ;$(function() { $('iframe').ready(function() {  embedLoaded = true; }) }); } window.embedLoaded || document.documentElement.getElementsByTagName('script').length == 0;")
 
             if resultString == "true" {
                 webViewsLoaded += 1
@@ -21,11 +20,11 @@ class StockActionAlertLoadingMonitor: ActionAlertLoadingMonitor {
         }
 
         if webViewsLoaded == webViews.count {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2500000000), dispatch_get_main_queue(), {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1500000000), dispatch_get_main_queue(), {
                 completionHandler()
             })
         } else {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 50000000), dispatch_get_main_queue(), {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 100000000), dispatch_get_main_queue(), {
                 self.checkForLoaded(webViews, completionHandler: completionHandler)
             })
         }
