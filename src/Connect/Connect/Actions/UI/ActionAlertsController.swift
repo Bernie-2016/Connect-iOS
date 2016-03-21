@@ -107,7 +107,6 @@ class ActionAlertsController: UIViewController {
             for actionAlert in actionAlerts {
                 let webView = self.actionAlertWebViewProvider.provideInstanceWithBody(actionAlert.body, width: webViewWidth)
 
-                webView.hidden = true
                 webView.layer.cornerRadius = 4.0
                 webView.layer.masksToBounds = true
                 webView.clipsToBounds = true
@@ -116,14 +115,17 @@ class ActionAlertsController: UIViewController {
                 webView.scrollView.showsVerticalScrollIndicator = false
                 webView.delegate = self
                 webView.scrollView.scrollEnabled = false
+                webView.alpha = 0
 
                 // this is because the facebook embed code isn't responsive - we need to render it with the correct width
                 // such that we work around its margins
+                self.view.addSubview(webView)
+
                 let webViewWidth = UIScreen.mainScreen().bounds.width - 10
                 webView.autoSetDimension(.Width, toSize: webViewWidth)
                 webView.autoSetDimension(.Height, toSize: 220)
+                webView.autoCenterInSuperview()
 
-                self.view.addSubview(webView)
                 self.webViews.append(webView)
             }
 
@@ -181,7 +183,7 @@ extension ActionAlertsController: UICollectionViewDataSource {
 
         let webView = webViews[indexPath.item]
         webView.removeConstraints(webView.constraints)
-        webView.hidden = false
+        webView.alpha = 1
 
         cell.titleLabel.text = actionAlerts[indexPath.item].title
         cell.shortDescriptionLabel.text = actionAlerts[indexPath.item].shortDescription

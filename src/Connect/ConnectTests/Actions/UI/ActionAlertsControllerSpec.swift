@@ -160,7 +160,7 @@ class ActionAlertsControllerSpec: QuickSpec {
                     let actionAlertA = TestUtils.actionAlert("Alert A", body: "Alert Body A")
                     let actionAlertB = TestUtils.actionAlert("Alert B", body: "Alert Body B")
 
-                    it("adds a hidden web view to the controller's view for each action alert, using the provider") {
+                    it("adds an invisible (not hidden) web view to the controller's view for each action alert, using the provider") {
                         // this is a hack to load content before we show them in the collection view
                         actionAlertService.lastReturnedActionAlertsPromise.resolve([actionAlertA, actionAlertB])
 
@@ -169,8 +169,8 @@ class ActionAlertsControllerSpec: QuickSpec {
                         let webViews = actionAlertWebViewProvider.returnedWebViews
                         expect(webViews.count) == 2
 
-                        expect(webViews[0].hidden) == true
-                        expect(webViews[1].hidden) == true
+                        expect(webViews[0].alpha) == 0
+                        expect(webViews[1].alpha) == 0
 
                         expect(subject.view.subviews.contains(webViews[0])) == true
                         expect(subject.view.subviews.contains(webViews[1])) == true
@@ -284,8 +284,7 @@ class ActionAlertsControllerSpec: QuickSpec {
                     expect(cell.shortDescriptionLabel.text) == "Short Desc A"
                 }
 
-
-                it("shows the web view as adds it as a subview of the cell") {
+                it("makes the web view visible and adds it as a subview of the cell") {
                     actionAlertLoadingMonitor.lastCompletionHandler!()
 
                     guard let cell = subject.collectionView.dataSource?.collectionView(subject.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 0)) as? ActionAlertCell else {
@@ -295,7 +294,7 @@ class ActionAlertsControllerSpec: QuickSpec {
 
                     let expectedWebView = actionAlertWebViewProvider.returnedWebViews[0]
                     expect(cell.webviewContainer.subviews).to(contain(expectedWebView))
-                    expect(expectedWebView.hidden) == false
+                    expect(expectedWebView.alpha) == 1
                 }
 
                 it("removes the web view from the controller's view") {
