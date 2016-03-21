@@ -13,7 +13,7 @@ class StockActionAlertLoadingMonitor: ActionAlertLoadingMonitor {
         var webViewsLoaded = 0
 
         for webView in webViews {
-            let resultString = webView.stringByEvaluatingJavaScriptFromString("if (window.embedLoaded == undefined && $ != undefined) { window.embedLoaded = false; $(function() { $('iframe').ready(function() {  embedLoaded = true; }) }); } window.embedLoaded || document.documentElement.getElementsByTagName('script').length == 0;")
+            let resultString = webView.stringByEvaluatingJavaScriptFromString("if (twttr && twttr.widgets) { twttr.widgets.load() } ; if (window.embedLoaded == undefined && $ != undefined) { window.embedLoaded = false; $(function() { $('iframe').ready(function() {  embedLoaded = true; }) }); } window.embedLoaded || document.documentElement.getElementsByTagName('script').length == 0;")
 
             if resultString == "true" {
                 webViewsLoaded += 1
