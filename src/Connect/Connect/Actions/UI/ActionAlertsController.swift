@@ -12,6 +12,7 @@ class ActionAlertsController: UIViewController {
     var collectionView: UICollectionView!
     let loadingIndicatorView = UIActivityIndicatorView()
     let pageControl = UIPageControl.newAutoLayoutView()
+    let loadingMessageLabel = UILabel.newAutoLayoutView()
 
     private let layout = CenterCellCollectionViewFlowLayout()
     private var webViews: [UIWebView] = []
@@ -68,6 +69,7 @@ class ActionAlertsController: UIViewController {
         view.addSubview(collectionView)
         view.addSubview(loadingIndicatorView)
         view.addSubview(pageControl)
+        view.addSubview(loadingMessageLabel)
 
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.clipsToBounds = false
@@ -76,11 +78,8 @@ class ActionAlertsController: UIViewController {
         collectionView.dataSource = self
         collectionView.registerClass(ActionAlertCell.self, forCellWithReuseIdentifier: kCollectionViewCellName)
 
-        let backgroundImageView = UIImageView(image: UIImage(named: "actionAlertsBackground")!)
-        backgroundImageView.contentMode = .ScaleAspectFill
-        collectionView.backgroundView = backgroundImageView
-
         loadingIndicatorView.startAnimating()
+        loadingMessageLabel.text = NSLocalizedString("Actions_loadingMessage", comment: "")
 
         applyTheme()
         setupConstraints()
@@ -91,16 +90,12 @@ class ActionAlertsController: UIViewController {
 
         navigationController?.setNavigationBarHidden(true, animated: false)
 
-        pageControl.hidden = true
-        loadingIndicatorView.hidden = false
-        collectionView.hidden = true
-
-        let webViewWidth = UIScreen.mainScreen().bounds.width - 10
-
-        let future = actionAlertService.fetchActionAlerts()
+        showLoadingUI()
 
         webViews.removeAll()
 
+        let webViewWidth = UIScreen.mainScreen().bounds.width - 10
+        let future = actionAlertService.fetchActionAlerts()
         future.then { actionAlerts in
             self.actionAlerts = actionAlerts
 
@@ -139,9 +134,7 @@ class ActionAlertsController: UIViewController {
 
                 UIView.transitionWithView(self.view, duration: 0.3, options: .TransitionCrossDissolve, animations: {
                     self.pageControl.numberOfPages = self.actionAlerts.count
-                    self.pageControl.hidden = false
-                    self.collectionView.hidden = false
-                    self.loadingIndicatorView.hidden = true
+                    self.showResultsUI()
                     }, completion: { completed in })
             }
         }
@@ -152,6 +145,9 @@ class ActionAlertsController: UIViewController {
     private func applyTheme() {
         view.backgroundColor = theme.actionsBackgroundColor()
         loadingIndicatorView.color = theme.defaultSpinnerColor()
+
+        loadingMessageLabel.font = theme.actionsShortLoadingMessageFont()
+        loadingMessageLabel.textColor = theme.actionsShortLoadingMessageTextColor()
     }
 
     private func setupConstraints() {
@@ -164,6 +160,23 @@ class ActionAlertsController: UIViewController {
 
         pageControl.autoAlignAxisToSuperviewAxis(.Vertical)
         pageControl.autoPinEdgeToSuperviewEdge(.Bottom, withInset: -10)
+
+        loadingMessageLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: loadingIndicatorView, withOffset: 15)
+        loadingMessageLabel.autoAlignAxis(.Vertical, toSameAxisOfView: loadingIndicatorView)
+    }
+
+    private func showLoadingUI() {
+        loadingMessageLabel.hidden = false
+        pageControl.hidden = true
+        loadingIndicatorView.hidden = false
+        collectionView.hidden = true
+    }
+
+    private func showResultsUI() {
+        self.pageControl.hidden = false
+        self.loadingMessageLabel.hidden = true
+        self.collectionView.hidden = false
+        self.loadingIndicatorView.hidden = true
     }
 }
 

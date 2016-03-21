@@ -154,11 +154,13 @@ class DefaultTheme: Theme {
 
     // MARK: Actions
 
-    func actionsBackgroundColor() -> UIColor { return codGrayColor }
+    func actionsBackgroundColor() -> UIColor { return mackerelGrayColor }
     func actionsTitleFont() -> UIFont { return lightSystemFontOfSize(24) }
     func actionsTitleTextColor() -> UIColor { return UIColor.whiteColor() }
     func actionsShortDescriptionFont() -> UIFont { return lightSystemFontOfSize(15) }
     func actionsShortDescriptionTextColor() -> UIColor { return UIColor.whiteColor() }
+    func actionsShortLoadingMessageFont() -> UIFont { return lightSystemFontOfSize(15) }
+    func actionsShortLoadingMessageTextColor() -> UIColor { return UIColor.whiteColor() }
 
     // MARK: Markdown
 
@@ -179,6 +181,7 @@ class DefaultTheme: Theme {
 
     // new colors
     let codGrayColor = UIColor(rgba: "#0F0F0F")
+    let mackerelGrayColor = UIColor(rgba: "#141414")
     let nobelColor = UIColor(rgba: "#b5b5b5")
     let silverColor = UIColor(rgba: "#c9c9c9")
     let thunderbirdColor = UIColor(rgba: "#C01E0E")

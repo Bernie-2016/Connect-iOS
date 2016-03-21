@@ -119,6 +119,7 @@
 // Actions
 
 "Actions_title" = "Act Now";
+"Actions_loadingMessage" = "Amplify Bernie's Message by Sharing!";
 
 // URLs
 "url_TwitterShareText" = "Check this out! #Bernie2016";

@@ -77,21 +77,29 @@ class ActionAlertsControllerSpec: QuickSpec {
                     expect(subject.loadingIndicatorView.color) == UIColor.greenColor()
                 }
 
+                it("styles the laoding message with the theme") {
+                    subject.view.layoutSubviews()
+
+                    expect(subject.loadingMessageLabel.textColor) == UIColor.blueColor()
+                    expect(subject.loadingMessageLabel.font) == UIFont.systemFontOfSize(333)
+                }
+
+                it("adds the loading message as a subview") {
+                    subject.view.layoutSubviews()
+
+                    expect(subject.view.subviews).to(contain(subject.loadingMessageLabel))
+                }
+
+                it("sets the correct text for the loading message") {
+                    subject.view.layoutSubviews()
+
+                    expect(subject.loadingMessageLabel.text) == "Amplify Bernie's Message by Sharing!"
+                }
+
                 it("animates the spinner") {
                     subject.view.layoutSubviews()
 
                     expect(subject.loadingIndicatorView.isAnimating()) == true
-                }
-
-                it("sets up the collection view background image") {
-                    subject.view.layoutSubviews()
-
-                    guard let backgroundImageView = subject.collectionView.backgroundView as? UIImageView else {
-                        fail("unable to get background image view")
-                        return
-                    }
-
-                    expect(backgroundImageView.image) == UIImage(named: "actionAlertsBackground")!
                 }
 
                 it("sets the background color with the theme") {
@@ -130,6 +138,13 @@ class ActionAlertsControllerSpec: QuickSpec {
                     expect(subject.loadingIndicatorView.hidden) == false
                 }
 
+                it("shows the loading message") {
+                    subject.loadingMessageLabel.hidden = true
+
+                    subject.viewWillAppear(false)
+
+                    expect(subject.loadingMessageLabel.hidden) == false
+                }
 
                 it("makes a request to the action alert service") {
                     expect(actionAlertService.fetchActionAlertsCalled) == false
@@ -209,6 +224,14 @@ class ActionAlertsControllerSpec: QuickSpec {
                             actionAlertLoadingMonitor.lastCompletionHandler!()
 
                             expect(subject.pageControl.hidden) == false
+                        }
+
+                        it("hides the loading message") {
+                            subject.loadingIndicatorView.hidden = false
+
+                            actionAlertLoadingMonitor.lastCompletionHandler!()
+
+                            expect(subject.loadingMessageLabel.hidden) == true
                         }
 
                         it("hides the spinner") {
@@ -470,6 +493,8 @@ private class ActionAlertsControllerFakeTheme: FakeTheme {
     override func actionsTitleTextColor() -> UIColor { return UIColor.magentaColor() }
     override func actionsShortDescriptionFont() -> UIFont { return UIFont.systemFontOfSize(222) }
     override func actionsShortDescriptionTextColor() -> UIColor { return UIColor.orangeColor() }
+    override func actionsShortLoadingMessageFont() -> UIFont { return UIFont.systemFontOfSize(333) }
+    override func actionsShortLoadingMessageTextColor() -> UIColor { return UIColor.blueColor() }
 }
 
 private class FakeActionAlertWebViewProvider: ActionAlertWebViewProvider {

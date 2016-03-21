@@ -178,4 +178,6 @@ class FakeTheme: Theme {
     func eventsErrorTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func eventsErrorHeadingFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
     func eventsErrorDetailFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
+    func actionsShortLoadingMessageFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
+    func actionsShortLoadingMessageTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
 }
