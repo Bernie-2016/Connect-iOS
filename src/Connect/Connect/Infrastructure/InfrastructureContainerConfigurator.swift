@@ -31,10 +31,25 @@ class InfrastructureContainerConfigurator: ContainerConfigurator {
             return APIKeyProvider()
         }.inObjectScope(.Container)
 
-        container.register(AnalyticsService.self) { resolver in
-            return ConcreteAnalyticsService(
+        container.register(FlurryAnalyticsService.self) { resolver in
+            return FlurryAnalyticsService(
                 applicationSettingsRepository: resolver.resolve(ApplicationSettingsRepository.self)!,
                 apiKeyProvider: resolver.resolve(APIKeyProvider.self)!
+            )
+        }.inObjectScope(.Container)
+
+        container.register(HeapAnalyticsService.self) { resolver in
+                return HeapAnalyticsService(
+                    applicationSettingsRepository: resolver.resolve(ApplicationSettingsRepository.self)!,
+                    apiKeyProvider: resolver.resolve(APIKeyProvider)!)
+        }.inObjectScope(.Container)
+
+        container.register(AnalyticsService.self) { resolver in
+            return DelegatingAnalyticsService(
+                delegates: [
+                    resolver.resolve(HeapAnalyticsService.self)!,
+                    resolver.resolve(FlurryAnalyticsService.self)!
+                ]
             )
         }.inObjectScope(.Container)
 

@@ -4,7 +4,7 @@ import Foundation
     import Crashlytics
 #endif
 
-class ConcreteAnalyticsService: AnalyticsService {
+class FlurryAnalyticsService: AnalyticsService {
     private let applicationSettingsRepository: ApplicationSettingsRepository
 
     init(applicationSettingsRepository: ApplicationSettingsRepository, apiKeyProvider: APIKeyProvider) {

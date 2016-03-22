@@ -25,6 +25,8 @@
 		6519608B1C4DCA85004AAC6D /* FakePushNotificationRegistrar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6519608A1C4DCA85004AAC6D /* FakePushNotificationRegistrar.swift */; };
 		6519608D1C4DCDCF004AAC6D /* StockAppBootstrapperSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6519608C1C4DCDCF004AAC6D /* StockAppBootstrapperSpec.swift */; };
 		651A3BB31C98F1BD007D5E0D /* NearbyEventsFilterControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651A3BB21C98F1BD007D5E0D /* NearbyEventsFilterControllerSpec.swift */; };
+		651BF5A91CA1DA2D00172CE6 /* HeapAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651BF5A81CA1DA2D00172CE6 /* HeapAnalyticsService.swift */; };
+		651BF5AB1CA1DD8E00172CE6 /* DelegatingAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651BF5AA1CA1DD8E00172CE6 /* DelegatingAnalyticsService.swift */; };
 		651C466D1C4340F50075F5DE /* FakeImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651C466C1C4340F50075F5DE /* FakeImageService.swift */; };
 		651F80F71C40B211004E7FDA /* MockEventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651F80F61C40B211004E7FDA /* MockEventRepository.swift */; };
 		652AE5E41C46EE9E00EE7B70 /* OpenNewsArticleNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652AE5E31C46EE9E00EE7B70 /* OpenNewsArticleNotificationHandler.swift */; };
@@ -82,7 +84,7 @@
 		653D0F511C4C2DE2004CB8A0 /* PrivacyPolicyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0F4A1C4C2DE2004CB8A0 /* PrivacyPolicyController.swift */; };
 		653D0F521C4C2DE2004CB8A0 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0F4B1C4C2DE2004CB8A0 /* SettingsController.swift */; };
 		653D0F721C4C2F68004CB8A0 /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0F581C4C2F68004CB8A0 /* AnalyticsService.swift */; };
-		653D0F731C4C2F68004CB8A0 /* ConcreteAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0F591C4C2F68004CB8A0 /* ConcreteAnalyticsService.swift */; };
+		653D0F731C4C2F68004CB8A0 /* FlurryAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0F591C4C2F68004CB8A0 /* FlurryAnalyticsService.swift */; };
 		653D0F741C4C2F68004CB8A0 /* APIKeyProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0F5B1C4C2F68004CB8A0 /* APIKeyProvider.swift */; };
 		653D0F751C4C2F68004CB8A0 /* ApplicationSettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0F5C1C4C2F68004CB8A0 /* ApplicationSettingsRepository.swift */; };
 		653D0F761C4C2F68004CB8A0 /* BackgroundImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D0F5D1C4C2F68004CB8A0 /* BackgroundImageService.swift */; };
@@ -391,6 +393,8 @@
 		6519608A1C4DCA85004AAC6D /* FakePushNotificationRegistrar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakePushNotificationRegistrar.swift; sourceTree = "<group>"; };
 		6519608C1C4DCDCF004AAC6D /* StockAppBootstrapperSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockAppBootstrapperSpec.swift; sourceTree = "<group>"; };
 		651A3BB21C98F1BD007D5E0D /* NearbyEventsFilterControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearbyEventsFilterControllerSpec.swift; sourceTree = "<group>"; };
+		651BF5A81CA1DA2D00172CE6 /* HeapAnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeapAnalyticsService.swift; sourceTree = "<group>"; };
+		651BF5AA1CA1DD8E00172CE6 /* DelegatingAnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegatingAnalyticsService.swift; sourceTree = "<group>"; };
 		651C466C1C4340F50075F5DE /* FakeImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeImageService.swift; sourceTree = "<group>"; };
 		651F80F61C40B211004E7FDA /* MockEventRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockEventRepository.swift; sourceTree = "<group>"; };
 		652AE5E31C46EE9E00EE7B70 /* OpenNewsArticleNotificationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenNewsArticleNotificationHandler.swift; sourceTree = "<group>"; };
@@ -447,7 +451,7 @@
 		653D0F4A1C4C2DE2004CB8A0 /* PrivacyPolicyController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyController.swift; sourceTree = "<group>"; };
 		653D0F4B1C4C2DE2004CB8A0 /* SettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		653D0F581C4C2F68004CB8A0 /* AnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
-		653D0F591C4C2F68004CB8A0 /* ConcreteAnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteAnalyticsService.swift; sourceTree = "<group>"; };
+		653D0F591C4C2F68004CB8A0 /* FlurryAnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlurryAnalyticsService.swift; sourceTree = "<group>"; };
 		653D0F5B1C4C2F68004CB8A0 /* APIKeyProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIKeyProvider.swift; sourceTree = "<group>"; };
 		653D0F5C1C4C2F68004CB8A0 /* ApplicationSettingsRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationSettingsRepository.swift; sourceTree = "<group>"; };
 		653D0F5D1C4C2F68004CB8A0 /* BackgroundImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundImageService.swift; sourceTree = "<group>"; };
@@ -938,7 +942,9 @@
 			isa = PBXGroup;
 			children = (
 				653D0F581C4C2F68004CB8A0 /* AnalyticsService.swift */,
-				653D0F591C4C2F68004CB8A0 /* ConcreteAnalyticsService.swift */,
+				651BF5AA1CA1DD8E00172CE6 /* DelegatingAnalyticsService.swift */,
+				653D0F591C4C2F68004CB8A0 /* FlurryAnalyticsService.swift */,
+				651BF5A81CA1DA2D00172CE6 /* HeapAnalyticsService.swift */,
 			);
 			path = Analytics;
 			sourceTree = "<group>";
@@ -1755,7 +1761,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -x -e\nFLURRY_KEY_FILE=\"/Users/mjs/workspace/Connect-iOS/flurry_key_$CONFIGURATION\"\nPARSE_KEY_FILE=\"/Users/mjs/workspace/Connect-iOS/parse_key_$CONFIGURATION\"\n\nif [ \"$CONFIGURATION\" = \"Release\" ] || [ \"$CONFIGURATION\" = \"Acceptance\" ]; then\n  if [ -f $FLURRY_KEY_FILE ]; then\n    echo \"Setting up Flurry API Key for $CONFIGURATION\"\n    /usr/libexec/PlistBuddy -c \"set :FLURRY_API_KEY `cat $FLURRY_KEY_FILE`\" Connect/ApiKeys.plist\n    else\n    echo \"No Flurry API Key file found, skipping\"\n    fi\nfi\n\n\nif [ -f $PARSE_KEY_FILE ]; then\necho \"Setting up Parse API Key\"\n    PARSE_APPLICATION_ID=`cat $PARSE_KEY_FILE | cut -f 1 -d :`\n    PARSE_CLIENT_KEY=`cat $PARSE_KEY_FILE | cut -f 2 -d :`\n    /usr/libexec/PlistBuddy -c \"set :PARSE_APPLICATION_ID $PARSE_APPLICATION_ID\" Connect/ApiKeys.plist\n    /usr/libexec/PlistBuddy -c \"set :PARSE_CLIENT_KEY $PARSE_CLIENT_KEY\" Connect/ApiKeys.plist\nelse\necho \"No Parse Key file found, skipping\"\nfi\n\n\n\n";
+			shellScript = "set -x -e\nHEAP_ID_FILE=\"/Users/mjs/workspace/Connect-iOS/heap_id_$CONFIGURATION\"\nFLURRY_KEY_FILE=\"/Users/mjs/workspace/Connect-iOS/flurry_key_$CONFIGURATION\"\nPARSE_KEY_FILE=\"/Users/mjs/workspace/Connect-iOS/parse_key_$CONFIGURATION\"\n\n\nif [ \"$CONFIGURATION\" = \"Release\" ] || [ \"$CONFIGURATION\" = \"Acceptance\" ]; then\nif [ -f $HEAP_ID_FILE ]; then\necho \"Setting up Heap App ID for $CONFIGURATION\"\n/usr/libexec/PlistBuddy -c \"set :HEAP_APP_ID `cat $HEAP_ID_FILE`\" Connect/ApiKeys.plist\nelse\necho \"No Heap App ID file found, skipping\"\nfi\nfi\n\nif [ \"$CONFIGURATION\" = \"Release\" ] || [ \"$CONFIGURATION\" = \"Acceptance\" ]; then\n  if [ -f $FLURRY_KEY_FILE ]; then\n    echo \"Setting up Flurry API Key for $CONFIGURATION\"\n    /usr/libexec/PlistBuddy -c \"set :FLURRY_API_KEY `cat $FLURRY_KEY_FILE`\" Connect/ApiKeys.plist\n    else\n    echo \"No Flurry API Key file found, skipping\"\n    fi\nfi\n\nif [ -f $PARSE_KEY_FILE ]; then\necho \"Setting up Parse API Key\"\n    PARSE_APPLICATION_ID=`cat $PARSE_KEY_FILE | cut -f 1 -d :`\n    PARSE_CLIENT_KEY=`cat $PARSE_KEY_FILE | cut -f 2 -d :`\n    /usr/libexec/PlistBuddy -c \"set :PARSE_APPLICATION_ID $PARSE_APPLICATION_ID\" Connect/ApiKeys.plist\n    /usr/libexec/PlistBuddy -c \"set :PARSE_CLIENT_KEY $PARSE_CLIENT_KEY\" Connect/ApiKeys.plist\nelse\necho \"No Parse Key file found, skipping\"\nfi\n\n\n\n";
 		};
 		654948D81BFAF11D00C1ECDB /* Reset API Keys */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1769,7 +1775,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -x -e\n\necho \"Resetting Flurry API Key\"\n\n/usr/libexec/PlistBuddy -c \"set :FLURRY_API_KEY SET_BY_PLIST_BUDDY\" Connect/ApiKeys.plist\n/usr/libexec/PlistBuddy -c \"set :PARSE_APPLICATION_ID SET_BY_PLIST_BUDDY\" Connect/ApiKeys.plist\n/usr/libexec/PlistBuddy -c \"set :PARSE_CLIENT_KEY SET_BY_PLIST_BUDDY\" Connect/ApiKeys.plist\n\n";
+			shellScript = "set -x -e\n\necho \"Resetting Flurry API Key\"\n\n/usr/libexec/PlistBuddy -c \"set :FLURRY_API_KEY SET_BY_PLIST_BUDDY\" Connect/ApiKeys.plist\n/usr/libexec/PlistBuddy -c \"set :PARSE_APPLICATION_ID SET_BY_PLIST_BUDDY\" Connect/ApiKeys.plist\n/usr/libexec/PlistBuddy -c \"set :PARSE_CLIENT_KEY SET_BY_PLIST_BUDDY\" Connect/ApiKeys.plist\n/usr/libexec/PlistBuddy -c \"set :HEAP_APP_ID SET_BY_PLIST_BUDDY\" Connect/ApiKeys.plist\n\n";
 		};
 		657C13F01C615D3C00EC1569 /* Set up base URLs */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1811,7 +1817,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -x -e\nFABRIC_SECRET_FILE=\"/Users/mjs/workspace/BernieAppiOS/fabric_secret\"\n\nif [ -f $FABRIC_SECRET_FILE ];\nthen\ncat $FABRIC_SECRET_FILE\necho \"Enabling Fabric\"\n./Connect/Externals/Fabric.framework/run `cat $FABRIC_SECRET_FILE`\nelse\necho \"No secret file found, skipping\"\nfi";
+			shellScript = "set -x -e\nFABRIC_SECRET_FILE=\"/Users/mjs/workspace/Connect-iOS/fabric_secret\"\n\nif [ -f $FABRIC_SECRET_FILE ];\nthen\ncat $FABRIC_SECRET_FILE\necho \"Enabling Fabric\"\n./Connect/Externals/Fabric.framework/run `cat $FABRIC_SECRET_FILE`\nelse\necho \"No secret file found, skipping\"\nfi";
 		};
 		65B1654A1B9746940052EF8D /* Copy Carthage frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1866,7 +1872,6 @@
 				657C13F31C615E1400EC1569 /* BaseURLProvider.swift in Sources */,
 				65EF645D1C9BA14700579313 /* CenterCellCollectionViewFlowLayout.swift in Sources */,
 				65444BCE1C8B95F700CC8AC8 /* ChildControllerBuddy.swift in Sources */,
-				653D0F731C4C2F68004CB8A0 /* ConcreteAnalyticsService.swift in Sources */,
 				653D0F771C4C2F68004CB8A0 /* ConcreteApplicationSettingsRepository.swift in Sources */,
 				653D0F7D1C4C2F68004CB8A0 /* ConcreteDateProvider.swift in Sources */,
 				65DAF3261C9861D7000E604F /* ConcreteEventControllerProvider.swift in Sources */,
@@ -1889,6 +1894,7 @@
 				6549DC351C8B89820057D74C /* CurrentLocationUseCase.swift in Sources */,
 				653D0F7F1C4C2F68004CB8A0 /* DateProvider.swift in Sources */,
 				65CA5E931B86E4A00001D870 /* DefaultTheme.swift in Sources */,
+				651BF5AB1CA1DD8E00172CE6 /* DelegatingAnalyticsService.swift in Sources */,
 				653D0F9E1C4C35C0004CB8A0 /* DisclosureButton.swift in Sources */,
 				653D0F9F1C4C35C0004CB8A0 /* DisclosureIndicatorView.swift in Sources */,
 				655B6AD01C9B45C300153AD9 /* EditAddressSearchBarController.swift in Sources */,
@@ -1917,7 +1923,9 @@
 				65DAF32D1C9861D7000E604F /* EventsSectionHeaderView.swift in Sources */,
 				653D0F4F1C4C2DE2004CB8A0 /* FeedbackController.swift in Sources */,
 				653D0F501C4C2DE2004CB8A0 /* FLOSSController.swift in Sources */,
+				653D0F731C4C2F68004CB8A0 /* FlurryAnalyticsService.swift in Sources */,
 				65979AA21C4C67AF00A312A9 /* GlobalUIContainerConfigurator.swift in Sources */,
+				651BF5A91CA1DA2D00172CE6 /* HeapAnalyticsService.swift in Sources */,
 				653D0F7A1C4C2F68004CB8A0 /* ImageRepository.swift in Sources */,
 				653D0F7B1C4C2F68004CB8A0 /* ImageService.swift in Sources */,
 				65979AA01C4C65DD00A312A9 /* InfrastructureContainerConfigurator.swift in Sources */,

@@ -69,7 +69,7 @@
 // Settings | Analytics
 
 "Settings_analytics_title" = "Analytics Settings";
-"Settings_analytics_explanation" = "We collect anonymous data about how you use this app (i.e., we record what you tap on and share). This is done solely to improve the app for yourself and other users. We use Flurry to record this data. If you would rather not have your activity collected, you may disable analytics with the switch below.";
+"Settings_analytics_explanation" = "We collect anonymous data about how you use this app (i.e., we record what you tap on and share). This is done solely to improve the app for yourself and other users. We use Flurry and Heap to record this data. If you would rather not have your activity collected, you may disable analytics with the switch below.";
 "Settings_analytics_stateLoading" = "Loading...";
 "Settings_analytics_stateEnabled" = "Analytics enabled";
 "Settings_analytics_stateDisabled" = "Analytics disabled";
