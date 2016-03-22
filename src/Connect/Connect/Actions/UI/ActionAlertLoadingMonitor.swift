@@ -20,7 +20,7 @@ class StockActionAlertLoadingMonitor: ActionAlertLoadingMonitor {
         }
 
         if webViewsLoaded == webViews.count {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1500000000), dispatch_get_main_queue(), {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2000000000), dispatch_get_main_queue(), {
                 completionHandler()
             })
         } else {
