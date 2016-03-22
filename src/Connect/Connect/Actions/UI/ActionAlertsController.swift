@@ -149,8 +149,8 @@ class ActionAlertsController: UIViewController {
         let future = actionAlertService.fetchActionAlerts()
 
         future.then { actionAlerts in
-            self.hideLoadingUI()
             if actionAlerts.count == 0 {
+                self.hideLoadingUI()
                 self.showErrorUI(NSLocalizedString("Actions_noResultsMessage", comment: ""))
             } else {
                 self.updateUIWithActionAlerts(actionAlerts)
@@ -232,6 +232,7 @@ class ActionAlertsController: UIViewController {
             self.collectionView.reloadData()
 
             UIView.transitionWithView(self.view, duration: 0.3, options: .TransitionCrossDissolve, animations: {
+                self.hideLoadingUI()
                 self.pageControl.numberOfPages = self.actionAlerts.count
                 self.showResultsUI()
                 }, completion: { _ in })
