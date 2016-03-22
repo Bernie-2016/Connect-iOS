@@ -295,9 +295,9 @@ class EventFakeTheme : FakeTheme {
     override func eventDirectionsButtonBackgroundColor() -> UIColor { return UIColor.lightGrayColor() }
     override func eventDirectionsButtonTextColor() -> UIColor { return UIColor.darkGrayColor() }
     override func eventDirectionsButtonFont() -> UIFont { return UIFont.italicSystemFontOfSize(777) }
-    override func eventRSVPButtonBackgroundColor() -> UIColor { return UIColor.whiteColor() }
-    override func eventRSVPButtonTextColor() -> UIColor { return UIColor.blackColor() }
-    override func eventRSVPButtonFont() -> UIFont { return UIFont.systemFontOfSize(888) }
+    override func fullWidthButtonBackgroundColor() -> UIColor { return UIColor.whiteColor() }
+    override func fullWidthRSVPButtonTextColor() -> UIColor { return UIColor.blackColor() }
+    override func fullWidthRSVPButtonFont() -> UIFont { return UIFont.systemFontOfSize(888) }
     override func defaultDisclosureColor() -> UIColor { return UIColor.redColor() }
     override func eventBackgroundColor() -> UIColor { return UIColor.darkTextColor() }
     override func eventTypeColor() -> UIColor { return UIColor(rgba: "#aaaaaa") }

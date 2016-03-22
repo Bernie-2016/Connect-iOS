@@ -183,9 +183,9 @@ class EventController: UIViewController {
 
         bottomRubberBandingArea.backgroundColor = theme.eventBackgroundColor()
 
-        rsvpButton.backgroundColor = theme.eventRSVPButtonBackgroundColor()
-        rsvpButton.setTitleColor(theme.eventRSVPButtonTextColor(), forState: .Normal)
-        rsvpButton.titleLabel!.font = theme.eventRSVPButtonFont()
+        rsvpButton.backgroundColor = theme.fullWidthButtonBackgroundColor()
+        rsvpButton.setTitleColor(theme.fullWidthRSVPButtonTextColor(), forState: .Normal)
+        rsvpButton.titleLabel!.font = theme.fullWidthRSVPButtonFont()
         rsvpButton.titleLabel!.numberOfLines = 1
         rsvpButton.titleLabel!.adjustsFontSizeToFitWidth = true
         rsvpButton.titleLabel!.lineBreakMode = .ByClipping

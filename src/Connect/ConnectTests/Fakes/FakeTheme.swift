@@ -118,9 +118,9 @@ class FakeTheme: Theme {
     func eventDirectionsButtonBackgroundColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func eventDirectionsButtonTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func eventDirectionsButtonFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
-    func eventRSVPButtonTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
-    func eventRSVPButtonFont() -> UIFont  { fatalError("FakeTheme used without being overridden in spec!") }
-    func eventRSVPButtonBackgroundColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func fullWidthRSVPButtonTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func fullWidthRSVPButtonFont() -> UIFont  { fatalError("FakeTheme used without being overridden in spec!") }
+    func fullWidthButtonBackgroundColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func eventBackgroundColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func eventTypeFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
     func eventTypeColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
@@ -180,4 +180,6 @@ class FakeTheme: Theme {
     func eventsErrorDetailFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
     func actionsShortLoadingMessageFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
     func actionsShortLoadingMessageTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func actionsErrorMessageFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
+    func actionsErrorMessageTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
 }

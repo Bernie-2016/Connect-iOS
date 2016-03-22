@@ -20,6 +20,9 @@ protocol Theme {
     func defaultTableSeparatorColor() -> UIColor
     func defaultTableCellBackgroundColor() -> UIColor
     func defaultBodyTextLineHeight() -> CGFloat
+    func fullWidthButtonBackgroundColor() -> UIColor
+    func fullWidthRSVPButtonTextColor() -> UIColor
+    func fullWidthRSVPButtonFont() -> UIFont
 
     // MARK: Tab Bar
 
@@ -103,9 +106,6 @@ protocol Theme {
     // MARK: Event screen
 
     func eventDirectionsButtonBackgroundColor() -> UIColor
-    func eventRSVPButtonBackgroundColor() -> UIColor
-    func eventRSVPButtonTextColor() -> UIColor
-    func eventRSVPButtonFont() -> UIFont
     func eventDirectionsButtonTextColor() -> UIColor
     func eventDirectionsButtonFont() -> UIFont
     func eventNameFont() -> UIFont
@@ -153,6 +153,8 @@ protocol Theme {
     func actionsShortDescriptionTextColor() -> UIColor
     func actionsShortLoadingMessageFont() -> UIFont
     func actionsShortLoadingMessageTextColor() -> UIColor
+    func actionsErrorMessageFont() -> UIFont
+    func actionsErrorMessageTextColor() -> UIColor
 
     // MARK: Action Alerts
 

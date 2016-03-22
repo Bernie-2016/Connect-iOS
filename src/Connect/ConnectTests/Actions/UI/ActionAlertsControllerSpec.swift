@@ -71,17 +71,50 @@ class ActionAlertsControllerSpec: QuickSpec {
                     expect(subject.view.subviews).to(contain(subject.pageControl))
                 }
 
+                it("adds the error message as a subview") {
+                    subject.view.layoutSubviews()
+
+                    expect(subject.view.subviews).to(contain(subject.errorLabel))
+                }
+
+                it("adds the retry button as a subview") {
+                    subject.view.layoutSubviews()
+
+                    expect(subject.view.subviews).to(contain(subject.retryButton))
+                }
+
                 it("styles the spinner with the theme") {
                     subject.view.layoutSubviews()
 
                     expect(subject.loadingIndicatorView.color) == UIColor.greenColor()
                 }
 
-                it("styles the laoding message with the theme") {
+                it("styles the loading message with the theme") {
                     subject.view.layoutSubviews()
 
                     expect(subject.loadingMessageLabel.textColor) == UIColor.blueColor()
                     expect(subject.loadingMessageLabel.font) == UIFont.systemFontOfSize(333)
+                }
+
+                it("styles the error message with the theme") {
+                    subject.view.layoutSubviews()
+
+                    expect(subject.errorLabel.textColor) == UIColor.brownColor()
+                    expect(subject.errorLabel.font) == UIFont.systemFontOfSize(444)
+                }
+
+                it("styles the retry button with the theme") {
+                    subject.view.layoutSubviews()
+
+                    expect(subject.retryButton.titleColorForState(.Normal)) == UIColor.redColor()
+                    expect(subject.retryButton.backgroundColor) == UIColor.purpleColor()
+                    expect(subject.retryButton.titleLabel!.font) ==  UIFont.systemFontOfSize(444)
+                }
+
+                it("sets the retry button text correctly") {
+                    subject.view.layoutSubviews()
+
+                    expect(subject.retryButton.titleForState(.Normal)) == "RETRY"
                 }
 
                 it("adds the loading message as a subview") {
@@ -146,6 +179,22 @@ class ActionAlertsControllerSpec: QuickSpec {
                     expect(subject.loadingMessageLabel.hidden) == false
                 }
 
+                it("hides the error message") {
+                    subject.errorLabel.hidden = false
+
+                    subject.viewWillAppear(false)
+
+                    expect(subject.errorLabel.hidden) == true
+                }
+
+                it("hides the retry button") {
+                    subject.retryButton.hidden = false
+
+                    subject.viewWillAppear(false)
+
+                    expect(subject.retryButton.hidden) == true
+                }
+
                 it("makes a request to the action alert service") {
                     expect(actionAlertService.fetchActionAlertsCalled) == false
 
@@ -161,105 +210,70 @@ class ActionAlertsControllerSpec: QuickSpec {
 
                     expect(navigationController.navigationBarHidden) == true
                 }
+
+                describe("loading the action alerts") {
+                    beforeEach {
+                        subject.viewWillAppear(false)
+                        subject.collectionView.numberOfItemsInSection(0)
+                    }
+
+                    itBehavesLike("an event that triggers an update of action alerts") { [
+                        "subject": subject,
+                        "actionAlertService": actionAlertService,
+                        "actionAlertWebViewProvider": actionAlertWebViewProvider,
+                        "actionAlertLoadingMonitor": actionAlertLoadingMonitor
+                        ] }
+                }
             }
 
-            describe("when using the action alerts service") {
+            describe("tapping on the retry button") {
                 beforeEach {
                     subject.view.layoutSubviews()
-                    subject.viewWillAppear(false)
-
-                    subject.collectionView.numberOfItemsInSection(0)
                 }
 
-                context("when the service resolves its promise with some action alerts") {
-                    let actionAlertA = TestUtils.actionAlert("Alert A", body: "Alert Body A")
-                    let actionAlertB = TestUtils.actionAlert("Alert B", body: "Alert Body B")
+                it("shows the spinner") {
+                    subject.loadingIndicatorView.hidden = true
 
-                    it("adds an invisible (not hidden) web view to the controller's view for each action alert, using the provider") {
-                        // this is a hack to load content before we show them in the collection view
-                        actionAlertService.lastReturnedActionAlertsPromise.resolve([actionAlertA, actionAlertB])
+                    subject.retryButton.tap()
 
-                        expect(actionAlertWebViewProvider.receivedBodies) == ["Alert Body A", "Alert Body B"]
-
-                        let webViews = actionAlertWebViewProvider.returnedWebViews
-                        expect(webViews.count) == 2
-
-                        expect(webViews[0].alpha) == 0
-                        expect(webViews[1].alpha) == 0
-
-                        expect(subject.view.subviews.contains(webViews[0])) == true
-                        expect(subject.view.subviews.contains(webViews[1])) == true
-                    }
-
-                    it("waits until all the webviews have loaded") {
-                        actionAlertService.lastReturnedActionAlertsPromise.resolve([actionAlertA, actionAlertB])
-
-                        let webViews = actionAlertWebViewProvider.returnedWebViews
-                        expect(webViews.count) == 2
-
-                        guard let receivedWebViews = actionAlertLoadingMonitor.receivedWebViews else {
-                            fail("No monitored web views")
-                            return
-                        }
-
-                        expect(receivedWebViews.count) == 2
-                        expect(receivedWebViews[0]) === webViews[0]
-                        expect(receivedWebViews[1]) === webViews[1]
-                    }
-
-                    describe("when the webviews have all loaded") {
-                        beforeEach {
-                            actionAlertService.lastReturnedActionAlertsPromise.resolve([actionAlertA, actionAlertB])
-                        }
-
-                        it("sets the page control count") {
-                            actionAlertLoadingMonitor.lastCompletionHandler!()
-
-                            expect(subject.pageControl.numberOfPages) == 2
-                        }
-
-                        it("shows the page control") {
-                            subject.pageControl.hidden = true
-
-                            actionAlertLoadingMonitor.lastCompletionHandler!()
-
-                            expect(subject.pageControl.hidden) == false
-                        }
-
-                        it("hides the loading message") {
-                            subject.loadingIndicatorView.hidden = false
-
-                            actionAlertLoadingMonitor.lastCompletionHandler!()
-
-                            expect(subject.loadingMessageLabel.hidden) == true
-                        }
-
-                        it("hides the spinner") {
-                            actionAlertLoadingMonitor.lastCompletionHandler!()
-
-                            expect(subject.loadingIndicatorView.hidden) == true
-                        }
-
-                        it("shows the collection view") {
-                            actionAlertLoadingMonitor.lastCompletionHandler!()
-
-                            expect(subject.collectionView.hidden) == false
-                        }
-
-                        it("reloads the collection view") {
-                            actionAlertLoadingMonitor.lastCompletionHandler!()
-
-                            expect(subject.collectionView.dataSource?.collectionView(subject.collectionView, numberOfItemsInSection: 0)) == 2
-                        }
-                    }
+                    expect(subject.loadingIndicatorView.hidden) == false
                 }
 
-                context("when the service resolves its promise with zero action alerts") {
-                    pending("design") {}
+                it("shows the loading message") {
+                    subject.loadingMessageLabel.hidden = true
+
+                    subject.retryButton.tap()
+
+                    expect(subject.loadingMessageLabel.hidden) == false
                 }
 
-                context("when the service rejects its promise with an error") {
-                    pending("design") {}
+                it("hides the error message") {
+                    subject.errorLabel.hidden = false
+
+                    subject.retryButton.tap()
+
+                    expect(subject.errorLabel.hidden) == true
+                }
+
+                it("hides the retry button") {
+                    subject.retryButton.hidden = false
+
+                    subject.retryButton.tap()
+
+                    expect(subject.retryButton.hidden) == true
+                }
+
+                describe("fetching the action alerts") {
+                    beforeEach {
+                        subject.retryButton.tap()
+                    }
+
+                    itBehavesLike("an event that triggers an update of action alerts") { [
+                        "subject": subject,
+                        "actionAlertService": actionAlertService,
+                        "actionAlertWebViewProvider": actionAlertWebViewProvider,
+                        "actionAlertLoadingMonitor": actionAlertLoadingMonitor
+                        ] }
                 }
             }
 
@@ -486,6 +500,188 @@ class ActionAlertsControllerSpec: QuickSpec {
     }
 }
 
+class ActionAlertsSharedExamplesConfiguration: QuickConfiguration {
+    override class func configure(configuration: Configuration) {
+        sharedExamples("an event that triggers an update of action alerts") { (sharedExampleContext: SharedExampleContext) in
+            var subject: ActionAlertsController!
+            var actionAlertService: FakeActionAlertService!
+            var actionAlertWebViewProvider: FakeActionAlertWebViewProvider!
+            var actionAlertLoadingMonitor: FakeActionAlertLoadingMonitor!
+
+            beforeEach {
+                subject = sharedExampleContext()["subject"] as! ActionAlertsController
+                actionAlertService = sharedExampleContext()["actionAlertService"] as! FakeActionAlertService!
+                actionAlertWebViewProvider = sharedExampleContext()["actionAlertWebViewProvider"] as! FakeActionAlertWebViewProvider!
+                actionAlertLoadingMonitor = sharedExampleContext()["actionAlertLoadingMonitor"] as! FakeActionAlertLoadingMonitor!
+            }
+
+            describe("when using the action alerts service") {
+                context("when the service resolves its promise with some action alerts") {
+                    let actionAlertA = TestUtils.actionAlert("Alert A", body: "Alert Body A")
+                    let actionAlertB = TestUtils.actionAlert("Alert B", body: "Alert Body B")
+
+                    it("adds an invisible (not hidden) web view to the controller's view for each action alert, using the provider") {
+                        // this is a hack to load content before we show them in the collection view
+                        actionAlertService.lastReturnedActionAlertsPromise.resolve([actionAlertA, actionAlertB])
+
+                        expect(actionAlertWebViewProvider.receivedBodies) == ["Alert Body A", "Alert Body B"]
+
+                        let webViews = actionAlertWebViewProvider.returnedWebViews
+                        expect(webViews.count) == 2
+
+                        expect(webViews[0].alpha) == 0
+                        expect(webViews[1].alpha) == 0
+
+                        expect(subject.view.subviews.contains(webViews[0])) == true
+                        expect(subject.view.subviews.contains(webViews[1])) == true
+                    }
+
+                    it("waits until all the webviews have loaded") {
+                        actionAlertService.lastReturnedActionAlertsPromise.resolve([actionAlertA, actionAlertB])
+
+                        let webViews = actionAlertWebViewProvider.returnedWebViews
+                        expect(webViews.count) == 2
+
+                        guard let receivedWebViews = actionAlertLoadingMonitor.receivedWebViews else {
+                            fail("No monitored web views")
+                            return
+                        }
+
+                        expect(receivedWebViews.count) == 2
+                        expect(receivedWebViews[0]) === webViews[0]
+                        expect(receivedWebViews[1]) === webViews[1]
+                    }
+
+                    describe("when the webviews have all loaded") {
+                        beforeEach {
+                            actionAlertService.lastReturnedActionAlertsPromise.resolve([actionAlertA, actionAlertB])
+                        }
+
+                        it("sets the page control count") {
+                            actionAlertLoadingMonitor.lastCompletionHandler!()
+
+                            expect(subject.pageControl.numberOfPages) == 2
+                        }
+
+                        it("shows the page control") {
+                            subject.pageControl.hidden = true
+
+                            actionAlertLoadingMonitor.lastCompletionHandler!()
+
+                            expect(subject.pageControl.hidden) == false
+                        }
+
+                        it("hides the loading message") {
+                            subject.loadingIndicatorView.hidden = false
+
+                            actionAlertLoadingMonitor.lastCompletionHandler!()
+
+                            expect(subject.loadingMessageLabel.hidden) == true
+                        }
+
+                        it("hides the spinner") {
+                            actionAlertLoadingMonitor.lastCompletionHandler!()
+
+                            expect(subject.loadingIndicatorView.hidden) == true
+                        }
+
+                        it("shows the collection view") {
+                            actionAlertLoadingMonitor.lastCompletionHandler!()
+
+                            expect(subject.collectionView.hidden) == false
+                        }
+
+                        it("reloads the collection view") {
+                            actionAlertLoadingMonitor.lastCompletionHandler!()
+
+                            expect(subject.collectionView.dataSource?.collectionView(subject.collectionView, numberOfItemsInSection: 0)) == 2
+                        }
+                    }
+                }
+
+                context("when the service resolves its promise with zero action alerts") {
+                    it("hides the loading message") {
+                        subject.loadingIndicatorView.hidden = false
+
+                        actionAlertService.lastReturnedActionAlertsPromise.resolve([])
+
+                        expect(subject.loadingMessageLabel.hidden) == true
+                    }
+
+                    it("hides the spinner") {
+                        actionAlertService.lastReturnedActionAlertsPromise.resolve([])
+
+                        expect(subject.loadingIndicatorView.hidden) == true
+                    }
+
+                    it("shows the error message") {
+                        subject.errorLabel.hidden = true
+
+                        actionAlertService.lastReturnedActionAlertsPromise.resolve([])
+
+                        expect(subject.errorLabel.hidden) == false
+                    }
+
+                    it("shows the retry button") {
+                        subject.retryButton.hidden = true
+
+                        actionAlertService.lastReturnedActionAlertsPromise.resolve([])
+
+                        expect(subject.retryButton.hidden) == false
+                    }
+
+                    it("has the correct text in the error label") {
+                        actionAlertService.lastReturnedActionAlertsPromise.resolve([])
+
+                        expect(subject.errorLabel.text) == "There's nothing for you to share right now. Check back later!"
+                    }
+                }
+
+                context("when the service rejects its promise with an error") {
+                    it("hides the loading message") {
+                        subject.loadingMessageLabel.hidden = false
+
+                        actionAlertService.lastReturnedActionAlertsPromise.reject(ActionAlertRepositoryError.InvalidJSON(jsonObject: []))
+
+                        expect(subject.loadingMessageLabel.hidden) == true
+                    }
+
+                    it("hides the spinner") {
+                        subject.loadingIndicatorView.hidden = false
+
+
+                        actionAlertService.lastReturnedActionAlertsPromise.reject(ActionAlertRepositoryError.InvalidJSON(jsonObject: []))
+
+                        expect(subject.loadingIndicatorView.hidden) == true
+                    }
+
+                    it("shows the error message") {
+                        subject.errorLabel.hidden = true
+
+                        actionAlertService.lastReturnedActionAlertsPromise.reject(ActionAlertRepositoryError.InvalidJSON(jsonObject: []))
+
+                        expect(subject.errorLabel.hidden) == false
+                    }
+
+                    it("shows the retry button") {
+                        subject.retryButton.hidden = true
+
+                        actionAlertService.lastReturnedActionAlertsPromise.reject(ActionAlertRepositoryError.InvalidJSON(jsonObject: []))
+
+                        expect(subject.retryButton.hidden) == false
+                    }
+
+                    it("has the correct text in the error label") {
+                        actionAlertService.lastReturnedActionAlertsPromise.reject(ActionAlertRepositoryError.InvalidJSON(jsonObject: []))
+
+                        expect(subject.errorLabel.text) == "An error occurred while loading this content."
+                    }
+                }
+            }
+        }
+    }
+}
+
 private class ActionAlertsControllerFakeTheme: FakeTheme {
     override func defaultSpinnerColor() -> UIColor { return UIColor.greenColor() }
     override func actionsBackgroundColor() -> UIColor { return UIColor.yellowColor() }
@@ -495,6 +691,11 @@ private class ActionAlertsControllerFakeTheme: FakeTheme {
     override func actionsShortDescriptionTextColor() -> UIColor { return UIColor.orangeColor() }
     override func actionsShortLoadingMessageFont() -> UIFont { return UIFont.systemFontOfSize(333) }
     override func actionsShortLoadingMessageTextColor() -> UIColor { return UIColor.blueColor() }
+    override func actionsErrorMessageFont() -> UIFont { return UIFont.systemFontOfSize(444) }
+    override func actionsErrorMessageTextColor() -> UIColor { return UIColor.brownColor() }
+    override func fullWidthButtonBackgroundColor() -> UIColor { return UIColor.purpleColor() }
+    override func fullWidthRSVPButtonTextColor() -> UIColor { return UIColor.redColor() }
+    override func fullWidthRSVPButtonFont() -> UIFont { return UIFont.systemFontOfSize(444) }
 }
 
 private class FakeActionAlertWebViewProvider: ActionAlertWebViewProvider {

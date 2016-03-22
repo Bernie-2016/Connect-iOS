@@ -17,6 +17,9 @@ class DefaultTheme: Theme {
     func defaultTableCellBackgroundColor() -> UIColor { return UIColor.whiteColor() }
     func defaultButtonBorderColor() -> UIColor { return coalMinerColor }
     func defaultBodyTextLineHeight() -> CGFloat { return 24.0 }
+    func fullWidthRSVPButtonTextColor() -> UIColor { return UIColor.whiteColor() }
+    func fullWidthButtonBackgroundColor() -> UIColor { return denimColor }
+    func fullWidthRSVPButtonFont() -> UIFont { return h3HeaderFont() }
 
     // MARK: Tab Bar
 
@@ -97,7 +100,6 @@ class DefaultTheme: Theme {
     func eventsInstructionsFont() -> UIFont { return UIFont.systemFontOfSize(21)  }
     func eventsSubInstructionsFont() -> UIFont { return UIFont.systemFontOfSize(13)  }
 
-
     func eventsFilterLabelFont() -> UIFont { return UIFont.systemFontOfSize(13) }
     func eventsFilterLabelTextColor() -> UIColor { return grayChateauColor }
     func eventsFilterButtonTextColor() -> UIColor { return denimColor }
@@ -126,9 +128,6 @@ class DefaultTheme: Theme {
     func eventDirectionsButtonBackgroundColor() -> UIColor { return UIColor.whiteColor() }
     func eventDirectionsButtonTextColor() -> UIColor { return h3HeaderTextColor() }
     func eventDirectionsButtonFont() -> UIFont { return h3HeaderFont() }
-    func eventRSVPButtonTextColor() -> UIColor { return UIColor.whiteColor() }
-    func eventRSVPButtonBackgroundColor() -> UIColor { return denimColor }
-    func eventRSVPButtonFont() -> UIFont { return h3HeaderFont() }
     func eventBackgroundColor() -> UIColor { return defaultBackgroundColor() }
     func eventTypeFont() -> UIFont { return subHeadingFont() }
     func eventTypeColor() -> UIColor { return subHeadingTextColor() }
@@ -161,6 +160,8 @@ class DefaultTheme: Theme {
     func actionsShortDescriptionTextColor() -> UIColor { return UIColor.whiteColor() }
     func actionsShortLoadingMessageFont() -> UIFont { return lightSystemFontOfSize(15) }
     func actionsShortLoadingMessageTextColor() -> UIColor { return UIColor.whiteColor() }
+    func actionsErrorMessageFont() -> UIFont { return lightSystemFontOfSize(15) }
+    func actionsErrorMessageTextColor() -> UIColor { return UIColor.whiteColor() }
 
     // MARK: Markdown
 

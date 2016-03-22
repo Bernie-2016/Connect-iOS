@@ -1,5 +1,6 @@
 import UIKit
 
+// swiftlint:disable type_body_length
 class ActionAlertsController: UIViewController {
     private let actionAlertService: ActionAlertService
     private let actionAlertWebViewProvider: ActionAlertWebViewProvider
@@ -13,6 +14,8 @@ class ActionAlertsController: UIViewController {
     let loadingIndicatorView = UIActivityIndicatorView()
     let pageControl = UIPageControl.newAutoLayoutView()
     let loadingMessageLabel = UILabel.newAutoLayoutView()
+    let errorLabel = UILabel.newAutoLayoutView()
+    let retryButton = UIButton.newAutoLayoutView()
 
     private let layout = CenterCellCollectionViewFlowLayout()
     private var webViews: [UIWebView] = []
@@ -70,6 +73,8 @@ class ActionAlertsController: UIViewController {
         view.addSubview(loadingIndicatorView)
         view.addSubview(pageControl)
         view.addSubview(loadingMessageLabel)
+        view.addSubview(errorLabel)
+        view.addSubview(retryButton)
 
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.clipsToBounds = false
@@ -77,6 +82,9 @@ class ActionAlertsController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.registerClass(ActionAlertCell.self, forCellWithReuseIdentifier: kCollectionViewCellName)
+
+        retryButton.setTitle(NSLocalizedString("Actions_retryButton", comment: ""), forState: .Normal)
+        retryButton.addTarget(self, action: "didTapRetryButton", forControlEvents: .TouchUpInside)
 
         loadingIndicatorView.startAnimating()
         loadingMessageLabel.text = NSLocalizedString("Actions_loadingMessage", comment: "")
@@ -93,51 +101,7 @@ class ActionAlertsController: UIViewController {
         showLoadingUI()
 
         webViews.removeAll()
-
-        let webViewWidth = UIScreen.mainScreen().bounds.width - 10
-        let future = actionAlertService.fetchActionAlerts()
-        future.then { actionAlerts in
-            self.actionAlerts = actionAlerts
-
-            for actionAlert in actionAlerts {
-                let webView = self.actionAlertWebViewProvider.provideInstanceWithBody(actionAlert.body, width: webViewWidth)
-
-                webView.layer.cornerRadius = 4.0
-                webView.layer.masksToBounds = true
-                webView.clipsToBounds = true
-                webView.opaque = false
-                webView.backgroundColor = UIColor.clearColor()
-                webView.scrollView.showsVerticalScrollIndicator = false
-                webView.delegate = self
-                webView.scrollView.scrollEnabled = false
-                webView.alpha = 0
-
-                // this is because the facebook embed code isn't responsive - we need to render it with the correct width
-                // such that we work around its margins
-                self.view.addSubview(webView)
-
-                let webViewWidth = UIScreen.mainScreen().bounds.width - 10
-                webView.autoSetDimension(.Width, toSize: webViewWidth)
-                webView.autoSetDimension(.Height, toSize: 220)
-                webView.autoCenterInSuperview()
-
-                self.webViews.append(webView)
-            }
-
-            self.actionAlertLoadingMonitor.waitUntilWebViewsHaveLoaded(self.webViews) {
-                for webView in self.webViews {
-                    let removeIFrameMarginHack = "var i = document.documentElement.getElementsByTagName('iframe'); for (var j = 0 ; j < i.length ; j++ ) { k = i[j]; k.style.marginTop = '0px'; }"
-                    webView.stringByEvaluatingJavaScriptFromString(removeIFrameMarginHack)
-                }
-
-                self.collectionView.reloadData()
-
-                UIView.transitionWithView(self.view, duration: 0.3, options: .TransitionCrossDissolve, animations: {
-                    self.pageControl.numberOfPages = self.actionAlerts.count
-                    self.showResultsUI()
-                    }, completion: { completed in })
-            }
-        }
+        loadActionAlerts()
 
         layout.invalidateLayout()
     }
@@ -148,6 +112,12 @@ class ActionAlertsController: UIViewController {
 
         loadingMessageLabel.font = theme.actionsShortLoadingMessageFont()
         loadingMessageLabel.textColor = theme.actionsShortLoadingMessageTextColor()
+
+        errorLabel.font = theme.actionsErrorMessageFont()
+        errorLabel.textColor = theme.actionsErrorMessageTextColor()
+        retryButton.setTitleColor(theme.fullWidthRSVPButtonTextColor(), forState: .Normal)
+        retryButton.titleLabel!.font = theme.fullWidthRSVPButtonFont()
+        retryButton.backgroundColor = theme.fullWidthButtonBackgroundColor()
     }
 
     private func setupConstraints() {
@@ -164,6 +134,33 @@ class ActionAlertsController: UIViewController {
 
         loadingMessageLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: loadingIndicatorView, withOffset: 40)
         loadingMessageLabel.autoAlignAxis(.Vertical, toSameAxisOfView: loadingIndicatorView)
+
+        errorLabel.autoAlignAxis(.Horizontal, toSameAxisOfView: view, withOffset: -120)
+        errorLabel.autoAlignAxisToSuperviewAxis(.Vertical)
+
+        retryButton.autoPinEdgeToSuperviewEdge(.Left)
+        retryButton.autoPinEdgeToSuperviewEdge(.Right)
+        retryButton.autoAlignAxis(.Horizontal, toSameAxisOfView: view)
+        retryButton.autoSetDimension(.Height, toSize: 54)
+
+    }
+
+    private func loadActionAlerts() {
+        let future = actionAlertService.fetchActionAlerts()
+
+        future.then { actionAlerts in
+            self.hideLoadingUI()
+            if actionAlerts.count == 0 {
+                self.showErrorUI(NSLocalizedString("Actions_noResultsMessage", comment: ""))
+            } else {
+                self.updateUIWithActionAlerts(actionAlerts)
+            }
+        }
+
+        future.error { error in
+            self.hideLoadingUI()
+            self.showErrorUI(NSLocalizedString("Actions_errorMessage", comment: ""))
+        }
     }
 
     private func showLoadingUI() {
@@ -171,15 +168,94 @@ class ActionAlertsController: UIViewController {
         pageControl.hidden = true
         loadingIndicatorView.hidden = false
         collectionView.hidden = true
+        errorLabel.hidden = true
+        retryButton.hidden = true
     }
 
     private func showResultsUI() {
-        self.pageControl.hidden = false
-        self.loadingMessageLabel.hidden = true
-        self.collectionView.hidden = false
-        self.loadingIndicatorView.hidden = true
+        pageControl.hidden = false
+        collectionView.hidden = false
+    }
+
+    private func hideLoadingUI() {
+        loadingMessageLabel.hidden = true
+        loadingIndicatorView.hidden = true
+    }
+
+    private func showErrorUI(errorMessage: String) {
+        errorLabel.text = errorMessage
+        errorLabel.hidden = false
+        retryButton.hidden = false
+    }
+
+    private func hideErrorUI() {
+        errorLabel.hidden = false
+        retryButton.hidden = false
+    }
+
+    private func updateUIWithActionAlerts(actionAlerts: [ActionAlert]) {
+        let webViewWidth = UIScreen.mainScreen().bounds.width - 10
+
+        self.actionAlerts = actionAlerts
+
+        for actionAlert in actionAlerts {
+            let webView = self.actionAlertWebViewProvider.provideInstanceWithBody(actionAlert.body, width: webViewWidth)
+
+            webView.layer.cornerRadius = 4.0
+            webView.layer.masksToBounds = true
+            webView.clipsToBounds = true
+            webView.opaque = false
+            webView.backgroundColor = UIColor.clearColor()
+            webView.scrollView.showsVerticalScrollIndicator = false
+            webView.delegate = self
+            webView.scrollView.scrollEnabled = false
+            webView.alpha = 0
+
+            // this is because the facebook embed code isn't responsive - we need to render it with the correct width
+            // such that we work around its margins
+            self.view.addSubview(webView)
+
+            let webViewWidth = UIScreen.mainScreen().bounds.width - 10
+            webView.autoSetDimension(.Width, toSize: webViewWidth)
+            webView.autoSetDimension(.Height, toSize: 220)
+            webView.autoCenterInSuperview()
+
+            self.webViews.append(webView)
+        }
+
+        self.actionAlertLoadingMonitor.waitUntilWebViewsHaveLoaded(self.webViews) {
+            for webView in self.webViews {
+                let removeIFrameMarginHack = "var i = document.documentElement.getElementsByTagName('iframe'); for (var j = 0 ; j < i.length ; j++ ) { k = i[j]; k.style.marginTop = '0px'; }"
+                webView.stringByEvaluatingJavaScriptFromString(removeIFrameMarginHack)
+            }
+
+            self.collectionView.reloadData()
+
+            UIView.transitionWithView(self.view, duration: 0.3, options: .TransitionCrossDissolve, animations: {
+                self.pageControl.numberOfPages = self.actionAlerts.count
+                self.showResultsUI()
+                }, completion: { _ in })
+        }
     }
 }
+
+// MARK: Actions
+
+extension ActionAlertsController {
+    func didTapRetryButton() {
+        self.loadActionAlerts()
+
+        UIView.transitionWithView(self.view, duration: 0.3, options: .TransitionCrossDissolve, animations: {
+            self.hideErrorUI()
+            self.showLoadingUI()
+
+            }, completion: { _ in
+
+            })
+    }
+}
+
+// MARK: UICollectionViewDataSource
 
 extension ActionAlertsController: UICollectionViewDataSource {
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -221,6 +297,8 @@ extension ActionAlertsController: UICollectionViewDataSource {
     }
 }
 
+// MARK: UICollectionViewDelegateFlowLayout
+
 extension ActionAlertsController: UICollectionViewDelegateFlowLayout {
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         var s = collectionView.bounds.size
@@ -239,6 +317,9 @@ extension ActionAlertsController: UICollectionViewDelegateFlowLayout {
         }
     }
 }
+
+
+// MARK: UIWebViewDelegate
 
 extension ActionAlertsController: UIWebViewDelegate {
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
@@ -287,3 +368,4 @@ extension ActionAlertsController: UIWebViewDelegate {
         analyticsService.trackCustomEventWithName("Began Share", customAttributes: attributes)
     }
 }
+// swiftlint:enable type_body_length

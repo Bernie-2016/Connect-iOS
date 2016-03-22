@@ -120,6 +120,9 @@
 
 "Actions_title" = "Act Now";
 "Actions_loadingMessage" = "Amplify Bernie's Message by Sharing!";
+"Actions_errorMessage" = "An error occurred while loading this content.";
+"Actions_noResultsMessage" = "There's nothing for you to share right now. Check back later!";
+"Actions_retryButton" = "RETRY";
 
 // URLs
 "url_TwitterShareText" = "Check this out! #Bernie2016";
