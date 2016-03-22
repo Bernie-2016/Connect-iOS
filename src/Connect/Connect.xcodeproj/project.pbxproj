@@ -226,6 +226,10 @@
 		65A5C0FC1BA29F2200D46500 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A5C0FB1BA29F2200D46500 /* Crashlytics.framework */; };
 		65AD23AF1B96413200C32A02 /* WebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65AD23AE1B96413200C32A02 /* WebImage.framework */; };
 		65AD23B21B968D6800C32A02 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AD23B11B968D6800C32A02 /* TestUtils.swift */; };
+		65AEED5F1CA1D78700EE585A /* libHeap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65AEED5E1CA1D78700EE585A /* libHeap.a */; };
+		65AEED611CA1D7FA00EE585A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65AEED601CA1D7FA00EE585A /* CFNetwork.framework */; };
+		65AEED631CA1D80700EE585A /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 65AEED621CA1D80700EE585A /* libicucore.tbd */; };
+		65AEED651CA1D81000EE585A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65AEED641CA1D81000EE585A /* Security.framework */; };
 		65B023591C59C5570082E211 /* BackgroundActionAlertServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B023581C59C5570082E211 /* BackgroundActionAlertServiceSpec.swift */; };
 		65B0235B1C59C6490082E211 /* ActionAlertRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B0235A1C59C6490082E211 /* ActionAlertRepository.swift */; };
 		65B0235D1C59C8710082E211 /* StockActionAlertRepositorySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B0235C1C59C8710082E211 /* StockActionAlertRepositorySpec.swift */; };
@@ -591,6 +595,11 @@
 		65A5C0FB1BA29F2200D46500 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		65AD23AE1B96413200C32A02 /* WebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebImage.framework; path = Carthage/Build/iOS/WebImage.framework; sourceTree = "<group>"; };
 		65AD23B11B968D6800C32A02 /* TestUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
+		65AEED5D1CA1D78700EE585A /* Heap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Heap.h; sourceTree = "<group>"; };
+		65AEED5E1CA1D78700EE585A /* libHeap.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libHeap.a; sourceTree = "<group>"; };
+		65AEED601CA1D7FA00EE585A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		65AEED621CA1D80700EE585A /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
+		65AEED641CA1D81000EE585A /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		65B023581C59C5570082E211 /* BackgroundActionAlertServiceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundActionAlertServiceSpec.swift; sourceTree = "<group>"; };
 		65B0235A1C59C6490082E211 /* ActionAlertRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionAlertRepository.swift; sourceTree = "<group>"; };
 		65B0235C1C59C8710082E211 /* StockActionAlertRepositorySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockActionAlertRepositorySpec.swift; sourceTree = "<group>"; };
@@ -696,14 +705,18 @@
 				65494C5F1BFB8EBB00C1ECDB /* AudioToolbox.framework in Frameworks */,
 				654D12921C3E0F28000A2982 /* Bolts.framework in Frameworks */,
 				65937D211C4058AE003A1EFA /* CBGPromise.framework in Frameworks */,
+				65AEED611CA1D7FA00EE585A /* CFNetwork.framework in Frameworks */,
 				65DA57C71C77F8D200D49826 /* CocoaMarkdown.framework in Frameworks */,
 				65A5C0FC1BA29F2200D46500 /* Crashlytics.framework in Frameworks */,
 				65DB15E91C88064800F470D5 /* DateTools.framework in Frameworks */,
 				65A5C0FA1BA2978600D46500 /* Fabric.framework in Frameworks */,
 				654948DB1BFAFAE300C1ECDB /* libFlurry_7.3.0.a in Frameworks */,
+				65AEED5F1CA1D78700EE585A /* libHeap.a in Frameworks */,
+				65AEED631CA1D80700EE585A /* libicucore.tbd in Frameworks */,
 				65494C601BFB8EC100C1ECDB /* libsqlite3.tbd in Frameworks */,
 				654D12941C3E0F28000A2982 /* Parse.framework in Frameworks */,
 				65CA5E991B86E76D0001D870 /* PureLayout.framework in Frameworks */,
+				65AEED651CA1D81000EE585A /* Security.framework in Frameworks */,
 				65B7815A1C4C58B90087699B /* Swinject.framework in Frameworks */,
 				654948D71BFADF9F00C1ECDB /* SystemConfiguration.framework in Frameworks */,
 				65AD23AF1B96413200C32A02 /* WebImage.framework in Frameworks */,
@@ -1303,10 +1316,20 @@
 			isa = PBXGroup;
 			children = (
 				654948CE1BFA797E00C1ECDB /* Flurry */,
+				65AEED5C1CA1D78700EE585A /* Heap */,
 				65A5C0FB1BA29F2200D46500 /* Crashlytics.framework */,
 				65A5C0F91BA2978600D46500 /* Fabric.framework */,
 			);
 			path = Externals;
+			sourceTree = "<group>";
+		};
+		65AEED5C1CA1D78700EE585A /* Heap */ = {
+			isa = PBXGroup;
+			children = (
+				65AEED5D1CA1D78700EE585A /* Heap.h */,
+				65AEED5E1CA1D78700EE585A /* libHeap.a */,
+			);
+			path = Heap;
 			sourceTree = "<group>";
 		};
 		65B023571C59C53C0082E211 /* DataAccess */ = {
@@ -1513,8 +1536,11 @@
 				65EC4CF21B842A3D00DD4C83 /* Carthage */,
 				8233FC091B7C28FB00A5E9ED /* Connect */,
 				8233FC211B7C28FB00A5E9ED /* ConnectTests */,
+				65AEED601CA1D7FA00EE585A /* CFNetwork.framework */,
 				655598041BFC2FFB00BCE1AB /* Connect.app */,
 				655598051BFC2FFB00BCE1AB /* ConnectTests.xctest */,
+				65AEED621CA1D80700EE585A /* libicucore.tbd */,
+				65AEED641CA1D81000EE585A /* Security.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2181,6 +2207,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Connect/Externals/Flurry",
+					"$(PROJECT_DIR)/Connect/Externals/Heap",
 				);
 				MACH_O_TYPE = mh_execute;
 				OTHER_SWIFT_FLAGS = "-DRELEASE";
@@ -2348,6 +2375,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Connect/Externals/Flurry",
+					"$(PROJECT_DIR)/Connect/Externals/Heap",
 				);
 				MACH_O_TYPE = mh_execute;
 				OTHER_SWIFT_FLAGS = "-DDEBUG";
@@ -2396,6 +2424,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Connect/Externals/Flurry",
+					"$(PROJECT_DIR)/Connect/Externals/Heap",
 				);
 				MACH_O_TYPE = mh_execute;
 				OTHER_SWIFT_FLAGS = "-DRELEASE";
