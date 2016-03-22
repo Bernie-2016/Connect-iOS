@@ -12,7 +12,7 @@ class StockActionAlertLoadingMonitor: ActionAlertLoadingMonitor {
     private func checkForLoaded(webViews: [UIWebView], completionHandler: () -> ()) {
         var webViewsLoaded = 0
         for webView in webViews {
-            let resultString = webView.stringByEvaluatingJavaScriptFromString("if (window.embedLoaded == undefined && $ != undefined) { window.embedLoaded = false; if (twttr && twttr.widgets) { twttr.widgets.load(); } ;$(function() { $('iframe').ready(function() {  embedLoaded = true; }) }); } window.embedLoaded || document.documentElement.getElementsByTagName('script').length == 0;")
+            let resultString = webView.stringByEvaluatingJavaScriptFromString("(document.body.getElementsByTagName('script').length > 0 && document.body.getElementsByTagName('iframe').length > 0) || document.body.getElementsByTagName('script').length == 0;")
 
             if resultString == "true" {
                 webViewsLoaded += 1
