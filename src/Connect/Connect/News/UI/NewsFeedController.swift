@@ -108,6 +108,7 @@ class NewsFeedController: UIViewController {
             navigationController.followScrollView(collectionView, delay: 50.0)
         }
 
+        collectionView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
         loadNewsFeed()
     }
 

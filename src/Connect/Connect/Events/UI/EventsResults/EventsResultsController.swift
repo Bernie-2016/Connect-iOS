@@ -59,6 +59,10 @@ class EventsResultsController: UIViewController {
         super.viewWillAppear(animated)
 
         tableView.reloadData()
+
+        if eventSearchResult?.events.count > 0 {
+            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: false)
+        }
     }
 
     private func setupConstraints() {
