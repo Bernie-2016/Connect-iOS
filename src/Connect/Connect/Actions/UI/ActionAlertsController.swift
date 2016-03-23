@@ -106,6 +106,10 @@ class ActionAlertsController: UIViewController {
         layout.invalidateLayout()
     }
 
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
+    }
+
     private func applyTheme() {
         view.backgroundColor = theme.actionsBackgroundColor()
         collectionView.backgroundView = UIImageView(image: UIImage(named: "actionAlertsBackground")!)
