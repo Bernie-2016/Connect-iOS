@@ -140,6 +140,13 @@ class ActionAlertsControllerSpec: QuickSpec {
 
                     expect(subject.view.backgroundColor) == UIColor.yellowColor()
                 }
+
+                it("sets the collection view's background image") {
+                    subject.view.layoutSubviews()
+
+                    let backgroundImageView = subject.collectionView.backgroundView as? UIImageView
+                    expect(backgroundImageView?.image) == UIImage(named: "actionAlertsBackground")
+                }
             }
 
             describe("when the view appears") {

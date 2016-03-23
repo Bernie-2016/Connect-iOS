@@ -108,6 +108,8 @@ class ActionAlertsController: UIViewController {
 
     private func applyTheme() {
         view.backgroundColor = theme.actionsBackgroundColor()
+        collectionView.backgroundView = UIImageView(image: UIImage(named: "actionAlertsBackground")!)
+
         loadingIndicatorView.color = theme.defaultSpinnerColor()
 
         loadingMessageLabel.font = theme.actionsShortLoadingMessageFont()
@@ -231,7 +233,7 @@ class ActionAlertsController: UIViewController {
 
             self.collectionView.reloadData()
 
-            UIView.transitionWithView(self.view, duration: 0.3, options: .TransitionCrossDissolve, animations: {
+            UIView.transitionWithView(self.view, duration: 0.4, options: .TransitionCrossDissolve, animations: {
                 self.hideLoadingUI()
                 self.pageControl.numberOfPages = self.actionAlerts.count
                 self.showResultsUI()
