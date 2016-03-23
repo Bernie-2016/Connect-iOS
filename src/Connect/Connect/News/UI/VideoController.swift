@@ -58,7 +58,15 @@ class VideoController: UIViewController {
 
         titleLabel.text = video.title
         dateLabel.text = timeIntervalFormatter.humanDaysSinceDate(video.date)
-        descriptionTextView.text = video.description
+
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineHeightMultiple = theme.defaultBodyTextLineHeight()
+        paragraphStyle.maximumLineHeight = theme.defaultBodyTextLineHeight()
+        paragraphStyle.minimumLineHeight = theme.defaultBodyTextLineHeight()
+
+        let attributes = [ NSParagraphStyleAttributeName: paragraphStyle ]
+        let attributedDescription = NSAttributedString(string: video.description, attributes: attributes)
+        descriptionTextView.attributedText = attributedDescription
 
         videoController = XCDYouTubeVideoPlayerViewController(videoIdentifier: video.identifier)
         videoController.moviePlayer.prepareToPlay()

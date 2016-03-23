@@ -181,6 +181,7 @@ private class VideoFakeTheme: FakeTheme {
     override func videoTitleColor() -> UIColor { return UIColor.blueColor() }
     override func videoDescriptionFont() -> UIFont  { return UIFont.systemFontOfSize(333) }
     override func videoDescriptionColor() -> UIColor { return UIColor.greenColor() }
+    override func defaultBodyTextLineHeight() -> CGFloat { return 666 }
 }
 
 private class VideoFakeURLProvider: FakeURLProvider {
