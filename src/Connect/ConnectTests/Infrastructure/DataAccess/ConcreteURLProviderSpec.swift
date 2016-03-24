@@ -53,10 +53,10 @@ class ConcreteURLProviderSpec : QuickSpec {
                         let marketingVersion = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
                         let internalBuildNumber  = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleVersion") as! String
 
-                        let expectedVersionString = "\(marketingVersion) (\(internalBuildNumber))"
+                        let expectedVersionString = "iOS: \(marketingVersion) (\(internalBuildNumber))"
                         let platformQueryItem = urlComponents.queryItems!.last!
 
-                        expect(platformQueryItem.name).to(equal("entry.1652819874"))
+                        expect(platformQueryItem.name).to(equal("entry.1777259581"))
                         expect(platformQueryItem.value).to(equal(expectedVersionString))
                     }
                 }

@@ -45,13 +45,13 @@ class ConcreteURLProvider: URLProvider {
     }
 
     func feedbackFormURL() -> NSURL {
-        let urlComponents = NSURLComponents(string: "https://docs.google.com/forms/d/1i9eX_pmZxS5thQow6x7L_JC1-gv5qSAwJJ4aD3RdTDg/viewform")!
+        let urlComponents = NSURLComponents(string: "https://docs.google.com/forms/d/1gE0hwL9AaUjovr4QE_0oD0A1BT1lB3GGGktHB8amHXs/viewform")!
 
         let marketingVersion = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as? String ?? "unknown version"
         let internalBuildNumber  = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleVersion") as? String  ?? "unknown build"
 
-        let versionString = "\(marketingVersion) (\(internalBuildNumber))"
-        let versionQueryItem = NSURLQueryItem(name: "entry.1652819874", value: versionString)
+        let versionString = "iOS: \(marketingVersion) (\(internalBuildNumber))"
+        let versionQueryItem = NSURLQueryItem(name: "entry.1777259581", value: versionString)
 
         urlComponents.queryItems = [versionQueryItem]
         return urlComponents.URL!
