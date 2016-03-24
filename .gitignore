@@ -34,3 +34,4 @@ fabric_secret
 flurry_key*
 parse_key*
 heap_id*
+rollbar_token

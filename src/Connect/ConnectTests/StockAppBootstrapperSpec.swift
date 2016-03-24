@@ -12,6 +12,7 @@ class StockAppBootstrapperSpec: QuickSpec {
             var audioSession: AVAudioSession!
             var theme: FakeTheme!
             var window: FakeUIWindow!
+            let apiKeyProvider = APIKeyProvider()
 
             beforeEach {
                 onboardingWorkflow = FakeOnboardingWorkflow()
@@ -23,6 +24,7 @@ class StockAppBootstrapperSpec: QuickSpec {
                     onboardingWorkflow: onboardingWorkflow,
                     window: window,
                     audioSession: audioSession,
+                    apiKeyProvider: apiKeyProvider,
                     theme: theme
                 )
             }

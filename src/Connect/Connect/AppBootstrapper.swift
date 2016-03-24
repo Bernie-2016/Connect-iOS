@@ -1,7 +1,5 @@
 import UIKit
 import AVFoundation
-import Fabric
-import Crashlytics
 
 protocol AppBootstrapper {
     func bootstrap()
@@ -11,26 +9,35 @@ class StockAppBootstrapper: AppBootstrapper {
     let onboardingWorkflow: OnboardingWorkflow
     let window: UIWindow
     let audioSession: AVAudioSession
+    let apiKeyProvider: APIKeyProvider
     let theme: Theme
 
-    init(onboardingWorkflow: OnboardingWorkflow, window: UIWindow, audioSession: AVAudioSession, theme: Theme) {
+    init(onboardingWorkflow: OnboardingWorkflow, window: UIWindow, audioSession: AVAudioSession, apiKeyProvider: APIKeyProvider, theme: Theme) {
         self.onboardingWorkflow = onboardingWorkflow
         self.window = window
         self.audioSession = audioSession
+        self.apiKeyProvider = apiKeyProvider
         self.theme = theme
     }
 
     func bootstrap() {
-        configureFabric()
+        configureRollbar()
         configureAudioSession()
         startApp()
     }
 
     // MARK: Private
 
-    private func configureFabric() {
+    private func configureRollbar() {
         #if RELEASE
-            Fabric.with([Crashlytics.self()])
+            let rollbarConfig = RollbarConfiguration()
+            #if ACCEPTANCE
+            rollbarConfig.environment = "QA"
+            #endif
+            #if PRODUCTION
+            rollbarConfig.environment = "Production"
+            #endif
+            Rollbar.initWithAccessToken(apiKeyProvider.rollbarAccessToken(), configuration: rollbarConfig)
         #endif
     }
 

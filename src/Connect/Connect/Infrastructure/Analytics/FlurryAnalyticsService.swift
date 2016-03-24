@@ -1,8 +1,5 @@
 import Foundation
 
-#if RELEASE
-    import Crashlytics
-#endif
 
 class FlurryAnalyticsService: AnalyticsService {
     private let applicationSettingsRepository: ApplicationSettingsRepository

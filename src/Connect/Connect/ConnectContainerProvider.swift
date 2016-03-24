@@ -36,6 +36,7 @@ class ConnectContainerProvider {
                 onboardingWorkflow: resolver.resolve(OnboardingWorkflow.self)!,
                 window: resolver.resolve(UIWindow.self, name: "main")!,
                 audioSession: resolver.resolve(AVAudioSession.self)!,
+                apiKeyProvider: resolver.resolve(APIKeyProvider.self)!,
                 theme: resolver.resolve(Theme.self)!)
             }.inObjectScope(.Container)
 

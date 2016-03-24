@@ -27,4 +27,9 @@ class APIKeyProvider {
         guard let appID = self.plist.objectForKey("HEAP_APP_ID") as? String else { return "KEY_NOT_FOUND" }
         return appID
     }
+
+    func rollbarAccessToken() -> String {
+        guard let accessToken = self.plist.objectForKey("ROLLBAR_ACCESS_TOKEN") as? String else { return "KEY_NOT_FOUND" }
+        return accessToken
+    }
 }

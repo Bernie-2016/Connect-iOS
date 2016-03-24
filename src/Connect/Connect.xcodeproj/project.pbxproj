@@ -199,6 +199,8 @@
 		656BC9661C70260D00CFA4EB /* tonybenn.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 656BC9651C70260D00CFA4EB /* tonybenn.jpg */; };
 		656BC9681C702BA800CFA4EB /* AlwaysReusingTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656BC9671C702BA800CFA4EB /* AlwaysReusingTableView.swift */; };
 		656BFBD01C94801F004DB9F1 /* StockNearbyEventsUseCaseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656BFBCF1C94801F004DB9F1 /* StockNearbyEventsUseCaseSpec.swift */; };
+		65701C3A1CA38DA900AA1391 /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65701C381CA38DA900AA1391 /* CrashReporter.framework */; };
+		65701C3B1CA38DA900AA1391 /* Rollbar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65701C391CA38DA900AA1391 /* Rollbar.framework */; };
 		65713DE11C5DAA0F00E6E4FC /* action_alert_with_invalid_sharing_urls.json in Resources */ = {isa = PBXBuildFile; fileRef = 65713DE01C5DAA0F00E6E4FC /* action_alert_with_invalid_sharing_urls.json */; };
 		657C13EF1C615CFF00EC1569 /* BaseURLs.plist in Resources */ = {isa = PBXBuildFile; fileRef = 657C13EE1C615CFF00EC1569 /* BaseURLs.plist */; };
 		657C13F31C615E1400EC1569 /* BaseURLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657C13F21C615E1400EC1569 /* BaseURLProvider.swift */; };
@@ -224,8 +226,6 @@
 		65A1A2541C4C7A1400C09AB2 /* OnboardingContainerConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A1A2531C4C7A1400C09AB2 /* OnboardingContainerConfigurator.swift */; };
 		65A1A2561C4C7B4100C09AB2 /* UserNotificationsContainerConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A1A2551C4C7B4100C09AB2 /* UserNotificationsContainerConfigurator.swift */; };
 		65A337011BB88FFA0012877F /* FakeEventPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A337001BB88FFA0012877F /* FakeEventPresenter.swift */; };
-		65A5C0FA1BA2978600D46500 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A5C0F91BA2978600D46500 /* Fabric.framework */; };
-		65A5C0FC1BA29F2200D46500 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A5C0FB1BA29F2200D46500 /* Crashlytics.framework */; };
 		65AD23AF1B96413200C32A02 /* WebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65AD23AE1B96413200C32A02 /* WebImage.framework */; };
 		65AD23B21B968D6800C32A02 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AD23B11B968D6800C32A02 /* TestUtils.swift */; };
 		65AEED5F1CA1D78700EE585A /* libHeap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65AEED5E1CA1D78700EE585A /* libHeap.a */; };
@@ -569,6 +569,8 @@
 		656BC9651C70260D00CFA4EB /* tonybenn.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tonybenn.jpg; sourceTree = "<group>"; };
 		656BC9671C702BA800CFA4EB /* AlwaysReusingTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlwaysReusingTableView.swift; sourceTree = "<group>"; };
 		656BFBCF1C94801F004DB9F1 /* StockNearbyEventsUseCaseSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockNearbyEventsUseCaseSpec.swift; sourceTree = "<group>"; };
+		65701C381CA38DA900AA1391 /* CrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CrashReporter.framework; sourceTree = "<group>"; };
+		65701C391CA38DA900AA1391 /* Rollbar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Rollbar.framework; sourceTree = "<group>"; };
 		65713DE01C5DAA0F00E6E4FC /* action_alert_with_invalid_sharing_urls.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = action_alert_with_invalid_sharing_urls.json; sourceTree = "<group>"; };
 		657C13EE1C615CFF00EC1569 /* BaseURLs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BaseURLs.plist; sourceTree = "<group>"; };
 		657C13F21C615E1400EC1569 /* BaseURLProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseURLProvider.swift; sourceTree = "<group>"; };
@@ -595,8 +597,6 @@
 		65A1A2531C4C7A1400C09AB2 /* OnboardingContainerConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingContainerConfigurator.swift; sourceTree = "<group>"; };
 		65A1A2551C4C7B4100C09AB2 /* UserNotificationsContainerConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserNotificationsContainerConfigurator.swift; sourceTree = "<group>"; };
 		65A337001BB88FFA0012877F /* FakeEventPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeEventPresenter.swift; sourceTree = "<group>"; };
-		65A5C0F91BA2978600D46500 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
-		65A5C0FB1BA29F2200D46500 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		65AD23AE1B96413200C32A02 /* WebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebImage.framework; path = Carthage/Build/iOS/WebImage.framework; sourceTree = "<group>"; };
 		65AD23B11B968D6800C32A02 /* TestUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
 		65AEED5D1CA1D78700EE585A /* Heap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Heap.h; sourceTree = "<group>"; };
@@ -711,15 +711,15 @@
 				65937D211C4058AE003A1EFA /* CBGPromise.framework in Frameworks */,
 				65AEED611CA1D7FA00EE585A /* CFNetwork.framework in Frameworks */,
 				65DA57C71C77F8D200D49826 /* CocoaMarkdown.framework in Frameworks */,
-				65A5C0FC1BA29F2200D46500 /* Crashlytics.framework in Frameworks */,
+				65701C3A1CA38DA900AA1391 /* CrashReporter.framework in Frameworks */,
 				65DB15E91C88064800F470D5 /* DateTools.framework in Frameworks */,
-				65A5C0FA1BA2978600D46500 /* Fabric.framework in Frameworks */,
 				654948DB1BFAFAE300C1ECDB /* libFlurry_7.3.0.a in Frameworks */,
 				65AEED5F1CA1D78700EE585A /* libHeap.a in Frameworks */,
 				65AEED631CA1D80700EE585A /* libicucore.tbd in Frameworks */,
 				65494C601BFB8EC100C1ECDB /* libsqlite3.tbd in Frameworks */,
 				654D12941C3E0F28000A2982 /* Parse.framework in Frameworks */,
 				65CA5E991B86E76D0001D870 /* PureLayout.framework in Frameworks */,
+				65701C3B1CA38DA900AA1391 /* Rollbar.framework in Frameworks */,
 				65AEED651CA1D81000EE585A /* Security.framework in Frameworks */,
 				65B7815A1C4C58B90087699B /* Swinject.framework in Frameworks */,
 				654948D71BFADF9F00C1ECDB /* SystemConfiguration.framework in Frameworks */,
@@ -1309,6 +1309,15 @@
 			path = HTML;
 			sourceTree = "<group>";
 		};
+		65701C371CA38DA900AA1391 /* Rollbar */ = {
+			isa = PBXGroup;
+			children = (
+				65701C381CA38DA900AA1391 /* CrashReporter.framework */,
+				65701C391CA38DA900AA1391 /* Rollbar.framework */,
+			);
+			path = Rollbar;
+			sourceTree = "<group>";
+		};
 		659D06801B9FD79D0099DA3F /* Externals */ = {
 			isa = PBXGroup;
 			children = (
@@ -1323,8 +1332,7 @@
 			children = (
 				654948CE1BFA797E00C1ECDB /* Flurry */,
 				65AEED5C1CA1D78700EE585A /* Heap */,
-				65A5C0FB1BA29F2200D46500 /* Crashlytics.framework */,
-				65A5C0F91BA2978600D46500 /* Fabric.framework */,
+				65701C371CA38DA900AA1391 /* Rollbar */,
 			);
 			path = Externals;
 			sourceTree = "<group>";
@@ -1631,7 +1639,6 @@
 				8233FC051B7C28FB00A5E9ED /* Resources */,
 				65B1654B1B9747070052EF8D /* Copy symbolication files */,
 				65B1654A1B9746940052EF8D /* Copy Carthage frameworks */,
-				65A5C0F21BA27C0200D46500 /* Set up Fabric */,
 				654948D81BFAF11D00C1ECDB /* Reset API Keys */,
 				657C13F11C615D9900EC1569 /* Reset base URLs */,
 			);
@@ -1761,7 +1768,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -x -e\nHEAP_ID_FILE=\"/Users/mjs/workspace/Connect-iOS/heap_id_$CONFIGURATION\"\nFLURRY_KEY_FILE=\"/Users/mjs/workspace/Connect-iOS/flurry_key_$CONFIGURATION\"\nPARSE_KEY_FILE=\"/Users/mjs/workspace/Connect-iOS/parse_key_$CONFIGURATION\"\n\n\nif [ \"$CONFIGURATION\" = \"Release\" ] || [ \"$CONFIGURATION\" = \"Acceptance\" ]; then\nif [ -f $HEAP_ID_FILE ]; then\necho \"Setting up Heap App ID for $CONFIGURATION\"\n/usr/libexec/PlistBuddy -c \"set :HEAP_APP_ID `cat $HEAP_ID_FILE`\" Connect/ApiKeys.plist\nelse\necho \"No Heap App ID file found, skipping\"\nfi\nfi\n\nif [ \"$CONFIGURATION\" = \"Release\" ] || [ \"$CONFIGURATION\" = \"Acceptance\" ]; then\n  if [ -f $FLURRY_KEY_FILE ]; then\n    echo \"Setting up Flurry API Key for $CONFIGURATION\"\n    /usr/libexec/PlistBuddy -c \"set :FLURRY_API_KEY `cat $FLURRY_KEY_FILE`\" Connect/ApiKeys.plist\n    else\n    echo \"No Flurry API Key file found, skipping\"\n    fi\nfi\n\nif [ -f $PARSE_KEY_FILE ]; then\necho \"Setting up Parse API Key\"\n    PARSE_APPLICATION_ID=`cat $PARSE_KEY_FILE | cut -f 1 -d :`\n    PARSE_CLIENT_KEY=`cat $PARSE_KEY_FILE | cut -f 2 -d :`\n    /usr/libexec/PlistBuddy -c \"set :PARSE_APPLICATION_ID $PARSE_APPLICATION_ID\" Connect/ApiKeys.plist\n    /usr/libexec/PlistBuddy -c \"set :PARSE_CLIENT_KEY $PARSE_CLIENT_KEY\" Connect/ApiKeys.plist\nelse\necho \"No Parse Key file found, skipping\"\nfi\n\n\n\n";
+			shellScript = "set -x -e\nHEAP_ID_FILE=\"/Users/mjs/workspace/Connect-iOS/heap_id_$CONFIGURATION\"\nFLURRY_KEY_FILE=\"/Users/mjs/workspace/Connect-iOS/flurry_key_$CONFIGURATION\"\nPARSE_KEY_FILE=\"/Users/mjs/workspace/Connect-iOS/parse_key_$CONFIGURATION\"\nROLLBAR_TOKEN_FILE=\"/Users/mjs/workspace/Connect-iOS/rollbar_token\"\n\nif [ \"$CONFIGURATION\" = \"Release\" ] || [ \"$CONFIGURATION\" = \"Acceptance\" ]; then\nif [ -f $HEAP_ID_FILE ]; then\necho \"Setting up Heap App ID for $CONFIGURATION\"\n/usr/libexec/PlistBuddy -c \"set :HEAP_APP_ID `cat $HEAP_ID_FILE`\" Connect/ApiKeys.plist\nelse\necho \"No Heap App ID file found, skipping\"\nfi\nfi\n\nif [ \"$CONFIGURATION\" = \"Release\" ] || [ \"$CONFIGURATION\" = \"Acceptance\" ]; then\n  if [ -f $FLURRY_KEY_FILE ]; then\n    echo \"Setting up Flurry API Key for $CONFIGURATION\"\n    /usr/libexec/PlistBuddy -c \"set :FLURRY_API_KEY `cat $FLURRY_KEY_FILE`\" Connect/ApiKeys.plist\n    else\n    echo \"No Flurry API Key file found, skipping\"\n    fi\nfi\n\nif [ \"$CONFIGURATION\" = \"Release\" ] || [ \"$CONFIGURATION\" = \"Acceptance\" ]; then\nif [ -f $ROLLBAR_TOKEN_FILE ]; then\necho \"Setting up Rollbar Access Token\"\n/usr/libexec/PlistBuddy -c \"set :ROLLBAR_ACCESS_TOKEN `cat $ROLLBAR_TOKEN_FILE`\" Connect/ApiKeys.plist\nelse\necho \"No Rollbar Access Token file found, skipping\"\nfi\nfi\n\nif [ -f $PARSE_KEY_FILE ]; then\necho \"Setting up Parse API Key\"\n    PARSE_APPLICATION_ID=`cat $PARSE_KEY_FILE | cut -f 1 -d :`\n    PARSE_CLIENT_KEY=`cat $PARSE_KEY_FILE | cut -f 2 -d :`\n    /usr/libexec/PlistBuddy -c \"set :PARSE_APPLICATION_ID $PARSE_APPLICATION_ID\" Connect/ApiKeys.plist\n    /usr/libexec/PlistBuddy -c \"set :PARSE_CLIENT_KEY $PARSE_CLIENT_KEY\" Connect/ApiKeys.plist\nelse\necho \"No Parse Key file found, skipping\"\nfi\n\n\n\n";
 		};
 		654948D81BFAF11D00C1ECDB /* Reset API Keys */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1775,7 +1782,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -x -e\n\necho \"Resetting Flurry API Key\"\n\n/usr/libexec/PlistBuddy -c \"set :FLURRY_API_KEY SET_BY_PLIST_BUDDY\" Connect/ApiKeys.plist\n/usr/libexec/PlistBuddy -c \"set :PARSE_APPLICATION_ID SET_BY_PLIST_BUDDY\" Connect/ApiKeys.plist\n/usr/libexec/PlistBuddy -c \"set :PARSE_CLIENT_KEY SET_BY_PLIST_BUDDY\" Connect/ApiKeys.plist\n/usr/libexec/PlistBuddy -c \"set :HEAP_APP_ID SET_BY_PLIST_BUDDY\" Connect/ApiKeys.plist\n\n";
+			shellScript = "set -x -e\n\necho \"Resetting Flurry API Key\"\n\n/usr/libexec/PlistBuddy -c \"set :FLURRY_API_KEY SET_BY_PLIST_BUDDY\" Connect/ApiKeys.plist\n/usr/libexec/PlistBuddy -c \"set :PARSE_APPLICATION_ID SET_BY_PLIST_BUDDY\" Connect/ApiKeys.plist\n/usr/libexec/PlistBuddy -c \"set :PARSE_CLIENT_KEY SET_BY_PLIST_BUDDY\" Connect/ApiKeys.plist\n/usr/libexec/PlistBuddy -c \"set :HEAP_APP_ID SET_BY_PLIST_BUDDY\" Connect/ApiKeys.plist\n/usr/libexec/PlistBuddy -c \"set :ROLLBAR_ACCESS_TOKEN SET_BY_PLIST_BUDDY\" Connect/ApiKeys.plist\n\n";
 		};
 		657C13F01C615D3C00EC1569 /* Set up base URLs */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1804,20 +1811,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -x -e\n\necho \"Resetting base URLs\"\n\n/usr/libexec/PlistBuddy -c \"set :SHARKNADO_BASE_URL SET_BY_PLIST_BUDDY\" Connect/BaseURLs.plist\n/usr/libexec/PlistBuddy -c \"set :CONNECT_BASE_URL SET_BY_PLIST_BUDDY\" Connect/BaseURLs.plist\n\n\n";
-		};
-		65A5C0F21BA27C0200D46500 /* Set up Fabric */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Set up Fabric";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "set -x -e\nFABRIC_SECRET_FILE=\"/Users/mjs/workspace/Connect-iOS/fabric_secret\"\n\nif [ -f $FABRIC_SECRET_FILE ];\nthen\ncat $FABRIC_SECRET_FILE\necho \"Enabling Fabric\"\n./Connect/Externals/Fabric.framework/run `cat $FABRIC_SECRET_FILE`\nelse\necho \"No secret file found, skipping\"\nfi";
 		};
 		65B1654A1B9746940052EF8D /* Copy Carthage frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2205,6 +2198,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Connect/Externals",
+					"$(PROJECT_DIR)/Connect/Externals/Rollbar",
 				);
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_PEDANTIC = YES;
@@ -2218,13 +2212,14 @@
 					"$(PROJECT_DIR)/Connect/Externals/Heap",
 				);
 				MACH_O_TYPE = mh_execute;
-				OTHER_SWIFT_FLAGS = "-DRELEASE";
+				OTHER_SWIFT_FLAGS = "-DRELEASE -DACCEPTANCE";
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER)";
 				PRODUCT_MODULE_NAME = Connect;
 				PRODUCT_NAME = ConnectQA;
 				PROVISIONING_PROFILE = "";
 				SHARKNADO_BASE_URL = "https://sharknado-staging.berniesanders.com";
 				SWIFT_OBJC_BRIDGING_HEADER = "Connect/Connect-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_EXPORT_DECL = "#pragma clang diagnostic ignored \"-Wmissing-variable-declarations\"";
@@ -2373,6 +2368,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Connect/Externals",
+					"$(PROJECT_DIR)/Connect/Externals/Rollbar",
 				);
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_PEDANTIC = YES;
@@ -2422,6 +2418,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Connect/Externals",
+					"$(PROJECT_DIR)/Connect/Externals/Rollbar",
 				);
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_PEDANTIC = YES;
@@ -2435,13 +2432,14 @@
 					"$(PROJECT_DIR)/Connect/Externals/Heap",
 				);
 				MACH_O_TYPE = mh_execute;
-				OTHER_SWIFT_FLAGS = "-DRELEASE";
+				OTHER_SWIFT_FLAGS = "-DRELEASE -DPRODUCTION";
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER)";
 				PRODUCT_MODULE_NAME = Connect;
 				PRODUCT_NAME = Connect;
 				PROVISIONING_PROFILE = "";
 				SHARKNADO_BASE_URL = "https://sharknado.berniesanders.com";
 				SWIFT_OBJC_BRIDGING_HEADER = "Connect/Connect-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_EXPORT_DECL = "#pragma clang diagnostic ignored \"-Wmissing-variable-declarations\"";
