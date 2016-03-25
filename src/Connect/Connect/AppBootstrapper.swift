@@ -38,6 +38,7 @@ class StockAppBootstrapper: AppBootstrapper {
             rollbarConfig.environment = "Production"
             #endif
             Rollbar.initWithAccessToken(apiKeyProvider.rollbarAccessToken(), configuration: rollbarConfig)
+            Rollbar.errorWithMessage("Test error")
         #endif
     }
 
