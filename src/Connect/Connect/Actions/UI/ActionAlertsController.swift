@@ -278,6 +278,10 @@ extension ActionAlertsController: UICollectionViewDataSource {
             view.removeFromSuperview()
         }
 
+        if webViews.count == 0 || indexPath.item > webViews.count - 1 {
+            return cell
+        }
+
         let webView = webViews[indexPath.item]
         webView.removeConstraints(webView.constraints)
         webView.alpha = 1
