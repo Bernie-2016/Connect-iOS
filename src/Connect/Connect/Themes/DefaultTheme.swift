@@ -171,9 +171,9 @@ class DefaultTheme: Theme {
     func actionsShortDescriptionFont() -> UIFont { return lightSystemFontOfSize(13) }
     func actionsShortDescriptionTextColor() -> UIColor { return tundoraColor }
     func actionsShortLoadingMessageFont() -> UIFont { return lightSystemFontOfSize(13) }
-    func actionsShortLoadingMessageTextColor() -> UIColor { return UIColor.whiteColor() }
+    func actionsShortLoadingMessageTextColor() -> UIColor { return tundoraColor }
     func actionsErrorMessageFont() -> UIFont { return lightSystemFontOfSize(13) }
-    func actionsErrorMessageTextColor() -> UIColor { return UIColor.whiteColor() }
+    func actionsErrorMessageTextColor() -> UIColor { return tundoraColor }
 
     // MARK: Markdown
 

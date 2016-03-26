@@ -16,6 +16,7 @@ class ActionAlertsController: UIViewController {
     let loadingMessageLabel = UILabel.newAutoLayoutView()
     let errorLabel = UILabel.newAutoLayoutView()
     let retryButton = UIButton.newAutoLayoutView()
+    let backgroundImageView = UIImageView.newAutoLayoutView()
 
     private let layout = CenterCellCollectionViewFlowLayout()
     private var webViews: [UIWebView] = []
@@ -78,12 +79,14 @@ class ActionAlertsController: UIViewController {
         pageControl.pageIndicatorTintColor = theme.defaultPageIndicatorTintColor()
         navigationItem.titleView = pageControl
 
+        view.addSubview(backgroundImageView)
         view.addSubview(collectionView)
         view.addSubview(loadingIndicatorView)
         view.addSubview(loadingMessageLabel)
         view.addSubview(errorLabel)
         view.addSubview(retryButton)
 
+        collectionView.backgroundColor = UIColor.clearColor()
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.clipsToBounds = false
         collectionView.hidden = true
@@ -114,7 +117,7 @@ class ActionAlertsController: UIViewController {
 
     private func applyTheme() {
         view.backgroundColor = theme.actionsBackgroundColor()
-        collectionView.backgroundView = UIImageView(image: UIImage(named: "actionAlertsBackground")!)
+        backgroundImageView.image = UIImage(named: "actionAlertsBackground")!
 
         loadingIndicatorView.color = theme.defaultSpinnerColor()
 
@@ -129,10 +132,8 @@ class ActionAlertsController: UIViewController {
     }
 
     private func setupConstraints() {
-        collectionView.autoPinEdge(.Top, toEdge: .Top, ofView: view)
-        collectionView.autoPinEdge(.Left, toEdge: .Left, ofView: view)
-        collectionView.autoPinEdge(.Right, toEdge: .Right, ofView: view)
-        collectionView.autoPinEdge(.Bottom, toEdge: .Bottom, ofView: view)
+        backgroundImageView.autoPinEdgesToSuperviewEdges()
+        collectionView.autoPinEdgesToSuperviewEdges()
 
         loadingIndicatorView.autoAlignAxisToSuperviewAxis(.Vertical)
         loadingIndicatorView.autoAlignAxis(.Horizontal, toSameAxisOfView: view, withOffset: -20)
