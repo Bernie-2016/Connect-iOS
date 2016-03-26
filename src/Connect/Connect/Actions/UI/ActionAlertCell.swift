@@ -61,7 +61,7 @@ class ActionAlertCell: UICollectionViewCell {
 
         titleLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: 25)
         titleLabel.autoPinEdge(.Left, toEdge: .Left, ofView: webviewContainer, withOffset: 5)
-        titleLabel.autoPinEdge(.Right, toEdge: .Right, ofView: webviewContainer, withOffset: 5)
+        titleLabel.autoPinEdge(.Right, toEdge: .Right, ofView: webviewContainer, withOffset: -5)
 
         shortDescriptionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: titleLabel, withOffset: 14)
         shortDescriptionLabel.autoPinEdge(.Left, toEdge: .Left, ofView: titleLabel)
