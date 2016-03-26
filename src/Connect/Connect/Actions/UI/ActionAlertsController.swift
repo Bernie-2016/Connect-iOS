@@ -302,6 +302,7 @@ extension ActionAlertsController: UICollectionViewDataSource {
         cell.titleLabel.textColor = theme.actionsTitleTextColor()
         cell.shortDescriptionLabel.font = theme.actionsShortDescriptionFont()
         cell.shortDescriptionLabel.textColor = theme.actionsShortDescriptionTextColor()
+        cell.activityIndicatorView.color = theme.defaultSpinnerColor()
 
         return cell
     }

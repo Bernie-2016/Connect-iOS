@@ -361,6 +361,7 @@ class ActionAlertsControllerSpec: QuickSpec {
                     expect(cell.titleLabel.textColor) == UIColor.magentaColor()
                     expect(cell.shortDescriptionLabel.font) == UIFont.systemFontOfSize(222)
                     expect(cell.shortDescriptionLabel.textColor) == UIColor.orangeColor()
+                    expect(cell.activityIndicatorView.color) == UIColor.greenColor()
                 }
             }
 

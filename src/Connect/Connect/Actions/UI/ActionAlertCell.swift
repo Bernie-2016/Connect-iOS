@@ -5,8 +5,10 @@ class ActionAlertCell: UICollectionViewCell {
     let titleLabel = UILabel.newAutoLayoutView()
     let shortDescriptionLabel = UILabel.newAutoLayoutView()
     let webviewContainer = UIView.newAutoLayoutView()
+    let activityIndicatorView = UIActivityIndicatorView.newAutoLayoutView()
 
     private let spacerView = UIView.newAutoLayoutView()
+
 
     private var webviewContainerHeightConstraint: NSLayoutConstraint?
     var webViewHeight: CGFloat {
@@ -40,10 +42,13 @@ class ActionAlertCell: UICollectionViewCell {
 
         contentView.addSubview(scrollView)
 
+        scrollView.addSubview(activityIndicatorView)
         scrollView.addSubview(titleLabel)
         scrollView.addSubview(shortDescriptionLabel)
         scrollView.addSubview(webviewContainer)
         scrollView.addSubview(spacerView)
+
+        activityIndicatorView.startAnimating()
 
         setupConstraints()
     }
@@ -66,6 +71,9 @@ class ActionAlertCell: UICollectionViewCell {
         webviewContainer.autoPinEdgeToSuperviewEdge(.Left)
         webviewContainer.autoMatchDimension(.Width, toDimension: .Width, ofView: scrollView)
         webviewContainerHeightConstraint = webviewContainer.autoSetDimension(.Height, toSize: 0)
+
+        activityIndicatorView.autoPinEdge(.Top, toEdge: .Top, ofView: webviewContainer, withOffset: 30)
+        activityIndicatorView.autoAlignAxis(.Vertical, toSameAxisOfView: webviewContainer)
 
         spacerView.autoPinEdge(.Top, toEdge: .Bottom, ofView: webviewContainer)
         spacerView.autoPinEdgeToSuperviewEdge(.Left)
