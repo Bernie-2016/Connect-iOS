@@ -144,11 +144,23 @@ class DefaultTheme: Theme {
 
     // MARK Welcome
 
-    func welcomeTakeThePowerBackFont() -> UIFont { if #available(iOS 8.2, *) {
-        return UIFont.systemFontOfSize(26, weight: UIFontWeightLight)
-    } else {
-        return UIFont.systemFontOfSize(26)
-        } }
+    func welcomeTakeThePowerBackFont() -> UIFont {
+        var fontSize: CGFloat!
+
+        let deviceType = DeviceDetective.identifyDevice()
+        switch deviceType {
+        case .Four, .Five, .NewAndShiny:
+            fontSize = 22
+        default:
+            fontSize = 26
+        }
+
+        if #available(iOS 8.2, *) {
+            return UIFont.systemFontOfSize(fontSize, weight: UIFontWeightLight)
+        } else {
+            return UIFont.systemFontOfSize(fontSize)
+        }
+    }
     func welcomeBackgroundColor() -> UIColor { return UIColor.whiteColor() }
     func welcomeTextColor() -> UIColor { return tundoraColor }
 

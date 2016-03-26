@@ -72,14 +72,16 @@ class WelcomeControllerSpec: QuickSpec {
                     subject.view.layoutSubviews()
                 }
 
-                it("has a scroll view containing the UI elements") {
+                it("has the UI elements") {
                     expect(subject.view.subviews.count) == 3
 
                     let subviews = subject.view.subviews
 
                     expect(subviews.contains(subject.actionAlertImageView)) == true
-                    expect(subviews.contains(subject.takeThePowerBackLabel)) == true
+                    expect(subviews.contains(subject.textContainerView)) == true
                     expect(subviews.contains(subject.continueButton)) == true
+
+                    expect(subject.textContainerView.subviews).to(contain(subject.takeThePowerBackLabel))
                 }
 
                 it("enables analytics") {

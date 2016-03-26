@@ -153,6 +153,7 @@
 		653F6BAD1C98A261009D42A0 /* EventsNearAddressSearchBarControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653F6BAC1C98A261009D42A0 /* EventsNearAddressSearchBarControllerSpec.swift */; };
 		65444BCC1C8B959200CC8AC8 /* StockChildControllerBuddySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65444BCB1C8B959200CC8AC8 /* StockChildControllerBuddySpec.swift */; };
 		65444BCE1C8B95F700CC8AC8 /* ChildControllerBuddy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65444BCD1C8B95F700CC8AC8 /* ChildControllerBuddy.swift */; };
+		65447F821CA6F031000A2942 /* DeviceDetective.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65447F811CA6F031000A2942 /* DeviceDetective.swift */; };
 		654948D41BFADBD500C1ECDB /* ApiKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 654948D31BFADBD500C1ECDB /* ApiKeys.plist */; };
 		654948D71BFADF9F00C1ECDB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654948D61BFADF9F00C1ECDB /* SystemConfiguration.framework */; };
 		654948DB1BFAFAE300C1ECDB /* libFlurry_7.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 654948D11BFA797E00C1ECDB /* libFlurry_7.3.0.a */; };
@@ -521,6 +522,7 @@
 		653F6BAC1C98A261009D42A0 /* EventsNearAddressSearchBarControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsNearAddressSearchBarControllerSpec.swift; sourceTree = "<group>"; };
 		65444BCB1C8B959200CC8AC8 /* StockChildControllerBuddySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockChildControllerBuddySpec.swift; sourceTree = "<group>"; };
 		65444BCD1C8B95F700CC8AC8 /* ChildControllerBuddy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChildControllerBuddy.swift; sourceTree = "<group>"; };
+		65447F811CA6F031000A2942 /* DeviceDetective.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceDetective.swift; sourceTree = "<group>"; };
 		654948CF1BFA797E00C1ECDB /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		654948D01BFA797E00C1ECDB /* FlurryWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryWatch.h; sourceTree = "<group>"; };
 		654948D11BFA797E00C1ECDB /* libFlurry_7.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_7.3.0.a; sourceTree = "<group>"; };
@@ -1012,6 +1014,7 @@
 				65444BCD1C8B95F700CC8AC8 /* ChildControllerBuddy.swift */,
 				653D0F8F1C4C35C0004CB8A0 /* ConcreteTabBarItemStylist.swift */,
 				653D0F901C4C35C0004CB8A0 /* ConcreteTimeIntervalFormatter.swift */,
+				65447F811CA6F031000A2942 /* DeviceDetective.swift */,
 				653D0F921C4C35C0004CB8A0 /* DisclosureButton.swift */,
 				653D0F931C4C35C0004CB8A0 /* DisclosureIndicatorView.swift */,
 				65979AA11C4C67AF00A312A9 /* GlobalUIContainerConfigurator.swift */,
@@ -1903,6 +1906,7 @@
 				653D0F7F1C4C2F68004CB8A0 /* DateProvider.swift in Sources */,
 				65CA5E931B86E4A00001D870 /* DefaultTheme.swift in Sources */,
 				651BF5AB1CA1DD8E00172CE6 /* DelegatingAnalyticsService.swift in Sources */,
+				65447F821CA6F031000A2942 /* DeviceDetective.swift in Sources */,
 				653D0F9E1C4C35C0004CB8A0 /* DisclosureButton.swift in Sources */,
 				653D0F9F1C4C35C0004CB8A0 /* DisclosureIndicatorView.swift in Sources */,
 				655B6AD01C9B45C300153AD9 /* EditAddressSearchBarController.swift in Sources */,
