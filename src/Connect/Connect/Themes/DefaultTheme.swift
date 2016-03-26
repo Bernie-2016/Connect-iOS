@@ -145,14 +145,12 @@ class DefaultTheme: Theme {
     // MARK Welcome
 
     func welcomeTakeThePowerBackFont() -> UIFont { if #available(iOS 8.2, *) {
-        return UIFont.systemFontOfSize(35, weight: UIFontWeightLight)
+        return UIFont.systemFontOfSize(26, weight: UIFontWeightLight)
     } else {
-        return UIFont.systemFontOfSize(35)
+        return UIFont.systemFontOfSize(26)
         } }
-    func viewPolicyBackgroundColor() -> UIColor { return silverColor }
-    func agreeToTermsLabelFont() -> UIFont { return UIFont.systemFontOfSize(11) }
-    func welcomeBackgroundColor() -> UIColor { return codGrayColor }
-    func welcomeTextColor() -> UIColor { return nobelColor }
+    func welcomeBackgroundColor() -> UIColor { return UIColor.whiteColor() }
+    func welcomeTextColor() -> UIColor { return tundoraColor }
 
     // MARK: Actions
 

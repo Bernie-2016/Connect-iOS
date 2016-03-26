@@ -9,8 +9,6 @@ class WelcomeFakeTheme: FakeTheme {
     override func defaultButtonFont() -> UIFont { return UIFont.italicSystemFontOfSize(222) }
     override func defaultButtonTextColor() -> UIColor { return UIColor.yellowColor() }
     override func welcomeTakeThePowerBackFont() -> UIFont { return UIFont.italicSystemFontOfSize(111) }
-    override func viewPolicyBackgroundColor() -> UIColor { return UIColor.magentaColor() }
-    override func agreeToTermsLabelFont() -> UIFont { return UIFont.italicSystemFontOfSize(333) }
     override func welcomeBackgroundColor() -> UIColor { return UIColor.redColor() }
     override func welcomeTextColor() -> UIColor { return UIColor.purpleColor() }
 }
@@ -41,132 +39,106 @@ class FakeOnboardingWorkflow: OnboardingWorkflow {
 }
 
 class WelcomeControllerSpec: QuickSpec {
-    var subject: WelcomeController!
-    var onboardingWorkflow: FakeOnboardingWorkflow!
-    var applicationSettingsRepository: FakeApplicationSettingsRepository!
-    let privacyPolicyController = TestUtils.privacyPolicyController()
-    var analyticsService: FakeAnalyticsService!
-    let theme = WelcomeFakeTheme()
-
-    var navigationController: UINavigationController!
-
     override func spec() {
         describe("WelcomeController") {
-            beforeEach {
-                self.applicationSettingsRepository = FakeApplicationSettingsRepository()
-                self.analyticsService = FakeAnalyticsService()
-                self.onboardingWorkflow = FakeOnboardingWorkflow()
+            var subject: WelcomeController!
+            var onboardingWorkflow: FakeOnboardingWorkflow!
+            var applicationSettingsRepository: FakeApplicationSettingsRepository!
+            let privacyPolicyController = TestUtils.privacyPolicyController()
+            var analyticsService: FakeAnalyticsService!
+            let theme = WelcomeFakeTheme()
 
-                self.subject = WelcomeController(
-                    applicationSettingsRepository: self.applicationSettingsRepository,
-                    privacyPolicyController: self.privacyPolicyController,
-                    analyticsService: self.analyticsService,
-                    theme: self.theme
+            var navigationController: UINavigationController!
+            beforeEach {
+                applicationSettingsRepository = FakeApplicationSettingsRepository()
+                analyticsService = FakeAnalyticsService()
+                onboardingWorkflow = FakeOnboardingWorkflow()
+
+                subject = WelcomeController(
+                    applicationSettingsRepository: applicationSettingsRepository,
+                    privacyPolicyController: privacyPolicyController,
+                    analyticsService: analyticsService,
+                    theme: theme
                 )
 
-                self.subject.onboardingWorkflow = self.onboardingWorkflow
+                subject.onboardingWorkflow = onboardingWorkflow
 
-                self.navigationController = UINavigationController()
-                self.navigationController.pushViewController(self.subject, animated: false)
+                navigationController = UINavigationController()
+                navigationController.pushViewController(subject, animated: false)
             }
 
             context("When the view loads") {
                 beforeEach {
-                    self.subject.view.layoutSubviews()
+                    subject.view.layoutSubviews()
                 }
 
                 it("has a scroll view containing the UI elements") {
-                    expect(self.subject.view.subviews.count).to(equal(4))
+                    expect(subject.view.subviews.count) == 3
 
-                    let subviews = self.subject.view.subviews
+                    let subviews = subject.view.subviews
 
-                    expect(subviews.contains(self.subject.billionairesImageView)).to(beTrue())
-                    expect(subviews.contains(self.subject.takeThePowerBackLabel)).to(beTrue())
-                    expect(subviews.contains(self.subject.agreeToTermsNoticeTextView)).to(beTrue())
-                    expect(subviews.contains(self.subject.agreeToTermsButton)).to(beTrue())
+                    expect(subviews.contains(subject.actionAlertImageView)) == true
+                    expect(subviews.contains(subject.takeThePowerBackLabel)) == true
+                    expect(subviews.contains(subject.continueButton)) == true
                 }
 
                 it("enables analytics") {
-                    expect(self.applicationSettingsRepository.lastAnalyticsPermissionGrantedValue).to(beTrue())
+                    expect(applicationSettingsRepository.lastAnalyticsPermissionGrantedValue) == true
                 }
 
                 it("has the correct image in the banner image view") {
-                    expect(self.subject.billionairesImageView.image).to(equal(UIImage(named: "billionaires")))
+                    expect(subject.actionAlertImageView.image) == UIImage(named: "actionAlertExample")
                 }
 
                 it("has a label with some welcome text") {
-                    expect(self.subject.takeThePowerBackLabel.text).to(contain("take our country back"))
+                    expect(subject.takeThePowerBackLabel.text).to(contain("Political Revolution"))
                 }
 
-                xdescribe("tapping on the view privacy policy text") {
+                it("has a button to advance to the next screen") {
+                    expect(subject.continueButton.titleForState(.Normal)) == "GET STARTED"
+                }
+
+                describe("tapping on the continue button") {
                     beforeEach {
-                        // TODO: figure out a way to test this.
-                    }
-
-                    it("should push a correctly configured news item view controller onto the nav stack") {
-                        expect(self.subject.navigationController!.topViewController).to(beIdenticalTo(self.privacyPolicyController))
-                    }
-
-                    it("should log a content view with the analytics service") {
-                        expect(self.analyticsService.lastContentViewName).to(equal("Privacy Policy"))
-                        expect(self.analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.Onboarding))
-                        expect(self.analyticsService.lastContentViewID).to(equal("Privacy Policy"))
-                    }
-                }
-
-                it("has a label informing the user to agree to the terms to continue") {
-                    expect(self.subject.agreeToTermsNoticeTextView.text).to(equal("By tapping Continue, you are agreeing to the Privacy Policy."))
-                }
-
-                it("has a button for agreeing to the terms and conditions") {
-                    expect(self.subject.agreeToTermsButton.titleForState(.Normal)).to((equal("CONTINUE")))
-                }
-
-                describe("tapping on the agree to terms button") {
-                    beforeEach {
-                        self.subject.agreeToTermsButton.tap()
+                        subject.continueButton.tap()
                     }
 
                     it("opens tells the terms agreement repository that the user agreed to terms") {
-                        expect(self.applicationSettingsRepository.hasAgreedToTerms).to(beTrue())
+                        expect(applicationSettingsRepository.hasAgreedToTerms) == true
                     }
 
-                    it("logs that the user tapped the coders button") {
-                        expect(self.analyticsService.lastCustomEventName).to(equal("User agreed to Terms and Conditions"))
-                        expect(self.analyticsService.lastCustomEventAttributes).to(beNil())
+                    it("logs that the user tapped the continue button") {
+                        expect(analyticsService.lastCustomEventName) == "User tapped continue on welcome screen"
+                        expect(analyticsService.lastCustomEventAttributes).to(beNil())
                     }
 
                     context("when the terms agreement repository confirms that the user agreed to terms") {
                         it("tells the onboarding router that the user finished onboarding") {
-                            expect(self.onboardingWorkflow.hasFinishedOnboarding).to(beTrue())
-                            expect(self.onboardingWorkflow.lastControllerToFinishOnboarding).to(beIdenticalTo(self.subject))
+                            expect(onboardingWorkflow.hasFinishedOnboarding) == true
+                            expect(onboardingWorkflow.lastControllerToFinishOnboarding) === subject
                         }
                     }
                 }
 
                 describe("when the view appears") {
                     beforeEach {
-                        self.subject.viewWillAppear(false)
+                        subject.viewWillAppear(false)
                     }
 
                     it("hides the navigation bar") {
-                        expect(self.subject.navigationController!.navigationBarHidden).to(beTrue())
+                        expect(subject.navigationController!.navigationBarHidden) == true
                     }
                 }
 
                 it("styles the view components with the theme") {
-                    expect(self.subject.view.backgroundColor).to(equal(UIColor.redColor()))
+                    expect(subject.view.backgroundColor) == UIColor.redColor()
 
-                    expect(self.subject.takeThePowerBackLabel.font).to(equal(UIFont.italicSystemFontOfSize(111)))
-                    expect(self.subject.takeThePowerBackLabel.textColor).to(equal(UIColor.purpleColor()))
+                    expect(subject.takeThePowerBackLabel.font) == UIFont.italicSystemFontOfSize(111)
+                    expect(subject.takeThePowerBackLabel.textColor) == UIColor.purpleColor()
 
-                    expect(self.subject.agreeToTermsNoticeTextView.font).to(equal(UIFont.italicSystemFontOfSize(333)))
-                    expect(self.subject.agreeToTermsNoticeTextView.textColor).to(equal(UIColor.purpleColor()))
-                    expect(self.subject.agreeToTermsNoticeTextView.backgroundColor).to(equal(UIColor.redColor()))
-
-                    expect(self.subject.agreeToTermsButton.backgroundColor).to(equal(UIColor.orangeColor()))
-                    expect(self.subject.agreeToTermsButton.titleLabel!.font).to(equal(UIFont.italicSystemFontOfSize(222)))
-                    expect(self.subject.agreeToTermsButton.titleColorForState(.Normal)).to(equal(UIColor.yellowColor()))
+                    expect(subject.continueButton.backgroundColor) == UIColor.orangeColor()
+                    expect(subject.continueButton.titleLabel!.font) == UIFont.italicSystemFontOfSize(222)
+                    expect(subject.continueButton.titleColorForState(.Normal)) == UIColor.yellowColor()
                 }
             }
         }

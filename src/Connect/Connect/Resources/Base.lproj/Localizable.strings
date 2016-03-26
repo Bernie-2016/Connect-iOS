@@ -100,12 +100,8 @@
 
 // Welcome
 
-"Welcome_takeThePowerBack" = "Let’s take our country back.";
-"Welcome_agreeToTermsButtonTitle" = "CONTINUE";
-"Welcome_viewTermsTitle" = "Terms and Conditions";
-"Welcome_viewPrivacyPolicyTitle" = "Privacy Policy";
-"Welcome_privacyPolicy" = "Privacy Policy";
-"Welcome_agreeToTermsNoticeText" = "By tapping Continue, you are agreeing to the {0}.";
+"Welcome_takeThePowerBack" = "Join the Political Revolution.";
+"Welcome_agreeToTermsButtonTitle" = "GET STARTED";
 
 // Time intervals
 
