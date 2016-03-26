@@ -6,8 +6,6 @@ class ActionAlertCell: UICollectionViewCell {
     let shortDescriptionLabel = UILabel.newAutoLayoutView()
     let webviewContainer = UIView.newAutoLayoutView()
 
-    private let textContainerView = UIView.newAutoLayoutView()
-    private let textGroupView = UIView.newAutoLayoutView()
     private let spacerView = UIView.newAutoLayoutView()
 
     private var webviewContainerHeightConstraint: NSLayoutConstraint?
@@ -28,10 +26,12 @@ class ActionAlertCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        titleLabel.numberOfLines = 2
+        titleLabel.numberOfLines = 0
         titleLabel.layoutMargins = UIEdgeInsetsZero
-        shortDescriptionLabel.numberOfLines = 3
+        titleLabel.textAlignment = .Center
+        shortDescriptionLabel.numberOfLines = 0
         shortDescriptionLabel.layoutMargins = UIEdgeInsetsZero
+        shortDescriptionLabel.textAlignment = .Center
 
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
@@ -40,13 +40,10 @@ class ActionAlertCell: UICollectionViewCell {
 
         contentView.addSubview(scrollView)
 
-        scrollView.addSubview(textContainerView)
+        scrollView.addSubview(titleLabel)
+        scrollView.addSubview(shortDescriptionLabel)
         scrollView.addSubview(webviewContainer)
         scrollView.addSubview(spacerView)
-
-        textContainerView.addSubview(textGroupView)
-        textGroupView.addSubview(titleLabel)
-        textGroupView.addSubview(shortDescriptionLabel)
 
         setupConstraints()
     }
@@ -57,25 +54,15 @@ class ActionAlertCell: UICollectionViewCell {
         scrollView.autoPinEdgeToSuperviewEdge(.Left)
         scrollView.autoPinEdgeToSuperviewEdge(.Right)
 
-        textContainerView.autoPinEdgeToSuperviewEdge(.Top, withInset: 20)
-        textContainerView.autoPinEdgeToSuperviewEdge(.Left)
-        textContainerView.autoSetDimension(.Height, toSize: 155)
-        textContainerView.autoMatchDimension(.Width, toDimension: .Width, ofView: scrollView)
+        titleLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: 25)
+        titleLabel.autoPinEdge(.Left, toEdge: .Left, ofView: webviewContainer, withOffset: 5)
+        titleLabel.autoPinEdge(.Right, toEdge: .Right, ofView: webviewContainer, withOffset: 5)
 
-        textGroupView.autoPinEdgeToSuperviewEdge(.Left)
-        textGroupView.autoPinEdgeToSuperviewEdge(.Right)
-        textGroupView.autoAlignAxisToSuperviewAxis(.Horizontal)
-
-        titleLabel.autoPinEdgeToSuperviewEdge(.Top)
-        titleLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 5)
-        titleLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 5)
-
-        shortDescriptionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: titleLabel)
+        shortDescriptionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: titleLabel, withOffset: 14)
         shortDescriptionLabel.autoPinEdge(.Left, toEdge: .Left, ofView: titleLabel)
         shortDescriptionLabel.autoPinEdge(.Right, toEdge: .Right, ofView: titleLabel)
-        shortDescriptionLabel.autoPinEdgeToSuperviewEdge(.Bottom)
 
-        webviewContainer.autoPinEdge(.Top, toEdge: .Bottom, ofView: textContainerView)
+        webviewContainer.autoPinEdge(.Top, toEdge: .Bottom, ofView: shortDescriptionLabel, withOffset: 25)
         webviewContainer.autoPinEdgeToSuperviewEdge(.Left)
         webviewContainer.autoMatchDimension(.Width, toDimension: .Width, ofView: scrollView)
         webviewContainerHeightConstraint = webviewContainer.autoSetDimension(.Height, toSize: 0)

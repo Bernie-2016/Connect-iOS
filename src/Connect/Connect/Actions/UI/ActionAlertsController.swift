@@ -12,7 +12,7 @@ class ActionAlertsController: UIViewController {
 
     var collectionView: UICollectionView!
     let loadingIndicatorView = UIActivityIndicatorView()
-    let pageControl = UIPageControl.newAutoLayoutView()
+    var pageControl: UIPageControl!
     let loadingMessageLabel = UILabel.newAutoLayoutView()
     let errorLabel = UILabel.newAutoLayoutView()
     let retryButton = UIButton.newAutoLayoutView()
@@ -48,7 +48,7 @@ class ActionAlertsController: UIViewController {
 
             super.init(nibName: nil, bundle: nil)
 
-            title = NSLocalizedString("Actions_title", comment: "")
+            tabBarItem.title = NSLocalizedString("Actions_title", comment: "")
             tabBarItemStylist.applyThemeToBarBarItem(tabBarItem,
                 image: UIImage(named: "actionsTabBarIconInactive")!,
                 selectedImage: UIImage(named: "actionsTabBarIcon")!)
@@ -69,9 +69,17 @@ class ActionAlertsController: UIViewController {
         layout.sectionInset = UIEdgeInsets(top: 0, left: kHorizontalSectionInset, bottom: 0, right: kHorizontalSectionInset)
         layout.minimumLineSpacing = 12
 
+
+        let navBarsize = navigationController!.navigationBar.bounds.size
+        let origin = CGPoint(x: navBarsize.width/2, y: navBarsize.height/2)
+
+        pageControl = UIPageControl(frame: CGRect(x: origin.x, y: origin.y, width: 0, height: 20))
+        pageControl.currentPageIndicatorTintColor = theme.defaultCurrentPageIndicatorTintColor()
+        pageControl.pageIndicatorTintColor = theme.defaultPageIndicatorTintColor()
+        navigationItem.titleView = pageControl
+
         view.addSubview(collectionView)
         view.addSubview(loadingIndicatorView)
-        view.addSubview(pageControl)
         view.addSubview(loadingMessageLabel)
         view.addSubview(errorLabel)
         view.addSubview(retryButton)
@@ -96,18 +104,12 @@ class ActionAlertsController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
-        navigationController?.setNavigationBarHidden(true, animated: false)
-
         showLoadingUI()
 
         webViews.removeAll()
         loadActionAlerts()
 
         layout.invalidateLayout()
-    }
-
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
     }
 
     private func applyTheme() {
@@ -134,9 +136,6 @@ class ActionAlertsController: UIViewController {
 
         loadingIndicatorView.autoAlignAxisToSuperviewAxis(.Vertical)
         loadingIndicatorView.autoAlignAxis(.Horizontal, toSameAxisOfView: view, withOffset: -20)
-
-        pageControl.autoAlignAxisToSuperviewAxis(.Vertical)
-        pageControl.autoPinEdgeToSuperviewEdge(.Bottom, withInset: -10)
 
         loadingMessageLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: loadingIndicatorView, withOffset: 40)
         loadingMessageLabel.autoAlignAxis(.Vertical, toSameAxisOfView: loadingIndicatorView)

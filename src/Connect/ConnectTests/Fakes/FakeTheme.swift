@@ -182,4 +182,7 @@ class FakeTheme: Theme {
     func actionsShortLoadingMessageTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
     func actionsErrorMessageFont() -> UIFont { fatalError("FakeTheme used without being overridden in spec!") }
     func actionsErrorMessageTextColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func defaultCurrentPageIndicatorTintColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+    func defaultPageIndicatorTintColor() -> UIColor { fatalError("FakeTheme used without being overridden in spec!") }
+
 }

@@ -4,6 +4,8 @@ import UIKit
 protocol Theme {
     // MARK: Global
 
+    func defaultCurrentPageIndicatorTintColor() -> UIColor
+    func defaultPageIndicatorTintColor() -> UIColor
     func defaultBackgroundColor() -> UIColor
     func contentBackgroundColor() -> UIColor
     func defaultSpinnerColor() -> UIColor

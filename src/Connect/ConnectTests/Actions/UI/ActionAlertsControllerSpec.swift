@@ -42,7 +42,7 @@ class ActionAlertsControllerSpec: QuickSpec {
             it("has the correct title") {
                 subject.view.layoutSubviews()
 
-                expect(subject.title).to(equal("Act Now"))
+                expect(subject.tabBarItem.title).to(equal("Act Now"))
             }
 
             it("uses the tab bar item stylist to style its tab bar item") {
@@ -65,10 +65,10 @@ class ActionAlertsControllerSpec: QuickSpec {
                     expect(subject.view.subviews).to(contain(subject.loadingIndicatorView))
                 }
 
-                it("adds the page control as a subview") {
+                it("adds the page control as the titleView of the navigation bar") {
                     subject.view.layoutSubviews()
 
-                    expect(subject.view.subviews).to(contain(subject.pageControl))
+                    expect(subject.navigationItem.titleView) === subject.pageControl
                 }
 
                 it("adds the error message as a subview") {
@@ -109,6 +109,13 @@ class ActionAlertsControllerSpec: QuickSpec {
                     expect(subject.retryButton.titleColorForState(.Normal)) == UIColor.redColor()
                     expect(subject.retryButton.backgroundColor) == UIColor.purpleColor()
                     expect(subject.retryButton.titleLabel!.font) ==  UIFont.systemFontOfSize(444)
+                }
+
+                it("styles the page control with the theme") {
+                    subject.view.layoutSubviews()
+
+                    expect(subject.pageControl.currentPageIndicatorTintColor) == UIColor.whiteColor()
+                    expect(subject.pageControl.pageIndicatorTintColor) == UIColor.lightGrayColor()
                 }
 
                 it("sets the retry button text correctly") {
@@ -208,14 +215,6 @@ class ActionAlertsControllerSpec: QuickSpec {
                     subject.viewWillAppear(false)
 
                     expect(actionAlertService.fetchActionAlertsCalled) == true
-                }
-
-                it("ensures that the navigation bar is hidden") {
-                    navigationController.navigationBarHidden = false
-
-                    subject.viewWillAppear(false)
-
-                    expect(navigationController.navigationBarHidden) == true
                 }
 
                 describe("loading the action alerts") {
@@ -703,6 +702,8 @@ private class ActionAlertsControllerFakeTheme: FakeTheme {
     override func fullWidthButtonBackgroundColor() -> UIColor { return UIColor.purpleColor() }
     override func fullWidthRSVPButtonTextColor() -> UIColor { return UIColor.redColor() }
     override func fullWidthRSVPButtonFont() -> UIFont { return UIFont.systemFontOfSize(444) }
+    override func defaultCurrentPageIndicatorTintColor() -> UIColor { return UIColor.whiteColor() }
+    override func defaultPageIndicatorTintColor() -> UIColor { return UIColor.lightGrayColor() }
 }
 
 private class FakeActionAlertWebViewProvider: ActionAlertWebViewProvider {

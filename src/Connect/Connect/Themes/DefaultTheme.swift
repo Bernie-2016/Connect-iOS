@@ -3,6 +3,9 @@ import UIKit
 // swiftlint:disable type_body_length
 class DefaultTheme: Theme {
     // MARK: Global
+
+    func defaultCurrentPageIndicatorTintColor() -> UIColor { return scienceBlueColor }
+    func defaultPageIndicatorTintColor() -> UIColor { return silverColor }
     func defaultBackgroundColor() -> UIColor { return seaShellColor }
     func contentBackgroundColor() -> UIColor { return UIColor.whiteColor() }
     func defaultSpinnerColor() -> UIColor { return silverColor }
@@ -18,23 +21,23 @@ class DefaultTheme: Theme {
     func defaultButtonBorderColor() -> UIColor { return coalMinerColor }
     func defaultBodyTextLineHeight() -> CGFloat { return 24.0 }
     func fullWidthRSVPButtonTextColor() -> UIColor { return UIColor.whiteColor() }
-    func fullWidthButtonBackgroundColor() -> UIColor { return denimColor }
+    func fullWidthButtonBackgroundColor() -> UIColor { return scienceBlueColor }
     func fullWidthRSVPButtonFont() -> UIFont { return h3HeaderFont() }
 
     // MARK: Tab Bar
 
     func tabBarTintColor() -> UIColor { return UIColor.whiteColor()     }
     func tabBarFont() -> UIFont { return UIFont.systemFontOfSize(11) }
-    func tabBarActiveTextColor() -> UIColor { return denimColor }
+    func tabBarActiveTextColor() -> UIColor { return scienceBlueColor }
     func tabBarInactiveTextColor() -> UIColor { return grayChateauColor }
 
     // MARK: Navigation Bar
-    func navigationBarTintColor() -> UIColor { return denimColor }
+    func navigationBarTintColor() -> UIColor { return scienceBlueColor }
     func navigationBarBackgroundColor() -> UIColor { return UIColor.whiteColor() }
     func navigationBarFont() -> UIFont { return UIFont.boldSystemFontOfSize(16) }
     func navigationBarButtonFont() -> UIFont { return UIFont.systemFontOfSize(16) }
     func navigationBarTextColor() -> UIColor { return coalMinerColor }
-    func navigationBarButtonTextColor() -> UIColor { return denimColor }
+    func navigationBarButtonTextColor() -> UIColor { return scienceBlueColor }
 
     // MARK: News Feed
     func newsFeedBackgroundColor() -> UIColor { return defaultBackgroundColor() }
@@ -66,7 +69,7 @@ class DefaultTheme: Theme {
     func videoDescriptionColor() -> UIColor { return defaultBodyTextColor() }
 
     // MARK: buttons
-    func defaultButtonBackgroundColor() -> UIColor { return denimColor }
+    func defaultButtonBackgroundColor() -> UIColor { return scienceBlueColor }
     func defaultButtonTextColor() -> UIColor { return UIColor.whiteColor() }
     func defaultButtonDisabledTextColor() -> UIColor { return grayChateauColor }
     func defaultButtonFont() -> UIFont { return h2HeaderFont() }
@@ -76,7 +79,7 @@ class DefaultTheme: Theme {
     func settingsTitleFont() -> UIFont { return h3HeaderFont() }
     func settingsTitleColor() -> UIColor { return h3HeaderTextColor() }
     func settingsAnalyticsFont() -> UIFont { return UIFont.systemFontOfSize(13) }
-    func settingsSwitchColor() -> UIColor { return denimColor }
+    func settingsSwitchColor() -> UIColor { return scienceBlueColor }
 
     // MARK: Events
 
@@ -102,7 +105,7 @@ class DefaultTheme: Theme {
 
     func eventsFilterLabelFont() -> UIFont { return UIFont.systemFontOfSize(13) }
     func eventsFilterLabelTextColor() -> UIColor { return grayChateauColor }
-    func eventsFilterButtonTextColor() -> UIColor { return denimColor }
+    func eventsFilterButtonTextColor() -> UIColor { return scienceBlueColor }
     func eventSearchBarSearchBarTopPadding() -> CGFloat { return  4 }
     func eventSearchBarVerticalShift() -> CGFloat { return 8 }
     func eventSearchBarHorizontalPadding() -> CGFloat { return 15 }
@@ -154,13 +157,13 @@ class DefaultTheme: Theme {
     // MARK: Actions
 
     func actionsBackgroundColor() -> UIColor { return mackerelGrayColor }
-    func actionsTitleFont() -> UIFont { return lightSystemFontOfSize(24) }
-    func actionsTitleTextColor() -> UIColor { return UIColor.whiteColor() }
-    func actionsShortDescriptionFont() -> UIFont { return lightSystemFontOfSize(15) }
-    func actionsShortDescriptionTextColor() -> UIColor { return UIColor.whiteColor() }
-    func actionsShortLoadingMessageFont() -> UIFont { return lightSystemFontOfSize(15) }
+    func actionsTitleFont() -> UIFont { return lightSystemFontOfSize(22) }
+    func actionsTitleTextColor() -> UIColor { return tundoraColor }
+    func actionsShortDescriptionFont() -> UIFont { return lightSystemFontOfSize(13) }
+    func actionsShortDescriptionTextColor() -> UIColor { return tundoraColor }
+    func actionsShortLoadingMessageFont() -> UIFont { return lightSystemFontOfSize(13) }
     func actionsShortLoadingMessageTextColor() -> UIColor { return UIColor.whiteColor() }
-    func actionsErrorMessageFont() -> UIFont { return lightSystemFontOfSize(15) }
+    func actionsErrorMessageFont() -> UIFont { return lightSystemFontOfSize(13) }
     func actionsErrorMessageTextColor() -> UIColor { return UIColor.whiteColor() }
 
     // MARK: Markdown
@@ -173,7 +176,7 @@ class DefaultTheme: Theme {
     func markdownH6Font() -> UIFont { return h6HeaderFont() }
     func markdownBodyFont() -> UIFont { return defaultBodyTextFont() }
     func markdownBodyTextColor() -> UIColor { return defaultBodyTextColor() }
-    func markdownBodyLinkTextColor() -> UIColor { return denimColor }
+    func markdownBodyLinkTextColor() -> UIColor { return scienceBlueColor }
 
     // MARK: default dimensions
 
@@ -193,9 +196,11 @@ class DefaultTheme: Theme {
     let seaShellColor = UIColor(rgba: "#f1f1f1")
     let doveGreyColor = UIColor(rgba: "#6d6d6d")
     let galleryColor = UIColor(rgba: "#efefef")
-    let denimColor = UIColor(rgba: "#147fd7")
+    let scienceBlueColor = UIColor(rgba: "#0176D7")
     let altoColor = UIColor(rgba: "#e0e0e0")
     let silverChaliceColor = UIColor(rgba: "#a5a5a5")
+    let tundoraColor = UIColor(rgba: "#4b4b4b")
+
 
     // MARK: font definitions
 
