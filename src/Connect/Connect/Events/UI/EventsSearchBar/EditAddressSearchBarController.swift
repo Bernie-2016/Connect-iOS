@@ -101,19 +101,20 @@ class EditAddressSearchBarController: UIViewController {
         searchButton.autoSetDimension(.Width, toSize: buttonWidth)
 
         searchBar.autoPinEdgeToSuperviewEdge(.Top, withInset: searchBarBottomPadding)
-        searchButton.autoPinEdge(.Left, toEdge: .Right, ofView: self.searchBar, withOffset: -horizontalPadding)
+        searchButton.autoPinEdge(.Left, toEdge: .Right, ofView: self.searchBar, withOffset: horizontalPadding)
         cancelButton.autoPinEdge(.Right, toEdge: .Left, ofView: self.searchBar, withOffset: -horizontalPadding)
 
         if let searchBarContainer = searchBar.subviews.first {
             searchBarContainer.autoAlignAxis(.Horizontal, toSameAxisOfView: self.searchBar, withOffset: verticalShift)
-            searchBarContainer.autoPinEdgeToSuperviewEdge(.Left, withInset: horizontalPadding)
-            searchBarContainer.autoPinEdgeToSuperviewEdge(.Right, withInset: horizontalPadding)
+            searchBarContainer.autoPinEdgeToSuperviewEdge(.Left)
+            searchBarContainer.autoPinEdgeToSuperviewEdge(.Right)
             searchBarContainer.autoSetDimension(.Height, toSize: searchBarHeight)
         }
+
         if let textField = searchBar.valueForKey("searchField") as? UITextField {
             textField.autoAlignAxis(.Horizontal, toSameAxisOfView: self.searchBar, withOffset: verticalShift)
-            textField.autoPinEdgeToSuperviewEdge(.Left, withInset: horizontalPadding)
-            textField.autoPinEdgeToSuperviewEdge(.Right, withInset: horizontalPadding)
+            textField.autoPinEdgeToSuperviewEdge(.Left)
+            textField.autoPinEdgeToSuperviewEdge(.Right)
 
             textField.autoSetDimension(.Height, toSize: searchBarHeight)
         }

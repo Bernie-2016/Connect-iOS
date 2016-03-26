@@ -20,7 +20,10 @@ class StockSearchBarStylist: SearchBarStylist {
         searchBar.searchBarStyle = .Minimal
 
         if let textField = searchBar.valueForKey("searchField") as? UITextField {
+            let placeholder = textField.placeholder != nil ? textField.placeholder! : ""
+
             textField.textColor = self.theme.eventsAddressTextColor()
+            textField.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSForegroundColorAttributeName: self.theme.eventsAddressTextColor()])
             textField.font = self.theme.eventsSearchBarFont()
             textField.backgroundColor = self.theme.eventsAddressBackgroundColor()
             textField.layer.borderColor = self.theme.eventsAddressBorderColor().CGColor

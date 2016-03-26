@@ -88,11 +88,11 @@ class DefaultTheme: Theme {
     func eventsListDateFont() -> UIFont { return tinyTextFont() }
     func eventsListDateColor() -> UIColor { return tinyTextColor() }
     func eventsSearchBarBackgroundColor() -> UIColor { return navigationBarBackgroundColor() }
-    func eventsAddressTextColor() -> UIColor { return grayChateauColor }
-    func eventsAddressPlaceholderTextColor() -> UIColor { return grayChateauColor }
+    func eventsAddressTextColor() -> UIColor { return coalMinerColor }
+    func eventsAddressPlaceholderTextColor() -> UIColor { return coalMinerColor }
     func eventsAddressBackgroundColor() -> UIColor { return defaultBackgroundColor() }
     func eventsAddressBorderColor() -> UIColor { return defaultBackgroundColor() }
-    func eventsSearchBarFont() -> UIFont { return h3HeaderFont() }
+    func eventsSearchBarFont() -> UIFont { return UIFont.systemFontOfSize(15) }
     func eventsAddressCornerRadius() -> CGFloat { return self.defaultCornerRadius() }
     func eventsAddressBorderWidth() -> CGFloat { return self.defaultBorderWidth() }
     func eventsAddressTextOffset() -> CATransform3D { return CATransform3DMakeTranslation(14, 0, 0); }
@@ -106,15 +106,14 @@ class DefaultTheme: Theme {
     func eventsFilterLabelFont() -> UIFont { return UIFont.systemFontOfSize(13) }
     func eventsFilterLabelTextColor() -> UIColor { return grayChateauColor }
     func eventsFilterButtonTextColor() -> UIColor { return scienceBlueColor }
-    func eventSearchBarSearchBarTopPadding() -> CGFloat { return  4 }
+    func eventSearchBarSearchBarTopPadding() -> CGFloat { return  9 }
     func eventSearchBarVerticalShift() -> CGFloat { return 8 }
     func eventSearchBarHorizontalPadding() -> CGFloat { return 15 }
     func eventSearchBarSearchBarHeight() -> CGFloat { return 30 }
-    func eventSearchBarFilterLabelBottomPadding() -> CGFloat { return 11 }
+    func eventSearchBarFilterLabelBottomPadding() -> CGFloat { return 7 }
     func eventsErrorTextColor() -> UIColor { return silverChaliceColor }
     func eventsErrorHeadingFont() -> UIFont { return UIFont.systemFontOfSize(21) }
     func eventsErrorDetailFont() -> UIFont { return UIFont.systemFontOfSize(13) }
-
 
     // MARK: Event screen
 

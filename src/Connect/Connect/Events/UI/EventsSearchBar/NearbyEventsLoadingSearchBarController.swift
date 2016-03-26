@@ -38,17 +38,14 @@ class NearbyEventsLoadingSearchBarController: UIViewController {
         view.addSubview(leftFilterSpacerView)
         view.addSubview(rightFilterSpacerView)
 
-
-        setupConstraints()
-        applyTheme()
-        searchBarStylist.applyThemeToBackground(view)
-        searchBarStylist.applyThemeToSearchBar(searchBar)
-
         let currentRadiusMilesInteger = Int(radiusDataSource.currentMilesValue)
         filterLabel.text = NSString.localizedStringWithFormat(NSLocalizedString("EventsSearchBar_loadingFilterLabel %d", comment: ""), currentRadiusMilesInteger) as String
 
         searchBar.userInteractionEnabled = false
         searchBar.placeholder = NSLocalizedString("EventsSearchBar_loadingNearbyEvents",  comment: "")
+
+        setupConstraints()
+        applyTheme()
     }
 
     private func setupConstraints() {
@@ -84,6 +81,8 @@ class NearbyEventsLoadingSearchBarController: UIViewController {
     private func applyTheme() {
         filterLabel.textColor = theme.eventsFilterLabelTextColor()
         filterLabel.font = theme.eventsFilterLabelFont()
+        searchBarStylist.applyThemeToBackground(view)
+        searchBarStylist.applyThemeToSearchBar(searchBar)
     }
 }
 

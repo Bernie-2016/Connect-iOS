@@ -47,10 +47,12 @@ class EventsResultsController: UIViewController {
 
     override func viewDidLoad() {
         view.addSubview(tableView)
+
         tableView.dataSource = self
         tableView.delegate = self
         tableView.registerClass(EventListTableViewCell.self, forCellReuseIdentifier: "eventCell")
         tableView.registerClass(EventsSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: "header")
+        tableView.separatorColor = theme.defaultTableSeparatorColor()
 
         setupConstraints()
     }

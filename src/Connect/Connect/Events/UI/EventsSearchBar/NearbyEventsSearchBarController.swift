@@ -49,12 +49,12 @@ class NearbyEventsSearchBarController: UIViewController {
 
         filterDownArrow.image = UIImage(named: "downArrow")
 
-        searchBarStylist.applyThemeToSearchBar(searchBar)
-        searchBarStylist.applyThemeToBackground(view)
-
         searchBar.placeholder = NSLocalizedString("EventsSearchBar_foundNearbyResults", comment: "")
         searchBar.accessibilityLabel = NSLocalizedString("EventsSearchBar_searchBarAccessibilityLabel",  comment: "")
         searchBar.delegate = self
+
+        searchBarStylist.applyThemeToSearchBar(searchBar)
+        searchBarStylist.applyThemeToBackground(view)
 
         filterLabel.text = NSLocalizedString("EventsSearchBar_filterLabel", comment: "")
 

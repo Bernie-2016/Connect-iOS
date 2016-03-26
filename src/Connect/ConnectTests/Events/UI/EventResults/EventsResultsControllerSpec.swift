@@ -59,6 +59,12 @@ class EventsResultsControllerSpec: QuickSpec {
                     expect(subject.view.subviews.count) == 1
                     expect(subject.view.subviews).to(contain(subject.tableView))
                 }
+
+                it("styles the table") {
+                    subject.view.layoutSubviews()
+
+                    expect(subject.tableView.separatorColor) == UIColor.blueColor()
+                }
             }
 
             describe("as a nearby events use case observer") {
@@ -104,6 +110,23 @@ class EventsResultsControllerSpec: QuickSpec {
 
                         expect(header?.textLabel?.text) == "Section header"
                         expect(Int(eventSectionHeaderPresenter.lastPresentedDate.timeIntervalSinceReferenceDate)) == Int(dateForSection.timeIntervalSinceReferenceDate)
+                    }
+
+                    it("styles the header with the theme") {
+                        let tableView = subject.tableView
+
+                        eventSearchResult.uniqueDays = [NSDate()]
+                        eventSearchResult.eventsByDay = [[eventA, eventB]]
+
+                        nearbyEventsUseCase.simulateFindingEvents(eventSearchResult)
+                        resultQueue.lastReceivedBlock()
+
+                        let header = tableView.delegate?.tableView!(tableView, viewForHeaderInSection: 0) as! EventsSectionHeaderView
+                        tableView.delegate?.tableView!(tableView, willDisplayHeaderView: header, forSection: 0)
+
+                        expect(header.contentView.backgroundColor) == UIColor.darkGrayColor()
+                        expect(header.textLabel?.textColor) == UIColor.lightGrayColor()
+                        expect(header.textLabel?.font) == UIFont.italicSystemFontOfSize(999)
                     }
 
                     it("displays a cell per event in each day section, on the result queue") {
@@ -447,6 +470,10 @@ private class EventsResultsFakeTheme : FakeTheme {
 
     private override func defaultTableSectionHeaderFont() -> UIFont {
         return UIFont.italicSystemFontOfSize(999)
+    }
+
+    private override func defaultTableSeparatorColor() -> UIColor {
+        return UIColor.blueColor()
     }
 }
 
