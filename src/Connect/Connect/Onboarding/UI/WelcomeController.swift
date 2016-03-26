@@ -88,9 +88,9 @@ extension WelcomeController {
         continueButton.setTitleColor(self.theme.defaultButtonTextColor(), forState: .Normal)
     }
 
+    // swiftlint:disable function_body_length
     private func setupConstraints() {
         let deviceType = DeviceDetective.identifyDevice()
-
         var actionAlertImageViewHorizontalPadding: CGFloat!
         var actionAlertImageViewBottomPadding: CGFloat!
         var textContainerViewHeight: CGFloat!
@@ -123,7 +123,12 @@ extension WelcomeController {
         textContainerView.autoPinEdgeToSuperviewEdge(.Right)
         textContainerView.autoSetDimension(.Height, toSize: textContainerViewHeight)
 
-        takeThePowerBackLabel.autoAlignAxisToSuperviewAxis(.Horizontal)
+        switch deviceType {
+        case .Four:
+            takeThePowerBackLabel.autoAlignAxis(.Horizontal, toSameAxisOfView: textContainerView, withOffset: 4)
+        default:
+            takeThePowerBackLabel.autoAlignAxisToSuperviewAxis(.Horizontal)
+        }
         takeThePowerBackLabel.autoAlignAxisToSuperviewAxis(.Vertical)
 
         actionAlertImageView.autoPinEdge(.Top, toEdge: .Bottom, ofView: textContainerView)
@@ -134,4 +139,5 @@ extension WelcomeController {
         continueButton.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Top)
         continueButton.autoSetDimension(.Height, toSize: 54)
     }
+    // swiftlint:enable function_body_length
 }
