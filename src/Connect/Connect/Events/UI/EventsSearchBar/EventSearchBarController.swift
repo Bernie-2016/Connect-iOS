@@ -49,11 +49,11 @@ class EventSearchBarController: UIViewController {
         searchBar.accessibilityLabel = NSLocalizedString("EventsSearchBar_searchBarAccessibilityLabel", comment: "")
         searchBar.setImage(UIImage(named: "searchMagnifyingGlass"), forSearchBarIcon: .Search, state: .Normal)
 
-        cancelButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
+        cancelButton.addTarget(self, action: #selector(EventSearchBarController.didTapCancelButton), forControlEvents: .TouchUpInside)
         cancelButton.setTitle(NSLocalizedString("EventsSearchBar_cancelButtonTitle", comment: ""), forState: .Normal)
         cancelButton.hidden = true
 
-        searchButton.addTarget(self, action: "didTapSearchButton", forControlEvents: .TouchUpInside)
+        searchButton.addTarget(self, action: #selector(EventSearchBarController.didTapSearchButton), forControlEvents: .TouchUpInside)
         searchButton.setTitle(NSLocalizedString("EventsSearchBar_searchButtonTitle", comment: ""), forState: .Normal)
         searchButton.enabled = false
         searchButton.hidden = true

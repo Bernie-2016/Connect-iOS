@@ -122,3 +122,8 @@
 
 // URLs
 "url_TwitterShareText" = "Check this out! #Bernie2016";
+
+// Update
+"Update_alertTitle" = "Update Required";
+"Update_alertMessage" = "Please update Connect to the latest version to continue";
+"Update_alertButtonTitle" = "Continue";

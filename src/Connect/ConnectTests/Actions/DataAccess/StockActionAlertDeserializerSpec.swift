@@ -115,13 +115,14 @@ class StockActionAlertDeserializerSpec: QuickSpec {
                     jsonDictionary = (try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions())) as! [String : AnyObject]
                 }
 
-                func removeAttribute(attribute: String, var jsonDictionaryToAlter: [String: AnyObject]) -> [String: AnyObject] {
-                    var dataDictionary = jsonDictionaryToAlter["data"] as! [String: AnyObject]
+                func removeAttribute(attribute: String, jsonDictionaryToAlter: [String: AnyObject]) -> [String: AnyObject] {
+                    var _jsonDictionaryToAlter = jsonDictionaryToAlter
+                    var dataDictionary = _jsonDictionaryToAlter["data"] as! [String: AnyObject]
                     var attributesDictionary = dataDictionary["attributes"] as! [String: AnyObject]
                     attributesDictionary.removeValueForKey(attribute)
                     dataDictionary["attributes"] = attributesDictionary
-                    jsonDictionaryToAlter["data"] = dataDictionary
-                    return jsonDictionaryToAlter
+                    _jsonDictionaryToAlter["data"] = dataDictionary
+                    return _jsonDictionaryToAlter
                 }
 
                 it("deserializes a valid action alert correctly") {

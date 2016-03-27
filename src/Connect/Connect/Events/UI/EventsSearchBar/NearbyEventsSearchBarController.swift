@@ -50,7 +50,7 @@ class NearbyEventsSearchBarController: UIViewController {
         filterDownArrow.image = UIImage(named: "downArrow")
 
         searchBar.placeholder = NSLocalizedString("EventsSearchBar_foundNearbyResults", comment: "")
-        searchBar.accessibilityLabel = NSLocalizedString("EventsSearchBar_searchBarAccessibilityLabel",  comment: "")
+        searchBar.accessibilityLabel = NSLocalizedString("EventsSearchBar_searchBarAccessibilityLabel", comment: "")
         searchBar.delegate = self
 
         searchBarStylist.applyThemeToSearchBar(searchBar)
@@ -60,7 +60,7 @@ class NearbyEventsSearchBarController: UIViewController {
 
         let currentRadiusMilesInteger = Int(radiusDataSource.currentMilesValue)
         filterButton.setTitle(NSString.localizedStringWithFormat(NSLocalizedString("EventsSearchBar_filterButton %d", comment: ""), currentRadiusMilesInteger) as String, forState: .Normal)
-        filterButton.addTarget(self, action: "didTapFilterButton", forControlEvents: .TouchUpInside)
+        filterButton.addTarget(self, action: #selector(NearbyEventsSearchBarController.didTapFilterButton), forControlEvents: .TouchUpInside)
 
         applyTheme()
         setupConstraints()

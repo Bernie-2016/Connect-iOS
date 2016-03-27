@@ -13,18 +13,21 @@ class StockAppBootstrapperSpec: QuickSpec {
             var theme: FakeTheme!
             var window: FakeUIWindow!
             let apiKeyProvider = APIKeyProvider()
+            var newVersionNotifier: MockNewVersionNotifier!
 
             beforeEach {
                 onboardingWorkflow = FakeOnboardingWorkflow()
                 audioSession = AVAudioSession()
                 theme = AppBootstrapperFakeTheme()
                 window = FakeUIWindow()
+                newVersionNotifier = MockNewVersionNotifier()
 
                 subject = StockAppBootstrapper(
                     onboardingWorkflow: onboardingWorkflow,
                     window: window,
                     audioSession: audioSession,
                     apiKeyProvider: apiKeyProvider,
+                    newVersionNotifier: newVersionNotifier,
                     theme: theme
                 )
             }
@@ -49,19 +52,25 @@ class StockAppBootstrapperSpec: QuickSpec {
                     it("sets the root view controller to be the controller from the workflow") {
                         onboardingWorkflow.lastInitialViewControllerCompletionHandler(expectedController)
 
-                        expect(window.rootViewController).to(beIdenticalTo(expectedController))
+                        expect(window.rootViewController) === expectedController
                     }
 
                     it("sets the window's background color from the theme") {
                         onboardingWorkflow.lastInitialViewControllerCompletionHandler(expectedController)
 
-                        expect(window.backgroundColor).to(equal(UIColor.magentaColor()))
+                        expect(window.backgroundColor) == UIColor.magentaColor()
                     }
 
                     it("makes the window key and visible") {
                         onboardingWorkflow.lastInitialViewControllerCompletionHandler(expectedController)
 
-                        expect(window.madeKeyAndVisible).to(beTrue())
+                        expect(window.madeKeyAndVisible) == true
+                    }
+
+                    it("tells the new version notifier to notify the user of new versions on the controller from the workflow") {
+                        onboardingWorkflow.lastInitialViewControllerCompletionHandler(expectedController)
+
+                        expect(newVersionNotifier.lastController) === expectedController
                     }
                 }
             }
@@ -79,5 +88,13 @@ private class FakeUIWindow: UIWindow {
     var madeKeyAndVisible = false
     private override func makeKeyAndVisible() {
         madeKeyAndVisible = true
+    }
+}
+
+private class MockNewVersionNotifier: NewVersionNotifier {
+    var lastController: UIViewController?
+
+    func presentAlertIfOutOfDateOnController(controller: UIViewController) {
+        lastController = controller
     }
 }

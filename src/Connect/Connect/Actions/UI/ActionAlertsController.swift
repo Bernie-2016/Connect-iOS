@@ -95,7 +95,7 @@ class ActionAlertsController: UIViewController {
         collectionView.registerClass(ActionAlertCell.self, forCellWithReuseIdentifier: kCollectionViewCellName)
 
         retryButton.setTitle(NSLocalizedString("Actions_retryButton", comment: ""), forState: .Normal)
-        retryButton.addTarget(self, action: "didTapRetryButton", forControlEvents: .TouchUpInside)
+        retryButton.addTarget(self, action: #selector(ActionAlertsController.didTapRetryButton), forControlEvents: .TouchUpInside)
 
         loadingIndicatorView.startAnimating()
         loadingMessageLabel.text = NSLocalizedString("Actions_loadingMessage", comment: "")

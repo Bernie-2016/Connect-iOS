@@ -62,8 +62,8 @@ class AboutController: UIViewController {
         githubButton.setTitle(NSLocalizedString("About_githubButton", comment: ""), forState: .Normal)
         slackButton.setTitle(NSLocalizedString("About_slackButton", comment: ""), forState: .Normal)
 
-        githubButton.addTarget(self, action: "didTapGithub", forControlEvents: .TouchUpInside)
-        slackButton.addTarget(self, action: "didTapSlack", forControlEvents: .TouchUpInside)
+        githubButton.addTarget(self, action: #selector(AboutController.didTapGithub), forControlEvents: .TouchUpInside)
+        slackButton.addTarget(self, action: #selector(AboutController.didTapSlack), forControlEvents: .TouchUpInside)
 
         setupConstraintsAndLayout()
         applyTheme()

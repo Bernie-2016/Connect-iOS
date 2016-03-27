@@ -10,14 +10,22 @@ class StockAppBootstrapper: AppBootstrapper {
     let window: UIWindow
     let audioSession: AVAudioSession
     let apiKeyProvider: APIKeyProvider
+    let newVersionNotifier: NewVersionNotifier
     let theme: Theme
 
-    init(onboardingWorkflow: OnboardingWorkflow, window: UIWindow, audioSession: AVAudioSession, apiKeyProvider: APIKeyProvider, theme: Theme) {
-        self.onboardingWorkflow = onboardingWorkflow
-        self.window = window
-        self.audioSession = audioSession
-        self.apiKeyProvider = apiKeyProvider
-        self.theme = theme
+    init(
+        onboardingWorkflow: OnboardingWorkflow,
+        window: UIWindow,
+        audioSession: AVAudioSession,
+        apiKeyProvider: APIKeyProvider,
+        newVersionNotifier: NewVersionNotifier,
+        theme: Theme) {
+            self.onboardingWorkflow = onboardingWorkflow
+            self.window = window
+            self.audioSession = audioSession
+            self.apiKeyProvider = apiKeyProvider
+            self.newVersionNotifier = newVersionNotifier
+            self.theme = theme
     }
 
     func bootstrap() {
@@ -32,10 +40,10 @@ class StockAppBootstrapper: AppBootstrapper {
         #if RELEASE
             let rollbarConfig = RollbarConfiguration()
             #if ACCEPTANCE
-            rollbarConfig.environment = "QA"
+                rollbarConfig.environment = "QA"
             #endif
             #if PRODUCTION
-            rollbarConfig.environment = "Production"
+                rollbarConfig.environment = "Production"
             #endif
             Rollbar.initWithAccessToken(apiKeyProvider.rollbarAccessToken(), configuration: rollbarConfig)
         #endif
@@ -54,6 +62,7 @@ class StockAppBootstrapper: AppBootstrapper {
             self.window.rootViewController = controller
             self.window.backgroundColor = self.theme.defaultBackgroundColor()
             self.window.makeKeyAndVisible()
+            self.newVersionNotifier.presentAlertIfOutOfDateOnController(controller)
         }
     }
 }

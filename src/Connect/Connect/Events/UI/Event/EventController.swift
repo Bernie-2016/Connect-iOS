@@ -68,11 +68,11 @@ class EventController: UIViewController {
         mapView.setRegion(coordinateRegion, animated: true)
         mapView.addAnnotation(eventPin)
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "navBarShareButton"), style: .Plain, target: self, action: "share")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "navBarShareButton"), style: .Plain, target: self, action: #selector(EventController.share))
         navigationItem.title = event.eventTypeName
 
-        directionsButton.addTarget(self, action: "didTapDirections", forControlEvents: .TouchUpInside)
-        rsvpButton.addTarget(self, action: "didTapRSVP", forControlEvents: .TouchUpInside)
+        directionsButton.addTarget(self, action: #selector(EventController.didTapDirections), forControlEvents: .TouchUpInside)
+        rsvpButton.addTarget(self, action: #selector(EventController.didTapRSVP), forControlEvents: .TouchUpInside)
 
         scrollView.delegate = self
 

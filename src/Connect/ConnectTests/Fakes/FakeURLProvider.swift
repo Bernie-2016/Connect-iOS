@@ -67,4 +67,8 @@ class FakeURLProvider : URLProvider {
     func actionAlertURL(identifier: ActionAlertIdentifier) -> NSURL {
         fatalError("ovveride me in spec!")
     }
+
+    func versionURL() -> NSURL {
+        fatalError("ovveride me in spec!")
+    }
 }

@@ -11,6 +11,7 @@ class ConcreteEventDeserializer: EventDeserializer {
     }
 
     // swiftlint:disable function_body_length
+    // swiftlint:disable cyclomatic_complexity
     func deserializeEvents(jsonDictionary: NSDictionary) -> Array<Event> {
         var events = [Event]()
 
@@ -52,6 +53,7 @@ class ConcreteEventDeserializer: EventDeserializer {
         return events
     }
     // swiftlint:enable function_body_length
+    // switftline:enable cyclomatic_complexity
 
     // MARK: Private
 

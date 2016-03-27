@@ -31,18 +31,57 @@ class ConnectContainerProvider {
             return PFInstallation.currentInstallation()
             }.inObjectScope(.Container)
 
+
         container.register(AppBootstrapper.self) { resolver in
             return StockAppBootstrapper(
                 onboardingWorkflow: resolver.resolve(OnboardingWorkflow.self)!,
                 window: resolver.resolve(UIWindow.self, name: "main")!,
                 audioSession: resolver.resolve(AVAudioSession.self)!,
                 apiKeyProvider: resolver.resolve(APIKeyProvider.self)!,
+                newVersionNotifier: resolver.resolve(NewVersionNotifier.self)!,
                 theme: resolver.resolve(Theme.self)!)
             }.inObjectScope(.Container)
 
         configureAppleDependencies(container)
 
+        configureVersionNotifier(container)
+
         return container
+    }
+
+    private static func configureVersionNotifier(container: Container) {
+        container.register(AppVersionProvider.self) { resolver in
+            return StockAppVersionProvider()
+        }
+
+        container.register(AppVersionCompatibilityUseCase.self) { resolver in
+            return StockAppVersionCompatibilityUseCase(
+                versionRepository: resolver.resolve(VersionRepository.self)!,
+                appVersionProvider: resolver.resolve(AppVersionProvider.self)!
+            )
+        }
+
+        container.register(VersionDeserializer.self) { resolver in
+            return StockVersionDeserializer()
+        }
+
+        container.register(VersionRepository.self) { resolver in
+            return StockVersionRepository(
+                jsonClient: resolver.resolve(JSONClient.self)!,
+                versionDeserializer: resolver.resolve(VersionDeserializer.self)!,
+                urlProvider: resolver.resolve(URLProvider)!
+            )
+        }
+
+        container.register(NewVersionNotifier.self) { resolver in
+            return StockNewVersionNotifier(
+                appVersionCompatibilityUseCase: resolver.resolve(AppVersionCompatibilityUseCase.self)!,
+                urlOpener: resolver.resolve(URLOpener.self)!,
+                workQueue: resolver.resolve(NSOperationQueue.self, name: "work")!,
+                resultQueue: resolver.resolve(NSOperationQueue.self, name: "main")!
+            )
+            }.inObjectScope(.Container)
+
     }
 
     private static func configureAppleDependencies(container: Container) {

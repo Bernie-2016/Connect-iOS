@@ -45,7 +45,7 @@ class VideoController: UIViewController {
     }
 
     override func viewDidLoad() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "navBarShareButton"), style: .Plain, target: self, action: "share")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "navBarShareButton"), style: .Plain, target: self, action: #selector(VideoController.share))
 
         view.addSubview(scrollView)
         scrollView.addSubview(containerView)

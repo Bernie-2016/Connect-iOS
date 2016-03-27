@@ -42,7 +42,7 @@ class NearbyEventsLoadingSearchBarController: UIViewController {
         filterLabel.text = NSString.localizedStringWithFormat(NSLocalizedString("EventsSearchBar_loadingFilterLabel %d", comment: ""), currentRadiusMilesInteger) as String
 
         searchBar.userInteractionEnabled = false
-        searchBar.placeholder = NSLocalizedString("EventsSearchBar_loadingNearbyEvents",  comment: "")
+        searchBar.placeholder = NSLocalizedString("EventsSearchBar_loadingNearbyEvents", comment: "")
 
         setupConstraints()
         applyTheme()

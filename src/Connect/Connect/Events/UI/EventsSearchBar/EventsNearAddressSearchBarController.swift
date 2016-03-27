@@ -60,14 +60,14 @@ class EventsNearAddressSearchBarController: UIViewController {
         searchBarStylist.applyThemeToSearchBar(searchBar)
         searchBarStylist.applyThemeToBackground(view)
 
-        searchBar.accessibilityLabel = NSLocalizedString("EventsSearchBar_searchBarAccessibilityLabel",  comment: "")
+        searchBar.accessibilityLabel = NSLocalizedString("EventsSearchBar_searchBarAccessibilityLabel", comment: "")
         searchBar.delegate = self
 
         filterLabel.text = NSLocalizedString("EventsSearchBar_filterLabel", comment: "")
 
         let currentRadiusMilesInteger = Int(radiusDataSource.currentMilesValue)
         filterButton.setTitle(NSString.localizedStringWithFormat(NSLocalizedString("EventsSearchBar_filterButton %d", comment: ""), currentRadiusMilesInteger) as String, forState: .Normal)
-        filterButton.addTarget(self, action: "didTapFilterButton", forControlEvents: .TouchUpInside)
+        filterButton.addTarget(self, action: #selector(EventsNearAddressSearchBarController.didTapFilterButton), forControlEvents: .TouchUpInside)
 
         applyTheme()
         setupConstraints()

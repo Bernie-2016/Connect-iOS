@@ -58,18 +58,18 @@ class EditAddressSearchBarController: UIViewController {
         view.addSubview(cancelButton)
 
         cancelButton.setTitle(NSLocalizedString("EventsSearchBar_cancelButtonTitle", comment: ""), forState: .Normal)
-        cancelButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
+        cancelButton.addTarget(self, action: #selector(EditAddressSearchBarController.didTapCancelButton), forControlEvents: .TouchUpInside)
 
         searchButton.setTitle(NSLocalizedString("EventsSearchBar_searchButtonTitle", comment: ""), forState: .Normal)
-        searchButton.addTarget("self", action: "didTapSearchButton", forControlEvents: .TouchUpInside)
+        searchButton.addTarget("self", action: #selector(EditAddressSearchBarController.didTapSearchButton), forControlEvents: .TouchUpInside)
         searchButton.enabled = false
 
         searchBarStylist.applyThemeToBackground(view)
         searchBarStylist.applyThemeToSearchBar(searchBar)
 
         searchBar.delegate = self
-        searchBar.placeholder = NSLocalizedString("EventsSearchBar_searchBarPlaceholder",  comment: "")
-        searchBar.accessibilityLabel = NSLocalizedString("EventsSearchBar_searchBarAccessibilityLabel",  comment: "")
+        searchBar.placeholder = NSLocalizedString("EventsSearchBar_searchBarPlaceholder", comment: "")
+        searchBar.accessibilityLabel = NSLocalizedString("EventsSearchBar_searchBarAccessibilityLabel", comment: "")
         searchBar.keyboardType = .NumberPad
 
         nearbyEventsUseCase.addObserver(self)

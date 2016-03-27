@@ -64,7 +64,7 @@ class EventsNoResultsController: UIViewController {
 
         createEventCTATextView.attributedText = fullText
 
-        let tapOrganizeRecognizer = UITapGestureRecognizer(target: self, action: "didTapOrganize:")
+        let tapOrganizeRecognizer = UITapGestureRecognizer(target: self, action: #selector(EventsNoResultsController.didTapOrganize(_:)))
         createEventCTATextView.addGestureRecognizer(tapOrganizeRecognizer)
 
     }

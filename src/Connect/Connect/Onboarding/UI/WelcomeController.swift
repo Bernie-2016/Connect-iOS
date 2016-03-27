@@ -45,7 +45,7 @@ extension WelcomeController {
         takeThePowerBackLabel.text = NSLocalizedString("Welcome_takeThePowerBack", comment: "")
         takeThePowerBackLabel.textAlignment = .Center
 
-        continueButton.addTarget(self, action: "didTapContinueButton", forControlEvents: .TouchUpInside)
+        continueButton.addTarget(self, action: #selector(WelcomeController.didTapContinueButton), forControlEvents: .TouchUpInside)
         continueButton.setTitle(NSLocalizedString("Welcome_agreeToTermsButtonTitle", comment: ""), forState: .Normal)
 
         view.addSubview(textContainerView)

@@ -57,10 +57,10 @@ class EventsNearAddressFilterController: UIViewController {
         searchButton.enabled = false
 
         cancelButton.setTitle(NSLocalizedString("EventsSearchBar_cancelButtonTitle", comment: ""), forState: .Normal)
-        cancelButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
+        cancelButton.addTarget(self, action: #selector(EventsNearAddressFilterController.didTapCancelButton), forControlEvents: .TouchUpInside)
 
         searchButton.setTitle(NSLocalizedString("EventsSearchBar_searchButtonTitle", comment: ""), forState: .Normal)
-        searchButton.addTarget("self", action: "didTapSearchButton", forControlEvents: .TouchUpInside)
+        searchButton.addTarget("self", action: #selector(EventsNearAddressFilterController.didTapSearchButton), forControlEvents: .TouchUpInside)
 
         applyTheme()
         setupConstraints()

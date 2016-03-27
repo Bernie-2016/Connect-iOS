@@ -46,10 +46,10 @@ class NearbyEventsFilterController: UIViewController {
         searchButton.buttonInputView = pickerView
 
         cancelButton.setTitle(NSLocalizedString("EventsSearchBar_cancelButtonTitle", comment: ""), forState: .Normal)
-        cancelButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
+        cancelButton.addTarget(self, action: #selector(NearbyEventsFilterController.didTapCancelButton), forControlEvents: .TouchUpInside)
 
         searchButton.setTitle(NSLocalizedString("EventsSearchBar_searchButtonTitle", comment: ""), forState: .Normal)
-        searchButton.addTarget("self", action: "didTapSearchButton", forControlEvents: .TouchUpInside)
+        searchButton.addTarget("self", action: #selector(NearbyEventsFilterController.didTapSearchButton), forControlEvents: .TouchUpInside)
 
         applyTheme()
         setupConstraints()

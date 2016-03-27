@@ -9,13 +9,13 @@ class FakeApplication: UserNotificationRegisterable {
 
     func registerUserNotificationSettings(notificationSettings: UIUserNotificationSettings) {
         self.lastRegisteredUserNotificationSettings = notificationSettings
-        self.callCount++
+        self.callCount += 1
         self.registerUserNotificationSettingsCallIndex = self.callCount
     }
 
     var registerForRemoteNotificationsCallIndex: Int!
     func registerForRemoteNotifications() {
-        self.callCount++
+        self.callCount += 1
         self.registerForRemoteNotificationsCallIndex = self.callCount
     }
 

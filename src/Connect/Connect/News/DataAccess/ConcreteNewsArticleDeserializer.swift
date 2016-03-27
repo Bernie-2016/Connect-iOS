@@ -10,6 +10,7 @@ class ConcreteNewsArticleDeserializer: NewsArticleDeserializer {
         self.dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'+00:00'"  // "2015-08-28T05:10:21+00:00"
     }
 
+    // swiftlint:disable cyclomatic_complexity
     func deserializeNewsArticles(jsonDictionary: NSDictionary) -> [NewsArticle] {
         var newsArticles = [NewsArticle]()
 
@@ -40,4 +41,5 @@ class ConcreteNewsArticleDeserializer: NewsArticleDeserializer {
 
         return newsArticles
     }
+    //swiftlint:enable cyclomatic_complexity
 }

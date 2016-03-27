@@ -65,11 +65,11 @@ class NewsFeedController: UIViewController {
         navigationItem.backBarButtonItem = backBarButtonItem
 
         let infoButtonImage = UIImage(named: "infoButton")!
-        let infoBarButtonItem = UIBarButtonItem(image: infoButtonImage, style: .Plain, target: self, action: "didTapInfoButton")
+        let infoBarButtonItem = UIBarButtonItem(image: infoButtonImage, style: .Plain, target: self, action: #selector(NewsFeedController.didTapInfoButton))
 
         navigationItem.rightBarButtonItem = infoBarButtonItem
 
-        refreshControl.addTarget(self, action:"refresh", forControlEvents:.ValueChanged)
+        refreshControl.addTarget(self, action:#selector(NewsFeedController.refresh), forControlEvents:.ValueChanged)
         collectionView.addSubview(refreshControl)
         collectionView.sendSubviewToBack(refreshControl)
         view.addSubview(collectionView)

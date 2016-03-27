@@ -18,4 +18,5 @@ protocol URLProvider {
     func twitterShareURL(urlToShare: NSURL) -> NSURL
     func retweetURL(tweetID: TweetID) -> NSURL
     func actionAlertURL(identifier: ActionAlertIdentifier) -> NSURL
+    func versionURL() -> NSURL
 }

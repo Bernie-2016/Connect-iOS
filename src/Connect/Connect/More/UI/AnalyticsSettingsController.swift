@@ -46,7 +46,7 @@ class AnalyticsSettingsController: UIViewController {
         analyticsStateLabel.text = NSLocalizedString("Settings_analytics_stateLoading", comment:"")
 
         analyticsSwitch.enabled = false
-        analyticsSwitch.addTarget(self, action: "didTapAnalyticsSwitch:", forControlEvents: .TouchUpInside)
+        analyticsSwitch.addTarget(self, action: #selector(AnalyticsSettingsController.didTapAnalyticsSwitch(_:)), forControlEvents: .TouchUpInside)
 
         applicationSettingsRepository.isAnalyticsEnabled { (analyticsEnabled) -> Void in
             self.analyticsSwitch.enabled = true

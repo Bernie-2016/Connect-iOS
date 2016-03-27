@@ -151,8 +151,8 @@ class ActionAlertsControllerSpec: QuickSpec {
                 it("sets the view's background image") {
                     subject.view.layoutSubviews()
 
-                    let backgroundImageView = subject.backgroundImageView as? UIImageView
-                    expect(backgroundImageView?.image) == UIImage(named: "actionAlertsBackground")
+                    let backgroundImageView = subject.backgroundImageView
+                    expect(backgroundImageView.image) == UIImage(named: "actionAlertsBackground")
                 }
             }
 

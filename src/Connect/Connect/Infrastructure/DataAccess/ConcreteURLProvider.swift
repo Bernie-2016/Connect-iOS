@@ -110,4 +110,8 @@ class ConcreteURLProvider: URLProvider {
 
         return NSURL(string: pathString, relativeToURL: connectBaseURL)!
     }
+
+    func versionURL() -> NSURL {
+        return NSURL(string: "/api/versions/ios", relativeToURL: connectBaseURL)!
+    }
 }

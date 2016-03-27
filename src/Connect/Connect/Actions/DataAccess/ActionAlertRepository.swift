@@ -13,10 +13,10 @@ extension ActionAlertRepositoryError: Equatable {}
 
 func == (lhs: ActionAlertRepositoryError, rhs: ActionAlertRepositoryError) -> Bool {
     switch (lhs, rhs) {
-        case (.InvalidJSON, .InvalidJSON):
-            return true // punt on this for now.
-        case (.ErrorInJSONClient(let lhsJSONClientError), .ErrorInJSONClient(let rhsJSONClientError)):
-            return lhsJSONClientError == rhsJSONClientError
+    case (.InvalidJSON, .InvalidJSON):
+        return true // punt on this for now.
+    case (.ErrorInJSONClient(let lhsJSONClientError), .ErrorInJSONClient(let rhsJSONClientError)):
+        return lhsJSONClientError == rhsJSONClientError
     case (.NoMatchingActionAlert(let lhsIdentifier), .NoMatchingActionAlert(let rhsIdentifier)):
         return lhsIdentifier == rhsIdentifier
     default:
