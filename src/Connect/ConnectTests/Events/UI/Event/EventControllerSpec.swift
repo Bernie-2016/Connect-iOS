@@ -156,7 +156,7 @@ class EventControllerSpec: QuickSpec {
                     expect(containerViewSubViews.contains(subject.mapView)).to(beTrue())
                     expect(containerViewSubViews.contains(subject.dateLabel)).to(beTrue())
                     expect(containerViewSubViews.contains(subject.nameLabel)).to(beTrue())
-                    expect(containerViewSubViews.contains(subject.eventTypeLabel)).to(beTrue())
+
                     expect(containerViewSubViews.contains(subject.directionsButton)).to(beTrue())
                     expect(containerViewSubViews.contains(subject.descriptionHeadingLabel)).to(beTrue())
                     expect(containerViewSubViews.contains(subject.descriptionLabel)).to(beTrue())
@@ -187,10 +187,6 @@ class EventControllerSpec: QuickSpec {
 
                 it("displays the title") {
                     expect(subject.nameLabel.text).to(equal("limited event"))
-                }
-
-                it("displays the event type") {
-                    expect(subject.eventTypeLabel.text).to(equal("Big Time Bernie Fun"))
                 }
 
                 it("displays the event description") {
@@ -253,9 +249,6 @@ class EventControllerSpec: QuickSpec {
                     expect(subject.nameLabel.font).to(equal(UIFont.systemFontOfSize(111)))
                     expect(subject.nameLabel.textColor).to(equal(UIColor.purpleColor()))
 
-                    expect(subject.eventTypeLabel.font).to(equal(UIFont.systemFontOfSize(999)))
-                    expect(subject.eventTypeLabel.textColor).to(equal(UIColor(rgba: "#aaaaaa")))
-
                     expect(subject.directionsButton.backgroundColor).to(equal(UIColor.lightGrayColor()))
                     expect(subject.directionsButton.title.textColor).to(equal(UIColor.darkGrayColor()))
                     expect(subject.directionsButton.title.font).to(equal(UIFont.italicSystemFontOfSize(777)))
@@ -300,8 +293,6 @@ class EventFakeTheme : FakeTheme {
     override func fullWidthRSVPButtonFont() -> UIFont { return UIFont.systemFontOfSize(888) }
     override func defaultDisclosureColor() -> UIColor { return UIColor.redColor() }
     override func eventBackgroundColor() -> UIColor { return UIColor.darkTextColor() }
-    override func eventTypeColor() -> UIColor { return UIColor(rgba: "#aaaaaa") }
-    override func eventTypeFont() -> UIFont { return UIFont.systemFontOfSize(999) }
 }
 
 class EventControllerFakeURLProvider : FakeURLProvider {

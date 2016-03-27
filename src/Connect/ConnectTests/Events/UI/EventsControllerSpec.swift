@@ -55,7 +55,6 @@ class EventsControllerSpec: QuickSpec {
                 navigationController = UINavigationController(rootViewController: subject)
             }
 
-
             it("has the correct tab bar title") {
                 expect(subject.title) == "Events"
             }

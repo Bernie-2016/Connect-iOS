@@ -19,7 +19,6 @@ class EventController: UIViewController {
     let mapView = MKMapView.newAutoLayoutView()
     let dateLabel = UILabel.newAutoLayoutView()
     let nameLabel = UILabel.newAutoLayoutView()
-    let eventTypeLabel = UILabel.newAutoLayoutView()
     let directionsButton = DisclosureButton.newAutoLayoutView()
     let descriptionHeadingLabel = UILabel.newAutoLayoutView()
     let descriptionLabel = UILabel.newAutoLayoutView()
@@ -162,8 +161,6 @@ class EventController: UIViewController {
         dateLabel.font = theme.eventStartDateFont()
         nameLabel.textColor = theme.eventNameColor()
         nameLabel.font = theme.eventNameFont()
-        eventTypeLabel.font = theme.eventTypeFont()
-        eventTypeLabel.textColor = theme.eventTypeColor()
 
         topSectionSpacer.backgroundColor = theme.eventBackgroundColor()
 
@@ -194,7 +191,6 @@ class EventController: UIViewController {
     func setupLabels() {
         nameLabel.text = event.name
         dateLabel.text = eventPresenter.presentDateTimeForEvent(event)
-        eventTypeLabel.text = event.eventTypeName
         directionsButton.title.text = NSLocalizedString("Event_directionsButtonTitle", comment: "")
         directionsButton.subTitle.text = eventPresenter.presentAddressForEvent(event)
         descriptionHeadingLabel.text = NSLocalizedString("Event_descriptionHeading", comment: "")
@@ -209,7 +205,7 @@ class EventController: UIViewController {
         containerView.addSubview(mapView)
         containerView.addSubview(dateLabel)
         containerView.addSubview(nameLabel)
-        containerView.addSubview(eventTypeLabel)
+
         containerView.addSubview(topSectionSpacer)
         containerView.addSubview(directionsButton)
         containerView.addSubview(bottomSectionSpacer)
@@ -245,12 +241,7 @@ class EventController: UIViewController {
         nameLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
         nameLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 20)
 
-        eventTypeLabel.numberOfLines = 0
-        eventTypeLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: nameLabel, withOffset: 6)
-        eventTypeLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
-        eventTypeLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 20)
-
-        topSectionSpacer.autoPinEdge(.Top, toEdge: .Bottom, ofView: eventTypeLabel, withOffset: 15)
+        topSectionSpacer.autoPinEdge(.Top, toEdge: .Bottom, ofView: nameLabel, withOffset: 15)
         topSectionSpacer.autoPinEdgeToSuperviewEdge(.Left)
         topSectionSpacer.autoPinEdgeToSuperviewEdge(.Right)
         topSectionSpacer.autoSetDimension(.Height, toSize: 11)

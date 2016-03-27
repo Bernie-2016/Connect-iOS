@@ -131,8 +131,6 @@ class DefaultTheme: Theme {
     func eventDirectionsButtonTextColor() -> UIColor { return h3HeaderTextColor() }
     func eventDirectionsButtonFont() -> UIFont { return h3HeaderFont() }
     func eventBackgroundColor() -> UIColor { return defaultBackgroundColor() }
-    func eventTypeFont() -> UIFont { return subHeadingFont() }
-    func eventTypeColor() -> UIColor { return subHeadingTextColor() }
 
     // MARK: About screen
 

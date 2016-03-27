@@ -121,8 +121,6 @@ protocol Theme {
     func eventDescriptionFont() -> UIFont
     func eventDescriptionColor() -> UIColor
     func eventBackgroundColor () -> UIColor
-    func eventTypeFont() -> UIFont
-    func eventTypeColor() -> UIColor
 
     // MARK: Settings
 
