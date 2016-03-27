@@ -18,5 +18,4 @@ class FakeApplication: UserNotificationRegisterable {
         self.callCount += 1
         self.registerForRemoteNotificationsCallIndex = self.callCount
     }
-
 }

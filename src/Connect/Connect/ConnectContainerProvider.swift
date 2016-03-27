@@ -38,7 +38,6 @@ class ConnectContainerProvider {
                 window: resolver.resolve(UIWindow.self, name: "main")!,
                 audioSession: resolver.resolve(AVAudioSession.self)!,
                 apiKeyProvider: resolver.resolve(APIKeyProvider.self)!,
-                newVersionNotifier: resolver.resolve(NewVersionNotifier.self)!,
                 theme: resolver.resolve(Theme.self)!)
             }.inObjectScope(.Container)
 

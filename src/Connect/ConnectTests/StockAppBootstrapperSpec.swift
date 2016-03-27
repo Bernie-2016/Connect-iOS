@@ -13,21 +13,18 @@ class StockAppBootstrapperSpec: QuickSpec {
             var theme: FakeTheme!
             var window: FakeUIWindow!
             let apiKeyProvider = APIKeyProvider()
-            var newVersionNotifier: MockNewVersionNotifier!
 
             beforeEach {
                 onboardingWorkflow = FakeOnboardingWorkflow()
                 audioSession = AVAudioSession()
                 theme = AppBootstrapperFakeTheme()
                 window = FakeUIWindow()
-                newVersionNotifier = MockNewVersionNotifier()
 
                 subject = StockAppBootstrapper(
                     onboardingWorkflow: onboardingWorkflow,
                     window: window,
                     audioSession: audioSession,
                     apiKeyProvider: apiKeyProvider,
-                    newVersionNotifier: newVersionNotifier,
                     theme: theme
                 )
             }
@@ -65,12 +62,6 @@ class StockAppBootstrapperSpec: QuickSpec {
                         onboardingWorkflow.lastInitialViewControllerCompletionHandler(expectedController)
 
                         expect(window.madeKeyAndVisible) == true
-                    }
-
-                    it("tells the new version notifier to notify the user of new versions on the controller from the workflow") {
-                        onboardingWorkflow.lastInitialViewControllerCompletionHandler(expectedController)
-
-                        expect(newVersionNotifier.lastController) === expectedController
                     }
                 }
             }

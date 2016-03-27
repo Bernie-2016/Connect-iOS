@@ -12,13 +12,19 @@ class AppDelegateSpec: QuickSpec {
             var appBootstrapper: FakeAppBootstrapper!
             var pushNotificationRegistrar: FakePushNotificationRegistrar!
             var userNotificationHandler: FakeUserNotificationHandler!
+            var newVersionNotifier: MockNewVersionNotifier!
+
             var container: Container!
+
+            let rootViewController = UIViewController()
 
             beforeEach {
                 appBootstrapper = FakeAppBootstrapper()
                 application = FakeUIApplicationProvider.fakeUIApplication()
+                application.keyWindow?.rootViewController = rootViewController
                 pushNotificationRegistrar = FakePushNotificationRegistrar()
                 userNotificationHandler = FakeUserNotificationHandler()
+                newVersionNotifier = MockNewVersionNotifier()
 
                 subject = AppDelegate()
                 container = Container()
@@ -26,6 +32,7 @@ class AppDelegateSpec: QuickSpec {
                 container.register(AppBootstrapper.self) { _ in return appBootstrapper }
                 container.register(PushNotificationRegistrar.self) { _ in return pushNotificationRegistrar }
                 container.register(UserNotificationHandler.self) { _ in return userNotificationHandler }
+                container.register(NewVersionNotifier.self) { _ in return newVersionNotifier }
 
                 subject.application(application, willFinishLaunchingWithOptions: nil)
                 subject.container = container
@@ -105,8 +112,19 @@ class AppDelegateSpec: QuickSpec {
                     expect(userNotificationHandler.lastReceivedUserInfo["wat"]).to(beIdenticalTo(expectedNotification["wat"]))
                 }
             }
+
+            describe("when the application did become active") {
+                beforeEach { subject.application(application, didFinishLaunchingWithOptions:nil) }
+
+                it("checks for a new version") {
+                    subject.applicationDidBecomeActive(application)
+
+                    expect(newVersionNotifier.lastController) === rootViewController
+                }
+            }
         }
     }
+
 }
 
 private class FakeAppBootstrapper: AppBootstrapper {
@@ -114,5 +132,13 @@ private class FakeAppBootstrapper: AppBootstrapper {
 
     private func bootstrap() {
         bootstrapCalled = true
+    }
+}
+
+private class MockNewVersionNotifier: NewVersionNotifier {
+    var lastController: UIViewController?
+
+    func presentAlertIfOutOfDateOnController(controller: UIViewController) {
+        lastController = controller
     }
 }

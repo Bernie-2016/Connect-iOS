@@ -1,9 +1,27 @@
 #import "FakeUIApplicationProvider.h"
 
-@implementation FakeUIApplicationProvider
+@implementation FakeUIApplication
 
-+ (UIApplication *)fakeUIApplication {
-    return (UIApplication *)[NSObject new];
+@synthesize keyWindow;
+
+- (instancetype)init {
+    self = [super init];
+    
+    if (self) {
+        self.keyWindow = [UIWindow new];
+    }
+    
+    return self;
 }
 
 @end
+
+@implementation FakeUIApplicationProvider
+
++ (UIApplication *)fakeUIApplication {
+    return (UIApplication *)[FakeUIApplication new];
+}
+
+@end
+
+

@@ -10,7 +10,6 @@ class StockAppBootstrapper: AppBootstrapper {
     let window: UIWindow
     let audioSession: AVAudioSession
     let apiKeyProvider: APIKeyProvider
-    let newVersionNotifier: NewVersionNotifier
     let theme: Theme
 
     init(
@@ -18,13 +17,11 @@ class StockAppBootstrapper: AppBootstrapper {
         window: UIWindow,
         audioSession: AVAudioSession,
         apiKeyProvider: APIKeyProvider,
-        newVersionNotifier: NewVersionNotifier,
         theme: Theme) {
             self.onboardingWorkflow = onboardingWorkflow
             self.window = window
             self.audioSession = audioSession
             self.apiKeyProvider = apiKeyProvider
-            self.newVersionNotifier = newVersionNotifier
             self.theme = theme
     }
 
@@ -62,7 +59,6 @@ class StockAppBootstrapper: AppBootstrapper {
             self.window.rootViewController = controller
             self.window.backgroundColor = self.theme.defaultBackgroundColor()
             self.window.makeKeyAndVisible()
-            self.newVersionNotifier.presentAlertIfOutOfDateOnController(controller)
         }
     }
 }

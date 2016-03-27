@@ -5,6 +5,8 @@ import Swinject
 class AppDelegate: UIResponder, UIApplicationDelegate {
     private var pushNotificationRegistrar: PushNotificationRegistrar!
     private var userNotificationHandler: UserNotificationHandler!
+    private var newVersionNotifier: NewVersionNotifier!
+
     var container: Container!
 
     func application(application: UIApplication, willFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
@@ -17,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
             pushNotificationRegistrar = container.resolve(PushNotificationRegistrar.self)!
             userNotificationHandler = container.resolve(UserNotificationHandler.self)
+            newVersionNotifier = container.resolve(NewVersionNotifier.self)
 
             let appBootstrapper = container.resolve(AppBootstrapper.self)!
             appBootstrapper.bootstrap()
@@ -38,6 +41,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         userNotificationHandler.handleRemoteNotification(userInfo)
+    }
+
+    func applicationDidBecomeActive(application: UIApplication) {
+        guard let controller = application.keyWindow?.rootViewController else {
+            return
+        }
+
+        newVersionNotifier.presentAlertIfOutOfDateOnController(controller)
     }
 
     // MARK: Private
