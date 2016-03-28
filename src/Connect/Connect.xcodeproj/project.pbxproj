@@ -2271,7 +2271,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CONNECT_BASE_URL = "https://sanders-connect-staging.herokuapp.com/";
-				CURRENT_PROJECT_VERSION = 208;
+				CURRENT_PROJECT_VERSION = 209;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2337,7 +2337,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = tech.berniesanders.bernie2016.ios;
 				PRODUCT_NAME = ConnectTests;
 				SWIFT_OBJC_BRIDGING_HEADER = "ConnectTests/ConnectTests-Bridging-Header.h";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Connect.app/Connect";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ConnectDebug.app/ConnectDebug";
 				WARNING_CFLAGS = (
 					"-Weverything",
 					"-Wno-padded",
@@ -2442,7 +2442,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CONNECT_BASE_URL = "https://sanders-connect-staging.herokuapp.com/";
-				CURRENT_PROJECT_VERSION = 208;
+				CURRENT_PROJECT_VERSION = 209;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2493,7 +2493,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CONNECT_BASE_URL = "https://connect.berniesanders.com/";
-				CURRENT_PROJECT_VERSION = 208;
+				CURRENT_PROJECT_VERSION = 209;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2564,7 +2564,7 @@
 				PRODUCT_NAME = ConnectTests;
 				SWIFT_OBJC_BRIDGING_HEADER = "ConnectTests/ConnectTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Connect.app/Connect";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ConnectDebug.app/ConnectDebug";
 				WARNING_CFLAGS = (
 					"-Weverything",
 					"-Wno-padded",
@@ -2598,7 +2598,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = tech.berniesanders.bernie2016.ios;
 				PRODUCT_NAME = ConnectTests;
 				SWIFT_OBJC_BRIDGING_HEADER = "ConnectTests/ConnectTests-Bridging-Header.h";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Connect.app/Connect";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ConnectDebug.app/ConnectDebug";
 				WARNING_CFLAGS = (
 					"-Weverything",
 					"-Wno-padded",

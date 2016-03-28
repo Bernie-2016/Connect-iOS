@@ -149,7 +149,7 @@ class EventControllerSpec: QuickSpec {
 
                     let containerView = scrollView.subviews.first!
 
-                    expect(containerView.subviews.count).to(equal(10))
+                    expect(containerView.subviews.count).to(equal(9))
 
                     let containerViewSubViews = containerView.subviews
 
