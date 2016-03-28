@@ -94,6 +94,8 @@ class ActionAlertsController: UIViewController {
         collectionView.dataSource = self
         collectionView.registerClass(ActionAlertCell.self, forCellWithReuseIdentifier: kCollectionViewCellName)
 
+        errorLabel.numberOfLines = 0
+
         retryButton.setTitle(NSLocalizedString("Actions_retryButton", comment: ""), forState: .Normal)
         retryButton.addTarget(self, action: #selector(ActionAlertsController.didTapRetryButton), forControlEvents: .TouchUpInside)
 
