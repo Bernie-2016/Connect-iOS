@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8233FC061B7C28FB00A5E9ED"
-               BuildableName = "Connect.app"
+               BuildableName = "Bernie Connect.app"
                BlueprintName = "Connect"
                ReferencedContainer = "container:Connect.xcodeproj">
             </BuildableReference>
@@ -58,7 +58,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8233FC061B7C28FB00A5E9ED"
-            BuildableName = "Connect.app"
+            BuildableName = "Bernie Connect.app"
             BlueprintName = "Connect"
             ReferencedContainer = "container:Connect.xcodeproj">
          </BuildableReference>
@@ -81,7 +81,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8233FC061B7C28FB00A5E9ED"
-            BuildableName = "Connect.app"
+            BuildableName = "Bernie Connect.app"
             BlueprintName = "Connect"
             ReferencedContainer = "container:Connect.xcodeproj">
          </BuildableReference>
@@ -100,7 +100,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8233FC061B7C28FB00A5E9ED"
-            BuildableName = "Connect.app"
+            BuildableName = "Bernie Connect.app"
             BlueprintName = "Connect"
             ReferencedContainer = "container:Connect.xcodeproj">
          </BuildableReference>

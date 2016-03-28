@@ -568,7 +568,7 @@
 		654FDBBC1BC1867F00A082CF /* feedbackGoogleFormOverrides.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = feedbackGoogleFormOverrides.css; sourceTree = "<group>"; };
 		6554BDAB1C98FDEB00A99F2B /* EventsNearAddressFilterControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsNearAddressFilterControllerSpec.swift; sourceTree = "<group>"; };
 		6554BDAD1C990C9000A99F2B /* StockRadiusDataSourceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockRadiusDataSourceSpec.swift; sourceTree = "<group>"; };
-		655598041BFC2FFB00BCE1AB /* Connect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Connect.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		655598041BFC2FFB00BCE1AB /* ConnectDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConnectDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		655598051BFC2FFB00BCE1AB /* ConnectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ConnectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		655906F31BC4607100D7B0BA /* FakeApplicationSettingsRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeApplicationSettingsRepository.swift; sourceTree = "<group>"; };
 		6559D70E1BBDC37000CBC7EE /* FakeAnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeAnalyticsService.swift; sourceTree = "<group>"; };
@@ -1603,7 +1603,7 @@
 				8233FC091B7C28FB00A5E9ED /* Connect */,
 				8233FC211B7C28FB00A5E9ED /* ConnectTests */,
 				65AEED601CA1D7FA00EE585A /* CFNetwork.framework */,
-				655598041BFC2FFB00BCE1AB /* Connect.app */,
+				655598041BFC2FFB00BCE1AB /* ConnectDebug.app */,
 				655598051BFC2FFB00BCE1AB /* ConnectTests.xctest */,
 				65AEED621CA1D80700EE585A /* libicucore.tbd */,
 				65AEED641CA1D81000EE585A /* Security.framework */,
@@ -1701,7 +1701,7 @@
 			);
 			name = Connect;
 			productName = berniesanders;
-			productReference = 655598041BFC2FFB00BCE1AB /* Connect.app */;
+			productReference = 655598041BFC2FFB00BCE1AB /* ConnectDebug.app */;
 			productType = "com.apple.product-type.application";
 		};
 		8233FC1D1B7C28FB00A5E9ED /* ConnectTests */ = {
@@ -2466,7 +2466,7 @@
 				OTHER_SWIFT_FLAGS = "-DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER)";
 				PRODUCT_MODULE_NAME = Connect;
-				PRODUCT_NAME = Connect;
+				PRODUCT_NAME = ConnectDebug;
 				PROVISIONING_PROFILE = "";
 				SHARKNADO_BASE_URL = "https://sharknado-staging.berniesanders.com";
 				SWIFT_OBJC_BRIDGING_HEADER = "Connect/Connect-Bridging-Header.h";
@@ -2517,7 +2517,7 @@
 				OTHER_SWIFT_FLAGS = "-DRELEASE -DPRODUCTION";
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_IDENTIFIER)";
 				PRODUCT_MODULE_NAME = Connect;
-				PRODUCT_NAME = Connect;
+				PRODUCT_NAME = "Bernie Connect";
 				PROVISIONING_PROFILE = "";
 				SHARKNADO_BASE_URL = "https://sharknado.berniesanders.com";
 				SWIFT_OBJC_BRIDGING_HEADER = "Connect/Connect-Bridging-Header.h";
