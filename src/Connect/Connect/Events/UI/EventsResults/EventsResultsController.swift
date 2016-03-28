@@ -54,6 +54,19 @@ class EventsResultsController: UIViewController {
         tableView.registerClass(EventsSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: "header")
         tableView.separatorColor = theme.defaultTableSeparatorColor()
 
+        let tableFooter = UILabel()
+        tableFooter.textAlignment = .Center
+        tableFooter.text = "🕊"
+        tableFooter.alpha = 0
+        tableView.tableFooterView = tableFooter
+        tableFooter.setNeedsLayout()
+        tableFooter.layoutIfNeeded()
+        let height = tableFooter.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize).height
+        var frame = tableFooter.frame
+        frame.size.height = height
+        tableFooter.frame = frame
+        tableView.tableFooterView = tableFooter
+
         setupConstraints()
     }
 
@@ -163,5 +176,18 @@ extension EventsResultsController: UITableViewDelegate {
         let controller = self.eventControllerProvider.provideInstanceWithEvent(event)
         self.analyticsService.trackContentViewWithName(event.name, type: .Event, identifier: event.url.absoluteString)
         self.navigationController?.pushViewController(controller, animated: true)
+    }
+
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+
+        let scrollViewHeight = scrollView.frame.size.height
+        let scrollContentSizeHeight = scrollView.contentSize.height
+        let scrollOffset = scrollView.contentOffset.y
+        if scrollOffset + scrollViewHeight > scrollContentSizeHeight {
+            let difference = (scrollOffset + scrollViewHeight) / scrollContentSizeHeight
+
+            let alpha: CGFloat = min((difference - 1.0) * 5, 1.0)
+            tableView.tableFooterView?.alpha = alpha
+        }
     }
 }

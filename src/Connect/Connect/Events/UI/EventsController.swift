@@ -105,7 +105,7 @@ class EventsController: UIViewController {
         resultsView.autoPinEdge(.Top, toEdge: .Bottom, ofView: searchBarView)
         resultsView.autoPinEdgeToSuperviewEdge(.Left)
         resultsView.autoPinEdgeToSuperviewEdge(.Right)
-        resultsView.autoPinEdgeToSuperviewEdge(.Bottom)
+        resultsView.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 40)
     }
 
     private func showResults() {
