@@ -225,7 +225,7 @@ class ActionAlertsController: UIViewController {
 
             let webViewWidth = UIScreen.mainScreen().bounds.width - 10
             webView.autoSetDimension(.Width, toSize: webViewWidth)
-            webView.autoSetDimension(.Height, toSize: 220)
+            webView.autoSetDimension(.Height, toSize: 1000)
             webView.autoCenterInSuperview()
 
             self.webViews.append(webView)
