@@ -320,7 +320,7 @@ extension ActionAlertsController: UICollectionViewDelegateFlowLayout {
         return s
     }
 
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    func scrollViewDidScroll(scrollView: UIScrollView) {
         let pageWidth = UIScreen.mainScreen().bounds.width
         let currentPage: Float = Float(scrollView.contentOffset.x / pageWidth)
 
