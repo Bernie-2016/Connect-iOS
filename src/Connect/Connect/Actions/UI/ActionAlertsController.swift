@@ -225,7 +225,13 @@ class ActionAlertsController: UIViewController {
 
             let webViewWidth = UIScreen.mainScreen().bounds.width - 10
             webView.autoSetDimension(.Width, toSize: webViewWidth)
-            webView.autoSetDimension(.Height, toSize: 1000)
+
+            if  actionAlert.body.rangeOfString("facebook.com", options: .RegularExpressionSearch) != nil {
+                webView.autoSetDimension(.Height, toSize: 450)
+            } else {
+                webView.autoSetDimension(.Height, toSize: 100)
+            }
+
             webView.autoCenterInSuperview()
 
             self.webViews.append(webView)
