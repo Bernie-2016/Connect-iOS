@@ -175,7 +175,12 @@ class ActionAlertsControllerSpec: QuickSpec {
                     subject.view.layoutSubviews()
 
                     expect(subject.view.subviews).to(contain(subject.infoButton))
-                    expect(subject.infoButton.imageForState(.Normal)) == UIImage(named: "infoButton")
+                }
+
+                it("styles the info button with the theme") {
+                    subject.view.layoutSubviews()
+
+                    expect(subject.infoButton.tintColor) == UIColor.darkGrayColor()
                 }
 
                 it("should set the back bar button item title correctly") {
@@ -750,6 +755,7 @@ private class ActionAlertsControllerFakeTheme: FakeTheme {
     override func fullWidthRSVPButtonFont() -> UIFont { return UIFont.systemFontOfSize(444) }
     override func defaultCurrentPageIndicatorTintColor() -> UIColor { return UIColor.whiteColor() }
     override func defaultPageIndicatorTintColor() -> UIColor { return UIColor.lightGrayColor() }
+    override func actionsInfoButtonTintColor() -> UIColor { return UIColor.darkGrayColor() }
 }
 
 private class FakeActionAlertWebViewProvider: ActionAlertWebViewProvider {

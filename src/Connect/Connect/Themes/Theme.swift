@@ -53,6 +53,7 @@ protocol Theme {
     func newsFeedDateColor() -> UIColor
     func newsFeedVideoOverlayBackgroundColor() -> UIColor
     func newsFeedCellBorderColor() -> UIColor
+    func newsFeedInfoButtonTintColor() -> UIColor
 
     // MARK: News Article detail screen
 
@@ -153,6 +154,7 @@ protocol Theme {
     func actionsShortLoadingMessageTextColor() -> UIColor
     func actionsErrorMessageFont() -> UIFont
     func actionsErrorMessageTextColor() -> UIColor
+    func actionsInfoButtonTintColor() -> UIColor
 
     // MARK: Action Alerts
 

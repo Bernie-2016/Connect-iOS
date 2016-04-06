@@ -59,14 +59,14 @@ class NewsFeedController: UIViewController {
         navigationItem.title = NSLocalizedString("NewsFeed_navigationTitle", comment: "")
 
         let backBarButtonItem = UIBarButtonItem(title: NSLocalizedString("NewsFeed_backButtonTitle", comment: ""),
-            style: UIBarButtonItemStyle.Plain,
+            style: .Plain,
             target: nil, action: nil)
 
         navigationItem.backBarButtonItem = backBarButtonItem
 
         let infoButtonImage = UIImage(named: "infoButton")!
         let infoBarButtonItem = UIBarButtonItem(image: infoButtonImage, style: .Plain, target: self, action: #selector(NewsFeedController.didTapInfoButton))
-
+        infoBarButtonItem.tintColor = theme.newsFeedInfoButtonTintColor()
         navigationItem.rightBarButtonItem = infoBarButtonItem
 
         refreshControl.addTarget(self, action:#selector(NewsFeedController.refresh), forControlEvents:.ValueChanged)

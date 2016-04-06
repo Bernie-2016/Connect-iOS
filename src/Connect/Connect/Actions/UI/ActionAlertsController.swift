@@ -20,7 +20,7 @@ class ActionAlertsController: UIViewController {
     let retryButton = UIButton.newAutoLayoutView()
     let backgroundImageView = UIImageView.newAutoLayoutView()
     let connectLogoImageView = UIImageView.newAutoLayoutView()
-    let infoButton = UIButton.newAutoLayoutView()
+    let infoButton = UIButton(type: .Custom)
 
     private let layout = CenterCellCollectionViewFlowLayout()
     private var webViews: [UIWebView] = []
@@ -76,8 +76,10 @@ class ActionAlertsController: UIViewController {
         layout.sectionInset = UIEdgeInsets(top: 0, left: kHorizontalSectionInset, bottom: 0, right: kHorizontalSectionInset)
         layout.minimumLineSpacing = 12
 
-        let infoButtonImage = UIImage(named: "infoButton")!
+
+        let infoButtonImage = UIImage(named: "infoButton")!.imageWithRenderingMode(.AlwaysTemplate)
         infoButton.setImage(infoButtonImage, forState: .Normal)
+        infoButton.tintColor = theme.actionsInfoButtonTintColor()
         infoButton.addTarget(self, action: #selector(ActionAlertsController.didTapInfoButton), forControlEvents: .TouchUpInside)
 
         let backBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Actions_backButtonTitle", comment: ""),

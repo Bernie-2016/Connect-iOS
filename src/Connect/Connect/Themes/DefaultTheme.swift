@@ -49,6 +49,7 @@ class DefaultTheme: Theme {
     func newsFeedDateColor() -> UIColor { return subHeadingTextColor() }
     func newsFeedVideoOverlayBackgroundColor() -> UIColor { return UIColor(red: 0, green: 0, blue: 0, alpha: 0.7) }
     func newsFeedCellBorderColor() -> UIColor { return altoColor }
+    func newsFeedInfoButtonTintColor() -> UIColor { return boulderColor }
 
     // MARK: News Article screen
 
@@ -172,7 +173,7 @@ class DefaultTheme: Theme {
     func actionsShortLoadingMessageTextColor() -> UIColor { return UIColor.whiteColor() }
     func actionsErrorMessageFont() -> UIFont { return lightSystemFontOfSize(13) }
     func actionsErrorMessageTextColor() -> UIColor { return UIColor.whiteColor() }
-
+    func actionsInfoButtonTintColor() -> UIColor { return UIColor.whiteColor() }
     // MARK: Markdown
 
     func markdownH1Font() -> UIFont { return h1HeaderFont() }

@@ -64,6 +64,15 @@ class NewsFeedControllerSpecs: QuickSpec {
                 expect(barButtonItem.image) == UIImage(named: "infoButton")
             }
 
+            it("styles the right bar button with the theme") {
+                guard let barButtonItem = subject.navigationItem.rightBarButtonItem else {
+                    fail("No bar button item found")
+                    return
+                }
+                expect(barButtonItem.tintColor) == UIColor.darkGrayColor()
+            }
+
+
             it("uses the tab bar item stylist to style its tab bar item") {
                 expect(tabBarItemStylist.lastReceivedTabBarItem).to(beIdenticalTo(subject.tabBarItem))
 
@@ -324,6 +333,10 @@ private class NewsFakeTheme: FakeTheme {
 
     override func defaultSpinnerColor() -> UIColor {
         return UIColor.greenColor()
+    }
+
+    override func newsFeedInfoButtonTintColor() -> UIColor {
+        return UIColor.darkGrayColor()
     }
 }
 
