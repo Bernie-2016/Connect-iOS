@@ -169,13 +169,11 @@ class DefaultTheme: Theme {
     func actionsTitleTextColor() -> UIColor { return wildSandColor }
     func actionsShortDescriptionFont() -> UIFont { return UIFont.systemFontOfSize(14) }
     func actionsShortDescriptionTextColor() -> UIColor { return cadetBlueColor }
-    func actionsShortLoadingMessageFont() -> UIFont { return lightSystemFontOfSize(13) }
-    func actionsShortLoadingMessageTextColor() -> UIColor { return UIColor.whiteColor() }
     func actionsErrorMessageFont() -> UIFont { return lightSystemFontOfSize(13) }
     func actionsErrorMessageTextColor() -> UIColor { return UIColor.whiteColor() }
     func actionsInfoButtonTintColor() -> UIColor { return UIColor.whiteColor() }
-    // MARK: Markdown
 
+    // MARK: Markdown
     func markdownH1Font() -> UIFont { return h1HeaderFont() }
     func markdownH2Font() -> UIFont { return h2HeaderFont() }
     func markdownH3Font() -> UIFont { return h3HeaderFont() }

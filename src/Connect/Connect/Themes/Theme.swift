@@ -150,8 +150,6 @@ protocol Theme {
     func actionsTitleTextColor() -> UIColor
     func actionsShortDescriptionFont() -> UIFont
     func actionsShortDescriptionTextColor() -> UIColor
-    func actionsShortLoadingMessageFont() -> UIFont
-    func actionsShortLoadingMessageTextColor() -> UIColor
     func actionsErrorMessageFont() -> UIFont
     func actionsErrorMessageTextColor() -> UIColor
     func actionsInfoButtonTintColor() -> UIColor

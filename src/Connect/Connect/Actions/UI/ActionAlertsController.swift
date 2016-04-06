@@ -15,7 +15,6 @@ class ActionAlertsController: UIViewController {
     var collectionView: UICollectionView!
     let loadingIndicatorView = UIActivityIndicatorView()
     var pageControl = UIPageControl.newAutoLayoutView()
-    let loadingMessageLabel = UILabel.newAutoLayoutView()
     let errorLabel = UILabel.newAutoLayoutView()
     let retryButton = UIButton.newAutoLayoutView()
     let backgroundImageView = UIImageView.newAutoLayoutView()
@@ -91,7 +90,6 @@ class ActionAlertsController: UIViewController {
         view.addSubview(backgroundImageView)
         view.addSubview(collectionView)
         view.addSubview(loadingIndicatorView)
-        view.addSubview(loadingMessageLabel)
         view.addSubview(errorLabel)
         view.addSubview(retryButton)
         view.addSubview(connectLogoImageView)
@@ -112,7 +110,6 @@ class ActionAlertsController: UIViewController {
         retryButton.addTarget(self, action: #selector(ActionAlertsController.didTapRetryButton), forControlEvents: .TouchUpInside)
 
         loadingIndicatorView.startAnimating()
-        loadingMessageLabel.text = NSLocalizedString("Actions_loadingMessage", comment: "")
 
         applyTheme()
         setupConstraints()
@@ -144,9 +141,6 @@ class ActionAlertsController: UIViewController {
 
         loadingIndicatorView.color = theme.defaultSpinnerColor()
 
-        loadingMessageLabel.font = theme.actionsShortLoadingMessageFont()
-        loadingMessageLabel.textColor = theme.actionsShortLoadingMessageTextColor()
-
         errorLabel.font = theme.actionsErrorMessageFont()
         errorLabel.textColor = theme.actionsErrorMessageTextColor()
         retryButton.setTitleColor(theme.fullWidthRSVPButtonTextColor(), forState: .Normal)
@@ -172,9 +166,6 @@ class ActionAlertsController: UIViewController {
 
         loadingIndicatorView.autoAlignAxisToSuperviewAxis(.Vertical)
         loadingIndicatorView.autoAlignAxis(.Horizontal, toSameAxisOfView: view, withOffset: -20)
-
-        loadingMessageLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: loadingIndicatorView, withOffset: 40)
-        loadingMessageLabel.autoAlignAxis(.Vertical, toSameAxisOfView: loadingIndicatorView)
 
         errorLabel.autoAlignAxis(.Horizontal, toSameAxisOfView: view, withOffset: -120)
         errorLabel.autoAlignAxisToSuperviewAxis(.Vertical)
@@ -211,7 +202,6 @@ class ActionAlertsController: UIViewController {
     }
 
     private func showLoadingUI() {
-        loadingMessageLabel.hidden = false
         pageControl.hidden = true
         loadingIndicatorView.hidden = false
         collectionView.hidden = true
@@ -225,7 +215,6 @@ class ActionAlertsController: UIViewController {
     }
 
     private func hideLoadingUI() {
-        loadingMessageLabel.hidden = true
         loadingIndicatorView.hidden = true
     }
 

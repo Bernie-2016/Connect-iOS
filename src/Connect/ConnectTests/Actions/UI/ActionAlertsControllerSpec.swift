@@ -98,13 +98,6 @@ class ActionAlertsControllerSpec: QuickSpec {
                     expect(subject.loadingIndicatorView.color) == UIColor.greenColor()
                 }
 
-                it("styles the loading message with the theme") {
-                    subject.view.layoutSubviews()
-
-                    expect(subject.loadingMessageLabel.textColor) == UIColor.blueColor()
-                    expect(subject.loadingMessageLabel.font) == UIFont.systemFontOfSize(333)
-                }
-
                 it("styles the error message with the theme") {
                     subject.view.layoutSubviews()
 
@@ -131,18 +124,6 @@ class ActionAlertsControllerSpec: QuickSpec {
                     subject.view.layoutSubviews()
 
                     expect(subject.retryButton.titleForState(.Normal)) == "RETRY"
-                }
-
-                it("adds the loading message as a subview") {
-                    subject.view.layoutSubviews()
-
-                    expect(subject.view.subviews).to(contain(subject.loadingMessageLabel))
-                }
-
-                it("sets the correct text for the loading message") {
-                    subject.view.layoutSubviews()
-
-                    expect(subject.loadingMessageLabel.text) == "Amplify Bernie's Message by Sharing!"
                 }
 
                 it("animates the spinner") {
@@ -219,14 +200,6 @@ class ActionAlertsControllerSpec: QuickSpec {
                     expect(subject.loadingIndicatorView.hidden) == false
                 }
 
-                it("shows the loading message") {
-                    subject.loadingMessageLabel.hidden = true
-
-                    subject.viewWillAppear(false)
-
-                    expect(subject.loadingMessageLabel.hidden) == false
-                }
-
                 it("hides the error message") {
                     subject.errorLabel.hidden = false
 
@@ -277,14 +250,6 @@ class ActionAlertsControllerSpec: QuickSpec {
                     subject.retryButton.tap()
 
                     expect(subject.loadingIndicatorView.hidden) == false
-                }
-
-                it("shows the loading message") {
-                    subject.loadingMessageLabel.hidden = true
-
-                    subject.retryButton.tap()
-
-                    expect(subject.loadingMessageLabel.hidden) == false
                 }
 
                 it("hides the error message") {
@@ -628,14 +593,6 @@ class ActionAlertsSharedExamplesConfiguration: QuickConfiguration {
                             expect(subject.pageControl.hidden) == false
                         }
 
-                        it("hides the loading message") {
-                            subject.loadingIndicatorView.hidden = false
-
-                            actionAlertLoadingMonitor.lastCompletionHandler!()
-
-                            expect(subject.loadingMessageLabel.hidden) == true
-                        }
-
                         it("hides the spinner") {
                             actionAlertLoadingMonitor.lastCompletionHandler!()
 
@@ -657,14 +614,6 @@ class ActionAlertsSharedExamplesConfiguration: QuickConfiguration {
                 }
 
                 context("when the service resolves its promise with zero action alerts") {
-                    it("hides the loading message") {
-                        subject.loadingIndicatorView.hidden = false
-
-                        actionAlertService.lastReturnedActionAlertsPromise.resolve([])
-
-                        expect(subject.loadingMessageLabel.hidden) == true
-                    }
-
                     it("hides the spinner") {
                         actionAlertService.lastReturnedActionAlertsPromise.resolve([])
 
@@ -695,14 +644,6 @@ class ActionAlertsSharedExamplesConfiguration: QuickConfiguration {
                 }
 
                 context("when the service rejects its promise with an error") {
-                    it("hides the loading message") {
-                        subject.loadingMessageLabel.hidden = false
-
-                        actionAlertService.lastReturnedActionAlertsPromise.reject(ActionAlertRepositoryError.InvalidJSON(jsonObject: []))
-
-                        expect(subject.loadingMessageLabel.hidden) == true
-                    }
-
                     it("hides the spinner") {
                         subject.loadingIndicatorView.hidden = false
 
@@ -746,8 +687,6 @@ private class ActionAlertsControllerFakeTheme: FakeTheme {
     override func actionsTitleTextColor() -> UIColor { return UIColor.magentaColor() }
     override func actionsShortDescriptionFont() -> UIFont { return UIFont.systemFontOfSize(222) }
     override func actionsShortDescriptionTextColor() -> UIColor { return UIColor.orangeColor() }
-    override func actionsShortLoadingMessageFont() -> UIFont { return UIFont.systemFontOfSize(333) }
-    override func actionsShortLoadingMessageTextColor() -> UIColor { return UIColor.blueColor() }
     override func actionsErrorMessageFont() -> UIFont { return UIFont.systemFontOfSize(444) }
     override func actionsErrorMessageTextColor() -> UIColor { return UIColor.brownColor() }
     override func fullWidthButtonBackgroundColor() -> UIColor { return UIColor.purpleColor() }
