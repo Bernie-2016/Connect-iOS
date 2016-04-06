@@ -45,7 +45,7 @@ class ActionAlertsControllerSpec: QuickSpec {
             it("has the correct title") {
                 subject.view.layoutSubviews()
 
-                expect(subject.tabBarItem.title).to(equal("Act Now"))
+                expect(subject.tabBarItem.title).to(equal("Share This"))
             }
 
             it("uses the tab bar item stylist to style its tab bar item") {

@@ -114,7 +114,7 @@
 
 // Actions
 
-"Actions_title" = "Act Now";
+"Actions_title" = "Share This";
 "Actions_loadingMessage" = "Amplify Bernie's Message by Sharing!";
 "Actions_errorMessage" = "An error occurred while loading this content.";
 "Actions_noResultsMessage" = "There's nothing for you to share right now. Check back later!";
