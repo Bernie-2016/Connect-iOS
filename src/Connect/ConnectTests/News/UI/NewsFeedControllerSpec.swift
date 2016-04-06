@@ -298,6 +298,12 @@ class NewsFeedControllerSpecs: QuickSpec {
 
                     expect(navigationController.topViewController) === moreController
                 }
+
+                it("logs an event to the analytics service") {
+                    subject.navigationItem.rightBarButtonItem!.tap()
+
+                    expect(analyticsService.lastCustomEventName).to(equal("User tapped info button on news feed"))
+                }
             }
         }
     }

@@ -7,6 +7,7 @@ class ActionAlertsController: UIViewController {
     private let actionAlertWebViewProvider: ActionAlertWebViewProvider
     private let actionAlertLoadingMonitor: ActionAlertLoadingMonitor
     private let urlOpener: URLOpener
+    private let moreController: UIViewController
     private let analyticsService: AnalyticsService
     private let tabBarItemStylist: TabBarItemStylist
     private let theme: Theme
@@ -37,6 +38,7 @@ class ActionAlertsController: UIViewController {
         actionAlertWebViewProvider: ActionAlertWebViewProvider,
         actionAlertLoadingMonitor: ActionAlertLoadingMonitor,
         urlOpener: URLOpener,
+        moreController: UIViewController,
         analyticsService: AnalyticsService,
         tabBarItemStylist: TabBarItemStylist,
         theme: Theme
@@ -45,6 +47,7 @@ class ActionAlertsController: UIViewController {
             self.actionAlertWebViewProvider = actionAlertWebViewProvider
             self.actionAlertLoadingMonitor = actionAlertLoadingMonitor
             self.urlOpener = urlOpener
+            self.moreController = moreController
             self.analyticsService = analyticsService
             self.tabBarItemStylist = tabBarItemStylist
             self.theme = theme
@@ -79,6 +82,18 @@ class ActionAlertsController: UIViewController {
         pageControl.currentPageIndicatorTintColor = theme.defaultCurrentPageIndicatorTintColor()
         pageControl.pageIndicatorTintColor = theme.defaultPageIndicatorTintColor()
         navigationItem.titleView = pageControl
+
+
+        let backBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Actions_backButtonTitle", comment: ""),
+                                                style: UIBarButtonItemStyle.Plain,
+                                                target: nil, action: nil)
+
+        navigationItem.backBarButtonItem = backBarButtonItem
+
+        let infoButtonImage = UIImage(named: "infoButton")!
+        let infoBarButtonItem = UIBarButtonItem(image: infoButtonImage, style: .Plain, target: self, action: #selector(ActionAlertsController.didTapInfoButton))
+
+        navigationItem.rightBarButtonItem = infoBarButtonItem
 
         view.addSubview(backgroundImageView)
         view.addSubview(collectionView)
@@ -409,5 +424,15 @@ extension ActionAlertsController: UIWebViewDelegate {
         analyticsService.trackCustomEventWithName("Began Share", customAttributes: attributes)
     }
 }
+
+// MARK: Actions
+
+extension ActionAlertsController {
+    func didTapInfoButton() {
+        navigationController?.pushViewController(moreController, animated: true)
+        analyticsService.trackCustomEventWithName("User tapped info button on action alerts", customAttributes: nil)
+    }
+}
+
 // swiftlint:enable type_body_length
 // swiftlint:enable file_length

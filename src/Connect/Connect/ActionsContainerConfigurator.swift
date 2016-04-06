@@ -36,6 +36,7 @@ class ActionsContainerConfigurator: ContainerConfigurator {
                 actionAlertWebViewProvider: resolver.resolve(ActionAlertWebViewProvider.self)!,
                 actionAlertLoadingMonitor: resolver.resolve(ActionAlertLoadingMonitor.self)!,
                 urlOpener: resolver.resolve(URLOpener.self)!,
+                moreController: resolver.resolve(SettingsController.self)!,
                 analyticsService: resolver.resolve(AnalyticsService.self)!,
                 tabBarItemStylist: resolver.resolve(TabBarItemStylist.self)!,
                 theme: resolver.resolve(Theme.self)!)

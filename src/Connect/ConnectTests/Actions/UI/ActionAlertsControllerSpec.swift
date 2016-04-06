@@ -11,6 +11,7 @@ class ActionAlertsControllerSpec: QuickSpec {
             var actionAlertWebViewProvider: FakeActionAlertWebViewProvider!
             var actionAlertLoadingMonitor: FakeActionAlertLoadingMonitor!
             var urlOpener: FakeURLOpener!
+            var moreController: UIViewController!
             var analyticsService: FakeAnalyticsService!
             var tabBarItemStylist: FakeTabBarItemStylist!
             let theme = ActionAlertsControllerFakeTheme()
@@ -22,6 +23,7 @@ class ActionAlertsControllerSpec: QuickSpec {
                 actionAlertWebViewProvider = FakeActionAlertWebViewProvider()
                 actionAlertLoadingMonitor = FakeActionAlertLoadingMonitor()
                 urlOpener = FakeURLOpener()
+                moreController = UIViewController()
                 analyticsService = FakeAnalyticsService()
                 tabBarItemStylist = FakeTabBarItemStylist()
 
@@ -30,6 +32,7 @@ class ActionAlertsControllerSpec: QuickSpec {
                     actionAlertWebViewProvider: actionAlertWebViewProvider,
                     actionAlertLoadingMonitor: actionAlertLoadingMonitor,
                     urlOpener: urlOpener,
+                    moreController: moreController,
                     analyticsService: analyticsService,
                     tabBarItemStylist: tabBarItemStylist,
                     theme: theme
@@ -167,6 +170,23 @@ class ActionAlertsControllerSpec: QuickSpec {
                     let connectLogoImageView = subject.connectLogoImageView
                     expect(connectLogoImageView.image) == UIImage(named: "connectLogo")!
                 }
+
+                it("has a right bar button item") {
+                    subject.view.layoutSubviews()
+
+                    guard let barButtonItem = subject.navigationItem.rightBarButtonItem else {
+                        fail("No bar button item found")
+                        return
+                    }
+
+                    expect(barButtonItem.image) == UIImage(named: "infoButton")
+                }
+
+                it("should set the back bar button item title correctly") {
+                    subject.view.layoutSubviews()
+
+                    expect(subject.navigationItem.backBarButtonItem?.title) == ""
+                }
             }
 
             describe("when the view appears") {
@@ -293,6 +313,22 @@ class ActionAlertsControllerSpec: QuickSpec {
                         "actionAlertWebViewProvider": actionAlertWebViewProvider,
                         "actionAlertLoadingMonitor": actionAlertLoadingMonitor
                         ] }
+                }
+            }
+
+            describe("tapping the right bar button item") {
+                beforeEach { subject.view.layoutSubviews() }
+
+                it("pushes the more view controller") {
+                    subject.navigationItem.rightBarButtonItem!.tap()
+
+                    expect(navigationController.topViewController) === moreController
+                }
+
+                it("logs an event to the analytics service") {
+                    subject.navigationItem.rightBarButtonItem!.tap()
+
+                    expect(analyticsService.lastCustomEventName).to(equal("User tapped info button on action alerts"))
                 }
             }
 

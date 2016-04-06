@@ -119,6 +119,7 @@
 "Actions_errorMessage" = "An error occurred while loading this content.";
 "Actions_noResultsMessage" = "There's nothing for you to share right now. Check back later!";
 "Actions_retryButton" = "RETRY";
+"Actions_backButtonTitle" = "";
 
 // URLs
 "url_TwitterShareText" = "Check this out! #Bernie2016";

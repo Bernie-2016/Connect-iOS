@@ -200,5 +200,6 @@ extension NewsFeedController: UICollectionViewDelegate {
 extension NewsFeedController {
     func didTapInfoButton() {
         navigationController?.pushViewController(moreController, animated: true)
+        analyticsService.trackCustomEventWithName("User tapped info button on news feed", customAttributes: nil)
     }
 }
