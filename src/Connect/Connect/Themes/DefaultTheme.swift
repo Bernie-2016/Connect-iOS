@@ -118,7 +118,7 @@ class DefaultTheme: Theme {
 
     // MARK: Event screen
 
-    func eventNameFont() -> UIFont { return h1HeaderFont() }
+    func eventNameFont() -> UIFont { return defaultHeaderFont() }
     func eventNameColor() -> UIColor { return h1HeaderTextColor() }
     func eventStartDateFont() -> UIFont { return subHeadingFont() }
     func eventStartDateColor() -> UIColor { return cinnabarColor }
