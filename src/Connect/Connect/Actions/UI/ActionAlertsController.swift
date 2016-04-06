@@ -1,6 +1,7 @@
 import UIKit
 
 // swiftlint:disable type_body_length
+// swiftlint:disable file_length
 class ActionAlertsController: UIViewController {
     private let actionAlertService: ActionAlertService
     private let actionAlertWebViewProvider: ActionAlertWebViewProvider
@@ -17,6 +18,7 @@ class ActionAlertsController: UIViewController {
     let errorLabel = UILabel.newAutoLayoutView()
     let retryButton = UIButton.newAutoLayoutView()
     let backgroundImageView = UIImageView.newAutoLayoutView()
+    let connectLogoImageView = UIImageView.newAutoLayoutView()
 
     private let layout = CenterCellCollectionViewFlowLayout()
     private var webViews: [UIWebView] = []
@@ -70,7 +72,6 @@ class ActionAlertsController: UIViewController {
         layout.sectionInset = UIEdgeInsets(top: 0, left: kHorizontalSectionInset, bottom: 0, right: kHorizontalSectionInset)
         layout.minimumLineSpacing = 12
 
-
         let navBarsize = navigationController!.navigationBar.bounds.size
         let origin = CGPoint(x: navBarsize.width/2, y: navBarsize.height/2)
 
@@ -85,6 +86,7 @@ class ActionAlertsController: UIViewController {
         view.addSubview(loadingMessageLabel)
         view.addSubview(errorLabel)
         view.addSubview(retryButton)
+        view.addSubview(connectLogoImageView)
 
         collectionView.backgroundColor = UIColor.clearColor()
         collectionView.showsHorizontalScrollIndicator = false
@@ -117,7 +119,15 @@ class ActionAlertsController: UIViewController {
         layout.invalidateLayout()
     }
 
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
+    }
+
     private func applyTheme() {
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics:UIBarMetrics.Default)
+        navigationController?.navigationBar.translucent = true
+        navigationController?.navigationBar.shadowImage = UIImage()
+
         view.backgroundColor = theme.actionsBackgroundColor()
         backgroundImageView.image = UIImage(named: "actionAlertsBackground")!
 
@@ -131,11 +141,16 @@ class ActionAlertsController: UIViewController {
         retryButton.setTitleColor(theme.fullWidthRSVPButtonTextColor(), forState: .Normal)
         retryButton.titleLabel!.font = theme.fullWidthRSVPButtonFont()
         retryButton.backgroundColor = theme.fullWidthButtonBackgroundColor()
+
+        connectLogoImageView.image = UIImage(named: "connectLogo")!
     }
 
     private func setupConstraints() {
         backgroundImageView.autoPinEdgesToSuperviewEdges()
-        collectionView.autoPinEdgesToSuperviewEdges()
+        collectionView.autoPinEdgeToSuperviewEdge(.Top, withInset: 70)
+        collectionView.autoPinEdgeToSuperviewEdge(.Left)
+        collectionView.autoPinEdgeToSuperviewEdge(.Right)
+        collectionView.autoPinEdgeToSuperviewEdge(.Bottom)
 
         loadingIndicatorView.autoAlignAxisToSuperviewAxis(.Vertical)
         loadingIndicatorView.autoAlignAxis(.Horizontal, toSameAxisOfView: view, withOffset: -20)
@@ -151,6 +166,12 @@ class ActionAlertsController: UIViewController {
         retryButton.autoAlignAxis(.Horizontal, toSameAxisOfView: view)
         retryButton.autoSetDimension(.Height, toSize: 54)
 
+        connectLogoImageView.autoAlignAxisToSuperviewAxis(.Vertical)
+
+        let screen = UIScreen.mainScreen()
+        let bigDevice = screen.bounds.height >= 667
+        let bottomOffset: CGFloat = bigDevice ? 82 : 72
+        connectLogoImageView.autoPinEdgeToSuperviewEdge(.Bottom, withInset: bottomOffset)
     }
 
     private func loadActionAlerts() {
@@ -389,3 +410,4 @@ extension ActionAlertsController: UIWebViewDelegate {
     }
 }
 // swiftlint:enable type_body_length
+// swiftlint:enable file_length

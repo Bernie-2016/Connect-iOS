@@ -83,6 +83,12 @@ class ActionAlertsControllerSpec: QuickSpec {
                     expect(subject.view.subviews).to(contain(subject.retryButton))
                 }
 
+                it("adds the logo as a subview") {
+                    subject.view.layoutSubviews()
+
+                    expect(subject.view.subviews).to(contain(subject.connectLogoImageView))
+                }
+
                 it("styles the spinner with the theme") {
                     subject.view.layoutSubviews()
 
@@ -153,6 +159,13 @@ class ActionAlertsControllerSpec: QuickSpec {
 
                     let backgroundImageView = subject.backgroundImageView
                     expect(backgroundImageView.image) == UIImage(named: "actionAlertsBackground")
+                }
+
+                it("sets the correct logo image") {
+                    subject.view.layoutSubviews()
+
+                    let connectLogoImageView = subject.connectLogoImageView
+                    expect(connectLogoImageView.image) == UIImage(named: "connectLogo")!
                 }
             }
 

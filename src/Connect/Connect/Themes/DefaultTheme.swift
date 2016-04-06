@@ -4,8 +4,8 @@ import UIKit
 class DefaultTheme: Theme {
     // MARK: Global
 
-    func defaultCurrentPageIndicatorTintColor() -> UIColor { return scienceBlueColor }
-    func defaultPageIndicatorTintColor() -> UIColor { return silverColor }
+    func defaultCurrentPageIndicatorTintColor() -> UIColor { return UIColor.whiteColor() }
+    func defaultPageIndicatorTintColor() -> UIColor { return doveGreyColor }
     func defaultBackgroundColor() -> UIColor { return seaShellColor }
     func contentBackgroundColor() -> UIColor { return UIColor.whiteColor() }
     func defaultSpinnerColor() -> UIColor { return silverColor }
@@ -164,14 +164,14 @@ class DefaultTheme: Theme {
     // MARK: Actions
 
     func actionsBackgroundColor() -> UIColor { return mackerelGrayColor }
-    func actionsTitleFont() -> UIFont { return lightSystemFontOfSize(22) }
-    func actionsTitleTextColor() -> UIColor { return tundoraColor }
-    func actionsShortDescriptionFont() -> UIFont { return lightSystemFontOfSize(13) }
-    func actionsShortDescriptionTextColor() -> UIColor { return tundoraColor }
+    func actionsTitleFont() -> UIFont { return semiBoldSystemFontOfSize(18) }
+    func actionsTitleTextColor() -> UIColor { return wildSandColor }
+    func actionsShortDescriptionFont() -> UIFont { return UIFont.systemFontOfSize(14) }
+    func actionsShortDescriptionTextColor() -> UIColor { return cadetBlueColor }
     func actionsShortLoadingMessageFont() -> UIFont { return lightSystemFontOfSize(13) }
-    func actionsShortLoadingMessageTextColor() -> UIColor { return tundoraColor }
+    func actionsShortLoadingMessageTextColor() -> UIColor { return UIColor.whiteColor() }
     func actionsErrorMessageFont() -> UIFont { return lightSystemFontOfSize(13) }
-    func actionsErrorMessageTextColor() -> UIColor { return tundoraColor }
+    func actionsErrorMessageTextColor() -> UIColor { return UIColor.whiteColor() }
 
     // MARK: Markdown
 
@@ -207,6 +207,8 @@ class DefaultTheme: Theme {
     let altoColor = UIColor(rgba: "#e0e0e0")
     let silverChaliceColor = UIColor(rgba: "#a5a5a5")
     let tundoraColor = UIColor(rgba: "#4b4b4b")
+    let wildSandColor = UIColor(rgba: "#F4F4F4")
+    let cadetBlueColor = UIColor(rgba: "#A5B5C3")
 
 
     // MARK: font definitions

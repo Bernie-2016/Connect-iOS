@@ -10,8 +10,7 @@ class ActionAlertCell: UICollectionViewCell {
 
     private let spacerView = UIView.newAutoLayoutView()
 
-    private let shortDescriptionLabelOffset: CGFloat = 14
-
+    private let shortDescriptionLabelOffset: CGFloat = 5
 
     private var webviewContainerHeightConstraint: NSLayoutConstraint?
     var webViewHeight: CGFloat {
@@ -77,7 +76,7 @@ class ActionAlertCell: UICollectionViewCell {
         scrollView.autoPinEdgeToSuperviewEdge(.Left)
         scrollView.autoPinEdgeToSuperviewEdge(.Right)
 
-        titleLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: 25)
+        titleLabel.autoPinEdgeToSuperviewEdge(.Top)
         titleLabel.autoPinEdge(.Left, toEdge: .Left, ofView: webviewContainer, withOffset: 5)
         titleLabel.autoPinEdge(.Right, toEdge: .Right, ofView: webviewContainer, withOffset: -5)
 
@@ -85,7 +84,7 @@ class ActionAlertCell: UICollectionViewCell {
         shortDescriptionLabel.autoPinEdge(.Left, toEdge: .Left, ofView: titleLabel)
         shortDescriptionLabel.autoPinEdge(.Right, toEdge: .Right, ofView: titleLabel)
 
-        webviewContainer.autoPinEdge(.Top, toEdge: .Bottom, ofView: shortDescriptionLabel, withOffset: 25)
+        webviewContainer.autoPinEdge(.Top, toEdge: .Bottom, ofView: shortDescriptionLabel, withOffset: 20)
         webviewContainer.autoPinEdgeToSuperviewEdge(.Left)
         webviewContainer.autoMatchDimension(.Width, toDimension: .Width, ofView: scrollView)
         webviewContainerHeightConstraint = webviewContainer.autoSetDimension(.Height, toSize: 0)
@@ -96,7 +95,7 @@ class ActionAlertCell: UICollectionViewCell {
         spacerView.autoPinEdge(.Top, toEdge: .Bottom, ofView: webviewContainer)
         spacerView.autoPinEdgeToSuperviewEdge(.Left)
         spacerView.autoMatchDimension(.Width, toDimension: .Width, ofView: scrollView)
-        spacerView.autoSetDimension(.Height, toSize: 65, relation: .GreaterThanOrEqual)
+        spacerView.autoSetDimension(.Height, toSize: 130, relation: .GreaterThanOrEqual)
         spacerView.autoPinEdgeToSuperviewEdge(.Bottom)
     }
 }

@@ -37,6 +37,10 @@ class NavigationController: ScrollingNavigationController {
     }
 
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .Default
+        if topViewController != nil {
+            return topViewController!.preferredStatusBarStyle()
+        } else {
+            return .Default
+        }
     }
 }
