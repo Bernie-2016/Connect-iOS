@@ -28,8 +28,8 @@ class NavigationController: ScrollingNavigationController {
         ]
 
         UIBarButtonItem.appearance().setTitleTextAttributes([
-            NSForegroundColorAttributeName: theme.navigationBarButtonTextColor(),
-            NSFontAttributeName: theme.navigationBarButtonFont()], forState: .Normal
+            NSFontAttributeName: theme.navigationBarButtonFont()
+            ], forState: .Normal
         )
 
         navigationBar.backIndicatorImage = UIImage(named: "BackArrow")

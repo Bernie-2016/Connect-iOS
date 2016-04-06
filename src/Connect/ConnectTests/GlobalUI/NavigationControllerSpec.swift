@@ -3,36 +3,6 @@ import Quick
 import Nimble
 import UIKit
 
-class NavBarFakeTheme: FakeTheme {
-    override func defaultBackgroundColor() -> UIColor {
-        return UIColor.greenColor()
-    }
-
-    override func navigationBarBackgroundColor() -> UIColor {
-        return UIColor.brownColor()
-    }
-
-    override func navigationBarFont() -> UIFont {
-        return UIFont.systemFontOfSize(666)
-    }
-
-    override func navigationBarTextColor() -> UIColor {
-        return UIColor.magentaColor()
-    }
-
-    override func navigationBarButtonFont() -> UIFont {
-        return UIFont.systemFontOfSize(42)
-    }
-
-    override func navigationBarButtonTextColor() -> UIColor {
-        return UIColor.orangeColor()
-    }
-
-    override func navigationBarTintColor() -> UIColor {
-        return UIColor.blueColor()
-    }
-}
-
 class NavigationControllerSpec : QuickSpec {
     override func spec() {
         describe("NavigationController") {
@@ -67,10 +37,8 @@ class NavigationControllerSpec : QuickSpec {
                     let attributes = UIBarButtonItem.appearance().titleTextAttributesForState(.Normal)!
 
                     let font = attributes[NSFontAttributeName] as! UIFont
-                    let textColor = attributes[NSForegroundColorAttributeName] as! UIColor
 
                     expect(font) == UIFont.systemFontOfSize(42)
-                    expect(textColor) == UIColor.orangeColor()
                 }
 
                 it("sets the back button image on the navigation bar") {
@@ -83,5 +51,35 @@ class NavigationControllerSpec : QuickSpec {
                 }
             }
         }
+    }
+}
+
+private class NavBarFakeTheme: FakeTheme {
+    override func defaultBackgroundColor() -> UIColor {
+        return UIColor.greenColor()
+    }
+
+    override func navigationBarBackgroundColor() -> UIColor {
+        return UIColor.brownColor()
+    }
+
+    override func navigationBarFont() -> UIFont {
+        return UIFont.systemFontOfSize(666)
+    }
+
+    override func navigationBarTextColor() -> UIColor {
+        return UIColor.magentaColor()
+    }
+
+    override func navigationBarButtonFont() -> UIFont {
+        return UIFont.systemFontOfSize(42)
+    }
+
+    override func navigationBarButtonTextColor() -> UIColor {
+        return UIColor.orangeColor()
+    }
+
+    override func navigationBarTintColor() -> UIColor {
+        return UIColor.blueColor()
     }
 }
