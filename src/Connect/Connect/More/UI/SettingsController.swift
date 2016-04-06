@@ -39,6 +39,12 @@ class SettingsController: UITableViewController {
         tableView.tableFooterView = UIView(frame: CGRect.zero)
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+
     override func didMoveToParentViewController(parent: UIViewController?) {
         if parent == nil {
             self.analyticsService.trackBackButtonTapOnScreen("Settings", customAttributes:  nil)

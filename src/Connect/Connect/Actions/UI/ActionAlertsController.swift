@@ -14,12 +14,13 @@ class ActionAlertsController: UIViewController {
 
     var collectionView: UICollectionView!
     let loadingIndicatorView = UIActivityIndicatorView()
-    var pageControl: UIPageControl!
+    var pageControl = UIPageControl.newAutoLayoutView()
     let loadingMessageLabel = UILabel.newAutoLayoutView()
     let errorLabel = UILabel.newAutoLayoutView()
     let retryButton = UIButton.newAutoLayoutView()
     let backgroundImageView = UIImageView.newAutoLayoutView()
     let connectLogoImageView = UIImageView.newAutoLayoutView()
+    let infoButton = UIButton.newAutoLayoutView()
 
     private let layout = CenterCellCollectionViewFlowLayout()
     private var webViews: [UIWebView] = []
@@ -75,25 +76,15 @@ class ActionAlertsController: UIViewController {
         layout.sectionInset = UIEdgeInsets(top: 0, left: kHorizontalSectionInset, bottom: 0, right: kHorizontalSectionInset)
         layout.minimumLineSpacing = 12
 
-        let navBarsize = navigationController!.navigationBar.bounds.size
-        let origin = CGPoint(x: navBarsize.width/2, y: navBarsize.height/2)
-
-        pageControl = UIPageControl(frame: CGRect(x: origin.x, y: origin.y, width: 0, height: 20))
-        pageControl.currentPageIndicatorTintColor = theme.defaultCurrentPageIndicatorTintColor()
-        pageControl.pageIndicatorTintColor = theme.defaultPageIndicatorTintColor()
-        navigationItem.titleView = pageControl
-
+        let infoButtonImage = UIImage(named: "infoButton")!
+        infoButton.setImage(infoButtonImage, forState: .Normal)
+        infoButton.addTarget(self, action: #selector(ActionAlertsController.didTapInfoButton), forControlEvents: .TouchUpInside)
 
         let backBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Actions_backButtonTitle", comment: ""),
                                                 style: UIBarButtonItemStyle.Plain,
                                                 target: nil, action: nil)
 
         navigationItem.backBarButtonItem = backBarButtonItem
-
-        let infoButtonImage = UIImage(named: "infoButton")!
-        let infoBarButtonItem = UIBarButtonItem(image: infoButtonImage, style: .Plain, target: self, action: #selector(ActionAlertsController.didTapInfoButton))
-
-        navigationItem.rightBarButtonItem = infoBarButtonItem
 
         view.addSubview(backgroundImageView)
         view.addSubview(collectionView)
@@ -102,6 +93,8 @@ class ActionAlertsController: UIViewController {
         view.addSubview(errorLabel)
         view.addSubview(retryButton)
         view.addSubview(connectLogoImageView)
+        view.addSubview(pageControl)
+        view.addSubview(infoButton)
 
         collectionView.backgroundColor = UIColor.clearColor()
         collectionView.showsHorizontalScrollIndicator = false
@@ -126,6 +119,8 @@ class ActionAlertsController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
+        navigationController?.setNavigationBarHidden(true, animated: true)
+
         showLoadingUI()
 
         webViews.removeAll()
@@ -139,9 +134,8 @@ class ActionAlertsController: UIViewController {
     }
 
     private func applyTheme() {
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics:UIBarMetrics.Default)
-        navigationController?.navigationBar.translucent = true
-        navigationController?.navigationBar.shadowImage = UIImage()
+        pageControl.currentPageIndicatorTintColor = theme.defaultCurrentPageIndicatorTintColor()
+        pageControl.pageIndicatorTintColor = theme.defaultPageIndicatorTintColor()
 
         view.backgroundColor = theme.actionsBackgroundColor()
         backgroundImageView.image = UIImage(named: "actionAlertsBackground")!
@@ -162,6 +156,13 @@ class ActionAlertsController: UIViewController {
 
     private func setupConstraints() {
         backgroundImageView.autoPinEdgesToSuperviewEdges()
+
+        infoButton.autoPinEdgeToSuperviewEdge(.Top, withInset: 30)
+        infoButton.autoPinEdgeToSuperviewEdge(.Right, withInset: 16)
+
+        pageControl.autoAlignAxisToSuperviewAxis(.Vertical)
+        pageControl.autoPinEdgeToSuperviewEdge(.Top, withInset: 25)
+
         collectionView.autoPinEdgeToSuperviewEdge(.Top, withInset: 70)
         collectionView.autoPinEdgeToSuperviewEdge(.Left)
         collectionView.autoPinEdgeToSuperviewEdge(.Right)

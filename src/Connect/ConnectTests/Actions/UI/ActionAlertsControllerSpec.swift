@@ -68,10 +68,10 @@ class ActionAlertsControllerSpec: QuickSpec {
                     expect(subject.view.subviews).to(contain(subject.loadingIndicatorView))
                 }
 
-                it("adds the page control as the titleView of the navigation bar") {
+                it("adds the page control as a subview") {
                     subject.view.layoutSubviews()
 
-                    expect(subject.navigationItem.titleView) === subject.pageControl
+                    expect(subject.view.subviews).to(contain(subject.pageControl))
                 }
 
                 it("adds the error message as a subview") {
@@ -171,15 +171,11 @@ class ActionAlertsControllerSpec: QuickSpec {
                     expect(connectLogoImageView.image) == UIImage(named: "connectLogo")!
                 }
 
-                it("has a right bar button item") {
+                it("has the info button as a subview") {
                     subject.view.layoutSubviews()
 
-                    guard let barButtonItem = subject.navigationItem.rightBarButtonItem else {
-                        fail("No bar button item found")
-                        return
-                    }
-
-                    expect(barButtonItem.image) == UIImage(named: "infoButton")
+                    expect(subject.view.subviews).to(contain(subject.infoButton))
+                    expect(subject.infoButton.imageForState(.Normal)) == UIImage(named: "infoButton")
                 }
 
                 it("should set the back bar button item title correctly") {
@@ -316,17 +312,17 @@ class ActionAlertsControllerSpec: QuickSpec {
                 }
             }
 
-            describe("tapping the right bar button item") {
+            describe("tapping the info button") {
                 beforeEach { subject.view.layoutSubviews() }
 
                 it("pushes the more view controller") {
-                    subject.navigationItem.rightBarButtonItem!.tap()
+                    subject.infoButton.tap()
 
                     expect(navigationController.topViewController) === moreController
                 }
 
                 it("logs an event to the analytics service") {
-                    subject.navigationItem.rightBarButtonItem!.tap()
+                    subject.infoButton.tap()
 
                     expect(analyticsService.lastCustomEventName).to(equal("User tapped info button on action alerts"))
                 }
