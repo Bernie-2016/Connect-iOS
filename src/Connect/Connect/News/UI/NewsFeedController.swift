@@ -99,6 +99,7 @@ class NewsFeedController: UIViewController {
         loadingIndicatorView.autoAlignAxisToSuperviewAxis(.Vertical)
         loadingIndicatorView.autoAlignAxisToSuperviewAxis(.Horizontal)
         loadingIndicatorView.color = theme.defaultSpinnerColor()
+        loadingIndicatorView.layer.zPosition = CGFloat(-MAXFLOAT)
     }
 
     override func viewWillAppear(animated: Bool) {
