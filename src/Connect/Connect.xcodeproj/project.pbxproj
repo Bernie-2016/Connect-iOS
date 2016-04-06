@@ -1301,8 +1301,11 @@
 			isa = PBXGroup;
 			children = (
 				65494C5D1BFB87B200C1ECDB /* AudioToolbox.framework */,
+				65AEED601CA1D7FA00EE585A /* CFNetwork.framework */,
 				65494C591BFB879B00C1ECDB /* CoreAudio.framework */,
+				65AEED621CA1D80700EE585A /* libicucore.tbd */,
 				65494C5B1BFB87AA00C1ECDB /* libsqlite3.tbd */,
+				65AEED641CA1D81000EE585A /* Security.framework */,
 				654948D61BFADF9F00C1ECDB /* SystemConfiguration.framework */,
 			);
 			name = "Apple Frameworks";
@@ -1602,11 +1605,8 @@
 				65EC4CF21B842A3D00DD4C83 /* Carthage */,
 				8233FC091B7C28FB00A5E9ED /* Connect */,
 				8233FC211B7C28FB00A5E9ED /* ConnectTests */,
-				65AEED601CA1D7FA00EE585A /* CFNetwork.framework */,
 				655598041BFC2FFB00BCE1AB /* ConnectDebug.app */,
 				655598051BFC2FFB00BCE1AB /* ConnectTests.xctest */,
-				65AEED621CA1D80700EE585A /* libicucore.tbd */,
-				65AEED641CA1D81000EE585A /* Security.framework */,
 			);
 			sourceTree = "<group>";
 		};
