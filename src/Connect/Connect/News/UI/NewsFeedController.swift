@@ -18,6 +18,7 @@ class NewsFeedController: UIViewController {
     let loadingIndicatorView = UIActivityIndicatorView.newAutoLayoutView()
 
     private var newsFeedItems: [NewsFeedItem]
+    private var refreshing = false
 
     init(newsFeedService: NewsFeedService,
          newsFeedItemControllerProvider: NewsFeedItemControllerProvider,
@@ -179,6 +180,18 @@ extension NewsFeedController: UICollectionViewDelegate {
             navigationController.showNavbar(animated: true)
         }
         return true
+    }
+
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if scrollView.contentOffset.y < -36 && !refreshing {
+            refreshing = true
+            refreshControl.beginRefreshing()
+            loadNewsFeed()
+        }
+    }
+
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        refreshing = false
     }
 }
 
