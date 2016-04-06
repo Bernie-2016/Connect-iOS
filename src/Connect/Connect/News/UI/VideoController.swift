@@ -167,7 +167,7 @@ class VideoController: UIViewController {
         titleLabel.preferredMaxLayoutWidth = screenBounds.width - 8
         titleLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: videoView, withOffset: 25)
         titleLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
-        titleLabel.autoPinEdgeToSuperviewMargin(.Trailing)
+        titleLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 20)
         titleLabel.layoutIfNeeded()
         titleLabel.autoSetDimension(.Height, toSize: titleLabel.frame.height)
 
@@ -183,7 +183,7 @@ class VideoController: UIViewController {
 
         descriptionTextView.autoPinEdge(.Top, toEdge: .Bottom, ofView: dateLabel, withOffset: 11)
         descriptionTextView.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
-        descriptionTextView.autoPinEdgeToSuperviewMargin(.Right)
+        descriptionTextView.autoPinEdgeToSuperviewEdge(.Right, withInset: 20)
         descriptionTextView.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 15)
     }
 }
