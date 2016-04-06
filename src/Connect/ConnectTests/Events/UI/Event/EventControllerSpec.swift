@@ -70,6 +70,10 @@ class EventControllerSpec: QuickSpec {
                     expect(subject.navigationItem.title) == "Big Time Bernie Fun"
                 }
 
+                it("should set the back bar button item title correctly") {
+                    expect(subject.navigationItem.backBarButtonItem?.title) == ""
+                }
+
                 it("has a share button on the navigation item") {
                     let shareBarButtonItem = subject.navigationItem.rightBarButtonItem!
 

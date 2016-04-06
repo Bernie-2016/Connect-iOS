@@ -67,6 +67,13 @@ class EventController: UIViewController {
         mapView.setRegion(coordinateRegion, animated: true)
         mapView.addAnnotation(eventPin)
 
+        let backBarButtonItem = UIBarButtonItem(title: "",
+                                                style: .Plain,
+                                                target: nil, action: nil)
+
+        navigationItem.backBarButtonItem = backBarButtonItem
+
+
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "navBarShareButton"), style: .Plain, target: self, action: #selector(EventController.share))
         navigationItem.title = event.eventTypeName
 
