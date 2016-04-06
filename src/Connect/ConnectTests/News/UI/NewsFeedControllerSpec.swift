@@ -52,7 +52,7 @@ class NewsFeedControllerSpecs: QuickSpec {
             }
 
             it("should set the back bar button item title correctly") {
-                expect(subject.navigationItem.backBarButtonItem?.title) == ""
+                expect(subject.navigationItem.backBarButtonItem?.title) == "News"
             }
 
             it("has a right bar button item") {
