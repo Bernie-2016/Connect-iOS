@@ -5,7 +5,7 @@ class DefaultTheme: Theme {
     // MARK: Global
 
     func defaultCurrentPageIndicatorTintColor() -> UIColor { return UIColor.whiteColor() }
-    func defaultPageIndicatorTintColor() -> UIColor { return doveGreyColor }
+    func defaultPageIndicatorTintColor() -> UIColor { return grayChateauColor }
     func defaultBackgroundColor() -> UIColor { return seaShellColor }
     func contentBackgroundColor() -> UIColor { return UIColor.whiteColor() }
     func defaultSpinnerColor() -> UIColor { return silverColor }
