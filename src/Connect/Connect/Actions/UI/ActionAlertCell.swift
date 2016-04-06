@@ -4,10 +4,13 @@ class ActionAlertCell: UICollectionViewCell {
     let scrollView = UIScrollView.newAutoLayoutView()
     let titleLabel = UILabel.newAutoLayoutView()
     let shortDescriptionLabel = UILabel.newAutoLayoutView()
+
     let webviewContainer = UIView.newAutoLayoutView()
     let activityIndicatorView = UIActivityIndicatorView.newAutoLayoutView()
 
     private let spacerView = UIView.newAutoLayoutView()
+
+    private let shortDescriptionLabelOffset: CGFloat = 14
 
 
     private var webviewContainerHeightConstraint: NSLayoutConstraint?
@@ -21,6 +24,20 @@ class ActionAlertCell: UICollectionViewCell {
         }
     }
 
+    private var shortDescriptionOffsetConstraint: NSLayoutConstraint?
+    var shortDescriptionText: String {
+        set {
+            shortDescriptionLabel.text = newValue
+
+            let offset = newValue.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) == 0 ? 0 : shortDescriptionLabelOffset
+            shortDescriptionOffsetConstraint!.constant = offset
+        }
+
+        get {
+            return shortDescriptionLabel.text!
+        }
+    }
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -31,6 +48,7 @@ class ActionAlertCell: UICollectionViewCell {
         titleLabel.numberOfLines = 0
         titleLabel.layoutMargins = UIEdgeInsetsZero
         titleLabel.textAlignment = .Center
+
         shortDescriptionLabel.numberOfLines = 0
         shortDescriptionLabel.layoutMargins = UIEdgeInsetsZero
         shortDescriptionLabel.textAlignment = .Center
@@ -63,7 +81,7 @@ class ActionAlertCell: UICollectionViewCell {
         titleLabel.autoPinEdge(.Left, toEdge: .Left, ofView: webviewContainer, withOffset: 5)
         titleLabel.autoPinEdge(.Right, toEdge: .Right, ofView: webviewContainer, withOffset: -5)
 
-        shortDescriptionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: titleLabel, withOffset: 14)
+        shortDescriptionOffsetConstraint = shortDescriptionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: titleLabel, withOffset: shortDescriptionLabelOffset)
         shortDescriptionLabel.autoPinEdge(.Left, toEdge: .Left, ofView: titleLabel)
         shortDescriptionLabel.autoPinEdge(.Right, toEdge: .Right, ofView: titleLabel)
 
