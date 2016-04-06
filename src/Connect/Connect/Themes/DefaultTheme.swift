@@ -121,7 +121,7 @@ class DefaultTheme: Theme {
     func eventNameFont() -> UIFont { return h1HeaderFont() }
     func eventNameColor() -> UIColor { return h1HeaderTextColor() }
     func eventStartDateFont() -> UIFont { return subHeadingFont() }
-    func eventStartDateColor() -> UIColor { return subHeadingTextColor() }
+    func eventStartDateColor() -> UIColor { return cinnabarColor }
     func eventAddressFont() -> UIFont { return subHeadingFont() }
     func eventAddressColor() -> UIColor { return subHeadingTextColor() }
     func eventDescriptionHeadingFont() -> UIFont { return h3HeaderFont() }
@@ -210,7 +210,7 @@ class DefaultTheme: Theme {
     let tundoraColor = UIColor(rgba: "#4b4b4b")
     let wildSandColor = UIColor(rgba: "#F4F4F4")
     let cadetBlueColor = UIColor(rgba: "#A5B5C3")
-
+    let cinnabarColor = UIColor(rgba: "#ec3e3f")
 
     // MARK: font definitions
 
