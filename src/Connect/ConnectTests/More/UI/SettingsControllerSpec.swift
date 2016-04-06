@@ -29,7 +29,7 @@ class SettingsControllerSpec : QuickSpec {
             }
 
             it("has the correct navigation item title") {
-                expect(subject.navigationItem.title).to(equal("More"))
+                expect(subject.navigationItem.title).to(equal("Connect with Bernie"))
             }
 
             it("should set the back bar button item title correctly") {
