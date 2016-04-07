@@ -83,7 +83,7 @@ class EventsNoResultsController: UIViewController {
         noResultsLabel.autoAlignAxis(.Horizontal, toSameAxisOfView: view, withOffset: -75)
         noResultsLabel.autoSetDimension(.Width, toSize: 220)
 
-        createEventCTATextView.autoPinEdge(.Top, toEdge: .Bottom, ofView: noResultsLabel, withOffset: 15)
+        createEventCTATextView.autoPinEdge(.Top, toEdge: .Bottom, ofView: noResultsLabel, withOffset: 7)
         createEventCTATextView.autoPinEdge(.Left, toEdge: .Left, ofView: noResultsLabel, withOffset: 10)
         createEventCTATextView.autoPinEdge(.Right, toEdge: .Right, ofView: noResultsLabel, withOffset: -10)
     }

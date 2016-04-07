@@ -98,7 +98,7 @@ class DefaultTheme: Theme {
     func eventsAddressBorderWidth() -> CGFloat { return self.defaultBorderWidth() }
     func eventsAddressTextOffset() -> CATransform3D { return CATransform3DMakeTranslation(14, 0, 0); }
     func eventsGoButtonCornerRadius() -> CGFloat { return self.defaultCornerRadius() }
-    func eventsInformationTextColor() -> UIColor { return defaultBodyTextColor() }
+    func eventsInformationTextColor() -> UIColor { return silverChaliceColor }
     func eventsNoResultsFont() -> UIFont { return UIFont.systemFontOfSize(21) }
     func eventsCreateEventCTAFont() -> UIFont { return UIFont.systemFontOfSize(13) }
     func eventsInstructionsFont() -> UIFont { return UIFont.systemFontOfSize(21)  }
@@ -169,7 +169,7 @@ class DefaultTheme: Theme {
     func actionsTitleTextColor() -> UIColor { return wildSandColor }
     func actionsShortDescriptionFont() -> UIFont { return UIFont.systemFontOfSize(14) }
     func actionsShortDescriptionTextColor() -> UIColor { return cadetBlueColor }
-    func actionsErrorMessageFont() -> UIFont { return lightSystemFontOfSize(13) }
+    func actionsErrorMessageFont() -> UIFont { return UIFont.systemFontOfSize(13) }
     func actionsErrorMessageTextColor() -> UIColor { return UIColor.whiteColor() }
     func actionsInfoButtonTintColor() -> UIColor { return UIColor.whiteColor() }
 
