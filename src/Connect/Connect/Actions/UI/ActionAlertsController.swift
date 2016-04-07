@@ -73,7 +73,7 @@ class ActionAlertsController: UIViewController {
 
         layout.scrollDirection = .Horizontal
         layout.sectionInset = UIEdgeInsets(top: 0, left: kHorizontalSectionInset, bottom: 0, right: kHorizontalSectionInset)
-        layout.minimumLineSpacing = 12
+        layout.minimumLineSpacing = 15
 
 
         let infoButtonImage = UIImage(named: "infoButton")!.imageWithRenderingMode(.AlwaysTemplate)
