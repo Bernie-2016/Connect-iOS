@@ -44,7 +44,7 @@ class EventsNoResultsControllerSpec: QuickSpec {
                 it("should display a call to action to create an event") {
                     subject.view.layoutSubviews()
 
-                    expect(subject.createEventCTATextView.text).to(equal("Try another search or be the first to organize."))
+                    expect(subject.createEventCTATextView.text).to(equal("Try increasing your search radius or be the first to organize in your area."))
                 }
 
                 it("styles the page components with the theme") {

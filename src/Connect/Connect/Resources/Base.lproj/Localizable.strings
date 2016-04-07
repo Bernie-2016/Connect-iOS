@@ -28,8 +28,8 @@
 "Events_eventRSVPButtonText" = "RSVP NOW | %d attending, %d spots total";
 "Events_eventRSVPWithoutCapacityButtonText" = "RSVP NOW | %d attending";
 "Events_noEventsFound" = "We couldn't find any events in that area";
-"Events_createEventCTAText" = "Try another search or {0}";
-"Events_organizeText" = "be the first to organize.";
+"Events_createEventCTAText" = "Try increasing your search radius or {0}";
+"Events_organizeText" = "be the first to organize in your area.";
 
 "EventsSearchBar_loadingNearbyEvents" = "Locating...";
 "EventsSearchBar_foundNearbyResults" = "Current Location";
