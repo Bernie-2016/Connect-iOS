@@ -257,7 +257,7 @@ class ActionAlertsController: UIViewController {
             if  actionAlert.body.rangeOfString("facebook.com", options: .RegularExpressionSearch) != nil {
                 webView.autoSetDimension(.Height, toSize: 450)
             } else {
-                webView.autoSetDimension(.Height, toSize: 100)
+                webView.autoSetDimension(.Height, toSize: 380)
             }
 
             webView.autoCenterInSuperview()
@@ -328,7 +328,7 @@ extension ActionAlertsController: UICollectionViewDataSource {
         cell.webviewContainer.addSubview(webView)
         webView.autoPinEdgesToSuperviewEdges()
 
-        let heightString = webView.stringByEvaluatingJavaScriptFromString("Math.max( document.documentElement.scrollHeight, document.documentElement.offsetHeight, document.documentElement.clientHeight);")
+        let heightString = webView.stringByEvaluatingJavaScriptFromString("var iframes = document.getElementsByTagName('iframe') ; var heights = [] ; for(var i = 0; i < iframes.length ; i++) { if(iframes[i].name == 'fb_xdm_frame_https') { continue; } heights.push(iframes[i].scrollHeight); } var maxIframeHeight = Math.max.apply(null, heights); if ( maxIframeHeight > 0 ) { maxIframeHeight } else { Math.max( maxIframeHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight, document.documentElement.clientHeight ); }")
 
         let heightDouble = heightString != nil ? Double(heightString!) : 0.0
         let heightFloat: CGFloat = heightDouble != nil ? CGFloat(heightDouble!) : 0.0

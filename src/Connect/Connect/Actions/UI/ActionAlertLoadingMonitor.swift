@@ -12,7 +12,7 @@ class StockActionAlertLoadingMonitor: ActionAlertLoadingMonitor {
     private func checkForLoaded(webViews: [UIWebView], completionHandler: () -> ()) {
         var webViewsLoaded = 0
         for webView in webViews {
-            let resultString = webView.stringByEvaluatingJavaScriptFromString("(document.body.getElementsByTagName('script').length > 0 && document.body.getElementsByTagName('iframe').length > 0) || document.body.getElementsByTagName('script').length == 0;")
+            let resultString = webView.stringByEvaluatingJavaScriptFromString("var iframes = document.body.getElementsByTagName('iframe') ; var scripts = document.body.getElementsByTagName('script') ; var heights = [] ; for(var i = 0; i < iframes.length ; i++) { if(iframes[i].name == 'fb_xdm_frame_https') { continue; } heights.push(iframes[i].scrollHeight); } var maxIframeHeight = Math.max.apply(null, heights); (scripts.length > 0 && iframes.length > 0 && maxIframeHeight > 200) || scripts.length == 0;")
 
             if resultString == "true" {
                 webViewsLoaded += 1
