@@ -55,8 +55,14 @@ class StockNearbyEventsUseCase: NearbyEventsUseCase {
         currentLocationUseCase.fetchCurrentLocation({ (location) -> () in
             let future = self.eventRepository.fetchEventsAroundLocation(location, radiusMiles: radiusMiles)
             future.then({ (searchResult) -> () in
-                for observer in self.observers {
-                    observer.nearbyEventsUseCase(self, didFetchEventSearchResult: searchResult)
+                if searchResult.events.count > 0 {
+                    for observer in self.observers {
+                        observer.nearbyEventsUseCase(self, didFetchEventSearchResult: searchResult)
+                    }
+                } else {
+                    for observer in self.observers {
+                        observer.nearbyEventsUseCaseFoundNoNearbyEvents(self)
+                    }
                 }
             })
 

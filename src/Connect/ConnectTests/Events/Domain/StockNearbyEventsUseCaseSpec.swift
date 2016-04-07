@@ -56,14 +56,14 @@ class StockNearbyEventsUseCaseSpec: QuickSpec {
                         expect(eventRepository.didFetchEventsWithRadiusMiles) == 42.0
                     }
 
-                    context("when the event repository resolves its promise with some locations") {
+                    context("when the event repository resolves its promise with some events") {
                         let location = CLLocation(latitude: 1, longitude: 2)
 
                         beforeEach {
                             currentLocationUseCase.simulateFoundLocation(location)
                         }
 
-                        it("notifies its observers with those locations") {
+                        it("notifies its observers with those events") {
                             let events = [TestUtils.eventWithName("event b"), TestUtils.eventWithName("event b")]
                             let expectedEventSearchResult = EventSearchResult(events: events)
 
@@ -74,6 +74,23 @@ class StockNearbyEventsUseCaseSpec: QuickSpec {
 
                             expect(observerB.didFindNearbyEventsWithUseCase) === subject as? StockNearbyEventsUseCase
                             expect(observerB.didFindNearbyEventsWithSearchResult) === expectedEventSearchResult
+                        }
+                    }
+
+                    context("when the event repository resolves its promise with zero events") {
+                        let location = CLLocation(latitude: 1, longitude: 2)
+
+                        beforeEach {
+                            currentLocationUseCase.simulateFoundLocation(location)
+                        }
+
+                        it("notifies its observers with those events") {
+                            let expectedEventSearchResult = EventSearchResult(events: [])
+
+                            eventRepository.lastReturnedPromise.resolve(expectedEventSearchResult)
+
+                            expect(observerA.didFindNoEventsWithUseCase) === subject as? StockNearbyEventsUseCase
+                            expect(observerB.didFindNoEventsWithUseCase) === subject as? StockNearbyEventsUseCase
                         }
                     }
 
