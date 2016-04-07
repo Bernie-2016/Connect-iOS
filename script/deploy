@@ -25,7 +25,7 @@ fi
 
 pushd "$OUTPUT_DIR"
 
-deliver --ipa "Connect.ipa" --username "mikestallard@gmail.com" --skip_screenshots --force
+deliver --ipa "Bernie Connect.ipa" --username "mikestallard@gmail.com" --skip_screenshots --force
 echo "Done!"
 
 popd > /dev/null
