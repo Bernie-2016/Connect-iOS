@@ -60,6 +60,12 @@ class EventsNearAddressSearchBarControllerSpec: QuickSpec {
                     expect(subject.searchBar.accessibilityLabel) == "ZIP Code"
                 }
 
+                it("defaults the placeholder to zip code") {
+                    subject.view.layoutSubviews()
+
+                    expect(subject.searchBar.placeholder) == "ZIP Code"
+                }
+
                 it("has the filter components as subviews of the controller") {
                     subject.view.layoutSubviews()
 

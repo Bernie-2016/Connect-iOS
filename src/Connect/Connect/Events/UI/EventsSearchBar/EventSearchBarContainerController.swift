@@ -27,20 +27,20 @@ class EventSearchBarContainerController: UIViewController {
         childControllerBuddy: ChildControllerBuddy,
         resultQueue: NSOperationQueue
         ) {
-            self.nearbyEventsUseCase = nearbyEventsUseCase
-            self.eventsNearAddressUseCase = eventsNearAddressUseCase
-            self.nearbyEventsLoadingSearchBarController = nearbyEventsLoadingSearchBarController
-            self.nearbyEventsSearchBarController = nearbyEventsSearchBarController
-            self.eventsNearAddressSearchBarController = eventsNearAddressSearchBarController
-            self.editAddressSearchBarController = editAddressSearchBarController
-            self.nearbyEventsFilterController = nearbyEventsFilterController
-            self.eventsNearAddressFilterController = eventsNearAddressFilterController
-            self.childControllerBuddy = childControllerBuddy
-            self.resultQueue = resultQueue
+        self.nearbyEventsUseCase = nearbyEventsUseCase
+        self.eventsNearAddressUseCase = eventsNearAddressUseCase
+        self.nearbyEventsLoadingSearchBarController = nearbyEventsLoadingSearchBarController
+        self.nearbyEventsSearchBarController = nearbyEventsSearchBarController
+        self.eventsNearAddressSearchBarController = eventsNearAddressSearchBarController
+        self.editAddressSearchBarController = editAddressSearchBarController
+        self.nearbyEventsFilterController = nearbyEventsFilterController
+        self.eventsNearAddressFilterController = eventsNearAddressFilterController
+        self.childControllerBuddy = childControllerBuddy
+        self.resultQueue = resultQueue
 
-            previousSearchBarController = nearbyEventsSearchBarController
+        previousSearchBarController = nearbyEventsSearchBarController
 
-            super.init(nibName: nil, bundle: nil)
+        super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -80,8 +80,18 @@ class EventSearchBarContainerController: UIViewController {
 
 // MARK: NearbyEventsUseCaseObserver
 extension EventSearchBarContainerController: NearbyEventsUseCaseObserver {
-    func nearbyEventsUseCase(useCase: NearbyEventsUseCase, didFailFetchEvents: NearbyEventsUseCaseError) {
-        swapIn(nearbyEventsSearchBarController)
+    func nearbyEventsUseCase(useCase: NearbyEventsUseCase, didFailFetchEvents error: NearbyEventsUseCaseError) {
+        switch error {
+        case .FindingLocationError(let locationError):
+            switch locationError {
+            case .PermissionsError:
+                swapIn(eventsNearAddressSearchBarController)
+            default:
+                swapIn(nearbyEventsSearchBarController)
+            }
+        default:
+            swapIn(nearbyEventsSearchBarController)
+        }
     }
 
     func nearbyEventsUseCase(useCase: NearbyEventsUseCase, didFetchEventSearchResult: EventSearchResult) {

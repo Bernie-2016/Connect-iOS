@@ -60,6 +60,7 @@ class EventsNearAddressSearchBarController: UIViewController {
         searchBarStylist.applyThemeToSearchBar(searchBar)
         searchBarStylist.applyThemeToBackground(view)
 
+        searchBar.placeholder = NSLocalizedString("EventsSearchBar_searchBarPlaceholder", comment: "")
         searchBar.accessibilityLabel = NSLocalizedString("EventsSearchBar_searchBarAccessibilityLabel", comment: "")
         searchBar.delegate = self
 

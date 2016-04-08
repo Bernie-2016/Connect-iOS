@@ -103,17 +103,35 @@ class EventSearchBarContainerControllerSpec: QuickSpec {
                 }
 
                 describe("when the use case has failed to find nearby search bar") {
-                    it("shows the nearby events search bar controller") {
-                        let error = NearbyEventsUseCaseError.FindingLocationError(.PermissionsError)
-                        nearbyEventsUseCase.simulateFailingToFindEvents(error)
+                    context("due to a permissions error") {
+                        it("shows the events near address search bar controller") {
+                            let error = NearbyEventsUseCaseError.FindingLocationError(.PermissionsError)
+                            nearbyEventsUseCase.simulateFailingToFindEvents(error)
 
-                        expect(childControllerBuddy.lastOldSwappedController).to(beNil())
+                            expect(childControllerBuddy.lastOldSwappedController).to(beNil())
 
-                        resultQueue.lastReceivedBlock()
+                            resultQueue.lastReceivedBlock()
 
-                        expect(childControllerBuddy.lastOldSwappedController) === nearbyEventsLoadingSearchBarController
-                        expect(childControllerBuddy.lastNewSwappedController) === nearbyEventsSearchBarController
-                        expect(childControllerBuddy.lastParentSwappedController) === subject
+                            expect(childControllerBuddy.lastOldSwappedController) === nearbyEventsLoadingSearchBarController
+                            expect(childControllerBuddy.lastNewSwappedController) === eventsNearAddressSearchBarController
+                            expect(childControllerBuddy.lastParentSwappedController) === subject
+                        }
+                    }
+
+                    context("due to another error") {
+                        it("shows the events near address search bar controller") {
+                            let underlyingError = NSError(domain: "boo", code: 42, userInfo: nil)
+                            let error = NearbyEventsUseCaseError.FindingLocationError(.CoreLocationError(underlyingError))
+                            nearbyEventsUseCase.simulateFailingToFindEvents(error)
+
+                            expect(childControllerBuddy.lastOldSwappedController).to(beNil())
+
+                            resultQueue.lastReceivedBlock()
+
+                            expect(childControllerBuddy.lastOldSwappedController) === nearbyEventsLoadingSearchBarController
+                            expect(childControllerBuddy.lastNewSwappedController) === nearbyEventsSearchBarController
+                            expect(childControllerBuddy.lastParentSwappedController) === subject
+                        }
                     }
                 }
             }
