@@ -154,7 +154,9 @@ extension EventsNearAddressSearchBarController: EventsNearAddressUseCaseObserver
 
     func eventsNearAddressUseCaseDidStartFetchingEvents(useCase: EventsNearAddressUseCase, address: Address) {
         resultQueue.addOperationWithBlock {
-            self.searchBar.placeholder = address
+            if let textField = self.searchBar.valueForKey("searchField") as? UITextField {
+                textField.attributedPlaceholder = NSAttributedString(string: address, attributes: [NSForegroundColorAttributeName: self.theme.eventsAddressTextColor()])
+            }
         }
     }
 
