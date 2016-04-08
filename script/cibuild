@@ -10,9 +10,9 @@ main ()
 {
     cd src/Connect 
     carthage bootstrap --platform iphonesimulator --no-use-binaries
-    xctool clean build -project Connect.xcodeproj/ -scheme Connect -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
-    xctool test -project Connect.xcodeproj/ -scheme Connect -sdk iphonesimulator -destination "platform=iOS Simulator,OS=8.1,name=iPhone 4s" ONLY_ACTIVE_ARCH=NO
-    xctool test -project Connect.xcodeproj/ -scheme Connect -sdk iphonesimulator -destination "platform=iOS Simulator,OS=9.3,name=iPhone 6s Plus" ONLY_ACTIVE_ARCH=NO
+    xcodebuild clean build -project Connect.xcodeproj/ -scheme Connect -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+    xcodebuild test -project Connect.xcodeproj/ -scheme Connect -sdk iphonesimulator -destination "platform=iOS Simulator,OS=8.1,name=iPhone 4s" ONLY_ACTIVE_ARCH=NO
+    xcodebuild test -project Connect.xcodeproj/ -scheme Connect -sdk iphonesimulator -destination "platform=iOS Simulator,OS=9.3,name=iPhone 6s Plus" ONLY_ACTIVE_ARCH=NO
 
     local status=$?
 
