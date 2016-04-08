@@ -377,9 +377,83 @@ class ActionAlertsControllerSpec: QuickSpec {
                     expect(cell.shortDescriptionLabel.font) == UIFont.systemFontOfSize(222)
                     expect(cell.shortDescriptionLabel.textColor) == UIColor.orangeColor()
                     expect(cell.activityIndicatorView.color) == UIColor.greenColor()
+                    expect(cell.shareButton.titleLabel!.font) == UIFont.systemFontOfSize(555)
+                }
+
+                context("when the action alert has a share URL") {
+                    let actionAlert = TestUtils.actionAlertWithShareURL()
+
+                    beforeEach {
+                        subject.viewWillAppear(false)
+
+                        actionAlertService.lastReturnedActionAlertsPromise.resolve([actionAlert])
+                    }
+
+                    it("shows the share button") {
+                        actionAlertLoadingMonitor.lastCompletionHandler!()
+                        guard let cell = subject.collectionView.dataSource?.collectionView(subject.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 0)) as? ActionAlertCell else {
+                            fail("Unable to get cell")
+                            return
+                        }
+
+                        expect(cell.shareButton.hidden) == false
+                    }
+
+                    it("has the correct text for the share button") {
+                        actionAlertLoadingMonitor.lastCompletionHandler!()
+                        guard let cell = subject.collectionView.dataSource?.collectionView(subject.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 0)) as? ActionAlertCell else {
+                            fail("Unable to get cell")
+                            return
+                        }
+
+                        expect(cell.shareButton.attributedTitleForState(.Normal)!.string) == "Share on Facebook"
+                    }
+
+                    describe("and the share button is tapped") {
+                        var cell: ActionAlertCell!
+
+                        beforeEach {
+                            actionAlertLoadingMonitor.lastCompletionHandler!()
+                            guard let aaCell = subject.collectionView.dataSource?.collectionView(subject.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 0)) as? ActionAlertCell else {
+                                fail("Unable to get cell")
+                                return
+                            }
+
+                            cell = aaCell
+                        }
+
+                        it("opens the action alert's share URL in safari") {
+                            cell.shareButton.tap()
+
+                            expect(urlOpener.lastOpenedURL) == actionAlert.shareURL()
+                        }
+
+                        it("logs an event to the analytics service") {
+                            cell.shareButton.tap()
+
+                            expect(analyticsService.lastCustomEventName).to(equal("Began Share"))
+                            let expectedAttributes = [
+                                AnalyticsServiceConstants.contentIDKey: actionAlert.identifier,
+                                AnalyticsServiceConstants.contentNameKey: actionAlert.title,
+                                AnalyticsServiceConstants.contentTypeKey: "Action Alert - Facebook Video"
+                            ]
+                            expect(analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
+                        }
+                    }
+                }
+
+                context("when the action alert does not have a share URL") {
+                    it("hides the share button") {
+                        actionAlertLoadingMonitor.lastCompletionHandler!()
+                        guard let cell = subject.collectionView.dataSource?.collectionView(subject.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 0)) as? ActionAlertCell else {
+                            fail("Unable to get cell")
+                            return
+                        }
+
+                        expect(cell.shareButton.hidden) == true
+                    }
                 }
             }
-
 
             describe("webview behavior") {
                 let actionAlert = TestUtils.actionAlert("Alert A", body: "Alert Body A")
@@ -695,6 +769,8 @@ private class ActionAlertsControllerFakeTheme: FakeTheme {
     override func defaultCurrentPageIndicatorTintColor() -> UIColor { return UIColor.whiteColor() }
     override func defaultPageIndicatorTintColor() -> UIColor { return UIColor.lightGrayColor() }
     override func actionsInfoButtonTintColor() -> UIColor { return UIColor.darkGrayColor() }
+    override func actionsShareButtonFont() -> UIFont { return UIFont.systemFontOfSize(555) }
+    override func actionsShareButtonTextColor() -> UIColor { return UIColor.blackColor() }
 }
 
 private class FakeActionAlertWebViewProvider: ActionAlertWebViewProvider {

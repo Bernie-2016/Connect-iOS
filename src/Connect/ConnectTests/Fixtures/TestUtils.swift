@@ -88,6 +88,18 @@ class TestUtils {
         )
     }
 
+    class func actionAlertWithShareURL() -> ActionAlert {
+        return ActionAlert(
+            identifier: "fixture-id",
+            title: "fixture AA with share URL",
+            body: "fixture fb-video",
+            shortDescription: "fixture des",
+            date: "fixture-date",
+            targetURL: NSURL(string: "https://example.com")!,
+            twitterURL: nil,
+            tweetID: nil)
+    }
+
     // MARK: Controllers
 
     class func settingsController() -> SettingsController {

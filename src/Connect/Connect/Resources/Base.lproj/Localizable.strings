@@ -130,6 +130,7 @@ The Connect with Bernie Team";
 "Actions_noResultsMessage" = "There's nothing for you to share right now. Check back later!";
 "Actions_retryButton" = "RETRY";
 "Actions_backButtonTitle" = "";
+"Actions_shareButtonTitle" = "Share on Facebook";
 
 // URLs
 "url_TwitterShareText" = "Check this out! #Bernie2016";

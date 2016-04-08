@@ -4,6 +4,7 @@ class ActionAlertCell: UICollectionViewCell {
     let scrollView = UIScrollView.newAutoLayoutView()
     let titleLabel = UILabel.newAutoLayoutView()
     let shortDescriptionLabel = UILabel.newAutoLayoutView()
+    let shareButton = UIButton.newAutoLayoutView()
 
     let webviewContainer = UIView.newAutoLayoutView()
     let activityIndicatorView = UIActivityIndicatorView.newAutoLayoutView()
@@ -37,6 +38,17 @@ class ActionAlertCell: UICollectionViewCell {
         }
     }
 
+    private var shareButtonHeightConstraint: NSLayoutConstraint?
+    var shareButtonVisible: Bool {
+        set {
+            shareButton.hidden = !newValue
+//            shareButtonHeightConstraint!.active = !newValue
+        }
+        get {
+            return !shareButton.hidden
+        }
+    }
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -63,6 +75,7 @@ class ActionAlertCell: UICollectionViewCell {
         scrollView.addSubview(titleLabel)
         scrollView.addSubview(shortDescriptionLabel)
         scrollView.addSubview(webviewContainer)
+        scrollView.addSubview(shareButton)
         scrollView.addSubview(spacerView)
 
         activityIndicatorView.startAnimating()
@@ -89,10 +102,14 @@ class ActionAlertCell: UICollectionViewCell {
         webviewContainer.autoMatchDimension(.Width, toDimension: .Width, ofView: scrollView)
         webviewContainerHeightConstraint = webviewContainer.autoSetDimension(.Height, toSize: 0)
 
+        shareButton.autoAlignAxis(.Vertical, toSameAxisOfView: webviewContainer)
+        shareButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: webviewContainer, withOffset: 0)
+        shareButtonHeightConstraint = shareButton.autoSetDimension(.Height, toSize: 0)
+
         activityIndicatorView.autoPinEdge(.Top, toEdge: .Top, ofView: webviewContainer, withOffset: 30)
         activityIndicatorView.autoAlignAxis(.Vertical, toSameAxisOfView: webviewContainer)
 
-        spacerView.autoPinEdge(.Top, toEdge: .Bottom, ofView: webviewContainer)
+        spacerView.autoPinEdge(.Top, toEdge: .Bottom, ofView: shareButton)
         spacerView.autoPinEdgeToSuperviewEdge(.Left)
         spacerView.autoMatchDimension(.Width, toDimension: .Width, ofView: scrollView)
         spacerView.autoSetDimension(.Height, toSize: 130, relation: .GreaterThanOrEqual)

@@ -12,6 +12,16 @@ struct ActionAlert {
     let targetURL: NSURL?
     let twitterURL: NSURL?
     let tweetID: TweetID?
+
+    func shareURL() -> NSURL? {
+        let isFBVideo = body.rangeOfString("fb-video", options: .RegularExpressionSearch) != nil
+
+        if isFBVideo && targetURL != nil {
+            return targetURL
+        }
+
+        return nil
+    }
 }
 
 extension ActionAlert: Equatable {}

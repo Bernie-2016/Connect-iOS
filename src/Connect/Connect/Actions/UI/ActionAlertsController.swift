@@ -322,8 +322,20 @@ extension ActionAlertsController: UICollectionViewDataSource {
         webView.removeConstraints(webView.constraints)
         webView.alpha = 1
 
-        cell.titleLabel.text = actionAlerts[indexPath.item].title
-        cell.shortDescriptionText = actionAlerts[indexPath.item].shortDescription
+        let actionAlert = actionAlerts[indexPath.item]
+        cell.titleLabel.text = actionAlert.title
+        cell.shortDescriptionText = actionAlert.shortDescription
+
+        let title = NSAttributedString(
+            string: NSLocalizedString("Actions_shareButtonTitle", comment: ""),
+            attributes: [
+                NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue,
+                NSForegroundColorAttributeName: theme.actionsShareButtonTextColor()
+            ])
+
+        cell.shareButton.setAttributedTitle(title, forState: .Normal)
+        cell.shareButtonVisible = (actionAlert.shareURL() != nil)
+        cell.shareButton.addTarget(self, action: #selector(ActionAlertsController.didTapShareButton), forControlEvents: .TouchUpInside)
 
         cell.webviewContainer.addSubview(webView)
         webView.autoPinEdgesToSuperviewEdges()
@@ -340,6 +352,7 @@ extension ActionAlertsController: UICollectionViewDataSource {
         cell.shortDescriptionLabel.font = theme.actionsShortDescriptionFont()
         cell.shortDescriptionLabel.textColor = theme.actionsShortDescriptionTextColor()
         cell.activityIndicatorView.color = theme.defaultSpinnerColor()
+        cell.shareButton.titleLabel!.font = theme.actionsShareButtonFont()
 
         return cell
     }
@@ -423,6 +436,24 @@ extension ActionAlertsController {
     func didTapInfoButton() {
         navigationController?.pushViewController(moreController, animated: true)
         analyticsService.trackCustomEventWithName("User tapped info button on action alerts", customAttributes: nil)
+    }
+
+    func didTapShareButton() {
+        let actionAlert = actionAlerts[pageControl.currentPage]
+
+        guard let url = actionAlert.shareURL() else {
+            return
+        }
+
+        let attributes = [
+            AnalyticsServiceConstants.contentIDKey: actionAlert.identifier,
+            AnalyticsServiceConstants.contentNameKey: actionAlert.title,
+            AnalyticsServiceConstants.contentTypeKey: "Action Alert - Facebook Video"
+        ]
+
+        analyticsService.trackCustomEventWithName("Began Share", customAttributes: attributes)
+
+        urlOpener.openURL(url)
     }
 }
 

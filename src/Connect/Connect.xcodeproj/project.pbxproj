@@ -249,6 +249,7 @@
 		65B7815C1C4C58D90087699B /* Swinject.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 65B781591C4C58B90087699B /* Swinject.framework.dSYM */; };
 		65B868C61C9F378C00B9A7B9 /* AMScrollingNavbar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B868C41C9F378C00B9A7B9 /* AMScrollingNavbar.framework */; };
 		65B868C71C9F37A300B9A7B9 /* AMScrollingNavbar.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 65B868C31C9F378C00B9A7B9 /* AMScrollingNavbar.framework.dSYM */; };
+		65B8E1391CB764CD0043A1D0 /* ActionAlertSpec.siwft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B8E1381CB764CD0043A1D0 /* ActionAlertSpec.siwft.swift */; };
 		65B97D571C459C9800F2F6B3 /* UserNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B97D561C459C9800F2F6B3 /* UserNotificationHandler.swift */; };
 		65C0D9441C9640C3009581C8 /* StockEventsNearAddressUseCaseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C0D9431C9640C3009581C8 /* StockEventsNearAddressUseCaseSpec.swift */; };
 		65C1477C1C84E5A400D9B78A /* NewsFeedCellProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C1477B1C84E5A400D9B78A /* NewsFeedCellProvider.swift */; };
@@ -633,6 +634,7 @@
 		65B781591C4C58B90087699B /* Swinject.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Swinject.framework.dSYM; path = Carthage/Build/iOS/Swinject.framework.dSYM; sourceTree = "<group>"; };
 		65B868C31C9F378C00B9A7B9 /* AMScrollingNavbar.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = AMScrollingNavbar.framework.dSYM; path = Carthage/Build/iOS/AMScrollingNavbar.framework.dSYM; sourceTree = "<group>"; };
 		65B868C41C9F378C00B9A7B9 /* AMScrollingNavbar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AMScrollingNavbar.framework; path = Carthage/Build/iOS/AMScrollingNavbar.framework; sourceTree = "<group>"; };
+		65B8E1381CB764CD0043A1D0 /* ActionAlertSpec.siwft.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionAlertSpec.siwft.swift; sourceTree = "<group>"; };
 		65B97D561C459C9800F2F6B3 /* UserNotificationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserNotificationHandler.swift; sourceTree = "<group>"; };
 		65C0D9431C9640C3009581C8 /* StockEventsNearAddressUseCaseSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockEventsNearAddressUseCaseSpec.swift; sourceTree = "<group>"; };
 		65C1477B1C84E5A400D9B78A /* NewsFeedCellProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFeedCellProvider.swift; sourceTree = "<group>"; };
@@ -1082,6 +1084,7 @@
 			isa = PBXGroup;
 			children = (
 				65B023571C59C53C0082E211 /* DataAccess */,
+				65B8E1371CB764B10043A1D0 /* Domain */,
 				653D0FBD1C4C53BB004CB8A0 /* UI */,
 			);
 			path = Actions;
@@ -1399,6 +1402,14 @@
 				65B0235C1C59C8710082E211 /* StockActionAlertRepositorySpec.swift */,
 			);
 			path = DataAccess;
+			sourceTree = "<group>";
+		};
+		65B8E1371CB764B10043A1D0 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				65B8E1381CB764CD0043A1D0 /* ActionAlertSpec.siwft.swift */,
+			);
+			path = Domain;
 			sourceTree = "<group>";
 		};
 		65C8CC9D1CA7485E004D2373 /* Versioning */ = {
@@ -2069,6 +2080,7 @@
 			files = (
 				653D101F1C4C53BB004CB8A0 /* AboutControllerSpec.swift in Sources */,
 				6595419C1C9E0CC100D9FACC /* ActionAlertsControllerSpec.swift in Sources */,
+				65B8E1391CB764CD0043A1D0 /* ActionAlertSpec.siwft.swift in Sources */,
 				653173111C878E4B004E472A /* AlwaysReusingCollectionView.swift in Sources */,
 				656BC9681C702BA800CFA4EB /* AlwaysReusingTableView.swift in Sources */,
 				653D10201C4C53BB004CB8A0 /* AnalyticsSettingsControllerSpec.swift in Sources */,

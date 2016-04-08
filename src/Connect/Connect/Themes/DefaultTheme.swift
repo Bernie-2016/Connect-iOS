@@ -159,6 +159,8 @@ class DefaultTheme: Theme {
     func actionsErrorMessageFont() -> UIFont { return UIFont.systemFontOfSize(13) }
     func actionsErrorMessageTextColor() -> UIColor { return UIColor.whiteColor() }
     func actionsInfoButtonTintColor() -> UIColor { return UIColor.whiteColor() }
+    func actionsShareButtonFont() -> UIFont { return UIFont.systemFontOfSize(14) }
+    func actionsShareButtonTextColor() -> UIColor { return cadetBlueColor }
 
     // MARK: Markdown
     func markdownH1Font() -> UIFont { return h1HeaderFont() }

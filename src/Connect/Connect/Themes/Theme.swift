@@ -156,6 +156,8 @@ protocol Theme {
     func actionsErrorMessageFont() -> UIFont
     func actionsErrorMessageTextColor() -> UIColor
     func actionsInfoButtonTintColor() -> UIColor
+    func actionsShareButtonFont() -> UIFont
+    func actionsShareButtonTextColor() -> UIColor
 
     // MARK: Action Alerts
 
