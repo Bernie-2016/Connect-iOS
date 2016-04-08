@@ -137,7 +137,7 @@ class ActionAlertsController: UIViewController {
         pageControl.pageIndicatorTintColor = theme.defaultPageIndicatorTintColor()
 
         view.backgroundColor = theme.actionsBackgroundColor()
-        backgroundImageView.image = UIImage(named: "actionAlertsBackground")!
+        backgroundImageView.image = UIImage(named: "gradientBackground")!
 
         loadingIndicatorView.color = theme.defaultSpinnerColor()
 

@@ -142,7 +142,7 @@ class ActionAlertsControllerSpec: QuickSpec {
                     subject.view.layoutSubviews()
 
                     let backgroundImageView = subject.backgroundImageView
-                    expect(backgroundImageView.image) == UIImage(named: "actionAlertsBackground")
+                    expect(backgroundImageView.image) == UIImage(named: "gradientBackground")
                 }
 
                 it("sets the correct logo image") {
