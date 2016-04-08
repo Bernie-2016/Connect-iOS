@@ -3,41 +3,6 @@ import Quick
 import Nimble
 @testable import Connect
 
-class WelcomeFakeTheme: FakeTheme {
-    override func defaultButtonBackgroundColor() -> UIColor { return UIColor.orangeColor() }
-    override func defaultBackgroundColor() -> UIColor { return UIColor.greenColor() }
-    override func defaultButtonFont() -> UIFont { return UIFont.italicSystemFontOfSize(222) }
-    override func defaultButtonTextColor() -> UIColor { return UIColor.yellowColor() }
-    override func welcomeTakeThePowerBackFont() -> UIFont { return UIFont.italicSystemFontOfSize(111) }
-    override func welcomeBackgroundColor() -> UIColor { return UIColor.redColor() }
-    override func welcomeTextColor() -> UIColor { return UIColor.purpleColor() }
-}
-
-class FakeOnboardingWorkflow: OnboardingWorkflow {
-    var hasFinishedOnboarding = false
-    var lastControllerToFinishOnboarding: UIViewController!
-
-    init() {
-        super.init(
-            applicationSettingsRepository: FakeApplicationSettingsRepository(),
-            onboardingController: UIViewController(),
-            postOnboardingController: UIViewController(),
-            pushNotificationRegistrar: FakePushNotificationRegistrar(),
-            application: FakeApplication()
-        )
-    }
-
-    var lastInitialViewControllerCompletionHandler: ((UIViewController) -> Void)!
-    override func initialViewController(completion: (UIViewController) -> Void) {
-        lastInitialViewControllerCompletionHandler = completion
-    }
-
-    override internal func controllerDidFinishOnboarding(controller: UIViewController) {
-        hasFinishedOnboarding = true
-        lastControllerToFinishOnboarding = controller
-    }
-}
-
 class WelcomeControllerSpec: QuickSpec {
     override func spec() {
         describe("WelcomeController") {
@@ -77,23 +42,31 @@ class WelcomeControllerSpec: QuickSpec {
 
                     let subviews = subject.view.subviews
 
-                    expect(subviews.contains(subject.actionAlertImageView)) == true
-                    expect(subviews.contains(subject.textContainerView)) == true
+                    expect(subviews.contains(subject.backgroundImageView)) == true
+                    expect(subviews.contains(subject.scrollView)) == true
                     expect(subviews.contains(subject.continueButton)) == true
 
-                    expect(subject.textContainerView.subviews).to(contain(subject.takeThePowerBackLabel))
+                    let containerView = subject.scrollView.subviews.first!
+
+                    expect(containerView.subviews).to(contain(subject.welcomeHeaderLabel))
+                    expect(containerView.subviews).to(contain(subject.welcomeMessageLabel))
+                }
+
+                it("has the correct background image") {
+                        let backgroundImageView = subject.backgroundImageView
+                        expect(backgroundImageView.image) == UIImage(named: "gradientBackground")
                 }
 
                 it("enables analytics") {
                     expect(applicationSettingsRepository.lastAnalyticsPermissionGrantedValue) == true
                 }
 
-                it("has the correct image in the banner image view") {
-                    expect(subject.actionAlertImageView.image) == UIImage(named: "actionAlertExample")
+                it("has a label with a header text") {
+                    expect(subject.welcomeHeaderLabel.text).to(contain("Welcome"))
                 }
 
-                it("has a label with some welcome text") {
-                    expect(subject.takeThePowerBackLabel.text).to(contain("Political Revolution"))
+                it("has a label with the welcome message") {
+                    expect(subject.welcomeMessageLabel.text).to(contain("Connect with Bernie is designed"))
                 }
 
                 it("has a button to advance to the next screen") {
@@ -135,8 +108,10 @@ class WelcomeControllerSpec: QuickSpec {
                 it("styles the view components with the theme") {
                     expect(subject.view.backgroundColor) == UIColor.redColor()
 
-                    expect(subject.takeThePowerBackLabel.font) == UIFont.italicSystemFontOfSize(111)
-                    expect(subject.takeThePowerBackLabel.textColor) == UIColor.purpleColor()
+                    expect(subject.welcomeHeaderLabel.font) == UIFont.italicSystemFontOfSize(111)
+                    expect(subject.welcomeHeaderLabel.textColor) == UIColor.purpleColor()
+                    expect(subject.welcomeMessageLabel.font) == UIFont.italicSystemFontOfSize(333)
+                    expect(subject.welcomeMessageLabel.textColor) == UIColor.purpleColor()
 
                     expect(subject.continueButton.backgroundColor) == UIColor.orangeColor()
                     expect(subject.continueButton.titleLabel!.font) == UIFont.italicSystemFontOfSize(222)
@@ -144,5 +119,43 @@ class WelcomeControllerSpec: QuickSpec {
                 }
             }
         }
+    }
+}
+
+class WelcomeFakeTheme: FakeTheme {
+    override func welcomeButtonBackgroundColor() -> UIColor { return UIColor.orangeColor() }
+    override func welcomeButtonTextColor() -> UIColor { return UIColor.yellowColor() }
+    override func defaultButtonFont() -> UIFont { return UIFont.italicSystemFontOfSize(222) }
+
+    override func defaultBackgroundColor() -> UIColor { return UIColor.greenColor() }
+
+    override func welcomeHeaderFont() -> UIFont { return UIFont.italicSystemFontOfSize(111) }
+    override func welcomeBackgroundColor() -> UIColor { return UIColor.redColor() }
+    override func welcomeTextColor() -> UIColor { return UIColor.purpleColor() }
+    override func welcomeMessageFont() -> UIFont { return UIFont.italicSystemFontOfSize(333) }
+}
+
+class FakeOnboardingWorkflow: OnboardingWorkflow {
+    var hasFinishedOnboarding = false
+    var lastControllerToFinishOnboarding: UIViewController!
+
+    init() {
+        super.init(
+            applicationSettingsRepository: FakeApplicationSettingsRepository(),
+            onboardingController: UIViewController(),
+            postOnboardingController: UIViewController(),
+            pushNotificationRegistrar: FakePushNotificationRegistrar(),
+            application: FakeApplication()
+        )
+    }
+
+    var lastInitialViewControllerCompletionHandler: ((UIViewController) -> Void)!
+    override func initialViewController(completion: (UIViewController) -> Void) {
+        lastInitialViewControllerCompletionHandler = completion
+    }
+
+    override internal func controllerDidFinishOnboarding(controller: UIViewController) {
+        hasFinishedOnboarding = true
+        lastControllerToFinishOnboarding = controller
     }
 }

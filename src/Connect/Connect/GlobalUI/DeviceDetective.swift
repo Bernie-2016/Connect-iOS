@@ -1,12 +1,12 @@
 import UIKit
 
 class DeviceDetective {
-    enum DeviceType {
-        case Four
-        case Five
-        case Six
-        case SixPlus
-        case NewAndShiny
+    enum DeviceType: Int {
+        case Four = 1
+        case Five = 2
+        case Six = 3
+        case SixPlus = 4
+        case NewAndShiny = 0
     }
 
     class func identifyDevice() -> DeviceType {
@@ -26,3 +26,10 @@ class DeviceDetective {
         }
     }
 }
+
+
+func <<T: RawRepresentable where T.RawValue: Comparable>(lhs: T, rhs: T) -> Bool {
+    return lhs.rawValue < rhs.rawValue
+}
+
+extension DeviceDetective.DeviceType: Comparable {}

@@ -140,8 +140,11 @@ protocol Theme {
     // MARK: Welcome
 
     func welcomeBackgroundColor() -> UIColor
-    func welcomeTakeThePowerBackFont() -> UIFont
+    func welcomeHeaderFont() -> UIFont
+    func welcomeMessageFont() -> UIFont
     func welcomeTextColor() -> UIColor
+    func welcomeButtonBackgroundColor() -> UIColor
+    func welcomeButtonTextColor() -> UIColor
 
     // MARK: Actions
 

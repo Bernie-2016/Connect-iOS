@@ -100,7 +100,17 @@
 
 // Welcome
 
-"Welcome_takeThePowerBack" = "Join the Political Revolution.";
+"Welcome_header" = "Welcome!";
+"Welcome_message" = "Connect with Bernie is designed to help you make a difference every day in our race to win the White House.
+
+Inside, you’ll find urgent social media messages from the campaign. Share them with your friends to help shape the discussion around our movement.
+
+The ‘Events’ section puts the campaign’s full grassroots event list at your fingertips. Attend these events to meet fellow activists and work to canvass and GOTV. We hope you’ll make some lifelong friends in the process. 😊
+
+Remember—to win this campaign, all of us must be deeply involved. Our movement needs people like you to help it succeed.
+
+In Solidarity,
+The Connect with Bernie Team";
 "Welcome_agreeToTermsButtonTitle" = "GET STARTED";
 
 // Time intervals

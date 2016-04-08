@@ -8,10 +8,12 @@ class WelcomeController: UIViewController {
 
     var onboardingWorkflow: OnboardingWorkflow!
 
-    let actionAlertImageView = UIImageView.newAutoLayoutView()
-    let takeThePowerBackLabel = UILabel.newAutoLayoutView()
+    let backgroundImageView = UIImageView.newAutoLayoutView()
+    let welcomeHeaderLabel = UILabel.newAutoLayoutView()
+    let welcomeMessageLabel = UILabel.newAutoLayoutView()
     let continueButton = UIButton.newAutoLayoutView()
-    let textContainerView = UIView.newAutoLayoutView()
+    let scrollView = UIScrollView.newAutoLayoutView()
+    private let containerView = UIView.newAutoLayoutView()
 
     init(
         applicationSettingsRepository: ApplicationSettingsRepository,
@@ -39,20 +41,26 @@ extension WelcomeController {
 
         applicationSettingsRepository.updateAnalyticsPermission(true)
 
-        actionAlertImageView.image = UIImage(named: "actionAlertExample")
+        backgroundImageView.image = UIImage(named: "gradientBackground")!
 
-        takeThePowerBackLabel.numberOfLines = 0
-        takeThePowerBackLabel.text = NSLocalizedString("Welcome_takeThePowerBack", comment: "")
-        takeThePowerBackLabel.textAlignment = .Center
+        welcomeHeaderLabel.numberOfLines = 1
+        welcomeHeaderLabel.text = NSLocalizedString("Welcome_header", comment: "")
+        welcomeHeaderLabel.textAlignment = .Left
+
+        welcomeMessageLabel.text = NSLocalizedString("Welcome_message", comment: "")
+        welcomeMessageLabel.numberOfLines = 0
+        welcomeMessageLabel.textAlignment = .Left
 
         continueButton.addTarget(self, action: #selector(WelcomeController.didTapContinueButton), forControlEvents: .TouchUpInside)
         continueButton.setTitle(NSLocalizedString("Welcome_agreeToTermsButtonTitle", comment: ""), forState: .Normal)
 
-        view.addSubview(textContainerView)
-        view.addSubview(actionAlertImageView)
+        view.addSubview(backgroundImageView)
+        view.addSubview(scrollView)
         view.addSubview(continueButton)
 
-        textContainerView.addSubview(takeThePowerBackLabel)
+        scrollView.addSubview(containerView)
+        containerView.addSubview(welcomeHeaderLabel)
+        containerView.addSubview(welcomeMessageLabel)
 
         applyTheme()
         setupConstraints()
@@ -61,6 +69,10 @@ extension WelcomeController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
     }
 }
 
@@ -79,65 +91,69 @@ extension WelcomeController {
 
 extension WelcomeController {
     private func applyTheme() {
-        view.backgroundColor = self.theme.welcomeBackgroundColor()
-        takeThePowerBackLabel.font = self.theme.welcomeTakeThePowerBackFont()
-        takeThePowerBackLabel.textColor = self.theme.welcomeTextColor()
+        view.backgroundColor = theme.welcomeBackgroundColor()
+        welcomeHeaderLabel.font = theme.welcomeHeaderFont()
+        welcomeHeaderLabel.textColor = theme.welcomeTextColor()
+        welcomeMessageLabel.font = theme.welcomeMessageFont()
+        welcomeMessageLabel.textColor = theme.welcomeTextColor()
 
-        continueButton.backgroundColor = self.theme.defaultButtonBackgroundColor()
-        continueButton.titleLabel!.font = self.theme.defaultButtonFont()
-        continueButton.setTitleColor(self.theme.defaultButtonTextColor(), forState: .Normal)
+        continueButton.backgroundColor = theme.welcomeButtonBackgroundColor()
+        continueButton.titleLabel!.font = theme.defaultButtonFont()
+        continueButton.setTitleColor(theme.welcomeButtonTextColor(), forState: .Normal)
     }
 
     // swiftlint:disable function_body_length
     private func setupConstraints() {
         let deviceType = DeviceDetective.identifyDevice()
-        var actionAlertImageViewHorizontalPadding: CGFloat!
-        var actionAlertImageViewBottomPadding: CGFloat!
-        var textContainerViewHeight: CGFloat!
 
-        switch deviceType {
-        case .Four:
-            actionAlertImageViewHorizontalPadding = 39
-            actionAlertImageViewBottomPadding = 81
-            textContainerViewHeight = 81
-        case .Five:
-            actionAlertImageViewHorizontalPadding = 40
-            actionAlertImageViewBottomPadding = 139
-            textContainerViewHeight = 135
-        case .Six:
-            actionAlertImageViewHorizontalPadding = 40
-            actionAlertImageViewBottomPadding = 139
-            textContainerViewHeight = 135
-        case .SixPlus:
-            actionAlertImageViewHorizontalPadding = 41
-            actionAlertImageViewBottomPadding = 148
-            textContainerViewHeight = 148
-        case .NewAndShiny:
-            actionAlertImageViewHorizontalPadding = 40
-            actionAlertImageViewBottomPadding = 139
-            textContainerViewHeight = 135
+        if deviceType < .Six {
+            setupSmallDeviceConstraints()
+        } else {
+            setupLargeDeviceConstraints()
         }
 
-        textContainerView.autoPinEdgeToSuperviewEdge(.Top)
-        textContainerView.autoPinEdgeToSuperviewEdge(.Left)
-        textContainerView.autoPinEdgeToSuperviewEdge(.Right)
-        textContainerView.autoSetDimension(.Height, toSize: textContainerViewHeight)
+        let screenBounds = UIScreen.mainScreen().bounds
 
-        switch deviceType {
-        case .Four:
-            takeThePowerBackLabel.autoAlignAxis(.Horizontal, toSameAxisOfView: textContainerView, withOffset: 4)
-        default:
-            takeThePowerBackLabel.autoAlignAxisToSuperviewAxis(.Horizontal)
-        }
-        takeThePowerBackLabel.autoAlignAxisToSuperviewAxis(.Vertical)
+        backgroundImageView.autoPinEdgesToSuperviewEdges()
 
-        actionAlertImageView.autoPinEdge(.Top, toEdge: .Bottom, ofView: textContainerView)
-        actionAlertImageView.autoPinEdgeToSuperviewEdge(.Left, withInset: actionAlertImageViewHorizontalPadding)
-        actionAlertImageView.autoPinEdgeToSuperviewEdge(.Right, withInset: actionAlertImageViewHorizontalPadding)
-        actionAlertImageView.autoPinEdgeToSuperviewEdge(.Bottom, withInset: actionAlertImageViewBottomPadding)
+        scrollView.contentSize.width = view.bounds.width
+        scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 25, right: 0)
+        scrollView.autoPinEdgesToSuperviewEdges()
+
+        containerView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Right)
+        containerView.autoSetDimension(.Width, toSize: screenBounds.width)
+
+        welcomeMessageLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: welcomeHeaderLabel, withOffset: 20)
+
+        continueButton.autoSetDimension(.Height, toSize: 50)
+    }
+
+    private func setupSmallDeviceConstraints() {
+        let horizontalInset: CGFloat = 25
+        welcomeHeaderLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: 55)
+        welcomeHeaderLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: horizontalInset)
+        welcomeHeaderLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: horizontalInset)
+
+        welcomeMessageLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: horizontalInset)
+        welcomeMessageLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: horizontalInset)
+        welcomeMessageLabel.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 50)
 
         continueButton.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsetsZero, excludingEdge: .Top)
-        continueButton.autoSetDimension(.Height, toSize: 54)
+    }
+
+    private func setupLargeDeviceConstraints() {
+        welcomeHeaderLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: 65)
+        welcomeHeaderLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 30)
+        welcomeHeaderLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 35)
+
+        welcomeMessageLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 30)
+        welcomeMessageLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 35)
+        welcomeMessageLabel.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 50)
+
+        continueButton.layer.cornerRadius = 4
+        continueButton.autoPinEdgeToSuperviewEdge(.Left, withInset: 30)
+        continueButton.autoPinEdgeToSuperviewEdge(.Right, withInset: 30)
+        continueButton.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 55)
     }
     // swiftlint:enable function_body_length
 }

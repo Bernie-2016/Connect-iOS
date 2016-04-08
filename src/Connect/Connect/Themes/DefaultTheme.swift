@@ -142,25 +142,12 @@ class DefaultTheme: Theme {
 
     // MARK Welcome
 
-    func welcomeTakeThePowerBackFont() -> UIFont {
-        var fontSize: CGFloat!
-
-        let deviceType = DeviceDetective.identifyDevice()
-        switch deviceType {
-        case .Four, .Five, .NewAndShiny:
-            fontSize = 22
-        default:
-            fontSize = 26
-        }
-
-        if #available(iOS 8.2, *) {
-            return UIFont.systemFontOfSize(fontSize, weight: UIFontWeightLight)
-        } else {
-            return UIFont.systemFontOfSize(fontSize)
-        }
-    }
+    func welcomeHeaderFont() -> UIFont { return lightSystemFontOfSize(22) }
+    func welcomeMessageFont() -> UIFont { return UIFont.systemFontOfSize(15) }
     func welcomeBackgroundColor() -> UIColor { return UIColor.whiteColor() }
-    func welcomeTextColor() -> UIColor { return tundoraColor }
+    func welcomeTextColor() -> UIColor { return UIColor.whiteColor() }
+    func welcomeButtonBackgroundColor() -> UIColor { return UIColor.whiteColor() }
+    func welcomeButtonTextColor() -> UIColor { return scienceBlueColor }
 
     // MARK: Actions
 
