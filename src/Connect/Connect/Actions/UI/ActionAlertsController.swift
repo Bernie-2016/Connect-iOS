@@ -305,7 +305,7 @@ extension ActionAlertsController: UICollectionViewDataSource {
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(kCollectionViewCellName, forIndexPath: indexPath) as? ActionAlertCell else {
-            fatalError("Badly configured collectoinview :(")
+            fatalError("Badly configured collection view 💩")
         }
 
         for view in cell.webviewContainer.subviews {
