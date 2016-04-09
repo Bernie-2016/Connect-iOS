@@ -5,6 +5,7 @@ import UIKit
 class ActionAlertsController: UIViewController {
     private let actionAlertService: ActionAlertService
     private let actionAlertWebViewProvider: ActionAlertWebViewProvider
+    private let actionAlertLoadingMonitor: ActionAlertLoadingMonitor
     private let urlOpener: URLOpener
     private let moreController: UIViewController
     private let analyticsService: AnalyticsService
@@ -35,26 +36,28 @@ class ActionAlertsController: UIViewController {
     init(
         actionAlertService: ActionAlertService,
         actionAlertWebViewProvider: ActionAlertWebViewProvider,
+        actionAlertLoadingMonitor: ActionAlertLoadingMonitor,
         urlOpener: URLOpener,
         moreController: UIViewController,
         analyticsService: AnalyticsService,
         tabBarItemStylist: TabBarItemStylist,
         theme: Theme
         ) {
-        self.actionAlertService = actionAlertService
-        self.actionAlertWebViewProvider = actionAlertWebViewProvider
-        self.urlOpener = urlOpener
-        self.moreController = moreController
-        self.analyticsService = analyticsService
-        self.tabBarItemStylist = tabBarItemStylist
-        self.theme = theme
+            self.actionAlertService = actionAlertService
+            self.actionAlertWebViewProvider = actionAlertWebViewProvider
+            self.actionAlertLoadingMonitor = actionAlertLoadingMonitor
+            self.urlOpener = urlOpener
+            self.moreController = moreController
+            self.analyticsService = analyticsService
+            self.tabBarItemStylist = tabBarItemStylist
+            self.theme = theme
 
-        super.init(nibName: nil, bundle: nil)
+            super.init(nibName: nil, bundle: nil)
 
-        tabBarItem.title = NSLocalizedString("Actions_title", comment: "")
-        tabBarItemStylist.applyThemeToBarBarItem(tabBarItem,
-                                                 image: UIImage(named: "actionsTabBarIconInactive")!,
-                                                 selectedImage: UIImage(named: "actionsTabBarIcon")!)
+            tabBarItem.title = NSLocalizedString("Actions_title", comment: "")
+            tabBarItemStylist.applyThemeToBarBarItem(tabBarItem,
+                image: UIImage(named: "actionsTabBarIconInactive")!,
+                selectedImage: UIImage(named: "actionsTabBarIcon")!)
 
     }
 
@@ -264,19 +267,20 @@ class ActionAlertsController: UIViewController {
             self.webViews.append(webView)
         }
 
-        for webView in self.webViews {
-            let removeIFrameMarginHack = "var i = document.documentElement.getElementsByTagName('iframe'); for (var j = 0 ; j < i.length ; j++ ) { k = i[j]; k.style.marginTop = '0px'; }"
-            webView.stringByEvaluatingJavaScriptFromString(removeIFrameMarginHack)
+        self.actionAlertLoadingMonitor.waitUntilWebViewsHaveLoaded(self.webViews) {
+            for webView in self.webViews {
+                let removeIFrameMarginHack = "var i = document.documentElement.getElementsByTagName('iframe'); for (var j = 0 ; j < i.length ; j++ ) { k = i[j]; k.style.marginTop = '0px'; }"
+                webView.stringByEvaluatingJavaScriptFromString(removeIFrameMarginHack)
+            }
+
+            self.collectionView.reloadData()
+
+            UIView.transitionWithView(self.view, duration: 0.4, options: .TransitionCrossDissolve, animations: {
+                self.hideLoadingUI()
+                self.pageControl.numberOfPages = self.actionAlerts.count
+                self.showResultsUI()
+                }, completion: { _ in })
         }
-
-        self.collectionView.reloadData()
-
-        UIView.transitionWithView(self.view, duration: 0.4, options: .TransitionCrossDissolve, animations: {
-            self.hideLoadingUI()
-            self.pageControl.numberOfPages = self.actionAlerts.count
-            self.showResultsUI()
-            }, completion: { _ in })
-
     }
 }
 
@@ -292,7 +296,7 @@ extension ActionAlertsController {
 
             }, completion: { _ in
 
-        })
+            })
     }
 }
 
@@ -403,7 +407,7 @@ extension ActionAlertsController: UIWebViewDelegate {
         var attributes = [
             AnalyticsServiceConstants.contentIDKey: actionAlert.identifier,
             AnalyticsServiceConstants.contentNameKey: actionAlert.title,
-            ]
+        ]
 
 
         switch url.absoluteString {

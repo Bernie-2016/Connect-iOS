@@ -72,6 +72,7 @@ class StockActionAlertRepository: ActionAlertRepository {
 
         let url = urlProvider.actionAlertURL(identifier)
         let jsonFuture = jsonClient.JSONPromiseWithURL(url, method: "GET", bodyDictionary: nil)
+
         jsonFuture.then { jsonObject in
             guard let jsonDictionary = jsonObject as? Dictionary<String, AnyObject> else {
                 promise.reject(.InvalidJSON(jsonObject: jsonObject))
@@ -87,6 +88,7 @@ class StockActionAlertRepository: ActionAlertRepository {
             } catch {
                 promise.reject(.UnknownError(error))
             }
+
 
             promise.resolve(actionAlert)
         }

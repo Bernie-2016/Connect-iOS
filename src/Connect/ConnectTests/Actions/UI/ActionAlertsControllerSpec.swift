@@ -9,6 +9,7 @@ class ActionAlertsControllerSpec: QuickSpec {
             var subject: ActionAlertsController!
             var actionAlertService: FakeActionAlertService!
             var actionAlertWebViewProvider: FakeActionAlertWebViewProvider!
+            var actionAlertLoadingMonitor: FakeActionAlertLoadingMonitor!
             var urlOpener: FakeURLOpener!
             var moreController: UIViewController!
             var analyticsService: FakeAnalyticsService!
@@ -20,6 +21,7 @@ class ActionAlertsControllerSpec: QuickSpec {
             beforeEach {
                 actionAlertService = FakeActionAlertService()
                 actionAlertWebViewProvider = FakeActionAlertWebViewProvider()
+                actionAlertLoadingMonitor = FakeActionAlertLoadingMonitor()
                 urlOpener = FakeURLOpener()
                 moreController = UIViewController()
                 analyticsService = FakeAnalyticsService()
@@ -28,6 +30,7 @@ class ActionAlertsControllerSpec: QuickSpec {
                 subject = ActionAlertsController(
                     actionAlertService: actionAlertService,
                     actionAlertWebViewProvider: actionAlertWebViewProvider,
+                    actionAlertLoadingMonitor: actionAlertLoadingMonitor,
                     urlOpener: urlOpener,
                     moreController: moreController,
                     analyticsService: analyticsService,
@@ -230,7 +233,8 @@ class ActionAlertsControllerSpec: QuickSpec {
                     itBehavesLike("an event that triggers an update of action alerts") { [
                         "subject": subject,
                         "actionAlertService": actionAlertService,
-                        "actionAlertWebViewProvider": actionAlertWebViewProvider
+                        "actionAlertWebViewProvider": actionAlertWebViewProvider,
+                        "actionAlertLoadingMonitor": actionAlertLoadingMonitor
                         ] }
                 }
             }
@@ -272,7 +276,8 @@ class ActionAlertsControllerSpec: QuickSpec {
                     itBehavesLike("an event that triggers an update of action alerts") { [
                         "subject": subject,
                         "actionAlertService": actionAlertService,
-                        "actionAlertWebViewProvider": actionAlertWebViewProvider
+                        "actionAlertWebViewProvider": actionAlertWebViewProvider,
+                        "actionAlertLoadingMonitor": actionAlertLoadingMonitor
                         ] }
                 }
             }
@@ -300,22 +305,23 @@ class ActionAlertsControllerSpec: QuickSpec {
                 beforeEach {
                     subject.view.layoutSubviews()
                     subject.viewWillAppear(false)
+                    actionAlertService.lastReturnedActionAlertsPromise.resolve([actionAlertA, actionAlertB])
                 }
 
                 it("has one section") {
-                    actionAlertService.lastReturnedActionAlertsPromise.resolve([actionAlertA, actionAlertB])
+                    actionAlertLoadingMonitor.lastCompletionHandler!()
 
                     expect(subject.collectionView.numberOfSections()) == 1
                 }
 
                 it("has an item per action alert") {
-                    actionAlertService.lastReturnedActionAlertsPromise.resolve([actionAlertA, actionAlertB])
+                    actionAlertLoadingMonitor.lastCompletionHandler!()
 
                     expect(subject.collectionView.numberOfItemsInSection(0)) == 2
                 }
 
                 it("sets the title of the action alert cell with the action alert") {
-                    actionAlertService.lastReturnedActionAlertsPromise.resolve([actionAlertA, actionAlertB])
+                    actionAlertLoadingMonitor.lastCompletionHandler!()
 
                     guard let cell = subject.collectionView.dataSource?.collectionView(subject.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 0)) as? ActionAlertCell else {
                         fail("Unable to get cell")
@@ -326,7 +332,7 @@ class ActionAlertsControllerSpec: QuickSpec {
                 }
 
                 it("sets the short description") {
-                    actionAlertService.lastReturnedActionAlertsPromise.resolve([actionAlertA, actionAlertB])
+                    actionAlertLoadingMonitor.lastCompletionHandler!()
 
                     guard let cell = subject.collectionView.dataSource?.collectionView(subject.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 0)) as? ActionAlertCell else {
                         fail("Unable to get cell")
@@ -337,7 +343,7 @@ class ActionAlertsControllerSpec: QuickSpec {
                 }
 
                 it("makes the web view visible and adds it as a subview of the cell") {
-                    actionAlertService.lastReturnedActionAlertsPromise.resolve([actionAlertA, actionAlertB])
+                    actionAlertLoadingMonitor.lastCompletionHandler!()
 
                     guard let cell = subject.collectionView.dataSource?.collectionView(subject.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 0)) as? ActionAlertCell else {
                         fail("Unable to get cell")
@@ -350,7 +356,7 @@ class ActionAlertsControllerSpec: QuickSpec {
                 }
 
                 it("removes the web view from the controller's view") {
-                    actionAlertService.lastReturnedActionAlertsPromise.resolve([actionAlertA, actionAlertB])
+                    actionAlertLoadingMonitor.lastCompletionHandler!()
                     subject.collectionView.dataSource?.collectionView(subject.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 0))
 
                     let webViews = actionAlertWebViewProvider.returnedWebViews
@@ -360,7 +366,7 @@ class ActionAlertsControllerSpec: QuickSpec {
                 }
 
                 it("styles the cell with the theme") {
-                    actionAlertService.lastReturnedActionAlertsPromise.resolve([actionAlertA, actionAlertB])
+                    actionAlertLoadingMonitor.lastCompletionHandler!()
                     guard let cell = subject.collectionView.dataSource?.collectionView(subject.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 0)) as? ActionAlertCell else {
                         fail("Unable to get cell")
                         return
@@ -379,10 +385,12 @@ class ActionAlertsControllerSpec: QuickSpec {
 
                     beforeEach {
                         subject.viewWillAppear(false)
+
+                        actionAlertService.lastReturnedActionAlertsPromise.resolve([actionAlert])
                     }
 
                     it("shows the share button") {
-                        actionAlertService.lastReturnedActionAlertsPromise.resolve([actionAlert])
+                        actionAlertLoadingMonitor.lastCompletionHandler!()
                         guard let cell = subject.collectionView.dataSource?.collectionView(subject.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 0)) as? ActionAlertCell else {
                             fail("Unable to get cell")
                             return
@@ -392,7 +400,7 @@ class ActionAlertsControllerSpec: QuickSpec {
                     }
 
                     it("has the correct text for the share button") {
-                        actionAlertService.lastReturnedActionAlertsPromise.resolve([actionAlert])
+                        actionAlertLoadingMonitor.lastCompletionHandler!()
                         guard let cell = subject.collectionView.dataSource?.collectionView(subject.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 0)) as? ActionAlertCell else {
                             fail("Unable to get cell")
                             return
@@ -405,7 +413,7 @@ class ActionAlertsControllerSpec: QuickSpec {
                         var cell: ActionAlertCell!
 
                         beforeEach {
-                            actionAlertService.lastReturnedActionAlertsPromise.resolve([actionAlert])
+                            actionAlertLoadingMonitor.lastCompletionHandler!()
                             guard let aaCell = subject.collectionView.dataSource?.collectionView(subject.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 0)) as? ActionAlertCell else {
                                 fail("Unable to get cell")
                                 return
@@ -436,7 +444,7 @@ class ActionAlertsControllerSpec: QuickSpec {
 
                 context("when the action alert does not have a share URL") {
                     it("hides the share button") {
-                        actionAlertService.lastReturnedActionAlertsPromise.resolve([actionAlertA, actionAlertB])
+                        actionAlertLoadingMonitor.lastCompletionHandler!()
                         guard let cell = subject.collectionView.dataSource?.collectionView(subject.collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 0)) as? ActionAlertCell else {
                             fail("Unable to get cell")
                             return
@@ -594,11 +602,13 @@ class ActionAlertsSharedExamplesConfiguration: QuickConfiguration {
             var subject: ActionAlertsController!
             var actionAlertService: FakeActionAlertService!
             var actionAlertWebViewProvider: FakeActionAlertWebViewProvider!
+            var actionAlertLoadingMonitor: FakeActionAlertLoadingMonitor!
 
             beforeEach {
                 subject = sharedExampleContext()["subject"] as! ActionAlertsController
                 actionAlertService = sharedExampleContext()["actionAlertService"] as! FakeActionAlertService!
                 actionAlertWebViewProvider = sharedExampleContext()["actionAlertWebViewProvider"] as! FakeActionAlertWebViewProvider!
+                actionAlertLoadingMonitor = sharedExampleContext()["actionAlertLoadingMonitor"] as! FakeActionAlertLoadingMonitor!
             }
 
             describe("when using the action alerts service") {
@@ -622,9 +632,29 @@ class ActionAlertsSharedExamplesConfiguration: QuickConfiguration {
                         expect(subject.view.subviews.contains(webViews[1])) == true
                     }
 
+                    it("waits until all the webviews have loaded") {
+                        actionAlertService.lastReturnedActionAlertsPromise.resolve([actionAlertA, actionAlertB])
+
+                        let webViews = actionAlertWebViewProvider.returnedWebViews
+                        expect(webViews.count) == 2
+
+                        guard let receivedWebViews = actionAlertLoadingMonitor.receivedWebViews else {
+                            fail("No monitored web views")
+                            return
+                        }
+
+                        expect(receivedWebViews.count) == 2
+                        expect(receivedWebViews[0]) === webViews[0]
+                        expect(receivedWebViews[1]) === webViews[1]
+                    }
+
+                    describe("when the webviews have all loaded") {
+                        beforeEach {
+                            actionAlertService.lastReturnedActionAlertsPromise.resolve([actionAlertA, actionAlertB])
+                        }
 
                         it("sets the page control count") {
-                            actionAlertService.lastReturnedActionAlertsPromise.resolve([actionAlertA, actionAlertB])
+                            actionAlertLoadingMonitor.lastCompletionHandler!()
 
                             expect(subject.pageControl.numberOfPages) == 2
                         }
@@ -632,28 +662,29 @@ class ActionAlertsSharedExamplesConfiguration: QuickConfiguration {
                         it("shows the page control") {
                             subject.pageControl.hidden = true
 
-                            actionAlertService.lastReturnedActionAlertsPromise.resolve([actionAlertA, actionAlertB])
+                            actionAlertLoadingMonitor.lastCompletionHandler!()
 
                             expect(subject.pageControl.hidden) == false
                         }
 
                         it("hides the spinner") {
-                            actionAlertService.lastReturnedActionAlertsPromise.resolve([actionAlertA, actionAlertB])
+                            actionAlertLoadingMonitor.lastCompletionHandler!()
 
                             expect(subject.loadingIndicatorView.hidden) == true
                         }
 
                         it("shows the collection view") {
-                            actionAlertService.lastReturnedActionAlertsPromise.resolve([actionAlertA, actionAlertB])
+                            actionAlertLoadingMonitor.lastCompletionHandler!()
 
                             expect(subject.collectionView.hidden) == false
                         }
 
                         it("reloads the collection view") {
-                            actionAlertService.lastReturnedActionAlertsPromise.resolve([actionAlertA, actionAlertB])
+                            actionAlertLoadingMonitor.lastCompletionHandler!()
 
                             expect(subject.collectionView.dataSource?.collectionView(subject.collectionView, numberOfItemsInSection: 0)) == 2
                         }
+                    }
                 }
 
                 context("when the service resolves its promise with zero action alerts") {
@@ -752,5 +783,15 @@ private class FakeActionAlertWebViewProvider: ActionAlertWebViewProvider {
         returnedWebViews.append(UIWebView())
 
         return returnedWebViews.last!
+    }
+}
+
+private class FakeActionAlertLoadingMonitor: ActionAlertLoadingMonitor {
+    var receivedWebViews: [UIWebView]?
+    var lastCompletionHandler: (() -> ())?
+
+    func waitUntilWebViewsHaveLoaded(webViews: [UIWebView], completionHandler: () -> ()) {
+        receivedWebViews = webViews
+        lastCompletionHandler = completionHandler
     }
 }

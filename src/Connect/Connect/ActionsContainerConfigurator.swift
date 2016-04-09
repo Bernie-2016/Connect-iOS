@@ -22,6 +22,10 @@ class ActionsContainerConfigurator: ContainerConfigurator {
             )
         }.inObjectScope(.Container)
 
+        container.register(ActionAlertLoadingMonitor.self) { resolver in
+            return StockActionAlertLoadingMonitor()
+        }
+
         container.register(ActionAlertWebViewProvider.self) { resolver in
             return StockActionAlertWebViewProvider(urlProvider: resolver.resolve(BaseURLProvider.self)!)
         }
@@ -30,6 +34,7 @@ class ActionsContainerConfigurator: ContainerConfigurator {
             return ActionAlertsController(
                 actionAlertService: resolver.resolve(ActionAlertService.self)!,
                 actionAlertWebViewProvider: resolver.resolve(ActionAlertWebViewProvider.self)!,
+                actionAlertLoadingMonitor: resolver.resolve(ActionAlertLoadingMonitor.self)!,
                 urlOpener: resolver.resolve(URLOpener.self)!,
                 moreController: resolver.resolve(SettingsController.self)!,
                 analyticsService: resolver.resolve(AnalyticsService.self)!,
