@@ -254,7 +254,9 @@ class ActionAlertsController: UIViewController {
             let webViewWidth = UIScreen.mainScreen().bounds.width - 10
             webView.autoSetDimension(.Width, toSize: webViewWidth)
 
-            if  actionAlert.body.rangeOfString("facebook.com", options: .RegularExpressionSearch) != nil {
+            if actionAlert.isFacebookVideo() {
+                webView.autoSetDimension(.Height, toSize: 205)
+            } else if  actionAlert.body.rangeOfString("facebook.com", options: .RegularExpressionSearch) != nil {
                 webView.autoSetDimension(.Height, toSize: 450)
             } else {
                 webView.autoSetDimension(.Height, toSize: 380)
@@ -326,17 +328,6 @@ extension ActionAlertsController: UICollectionViewDataSource {
         cell.titleLabel.text = actionAlert.title
         cell.shortDescriptionText = actionAlert.shortDescription
 
-        let title = NSAttributedString(
-            string: NSLocalizedString("Actions_shareButtonTitle", comment: ""),
-            attributes: [
-                NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue,
-                NSForegroundColorAttributeName: theme.actionsShareButtonTextColor()
-            ])
-
-        cell.shareButton.setAttributedTitle(title, forState: .Normal)
-        cell.shareButtonVisible = (actionAlert.shareURL() != nil)
-        cell.shareButton.addTarget(self, action: #selector(ActionAlertsController.didTapShareButton), forControlEvents: .TouchUpInside)
-
         cell.webviewContainer.addSubview(webView)
         webView.autoPinEdgesToSuperviewEdges()
 
@@ -353,6 +344,17 @@ extension ActionAlertsController: UICollectionViewDataSource {
         cell.shortDescriptionLabel.textColor = theme.actionsShortDescriptionTextColor()
         cell.activityIndicatorView.color = theme.defaultSpinnerColor()
         cell.shareButton.titleLabel!.font = theme.actionsShareButtonFont()
+
+        let title = NSAttributedString(
+            string: NSLocalizedString("Actions_shareButtonTitle", comment: ""),
+            attributes: [
+                NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue,
+                NSForegroundColorAttributeName: theme.actionsShareButtonTextColor()
+            ])
+
+        cell.shareButton.setAttributedTitle(title, forState: .Normal)
+        cell.shareButtonVisible = (actionAlert.shareURL() != nil)
+        cell.shareButton.addTarget(self, action: #selector(ActionAlertsController.didTapShareButton), forControlEvents: .TouchUpInside)
 
         return cell
     }

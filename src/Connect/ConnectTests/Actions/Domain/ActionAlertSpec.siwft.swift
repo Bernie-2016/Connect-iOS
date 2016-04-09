@@ -8,6 +8,42 @@ class ActionAlertSpec: QuickSpec {
         describe("ActionAlert") {
             var subject: ActionAlert!
 
+            describe(".isFacebookVideo") {
+                context("when the action alert is a facebook video") {
+                    it("returns true") {
+                        subject = ActionAlert(
+                            identifier: "fake-id",
+                            title: "title",
+                            body: "<div class='fb-video'></div>",
+                            shortDescription: "",
+                            date: "",
+                            targetURL: nil,
+                            twitterURL: nil,
+                            tweetID: nil
+                        )
+
+                        expect(subject.isFacebookVideo()) == true
+                    }
+                }
+
+                context("when the action alert is not a facebook video") {
+                    it("returns nil") {
+                        subject = ActionAlert(
+                            identifier: "fake-id",
+                            title: "title",
+                            body: "<div class='fb-post'></div>",
+                            shortDescription: "",
+                            date: "",
+                            targetURL: nil,
+                            twitterURL: nil,
+                            tweetID: nil
+                        )
+
+                        expect(subject.isFacebookVideo()) == false
+                    }
+                }
+            }
+
             describe(".shareURL") {
                 context("when the action alert is a facebook video") {
                     context("and has a target URL") {

@@ -14,13 +14,15 @@ struct ActionAlert {
     let tweetID: TweetID?
 
     func shareURL() -> NSURL? {
-        let isFBVideo = body.rangeOfString("fb-video", options: .RegularExpressionSearch) != nil
-
-        if isFBVideo && targetURL != nil {
+        if isFacebookVideo() && targetURL != nil {
             return targetURL
         }
 
         return nil
+    }
+
+    func isFacebookVideo() -> Bool {
+        return body.rangeOfString("fb-video", options: .RegularExpressionSearch) != nil
     }
 }
 

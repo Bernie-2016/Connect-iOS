@@ -42,7 +42,8 @@ class ActionAlertCell: UICollectionViewCell {
     var shareButtonVisible: Bool {
         set {
             shareButton.hidden = !newValue
-//            shareButtonHeightConstraint!.active = !newValue
+            shareButtonHeightConstraint!.active = !newValue
+            layoutSubviews()
         }
         get {
             return !shareButton.hidden
@@ -75,8 +76,8 @@ class ActionAlertCell: UICollectionViewCell {
         scrollView.addSubview(titleLabel)
         scrollView.addSubview(shortDescriptionLabel)
         scrollView.addSubview(webviewContainer)
-        scrollView.addSubview(shareButton)
         scrollView.addSubview(spacerView)
+        scrollView.addSubview(shareButton)
 
         activityIndicatorView.startAnimating()
 
