@@ -198,7 +198,6 @@
 		655B6AD41C9B45CE00153AD9 /* RadiusDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B6AD31C9B45CE00153AD9 /* RadiusDataSource.swift */; };
 		655B6AD61C9B45ED00153AD9 /* EventsErrorControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B6AD51C9B45ED00153AD9 /* EventsErrorControllerSpec.swift */; };
 		65629A881C9E176F0007119A /* ActionAlertWebViewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65629A871C9E176F0007119A /* ActionAlertWebViewProvider.swift */; };
-		65629A8A1C9E1A1F0007119A /* ActionAlertLoadingMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65629A891C9E1A1F0007119A /* ActionAlertLoadingMonitor.swift */; };
 		656BC9661C70260D00CFA4EB /* tonybenn.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 656BC9651C70260D00CFA4EB /* tonybenn.jpg */; };
 		656BC9681C702BA800CFA4EB /* AlwaysReusingTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656BC9671C702BA800CFA4EB /* AlwaysReusingTableView.swift */; };
 		656BFBD01C94801F004DB9F1 /* StockNearbyEventsUseCaseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656BFBCF1C94801F004DB9F1 /* StockNearbyEventsUseCaseSpec.swift */; };
@@ -581,7 +580,6 @@
 		655B6AD31C9B45CE00153AD9 /* RadiusDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RadiusDataSource.swift; path = UI/RadiusDataSource.swift; sourceTree = "<group>"; };
 		655B6AD51C9B45ED00153AD9 /* EventsErrorControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsErrorControllerSpec.swift; sourceTree = "<group>"; };
 		65629A871C9E176F0007119A /* ActionAlertWebViewProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionAlertWebViewProvider.swift; sourceTree = "<group>"; };
-		65629A891C9E1A1F0007119A /* ActionAlertLoadingMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionAlertLoadingMonitor.swift; sourceTree = "<group>"; };
 		656BC9651C70260D00CFA4EB /* tonybenn.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tonybenn.jpg; sourceTree = "<group>"; };
 		656BC9671C702BA800CFA4EB /* AlwaysReusingTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlwaysReusingTableView.swift; sourceTree = "<group>"; };
 		656BFBCF1C94801F004DB9F1 /* StockNearbyEventsUseCaseSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockNearbyEventsUseCaseSpec.swift; sourceTree = "<group>"; };
@@ -1071,7 +1069,6 @@
 			isa = PBXGroup;
 			children = (
 				6530865B1C9E1DB200355F55 /* ActionAlertCell.swift */,
-				65629A891C9E1A1F0007119A /* ActionAlertLoadingMonitor.swift */,
 				659541991C9E0C9F00D9FACC /* ActionAlertsController.swift */,
 				65629A871C9E176F0007119A /* ActionAlertWebViewProvider.swift */,
 				65EF645C1C9BA14700579313 /* CenterCellCollectionViewFlowLayout.swift */,
@@ -1926,7 +1923,6 @@
 				6513E47B1C59B2E200CA51BD /* ActionAlert.swift in Sources */,
 				6530865C1C9E1DB200355F55 /* ActionAlertCell.swift in Sources */,
 				659885761C59CCA100C661C6 /* ActionAlertDeserializer.swift in Sources */,
-				65629A8A1C9E1A1F0007119A /* ActionAlertLoadingMonitor.swift in Sources */,
 				65B0235B1C59C6490082E211 /* ActionAlertRepository.swift in Sources */,
 				6595419A1C9E0C9F00D9FACC /* ActionAlertsController.swift in Sources */,
 				6513E4781C59B29E00CA51BD /* ActionAlertService.swift in Sources */,
@@ -2283,7 +2279,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CONNECT_BASE_URL = "https://sanders-connect-staging.herokuapp.com/";
-				CURRENT_PROJECT_VERSION = 226;
+				CURRENT_PROJECT_VERSION = 227;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2454,7 +2450,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CONNECT_BASE_URL = "https://sanders-connect-staging.herokuapp.com/";
-				CURRENT_PROJECT_VERSION = 226;
+				CURRENT_PROJECT_VERSION = 227;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2505,7 +2501,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CONNECT_BASE_URL = "https://connect.berniesanders.com/";
-				CURRENT_PROJECT_VERSION = 226;
+				CURRENT_PROJECT_VERSION = 227;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
