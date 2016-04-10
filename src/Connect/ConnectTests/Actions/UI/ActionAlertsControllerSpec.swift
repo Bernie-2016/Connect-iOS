@@ -557,6 +557,43 @@ class ActionAlertsControllerSpec: QuickSpec {
                         }
                     }
 
+                    context("when that link is to the tweet on twitter via an 'other' navigation type") {
+                        let expectedURL = NSURL(string: "https://twitter.com/BernieSanders/status/718896271277187072")!
+                        let urlRequest = NSURLRequest(URL: expectedURL)
+
+                        it("opens the link in safari") {
+                            let webView = actionAlertWebViewProvider.returnedWebViews[0]
+
+                            webView.delegate?.webView!(webView, shouldStartLoadWithRequest: urlRequest, navigationType: .Other)
+
+                            expect(urlOpener.lastOpenedURL) == expectedURL
+                        }
+
+                        it("prevents the link being followed in the web view") {
+                            let webView = actionAlertWebViewProvider.returnedWebViews[0]
+
+                            let result = webView.delegate?.webView!(webView, shouldStartLoadWithRequest: urlRequest, navigationType: .Other)
+
+                            expect(result) == false
+                        }
+
+                        it("tracks the share via the analytics service") {
+                            let webView = actionAlertWebViewProvider.returnedWebViews[0]
+
+                            webView.delegate?.webView!(webView, shouldStartLoadWithRequest: urlRequest, navigationType: .Other)
+
+
+                            expect(analyticsService.lastCustomEventName).to(equal("Began Share"))
+                            let expectedAttributes = [
+                                AnalyticsServiceConstants.contentIDKey: actionAlert.identifier,
+                                AnalyticsServiceConstants.contentNameKey: actionAlert.title,
+                                AnalyticsServiceConstants.contentTypeKey: "Action Alert - Followed Other Link",
+                                AnalyticsServiceConstants.contentURLKey: expectedURL.absoluteString
+                            ]
+                            expect(analyticsService.lastCustomEventAttributes! as? [String: String]).to(equal(expectedAttributes))
+                        }
+                    }
+
                     context("when that link is to anywhere else") {
                         it("tracks the share via the analytics service") {
                             let retweetRequest = NSURLRequest(URL: NSURL(string: "https://berniesanders.com")!)

@@ -387,18 +387,22 @@ extension ActionAlertsController: UICollectionViewDelegateFlowLayout {
 
 extension ActionAlertsController: UIWebViewDelegate {
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        if navigationType != .LinkClicked {
-            return true
-        }
-
         guard let url = request.URL else {
             return false
         }
 
+        if navigationType == .Other && url.absoluteString.rangeOfString("https://twitter.com/\\w+/status/\\d+", options: .RegularExpressionSearch) != nil {
+            trackLinkClick(url)
+            urlOpener.openURL(url)
+            return false
+        }
+
+        if navigationType != .LinkClicked {
+            return true
+        }
+
         trackLinkClick(url)
-
         urlOpener.openURL(url)
-
         return false
     }
 
