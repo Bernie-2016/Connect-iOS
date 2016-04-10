@@ -257,10 +257,8 @@ class ActionAlertsController: UIViewController {
 
             if actionAlert.isFacebookVideo() {
                 webView.autoSetDimension(.Height, toSize: 205)
-            } else if  actionAlert.body.rangeOfString("facebook.com", options: .RegularExpressionSearch) != nil {
-                webView.autoSetDimension(.Height, toSize: 450)
             } else {
-                webView.autoSetDimension(.Height, toSize: 380)
+                webView.autoSetDimension(.Height, toSize: 450)
             }
 
             webView.autoCenterInSuperview()
@@ -269,11 +267,6 @@ class ActionAlertsController: UIViewController {
         }
 
         self.actionAlertLoadingMonitor.waitUntilWebViewsHaveLoaded(self.webViews) {
-            for webView in self.webViews {
-                let removeIFrameMarginHack = "var i = document.documentElement.getElementsByTagName('iframe'); for (var j = 0 ; j < i.length ; j++ ) { k = i[j]; k.style.marginTop = '0px'; }"
-                webView.stringByEvaluatingJavaScriptFromString(removeIFrameMarginHack)
-            }
-
             self.collectionView.reloadData()
 
             UIView.transitionWithView(self.view, duration: 0.4, options: .TransitionCrossDissolve, animations: {
@@ -331,6 +324,9 @@ extension ActionAlertsController: UICollectionViewDataSource {
 
         cell.webviewContainer.addSubview(webView)
         webView.autoPinEdgesToSuperviewEdges()
+
+        let removeIFrameMarginHack = "var i = document.documentElement.getElementsByTagName('iframe'); for (var j = 0 ; j < i.length ; j++ ) { k = i[j]; k.style.marginTop = '0px';  }"
+        webView.stringByEvaluatingJavaScriptFromString(removeIFrameMarginHack)
 
         let heightString = webView.stringByEvaluatingJavaScriptFromString("var iframes = document.getElementsByTagName('iframe') ; var heights = [] ; for(var i = 0; i < iframes.length ; i++) { if(iframes[i].name == 'fb_xdm_frame_https') { continue; } heights.push(iframes[i].scrollHeight); } var maxIframeHeight = Math.max.apply(null, heights); if ( maxIframeHeight > 0 ) { maxIframeHeight } else { Math.max( maxIframeHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight, document.documentElement.clientHeight ); }")
 
