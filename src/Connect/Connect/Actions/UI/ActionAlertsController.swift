@@ -247,9 +247,10 @@ class ActionAlertsController: UIViewController {
             webView.scrollView.scrollEnabled = false
             webView.alpha = 0
 
+            self.view.addSubview(webView)
+
             // this is because the facebook embed code isn't responsive - we need to render it with the correct width
             // such that we work around its margins
-            self.view.addSubview(webView)
 
             let webViewWidth = UIScreen.mainScreen().bounds.width - 10
             webView.autoSetDimension(.Width, toSize: webViewWidth)
