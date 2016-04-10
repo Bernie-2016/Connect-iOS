@@ -1,6 +1,9 @@
 machine:
   xcode:
     version: 7.3
+dependencies:
+  pre:
+    - cd src/Connect && carthage bootstrap --platform iphonesimulator --no-use-binaries
 test:
   override:
     - script/cibuild
