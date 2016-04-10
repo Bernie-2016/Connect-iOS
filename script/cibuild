@@ -5,9 +5,9 @@ export SCRIPT_DIR=$(dirname "$0")
 main ()
 {
     cd src/Connect 
-    xctool clean -project Connect.xcodeproj/ -scheme Connect -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
-    xctool test -project Connect.xcodeproj/ -scheme Connect -sdk iphonesimulator -destination "platform=iOS Simulator,OS=8.3,name=iPhone 4s" ONLY_ACTIVE_ARCH=NO
-    xctool test -project Connect.xcodeproj/ -scheme Connect -sdk iphonesimulator -destination "platform=iOS Simulator,OS=9.3,name=iPhone 6s Plus" ONLY_ACTIVE_ARCH=NO
+    xcodebuild clean -project Connect.xcodeproj/ -scheme Connect -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+    xcodebuild test -project Connect.xcodeproj/ -scheme Connect -sdk iphonesimulator -destination "platform=iOS Simulator,OS=8.3,name=iPhone 4s" ONLY_ACTIVE_ARCH=NO
+    xcodebuild test -project Connect.xcodeproj/ -scheme Connect -sdk iphonesimulator -destination "platform=iOS Simulator,OS=9.3,name=iPhone 6s Plus" ONLY_ACTIVE_ARCH=NO
 
     local status=$?
 
