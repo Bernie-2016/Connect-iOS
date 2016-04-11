@@ -44,6 +44,42 @@ class ActionAlertSpec: QuickSpec {
                 }
             }
 
+            describe(".isFacebookPost") {
+                context("when the action alert is a facebook post") {
+                    it("returns true") {
+                        subject = ActionAlert(
+                            identifier: "fake-id",
+                            title: "title",
+                            body: "<div class='fb-post'></div>",
+                            shortDescription: "",
+                            date: "",
+                            targetURL: nil,
+                            twitterURL: nil,
+                            tweetID: nil
+                        )
+
+                        expect(subject.isFacebookPost()) == true
+                    }
+                }
+
+                context("when the action alert is not a facebook post") {
+                    it("returns nil") {
+                        subject = ActionAlert(
+                            identifier: "fake-id",
+                            title: "title",
+                            body: "<div class='fb-video'></div>",
+                            shortDescription: "",
+                            date: "",
+                            targetURL: nil,
+                            twitterURL: nil,
+                            tweetID: nil
+                        )
+
+                        expect(subject.isFacebookPost()) == false
+                    }
+                }
+            }
+
             describe(".shareURL") {
                 context("when the action alert is a facebook video") {
                     context("and has a target URL") {

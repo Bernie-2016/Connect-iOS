@@ -22,7 +22,15 @@ struct ActionAlert {
     }
 
     func isFacebookVideo() -> Bool {
-        return body.rangeOfString("fb-video", options: .RegularExpressionSearch) != nil
+        return bodyContainsString("fb-video")
+    }
+
+    func isFacebookPost() -> Bool {
+        return bodyContainsString("fb-post")
+    }
+
+    private func bodyContainsString(string: String) -> Bool {
+        return body.rangeOfString(string, options: .RegularExpressionSearch) != nil
     }
 }
 

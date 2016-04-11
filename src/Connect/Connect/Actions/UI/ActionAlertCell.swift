@@ -104,7 +104,7 @@ class ActionAlertCell: UICollectionViewCell {
         webviewContainerHeightConstraint = webviewContainer.autoSetDimension(.Height, toSize: 0)
 
         shareButton.autoAlignAxis(.Vertical, toSameAxisOfView: webviewContainer)
-        shareButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: webviewContainer, withOffset: 0)
+        shareButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: webviewContainer, withOffset: 10)
         shareButtonHeightConstraint = shareButton.autoSetDimension(.Height, toSize: 0)
 
         activityIndicatorView.autoPinEdge(.Top, toEdge: .Top, ofView: webviewContainer, withOffset: 30)

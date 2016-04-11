@@ -43,21 +43,21 @@ class ActionAlertsController: UIViewController {
         tabBarItemStylist: TabBarItemStylist,
         theme: Theme
         ) {
-            self.actionAlertService = actionAlertService
-            self.actionAlertWebViewProvider = actionAlertWebViewProvider
-            self.actionAlertLoadingMonitor = actionAlertLoadingMonitor
-            self.urlOpener = urlOpener
-            self.moreController = moreController
-            self.analyticsService = analyticsService
-            self.tabBarItemStylist = tabBarItemStylist
-            self.theme = theme
+        self.actionAlertService = actionAlertService
+        self.actionAlertWebViewProvider = actionAlertWebViewProvider
+        self.actionAlertLoadingMonitor = actionAlertLoadingMonitor
+        self.urlOpener = urlOpener
+        self.moreController = moreController
+        self.analyticsService = analyticsService
+        self.tabBarItemStylist = tabBarItemStylist
+        self.theme = theme
 
-            super.init(nibName: nil, bundle: nil)
+        super.init(nibName: nil, bundle: nil)
 
-            tabBarItem.title = NSLocalizedString("Actions_title", comment: "")
-            tabBarItemStylist.applyThemeToBarBarItem(tabBarItem,
-                image: UIImage(named: "actionsTabBarIconInactive")!,
-                selectedImage: UIImage(named: "actionsTabBarIcon")!)
+        tabBarItem.title = NSLocalizedString("Actions_title", comment: "")
+        tabBarItemStylist.applyThemeToBarBarItem(tabBarItem,
+                                                 image: UIImage(named: "actionsTabBarIconInactive")!,
+                                                 selectedImage: UIImage(named: "actionsTabBarIcon")!)
 
     }
 
@@ -258,7 +258,7 @@ class ActionAlertsController: UIViewController {
             if actionAlert.isFacebookVideo() {
                 webView.autoSetDimension(.Height, toSize: 205)
             } else {
-                webView.autoSetDimension(.Height, toSize: 450)
+                webView.autoSetDimension(.Height, toSize: 300)
             }
 
             webView.autoCenterInSuperview()
@@ -267,13 +267,20 @@ class ActionAlertsController: UIViewController {
         }
 
         self.actionAlertLoadingMonitor.waitUntilWebViewsHaveLoaded(self.webViews) {
-            self.collectionView.reloadData()
+            for webView in self.webViews {
+                let removeIFrameMarginHack = "var i = document.documentElement.getElementsByTagName('iframe'); for (var j = 0 ; j < i.length ; j++ ) { k = i[j]; k.style.marginTop = '0px';  }"
+                webView.stringByEvaluatingJavaScriptFromString(removeIFrameMarginHack)
+            }
 
-            UIView.transitionWithView(self.view, duration: 0.4, options: .TransitionCrossDissolve, animations: {
-                self.hideLoadingUI()
-                self.pageControl.numberOfPages = self.actionAlerts.count
-                self.showResultsUI()
-                }, completion: { _ in })
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1000000000), dispatch_get_main_queue(), {
+                self.collectionView.reloadData()
+
+                UIView.transitionWithView(self.view, duration: 0.4, options: .TransitionCrossDissolve, animations: {
+                    self.hideLoadingUI()
+                    self.pageControl.numberOfPages = self.actionAlerts.count
+                    self.showResultsUI()
+                    }, completion: { _ in })
+            })
         }
     }
 }
@@ -290,7 +297,7 @@ extension ActionAlertsController {
 
             }, completion: { _ in
 
-            })
+        })
     }
 }
 
@@ -325,15 +332,12 @@ extension ActionAlertsController: UICollectionViewDataSource {
         cell.webviewContainer.addSubview(webView)
         webView.autoPinEdgesToSuperviewEdges()
 
-        let removeIFrameMarginHack = "var i = document.documentElement.getElementsByTagName('iframe'); for (var j = 0 ; j < i.length ; j++ ) { k = i[j]; k.style.marginTop = '0px';  }"
-        webView.stringByEvaluatingJavaScriptFromString(removeIFrameMarginHack)
-
-        let heightString = webView.stringByEvaluatingJavaScriptFromString("var iframes = document.getElementsByTagName('iframe') ; var heights = [] ; for(var i = 0; i < iframes.length ; i++) { if(iframes[i].name == 'fb_xdm_frame_https') { continue; } heights.push(iframes[i].scrollHeight); } var maxIframeHeight = Math.max.apply(null, heights); if ( maxIframeHeight > 0 ) { maxIframeHeight } else { Math.max( maxIframeHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight, document.documentElement.clientHeight ); }")
+        let heightString = webView.stringByEvaluatingJavaScriptFromString("var iframes = document.getElementsByTagName('iframe') ; var heights = [] ; for(var i = 0; i < iframes.length ; i++) { if(iframes[i].name == 'fb_xdm_frame_https') { continue; } heights.push(iframes[i].scrollHeight); } var maxIframeHeight = Math.max.apply(null, heights); if ( maxIframeHeight > 0 ) { maxIframeHeight } else { Math.min(document.documentElement.scrollHeight, document.documentElement.offsetHeight, document.documentElement.clientHeight ); }")
 
         let heightDouble = heightString != nil ? Double(heightString!) : 0.0
         let heightFloat: CGFloat = heightDouble != nil ? CGFloat(heightDouble!) : 0.0
 
-        cell.webViewHeight = heightFloat
+        cell.webViewHeight = actionAlert.isFacebookPost() ?  heightFloat - 21 : heightFloat
 
         cell.titleLabel.font = theme.actionsTitleFont()
         cell.titleLabel.textColor = theme.actionsTitleTextColor()
@@ -408,7 +412,7 @@ extension ActionAlertsController: UIWebViewDelegate {
         var attributes = [
             AnalyticsServiceConstants.contentIDKey: actionAlert.identifier,
             AnalyticsServiceConstants.contentNameKey: actionAlert.title,
-        ]
+            ]
 
 
         switch url.absoluteString {
