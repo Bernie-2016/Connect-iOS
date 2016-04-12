@@ -31,10 +31,17 @@ class UserNotificationContainerConfigurator: ContainerConfigurator {
                 videoService: resolver.resolve(VideoService.self)!
             )
 
+            let showNearbyEventsHandler = ShowNearbyEventsNotificationHandler(
+                eventsNavigationController: resolver.resolve(NavigationController.self, name: "events")!,
+                tabBarController: resolver.resolve(TabBarController.self)!,
+                nearbyEventsUseCase: resolver.resolve(NearbyEventsUseCase.self)!,
+                radiusDataSource: resolver.resolve(RadiusDataSource.self)!)
+
             let handlers: [UserNotificationHandler] = [
                 newsHandler,
                 videoHandler,
                 actionAlertHandler,
+                showNearbyEventsHandler,
                 parseAnalyticsHandler
             ]
 

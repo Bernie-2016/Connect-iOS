@@ -66,6 +66,29 @@ class StockRadiusDataSourceSpec: QuickSpec {
                     expect(subject.currentMilesValue) == 20.0
                 }
             }
+
+            describe("resetting to the default search radius") {
+                it("should be the same as the initial value") {
+                    let initialValue = subject.currentMilesValue
+
+                    subject.pickerView!(UIPickerView(), didSelectRow: 2, inComponent: 0)
+                    subject.confirmSelection()
+
+                    subject.resetToDefaultSearchRadius()
+
+                    expect(subject.currentMilesValue) == initialValue
+                }
+
+                it("notifies observers of the selected value") {
+                    subject.pickerView!(UIPickerView(), didSelectRow: 2, inComponent: 0)
+                    subject.confirmSelection()
+
+                    subject.resetToDefaultSearchRadius()
+
+                    expect(observerA.lastUpdatedRadiusMiles) == 10.0
+                    expect(observerB.lastUpdatedRadiusMiles) == 10.0
+                }
+            }
         }
     }
 }

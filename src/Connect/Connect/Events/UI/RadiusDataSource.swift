@@ -4,6 +4,7 @@ protocol RadiusDataSource: UIPickerViewDataSource, UIPickerViewDelegate {
     var currentMilesValue: Float { get }
     var confirmedSelectedIndex: Int { get }
 
+    func resetToDefaultSearchRadius()
     func confirmSelection()
     func addObserver(observer: RadiusDataSourceObserver)
 }
@@ -19,8 +20,9 @@ class StockRadiusDataSource: NSObject, RadiusDataSource {
         }
     }
 
-    var confirmedSelectedIndex = 1
-    private var selectedIndex = 1
+    private let initialIndex = 1
+    var confirmedSelectedIndex: Int
+    private var selectedIndex: Int
 
     private let values: [Float] = [5, 10, 20, 50, 100, 250]
     private let _observers = NSHashTable.weakObjectsHashTable()
@@ -28,6 +30,17 @@ class StockRadiusDataSource: NSObject, RadiusDataSource {
         return _observers.allObjects.flatMap { $0 as? RadiusDataSourceObserver }
     }
 
+    override init() {
+        confirmedSelectedIndex = initialIndex
+        selectedIndex = initialIndex
+
+        super.init()
+    }
+
+    func resetToDefaultSearchRadius() {
+        selectedIndex = initialIndex
+        confirmSelection()
+    }
 
     func confirmSelection() {
         confirmedSelectedIndex = selectedIndex

@@ -210,6 +210,8 @@
 		65713DE11C5DAA0F00E6E4FC /* action_alert_with_invalid_sharing_urls.json in Resources */ = {isa = PBXBuildFile; fileRef = 65713DE01C5DAA0F00E6E4FC /* action_alert_with_invalid_sharing_urls.json */; };
 		657C13EF1C615CFF00EC1569 /* BaseURLs.plist in Resources */ = {isa = PBXBuildFile; fileRef = 657C13EE1C615CFF00EC1569 /* BaseURLs.plist */; };
 		657C13F31C615E1400EC1569 /* BaseURLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657C13F21C615E1400EC1569 /* BaseURLProvider.swift */; };
+		657DED111CBC340000C83436 /* ShowNearbyEventsNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DED101CBC340000C83436 /* ShowNearbyEventsNotificationHandler.swift */; };
+		657DED131CBC343700C83436 /* ShowNearbyEventsNotificationHandlerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DED121CBC343700C83436 /* ShowNearbyEventsNotificationHandlerSpec.swift */; };
 		658492461BE3BA5B007279E8 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 658492481BE3BA5B007279E8 /* Localizable.stringsdict */; };
 		659011161C4D8ADB005489C4 /* AppBootstrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659011151C4D8ADB005489C4 /* AppBootstrapper.swift */; };
 		65937D211C4058AE003A1EFA /* CBGPromise.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65937D1F1C4058AE003A1EFA /* CBGPromise.framework */; };
@@ -593,6 +595,8 @@
 		65713DE01C5DAA0F00E6E4FC /* action_alert_with_invalid_sharing_urls.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = action_alert_with_invalid_sharing_urls.json; sourceTree = "<group>"; };
 		657C13EE1C615CFF00EC1569 /* BaseURLs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BaseURLs.plist; sourceTree = "<group>"; };
 		657C13F21C615E1400EC1569 /* BaseURLProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseURLProvider.swift; sourceTree = "<group>"; };
+		657DED101CBC340000C83436 /* ShowNearbyEventsNotificationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowNearbyEventsNotificationHandler.swift; sourceTree = "<group>"; };
+		657DED121CBC343700C83436 /* ShowNearbyEventsNotificationHandlerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowNearbyEventsNotificationHandlerSpec.swift; sourceTree = "<group>"; };
 		658492471BE3BA5B007279E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = Base; path = Base.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		659011151C4D8ADB005489C4 /* AppBootstrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppBootstrapper.swift; sourceTree = "<group>"; };
 		65937D1F1C4058AE003A1EFA /* CBGPromise.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CBGPromise.framework; path = Carthage/Build/iOS/CBGPromise.framework; sourceTree = "<group>"; };
@@ -1272,6 +1276,7 @@
 				652AE5F31C475D3700EE7B70 /* ParseAnalyticsNotificationHandler.swift */,
 				654948E71BFB807600C1ECDB /* ParsePushNotificationRegistrar.swift */,
 				65E33D811C46EC0D003464D9 /* PushNotificationHandlerDispatcher.swift */,
+				657DED101CBC340000C83436 /* ShowNearbyEventsNotificationHandler.swift */,
 				65A1A2551C4C7B4100C09AB2 /* UserNotificationsContainerConfigurator.swift */,
 			);
 			path = "User Notifications";
@@ -1296,6 +1301,7 @@
 				652AE5F51C475D5300EE7B70 /* ParseAnalyticsNotificationHandlerSpec.swift */,
 				654948E51BFB800A00C1ECDB /* ParsePushNotificationRegistrarSpec.swift */,
 				65E33D7F1C46EB9A003464D9 /* PushNotificationHandlerDispatcherSpec.swift */,
+				657DED121CBC343700C83436 /* ShowNearbyEventsNotificationHandlerSpec.swift */,
 			);
 			path = "User Notifications";
 			sourceTree = "<group>";
@@ -2048,6 +2054,7 @@
 				653D0FA21C4C35C0004CB8A0 /* ResponderButton.swift in Sources */,
 				65F2C5021C9883B9008A3AA6 /* SearchBarStylist.swift in Sources */,
 				653D0F521C4C2DE2004CB8A0 /* SettingsController.swift in Sources */,
+				657DED111CBC340000C83436 /* ShowNearbyEventsNotificationHandler.swift in Sources */,
 				6538B2A91C6AF4D50012E33C /* SimpleTableViewCell.swift in Sources */,
 				65CA5E881B86CABB0001D870 /* SpecAppDelegate.swift in Sources */,
 				653D0FA31C4C35C0004CB8A0 /* TabBarController.swift in Sources */,
@@ -2178,6 +2185,7 @@
 				6535256F1C98D19900320EDB /* SearchBarFakeTheme.swift in Sources */,
 				65F2C5081C9888E6008A3AA6 /* SearchBarStylistSharedExamples.swift in Sources */,
 				653D10241C4C53BB004CB8A0 /* SettingsControllerSpec.swift in Sources */,
+				657DED131CBC343700C83436 /* ShowNearbyEventsNotificationHandlerSpec.swift in Sources */,
 				65CA5E851B86CA930001D870 /* SpecAppDelegate.swift in Sources */,
 				65CFACE21C59CF75005E1309 /* StockActionAlertDeserializerSpec.swift in Sources */,
 				65B0235D1C59C8710082E211 /* StockActionAlertRepositorySpec.swift in Sources */,

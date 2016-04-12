@@ -19,6 +19,19 @@ class MockRadiusDataSource: NSObject, RadiusDataSource {
         didConfirmSelection = true
     }
 
+
+
+    var defaultSearchRadius: Float = -1.0
+    func setDefaultRadiusMiles(radiusMiles: Float) {
+        defaultSearchRadius = radiusMiles
+    }
+
+    var didResetToDefaultSearchRadius = false
+    func resetToDefaultSearchRadius() {
+        didResetToDefaultSearchRadius = true
+        returnedCurrentMilesValue = defaultSearchRadius
+    }
+
     var observers: [RadiusDataSourceObserver] = []
     func addObserver(observer: RadiusDataSourceObserver) {
         observers.append(observer)
