@@ -272,15 +272,13 @@ class ActionAlertsController: UIViewController {
                 webView.stringByEvaluatingJavaScriptFromString(removeIFrameMarginHack)
             }
 
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1000000000), dispatch_get_main_queue(), {
-                self.collectionView.reloadData()
+            self.collectionView.reloadData()
 
-                UIView.transitionWithView(self.view, duration: 0.4, options: .TransitionCrossDissolve, animations: {
-                    self.hideLoadingUI()
-                    self.pageControl.numberOfPages = self.actionAlerts.count
-                    self.showResultsUI()
-                    }, completion: { _ in })
-            })
+            UIView.transitionWithView(self.view, duration: 0.4, options: .TransitionCrossDissolve, animations: {
+                self.hideLoadingUI()
+                self.pageControl.numberOfPages = self.actionAlerts.count
+                self.showResultsUI()
+                }, completion: { _ in })
         }
     }
 }
