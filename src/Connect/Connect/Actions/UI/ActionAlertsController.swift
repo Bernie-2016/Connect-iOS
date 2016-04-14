@@ -273,6 +273,7 @@ class ActionAlertsController: UIViewController {
             }
 
             self.collectionView.reloadData()
+            self.collectionView.scrollToItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0), atScrollPosition: .CenteredHorizontally, animated: false)
 
             UIView.transitionWithView(self.view, duration: 0.4, options: .TransitionCrossDissolve, animations: {
                 self.hideLoadingUI()
