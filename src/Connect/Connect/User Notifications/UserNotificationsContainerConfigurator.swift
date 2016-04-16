@@ -38,7 +38,7 @@ class UserNotificationContainerConfigurator: ContainerConfigurator {
                 tabBarController: resolver.resolve(TabBarController.self)!,
                 nearbyEventsUseCase: resolver.resolve(NearbyEventsUseCase.self)!,
                 radiusDataSource: resolver.resolve(RadiusDataSource.self)!,
-                workerQueue: resolver.resolve(NSOperationQueue.self, name: "worker")!
+                workerQueue: resolver.resolve(NSOperationQueue.self, name: "work")!
             )
 
             let handlers: [UserNotificationHandler] = [
