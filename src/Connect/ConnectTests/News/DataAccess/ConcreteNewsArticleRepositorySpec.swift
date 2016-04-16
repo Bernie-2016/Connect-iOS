@@ -56,7 +56,7 @@ class ConcreteNewsArticleRepositorySpec: QuickSpec {
                         "query": [
                             "query_string": [
                                 "default_field": "article_type",
-                                "query": "PressRelease OR DemocracyDaily"
+                                "query": "PressRelease OR DemocracyDaily OR News"
                             ]
                         ],
                         "sort": [
