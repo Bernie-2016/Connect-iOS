@@ -3,21 +3,21 @@ set -e
 
 OUTPUT_DIR=/tmp/connect-ipa
 
-usage () { popd > /dev/null; echo "deploy <acceptance|release>"; exit 1; }
-
-pushd "src/Connect" > /dev/null
-
-mkdir -p OUTPUT_DIR
+usage () { popd > /dev/null; echo "deploy <acceptance|production>"; exit 1; }
 
 if [ "$#" -ne 1 ]; then
   usage
 fi
 
+pushd "src/Connect" > /dev/null
+
+mkdir -p OUTPUT_DIR
+
 if [ "$1" = "acceptance" ]; then
-  echo "Archiving and deploying to acceptance..."
+  echo "Archiving and delivering to acceptance..."
   gym -q Acceptance -o "$OUTPUT_DIR"
-elif [ "$1" = "release" ]; then
-  echo "Archiving and deploying to production..."
+elif [ "$1" = "production" ]; then
+  echo "Archiving and delivering to production..."
   gym -q Release -o "$OUTPUT_DIR"
 else
   usage
