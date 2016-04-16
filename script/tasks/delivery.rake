@@ -48,6 +48,6 @@ def tag_version
   system("git tag '#{marketing_version}_#{build_number}'")
 end
 
-def archive_and_deliver(environment:)
+def archive_and_deliver(environment:nil)
   system("./script/archive_and_deliver #{environment}")
 end
