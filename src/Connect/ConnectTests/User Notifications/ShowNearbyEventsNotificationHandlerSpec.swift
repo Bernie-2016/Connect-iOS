@@ -13,6 +13,7 @@ class ShowNearbyEventsNotificationHandlerSpec: QuickSpec {
             var eventsNavigationController: UINavigationController!
             var nearbyEventsUseCase: MockNearbyEventsUseCase!
             var radiusDataSource: MockRadiusDataSource!
+            var workerQueue: FakeOperationQueue!
 
             beforeEach {
                 selectedTabController = UIViewController()
@@ -25,12 +26,14 @@ class ShowNearbyEventsNotificationHandlerSpec: QuickSpec {
 
                 nearbyEventsUseCase = MockNearbyEventsUseCase()
                 radiusDataSource = MockRadiusDataSource()
+                workerQueue = FakeOperationQueue()
 
                 subject = ShowNearbyEventsNotificationHandler(
                     eventsNavigationController: eventsNavigationController,
                     tabBarController: tabBarController,
                     nearbyEventsUseCase: nearbyEventsUseCase,
-                    radiusDataSource: radiusDataSource
+                    radiusDataSource: radiusDataSource,
+                    workerQueue: workerQueue
                 )
             }
 
@@ -64,8 +67,12 @@ class ShowNearbyEventsNotificationHandlerSpec: QuickSpec {
                     expect(radiusDataSource.didResetToDefaultSearchRadius) == true
                 }
 
-                it("tells the use case to fetch nearby events with the default value") {
+                it("tells the use case to fetch nearby events with the default value on the worker queue") {
                     subject.handleRemoteNotification(userInfo)
+
+                    expect(nearbyEventsUseCase.didFetchNearbyEventsWithinRadius).to(beNil())
+
+                    workerQueue.lastReceivedBlock()
 
                     expect(nearbyEventsUseCase.didFetchNearbyEventsWithinRadius) == 666
                 }

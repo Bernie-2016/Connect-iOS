@@ -14,6 +14,7 @@ class OpenVideoNotificationHandlerSpec: QuickSpec {
             var selectedTabController: UIViewController!
             var newsFeedItemControllerProvider: FakeNewsFeedItemControllerProvider!
             var videoService: FakeVideoService!
+            var resultQueue: FakeOperationQueue!
 
             beforeEach {
                 existingActionController = UIViewController()
@@ -23,6 +24,7 @@ class OpenVideoNotificationHandlerSpec: QuickSpec {
                 selectedTabController = UIViewController()
                 newsFeedItemControllerProvider = FakeNewsFeedItemControllerProvider()
                 videoService = FakeVideoService()
+                resultQueue = FakeOperationQueue()
 
                 tabBarController.viewControllers = [selectedTabController, newsNavigationController]
                 tabBarController.selectedIndex = 0
@@ -33,7 +35,8 @@ class OpenVideoNotificationHandlerSpec: QuickSpec {
                     interstitialController: interstitialController,
                     tabBarController: tabBarController,
                     newsFeedItemControllerProvider: newsFeedItemControllerProvider,
-                    videoService: videoService
+                    videoService: videoService,
+                    resultQueue: resultQueue
                 )
             }
 
@@ -61,9 +64,13 @@ class OpenVideoNotificationHandlerSpec: QuickSpec {
                 context("when the video is returned") {
                     beforeEach { subject.handleRemoteNotification(userInfo) }
 
-                    it("replaces the interstitial controller with a controller configured for the video") {
+                    it("replaces the interstitial controller with a controller configured for the video on the result queue") {
                         let video = TestUtils.video()
                         videoService.lastReturnedPromise.resolve(video)
+
+                        expect(newsFeedItemControllerProvider.lastNewsFeedItem).to(beNil())
+
+                        resultQueue.lastReceivedBlock()
 
                         expect(newsFeedItemControllerProvider.lastNewsFeedItem as? Video) === video
 
@@ -76,9 +83,12 @@ class OpenVideoNotificationHandlerSpec: QuickSpec {
                 context("when the action alert fails to be returned") {
                     beforeEach { subject.handleRemoteNotification(userInfo) }
 
-                    it("it pops the interstitial controller from the navigation controller") {
+                    it("it pops the interstitial controller from the navigation controller on the result queue") {
                         let error = VideoRepositoryError.InvalidJSON(jsonObject: [])
                         videoService.lastReturnedPromise.reject(error)
+                        expect(newsNavigationController.topViewController).to(beIdenticalTo(interstitialController))
+
+                        resultQueue.lastReceivedBlock()
 
                         expect(newsNavigationController.topViewController).to(beIdenticalTo(existingActionController))
                     }

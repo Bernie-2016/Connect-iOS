@@ -10,12 +10,14 @@ class ShowNearbyEventsNotificationHandler: UserNotificationHandler {
     let tabBarController: UITabBarController
     let nearbyEventsUseCase: NearbyEventsUseCase
     let radiusDataSource: RadiusDataSource
+    let workerQueue: NSOperationQueue
 
-    init(eventsNavigationController: UINavigationController, tabBarController: UITabBarController, nearbyEventsUseCase: NearbyEventsUseCase, radiusDataSource: RadiusDataSource) {
+    init(eventsNavigationController: UINavigationController, tabBarController: UITabBarController, nearbyEventsUseCase: NearbyEventsUseCase, radiusDataSource: RadiusDataSource, workerQueue: NSOperationQueue) {
         self.eventsNavigationController = eventsNavigationController
         self.tabBarController = tabBarController
         self.nearbyEventsUseCase = nearbyEventsUseCase
         self.radiusDataSource = radiusDataSource
+        self.workerQueue = workerQueue
     }
 
     func handleRemoteNotification(notificationUserInfo: NotificationUserInfo) {
@@ -29,6 +31,9 @@ class ShowNearbyEventsNotificationHandler: UserNotificationHandler {
         eventsNavigationController.popToRootViewControllerAnimated(false)
 
         radiusDataSource.resetToDefaultSearchRadius()
-        nearbyEventsUseCase.fetchNearbyEventsWithinRadiusMiles(radiusDataSource.currentMilesValue)
+
+        workerQueue.addOperationWithBlock {
+            self.nearbyEventsUseCase.fetchNearbyEventsWithinRadiusMiles(self.radiusDataSource.currentMilesValue)
+        }
     }
 }

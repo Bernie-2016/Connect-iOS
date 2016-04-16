@@ -13,7 +13,8 @@ class UserNotificationContainerConfigurator: ContainerConfigurator {
                 interstitialController: resolver.resolve(UIViewController.self, name: "interstitial")!,
                 tabBarController: resolver.resolve(TabBarController.self)!,
                 newsFeedItemControllerProvider: resolver.resolve(NewsFeedItemControllerProvider.self)!,
-                newsArticleService: resolver.resolve(NewsArticleService.self)!
+                newsArticleService: resolver.resolve(NewsArticleService.self)!,
+                resultQueue: resolver.resolve(NSOperationQueue.self, name: "main")!
             )
 
             let parseAnalyticsHandler = ParseAnalyticsNotificationHandler(pfAnalyticsProxy: resolver.resolve(PFAnalyticsProxy.self)!)
@@ -28,14 +29,17 @@ class UserNotificationContainerConfigurator: ContainerConfigurator {
                 interstitialController: resolver.resolve(UIViewController.self, name: "interstitial")!,
                 tabBarController: resolver.resolve(TabBarController.self)!,
                 newsFeedItemControllerProvider: resolver.resolve(NewsFeedItemControllerProvider.self)!,
-                videoService: resolver.resolve(VideoService.self)!
+                videoService: resolver.resolve(VideoService.self)!,
+                resultQueue: resolver.resolve(NSOperationQueue.self, name: "main")!
             )
 
             let showNearbyEventsHandler = ShowNearbyEventsNotificationHandler(
                 eventsNavigationController: resolver.resolve(NavigationController.self, name: "events")!,
                 tabBarController: resolver.resolve(TabBarController.self)!,
                 nearbyEventsUseCase: resolver.resolve(NearbyEventsUseCase.self)!,
-                radiusDataSource: resolver.resolve(RadiusDataSource.self)!)
+                radiusDataSource: resolver.resolve(RadiusDataSource.self)!,
+                workerQueue: resolver.resolve(NSOperationQueue.self, name: "worker")!
+            )
 
             let handlers: [UserNotificationHandler] = [
                 newsHandler,

@@ -14,6 +14,7 @@ class OpenNewsArticleNotificationHandlerSpec: QuickSpec {
             var selectedTabController: UIViewController!
             var newsFeedItemControllerProvider: FakeNewsFeedItemControllerProvider!
             var newsArticleService: FakeNewsArticleService!
+            var resultQueue: FakeOperationQueue!
 
             beforeEach {
                 existingNewsController = UIViewController()
@@ -23,6 +24,7 @@ class OpenNewsArticleNotificationHandlerSpec: QuickSpec {
                 selectedTabController = UIViewController()
                 newsFeedItemControllerProvider = FakeNewsFeedItemControllerProvider()
                 newsArticleService = FakeNewsArticleService()
+                resultQueue = FakeOperationQueue()
 
                 tabBarController.viewControllers = [selectedTabController, newsNavigationController]
                 tabBarController.selectedIndex = 0
@@ -32,7 +34,8 @@ class OpenNewsArticleNotificationHandlerSpec: QuickSpec {
                     interstitialController: interstitialController,
                     tabBarController: tabBarController,
                     newsFeedItemControllerProvider: newsFeedItemControllerProvider,
-                    newsArticleService: newsArticleService
+                    newsArticleService: newsArticleService,
+                    resultQueue: resultQueue
                 )
             }
 
@@ -60,9 +63,13 @@ class OpenNewsArticleNotificationHandlerSpec: QuickSpec {
                 context("when the article is returned") {
                     beforeEach { subject.handleRemoteNotification(userInfo) }
 
-                    it("replaces the interstitial controller with a controller configured for the article") {
+                    it("replaces the interstitial controller with a controller configured for the article on the result queue") {
                         let newsArticle = TestUtils.newsArticle()
                         newsArticleService.lastReturnedPromise.resolve(newsArticle)
+
+                        expect(newsFeedItemControllerProvider.lastNewsFeedItem as? NewsArticle).to(beNil())
+
+                        resultQueue.lastReceivedBlock()
 
                         expect(newsFeedItemControllerProvider.lastNewsFeedItem as? NewsArticle).to(beIdenticalTo(newsArticle))
 
@@ -75,9 +82,13 @@ class OpenNewsArticleNotificationHandlerSpec: QuickSpec {
                 context("when the article fails to be returned") {
                     beforeEach { subject.handleRemoteNotification(userInfo) }
 
-                    it("it pops the interstitial controller from the navigation controller") {
+                    it("it pops the interstitial controller from the navigation controller on the result queue") {
                         let error = NewsArticleRepositoryError.NoMatchingNewsArticle(identifier: "bowlax")
                         newsArticleService.lastReturnedPromise.reject(error)
+
+                        expect(newsNavigationController.topViewController).to(beIdenticalTo(interstitialController))
+
+                        resultQueue.lastReceivedBlock()
 
                         expect(newsNavigationController.topViewController).to(beIdenticalTo(existingNewsController))
                     }

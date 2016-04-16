@@ -11,18 +11,21 @@ class OpenVideoNotificationHandler: UserNotificationHandler {
     let tabBarController: UITabBarController
     let newsFeedItemControllerProvider: NewsFeedItemControllerProvider
     let videoService: VideoService
+    let resultQueue: NSOperationQueue
 
     init(
         newsNavigationController: UINavigationController,
         interstitialController: UIViewController,
         tabBarController: UITabBarController,
         newsFeedItemControllerProvider: NewsFeedItemControllerProvider,
-        videoService: VideoService) {
-            self.newsNavigationController = newsNavigationController
-            self.interstitialController = interstitialController
-            self.tabBarController = tabBarController
-            self.newsFeedItemControllerProvider = newsFeedItemControllerProvider
-            self.videoService = videoService
+        videoService: VideoService,
+        resultQueue: NSOperationQueue) {
+        self.newsNavigationController = newsNavigationController
+        self.interstitialController = interstitialController
+        self.tabBarController = tabBarController
+        self.newsFeedItemControllerProvider = newsFeedItemControllerProvider
+        self.videoService = videoService
+        self.resultQueue = resultQueue
     }
 
     func handleRemoteNotification(notificationUserInfo: NotificationUserInfo) {
@@ -42,11 +45,15 @@ class OpenVideoNotificationHandler: UserNotificationHandler {
         let videoFuture = videoService.fetchVideo(identifier)
 
         videoFuture.then { video in
-            let controller = self.newsFeedItemControllerProvider.provideInstanceWithNewsFeedItem(video)
-            self.newsNavigationController.popViewControllerAnimated(false)
-            self.newsNavigationController.pushViewController(controller, animated: false)
-            }.error { error in
+            self.resultQueue.addOperationWithBlock {
+                let controller = self.newsFeedItemControllerProvider.provideInstanceWithNewsFeedItem(video)
                 self.newsNavigationController.popViewControllerAnimated(false)
+                self.newsNavigationController.pushViewController(controller, animated: false)
+            }
+            }.error { error in
+                self.resultQueue.addOperationWithBlock {
+                    self.newsNavigationController.popViewControllerAnimated(false)
+                }
         }
     }
 }
