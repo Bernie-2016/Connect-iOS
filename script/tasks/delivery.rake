@@ -15,7 +15,7 @@ namespace :shipit do
  end
 
  desc "Checks that we're ready to deploy, bumps version, archives and delivers to ITC for production"
- task :acceptance => [:am_i_done_yet] do
+ task :production => [:am_i_done_yet] do
    bump_version
    tag_version
    archive_and_deliver(environment: 'production')
