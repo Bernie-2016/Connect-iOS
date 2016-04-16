@@ -7,3 +7,4 @@ github "Swinject/Swinject" ~> 1.0.0
 github "mjstallard/CocoaMarkdown" "carthage"
 github "MatthewYork/DateTools"
 github "andreamazz/AMScrollingNavbar"
+github "realm/SwiftLint"
