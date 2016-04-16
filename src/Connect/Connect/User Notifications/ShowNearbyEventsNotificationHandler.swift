@@ -6,12 +6,12 @@ extension UserNotificationHandlerKeys.ActionTypes {
 }
 
 class ShowNearbyEventsNotificationHandler: UserNotificationHandler {
-    let eventsNavigationController: UIViewController
+    let eventsNavigationController: UINavigationController
     let tabBarController: UITabBarController
     let nearbyEventsUseCase: NearbyEventsUseCase
     let radiusDataSource: RadiusDataSource
 
-    init(eventsNavigationController: UIViewController, tabBarController: UITabBarController, nearbyEventsUseCase: NearbyEventsUseCase, radiusDataSource: RadiusDataSource) {
+    init(eventsNavigationController: UINavigationController, tabBarController: UITabBarController, nearbyEventsUseCase: NearbyEventsUseCase, radiusDataSource: RadiusDataSource) {
         self.eventsNavigationController = eventsNavigationController
         self.tabBarController = tabBarController
         self.nearbyEventsUseCase = nearbyEventsUseCase
@@ -26,6 +26,7 @@ class ShowNearbyEventsNotificationHandler: UserNotificationHandler {
         if action != UserNotificationHandlerKeys.ActionTypes.ShowNearbyEvents { return }
 
         tabBarController.selectedViewController = eventsNavigationController
+        eventsNavigationController.popToRootViewControllerAnimated(false)
 
         radiusDataSource.resetToDefaultSearchRadius()
         nearbyEventsUseCase.fetchNearbyEventsWithinRadiusMiles(radiusDataSource.currentMilesValue)

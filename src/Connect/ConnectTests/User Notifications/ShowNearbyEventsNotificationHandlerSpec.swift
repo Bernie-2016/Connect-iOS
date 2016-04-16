@@ -9,13 +9,15 @@ class ShowNearbyEventsNotificationHandlerSpec: QuickSpec {
             var subject: UserNotificationHandler!
             var tabBarController: UITabBarController!
             var selectedTabController: UIViewController!
-            var eventsNavigationController: UIViewController!
+            var rootEventsController: UIViewController!
+            var eventsNavigationController: UINavigationController!
             var nearbyEventsUseCase: MockNearbyEventsUseCase!
             var radiusDataSource: MockRadiusDataSource!
 
             beforeEach {
                 selectedTabController = UIViewController()
-                eventsNavigationController = UIViewController()
+                rootEventsController = UIViewController()
+                eventsNavigationController = UINavigationController(rootViewController: rootEventsController)
 
                 tabBarController = UITabBarController()
                 tabBarController.viewControllers = [selectedTabController, eventsNavigationController]
@@ -41,6 +43,19 @@ class ShowNearbyEventsNotificationHandlerSpec: QuickSpec {
                     subject.handleRemoteNotification(userInfo)
 
                     expect(tabBarController.selectedViewController) === eventsNavigationController
+                }
+
+                it("pops to the root view controller") {
+                    var i = 0
+                    let limit = Int(arc4random_uniform(6) + 1)
+                    while i < limit {
+                        eventsNavigationController.pushViewController(UIViewController(), animated: false)
+                        i = i + 1
+                    }
+
+                    subject.handleRemoteNotification(userInfo)
+
+                    expect(eventsNavigationController.topViewController) === rootEventsController
                 }
 
                 it("resets the nearby data source") {
