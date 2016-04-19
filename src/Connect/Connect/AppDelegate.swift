@@ -41,12 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         userNotificationHandler.handleRemoteNotification(userInfo)
-        NSLog("Did receive remote notification WITHOUT completion handler")
-    }
-
-    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
-        NSLog("Did receive remote notification with completion handler")
-        completionHandler(.NewData)
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
