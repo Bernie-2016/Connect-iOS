@@ -6,7 +6,7 @@ import Nimble
 class OpenNewsArticleNotificationHandlerSpec: QuickSpec {
     override func spec() {
         describe("OpenNewsArticleNotificationHandler") {
-            var subject: UserNotificationHandler!
+            var subject: RemoteNotificationHandler!
             var newsNavigationController: UINavigationController!
             var existingNewsController: UIViewController!
             var interstitialController: UIViewController!

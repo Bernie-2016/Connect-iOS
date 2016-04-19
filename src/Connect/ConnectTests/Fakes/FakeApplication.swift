@@ -1,7 +1,7 @@
 import Foundation
 @testable import Connect
 
-class FakeApplication: UserNotificationRegisterable {
+class FakeApplication: RemoteNotificationRegisterable {
     var callCount = 0
 
     var lastRegisteredUserNotificationSettings: UIUserNotificationSettings!

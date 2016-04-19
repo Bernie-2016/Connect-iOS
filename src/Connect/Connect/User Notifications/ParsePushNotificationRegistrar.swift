@@ -8,7 +8,7 @@ class ParsePushNotificationRegistrar: PushNotificationRegistrar {
         self.installation = installation
     }
 
-    func registerForRemoteNotificationsWithApplication(application: UserNotificationRegisterable) {
+    func registerForRemoteNotificationsWithApplication(application: RemoteNotificationRegisterable) {
         let types = UIUserNotificationType([.Alert, .Badge, .Sound])
         let settings = UIUserNotificationSettings(forTypes: types, categories: nil)
 
@@ -16,13 +16,12 @@ class ParsePushNotificationRegistrar: PushNotificationRegistrar {
         application.registerForRemoteNotifications()
     }
 
-    func application(application: UserNotificationRegisterable, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+    func application(application: RemoteNotificationRegisterable, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
 
     }
 
-    func application(application: UserNotificationRegisterable, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+    func application(application: RemoteNotificationRegisterable, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         self.installation.setDeviceTokenFromData(deviceToken)
         self.installation.saveInBackground()
-        print(self.installation.installationId)
     }
 }

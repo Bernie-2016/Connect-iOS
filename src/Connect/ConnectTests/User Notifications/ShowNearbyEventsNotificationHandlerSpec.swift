@@ -6,7 +6,7 @@ import Nimble
 class ShowNearbyEventsNotificationHandlerSpec: QuickSpec {
     override func spec() {
         describe("ShowNearbyEventsNotificationHandler") {
-            var subject: UserNotificationHandler!
+            var subject: RemoteNotificationHandler!
             var tabBarController: UITabBarController!
             var selectedTabController: UIViewController!
             var rootEventsController: UIViewController!

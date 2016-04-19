@@ -7,7 +7,7 @@ class UserNotificationContainerConfigurator: ContainerConfigurator {
                 return ParsePushNotificationRegistrar(installation: resolver.resolve(PFInstallation.self)!)
         }
 
-        container.register(UserNotificationHandler.self) { resolver in
+        container.register(RemoteNotificationHandler.self) { resolver in
             let newsHandler = OpenNewsArticleNotificationHandler(
                 newsNavigationController: resolver.resolve(NavigationController.self, name: "news")!,
                 interstitialController: resolver.resolve(UIViewController.self, name: "interstitial")!,
@@ -41,7 +41,7 @@ class UserNotificationContainerConfigurator: ContainerConfigurator {
                 workerQueue: resolver.resolve(NSOperationQueue.self, name: "work")!
             )
 
-            let handlers: [UserNotificationHandler] = [
+            let handlers: [RemoteNotificationHandler] = [
                 newsHandler,
                 videoHandler,
                 actionAlertHandler,

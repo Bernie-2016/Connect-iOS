@@ -1,9 +1,9 @@
 import Foundation
 
-class PushNotificationHandlerDispatcher: UserNotificationHandler {
-    let handlers: [UserNotificationHandler]
+class PushNotificationHandlerDispatcher: RemoteNotificationHandler {
+    let handlers: [RemoteNotificationHandler]
 
-    init(handlers: [UserNotificationHandler]) {
+    init(handlers: [RemoteNotificationHandler]) {
         self.handlers = handlers
     }
 

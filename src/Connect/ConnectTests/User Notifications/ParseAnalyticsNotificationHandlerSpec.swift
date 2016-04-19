@@ -15,7 +15,7 @@ class FakePFAnalyticsProxy: PFAnalyticsProxy {
 class ParseAnalyticsNotificationHandlerSpec: QuickSpec {
     override func spec() {
         describe("ParseAnalyticsNotificationHandler") {
-            var subject: UserNotificationHandler!
+            var subject: RemoteNotificationHandler!
             var pfAnalyticsProxy: FakePFAnalyticsProxy!
 
             beforeEach {

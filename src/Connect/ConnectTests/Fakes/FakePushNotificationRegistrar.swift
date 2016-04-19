@@ -1,22 +1,22 @@
 @testable import Connect
 
 class FakePushNotificationRegistrar: PushNotificationRegistrar {
-    var lastAppUsedForRegistration: UserNotificationRegisterable!
+    var lastAppUsedForRegistration: RemoteNotificationRegisterable!
 
-    func registerForRemoteNotificationsWithApplication(application: UserNotificationRegisterable) {
+    func registerForRemoteNotificationsWithApplication(application: RemoteNotificationRegisterable) {
         self.lastAppUsedForRegistration = application
     }
 
-    var lastFailedRegistrationApplication: UserNotificationRegisterable!
+    var lastFailedRegistrationApplication: RemoteNotificationRegisterable!
     var lastFailedRegistrationError: NSError!
-    func application(application: UserNotificationRegisterable, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+    func application(application: RemoteNotificationRegisterable, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
         lastFailedRegistrationApplication = application
         lastFailedRegistrationError = error
     }
 
-    var lastSuccessfullyRegisteredApplication: UserNotificationRegisterable!
+    var lastSuccessfullyRegisteredApplication: RemoteNotificationRegisterable!
     var lastSuccessfullyRegisteredDeviceToken: NSData!
-    func application(application: UserNotificationRegisterable, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+    func application(application: RemoteNotificationRegisterable, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         lastSuccessfullyRegisteredApplication = application
         lastSuccessfullyRegisteredDeviceToken = deviceToken
     }

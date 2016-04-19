@@ -11,7 +11,7 @@ class AppDelegateSpec: QuickSpec {
             var subject: AppDelegate!
             var appBootstrapper: FakeAppBootstrapper!
             var pushNotificationRegistrar: FakePushNotificationRegistrar!
-            var userNotificationHandler: FakeUserNotificationHandler!
+            var remoteNotificationHandler: FakeRemoteNotificationHandler!
             var newVersionNotifier: MockNewVersionNotifier!
 
             var container: Container!
@@ -23,7 +23,7 @@ class AppDelegateSpec: QuickSpec {
                 application = FakeUIApplicationProvider.fakeUIApplication()
                 application.keyWindow?.rootViewController = rootViewController
                 pushNotificationRegistrar = FakePushNotificationRegistrar()
-                userNotificationHandler = FakeUserNotificationHandler()
+                remoteNotificationHandler = FakeRemoteNotificationHandler()
                 newVersionNotifier = MockNewVersionNotifier()
 
                 subject = AppDelegate()
@@ -31,7 +31,7 @@ class AppDelegateSpec: QuickSpec {
 
                 container.register(AppBootstrapper.self) { _ in return appBootstrapper }
                 container.register(PushNotificationRegistrar.self) { _ in return pushNotificationRegistrar }
-                container.register(UserNotificationHandler.self) { _ in return userNotificationHandler }
+                container.register(RemoteNotificationHandler.self) { _ in return remoteNotificationHandler }
                 container.register(NewVersionNotifier.self) { _ in return newVersionNotifier }
 
                 subject.application(application, willFinishLaunchingWithOptions: nil)
@@ -64,7 +64,7 @@ class AppDelegateSpec: QuickSpec {
 
                         subject.application(application, didFinishLaunchingWithOptions:userInfo)
 
-                        expect(userNotificationHandler.lastReceivedUserInfo["wat"]).to(beIdenticalTo(expectedNotification["wat"]))
+                        expect(remoteNotificationHandler.lastReceivedUserInfo["wat"]).to(beIdenticalTo(expectedNotification["wat"]))
                     }
                 }
             }
@@ -109,7 +109,7 @@ class AppDelegateSpec: QuickSpec {
 
                     subject.application(application, didReceiveRemoteNotification: expectedNotification)
 
-                    expect(userNotificationHandler.lastReceivedUserInfo["wat"]).to(beIdenticalTo(expectedNotification["wat"]))
+                    expect(remoteNotificationHandler.lastReceivedUserInfo["wat"]).to(beIdenticalTo(expectedNotification["wat"]))
                 }
             }
 

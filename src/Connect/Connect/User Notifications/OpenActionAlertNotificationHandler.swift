@@ -1,11 +1,11 @@
 import Foundation
 
 
-extension UserNotificationHandlerKeys.ActionTypes {
+extension RemoteNotificationHandlerKeys.ActionTypes {
     static let OpenActionAlert = "openActionAlert"
 }
 
-class OpenActionAlertNotificationHandler: UserNotificationHandler {
+class OpenActionAlertNotificationHandler: RemoteNotificationHandler {
     let actionAlertNavigationController: UINavigationController
     let tabBarController: UITabBarController
 
@@ -16,11 +16,11 @@ class OpenActionAlertNotificationHandler: UserNotificationHandler {
     }
 
     func handleRemoteNotification(notificationUserInfo: NotificationUserInfo) {
-        guard let action = notificationUserInfo[UserNotificationHandlerKeys.ActionKey] as? String else {
+        guard let action = notificationUserInfo[RemoteNotificationHandlerKeys.ActionKey] as? String else {
             return
         }
 
-        if action != UserNotificationHandlerKeys.ActionTypes.OpenActionAlert { return }
+        if action != RemoteNotificationHandlerKeys.ActionTypes.OpenActionAlert { return }
 
         tabBarController.selectedViewController = actionAlertNavigationController
     }

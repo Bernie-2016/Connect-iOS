@@ -1,4 +1,4 @@
-class ParseAnalyticsNotificationHandler: UserNotificationHandler {
+class ParseAnalyticsNotificationHandler: RemoteNotificationHandler {
     let pfAnalyticsProxy: PFAnalyticsProxy
 
     init(pfAnalyticsProxy: PFAnalyticsProxy) {
@@ -6,6 +6,6 @@ class ParseAnalyticsNotificationHandler: UserNotificationHandler {
     }
 
     func handleRemoteNotification(notificationUserInfo: NotificationUserInfo) {
-            pfAnalyticsProxy.trackAppOpenedWithRemoteNotificationPayload(notificationUserInfo)
+        pfAnalyticsProxy.trackAppOpenedWithRemoteNotificationPayload(notificationUserInfo)
     }
 }

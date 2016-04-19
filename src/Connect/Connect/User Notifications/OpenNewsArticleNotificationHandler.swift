@@ -1,11 +1,11 @@
 import Foundation
 
 
-extension UserNotificationHandlerKeys.ActionTypes {
+extension RemoteNotificationHandlerKeys.ActionTypes {
     static let OpenNewsArticle = "openNewsArticle"
 }
 
-class OpenNewsArticleNotificationHandler: UserNotificationHandler {
+class OpenNewsArticleNotificationHandler: RemoteNotificationHandler {
     let newsNavigationController: UINavigationController
     let interstitialController: UIViewController
     let tabBarController: UITabBarController
@@ -28,13 +28,13 @@ class OpenNewsArticleNotificationHandler: UserNotificationHandler {
     }
 
     func handleRemoteNotification(notificationUserInfo: NotificationUserInfo) {
-        guard let action = notificationUserInfo[UserNotificationHandlerKeys.ActionKey] as? String else {
+        guard let action = notificationUserInfo[RemoteNotificationHandlerKeys.ActionKey] as? String else {
             return
         }
 
-        if action != UserNotificationHandlerKeys.ActionTypes.OpenNewsArticle { return }
+        if action != RemoteNotificationHandlerKeys.ActionTypes.OpenNewsArticle { return }
 
-        guard let identifier = notificationUserInfo[UserNotificationHandlerKeys.IdentifierKey] as? String else {
+        guard let identifier = notificationUserInfo[RemoteNotificationHandlerKeys.IdentifierKey] as? String else {
             return
         }
 

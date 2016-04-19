@@ -162,7 +162,7 @@
 		654948E11BFB7D8100C1ECDB /* PushNotificationRegistrar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654948E01BFB7D8100C1ECDB /* PushNotificationRegistrar.swift */; };
 		654948E61BFB800A00C1ECDB /* ParsePushNotificationRegistrarSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654948E51BFB800A00C1ECDB /* ParsePushNotificationRegistrarSpec.swift */; };
 		654948E81BFB807600C1ECDB /* ParsePushNotificationRegistrar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654948E71BFB807600C1ECDB /* ParsePushNotificationRegistrar.swift */; };
-		654948EA1BFB81E700C1ECDB /* UserNotificationRegisterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654948E91BFB81E700C1ECDB /* UserNotificationRegisterable.swift */; };
+		654948EA1BFB81E700C1ECDB /* RemoteNotificationRegisterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654948E91BFB81E700C1ECDB /* RemoteNotificationRegisterable.swift */; };
 		65494C581BFB878B00C1ECDB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654948D61BFADF9F00C1ECDB /* SystemConfiguration.framework */; };
 		65494C5F1BFB8EBB00C1ECDB /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65494C5D1BFB87B200C1ECDB /* AudioToolbox.framework */; };
 		65494C601BFB8EC100C1ECDB /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 65494C5B1BFB87AA00C1ECDB /* libsqlite3.tbd */; };
@@ -252,7 +252,7 @@
 		65B868C61C9F378C00B9A7B9 /* AMScrollingNavbar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B868C41C9F378C00B9A7B9 /* AMScrollingNavbar.framework */; };
 		65B868C71C9F37A300B9A7B9 /* AMScrollingNavbar.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 65B868C31C9F378C00B9A7B9 /* AMScrollingNavbar.framework.dSYM */; };
 		65B8E1391CB764CD0043A1D0 /* ActionAlertSpec.siwft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B8E1381CB764CD0043A1D0 /* ActionAlertSpec.siwft.swift */; };
-		65B97D571C459C9800F2F6B3 /* UserNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B97D561C459C9800F2F6B3 /* UserNotificationHandler.swift */; };
+		65B97D571C459C9800F2F6B3 /* RemoteNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B97D561C459C9800F2F6B3 /* RemoteNotificationHandler.swift */; };
 		65C0D9441C9640C3009581C8 /* StockEventsNearAddressUseCaseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C0D9431C9640C3009581C8 /* StockEventsNearAddressUseCaseSpec.swift */; };
 		65C1477C1C84E5A400D9B78A /* NewsFeedCellProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C1477B1C84E5A400D9B78A /* NewsFeedCellProvider.swift */; };
 		65C8CC9F1CA74870004D2373 /* StockAppVersionCompatibilityUseCaseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C8CC9E1CA74870004D2373 /* StockAppVersionCompatibilityUseCaseSpec.swift */; };
@@ -547,7 +547,7 @@
 		654948E01BFB7D8100C1ECDB /* PushNotificationRegistrar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationRegistrar.swift; sourceTree = "<group>"; };
 		654948E51BFB800A00C1ECDB /* ParsePushNotificationRegistrarSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParsePushNotificationRegistrarSpec.swift; sourceTree = "<group>"; };
 		654948E71BFB807600C1ECDB /* ParsePushNotificationRegistrar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParsePushNotificationRegistrar.swift; sourceTree = "<group>"; };
-		654948E91BFB81E700C1ECDB /* UserNotificationRegisterable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserNotificationRegisterable.swift; sourceTree = "<group>"; };
+		654948E91BFB81E700C1ECDB /* RemoteNotificationRegisterable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteNotificationRegisterable.swift; sourceTree = "<group>"; };
 		65494C591BFB879B00C1ECDB /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		65494C5B1BFB87AA00C1ECDB /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		65494C5D1BFB87B200C1ECDB /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -639,7 +639,7 @@
 		65B868C31C9F378C00B9A7B9 /* AMScrollingNavbar.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = AMScrollingNavbar.framework.dSYM; path = Carthage/Build/iOS/AMScrollingNavbar.framework.dSYM; sourceTree = "<group>"; };
 		65B868C41C9F378C00B9A7B9 /* AMScrollingNavbar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AMScrollingNavbar.framework; path = Carthage/Build/iOS/AMScrollingNavbar.framework; sourceTree = "<group>"; };
 		65B8E1381CB764CD0043A1D0 /* ActionAlertSpec.siwft.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionAlertSpec.siwft.swift; sourceTree = "<group>"; };
-		65B97D561C459C9800F2F6B3 /* UserNotificationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserNotificationHandler.swift; sourceTree = "<group>"; };
+		65B97D561C459C9800F2F6B3 /* RemoteNotificationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteNotificationHandler.swift; sourceTree = "<group>"; };
 		65C0D9431C9640C3009581C8 /* StockEventsNearAddressUseCaseSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockEventsNearAddressUseCaseSpec.swift; sourceTree = "<group>"; };
 		65C1477B1C84E5A400D9B78A /* NewsFeedCellProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFeedCellProvider.swift; sourceTree = "<group>"; };
 		65C8CC9E1CA74870004D2373 /* StockAppVersionCompatibilityUseCaseSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockAppVersionCompatibilityUseCaseSpec.swift; sourceTree = "<group>"; };
@@ -1286,8 +1286,8 @@
 			isa = PBXGroup;
 			children = (
 				654948E01BFB7D8100C1ECDB /* PushNotificationRegistrar.swift */,
-				65B97D561C459C9800F2F6B3 /* UserNotificationHandler.swift */,
-				654948E91BFB81E700C1ECDB /* UserNotificationRegisterable.swift */,
+				65B97D561C459C9800F2F6B3 /* RemoteNotificationHandler.swift */,
+				654948E91BFB81E700C1ECDB /* RemoteNotificationRegisterable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -2051,6 +2051,8 @@
 				65E33D821C46EC0D003464D9 /* PushNotificationHandlerDispatcher.swift in Sources */,
 				654948E11BFB7D8100C1ECDB /* PushNotificationRegistrar.swift in Sources */,
 				655B6AD41C9B45CE00153AD9 /* RadiusDataSource.swift in Sources */,
+				65B97D571C459C9800F2F6B3 /* RemoteNotificationHandler.swift in Sources */,
+				654948EA1BFB81E700C1ECDB /* RemoteNotificationRegisterable.swift in Sources */,
 				653D0FA21C4C35C0004CB8A0 /* ResponderButton.swift in Sources */,
 				65F2C5021C9883B9008A3AA6 /* SearchBarStylist.swift in Sources */,
 				653D0F521C4C2DE2004CB8A0 /* SettingsController.swift in Sources */,
@@ -2064,8 +2066,6 @@
 				653D0FAA1C4C360D004CB8A0 /* UIColorExtension.swift in Sources */,
 				653D0F871C4C2F68004CB8A0 /* URLOpener.swift in Sources */,
 				653D0FBB1C4C539A004CB8A0 /* URLProvider.swift in Sources */,
-				65B97D571C459C9800F2F6B3 /* UserNotificationHandler.swift in Sources */,
-				654948EA1BFB81E700C1ECDB /* UserNotificationRegisterable.swift in Sources */,
 				65A1A2561C4C7B4100C09AB2 /* UserNotificationsContainerConfigurator.swift in Sources */,
 				65C8CCA31CA74961004D2373 /* Version.swift in Sources */,
 				65C8CCAB1CA750F3004D2373 /* VersionDeserializer.swift in Sources */,

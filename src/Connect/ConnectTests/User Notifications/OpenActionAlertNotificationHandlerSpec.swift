@@ -6,7 +6,7 @@ import Nimble
 class OpenActionAlertNotificationHandlerSpec: QuickSpec {
     override func spec() {
         describe("OpenActionAlertNotificationHandler") {
-            var subject: UserNotificationHandler!
+            var subject: RemoteNotificationHandler!
             var actionsNavigationController: UINavigationController!
             var tabBarController: UITabBarController!
             var selectedTabController: UIViewController!

@@ -21,7 +21,7 @@ class OnboardingControllerConfigurator: ContainerConfigurator {
                 onboardingController: welcomeNavigationController,
                 postOnboardingController: resolver.resolve(TabBarController.self)!,
                 pushNotificationRegistrar: resolver.resolve(PushNotificationRegistrar.self)!,
-                application: resolver.resolve(UserNotificationRegisterable.self)!)
+                application: resolver.resolve(RemoteNotificationRegisterable.self)!)
 
             welcomeController.onboardingWorkflow = onboardingWorkflow
 

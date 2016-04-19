@@ -1,11 +1,11 @@
 import Foundation
 
-extension UserNotificationHandlerKeys.ActionTypes {
+extension RemoteNotificationHandlerKeys.ActionTypes {
     static let OpenVideo = "openVideo"
 }
 
 
-class OpenVideoNotificationHandler: UserNotificationHandler {
+class OpenVideoNotificationHandler: RemoteNotificationHandler {
     let newsNavigationController: UINavigationController
     let interstitialController: UIViewController
     let tabBarController: UITabBarController
@@ -29,13 +29,13 @@ class OpenVideoNotificationHandler: UserNotificationHandler {
     }
 
     func handleRemoteNotification(notificationUserInfo: NotificationUserInfo) {
-        guard let action = notificationUserInfo[UserNotificationHandlerKeys.ActionKey] as? String else {
+        guard let action = notificationUserInfo[RemoteNotificationHandlerKeys.ActionKey] as? String else {
             return
         }
 
-        if action != UserNotificationHandlerKeys.ActionTypes.OpenVideo { return }
+        if action != RemoteNotificationHandlerKeys.ActionTypes.OpenVideo { return }
 
-        guard let identifier = notificationUserInfo[UserNotificationHandlerKeys.IdentifierKey] as? String else {
+        guard let identifier = notificationUserInfo[RemoteNotificationHandlerKeys.IdentifierKey] as? String else {
             return
         }
 

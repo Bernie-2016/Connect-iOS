@@ -5,14 +5,14 @@ class OnboardingWorkflow {
     private let onboardingController: UIViewController
     private let postOnboardingController: UIViewController
     private let pushNotificationRegistrar: PushNotificationRegistrar
-    private let application: UserNotificationRegisterable
+    private let application: RemoteNotificationRegisterable
 
     init(
         applicationSettingsRepository: ApplicationSettingsRepository,
         onboardingController: UIViewController,
         postOnboardingController: UIViewController,
         pushNotificationRegistrar: PushNotificationRegistrar,
-        application: UserNotificationRegisterable) {
+        application: RemoteNotificationRegisterable) {
             self.applicationSettingsRepository = applicationSettingsRepository
             self.onboardingController = onboardingController
             self.postOnboardingController = postOnboardingController

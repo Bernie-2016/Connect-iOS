@@ -6,7 +6,7 @@ import Nimble
 class OpenVideoNotificationHandlerSpec: QuickSpec {
     override func spec() {
         describe("OpenVideoNotificationHandler") {
-            var subject: UserNotificationHandler!
+            var subject: RemoteNotificationHandler!
             var newsNavigationController: UINavigationController!
             var existingActionController: UIViewController!
             var interstitialController: UIViewController!

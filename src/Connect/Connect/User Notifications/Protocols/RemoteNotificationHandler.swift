@@ -2,12 +2,12 @@ import UIKit
 
 typealias NotificationUserInfo = [NSObject: AnyObject]
 
-struct UserNotificationHandlerKeys {
+struct RemoteNotificationHandlerKeys {
     static let ActionKey = "action"
     static let IdentifierKey = "identifier"
     struct ActionTypes {}
 }
 
-protocol UserNotificationHandler {
+protocol RemoteNotificationHandler {
     func handleRemoteNotification(notificationUserInfo: NotificationUserInfo)
 }

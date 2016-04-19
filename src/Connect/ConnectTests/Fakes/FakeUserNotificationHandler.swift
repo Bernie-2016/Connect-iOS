@@ -1,6 +1,6 @@
 @testable import Connect
 
-class FakeUserNotificationHandler: UserNotificationHandler {
+class FakeRemoteNotificationHandler: RemoteNotificationHandler {
     var lastReceivedUserInfo: NotificationUserInfo!
 
     func handleRemoteNotification(notificationUserInfo: NotificationUserInfo) {

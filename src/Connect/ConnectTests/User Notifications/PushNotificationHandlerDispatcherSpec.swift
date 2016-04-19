@@ -7,12 +7,12 @@ class PushNotificationHandlerDispatcherSpec: QuickSpec {
     override func spec() {
         describe("PushNotificationHandlerDispatcher") {
             var subject: PushNotificationHandlerDispatcher!
-            var handlerA: FakeUserNotificationHandler!
-            var handlerB: FakeUserNotificationHandler!
+            var handlerA: FakeRemoteNotificationHandler!
+            var handlerB: FakeRemoteNotificationHandler!
 
             beforeEach {
-                handlerA = FakeUserNotificationHandler()
-                handlerB = FakeUserNotificationHandler()
+                handlerA = FakeRemoteNotificationHandler()
+                handlerB = FakeRemoteNotificationHandler()
 
                 subject = PushNotificationHandlerDispatcher(handlers: [handlerA, handlerB])
             }

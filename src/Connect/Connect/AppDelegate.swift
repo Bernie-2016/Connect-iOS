@@ -4,7 +4,7 @@ import Swinject
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
     private var pushNotificationRegistrar: PushNotificationRegistrar!
-    private var userNotificationHandler: UserNotificationHandler!
+    private var remoteNotificationHandler: RemoteNotificationHandler!
     private var newVersionNotifier: NewVersionNotifier!
 
     var container: Container!
@@ -18,14 +18,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
             pushNotificationRegistrar = container.resolve(PushNotificationRegistrar.self)!
-            userNotificationHandler = container.resolve(UserNotificationHandler.self)
+            remoteNotificationHandler = container.resolve(RemoteNotificationHandler.self)
             newVersionNotifier = container.resolve(NewVersionNotifier.self)
 
             let appBootstrapper = container.resolve(AppBootstrapper.self)!
             appBootstrapper.bootstrap()
 
             if let notificationUserInfo = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? NotificationUserInfo {
-                userNotificationHandler.handleRemoteNotification(notificationUserInfo)
+                remoteNotificationHandler.handleRemoteNotification(notificationUserInfo)
             }
 
             return true
@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        userNotificationHandler.handleRemoteNotification(userInfo)
+        remoteNotificationHandler.handleRemoteNotification(userInfo)
     }
 
     func applicationDidBecomeActive(application: UIApplication) {

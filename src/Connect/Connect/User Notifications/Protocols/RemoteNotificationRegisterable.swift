@@ -1,8 +1,8 @@
 import UIKit
 
-protocol UserNotificationRegisterable {
+protocol RemoteNotificationRegisterable {
     func registerForRemoteNotifications()
     func registerUserNotificationSettings(notificationSettings: UIUserNotificationSettings)
 }
 
-extension UIApplication: UserNotificationRegisterable {}
+extension UIApplication: RemoteNotificationRegisterable {}

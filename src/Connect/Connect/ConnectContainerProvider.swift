@@ -17,7 +17,7 @@ class ConnectContainerProvider {
             return SDWebImageManager()
             }.inObjectScope(.Container)
 
-        container.register(UserNotificationRegisterable.self) { _ in application }.inObjectScope(.Container)
+        container.register(RemoteNotificationRegisterable.self) { _ in application }.inObjectScope(.Container)
 
         container.register(CLLocationManager.self) { _ in CLLocationManager() }.inObjectScope(.Container)
 
