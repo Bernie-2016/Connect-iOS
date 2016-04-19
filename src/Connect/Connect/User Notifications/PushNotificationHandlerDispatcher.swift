@@ -7,9 +7,9 @@ class PushNotificationHandlerDispatcher: RemoteNotificationHandler {
         self.handlers = handlers
     }
 
-    func handleRemoteNotification(notificationUserInfo: NotificationUserInfo) {
+    func handleRemoteNotification(notificationUserInfo: NotificationUserInfo, fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         for handler in handlers {
-            handler.handleRemoteNotification(notificationUserInfo)
+            handler.handleRemoteNotification(notificationUserInfo, fetchCompletionHandler: completionHandler)
         }
     }
 }

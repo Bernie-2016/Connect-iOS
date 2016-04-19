@@ -21,7 +21,7 @@ class PushNotificationHandlerDispatcherSpec: QuickSpec {
                 it("forwards the push notification to all the configured handlers") {
                     let userInfo: NotificationUserInfo = ["wat": "yo"]
 
-                    subject.handleRemoteNotification(userInfo)
+                    subject.handleRemoteNotification(userInfo) { _ in }
 
                     expect(handlerA.lastReceivedUserInfo["wat"]).to(beIdenticalTo(userInfo["wat"]))
                     expect(handlerB.lastReceivedUserInfo["wat"]).to(beIdenticalTo(userInfo["wat"]))

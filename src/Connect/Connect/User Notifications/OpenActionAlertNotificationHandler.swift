@@ -15,7 +15,8 @@ class OpenActionAlertNotificationHandler: RemoteNotificationHandler {
             self.tabBarController = tabBarController
     }
 
-    func handleRemoteNotification(notificationUserInfo: NotificationUserInfo) {
+    func handleRemoteNotification(notificationUserInfo: NotificationUserInfo, fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+
         guard let action = notificationUserInfo[RemoteNotificationHandlerKeys.ActionKey] as? String else {
             return
         }
@@ -23,5 +24,6 @@ class OpenActionAlertNotificationHandler: RemoteNotificationHandler {
         if action != RemoteNotificationHandlerKeys.ActionTypes.OpenActionAlert { return }
 
         tabBarController.selectedViewController = actionAlertNavigationController
+        completionHandler(.NewData)
     }
 }

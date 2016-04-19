@@ -28,7 +28,7 @@ class OpenVideoNotificationHandler: RemoteNotificationHandler {
         self.resultQueue = resultQueue
     }
 
-    func handleRemoteNotification(notificationUserInfo: NotificationUserInfo) {
+    func handleRemoteNotification(notificationUserInfo: NotificationUserInfo, fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         guard let action = notificationUserInfo[RemoteNotificationHandlerKeys.ActionKey] as? String else {
             return
         }
@@ -36,6 +36,7 @@ class OpenVideoNotificationHandler: RemoteNotificationHandler {
         if action != RemoteNotificationHandlerKeys.ActionTypes.OpenVideo { return }
 
         guard let identifier = notificationUserInfo[RemoteNotificationHandlerKeys.IdentifierKey] as? String else {
+            completionHandler(.Failed)
             return
         }
 
@@ -49,10 +50,12 @@ class OpenVideoNotificationHandler: RemoteNotificationHandler {
                 let controller = self.newsFeedItemControllerProvider.provideInstanceWithNewsFeedItem(video)
                 self.newsNavigationController.popViewControllerAnimated(false)
                 self.newsNavigationController.pushViewController(controller, animated: false)
+                completionHandler(.NewData)
             }
             }.error { error in
                 self.resultQueue.addOperationWithBlock {
                     self.newsNavigationController.popViewControllerAnimated(false)
+                    completionHandler(.Failed)
                 }
         }
     }

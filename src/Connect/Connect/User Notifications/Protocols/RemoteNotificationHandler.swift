@@ -9,5 +9,5 @@ struct RemoteNotificationHandlerKeys {
 }
 
 protocol RemoteNotificationHandler {
-    func handleRemoteNotification(notificationUserInfo: NotificationUserInfo)
+    func handleRemoteNotification(notificationUserInfo: NotificationUserInfo, fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void)
 }

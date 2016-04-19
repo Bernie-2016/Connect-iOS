@@ -5,7 +5,7 @@ class ParseAnalyticsNotificationHandler: RemoteNotificationHandler {
         self.pfAnalyticsProxy = pfAnalyticsProxy
     }
 
-    func handleRemoteNotification(notificationUserInfo: NotificationUserInfo) {
+    func handleRemoteNotification(notificationUserInfo: NotificationUserInfo, fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         pfAnalyticsProxy.trackAppOpenedWithRemoteNotificationPayload(notificationUserInfo)
     }
 }

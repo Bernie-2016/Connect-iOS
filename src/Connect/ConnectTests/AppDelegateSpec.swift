@@ -39,33 +39,12 @@ class AppDelegateSpec: QuickSpec {
             }
 
             describe("When the application finishes launching") {
-                context("Without a push notification") {
-                    it("bootstraps the app") {
-                        expect(appBootstrapper.bootstrapCalled).to(beFalse())
+                it("bootstraps the app") {
+                    expect(appBootstrapper.bootstrapCalled).to(beFalse())
 
-                        subject.application(application, didFinishLaunchingWithOptions:nil)
+                    subject.application(application, didFinishLaunchingWithOptions:nil)
 
-                        expect(appBootstrapper.bootstrapCalled).to(beTrue())
-                    }
-                }
-
-                context("with a push notification") {
-                    it("bootstraps the app") {
-                        expect(appBootstrapper.bootstrapCalled).to(beFalse())
-
-                        subject.application(application, didFinishLaunchingWithOptions:nil)
-
-                        expect(appBootstrapper.bootstrapCalled).to(beTrue())
-                    }
-
-                    it("handles the remote notification") {
-                        let expectedNotification: NotificationUserInfo = ["wat": NSUUID().UUIDString]
-                        let userInfo = [UIApplicationLaunchOptionsRemoteNotificationKey: expectedNotification]
-
-                        subject.application(application, didFinishLaunchingWithOptions:userInfo)
-
-                        expect(remoteNotificationHandler.lastReceivedUserInfo["wat"]).to(beIdenticalTo(expectedNotification["wat"]))
-                    }
+                    expect(appBootstrapper.bootstrapCalled).to(beTrue())
                 }
             }
 
@@ -102,14 +81,22 @@ class AppDelegateSpec: QuickSpec {
             }
 
             describe("when the application receives a remote notification") {
-                beforeEach { subject.application(application, didFinishLaunchingWithOptions:nil) }
+                beforeEach {
+                    subject.application(application, didFinishLaunchingWithOptions:nil) }
 
                 it("fowards the notification to the user notification handler") {
                     let expectedNotification: NotificationUserInfo = ["wat": NSUUID().UUIDString]
 
-                    subject.application(application, didReceiveRemoteNotification: expectedNotification)
+                    var completionHandlerCalled = false
+                    subject.application(application, didReceiveRemoteNotification: expectedNotification, fetchCompletionHandler: { _ in
+                        completionHandlerCalled = true
+                    })
 
-                    expect(remoteNotificationHandler.lastReceivedUserInfo["wat"]).to(beIdenticalTo(expectedNotification["wat"]))
+                    expect(remoteNotificationHandler.lastReceivedUserInfo["wat"]) === expectedNotification["wat"]
+
+                    expect(completionHandlerCalled) == false
+                    remoteNotificationHandler.lastReceivedCompletionHandler(.NewData)
+                    expect(completionHandlerCalled) == true
                 }
             }
 

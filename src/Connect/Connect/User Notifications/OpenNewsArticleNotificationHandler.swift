@@ -27,7 +27,7 @@ class OpenNewsArticleNotificationHandler: RemoteNotificationHandler {
         self.resultQueue = resultQueue
     }
 
-    func handleRemoteNotification(notificationUserInfo: NotificationUserInfo) {
+    func handleRemoteNotification(notificationUserInfo: NotificationUserInfo, fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         guard let action = notificationUserInfo[RemoteNotificationHandlerKeys.ActionKey] as? String else {
             return
         }
@@ -35,6 +35,7 @@ class OpenNewsArticleNotificationHandler: RemoteNotificationHandler {
         if action != RemoteNotificationHandlerKeys.ActionTypes.OpenNewsArticle { return }
 
         guard let identifier = notificationUserInfo[RemoteNotificationHandlerKeys.IdentifierKey] as? String else {
+            completionHandler(.Failed)
             return
         }
 
@@ -48,10 +49,12 @@ class OpenNewsArticleNotificationHandler: RemoteNotificationHandler {
                 let controller = self.newsFeedItemControllerProvider.provideInstanceWithNewsFeedItem(newsArticle)
                 self.newsNavigationController.popToRootViewControllerAnimated(false)
                 self.newsNavigationController.pushViewController(controller, animated: false)
+                completionHandler(.NewData)
             }
             }.error { error in
                 self.resultQueue.addOperationWithBlock {
                     self.newsNavigationController.popToRootViewControllerAnimated(false)
+                    completionHandler(.Failed)
                 }
         }
     }

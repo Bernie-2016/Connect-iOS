@@ -20,7 +20,8 @@ class ShowNearbyEventsNotificationHandler: RemoteNotificationHandler {
         self.workerQueue = workerQueue
     }
 
-    func handleRemoteNotification(notificationUserInfo: NotificationUserInfo) {
+    func handleRemoteNotification(notificationUserInfo: NotificationUserInfo, fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+
         guard let action = notificationUserInfo[RemoteNotificationHandlerKeys.ActionKey] as? String else {
             return
         }
@@ -34,6 +35,7 @@ class ShowNearbyEventsNotificationHandler: RemoteNotificationHandler {
 
         workerQueue.addOperationWithBlock {
             self.nearbyEventsUseCase.fetchNearbyEventsWithinRadiusMiles(self.radiusDataSource.currentMilesValue)
+            completionHandler(.NewData)
         }
     }
 }

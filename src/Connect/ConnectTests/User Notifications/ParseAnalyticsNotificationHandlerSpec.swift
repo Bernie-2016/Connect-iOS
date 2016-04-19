@@ -25,10 +25,21 @@ class ParseAnalyticsNotificationHandlerSpec: QuickSpec {
 
             describe("handling a notification") {
                 it("tracks the notification via PFAnalytics") {
-                    let notification = ["hey": "yo"]
-                    subject.handleRemoteNotification(notification)
+                    let userInfo = ["hey": "yo"]
+                    subject.handleRemoteNotification(userInfo) { _ in }
 
-                    expect(pfAnalyticsProxy.lastReceivedUserInfo["hey"] as? String).to(equal(notification["hey"]))
+                    expect(pfAnalyticsProxy.lastReceivedUserInfo["hey"] as? String).to(equal(userInfo["hey"]))
+                }
+
+                it("does not call the completion handler") {
+                    let userInfo = ["hey": "yo"]
+                    var receivedFetchResult: UIBackgroundFetchResult?
+
+                    subject.handleRemoteNotification(userInfo) { fetchResult in
+                        receivedFetchResult = fetchResult
+                    }
+
+                    expect(receivedFetchResult).to(beNil())
                 }
             }
         }

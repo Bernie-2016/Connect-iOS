@@ -43,7 +43,7 @@ class ShowNearbyEventsNotificationHandlerSpec: QuickSpec {
                 beforeEach { radiusDataSource.setDefaultRadiusMiles(666) }
 
                 it("ensures that the navigation controller is the selected controller of the tab bar controller") {
-                    subject.handleRemoteNotification(userInfo)
+                    subject.handleRemoteNotification(userInfo) { _ in }
 
                     expect(tabBarController.selectedViewController) === eventsNavigationController
                 }
@@ -56,19 +56,19 @@ class ShowNearbyEventsNotificationHandlerSpec: QuickSpec {
                         i = i + 1
                     }
 
-                    subject.handleRemoteNotification(userInfo)
+                    subject.handleRemoteNotification(userInfo) { _ in }
 
                     expect(eventsNavigationController.topViewController) === rootEventsController
                 }
 
                 it("resets the nearby data source") {
-                    subject.handleRemoteNotification(userInfo)
+                    subject.handleRemoteNotification(userInfo) { _ in }
 
                     expect(radiusDataSource.didResetToDefaultSearchRadius) == true
                 }
 
                 it("tells the use case to fetch nearby events with the default value on the worker queue") {
-                    subject.handleRemoteNotification(userInfo)
+                    subject.handleRemoteNotification(userInfo) { _ in }
 
                     expect(nearbyEventsUseCase.didFetchNearbyEventsWithinRadius).to(beNil())
 
@@ -76,25 +76,61 @@ class ShowNearbyEventsNotificationHandlerSpec: QuickSpec {
 
                     expect(nearbyEventsUseCase.didFetchNearbyEventsWithinRadius) == 666
                 }
+
+                it("calls the completion handler on the worker queue") {
+                    var receivedFetchResult: UIBackgroundFetchResult?
+
+                    subject.handleRemoteNotification(userInfo) { fetchResult in
+                        receivedFetchResult = fetchResult
+                    }
+
+                    expect(receivedFetchResult).to(beNil())
+
+                    workerQueue.lastReceivedBlock()
+
+                    expect(receivedFetchResult) == UIBackgroundFetchResult.NewData
+                }
             }
 
             describe("handling a notification that is not configured to show nearby events") {
-                it("does nothing to the tab bar controller") {
-                    let userInfo: NotificationUserInfo = ["action": "doSomethingElse"]
+                let userInfo: NotificationUserInfo = ["action": "doSomethingElse"]
 
-                    subject.handleRemoteNotification(userInfo)
+                it("does nothing to the tab bar controller") {
+                    subject.handleRemoteNotification(userInfo) { _ in }
 
                     expect(tabBarController.selectedViewController) === selectedTabController
+                }
+
+                it("does not call the completion handler") {
+                    var receivedFetchResult: UIBackgroundFetchResult?
+
+                    subject.handleRemoteNotification(userInfo) { fetchResult in
+                        receivedFetchResult = fetchResult
+                    }
+
+                    expect(receivedFetchResult).to(beNil())
                 }
             }
 
             describe("handling a notification that lacks an action") {
+                let userInfo: NotificationUserInfo = ["action": "doSomethingElse"]
+
                 it("does nothing to the tab bar controller") {
                     let userInfo: NotificationUserInfo = [:]
 
-                    subject.handleRemoteNotification(userInfo)
+                    subject.handleRemoteNotification(userInfo) { _ in }
 
                     expect(tabBarController.selectedViewController) === selectedTabController
+                }
+
+                it("does not call the completion handler") {
+                    var receivedFetchResult: UIBackgroundFetchResult?
+
+                    subject.handleRemoteNotification(userInfo) { fetchResult in
+                        receivedFetchResult = fetchResult
+                    }
+
+                    expect(receivedFetchResult).to(beNil())
                 }
             }
         }

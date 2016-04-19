@@ -24,10 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let appBootstrapper = container.resolve(AppBootstrapper.self)!
             appBootstrapper.bootstrap()
 
-            if let notificationUserInfo = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? NotificationUserInfo {
-                remoteNotificationHandler.handleRemoteNotification(notificationUserInfo)
-            }
-
             return true
     }
 
@@ -39,8 +35,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         pushNotificationRegistrar.application(application, didFailToRegisterForRemoteNotificationsWithError: error)
     }
 
-    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        remoteNotificationHandler.handleRemoteNotification(userInfo)
+
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        remoteNotificationHandler.handleRemoteNotification(userInfo, fetchCompletionHandler: completionHandler)
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
