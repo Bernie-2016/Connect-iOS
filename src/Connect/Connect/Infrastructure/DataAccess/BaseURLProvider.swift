@@ -9,13 +9,15 @@ class BaseURLProvider {
     }
 
     func sharknadoBaseURL() -> NSURL {
-        guard let urlString = self.plist.objectForKey("SHARKNADO_BASE_URL") as? String else { fatalError("SHARKNADO BASE URL NOT FOUND") }
-        let url = NSURL(string: urlString)!
-        return url
+        return urlFromPlist("CONNECT_BASE_URL")
     }
 
     func connectBaseURL() -> NSURL {
-        guard let urlString = self.plist.objectForKey("CONNECT_BASE_URL") as? String else { fatalError("CONNECT BASE URL NOT FOUND") }
+        return urlFromPlist("CONNECT_BASE_URL")
+    }
+
+    private func urlFromPlist(key: String) -> NSURL {
+        guard let urlString = self.plist.objectForKey(key) as? String else { fatalError("\(key) NOT FOUND") }
         let url = NSURL(string: urlString)!
         return url
     }
