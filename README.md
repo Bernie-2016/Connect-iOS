@@ -1,7 +1,7 @@
 # Connect
 
 [![CI Status](https://img.shields.io/circleci/project/Bernie-2016/Connect-iOS/master.svg)](https://circleci.com/gh/Bernie-2016/Connect-iOS/tree/master)
-
+[![codebeat badge](https://codebeat.co/badges/32b76d16-5a6d-4340-9417-8cc32f0a704a)](https://codebeat.co/projects/github-com-bernie-2016-connect-ios)
 
 Mobile application for getting involved and keeping up with Bernie.
 
