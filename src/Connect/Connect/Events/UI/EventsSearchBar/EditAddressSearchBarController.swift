@@ -61,7 +61,7 @@ class EditAddressSearchBarController: UIViewController {
         cancelButton.addTarget(self, action: #selector(EditAddressSearchBarController.didTapCancelButton), forControlEvents: .TouchUpInside)
 
         searchButton.setTitle(NSLocalizedString("EventsSearchBar_searchButtonTitle", comment: ""), forState: .Normal)
-        searchButton.addTarget("self", action: #selector(EditAddressSearchBarController.didTapSearchButton), forControlEvents: .TouchUpInside)
+        searchButton.addTarget(self, action: #selector(EditAddressSearchBarController.didTapSearchButton), forControlEvents: .TouchUpInside)
         searchButton.enabled = false
 
         searchBarStylist.applyThemeToBackground(view)

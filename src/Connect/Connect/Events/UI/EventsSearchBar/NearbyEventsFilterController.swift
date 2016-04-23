@@ -49,7 +49,7 @@ class NearbyEventsFilterController: UIViewController {
         cancelButton.addTarget(self, action: #selector(NearbyEventsFilterController.didTapCancelButton), forControlEvents: .TouchUpInside)
 
         searchButton.setTitle(NSLocalizedString("EventsSearchBar_searchButtonTitle", comment: ""), forState: .Normal)
-        searchButton.addTarget("self", action: #selector(NearbyEventsFilterController.didTapSearchButton), forControlEvents: .TouchUpInside)
+        searchButton.addTarget(self, action: #selector(NearbyEventsFilterController.didTapSearchButton), forControlEvents: .TouchUpInside)
 
         applyTheme()
         setupConstraints()
