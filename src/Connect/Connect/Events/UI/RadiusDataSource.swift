@@ -1,7 +1,9 @@
 import Foundation
 
+typealias DistanceMiles = Float
+
 protocol RadiusDataSource: UIPickerViewDataSource, UIPickerViewDelegate {
-    var currentMilesValue: Float { get }
+    var currentMilesValue: DistanceMiles { get }
     var confirmedSelectedIndex: Int { get }
 
     func resetToDefaultSearchRadius()
@@ -10,11 +12,11 @@ protocol RadiusDataSource: UIPickerViewDataSource, UIPickerViewDelegate {
 }
 
 protocol RadiusDataSourceObserver :class {
-    func radiusDataSourceDidUpdateRadiusMiles(radiusMiles: Float)
+    func radiusDataSourceDidUpdateRadiusMiles(radiusMiles: DistanceMiles)
 }
 
 class StockRadiusDataSource: NSObject, RadiusDataSource {
-    var currentMilesValue: Float {
+    var currentMilesValue: DistanceMiles {
         get {
             return values[confirmedSelectedIndex]
         }
