@@ -9,7 +9,7 @@ class BaseURLProvider {
     }
 
     func sharknadoBaseURL() -> NSURL {
-        return urlFromPlist("CONNECT_BASE_URL")
+        return urlFromPlist("SHARKNADO_BASE_URL")
     }
 
     func connectBaseURL() -> NSURL {
