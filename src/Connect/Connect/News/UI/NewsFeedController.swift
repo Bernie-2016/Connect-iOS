@@ -127,8 +127,11 @@ class NewsFeedController: UIViewController {
             self.errorLoadingNews = false
             self.collectionView.hidden = false
             self.loadingIndicatorView.stopAnimating()
-            self.newsFeedItems = newsFeedItems
-            self.collectionView.reloadData()
+
+			if self.newsFeedItems != newsFeedItems {
+				self.newsFeedItems = newsFeedItems
+				self.collectionView.reloadData()
+			}
         }.error { error in
             self.mainQueue.addOperationWithBlock { self.refreshControl.endRefreshing() }
             self.errorLoadingNews = true
@@ -142,6 +145,20 @@ class NewsFeedController: UIViewController {
         loadNewsFeed()
     }
 }
+
+private func == (lhs: [NewsFeedItem], rhs: [NewsFeedItem]) -> Bool {
+	guard lhs.count == rhs.count else { return false }
+
+	for i in 0..<lhs.count {
+		let lItem = lhs[i]
+		let rItem = rhs[i]
+		guard lItem.identifier == rItem.identifier && lItem.date == rItem.date && lItem.title == rItem.title else { return false }
+	}
+
+	return true
+}
+
+private func != (lhs: [NewsFeedItem], rhs: [NewsFeedItem]) -> Bool { return !(lhs == rhs) }
 
 
 // MARK: UICollectionViewDataSource
