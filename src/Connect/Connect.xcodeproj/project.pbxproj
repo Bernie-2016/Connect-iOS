@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A67626098802ABA9B59E217 /* RegistrationContainerConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A676677B35E947F095D8F98 /* RegistrationContainerConfigurator.swift */; };
+		1A676E0811C99D1E8DBAB11C /* VoterRegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6763CEF9912E5FC5C156C4 /* VoterRegistrationController.swift */; };
+		1A676F48A5AC065B5D438731 /* VoterRegistrationControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A676854539C748036103A16 /* VoterRegistrationControllerSpec.swift */; };
 		650330ED1C603643006D0752 /* OpenActionAlertNotificationHandlerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650330EC1C603643006D0752 /* OpenActionAlertNotificationHandlerSpec.swift */; };
 		650330F11C60369C006D0752 /* FakeActionAlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650330F01C60369C006D0752 /* FakeActionAlertService.swift */; };
 		650330F31C6038FD006D0752 /* OpenActionAlertNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650330F21C6038FD006D0752 /* OpenActionAlertNotificationHandler.swift */; };
@@ -197,6 +200,10 @@
 		655B6AD21C9B45C900153AD9 /* EventsErrorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B6AD11C9B45C900153AD9 /* EventsErrorController.swift */; };
 		655B6AD41C9B45CE00153AD9 /* RadiusDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B6AD31C9B45CE00153AD9 /* RadiusDataSource.swift */; };
 		655B6AD61C9B45ED00153AD9 /* EventsErrorControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655B6AD51C9B45ED00153AD9 /* EventsErrorControllerSpec.swift */; };
+		655C06AF1CE2D3C000256845 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */; };
+		655C06B01CE2D3C000256845 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65EC4CED1B842A1900DD4C83 /* Quick.framework */; };
+		655C06B21CE2D3F600256845 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		655C06B31CE2D3F600256845 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65EC4CED1B842A1900DD4C83 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		65629A881C9E176F0007119A /* ActionAlertWebViewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65629A871C9E176F0007119A /* ActionAlertWebViewProvider.swift */; };
 		65629A8A1C9E1A1F0007119A /* ActionAlertLoadingMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65629A891C9E1A1F0007119A /* ActionAlertLoadingMonitor.swift */; };
 		656BC9661C70260D00CFA4EB /* tonybenn.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 656BC9651C70260D00CFA4EB /* tonybenn.jpg */; };
@@ -267,6 +274,7 @@
 		65CA5E911B86E3D00001D870 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CA5E901B86E3D00001D870 /* Theme.swift */; };
 		65CA5E931B86E4A00001D870 /* DefaultTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CA5E921B86E4A00001D870 /* DefaultTheme.swift */; };
 		65CA5E991B86E76D0001D870 /* PureLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65CA5E981B86E76D0001D870 /* PureLayout.framework */; };
+		65CAB6E91CE2CD20007FE4CA /* ConnectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CAB6E81CE2CD20007FE4CA /* ConnectUITests.swift */; };
 		65CAC2C81BFC1F540064B9E2 /* FakeApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CAC2C71BFC1F540064B9E2 /* FakeApplication.swift */; };
 		65CFACE21C59CF75005E1309 /* StockActionAlertDeserializerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CFACE11C59CF75005E1309 /* StockActionAlertDeserializerSpec.swift */; };
 		65CFACFB1C59D1AF005E1309 /* action_alerts.json in Resources */ = {isa = PBXBuildFile; fileRef = 65CFACFA1C59D1AF005E1309 /* action_alerts.json */; };
@@ -345,6 +353,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		65CAB6EB1CE2CD20007FE4CA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8233FBFF1B7C28FB00A5E9ED /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8233FC061B7C28FB00A5E9ED;
+			remoteInfo = Connect;
+		};
 		8233FC1F1B7C28FB00A5E9ED /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8233FBFF1B7C28FB00A5E9ED /* Project object */;
@@ -355,6 +370,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		655C06B11CE2D3EF00256845 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				655C06B21CE2D3F600256845 /* Nimble.framework in CopyFiles */,
+				655C06B31CE2D3F600256845 /* Quick.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		65B1654B1B9747070052EF8D /* Copy symbolication files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -389,6 +415,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1A6763CEF9912E5FC5C156C4 /* VoterRegistrationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoterRegistrationController.swift; sourceTree = "<group>"; };
+		1A676677B35E947F095D8F98 /* RegistrationContainerConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationContainerConfigurator.swift; sourceTree = "<group>"; };
+		1A676854539C748036103A16 /* VoterRegistrationControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoterRegistrationControllerSpec.swift; sourceTree = "<group>"; };
 		650330EC1C603643006D0752 /* OpenActionAlertNotificationHandlerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenActionAlertNotificationHandlerSpec.swift; sourceTree = "<group>"; };
 		650330F01C60369C006D0752 /* FakeActionAlertService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeActionAlertService.swift; sourceTree = "<group>"; };
 		650330F21C6038FD006D0752 /* OpenActionAlertNotificationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenActionAlertNotificationHandler.swift; sourceTree = "<group>"; };
@@ -653,6 +682,9 @@
 		65CA5E901B86E3D00001D870 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		65CA5E921B86E4A00001D870 /* DefaultTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultTheme.swift; sourceTree = "<group>"; };
 		65CA5E981B86E76D0001D870 /* PureLayout.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PureLayout.framework; path = Carthage/Build/iOS/PureLayout.framework; sourceTree = "<group>"; };
+		65CAB6E61CE2CD20007FE4CA /* ConnectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ConnectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		65CAB6E81CE2CD20007FE4CA /* ConnectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectUITests.swift; sourceTree = "<group>"; };
+		65CAB6EA1CE2CD20007FE4CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		65CAC2C71BFC1F540064B9E2 /* FakeApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeApplication.swift; sourceTree = "<group>"; };
 		65CFACE11C59CF75005E1309 /* StockActionAlertDeserializerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockActionAlertDeserializerSpec.swift; sourceTree = "<group>"; };
 		65CFACFA1C59D1AF005E1309 /* action_alerts.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = action_alerts.json; sourceTree = "<group>"; };
@@ -731,6 +763,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		65CAB6E31CE2CD20007FE4CA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				655C06AF1CE2D3C000256845 /* Nimble.framework in Frameworks */,
+				655C06B01CE2D3C000256845 /* Quick.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8233FC041B7C28FB00A5E9ED /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -775,6 +816,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A67655BB7EA0FE065AEADE8 /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+				1A676BE2FC8C673F99A53BC1 /* UI */,
+			);
+			path = Registration;
+			sourceTree = "<group>";
+		};
+		1A6765855568A68E616F3E26 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				1A6763CEF9912E5FC5C156C4 /* VoterRegistrationController.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		1A6768FB2DE32383AD8B2008 /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+				1A6765855568A68E616F3E26 /* UI */,
+				1A676677B35E947F095D8F98 /* RegistrationContainerConfigurator.swift */,
+			);
+			path = Registration;
+			sourceTree = "<group>";
+		};
+		1A676BE2FC8C673F99A53BC1 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				1A676854539C748036103A16 /* VoterRegistrationControllerSpec.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		650763301B8B809600BA0659 /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
@@ -1437,6 +1511,15 @@
 			path = Themes;
 			sourceTree = "<group>";
 		};
+		65CAB6E71CE2CD20007FE4CA /* ConnectUITests */ = {
+			isa = PBXGroup;
+			children = (
+				65CAB6E81CE2CD20007FE4CA /* ConnectUITests.swift */,
+				65CAB6EA1CE2CD20007FE4CA /* Info.plist */,
+			);
+			path = ConnectUITests;
+			sourceTree = "<group>";
+		};
 		65DAF3111C9860E3000E604F /* EventsSearchBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -1622,8 +1705,10 @@
 				65EC4CF21B842A3D00DD4C83 /* Carthage */,
 				8233FC091B7C28FB00A5E9ED /* Connect */,
 				8233FC211B7C28FB00A5E9ED /* ConnectTests */,
+				65CAB6E71CE2CD20007FE4CA /* ConnectUITests */,
 				655598041BFC2FFB00BCE1AB /* ConnectDebug.app */,
 				655598051BFC2FFB00BCE1AB /* ConnectTests.xctest */,
+				65CAB6E61CE2CD20007FE4CA /* ConnectUITests.xctest */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1638,6 +1723,7 @@
 				653D0F441C4C2D6E004CB8A0 /* More */,
 				653D0ED71C4C2A0F004CB8A0 /* News */,
 				653D0F881C4C2FF7004CB8A0 /* Onboarding */,
+				1A6768FB2DE32383AD8B2008 /* Registration */,
 				65F5F6501B87B9440049353C /* Resources */,
 				8233FC0A1B7C28FB00A5E9ED /* Supporting Files */,
 				65CA5E8F1B86E3490001D870 /* Themes */,
@@ -1676,6 +1762,7 @@
 				653D0FEE1C4C53BB004CB8A0 /* News */,
 				653D0FFE1C4C53BB004CB8A0 /* Onboarding */,
 				655598061BFC301C00BCE1AB /* Products */,
+				1A67655BB7EA0FE065AEADE8 /* Registration */,
 				8233FC221B7C28FB00A5E9ED /* Supporting Files */,
 				654948E41BFB7FF200C1ECDB /* User Notifications */,
 				651960861C4D8F20004AAC6D /* AppDelegateSpec.swift */,
@@ -1697,6 +1784,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		65CAB6E51CE2CD20007FE4CA /* ConnectUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 65CAB6F01CE2CD20007FE4CA /* Build configuration list for PBXNativeTarget "ConnectUITests" */;
+			buildPhases = (
+				65CAB6E21CE2CD20007FE4CA /* Sources */,
+				65CAB6E31CE2CD20007FE4CA /* Frameworks */,
+				65CAB6E41CE2CD20007FE4CA /* Resources */,
+				655C06B11CE2D3EF00256845 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				65CAB6EC1CE2CD20007FE4CA /* PBXTargetDependency */,
+			);
+			name = ConnectUITests;
+			productName = ConnectUITests;
+			productReference = 65CAB6E61CE2CD20007FE4CA /* ConnectUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		8233FC061B7C28FB00A5E9ED /* Connect */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8233FC281B7C28FB00A5E9ED /* Build configuration list for PBXNativeTarget "Connect" */;
@@ -1747,10 +1853,14 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftMigration = 0700;
-				LastSwiftUpdateCheck = 0700;
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Coders For Sanders";
 				TargetAttributes = {
+					65CAB6E51CE2CD20007FE4CA = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = 8233FC061B7C28FB00A5E9ED;
+					};
 					8233FC061B7C28FB00A5E9ED = {
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = TL9762W3KX;
@@ -1782,11 +1892,19 @@
 			targets = (
 				8233FC061B7C28FB00A5E9ED /* Connect */,
 				8233FC1D1B7C28FB00A5E9ED /* ConnectTests */,
+				65CAB6E51CE2CD20007FE4CA /* ConnectUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		65CAB6E41CE2CD20007FE4CA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8233FC051B7C28FB00A5E9ED /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1924,6 +2042,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		65CAB6E21CE2CD20007FE4CA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65CAB6E91CE2CD20007FE4CA /* ConnectUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8233FC031B7C28FB00A5E9ED /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2051,6 +2177,7 @@
 				65E33D821C46EC0D003464D9 /* PushNotificationHandlerDispatcher.swift in Sources */,
 				654948E11BFB7D8100C1ECDB /* PushNotificationRegistrar.swift in Sources */,
 				655B6AD41C9B45CE00153AD9 /* RadiusDataSource.swift in Sources */,
+				1A67626098802ABA9B59E217 /* RegistrationContainerConfigurator.swift in Sources */,
 				65B97D571C459C9800F2F6B3 /* RemoteNotificationHandler.swift in Sources */,
 				654948EA1BFB81E700C1ECDB /* RemoteNotificationRegisterable.swift in Sources */,
 				653D0FA21C4C35C0004CB8A0 /* ResponderButton.swift in Sources */,
@@ -2076,6 +2203,7 @@
 				653D0FB71C4C536F004CB8A0 /* VideoDeserializer.swift in Sources */,
 				653D0EFB1C4C2B7D004CB8A0 /* VideoRepository.swift in Sources */,
 				65DB15F01C8926BF00F470D5 /* VideoService.swift in Sources */,
+				1A676E0811C99D1E8DBAB11C /* VoterRegistrationController.swift in Sources */,
 				653D0F8D1C4C2FF7004CB8A0 /* WelcomeController.swift in Sources */,
 				65DAF3491C986291000E604F /* ZipCodeValidator.swift in Sources */,
 			);
@@ -2206,6 +2334,7 @@
 				65AD23B21B968D6800C32A02 /* TestUtils.swift in Sources */,
 				65C8CCA71CA7500E004D2373 /* VersionRepositorySpec.swift in Sources */,
 				653D10321C4C53BB004CB8A0 /* VideoControllerSpec.swift in Sources */,
+				1A676F48A5AC065B5D438731 /* VoterRegistrationControllerSpec.swift in Sources */,
 				653D10341C4C53BB004CB8A0 /* WelcomeControllerSpec.swift in Sources */,
 				65DAF3401C98626B000E604F /* ZipCodeValidatorSpec.swift in Sources */,
 			);
@@ -2214,6 +2343,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		65CAB6EC1CE2CD20007FE4CA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8233FC061B7C28FB00A5E9ED /* Connect */;
+			targetProxy = 65CAB6EB1CE2CD20007FE4CA /* PBXContainerItemProxy */;
+		};
 		8233FC201B7C28FB00A5E9ED /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8233FC061B7C28FB00A5E9ED /* Connect */;
@@ -2362,6 +2496,60 @@
 					"-Weverything",
 					"-Wno-padded",
 				);
+			};
+			name = Acceptance;
+		};
+		65CAB6ED1CE2CD20007FE4CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = ConnectUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.berniesanders.connect.mobile.ios.ConnectUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Connect;
+			};
+			name = Debug;
+		};
+		65CAB6EE1CE2CD20007FE4CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = ConnectUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.berniesanders.connect.mobile.ios.ConnectUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Connect;
+			};
+			name = Release;
+		};
+		65CAB6EF1CE2CD20007FE4CA /* Acceptance */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = ConnectUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.berniesanders.connect.mobile.ios.ConnectUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Connect;
 			};
 			name = Acceptance;
 		};
@@ -2629,6 +2817,16 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		65CAB6F01CE2CD20007FE4CA /* Build configuration list for PBXNativeTarget "ConnectUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				65CAB6ED1CE2CD20007FE4CA /* Debug */,
+				65CAB6EE1CE2CD20007FE4CA /* Release */,
+				65CAB6EF1CE2CD20007FE4CA /* Acceptance */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8233FC021B7C28FB00A5E9ED /* Build configuration list for PBXProject "Connect" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

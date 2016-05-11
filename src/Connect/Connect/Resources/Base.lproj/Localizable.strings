@@ -139,3 +139,6 @@ The Connect with Bernie Team";
 "Update_alertTitle" = "Update Required";
 "Update_alertMessage" = "Please update Connect to the latest version to continue";
 "Update_alertButtonTitle" = "Continue";
+
+// Registration
+"Registration_tabBarTitle" = "Register";

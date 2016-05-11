@@ -59,6 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         MoreContainerConfigurator.configureContainer(container)
         NewsContainerConfigurator.configureContainer(container)
         OnboardingControllerConfigurator.configureContainer(container)
+        RegistrationContainerConfigurator.configureContainer(container)
         UserNotificationContainerConfigurator.configureContainer(container)
         return container
     }

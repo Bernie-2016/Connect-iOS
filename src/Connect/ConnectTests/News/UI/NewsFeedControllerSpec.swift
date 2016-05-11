@@ -72,12 +72,11 @@ class NewsFeedControllerSpecs: QuickSpec {
                 expect(barButtonItem.tintColor) == UIColor.darkGrayColor()
             }
 
-
             it("uses the tab bar item stylist to style its tab bar item") {
-                expect(tabBarItemStylist.lastReceivedTabBarItem).to(beIdenticalTo(subject.tabBarItem))
+                expect(tabBarItemStylist.lastReceivedTabBarItem) === subject.tabBarItem
 
-                expect(tabBarItemStylist.lastReceivedTabBarImage).to(equal(UIImage(named: "newsTabBarIconInactive")))
-                expect(tabBarItemStylist.lastReceivedTabBarSelectedImage).to(equal(UIImage(named: "newsTabBarIcon")))
+                expect(tabBarItemStylist.lastReceivedTabBarImage) == UIImage(named: "newsTabBarIconInactive")
+                expect(tabBarItemStylist.lastReceivedTabBarSelectedImage) == UIImage(named: "newsTabBarIcon")
             }
 
             it("initially hides the collection view, and shows the loading spinner") {
