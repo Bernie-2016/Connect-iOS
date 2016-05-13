@@ -142,3 +142,4 @@ The Connect with Bernie Team";
 
 // Registration
 "Registration_tabBarTitle" = "Register";
+"Registration_tableviewSectionHeader" = "To vote for Bernie, you must be registered first. Choose your State from the list below to register online. Registration takes about 2 minutes. Online registration is currently supported in the States listed below.";

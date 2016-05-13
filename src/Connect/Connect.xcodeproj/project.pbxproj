@@ -10,6 +10,7 @@
 		1A67626098802ABA9B59E217 /* RegistrationContainerConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A676677B35E947F095D8F98 /* RegistrationContainerConfigurator.swift */; };
 		1A676E0811C99D1E8DBAB11C /* VoterRegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6763CEF9912E5FC5C156C4 /* VoterRegistrationController.swift */; };
 		1A676F48A5AC065B5D438731 /* VoterRegistrationControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A676854539C748036103A16 /* VoterRegistrationControllerSpec.swift */; };
+		650210731CE576E000096D60 /* StockUpcomingVoterInformationSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650210721CE576E000096D60 /* StockUpcomingVoterInformationSpec.swift */; };
 		650330ED1C603643006D0752 /* OpenActionAlertNotificationHandlerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650330EC1C603643006D0752 /* OpenActionAlertNotificationHandlerSpec.swift */; };
 		650330F11C60369C006D0752 /* FakeActionAlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650330F01C60369C006D0752 /* FakeActionAlertService.swift */; };
 		650330F31C6038FD006D0752 /* OpenActionAlertNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650330F21C6038FD006D0752 /* OpenActionAlertNotificationHandler.swift */; };
@@ -345,6 +346,8 @@
 		65F2C5061C988863008A3AA6 /* NearbyEventsSearchBarControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F2C5051C988863008A3AA6 /* NearbyEventsSearchBarControllerSpec.swift */; };
 		65F2C5081C9888E6008A3AA6 /* SearchBarStylistSharedExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F2C5071C9888E6008A3AA6 /* SearchBarStylistSharedExamples.swift */; };
 		65F2C50A1C988F7B008A3AA6 /* EditAddressSearchBarControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F2C5091C988F7B008A3AA6 /* EditAddressSearchBarControllerSpec.swift */; };
+		65F5BA741CE3C8DB0050CAB8 /* UpcomingVoterRegistrationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A676D3536EDD038C3CA73BB /* UpcomingVoterRegistrationUseCase.swift */; };
+		65F5BA751CE3C8E70050CAB8 /* VoterRegistrationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A676F427DE7E67DAD9CB92E /* VoterRegistrationInfo.swift */; };
 		65F5F6571B8967AD0049353C /* FakeTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F5F6561B8967AD0049353C /* FakeTheme.swift */; };
 		65F5F6611B8A3CB00049353C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65F5F6631B8A3CB00049353C /* Localizable.strings */; };
 		65F935071C8536F800E809A4 /* StockNewsFeedCollectionViewCellPresenterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F935061C8536F800E809A4 /* StockNewsFeedCollectionViewCellPresenterSpec.swift */; };
@@ -418,6 +421,9 @@
 		1A6763CEF9912E5FC5C156C4 /* VoterRegistrationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoterRegistrationController.swift; sourceTree = "<group>"; };
 		1A676677B35E947F095D8F98 /* RegistrationContainerConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationContainerConfigurator.swift; sourceTree = "<group>"; };
 		1A676854539C748036103A16 /* VoterRegistrationControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoterRegistrationControllerSpec.swift; sourceTree = "<group>"; };
+		1A676D3536EDD038C3CA73BB /* UpcomingVoterRegistrationUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpcomingVoterRegistrationUseCase.swift; sourceTree = "<group>"; };
+		1A676F427DE7E67DAD9CB92E /* VoterRegistrationInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoterRegistrationInfo.swift; sourceTree = "<group>"; };
+		650210721CE576E000096D60 /* StockUpcomingVoterInformationSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockUpcomingVoterInformationSpec.swift; sourceTree = "<group>"; };
 		650330EC1C603643006D0752 /* OpenActionAlertNotificationHandlerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenActionAlertNotificationHandlerSpec.swift; sourceTree = "<group>"; };
 		650330F01C60369C006D0752 /* FakeActionAlertService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeActionAlertService.swift; sourceTree = "<group>"; };
 		650330F21C6038FD006D0752 /* OpenActionAlertNotificationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenActionAlertNotificationHandler.swift; sourceTree = "<group>"; };
@@ -816,9 +822,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A6762C7174D9135A29936FB /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				1A676D3536EDD038C3CA73BB /* UpcomingVoterRegistrationUseCase.swift */,
+				1A676F427DE7E67DAD9CB92E /* VoterRegistrationInfo.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
 		1A67655BB7EA0FE065AEADE8 /* Registration */ = {
 			isa = PBXGroup;
 			children = (
+				650210711CE576C200096D60 /* Domain */,
 				1A676BE2FC8C673F99A53BC1 /* UI */,
 			);
 			path = Registration;
@@ -835,6 +851,7 @@
 		1A6768FB2DE32383AD8B2008 /* Registration */ = {
 			isa = PBXGroup;
 			children = (
+				1A6762C7174D9135A29936FB /* Domain */,
 				1A6765855568A68E616F3E26 /* UI */,
 				1A676677B35E947F095D8F98 /* RegistrationContainerConfigurator.swift */,
 			);
@@ -847,6 +864,14 @@
 				1A676854539C748036103A16 /* VoterRegistrationControllerSpec.swift */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		650210711CE576C200096D60 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				650210721CE576E000096D60 /* StockUpcomingVoterInformationSpec.swift */,
+			);
+			path = Domain;
 			sourceTree = "<group>";
 		};
 		650763301B8B809600BA0659 /* Fixtures */ = {
@@ -2191,6 +2216,7 @@
 				65CA5E911B86E3D00001D870 /* Theme.swift in Sources */,
 				653D0FA51C4C35C0004CB8A0 /* TimeIntervalFormatter.swift in Sources */,
 				653D0FAA1C4C360D004CB8A0 /* UIColorExtension.swift in Sources */,
+				65F5BA741CE3C8DB0050CAB8 /* UpcomingVoterRegistrationUseCase.swift in Sources */,
 				653D0F871C4C2F68004CB8A0 /* URLOpener.swift in Sources */,
 				653D0FBB1C4C539A004CB8A0 /* URLProvider.swift in Sources */,
 				65A1A2561C4C7B4100C09AB2 /* UserNotificationsContainerConfigurator.swift in Sources */,
@@ -2204,6 +2230,7 @@
 				653D0EFB1C4C2B7D004CB8A0 /* VideoRepository.swift in Sources */,
 				65DB15F01C8926BF00F470D5 /* VideoService.swift in Sources */,
 				1A676E0811C99D1E8DBAB11C /* VoterRegistrationController.swift in Sources */,
+				65F5BA751CE3C8E70050CAB8 /* VoterRegistrationInfo.swift in Sources */,
 				653D0F8D1C4C2FF7004CB8A0 /* WelcomeController.swift in Sources */,
 				65DAF3491C986291000E604F /* ZipCodeValidator.swift in Sources */,
 			);
@@ -2329,6 +2356,7 @@
 				657076EF1CA71F5B005BFDC0 /* StockNewVersionNotifierSpec.swift in Sources */,
 				6554BDAE1C990C9000A99F2B /* StockRadiusDataSourceSpec.swift in Sources */,
 				65F2C5041C98842F008A3AA6 /* StockSearchBarStylistSpec.swift in Sources */,
+				650210731CE576E000096D60 /* StockUpcomingVoterInformationSpec.swift in Sources */,
 				65203EE11CA780A600F96869 /* StockVersionDeserializerSpec.swift in Sources */,
 				653D10131C4C53BB004CB8A0 /* TabBarControllerSpec.swift in Sources */,
 				65AD23B21B968D6800C32A02 /* TestUtils.swift in Sources */,
