@@ -100,6 +100,10 @@ class TestUtils {
             tweetID: nil)
     }
 
+    class func voterRegistrationInfo() -> VoterRegistrationInfo {
+        return VoterRegistrationInfo(stateName: "fixture info", url: NSURL(string: "https://example.com/fixure")!)
+    }
+
     // MARK: Controllers
 
     class func settingsController() -> SettingsController {
