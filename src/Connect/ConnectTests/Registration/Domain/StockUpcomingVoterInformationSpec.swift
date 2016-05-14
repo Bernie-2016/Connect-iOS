@@ -20,13 +20,7 @@ class StockUpcomingVoterRegistrationUseCaseSpec: QuickSpec {
                         receivedVoterInfo = voterInfo
                     })
 
-                    expect(receivedVoterInfo!.count) == 2
-
-                    expect(receivedVoterInfo!.first!.stateName) == "Alabama"
-                    expect(receivedVoterInfo!.first!.url) == NSURL(string: "https://www.alabamavotes.gov/olvr/default.aspx")!
-
-                    expect(receivedVoterInfo!.last!.stateName) == "California"
-                    expect(receivedVoterInfo!.last!.url) == NSURL(string: "http://registertovote.ca.gov/")!
+                    expect(receivedVoterInfo!.count) == 9
                 }
             }
         }

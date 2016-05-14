@@ -221,6 +221,8 @@
 		657DED111CBC340000C83436 /* ShowNearbyEventsNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DED101CBC340000C83436 /* ShowNearbyEventsNotificationHandler.swift */; };
 		657DED131CBC343700C83436 /* ShowNearbyEventsNotificationHandlerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657DED121CBC343700C83436 /* ShowNearbyEventsNotificationHandlerSpec.swift */; };
 		658492461BE3BA5B007279E8 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 658492481BE3BA5B007279E8 /* Localizable.stringsdict */; };
+		6586D7361CE6D5E40040C615 /* OpenVoterRegistrationNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6586D7351CE6D5E40040C615 /* OpenVoterRegistrationNotificationHandler.swift */; };
+		6586D7381CE6D6640040C615 /* OpenVoterRegistrationNotificationHandlerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6586D7371CE6D6640040C615 /* OpenVoterRegistrationNotificationHandlerSpec.swift */; };
 		659011161C4D8ADB005489C4 /* AppBootstrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659011151C4D8ADB005489C4 /* AppBootstrapper.swift */; };
 		65937D211C4058AE003A1EFA /* CBGPromise.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65937D1F1C4058AE003A1EFA /* CBGPromise.framework */; };
 		65937D231C4058DC003A1EFA /* CBGPromise.framework.dSYM in Copy symbolication files */ = {isa = PBXBuildFile; fileRef = 65937D201C4058AE003A1EFA /* CBGPromise.framework.dSYM */; };
@@ -633,6 +635,8 @@
 		657DED101CBC340000C83436 /* ShowNearbyEventsNotificationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowNearbyEventsNotificationHandler.swift; sourceTree = "<group>"; };
 		657DED121CBC343700C83436 /* ShowNearbyEventsNotificationHandlerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowNearbyEventsNotificationHandlerSpec.swift; sourceTree = "<group>"; };
 		658492471BE3BA5B007279E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = Base; path = Base.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		6586D7351CE6D5E40040C615 /* OpenVoterRegistrationNotificationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenVoterRegistrationNotificationHandler.swift; sourceTree = "<group>"; };
+		6586D7371CE6D6640040C615 /* OpenVoterRegistrationNotificationHandlerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenVoterRegistrationNotificationHandlerSpec.swift; sourceTree = "<group>"; };
 		659011151C4D8ADB005489C4 /* AppBootstrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppBootstrapper.swift; sourceTree = "<group>"; };
 		65937D1F1C4058AE003A1EFA /* CBGPromise.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CBGPromise.framework; path = Carthage/Build/iOS/CBGPromise.framework; sourceTree = "<group>"; };
 		65937D201C4058AE003A1EFA /* CBGPromise.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = CBGPromise.framework.dSYM; path = Carthage/Build/iOS/CBGPromise.framework.dSYM; sourceTree = "<group>"; };
@@ -1372,6 +1376,7 @@
 				650330F21C6038FD006D0752 /* OpenActionAlertNotificationHandler.swift */,
 				652AE5E31C46EE9E00EE7B70 /* OpenNewsArticleNotificationHandler.swift */,
 				65DB15ED1C89267300F470D5 /* OpenVideoNotificationHandler.swift */,
+				6586D7351CE6D5E40040C615 /* OpenVoterRegistrationNotificationHandler.swift */,
 				652AE5F31C475D3700EE7B70 /* ParseAnalyticsNotificationHandler.swift */,
 				654948E71BFB807600C1ECDB /* ParsePushNotificationRegistrar.swift */,
 				65E33D811C46EC0D003464D9 /* PushNotificationHandlerDispatcher.swift */,
@@ -1397,6 +1402,7 @@
 				650330EC1C603643006D0752 /* OpenActionAlertNotificationHandlerSpec.swift */,
 				652AE5E51C46EEBB00EE7B70 /* OpenNewsArticleNotificationHandlerSpec.swift */,
 				65DB15EB1C89264500F470D5 /* OpenVideoNotificationHandlerSpec.swift */,
+				6586D7371CE6D6640040C615 /* OpenVoterRegistrationNotificationHandlerSpec.swift */,
 				652AE5F51C475D5300EE7B70 /* ParseAnalyticsNotificationHandlerSpec.swift */,
 				654948E51BFB800A00C1ECDB /* ParsePushNotificationRegistrarSpec.swift */,
 				65E33D7F1C46EB9A003464D9 /* PushNotificationHandlerDispatcherSpec.swift */,
@@ -2195,6 +2201,7 @@
 				650330F31C6038FD006D0752 /* OpenActionAlertNotificationHandler.swift in Sources */,
 				652AE5E41C46EE9E00EE7B70 /* OpenNewsArticleNotificationHandler.swift in Sources */,
 				65DB15EE1C89267300F470D5 /* OpenVideoNotificationHandler.swift in Sources */,
+				6586D7361CE6D5E40040C615 /* OpenVoterRegistrationNotificationHandler.swift in Sources */,
 				652AE5F41C475D3700EE7B70 /* ParseAnalyticsNotificationHandler.swift in Sources */,
 				654948E81BFB807600C1ECDB /* ParsePushNotificationRegistrar.swift in Sources */,
 				653D0F861C4C2F68004CB8A0 /* PFAnalyticsProxy.swift in Sources */,
@@ -2333,6 +2340,7 @@
 				650330ED1C603643006D0752 /* OpenActionAlertNotificationHandlerSpec.swift in Sources */,
 				652AE5E61C46EEBB00EE7B70 /* OpenNewsArticleNotificationHandlerSpec.swift in Sources */,
 				65DB15EC1C89264500F470D5 /* OpenVideoNotificationHandlerSpec.swift in Sources */,
+				6586D7381CE6D6640040C615 /* OpenVoterRegistrationNotificationHandlerSpec.swift in Sources */,
 				652AE5F61C475D5300EE7B70 /* ParseAnalyticsNotificationHandlerSpec.swift in Sources */,
 				654948E61BFB800A00C1ECDB /* ParsePushNotificationRegistrarSpec.swift in Sources */,
 				653D10231C4C53BB004CB8A0 /* PrivacyPolicyControllerSpec.swift in Sources */,
