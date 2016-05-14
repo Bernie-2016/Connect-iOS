@@ -10,17 +10,20 @@ class VoterRegistrationControllerSpec: QuickSpec {
             var upcomingVoterRegistrationUseCase: FakeUpcomingVoterRegistrationUseCase!
             var tabBarItemStylist: FakeTabBarItemStylist!
             var urlOpener: FakeURLOpener!
+            var analyticsService: FakeAnalyticsService!
             let theme = VoterRegistrationFakeTheme()
 
             beforeEach {
                 upcomingVoterRegistrationUseCase = FakeUpcomingVoterRegistrationUseCase()
                 tabBarItemStylist = FakeTabBarItemStylist()
                 urlOpener = FakeURLOpener()
+                analyticsService = FakeAnalyticsService()
 
                 subject = VoterRegistrationController(
                 upcomingVoterRegistrationUseCase: upcomingVoterRegistrationUseCase,
                         tabBarItemStylist: tabBarItemStylist,
                         urlOpener: urlOpener,
+                        analyticsService: analyticsService,
                         theme: theme
                 )
             }
@@ -144,6 +147,15 @@ class VoterRegistrationControllerSpec: QuickSpec {
                                 subject.tableView.delegate?.tableView!(subject.tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
 
                                 expect(urlOpener.lastOpenedURL) == NSURL(string: "https://example.com/a")!
+                            }
+
+                            it("should log a content view with the analytics service") {
+                                let tableView = subject.tableView
+                                tableView.delegate!.tableView!(tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+
+                                expect(analyticsService.lastContentViewName).to(equal("state a"))
+                                expect(analyticsService.lastContentViewType).to(equal(AnalyticsServiceContentType.VoterRegistrationPage))
+                                expect(analyticsService.lastContentViewID).to(equal("https://example.com/a"))
                             }
                         }
                     }

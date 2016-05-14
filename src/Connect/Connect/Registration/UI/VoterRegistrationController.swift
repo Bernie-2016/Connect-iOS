@@ -4,6 +4,7 @@ class VoterRegistrationController: UIViewController {
     private let upcomingVoterRegistrationUseCase: UpcomingVoterRegistrationUseCase
     private let tabBarItemStylist: TabBarItemStylist
     private let urlOpener: URLOpener
+    private let analyticsService: AnalyticsService
     private let theme: Theme
 
     let activityIndicatorView = UIActivityIndicatorView()
@@ -11,10 +12,11 @@ class VoterRegistrationController: UIViewController {
 
     private var voterRegistrationInfo = [VoterRegistrationInfo]()
 
-    init(upcomingVoterRegistrationUseCase: UpcomingVoterRegistrationUseCase, tabBarItemStylist: TabBarItemStylist, urlOpener: URLOpener, theme: Theme) {
+    init(upcomingVoterRegistrationUseCase: UpcomingVoterRegistrationUseCase, tabBarItemStylist: TabBarItemStylist, urlOpener: URLOpener, analyticsService: AnalyticsService, theme: Theme) {
         self.upcomingVoterRegistrationUseCase = upcomingVoterRegistrationUseCase
         self.tabBarItemStylist = tabBarItemStylist
         self.urlOpener = urlOpener
+        self.analyticsService = analyticsService
         self.theme = theme
 
         super.init(nibName: nil, bundle: nil)
@@ -89,7 +91,10 @@ private extension VoterRegistrationController {
 // MARK: UITableViewDelegate
 extension VoterRegistrationController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        urlOpener.openURL(voterRegistrationInfo[indexPath.row].url)
+        let info = voterRegistrationInfo[indexPath.row]
+
+        analyticsService.trackContentViewWithName(info.stateName, type: .VoterRegistrationPage, identifier: info.url.absoluteString)
+        urlOpener.openURL(info.url)
     }
 
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
