@@ -29,6 +29,7 @@ enum AnalyticsServiceContentType: String, CustomStringConvertible {
     case ActionAlertFacebook = "Action Alert - Facebook"
     case ActionAlertTwitter = "Action Alert - Twitter"
     case ActionAlertRetweet = "Action Alert - Retweet"
+    case VoterRegistrationPage = "Voter Registration Page"
 
     var description: String {
         return self.rawValue

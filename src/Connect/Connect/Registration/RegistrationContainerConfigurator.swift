@@ -11,6 +11,7 @@ class RegistrationContainerConfigurator: ContainerConfigurator {
                 upcomingVoterRegistrationUseCase: resolver.resolve(UpcomingVoterRegistrationUseCase.self)!,
                 tabBarItemStylist: resolver.resolve(TabBarItemStylist.self)!,
                 urlOpener: resolver.resolve(URLOpener.self)!,
+                analyticsService: resolver.resolve(AnalyticsService.self)!,
                 theme: resolver.resolve(Theme.self)!)
         }
     }
