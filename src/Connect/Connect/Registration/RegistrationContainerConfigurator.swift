@@ -10,7 +10,8 @@ class RegistrationContainerConfigurator: ContainerConfigurator {
             return VoterRegistrationController(
                 upcomingVoterRegistrationUseCase: resolver.resolve(UpcomingVoterRegistrationUseCase.self)!,
                 tabBarItemStylist: resolver.resolve(TabBarItemStylist.self)!,
-                urlOpener: resolver.resolve(URLOpener.self)!)
+                urlOpener: resolver.resolve(URLOpener.self)!,
+                theme: resolver.resolve(Theme.self)!)
         }
     }
 }

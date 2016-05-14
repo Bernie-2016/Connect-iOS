@@ -170,4 +170,13 @@ protocol Theme {
     func markdownBodyFont() -> UIFont
     func markdownBodyTextColor() -> UIColor
     func markdownBodyLinkTextColor() -> UIColor
+
+    // MARK: Registration
+
+    func registrationHeaderFont() -> UIFont
+    func registrationHeaderTextColor() -> UIColor
+    func registrationHeaderBackgroundColor() -> UIColor
+    func registrationStateFont() -> UIFont
+    func registrationStateTextColor() -> UIColor
+
 }

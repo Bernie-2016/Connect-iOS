@@ -173,6 +173,14 @@ class DefaultTheme: Theme {
     func markdownBodyTextColor() -> UIColor { return defaultBodyTextColor() }
     func markdownBodyLinkTextColor() -> UIColor { return scienceBlueColor }
 
+    // MARK: Registration
+
+    func registrationHeaderFont() -> UIFont { return UIFont.systemFontOfSize(13) }
+    func registrationHeaderTextColor() -> UIColor { return doveGreyColor }
+    func registrationHeaderBackgroundColor() -> UIColor { return wildSandColor }
+    func registrationStateFont() -> UIFont { return semiBoldSystemFontOfSize(14) }
+    func registrationStateTextColor() -> UIColor { return coalMinerColor }
+
     // MARK: default dimensions
 
     func defaultCornerRadius() -> CGFloat { return 5.0 }

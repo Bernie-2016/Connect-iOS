@@ -10,6 +10,7 @@ class VoterRegistrationControllerSpec: QuickSpec {
             var upcomingVoterRegistrationUseCase: FakeUpcomingVoterRegistrationUseCase!
             var tabBarItemStylist: FakeTabBarItemStylist!
             var urlOpener: FakeURLOpener!
+            let theme = VoterRegistrationFakeTheme()
 
             beforeEach {
                 upcomingVoterRegistrationUseCase = FakeUpcomingVoterRegistrationUseCase()
@@ -19,7 +20,8 @@ class VoterRegistrationControllerSpec: QuickSpec {
                 subject = VoterRegistrationController(
                 upcomingVoterRegistrationUseCase: upcomingVoterRegistrationUseCase,
                         tabBarItemStylist: tabBarItemStylist,
-                        urlOpener: urlOpener
+                        urlOpener: urlOpener,
+                        theme: theme
                 )
             }
 
@@ -57,6 +59,13 @@ class VoterRegistrationControllerSpec: QuickSpec {
                     subject.view.layoutSubviews();
 
                     expect(subject.tableView.hidden) == true
+                }
+
+                it("styles the screen with the theme") {
+                    subject.view.layoutSubviews();
+
+                    expect(subject.view.backgroundColor) == UIColor.yellowColor()
+                    expect(subject.tableView.backgroundColor) == UIColor.yellowColor()
                 }
 
                 describe("when the use case returns voter registation info") {
@@ -98,20 +107,36 @@ class VoterRegistrationControllerSpec: QuickSpec {
                         }
 
                         it("it has a table section header") {
-                            let view = subject.tableView.delegate?.tableView!(subject.tableView, viewForHeaderInSection: 0) as! RegistrationHeaderView
-                            expect(view).toNot(beNil())
+                            let header = subject.tableView.delegate?.tableView!(subject.tableView, viewForHeaderInSection: 0) as! RegistrationHeaderView
 
-                            expect(view.label.text).to(contain("you must be registered"))
+                            expect(header).toNot(beNil())
+                            expect(header.label.text).to(contain("you must be registered"))
+                        }
+
+                        it("styles the table section header with the theme") {
+                            let header = subject.tableView.delegate?.tableView!(subject.tableView, viewForHeaderInSection: 0) as! RegistrationHeaderView
+
+                            expect(header.contentView.backgroundColor) == UIColor.purpleColor()
+                            expect(header.label.textColor) == UIColor.redColor()
+                            expect(header.label.font) == UIFont.systemFontOfSize(111)
                         }
 
                         it("uses the state name of the voter info for the row title") {
-                            let cellA = subject.tableView.dataSource?.tableView(subject.tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+                            let cellA = subject.tableView.dataSource?.tableView(subject.tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0)) as? SimpleTableViewCell
 
-                            expect(cellA?.textLabel!.text) == "state a"
+                            expect(cellA?.titleLabel.text) == "state a"
 
-                            let cellB = subject.tableView.dataSource?.tableView(subject.tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0))
+                            let cellB = subject.tableView.dataSource?.tableView(subject.tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 1, inSection: 0)) as? SimpleTableViewCell
 
-                            expect(cellB?.textLabel!.text) == "state b"
+                            expect(cellB?.titleLabel.text) == "state b"
+                        }
+
+                        it("styles the cells with the theme") {
+                            let cell = subject.tableView.dataSource?.tableView(subject.tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0)) as? SimpleTableViewCell
+
+                            expect(cell?.disclosureIndicatorView.color).to(equal(UIColor.magentaColor()))
+                            expect(cell?.titleLabel.font).to(equal(UIFont.systemFontOfSize(222)))
+                            expect(cell?.titleLabel.textColor).to(equal(UIColor.orangeColor()))
                         }
 
                         describe("tapping on a row") {
@@ -136,4 +161,29 @@ private class FakeUpcomingVoterRegistrationUseCase: UpcomingVoterRegistrationUse
         lastCompletionHandler = completionHandler
         didFetchUpcomingVoterRegistrations = true
     }
+}
+
+private class VoterRegistrationFakeTheme: FakeTheme {
+    private override func registrationHeaderFont() -> UIFont {
+        return UIFont.systemFontOfSize(111)
+    }
+
+    private override func registrationHeaderTextColor() -> UIColor {
+        return UIColor.redColor()
+    }
+
+    private override func registrationHeaderBackgroundColor() -> UIColor {
+        return UIColor.purpleColor()
+    }
+
+    private override func defaultBackgroundColor() -> UIColor {
+        return UIColor.yellowColor()
+    }
+
+    private override func defaultDisclosureColor() -> UIColor {
+        return UIColor.magentaColor()
+    }
+
+    private override func registrationStateFont() -> UIFont { return UIFont.systemFontOfSize(222) }
+    private override func registrationStateTextColor() -> UIColor { return UIColor.orangeColor() }
 }

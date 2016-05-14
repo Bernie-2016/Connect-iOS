@@ -179,7 +179,6 @@ extension EventsResultsController: UITableViewDelegate {
     }
 
     func scrollViewDidScroll(scrollView: UIScrollView) {
-
         let scrollViewHeight = scrollView.frame.size.height
         let scrollContentSizeHeight = scrollView.contentSize.height
         let scrollOffset = scrollView.contentOffset.y

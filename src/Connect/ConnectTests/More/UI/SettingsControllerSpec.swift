@@ -66,7 +66,7 @@ class SettingsControllerSpec : QuickSpec {
                 }
 
                 describe("the table contents") {
-                    it("has a regular SimpleTableViewCell row for evey configured 'regular' controller") {
+                    it("has a SimpleTableViewCell row for evey configured 'regular' controller") {
                         let cell = subject.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))  as! SimpleTableViewCell
                         expect(cell.titleLabel.text).to(equal("Regular Controller"))
                         expect(cell).to(beAnInstanceOf(SimpleTableViewCell.self))
