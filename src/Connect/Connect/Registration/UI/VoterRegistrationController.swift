@@ -4,16 +4,18 @@ class VoterRegistrationController: UIViewController {
     private let upcomingVoterRegistrationUseCase: UpcomingVoterRegistrationUseCase
     private let tabBarItemStylist: TabBarItemStylist
     private let urlOpener: URLOpener
+    private let theme: Theme
 
     let activityIndicatorView = UIActivityIndicatorView()
-    let tableView = UITableView()
+    let tableView = UITableView(frame: CGRect.zero, style: .Grouped)
 
     private var voterRegistrationInfo = [VoterRegistrationInfo]()
 
-    init(upcomingVoterRegistrationUseCase: UpcomingVoterRegistrationUseCase, tabBarItemStylist: TabBarItemStylist, urlOpener: URLOpener) {
+    init(upcomingVoterRegistrationUseCase: UpcomingVoterRegistrationUseCase, tabBarItemStylist: TabBarItemStylist, urlOpener: URLOpener, theme: Theme) {
         self.upcomingVoterRegistrationUseCase = upcomingVoterRegistrationUseCase
         self.tabBarItemStylist = tabBarItemStylist
         self.urlOpener = urlOpener
+        self.theme = theme
 
         super.init(nibName: nil, bundle: nil)
 
@@ -29,26 +31,29 @@ class VoterRegistrationController: UIViewController {
         super.viewDidLoad()
         automaticallyAdjustsScrollViewInsets = false
 
-        view.addSubview(activityIndicatorView)
-        view.addSubview(tableView)
-
         tableView.dataSource = self
         tableView.delegate = self
         tableView.sectionHeaderHeight = UITableViewAutomaticDimension
-        tableView.rowHeight = 44
-        tableView.estimatedSectionHeaderHeight = 200
+        tableView.estimatedSectionHeaderHeight = 80
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 44
         tableView.registerClass(RegistrationHeaderView.self, forHeaderFooterViewReuseIdentifier: String(RegistrationHeaderView))
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: String(UITableViewCell))
+        tableView.registerClass(SimpleTableViewCell.self, forCellReuseIdentifier: String(SimpleTableViewCell))
+        tableView.tableFooterView = UIView()
+
+        view.addSubview(activityIndicatorView)
+        view.addSubview(tableView)
 
         displayResultsUI(false)
-
-        setupConstraints()
 
         upcomingVoterRegistrationUseCase.fetchUpcomingVoterRegistrations { voterRegistrations in
             self.voterRegistrationInfo = voterRegistrations
             self.tableView.reloadData()
             self.displayResultsUI(true)
         }
+
+        applyTheme()
+        setupConstraints()
     }
 }
 
@@ -66,6 +71,11 @@ private extension VoterRegistrationController {
         tableView.autoPinEdgeToSuperviewEdge(.Right)
         tableView.autoPinEdgeToSuperviewEdge(.Bottom)
     }
+
+    func applyTheme() {
+        view.backgroundColor = theme.defaultBackgroundColor()
+        tableView.backgroundColor = theme.defaultBackgroundColor()
+    }
 }
 
 // MARK: UITableViewDelegate
@@ -75,9 +85,14 @@ extension VoterRegistrationController: UITableViewDelegate {
     }
 
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return tableView.dequeueReusableHeaderFooterViewWithIdentifier(String(RegistrationHeaderView))
-    }
+        let header = tableView.dequeueReusableHeaderFooterViewWithIdentifier(String(RegistrationHeaderView)) as? RegistrationHeaderView
 
+        header?.contentView.backgroundColor = theme.registrationHeaderBackgroundColor()
+        header?.label.textColor = theme.registrationHeaderTextColor()
+        header?.label.font = theme.registrationHeaderFont()
+
+        return header
+    }
 }
 
 // MARK: UITableViewDataSource
@@ -87,8 +102,19 @@ extension VoterRegistrationController: UITableViewDataSource {
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(String(UITableViewCell), forIndexPath: indexPath)
-        cell.textLabel?.text = voterRegistrationInfo[indexPath.row].stateName
+        guard let cell = tableView.dequeueReusableCellWithIdentifier(String(SimpleTableViewCell)) as? SimpleTableViewCell else {
+            fatalError("badly configured table view!")
+        }
+
+        cell.titleLabel.text = voterRegistrationInfo[indexPath.row].stateName
+
+        cell.disclosureIndicatorView.color = theme.defaultDisclosureColor()
+        cell.titleLabel.font = theme.registrationStateFont()
+        cell.titleLabel.textColor = theme.registrationStateTextColor()
+
+        if indexPath.row == (voterRegistrationInfo.count - 1) {
+            cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: CGRectGetWidth(tableView.bounds))
+        }
 
         return cell
     }
@@ -96,7 +122,6 @@ extension VoterRegistrationController: UITableViewDataSource {
 
 // MARK: -
 class RegistrationHeaderView: UITableViewHeaderFooterView {
-
     let label = UILabel.newAutoLayoutView()
 
     override init(reuseIdentifier: String?) {
@@ -104,11 +129,11 @@ class RegistrationHeaderView: UITableViewHeaderFooterView {
 
         contentView.addSubview(label)
         label.text = NSLocalizedString("Registration_tableviewSectionHeader", comment: "")
+        label.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
         label.numberOfLines = 0
         label.textAlignment = .Center
-        label.autoPinEdgesToSuperviewEdges()
+        label.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 10))
     }
 
     required init?(coder aDecoder: NSCoder) { return nil }
-
 }
