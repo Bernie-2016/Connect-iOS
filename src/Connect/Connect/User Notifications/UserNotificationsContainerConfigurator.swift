@@ -41,11 +41,17 @@ class UserNotificationContainerConfigurator: ContainerConfigurator {
                 workerQueue: resolver.resolve(NSOperationQueue.self, name: "work")!
             )
 
+            let voterRegistrationHandler = OpenVoterRegistrationNotificationHandler(
+                voterRegistrationController: resolver.resolve(VoterRegistrationController.self)!,
+                tabBarController: resolver.resolve(TabBarController.self)!
+            )
+
             let handlers: [RemoteNotificationHandler] = [
                 newsHandler,
                 videoHandler,
                 actionAlertHandler,
                 showNearbyEventsHandler,
+                voterRegistrationHandler,
                 parseAnalyticsHandler
             ]
 
