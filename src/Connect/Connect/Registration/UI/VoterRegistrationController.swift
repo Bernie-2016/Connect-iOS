@@ -55,6 +55,14 @@ class VoterRegistrationController: UIViewController {
         applyTheme()
         setupConstraints()
     }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if let row = tableView.indexPathForSelectedRow {
+            self.tableView.deselectRowAtIndexPath(row, animated: false)
+        }
+    }
 }
 
 // MARK: private
