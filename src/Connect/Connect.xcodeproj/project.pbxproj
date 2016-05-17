@@ -338,7 +338,6 @@
 		65EC4CEE1B842A1900DD4C83 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65EC4CED1B842A1900DD4C83 /* Quick.framework */; };
 		65EC4CF01B842A3000DD4C83 /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65EC4CED1B842A1900DD4C83 /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		65EC4CF11B842A3000DD4C83 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		65EF645D1C9BA14700579313 /* CenterCellCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EF645C1C9BA14700579313 /* CenterCellCollectionViewFlowLayout.swift */; };
 		65F290C21C612BD400C60807 /* action_alert.json in Resources */ = {isa = PBXBuildFile; fileRef = 65F290C11C612BD400C60807 /* action_alert.json */; };
 		65F2C4FA1C9881A9008A3AA6 /* NearbyEventsLoadingSearchBarControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F2C4F91C9881A9008A3AA6 /* NearbyEventsLoadingSearchBarControllerSpec.swift */; };
 		65F2C4FC1C9881FD008A3AA6 /* EventsSearchBarFakeTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F2C4FB1C9881FD008A3AA6 /* EventsSearchBarFakeTheme.swift */; };
@@ -752,7 +751,6 @@
 		65EA2F281BB9B648001D8FD5 /* FakeDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeDateFormatter.swift; sourceTree = "<group>"; };
 		65EC4CEB1B842A0B00DD4C83 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		65EC4CED1B842A1900DD4C83 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
-		65EF645C1C9BA14700579313 /* CenterCellCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterCellCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		65F290C11C612BD400C60807 /* action_alert.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = action_alert.json; sourceTree = "<group>"; };
 		65F2C4F91C9881A9008A3AA6 /* NearbyEventsLoadingSearchBarControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearbyEventsLoadingSearchBarControllerSpec.swift; sourceTree = "<group>"; };
 		65F2C4FB1C9881FD008A3AA6 /* EventsSearchBarFakeTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsSearchBarFakeTheme.swift; sourceTree = "<group>"; };
@@ -1181,7 +1179,6 @@
 				65629A891C9E1A1F0007119A /* ActionAlertLoadingMonitor.swift */,
 				659541991C9E0C9F00D9FACC /* ActionAlertsController.swift */,
 				65629A871C9E176F0007119A /* ActionAlertWebViewProvider.swift */,
-				65EF645C1C9BA14700579313 /* CenterCellCollectionViewFlowLayout.swift */,
 			);
 			name = UI;
 			path = Actions/UI;
@@ -2107,7 +2104,6 @@
 				653D0EF41C4C2B7D004CB8A0 /* BackgroundNewsArticleService.swift in Sources */,
 				653D0EF51C4C2B7D004CB8A0 /* BackgroundNewsFeedService.swift in Sources */,
 				657C13F31C615E1400EC1569 /* BaseURLProvider.swift in Sources */,
-				65EF645D1C9BA14700579313 /* CenterCellCollectionViewFlowLayout.swift in Sources */,
 				65444BCE1C8B95F700CC8AC8 /* ChildControllerBuddy.swift in Sources */,
 				653D0F771C4C2F68004CB8A0 /* ConcreteApplicationSettingsRepository.swift in Sources */,
 				653D0F7D1C4C2F68004CB8A0 /* ConcreteDateProvider.swift in Sources */,

@@ -21,7 +21,7 @@ class ActionAlertsController: UIViewController {
     let connectLogoImageView = UIImageView.newAutoLayoutView()
     let infoButton = UIButton(type: .Custom)
 
-    private let layout = CenterCellCollectionViewFlowLayout()
+    private let layout = UICollectionViewFlowLayout()
     private var webViews: [UIWebView] = []
     private var actionAlerts: [ActionAlert] = []
 
@@ -73,8 +73,7 @@ class ActionAlertsController: UIViewController {
 
         layout.scrollDirection = .Horizontal
         layout.sectionInset = UIEdgeInsets(top: 0, left: kHorizontalSectionInset, bottom: 0, right: kHorizontalSectionInset)
-        layout.minimumLineSpacing = 15
-
+        layout.minimumLineSpacing = (kHorizontalSectionInset * 2)
 
         let infoButtonImage = UIImage(named: "infoButton")!.imageWithRenderingMode(.AlwaysTemplate)
         infoButton.setImage(infoButtonImage, forState: .Normal)
@@ -96,6 +95,7 @@ class ActionAlertsController: UIViewController {
         view.addSubview(pageControl)
         view.addSubview(infoButton)
 
+        collectionView.pagingEnabled = true
         collectionView.backgroundColor = UIColor.clearColor()
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.clipsToBounds = false
@@ -103,7 +103,6 @@ class ActionAlertsController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.registerClass(ActionAlertCell.self, forCellWithReuseIdentifier: kCollectionViewCellName)
-        collectionView.decelerationRate = UIScrollViewDecelerationRateFast
 
         errorLabel.numberOfLines = 0
 
@@ -373,7 +372,6 @@ extension ActionAlertsController: UICollectionViewDelegateFlowLayout {
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let pageWidth = UIScreen.mainScreen().bounds.width
         let currentPage: Float = Float(scrollView.contentOffset.x / pageWidth)
-
         if (0.0 != fmodf(currentPage, 1.0)) {
             pageControl.currentPage = Int(currentPage) + 1
         } else {
