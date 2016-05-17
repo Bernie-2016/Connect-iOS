@@ -103,6 +103,7 @@ class ActionAlertsController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.registerClass(ActionAlertCell.self, forCellWithReuseIdentifier: kCollectionViewCellName)
+        collectionView.decelerationRate = UIScrollViewDecelerationRateFast
 
         errorLabel.numberOfLines = 0
 
