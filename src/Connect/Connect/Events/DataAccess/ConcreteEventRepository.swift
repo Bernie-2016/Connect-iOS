@@ -72,7 +72,7 @@ class ConcreteEventRepository: EventRepository {
                     ]
             ],
 
-            "from": 0, "size": 30,
+            "from": 0, "size": 100,
             "_source": ["venue", "name", "timezone", "start_time", "url", "capacity", "attendee_count", "event_type_name", "description", "url"],
             "query": [
                 "filtered": [
