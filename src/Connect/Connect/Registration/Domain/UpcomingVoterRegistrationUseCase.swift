@@ -9,10 +9,7 @@ protocol UpcomingVoterRegistrationUseCase {
 class StockUpcomingVoterRegistrationUseCase: UpcomingVoterRegistrationUseCase {
     func fetchUpcomingVoterRegistrations(completionHandler: UpcomingVoterRegistrationsCompletionHandler) {
         let voteRegistrations = [
-            VoterRegistrationInfo(stateName: "Kentucky", url: NSURL(string: "https://vrsws.sos.ky.gov/ovrweb/")!),
-            VoterRegistrationInfo(stateName: "Oregon", url: NSURL(string: "https://secure.sos.state.or.us/orestar/vr/register.do?lang=eng&source=SOS")!),
             VoterRegistrationInfo(stateName: "California", url: NSURL(string: "http://registertovote.ca.gov/")!),
-            VoterRegistrationInfo(stateName: "New Mexico", url: NSURL(string: "https://portal.sos.state.nm.us/OVR/%28S%28od4445h5uj2f5tyucvvhszdf%29%29/WebPages/InstructionsStep1.aspx")!),
             // No online registration for the below
 //            VoterRegistrationInfo(stateName: "New Jersey", url: NSURL(string: "http://www.state.nj.us/state/elections/voting-information.html")!),
 //            VoterRegistrationInfo(stateName: "Montana", url: NSURL(string: "http://www.sos.mt.gov/elections/Vote/")!),
